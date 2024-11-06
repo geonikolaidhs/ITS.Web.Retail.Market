@@ -1,0 +1,1244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C80F36D5-B296-49FE-AFD4-2BFB7C10F6BF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.DesktopClient.StoreControllerClient</RootNamespace>
+    <AssemblyName>ITS.Office.Manager</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>appIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="DevExpress.BonusSkins.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v15.2">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v15.2.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v15.2">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v15.2">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v15.2.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v15.2">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v15.2.Wizard, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v15.2.UI, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.2.Extensions, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\POS\Client\ITS.POS.Client.Loader\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-AnyCPU, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\Magick.NET-Q8-AnyCPU.6.8.9.601\lib\net40-client\Magick.NET-AnyCPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NLog.4.2.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Mvc">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Controls\BaseFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseSearchableFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseSearchableFilterControl.Designer.cs">
+      <DependentUpon>BaseSearchableFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BaseSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseSecondaryFilterControl.Designer.cs">
+      <DependentUpon>BaseSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomerFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomerFilter.Designer.cs">
+      <DependentUpon>CustomerFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomerSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomerSecondaryFilterControl.Designer.cs">
+      <DependentUpon>CustomerSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DocumentFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DocumentFilter.Designer.cs">
+      <DependentUpon>DocumentFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FinancialDocumentFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CashierItemFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CashierItemFilter.Designer.cs">
+      <DependentUpon>CashierItemFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FinancialDocumentSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FinancialDocumentSecondaryFilterControl.Designer.cs">
+      <DependentUpon>FinancialDocumentSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ItemSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ItemSecondaryFilterControl.Designer.cs">
+      <DependentUpon>ItemSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LabelFilterSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelFilterSecondaryFilterControl.Designer.cs">
+      <DependentUpon>LabelFilterSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LabelItemChangeSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelItemChangeSecondaryFilterControl.Designer.cs">
+      <DependentUpon>LabelItemChangeSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NavBarItemWithOID.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LeafletDetailFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LeafletDetailFilter.Designer.cs">
+      <DependentUpon>LeafletDetailFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogDetailFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogDetailFilter.Designer.cs">
+      <DependentUpon>PriceCatalogDetailFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LeafletDetailSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LeafletDetailSecondaryFilterControl.Designer.cs">
+      <DependentUpon>LeafletDetailSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogDetailSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogDetailSecondaryFilterControl.Designer.cs">
+      <DependentUpon>PriceCatalogDetailSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LeafletFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LeafletFilter.Designer.cs">
+      <DependentUpon>LeafletFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogFilter.Designer.cs">
+      <DependentUpon>PriceCatalogFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LeafletSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LeafletSecondaryFilterControl.Designer.cs">
+      <DependentUpon>LeafletSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PriceCatalogSecondaryFilterControl.Designer.cs">
+      <DependentUpon>PriceCatalogSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceCheckFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PriceCheckFilter.Designer.cs">
+      <DependentUpon>PriceCheckFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceCheckSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PriceCheckSecondaryFilterControl.Designer.cs">
+      <DependentUpon>PriceCheckSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProformaDocumentFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProformaDocumentSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProformaDocumentSecondaryFilterControl.Designer.cs">
+      <DependentUpon>ProformaDocumentSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PurchaseDocumentFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PurchaseDocumentSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PurchaseDocumentSecondaryFilterControl.Designer.cs">
+      <DependentUpon>PurchaseDocumentSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReportBarButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SalesDocumentFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SalesDocumentSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SalesDocumentSecondaryFilterControl.Designer.cs">
+      <DependentUpon>SalesDocumentSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SearchEventArgs.cs" />
+    <Compile Include="Controls\ItemFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ItemFilter.Designer.cs">
+      <DependentUpon>ItemFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LabelFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelFilter.Designer.cs">
+      <DependentUpon>LabelFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LabelItemChangeFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelItemChangeFilter.Designer.cs">
+      <DependentUpon>LabelItemChangeFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StoreDocumentFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\StoreDocumentSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\StoreDocumentSecondaryFilterControl.Designer.cs">
+      <DependentUpon>StoreDocumentSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SupplierFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SupplierFilter.Designer.cs">
+      <DependentUpon>SupplierFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SupplierSecondaryFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SupplierSecondaryFilterControl.Designer.cs">
+      <DependentUpon>SupplierSecondaryFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\AddNewItemsInCashRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\AddNewItemsInCashRegister.Designer.cs">
+      <DependentUpon>AddNewItemsInCashRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\ItemsToUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\ItemsToUpdateForm.Designer.cs">
+      <DependentUpon>ItemsToUpdateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\DailyItemSales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\DailyItemSales.Designer.cs">
+      <DependentUpon>DailyItemSales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\TotalDailySales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CashRegisters\TotalDailySales.Designer.cs">
+      <DependentUpon>TotalDailySales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\FinancialDocumentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\FinancialDocumentEditForm.Designer.cs">
+      <DependentUpon>FinancialDocumentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\MergedDocumentDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\MergedDocumentDetailsForm.Designer.cs">
+      <DependentUpon>MergedDocumentDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HQReportBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HQReportBrowser.Designer.cs">
+      <DependentUpon>HQReportBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Items\LeafletForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Items\LeafletForm.Designer.cs">
+      <DependentUpon>LeafletForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Items\PriceCatalogEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Items\PriceCatalogEditForm.Designer.cs">
+      <DependentUpon>PriceCatalogEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\AddressPhoneInlineEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\AddressPhoneInlineEdit.Designer.cs">
+      <DependentUpon>AddressPhoneInlineEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Items\BuyerEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Items\BuyerEditForm.Designer.cs">
+      <DependentUpon>BuyerEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerAddressInlineEdit.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerAddressInlineEdit.Designer.cs">
+      <DependentUpon>CustomerAddressInlineEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerCategoryInlineEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerCategoryInlineEdit.Designer.cs">
+      <DependentUpon>CustomerCategoryInlineEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerChildInlineEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerChildInlineEdit.Designer.cs">
+      <DependentUpon>CustomerChildInlineEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerEditForm.Designer.cs">
+      <DependentUpon>CustomerEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerStorePriceListInlineEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\CustomerStorePriceListInlineEdit.Designer.cs">
+      <DependentUpon>CustomerStorePriceListInlineEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\DocumentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\DocumentEditForm.Designer.cs">
+      <DependentUpon>DocumentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\DocumentPrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\DocumentPrintForm.Designer.cs">
+      <DependentUpon>DocumentPrintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Editors\DocumentPaymentEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportForm.Designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Items\ItemEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Items\ItemEditForm.Designer.cs">
+      <DependentUpon>ItemEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Items\ItemImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Items\ItemImageForm.Designer.cs">
+      <DependentUpon>ItemImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ITSSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ITSSplashScreen.Designer.cs">
+      <DependentUpon>ITSSplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ITSWaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ITSWaitForm.Designer.cs">
+      <DependentUpon>ITSWaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\MarkUpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\MarkUpForm.Designer.cs">
+      <DependentUpon>MarkUpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\PurchaseDocumentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\PurchaseDocumentEditForm.Designer.cs">
+      <DependentUpon>PurchaseDocumentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\SalesDocumentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\SalesDocumentEditForm.Designer.cs">
+      <DependentUpon>SalesDocumentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Items\SeasonalityEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Items\SeasonalityEditForm.Designer.cs">
+      <DependentUpon>SeasonalityEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\SelectDocumentReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\SelectDocumentReportForm.Designer.cs">
+      <DependentUpon>SelectDocumentReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SelectEntitiesToUpdateOnPOSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectEntitiesToUpdateOnPOSForm.Designer.cs">
+      <DependentUpon>SelectEntitiesToUpdateOnPOSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\StoreDocumentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\StoreDocumentForm.Designer.cs">
+      <DependentUpon>StoreDocumentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\SupplierEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\SupplierEditForm.Designer.cs">
+      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Documents\TransformDocumentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Documents\TransformDocumentsForm.Designer.cs">
+      <DependentUpon>TransformDocumentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traders\TaxCodeValidated.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traders\TaxCodeValidated.Designer.cs">
+      <DependentUpon>TaxCodeValidated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AutoSelectAllHelper.cs" />
+    <Compile Include="Helpers\CashierDocumentHelper.cs" />
+    <Compile Include="Helpers\CashierUpdateItems.cs" />
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
+    <Compile Include="Helpers\DailyTotalDetailMachine.cs" />
+    <Compile Include="Helpers\GridCheckMarksSelection.cs" />
+    <Compile Include="Helpers\MasterDetailHelper.cs" />
+    <Compile Include="Helpers\PrintDocumentHelper.cs" />
+    <Compile Include="Helpers\SettingsBase.cs" />
+    <Compile Include="Helpers\StoreControllerClientSettings.cs" />
+    <Compile Include="Helpers\WebServiceHelper.cs" />
+    <Compile Include="Helpers\XtraLocalizedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helpers\XtraLocalizedForm.Designer.cs">
+      <DependentUpon>XtraLocalizedForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\XtraLocalizedRibbonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IXmlSubitems.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ITSStoreControllerDesktopService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Web References\ITSStoreControllerDesktopPOSUpdateService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Content Include="Resources\merge_24.png" />
+    <Content Include="Resources\merge_32.png" />
+    <Content Include="Resources\merge_64.png" />
+    <None Include="Resources\keyboard.png" />
+    <None Include="Resources\Bookmark-delete-icon.png" />
+    <None Include="Resources\delete-bookmark-icons-53176.png" />
+    <None Include="Resources\Cart-Delete-512.png" />
+    <None Include="Resources\Payment_card_credit_pay_cash.png" />
+    <None Include="Resources\PriceCheck.png" />
+    <None Include="app.manifest" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\.gitgnore" />
+    <None Include="Resources\Down_Right_50.png" />
+    <None Include="Resources\Down_Right_32.png" />
+    <None Include="Resources\Down_Right_24.png" />
+    <None Include="Resources\Plus_16.png" />
+    <None Include="Resources\Buy_Add_50.png" />
+    <None Include="Resources\Buy_Add_32.png" />
+    <None Include="Resources\Buy_Add_24.png" />
+    <None Include="Resources\Sell_Add_50.png" />
+    <None Include="Resources\Sell_Add_32.png" />
+    <None Include="Resources\Sell_Add_24.png" />
+    <None Include="Resources\Shopping_Basket_Add_50.png" />
+    <None Include="Resources\Shopping_Basket_Add_32.png" />
+    <None Include="Resources\Shopping_Basket_Add_24.png" />
+    <None Include="Resources\Warehouse_Add_50.png" />
+    <None Include="Resources\Warehouse_Add_32.png" />
+    <None Include="Resources\Warehouse_Add_24.png" />
+    <None Include="Resources\Save_Print_50.png" />
+    <None Include="Resources\Save_Print_32.png" />
+    <None Include="Resources\Save_Print_24.png" />
+    <None Include="Resources\Save_Recalculate_50.png" />
+    <None Include="Resources\Save_Recalculate_32.png" />
+    <None Include="Resources\Save_Recalculate_24.png" />
+    <None Include="Resources\Tag_Computer_50.png" />
+    <None Include="Resources\Tag_Computer_32.png" />
+    <None Include="Resources\Tag_Computer_24.png" />
+    <None Include="Resources\Guest_Add_50.png" />
+    <None Include="Resources\Guest_Add_32.png" />
+    <None Include="Resources\Guest_Add_24.png" />
+    <None Include="Resources\Businessman_Add_50.png" />
+    <None Include="Resources\Businessman_Add_32.png" />
+    <None Include="Resources\Businessman_Add_24.png" />
+    <None Include="Resources\Forward-50.png" />
+    <None Include="Resources\Forward-32.png" />
+    <None Include="Resources\Forward-24.png" />
+    <None Include="Resources\Cancel 2-24.png" />
+    <None Include="Resources\Fine Print-50.png" />
+    <None Include="Resources\Fine Print-32.png" />
+    <None Include="Resources\Fine Print-24.png" />
+    <None Include="Resources\Synchronize-50.png" />
+    <None Include="Resources\Synchronize-32.png" />
+    <None Include="Resources\Synchronize-24.png" />
+    <None Include="Resources\XLS-24.png" />
+    <None Include="Resources\CSV-24.png" />
+    <None Include="Resources\CSV-50.png" />
+    <None Include="Resources\CSV-32.png" />
+    <None Include="Resources\XLS-32.png" />
+    <None Include="Resources\XLS-50.png" />
+    <None Include="Resources\Shopping Basket-50.png" />
+    <None Include="Resources\Shopping Basket-32.png" />
+    <None Include="Resources\Shopping Basket-24.png" />
+    <None Include="Resources\Images.psd" />
+    <None Include="Resources\Settings-50.png" />
+    <None Include="Resources\Settings-32.png" />
+    <None Include="Resources\Settings-24.png" />
+    <None Include="Resources\Exit-50.png" />
+    <None Include="Resources\Exit-32.png" />
+    <None Include="Resources\Exit-24.png" />
+    <None Include="Resources\Forward Arrow-50.png" />
+    <None Include="Resources\Forward Arrow-32.png" />
+    <None Include="Resources\Forward Arrow-24.png" />
+    <None Include="Resources\Connected-50.png" />
+    <None Include="Resources\Connected-32.png" />
+    <None Include="Resources\Connected-24.png" />
+    <None Include="Resources\Data in Both Directions-50.png" />
+    <None Include="Resources\Data in Both Directions-32.png" />
+    <None Include="Resources\Data in Both Directions-24.png" />
+    <None Include="Resources\Cancel 2-50.png" />
+    <None Include="Resources\Cancel 2-32.png" />
+    <None Include="Resources\Edit_Image_32.png" />
+    <None Include="Resources\Edit_Image_24.png" />
+    <None Include="Resources\Edit_50.png" />
+    <None Include="Resources\Edit_32.png" />
+    <None Include="Resources\Edit_24.png" />
+    <None Include="Resources\Discount_50.png" />
+    <None Include="Resources\Discount_32.png" />
+    <None Include="Resources\Discount_24.png" />
+    <None Include="Resources\Delete_Sign_50.png" />
+    <None Include="Resources\Delete_Sign_32.png" />
+    <None Include="Resources\Delete_Sign_24.png" />
+    <None Include="Resources\Delete_Sign_16.png" />
+    <None Include="Resources\Copyright_50.png" />
+    <None Include="Resources\Copyright_32.png" />
+    <None Include="Resources\Copyright_24.png" />
+    <None Include="Resources\Copy_50.png" />
+    <None Include="Resources\Copy_32.png" />
+    <None Include="Resources\Copy_24.png" />
+    <None Include="Resources\Computer_50.png" />
+    <None Include="Resources\Computer_32.png" />
+    <None Include="Resources\Computer_24.png" />
+    <None Include="Resources\Close_Window_50.png" />
+    <None Include="Resources\Close_Window_32.png" />
+    <None Include="Resources\Close_Window_24.png" />
+    <None Include="Resources\Clear_Filters_50.png" />
+    <None Include="Resources\Clear_Filters_32.png" />
+    <None Include="Resources\Clear_Filters_24.png" />
+    <None Include="Resources\Cash_Register_50.png" />
+    <None Include="Resources\Cash_Register_32.png" />
+    <None Include="Resources\Cash_Register_24.png" />
+    <None Include="Resources\Cancel_50.png" />
+    <None Include="Resources\Cancel_32.png" />
+    <None Include="Resources\Cancel_24.png" />
+    <None Include="Resources\Calculator_50.png" />
+    <None Include="Resources\Calculator_32.png" />
+    <None Include="Resources\Calculator_24.png" />
+    <None Include="Resources\Buy_50.png" />
+    <None Include="Resources\Buy_32.png" />
+    <None Include="Resources\Buy_24.png" />
+    <None Include="Resources\Businessman_50.png" />
+    <None Include="Resources\Businessman_32.png" />
+    <None Include="Resources\Businessman_24.png" />
+    <None Include="Resources\Binoculars_50.png" />
+    <None Include="Resources\Binoculars_32.png" />
+    <None Include="Resources\Binoculars_24.png" />
+    <None Include="Resources\Bill-50.png" />
+    <None Include="Resources\Bill_32.png" />
+    <None Include="Resources\Bill_24.png" />
+    <None Include="Resources\Barcode_Scanner_32.png" />
+    <None Include="Resources\Barcode_ Scanner_24.png" />
+    <None Include="Resources\Barcode Scanner-50.png" />
+    <None Include="Resources\Add_Image_50.png" />
+    <None Include="Resources\Add_Image_32.png" />
+    <None Include="Resources\Add_Image_24.png" />
+    <None Include="Resources\Warehouse_50.png" />
+    <None Include="Resources\Warehouse_32.png" />
+    <None Include="Resources\Warehouse_24.png" />
+    <None Include="Resources\User_50.png" />
+    <None Include="Resources\User_32.png" />
+    <None Include="Resources\User_24.png" />
+    <None Include="Resources\USA_50.png" />
+    <None Include="Resources\USA_32.png" />
+    <None Include="Resources\USA_24.png" />
+    <None Include="Resources\Upload_2_50.png" />
+    <None Include="Resources\Upload_2_32.png" />
+    <None Include="Resources\Upload_2_24.png" />
+    <None Include="Resources\Upload_2_16.png" />
+    <None Include="Resources\Undo_50.png" />
+    <None Include="Resources\Undo_32.png" />
+    <None Include="Resources\Undo_24.png" />
+    <None Include="Resources\Tag_50.png" />
+    <None Include="Resources\Tag_32.png" />
+    <None Include="Resources\Tag_24.png" />
+    <None Include="Resources\Sell_50.png" />
+    <None Include="Resources\Sell_32.png" />
+    <None Include="Resources\Sell_24.png" />
+    <None Include="Resources\Search_50.png" />
+    <None Include="Resources\Search_32.png" />
+    <None Include="Resources\Search_24.png" />
+    <None Include="Resources\Save_50.png" />
+    <None Include="Resources\Save_32.png" />
+    <None Include="Resources\Save_24.png" />
+    <None Include="Resources\Remove_Image_50.png" />
+    <None Include="Resources\Remove_Image_32.png" />
+    <None Include="Resources\Remove_Image_24.png" />
+    <None Include="Resources\Receipt_50.png" />
+    <None Include="Resources\Receipt_32.png" />
+    <None Include="Resources\Receipt_24.png" />
+    <None Include="Resources\Print_50.png" />
+    <None Include="Resources\Print_32.png" />
+    <None Include="Resources\Print_24.png" />
+    <None Include="Resources\Plus_50.png" />
+    <None Include="Resources\Plus_32.png" />
+    <None Include="Resources\Plus_24.png" />
+    <None Include="Resources\Ok_50.png" />
+    <None Include="Resources\Ok_32.png" />
+    <None Include="Resources\Ok_24.png" />
+    <None Include="Resources\Norway_50.png" />
+    <None Include="Resources\Norway_32.png" />
+    <None Include="Resources\Norway_24.png" />
+    <None Include="Resources\Manager_50.png" />
+    <None Include="Resources\Manager_32.png" />
+    <None Include="Resources\Manager_24.png" />
+    <None Include="Resources\Key_50.png" />
+    <None Include="Resources\Key_32.png" />
+    <None Include="Resources\Key_24.png" />
+    <None Include="Resources\Invoice_50.png" />
+    <None Include="Resources\Invoice_32.png" />
+    <None Include="Resources\Invoice_24.png" />
+    <None Include="Resources\Import_50.png" />
+    <None Include="Resources\Import_32.png" />
+    <None Include="Resources\Import_24.png" />
+    <None Include="Resources\Home_50.png" />
+    <None Include="Resources\Home_32.png" />
+    <None Include="Resources\Home_24.png" />
+    <None Include="Resources\Help_50.png" />
+    <None Include="Resources\Help_32.png" />
+    <None Include="Resources\Help_24.png" />
+    <None Include="Resources\Guest_50.png" />
+    <None Include="Resources\Guest_32.png" />
+    <None Include="Resources\Guest_24.png" />
+    <None Include="Resources\Greece_50.png" />
+    <None Include="Resources\Greece_32.png" />
+    <None Include="Resources\Greece_24.png" />
+    <None Include="Resources\Germany_50.png" />
+    <None Include="Resources\Germany_32.png" />
+    <None Include="Resources\Germany_24.png" />
+    <None Include="Resources\Filled_Filter_50.png" />
+    <None Include="Resources\Filled_Filter_32.png" />
+    <None Include="Resources\Filled_Filter_24.png" />
+    <None Include="Resources\Eraser_50.png" />
+    <None Include="Resources\Eraser_32.png" />
+    <None Include="Resources\Eraser_24.png" />
+    <None Include="Resources\Edit_Image_50.png" />
+    <None Include="Resources\Broom-32.png" />
+    <None Include="Resources\Broom-24.png" />
+    <None Include="Resources\Broom-50.png" />
+    <None Include="Resources\Filled Filter-50.png" />
+    <None Include="Resources\Filled Filter-32.png" />
+    <None Include="Resources\Filled Filter-24.png" />
+    <None Include="Resources\Clear Filters-50.png" />
+    <None Include="Resources\Clear Filters-32.png" />
+    <None Include="Resources\Clear Filters-24.png" />
+    <None Include="Resources\Search-50.png" />
+    <None Include="Resources\Search-32.png" />
+    <None Include="Resources\Search-24.png" />
+    <None Include="Resources\Undo-50.png" />
+    <None Include="Resources\Undo-32.png" />
+    <None Include="Resources\Undo-24.png" />
+    <None Include="Resources\Key-32.png" />
+    <None Include="Resources\Undo_48.png" />
+    <None Include="Resources\search_48.png" />
+    <None Include="Resources\Itemt-48.png" />
+    <None Include="Resources\1432133658_price.png" />
+    <None Include="Resources\Collaborator-50.png" />
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\ITSStoreControllerDesktopPOSUpdateService\CouponViewModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ITSStoreControllerDesktopPOSUpdateService\POSCommandSet.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ITSStoreControllerDesktopPOSUpdateService\POSUpdateService.disco" />
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ITSStoreControllerDesktopService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ITSStoreControllerDesktopService\configuration.svcinfo" />
+    <None Include="Service References\ITSStoreControllerDesktopService\configuration91.svcinfo" />
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService.disco" />
+    <None Include="Resources\1432139916_Search.png" />
+    <EmbeddedResource Include="Controls\BaseFilterControl.resx">
+      <DependentUpon>BaseFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\BaseSecondaryFilterControl.resx">
+      <DependentUpon>BaseSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CustomerFilter.resx">
+      <DependentUpon>CustomerFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CustomerSecondaryFilterControl.resx">
+      <DependentUpon>CustomerSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DocumentFilter.resx">
+      <DependentUpon>DocumentFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FinancialDocumentFilter.resx">
+      <DependentUpon>FinancialDocumentFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CashierItemFilter.resx">
+      <DependentUpon>CashierItemFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FinancialDocumentSecondaryFilterControl.resx">
+      <DependentUpon>FinancialDocumentSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ItemSecondaryFilterControl.resx">
+      <DependentUpon>ItemSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LabelFilterSecondaryFilterControl.resx">
+      <DependentUpon>LabelFilterSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LabelItemChangeSecondaryFilterControl.resx">
+      <DependentUpon>LabelItemChangeSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LeafletDetailFilter.resx">
+      <DependentUpon>LeafletDetailFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceCatalogDetailFilter.resx">
+      <DependentUpon>PriceCatalogDetailFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ItemFilter.resx">
+      <DependentUpon>ItemFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LeafletDetailSecondaryFilterControl.resx">
+      <DependentUpon>LeafletDetailSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceCatalogDetailSecondaryFilterControl.resx">
+      <DependentUpon>PriceCatalogDetailSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LeafletFilter.resx">
+      <DependentUpon>LeafletFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceCatalogFilter.resx">
+      <DependentUpon>PriceCatalogFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LeafletSecondaryFilterControl.resx">
+      <DependentUpon>LeafletSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceCatalogSecondaryFilterControl.resx">
+      <DependentUpon>PriceCatalogSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceCheckFilter.resx">
+      <DependentUpon>PriceCheckFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceCheckSecondaryFilterControl.resx">
+      <DependentUpon>PriceCheckSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProformaDocumentFilter.resx">
+      <DependentUpon>ProformaDocumentFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProformaDocumentSecondaryFilterControl.resx">
+      <DependentUpon>ProformaDocumentSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PurchaseDocumentFilter.resx">
+      <DependentUpon>PurchaseDocumentFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PurchaseDocumentSecondaryFilterControl.resx">
+      <DependentUpon>PurchaseDocumentSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SalesDocumentFilter.resx">
+      <DependentUpon>SalesDocumentFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SalesDocumentSecondaryFilterControl.resx">
+      <DependentUpon>SalesDocumentSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StoreDocumentFilter.resx">
+      <DependentUpon>StoreDocumentFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LabelFilter.resx">
+      <DependentUpon>LabelFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LabelItemChangeFilter.resx">
+      <DependentUpon>LabelItemChangeFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StoreDocumentSecondaryFilterControl.resx">
+      <DependentUpon>StoreDocumentSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SupplierFilter.resx">
+      <DependentUpon>SupplierFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SupplierSecondaryFilterControl.resx">
+      <DependentUpon>SupplierSecondaryFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CashRegisters\AddNewItemsInCashRegister.resx">
+      <DependentUpon>AddNewItemsInCashRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CashRegisters\ItemsToUpdateForm.resx">
+      <DependentUpon>ItemsToUpdateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CashRegisters\DailyItemSales.resx">
+      <DependentUpon>DailyItemSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CashRegisters\TotalDailySales.resx">
+      <DependentUpon>TotalDailySales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\FinancialDocumentEditForm.resx">
+      <DependentUpon>FinancialDocumentEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\MergedDocumentDetailsForm.resx">
+      <DependentUpon>MergedDocumentDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HQReportBrowser.resx">
+      <DependentUpon>HQReportBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Items\LeafletForm.resx">
+      <DependentUpon>LeafletForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Items\PriceCatalogEditForm.resx">
+      <DependentUpon>PriceCatalogEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\AddressPhoneInlineEdit.resx">
+      <DependentUpon>AddressPhoneInlineEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Items\BuyerEditForm.resx">
+      <DependentUpon>BuyerEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\CustomerAddressInlineEdit.resx">
+      <DependentUpon>CustomerAddressInlineEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\CustomerCategoryInlineEdit.resx">
+      <DependentUpon>CustomerCategoryInlineEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\CustomerChildInlineEdit.resx">
+      <DependentUpon>CustomerChildInlineEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\CustomerEditForm.resx">
+      <DependentUpon>CustomerEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\CustomerStorePriceListInlineEdit.resx">
+      <DependentUpon>CustomerStorePriceListInlineEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\DocumentEditForm.resx">
+      <DependentUpon>DocumentEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\DocumentPrintForm.resx">
+      <DependentUpon>DocumentPrintForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Editors\DocumentPaymentEditor.resx">
+      <DependentUpon>DocumentPaymentEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportForm.resx">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Items\ItemEditForm.resx">
+      <DependentUpon>ItemEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Items\ItemImageForm.resx">
+      <DependentUpon>ItemImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ITSSplashScreen.resx">
+      <DependentUpon>ITSSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ITSWaitForm.resx">
+      <DependentUpon>ITSWaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\MarkUpForm.resx">
+      <DependentUpon>MarkUpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\PurchaseDocumentEditForm.resx">
+      <DependentUpon>PurchaseDocumentEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\SalesDocumentEditForm.resx">
+      <DependentUpon>SalesDocumentEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Items\SeasonalityEditForm.resx">
+      <DependentUpon>SeasonalityEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\SelectDocumentReportForm.resx">
+      <DependentUpon>SelectDocumentReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectEntitiesToUpdateOnPOSForm.resx">
+      <DependentUpon>SelectEntitiesToUpdateOnPOSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\StoreDocumentForm.resx">
+      <DependentUpon>StoreDocumentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\SupplierEditForm.resx">
+      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Documents\TransformDocumentsForm.resx">
+      <DependentUpon>TransformDocumentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traders\TaxCodeValidated.resx">
+      <DependentUpon>TaxCodeValidated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helpers\XtraLocalizedForm.resx">
+      <DependentUpon>XtraLocalizedForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helpers\XtraLocalizedRibbonForm.resx">
+      <DependentUpon>XtraLocalizedRibbonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Layouts\proforma_filter_layout.xml" />
+    <EmbeddedResource Include="Layouts\store_document_filter_layout.xml" />
+    <Content Include="..\..\WebClient\ITS.Retail.WebClient\patch.txt">
+      <Link>patch.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appIcon.ico" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService.wsdl" />
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ITSStoreControllerDesktopService\ITSStoreControllerDesktopService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\ITSStoreControllerDesktopPOSUpdateService\POSUpdateService.wsdl" />
+    <None Include="Web References\ITSStoreControllerDesktopPOSUpdateService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ITSStoreControllerDesktopPOSUpdateService\ServiceResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wrm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\POS\Hardware\ITS.POS.Hardware.Common\ITS.POS.Hardware.Common.csproj">
+      <Project>{B9021D8B-0F2E-478C-B5B8-168619CCE217}</Project>
+      <Name>ITS.POS.Hardware.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\POS\Hardware\ITS.POS.Hardware.RBSPOSEliot.CashRegister\ITS.Hardware.RBSPOSEliot.CashRegister.csproj">
+      <Project>{0d68835f-0319-4dac-884b-13b5a5c1efed}</Project>
+      <Name>ITS.Hardware.RBSPOSEliot.CashRegister</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\POS\Hardware\ITS.POS.Hardware\ITS.POS.Hardware.csproj">
+      <Project>{FB9530BA-A2BF-4561-8247-BA8F08713914}</Project>
+      <Name>ITS.POS.Hardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.Common\ITS.Retail.Common.csproj">
+      <Project>{d177ff14-b965-46c4-bd1e-15d9b5bfae08}</Project>
+      <Name>ITS.Retail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.ResourcesLib\ITS.Retail.ResourcesLib.csproj">
+      <Project>{20714dcf-9571-4681-9c21-6659426c3f33}</Project>
+      <Name>ITS.Retail.ResourcesLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\ITS.Retail.Model\ITS.Retail.Model.csproj">
+      <Project>{c01666bd-1b8b-474a-9937-6b16fcde68b5}</Project>
+      <Name>ITS.Retail.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Connectors\ITS.Retail.Platform.Common.csproj">
+      <Project>{29032d9c-3ec3-425a-9492-3a448db0c06a}</Project>
+      <Name>ITS.Retail.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Kernel\ITS.Retail.Platform.Kernel.csproj">
+      <Project>{522ccf3a-1113-47f9-b8b5-1ee6bbaa161b}</Project>
+      <Name>ITS.Retail.Platform.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tools\ITS.Retail.PrintServer.Common\ITS.Retail.PrintServer.Common.csproj">
+      <Project>{F8E5C308-076E-4C0D-8EAF-D59DA382174E}</Project>
+      <Name>ITS.Retail.PrintServer.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebClient\ITS.Retail.WebClient.Helpers\ITS.Retail.WebClient.Helpers.csproj">
+      <Project>{58b0f2a3-13ca-4262-b654-bac8a5c568cc}</Project>
+      <Name>ITS.Retail.WebClient.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ITSStoreControllerDesktopService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost/wrmsc/POSUpdateService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ITSStoreControllerDesktopPOSUpdateService\</RelPath>
+      <UpdateFromURL>http://localhost/wrmsc/POSUpdateService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>StoreControllerClient_ITSStoreControllerDesktopPOSUpdateService_POSUpdateService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+      del "$(SolutionDir)ITS\Retail\WebClient\ITS.Retail.WebClient\POS\officemanager.zip"
+      if "$(ConfigurationName)"=="Debug" "c:\Program Files\7-Zip\7z" a "$(SolutionDir)ITS\Retail\WebClient\ITS.Retail.WebClient\POS\officemanager.zip" "$(TargetDir)*" -xr!*.xml -x!app.publish -xr!*.manifest -xr!*.vshost.exe -xr!*.application -xr!modules -xr!*.log
+      if "$(ConfigurationName)"=="Release" "c:\Program Files\7-Zip\7z" a "$(SolutionDir)ITS\Retail\WebClient\ITS.Retail.WebClient\POS\officemanager.zip" "$(TargetDir)*" -xr!*.xml -x!app.publish -xr!*.manifest -xr!*.vshost.exe -xr!*.application -xr!modules -xr!*.log -xr!*.pdb
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

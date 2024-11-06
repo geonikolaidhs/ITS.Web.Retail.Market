@@ -11,7 +11,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using System.Collections.Specialized;
 
-namespace ITS.Retail.Common
+namespace Instashop.Retail.Common
 {
     public class CustomPostgreSqlConnectionProvider : PostgreSqlConnectionProvider
     {

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{10F1A976-8D0F-428B-96E1-AECA90310C13}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.MobileAtStore.Common</RootNamespace>
+    <AssemblyName>ITS.Mobile%40Store.Common</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v9.2.Providers, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="ITS.Common.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerWebService\ITS.Common.Logging\ITS.Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=5.2.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationExportSettings\ApplicationExportSettings.cs" />
+    <Compile Include="ApplicationExportSettings\WRMExportSettings.cs" />
+    <Compile Include="DatabaseAbstraction\AbstractDataLayer.cs" />
+    <Compile Include="DatabaseAbstraction\AuxilliaryClasses\DecodedBarcode.cs" />
+    <Compile Include="DatabaseAbstraction\AuxilliaryClasses\MathUtils.cs" />
+    <Compile Include="DatabaseAbstraction\AuxilliaryClasses\PriceDecodedBarcode.cs" />
+    <Compile Include="DatabaseAbstraction\AuxilliaryClasses\WeightedDecodedBarcode.cs" />
+    <Compile Include="DatabaseAbstraction\DesktopExportFileDatalayer.cs" />
+    <Compile Include="DatabaseAbstraction\Enumerations\ExportResult.cs" />
+    <Compile Include="DatabaseAbstraction\MysqlDataLayer.cs" />
+    <Compile Include="DatabaseAbstraction\OracleDataLayer.cs" />
+    <Compile Include="DatabaseAbstraction\SqlServerDataLayer.cs" />
+    <Compile Include="eApplication.cs" />
+    <Compile Include="AssemblyVersionInfo.cs" />
+    <Compile Include="BarcodeDecodingSettings.cs" />
+    <Compile Include="ConfigurationHelper.cs" />
+    <Compile Include="ConnectionMode.cs" />
+    <Compile Include="ConnectionSettings.cs" />
+    <Compile Include="DatabaseViewSettings.cs" />
+    <Compile Include="DataLayerSettings.cs" />
+    <Compile Include="DecodingPattern.cs" />
+    <Compile Include="ExportMode.cs" />
+    <Compile Include="ExportSettings.cs" />
+    <Compile Include="ExportSettingsDocType.cs" />
+    <Compile Include="FileExportLocation.cs" />
+    <Compile Include="FileExportSetting.cs" />
+    <Compile Include="Helpers\WRMMappingHelper.cs" />
+    <Compile Include="LinqBridge.cs" />
+    <Compile Include="OverwriteMode.cs" />
+    <Compile Include="PaddingMode.cs" />
+    <Compile Include="PaddingSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ApplicationExportSettings\ReflexisExportSettings.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="StaticHelpers.cs" />
+    <Compile Include="Web References\WRMService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ITS.MobileAtStore.ObjectModel\ITS.MobileAtStore.ObjectModel.csproj">
+      <Project>{05A19FF2-4417-46A3-9FDA-5EB698ED80F6}</Project>
+      <Name>ITS.MobileAtStore.ObjectModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost/ITS.Retail.WebClient/MobileAtStoreService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WRMService\</RelPath>
+      <UpdateFromURL>http://localhost/ITS.Retail.WebClient/MobileAtStoreService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ITS_Mobile_Store_Common_WRMService_MobileAtStoreService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WRMService\InvalidItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMService\MobileAtStoreService.disco" />
+    <None Include="Web References\WRMService\MobileAtStoreService.wsdl" />
+    <None Include="Web References\WRMService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

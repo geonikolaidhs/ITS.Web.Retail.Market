@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7B29E4E-AEA8-4ABB-A9F8-922B1D18F1B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.POS.Hardware.RBS.Fiscal</RootNamespace>
+    <AssemblyName>ITS.POS.Hardware.RBS.Fiscal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RBSElioFiscalPrinter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Retail\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Client\ITS.POS.Client.Exceptions\ITS.POS.Client.Exceptions.csproj">
+      <Project>{39B5D2E6-A62A-4496-A7A4-7AD4778091F9}</Project>
+      <Name>ITS.POS.Client.Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS.POS.Resources\ITS.POS.Resources.csproj">
+      <Project>{f99f8098-bb66-494b-83ce-b70de3e35538}</Project>
+      <Name>ITS.POS.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.POS.Hardware.Common\ITS.POS.Hardware.Common.csproj">
+      <Project>{b9021d8b-0f2e-478c-b5b8-168619cce217}</Project>
+      <Name>ITS.POS.Hardware.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.POS.Hardware.Micrelec.Fiscal\ITS.POS.Hardware.Micrelec.Fiscal.csproj">
+      <Project>{f8dbec00-ef93-4149-a902-dd434497594d}</Project>
+      <Name>ITS.POS.Hardware.Micrelec.Fiscal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.POS.Hardware\ITS.POS.Hardware.csproj">
+      <Project>{fb9530ba-a2bf-4561-8247-ba8f08713914}</Project>
+      <Name>ITS.POS.Hardware</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

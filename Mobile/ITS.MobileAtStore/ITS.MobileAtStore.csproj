@@ -1,0 +1,605 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18DF9611-B77B-4DAA-92BE-C448A1C5B271}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ApplicationIcon>book_open.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Mobile%40Store</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <OutputFileFolder>\Windows\Warehouse2</OutputFileFolder>
+    <RootNamespace>ITS.MobileAtStore</RootNamespace>
+    <StartupObject>ITS.MobileAtStore.MobileAtStore</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <FormFactorID>
+    </FormFactorID>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <DeployDirSuffix>WRM Mobile%40Store</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>0</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;WindowsCE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>0</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>WindowsCE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v11.1.Compact, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\DevExpress\DevExpress.Data.v11.1.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.1.Compact, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\DevExpress\DevExpress.Xpo.v11.1.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.1.Providers.Compact, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\DevExpress\DevExpress.Xpo.v11.1.Providers.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="InTheHand.Net.Personal, Version=2.0.60828.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\InTheHand.Net.Personal.dll</HintPath>
+    </Reference>
+    <Reference Include="ITS.Common.Keyboards.Compact, Version=2.3.0.16537, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\ITS.Common.Keyboards.Compact\ITS.Common.Keyboards.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="ITS.Common.Utilities.Compact, Version=2.0.0.24241, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\ITS.Common.Utilities.Compact\ITS.Common.Utilities.Compact.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsCE.Forms" />
+    <Reference Include="mscorlib">
+      <Name>MSCorLib</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OpenNETCF, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\OpenNETCF.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenNETCF.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\OpenNETCF.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenNETCF.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\OpenNETCF.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenNETCF.Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\OpenNETCF.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenNETCF.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\OpenNETCF.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenNETCF.WindowsCE, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e60dbea84bb431b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\OpenNETCF.WindowsCE.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=1fdb50b1b62b4c84, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DataLoggerMobile\SQLite-1.0.66\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataGrid" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\ITS\Retail\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Attributes\IgnoreFieldFromView.cs">
+      <Link>ObjectModel\IgnoreFieldFromView.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\BaseXPObject.cs">
+      <Link>ObjectModel\BaseXPObject.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Common.cs">
+      <Link>ObjectModel\Common.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Customer.cs">
+      <Link>ObjectModel\Customer.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Document.cs">
+      <Link>ObjectModel\Document.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\ESLInvLine.cs">
+      <Link>ObjectModel\ESLInvLine.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Header.cs">
+      <Link>ObjectModel\Header.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\InvLine.cs">
+      <Link>ObjectModel\InvLine.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Line.cs">
+      <Link>ObjectModel\Line.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Offer.cs">
+      <Link>ObjectModel\Offer.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\OutputPath.cs">
+      <Link>ObjectModel\OutputPath.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\PaddedStringFormatInfo.cs">
+      <Link>ObjectModel\PaddedStringFormatInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\PriceCatalogPolicy.cs">
+      <Link>ObjectModel\PriceCatalogPolicy.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Product.cs">
+      <Link>ObjectModel\Product.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\ProductCheck.cs">
+      <Link>ObjectModel\ProductCheck.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\ProductQuantity.cs">
+      <Link>ObjectModel\ProductQuantity.cs</Link>
+    </Compile>
+    <Compile Include="..\ITS.MobileAtStore.ObjectModel\Warehouse.cs">
+      <Link>ObjectModel\Warehouse.cs</Link>
+    </Compile>
+    <Compile Include="AboutInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOrReplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOrReplace.Designer.cs">
+      <DependentUpon>AddOrReplace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AuxilliaryClasses\EnumerationMapping.cs" />
+    <Compile Include="AuxilliaryClasses\FileExport.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AuxilliaryClasses\QueueQRPrinter.cs" />
+    <Compile Include="AuxilliaryClasses\QueueQRPrinterSettings.cs" />
+    <Compile Include="AuxilliaryClasses\ScannedBluetoothDevice.cs" />
+    <Compile Include="AuxilliaryClasses\TerminalSettings.cs" />
+    <Compile Include="AvgForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AvgForm.Designer.cs">
+      <DependentUpon>AvgForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BluetoothPrinterSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BluetoothPrinterSettingsForm.designer.cs">
+      <DependentUpon>BluetoothPrinterSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonBusinessLogic.cs" />
+    <Compile Include="CommonUtilities.cs" />
+    <Compile Include="AdvancedPriceCheckingSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvancedPriceCheckingSettingsForm.Designer.cs">
+      <DependentUpon>AdvancedPriceCheckingSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DecompositionDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DecompositionDetailForm.Designer.cs">
+      <DependentUpon>DecompositionDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\BluetoothPrinterHelper.cs" />
+    <Compile Include="Helpers\CryptoService.cs" />
+    <Compile Include="Helpers\LabelManager.cs" />
+    <Compile Include="Helpers\QueueQRPrintingFormat.cs" />
+    <Compile Include="Helpers\QueueQRPrintingFormatElement.cs" />
+    <Compile Include="Helpers\QueueQRPrintingFormatElementType.cs" />
+    <Compile Include="MasterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterForm.Designer.cs">
+      <DependentUpon>MasterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ESLInvControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ESLInvControlForm.Designer.cs">
+      <DependentUpon>ESLInvControlForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ESLInvMasterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ESLInvMasterForm.Designer.cs">
+      <DependentUpon>ESLInvMasterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ESLInvProcessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ESLInvProcessForm.Designer.cs">
+      <DependentUpon>ESLInvProcessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ExportHelper.cs" />
+    <Compile Include="InvControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InvControlForm.Designer.cs">
+      <DependentUpon>InvControlForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InvMasterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InvMasterForm.Designer.cs">
+      <DependentUpon>InvMasterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InvProcessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InvProcessForm.Designer.cs">
+      <DependentUpon>InvProcessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LockDown.cs" />
+    <Compile Include="PriceAtStoreEnterCodeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PriceAtStoreEnterCodeControl.Designer.cs">
+      <DependentUpon>PriceAtStoreEnterCodeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Device.cs" />
+    <Compile Include="License.cs" />
+    <Compile Include="DocDataShortForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterReceiptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterReceiptForm.Designer.cs">
+      <DependentUpon>MasterReceiptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PriceAtStoreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PriceAtStoreForm.Designer.cs">
+      <DependentUpon>PriceAtStoreForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PriceAtStoreProductInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PriceAtStoreProductInfoControl.Designer.cs">
+      <DependentUpon>PriceAtStoreProductInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PriceCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceiptForm.Designer.cs">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScanNPair.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScanNPair.Designer.cs">
+      <DependentUpon>ScanNPair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOutputPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectOutputPath.Designer.cs">
+      <DependentUpon>SelectOutputPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SideBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TerminalSettings.cs" />
+    <Compile Include="Web References\WRMMobileAtStore\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutInfo.resx">
+      <DependentUpon>AboutInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddOrReplace.resx">
+      <DependentUpon>AddOrReplace.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdvancedPriceCheckingSettingsForm.resx">
+      <DependentUpon>AdvancedPriceCheckingSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvgForm.resx">
+      <DependentUpon>AvgForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BluetoothPrinterSettingsForm.resx">
+      <DependentUpon>BluetoothPrinterSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DecompositionDetailForm.resx">
+      <DependentUpon>DecompositionDetailForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterForm.resx">
+      <DependentUpon>MasterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ESLInvControlForm.resx">
+      <DependentUpon>ESLInvControlForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ESLInvMasterForm.resx">
+      <DependentUpon>ESLInvMasterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ESLInvProcessForm.resx">
+      <DependentUpon>ESLInvProcessForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InvControlForm.resx">
+      <DependentUpon>InvControlForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InvMasterForm.resx">
+      <DependentUpon>InvMasterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InvProcessForm.resx">
+      <DependentUpon>InvProcessForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PriceAtStoreEnterCodeControl.resx">
+      <DependentUpon>PriceAtStoreEnterCodeControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MatchingForm.resx">
+      <DependentUpon>MatchingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DocDataShortForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DocDataShortForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterReceiptForm.resx">
+      <DependentUpon>MasterReceiptForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PriceAtStoreForm.resx">
+      <DependentUpon>PriceAtStoreForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PriceAtStoreProductInfoControl.resx">
+      <DependentUpon>PriceAtStoreProductInfoControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PriceCheck.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PriceCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiptForm.resx">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScanNPair.resx">
+      <DependentUpon>ScanNPair.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectOutputPath.resx">
+      <DependentUpon>SelectOutputPath.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SideBar.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SideBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="book_open.ico" />
+    <Content Include="dataLoggerConfigDebug.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dataLoggerConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\logosmall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PriceAtStoreImages\ITS-Logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PriceAtStoreImages\top_label.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PrintFormat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TerminalSettings.xml" />
+    <None Include="ReadMe.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\Customer.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\ESLInvLine.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\InvLine.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\MobileAtStoreSettings.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\Offer.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\PriceCatalogPolicy.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\Product.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\Warehouse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore.disco" />
+    <None Include="sernumber.dll" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore.wsdl" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore.xsd" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore0.xsd" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore1.xsd" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore2.xsd" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore3.xsd" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore4.xsd" />
+    <None Include="Web References\WRMMobileAtStore\WRMMobileAtStore5.xsd" />
+    <None Include="wingding.ttf">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.1.2/webclient/wrmmobileatstore.svc">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\WRMMobileAtStore\</RelPath>
+      <UpdateFromURL>http://192.168.1.2/webclient/wrmmobileatstore.svc</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

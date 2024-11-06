@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7B508ABE-4AAF-4669-9276-9AA98D5EDD71}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.MigrationTool</RootNamespace>
+    <AssemblyName>ITS.Retail.MigrationTool</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v15.2.UI, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.2.Extensions, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="FluentMigrator, Version=1.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\FluentMigrator.1.2.1.0\lib\40\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner, Version=1.2.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\FluentMigrator.Runner.1.2.1.0\lib\40\FluentMigrator.Runner.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Npgsql.2.0.14.2\lib\net40\Mono.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Net.Core">
+      <HintPath>..\..\..\..\packages\Net.Core.0.1.6.0\lib\net40\Net.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Net.FluentMigrator">
+      <HintPath>..\..\..\..\packages\Net.FluentMigrator.0.1.6.0\lib\net40\Net.FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.0.14.2, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Npgsql.2.0.14.2\lib\net40\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="policy.2.0.Npgsql, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Npgsql.2.0.14.2\lib\net40\policy.2.0.Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Classes\RetailMigration.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MigrationScripts\2014_01_01_004_Retail_Version_1_to_Version2_part4.cs" />
+    <Compile Include="MigrationScripts\2014_01_01_003_Retail_Version_1_to_Version2_part3.cs" />
+    <Compile Include="MigrationScripts\2014_01_01_002_Retail_Version_1_to_Version2_part2.cs" />
+    <Compile Include="MigrationScripts\2014_01_01_001_Retail_Version_1_to_Version2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MigrationScripts\2014_01_01_005_Retail_Version_1_to_Version2MoveDocumentsToStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MigrationScripts\2014_02_01_002_DeleteStorePriceListDuplicates.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MigrationScripts\2014_02_07_001_TransferHasAutomatingNumberingToDocumentSeries.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MigrationScripts\2014_02_14_001_TransferFieldsFromBarcodeToItemBarcode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MigrationScripts\2015_06_04_001_DeleteTempTableDocumentDetailsDiscountsAreEmpty.cs" />
+    <Compile Include="MigrationScripts\2014_06_25_001_CreateTempTableIfDocumentDetailsDiscountsAreEmpty.cs" />
+    <Compile Include="MigrationScripts\2014_06_26_001_DoublesToDecimalsConvertion.cs" />
+    <Compile Include="MigrationScripts\2014_11_14_001_Delete_FK_DocumentPayment_CustomEnumerationValues_.cs" />
+    <Compile Include="MigrationScripts\2015_01_13_Delete_FK_PriceCatalog_Promotion.cs" />
+    <Compile Include="MigrationScripts\2015_02_03_Delete_FK_Promotion_PromotionApplicationRuleGroup.cs" />
+    <Compile Include="MigrationScripts\2015_02_02_UpgradeRoles.cs" />
+    <Compile Include="MigrationScripts\2015_01_19_Delete_iCodeGCRecordOwner_CategoryNode.cs" />
+    <Compile Include="MigrationScripts\2015_03_03_001_Update_Entity_Name_Property.cs" />
+    <Compile Include="MigrationScripts\2015_03_31_001_Delete_FK_Trader_TaxOfficeLookUp.cs" />
+    <Compile Include="MigrationScripts\2015_09_21_001_UpdateCancelledDocuments.cs" />
+    <Compile Include="MigrationScripts\2016_05_11_001_Complete_Address_Profession.cs" />
+    <Compile Include="MigrationScripts\2016_01_21_001_DocumentDetailDiscountFix.cs" />
+    <Compile Include="MigrationScripts\2016_01_25_001_UpdateStoreControllerTerminalDeviceAssociation.cs" />
+    <Compile Include="MigrationScripts\2016_02_18_002_Create_VersionInfo_PrimaryKey.cs" />
+    <Compile Include="MigrationScripts\2016_02_18_001_Remove_DocumentSeries_IsForPOS.cs" />
+    <Compile Include="MigrationScripts\2016_08_04_001_PriceCatalogPolicyMigration.cs" />
+    <Compile Include="MigrationScripts\2016_08_09_001_PriceCatalogDetailTimeValuesMigration.cs" />
+    <Compile Include="MigrationScripts\2016_08_09_002_PromotionPriceCatalogPolicyMigration.cs" />
+    <Compile Include="MigrationScripts\2017_01_13_001_RemoveIndexFromTerminal.cs" />
+    <Compile Include="MigrationScripts\2016_10_14_001_SetDocumentHeaderOwner.cs" />
+    <Compile Include="MigrationScripts\2016_08_09_003_PriceCatalogPolicyDocumentHeaderMigration.cs" />
+    <Compile Include="MigrationScripts\2017_01_09_DecompositionDocumentTypeSettings.cs" />
+    <Compile Include="MigrationScripts\2017_02_21_001_RecreateMobileTerminalTable.cs" />
+    <Compile Include="MigrationScripts\2017_06_26_001_RecreateItemExtraInfoForEachStore.cs" />
+    <Compile Include="MigrationScripts\2017_08_24_001_ReshapeItemStock.cs" />
+    <Compile Include="OwnerInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OwnerInfoForm.Designer.cs">
+      <DependentUpon>OwnerInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web References\RetailService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WebConfigurationSettings.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OwnerInfoForm.resx">
+      <DependentUpon>OwnerInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="AnalysisServer\WRM_Analysis.asdatabase" />
+    <EmbeddedResource Include="AnalysisServer\WRM_Analysis.configsettings" />
+    <EmbeddedResource Include="AnalysisServer\WRM_Analysis.deploymentoptions" />
+    <EmbeddedResource Include="AnalysisServer\WRM_Analysis.deploymenttargets" />
+    <None Include="app.config" />
+    <None Include="app.manifest" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Content Include="MigrationScripts\RecreateItemExtraInfoForEachStore.sql" />
+    <Content Include="Reports\el\Παραστατικού Αγορών Ποσοτικό.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Παραστατικού Αγορών.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Ειδών\Αλλαγές Τιμών Ειδών.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Ειδών\Αποδείξεις με Ακυρώσεις Ειδών.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Ειδών\Επιστροφές Ειδών Αναλυτικό.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Ειδών\Επιστροφές Ειδών.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Παραστατικού Πωλήσεων Ποσοτικό.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Παραστατικού Πωλήσεων.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Πωλήσεων\Ακυρωμένες Αποδείξεις Αναλυτικά.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Πωλήσεων\Ακυρωμένες Αποδείξεις.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Πωλήσεων\Αναλυτικός Τζίρος Καταστημάτων.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Πωλήσεων\Αναφορά Πωλήσεων Ειδών.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Πωλήσεων\Παραστατικά ανα Ημέρα.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Ταμειακών\Αναφορές Ζ.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\el\Ταμειακών\Αναφορές Χ.itsreport">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Web References\RetailService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\RetailService\retailservice.wsdl" />
+    <None Include="Web References\RetailService\TAppSettings1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TCustomer1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TDocumentHeader1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TDocumentStatus1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TInvalidItem1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TransferedDocumentDetail1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TStore1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\TUserStoreAccess1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RetailService\UserType1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\RetailService\retailservice.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Reports\en\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.ResourcesLib\ITS.Retail.ResourcesLib.csproj">
+      <Project>{20714dcf-9571-4681-9c21-6659426c3f33}</Project>
+      <Name>ITS.Retail.ResourcesLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\ITS.Retail.Model\ITS.Retail.Model.csproj">
+      <Project>{C01666BD-1B8B-474A-9937-6B16FCDE68B5}</Project>
+      <Name>ITS.Retail.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.Common\ITS.Retail.Common.csproj">
+      <Project>{D177FF14-B965-46C4-BD1E-15D9B5BFAE08}</Project>
+      <Name>ITS.Retail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Connectors\ITS.Retail.Platform.Common.csproj">
+      <Project>{29032d9c-3ec3-425a-9492-3a448db0c06a}</Project>
+      <Name>ITS.Retail.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Kernel\ITS.Retail.Platform.Kernel.csproj">
+      <Project>{522ccf3a-1113-47f9-b8b5-1ee6bbaa161b}</Project>
+      <Name>ITS.Retail.Platform.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebClient\ITS.Retail.WebClient.Helpers\ITS.Retail.WebClient.Helpers.csproj">
+      <Project>{58B0F2A3-13CA-4262-B654-BAC8A5C568CC}</Project>
+      <Name>ITS.Retail.WebClient.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost/ITS.Retail.WebClient/RetailService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\RetailService\</RelPath>
+      <UpdateFromURL>http://localhost/ITS.Retail.WebClient/RetailService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>MigrationTool_RetailService_RetailService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /E "$(TargetDir)*.*" "$(SolutionDir)ITS\Retail\WebClient\ITS.Retail.WebClient\Tools\Configuration - Migration Tool\" /y</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

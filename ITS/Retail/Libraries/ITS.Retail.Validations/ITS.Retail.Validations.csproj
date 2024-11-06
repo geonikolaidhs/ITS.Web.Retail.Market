@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D8F7877F-DDDF-4B62-92FD-D9CB93C5C62B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.Validations</RootNamespace>
+    <AssemblyName>ITS.Retail.Validations</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Tests\ITS.Retail.Api.Tests\bin\Debug\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomerCRUDActions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Model\ITS.Retail.Model\ITS.Retail.Model.csproj">
+      <Project>{c01666bd-1b8b-474a-9937-6b16fcde68b5}</Project>
+      <Name>ITS.Retail.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\ITS.WRM.Model.Interface\ITS.WRM.Model.Interface.csproj">
+      <Project>{8758AB70-DDA1-422C-AE2A-F3E308F3DEC6}</Project>
+      <Name>ITS.WRM.Model.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Connectors\ITS.Retail.Platform.Common.csproj">
+      <Project>{29032d9c-3ec3-425a-9492-3a448db0c06a}</Project>
+      <Name>ITS.Retail.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0D12BF73-53C7-4C90-ADFD-26654D6FE4D4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Kernel\ITS.Retail.Platform.Kernel.csproj">
+      <Project>{522CCF3A-1113-47F9-B8B5-1EE6BBAA161B}</Project>
+      <Name>ITS.Retail.Platform.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.Retail.Common\ITS.Retail.Common.csproj">
+      <Project>{d177ff14-b965-46c4-bd1e-15d9b5bfae08}</Project>
+      <Name>ITS.Retail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.Retail.WRM.Kernel.Interface\ITS.Retail.WRM.Kernel.Interface.csproj">
+      <Project>{DC8E09B4-E63B-47BD-A5E3-D680B3C4234F}</Project>
+      <Name>ITS.Retail.WRM.Kernel.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.Retail.WRM.Kernel\ITS.Retail.WRM.Kernel.csproj">
+      <Project>{CABD67E5-37F1-4DF1-8503-B15A63449F4E}</Project>
+      <Name>ITS.Retail.WRM.Kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

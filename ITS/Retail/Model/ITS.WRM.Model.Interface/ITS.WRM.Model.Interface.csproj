@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8758AB70-DDA1-422C-AE2A-F3E308F3DEC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.WRM.Model.Interface</RootNamespace>
+    <AssemblyName>ITS.WRM.Model.Interface</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="IActionType.cs" />
+    <Compile Include="IAddress.cs" />
+    <Compile Include="IAddressType.cs" />
+    <Compile Include="IApplicationSettings.cs" />
+    <Compile Include="IBarcode.cs" />
+    <Compile Include="IBarcodePortable.cs" />
+    <Compile Include="IBarcodeType.cs" />
+    <Compile Include="IBuyer.cs" />
+    <Compile Include="IBuyerPortable.cs" />
+    <Compile Include="ICategoryNode.cs" />
+    <Compile Include="ICompaniesGroup.cs" />
+    <Compile Include="ICompanyModel.cs" />
+    <Compile Include="ICompanyNew.cs" />
+    <Compile Include="ICompanyPortable.cs" />
+    <Compile Include="ICoupon.cs" />
+    <Compile Include="ICouponCategory.cs" />
+    <Compile Include="ICouponMask.cs" />
+    <Compile Include="ICustomEnumerationDefinition.cs" />
+    <Compile Include="ICustomEnumerationValue.cs" />
+    <Compile Include="ICustomer.cs" />
+    <Compile Include="ICustomerAnalyticTree.cs" />
+    <Compile Include="ICustomerCategory.cs" />
+    <Compile Include="ICustomerCategoryDiscount.cs" />
+    <Compile Include="ICustomerModel.cs" />
+    <Compile Include="ICustomerPriceCatalogPolicy.cs" />
+    <Compile Include="ICustomerStorePriceList.cs" />
+    <Compile Include="ICustomReport.cs" />
+    <Compile Include="IDailyTotalsDetail.cs" />
+    <Compile Include="IDeficiencySettings.cs" />
+    <Compile Include="IDeficiencySettingsDetail.cs" />
+    <Compile Include="IDeliveryType.cs" />
+    <Compile Include="IDiscountType.cs" />
+    <Compile Include="IDiscountTypeField.cs" />
+    <Compile Include="IDivision.cs" />
+    <Compile Include="IDivisionModel.cs" />
+    <Compile Include="IDocTypeCustomerCategory.cs" />
+    <Compile Include="IDocumentDetail.cs" />
+    <Compile Include="IDocumentDetailDiscount.cs" />
+    <Compile Include="IDocumentHeader.cs" />
+    <Compile Include="IDocumentPayment.cs" />
+    <Compile Include="IDocumentPromotion.cs" />
+    <Compile Include="IDocumentSequence.cs" />
+    <Compile Include="IDocumentSeries.cs" />
+    <Compile Include="IDocumentStatus.cs" />
+    <Compile Include="IDocumentType.cs" />
+    <Compile Include="IDocumentTypeBarcodeType.cs" />
+    <Compile Include="IDocumentTypeCustomReport.cs" />
+    <Compile Include="IDocumentTypeMapping.cs" />
+    <Compile Include="IEntityAccessPermision.cs" />
+    <Compile Include="IGridSettings.cs" />
+    <Compile Include="IItem.cs" />
+    <Compile Include="IItemAnalyticTree.cs" />
+    <Compile Include="IItemBarcode.cs" />
+    <Compile Include="IItemCategory.cs" />
+    <Compile Include="IItemExtraInfo.cs" />
+    <Compile Include="IItemImage.cs" />
+    <Compile Include="IItemPortable.cs" />
+    <Compile Include="IItemSpecification.cs" />
+    <Compile Include="IItemStock.cs" />
+    <Compile Include="IItemStore.cs" />
+    <Compile Include="ILinkedItem.cs" />
+    <Compile Include="IMeasurementUnit.cs" />
+    <Compile Include="IMinistryDocumentType.cs" />
+    <Compile Include="IOffer.cs" />
+    <Compile Include="IOfferDetail.cs" />
+    <Compile Include="IOwnerApplicationSettings.cs" />
+    <Compile Include="IOwnerCategories.cs" />
+    <Compile Include="IOwnerImage.cs" />
+    <Compile Include="IPaymentMethod.cs" />
+    <Compile Include="IPaymentMethodField.cs" />
+    <Compile Include="IPeriod.cs" />
+    <Compile Include="IPermission.cs" />
+    <Compile Include="IPersistentObjectModel.cs" />
+    <Compile Include="IPhone.cs" />
+    <Compile Include="IPhoneType.cs" />
+    <Compile Include="IPOS.cs" />
+    <Compile Include="IPOSPrintFormat.cs" />
+    <Compile Include="IPriceCatalog.cs" />
+    <Compile Include="IPriceCatalogDetail.cs" />
+    <Compile Include="IPriceCatalogPolicy.cs" />
+    <Compile Include="IPriceCatalogPolicyDetail.cs" />
+    <Compile Include="IPriceCatalogPolicyPromotion.cs" />
+    <Compile Include="IPriceCatalogPromotion.cs" />
+    <Compile Include="IPromotion.cs" />
+    <Compile Include="IPromotionApplicationRule.cs" />
+    <Compile Include="IPromotionApplicationRuleDetail.cs" />
+    <Compile Include="IPromotionApplicationRuleGroup.cs" />
+    <Compile Include="IPromotionExecution.cs" />
+    <Compile Include="IPromotionResult.cs" />
+    <Compile Include="IRelativeDocument.cs" />
+    <Compile Include="IRelativeDocumentDetail.cs" />
+    <Compile Include="IRoleEntityAccessPermision.cs" />
+    <Compile Include="IRoleModel.cs" />
+    <Compile Include="IRolePortable.cs" />
+    <Compile Include="ISeasonality.cs" />
+    <Compile Include="ISeasonalityPortable.cs" />
+    <Compile Include="ISpecialItem.cs" />
+    <Compile Include="IStore.cs" />
+    <Compile Include="IStoreAnalyticTree.cs" />
+    <Compile Include="IStoreBarcodeType.cs" />
+    <Compile Include="IStoreCategory.cs" />
+    <Compile Include="IStoreDailyReport.cs" />
+    <Compile Include="IStoreDailyReportPayment.cs" />
+    <Compile Include="IStoreDocumentSeriesType.cs" />
+    <Compile Include="IStorePriceList.cs" />
+    <Compile Include="ISupplierNew.cs" />
+    <Compile Include="ISupplierPortable.cs" />
+    <Compile Include="ITaxOffice.cs" />
+    <Compile Include="ITerminal.cs" />
+    <Compile Include="ITrader.cs" />
+    <Compile Include="ITransactionCoupon.cs" />
+    <Compile Include="ITransferPurpose.cs" />
+    <Compile Include="ITransformationRule.cs" />
+    <Compile Include="IUserPortable.cs" />
+    <Compile Include="IPersistentObjectPortable.cs" />
+    <Compile Include="IUserTypeAccessPortable.cs" />
+    <Compile Include="IVariableModel.cs" />
+    <Compile Include="IVatCategory.cs" />
+    <Compile Include="IVatCategoryPortable.cs" />
+    <Compile Include="IVatFactor.cs" />
+    <Compile Include="IVatLevel.cs" />
+    <Compile Include="Model\ILabel.cs" />
+    <Compile Include="Model\IPriceCatalogDetailTimeValue.cs" />
+    <Compile Include="Model\IReason.cs" />
+    <Compile Include="Model\IReasonCategory.cs" />
+    <Compile Include="Model\NonPersistant\IBasicObj.cs" />
+    <Compile Include="Model\NonPersistant\IBaseObj.cs" />
+    <Compile Include="Model\NonPersistant\ICouponBase.cs" />
+    <Compile Include="Model\NonPersistant\ILookUp2Fields.cs" />
+    <Compile Include="Model\NonPersistant\ILookUpFields.cs" />
+    <Compile Include="Model\SupportingClasses\IOwner.cs" />
+    <Compile Include="Model\SupportingClasses\IUserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ITS.Retail.Platform.Enumerations">
+      <HintPath>references\ITS.Retail.Platform.Enumerations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>references\System.Drawing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="references\ITS.Retail.Platform.Enumerations.dll" />
+    <Content Include="references\System.Drawing.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

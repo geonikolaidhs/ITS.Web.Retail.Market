@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C01666BD-1B8B-474A-9937-6B16FCDE68B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.Model</RootNamespace>
+    <AssemblyName>ITS.Retail.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Setups|AnyCPU'">
+    <OutputPath>bin\Setups\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Jace, Version=0.8.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Jace.0.8.7\lib\net40\Jace.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>SupportingClasses\AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionTypeDocStatus.cs" />
+    <Compile Include="ActionTypeEntity.cs" />
+    <Compile Include="Attributes\DataViewParameterAttribute.cs" />
+    <Compile Include="Attributes\GDPRAttribute.cs" />
+    <Compile Include="Attributes\TriggerActionTypeAttribute.cs" />
+    <Compile Include="Attributes\DescriptionFieldAttribute.cs" />
+    <Compile Include="Attributes\GridAttribute.cs" />
+    <Compile Include="Attributes\ImportEntityAttribute.cs" />
+    <Compile Include="Attributes\IsDefaultUniqueAttribute.cs" />
+    <Compile Include="CardlinkBatchTotal.cs" />
+    <Compile Include="CardlinkBatchTransaction.cs" />
+    <Compile Include="DocumentPaymentCardlink.cs" />
+    <Compile Include="GDPRProtocolNumbers.cs" />
+    <Compile Include="CashRegister.cs" />
+    <Compile Include="CashRegisterDevice.cs" />
+    <Compile Include="CashierRegisterItem.cs" />
+    <Compile Include="ItemDeviceIndex.cs" />
+    <Compile Include="LabelPrintServiceSettings.cs" />
+    <Compile Include="Leaflet.cs" />
+    <Compile Include="LeafletStore.cs" />
+    <Compile Include="MapVatFactor.cs" />
+    <Compile Include="NonPersistant\CashierShift.cs" />
+    <Compile Include="NonPersistant\CashierShiftReportLine.cs" />
+    <Compile Include="NonPersistant\DailyCashierShift.cs" />
+    <Compile Include="NonPersistant\EffectivePriceCatalogPolicyDetail.cs" />
+    <Compile Include="NonPersistant\ItemCategoryImportData.cs" />
+    <Compile Include="NonPersistant\PriceCatalogPriority.cs" />
+    <Compile Include="NonPersistant\PriceSearchTraceStep.cs" />
+    <Compile Include="NonPersistant\ServerLicenseInfo.cs" />
+    <Compile Include="LeafletDetail.cs" />
+    <Compile Include="PosCommandResult.cs" />
+    <Compile Include="PosOposReportSettings.cs" />
+    <Compile Include="PosReport.cs" />
+    <Compile Include="POSReportSetting.cs" />
+    <Compile Include="PriceCatalogDetailTimeValue.cs" />
+    <Compile Include="NonPersistant\EffectivePriceCatalogPolicy.cs" />
+    <Compile Include="PriceCatalogPolicy.cs" />
+    <Compile Include="PriceCatalogPolicyDetail.cs" />
+    <Compile Include="COMScaleSettings.cs" />
+    <Compile Include="Coupon.cs" />
+    <Compile Include="CouponCategory.cs" />
+    <Compile Include="CouponMask.cs" />
+    <Compile Include="CustomActionCode.cs" />
+    <Compile Include="CustomDataViewParameter.cs" />
+    <Compile Include="CustomDataViewRecord.cs" />
+    <Compile Include="CustomDataViewShowSettings.cs" />
+    <Compile Include="CustomerChild.cs" />
+    <Compile Include="CustomDataViewCategory.cs" />
+    <Compile Include="DataView.cs" />
+    <Compile Include="DataViewCategory.cs" />
+    <Compile Include="DeficiencySettingsDetail.cs" />
+    <Compile Include="DeficiencySettings.cs" />
+    <Compile Include="DiscountType.cs" />
+    <Compile Include="DiscountTypeField.cs" />
+    <Compile Include="DocTypeCustomerCategory.cs" />
+    <Compile Include="DocumentDetailDiscount.cs" />
+    <Compile Include="DocumentPaymentEdps.cs" />
+    <Compile Include="DocumentPromotion.cs" />
+    <Compile Include="DocumentTypeBarcodeType.cs" />
+    <Compile Include="DocumentTypeItemCategory.cs" />
+    <Compile Include="DocumentTypeMapping.cs" />
+    <Compile Include="DocumentTypeRole.cs" />
+    <Compile Include="EdpsBatchTotal.cs" />
+    <Compile Include="EdpsBatchTransaction.cs" />
+    <Compile Include="ElectronicJournalFilePackage.cs" />
+    <Compile Include="Exceptions\PriceNotExistException.cs" />
+    <Compile Include="Exceptions\SignatureFailureException.cs" />
+    <Compile Include="FiscalDeviceDocumentSeries.cs" />
+    <Compile Include="ForgotPasswordToken.cs" />
+    <Compile Include="GeneratedCoupon.cs" />
+    <Compile Include="GridSettings.cs" />
+    <Compile Include="ItemExtraInfo.cs" />
+    <Compile Include="ItemImage.cs" />
+    <Compile Include="LicenseUserDistribution.cs" />
+    <Compile Include="MobileInventory\MobileInventoryEntry.cs" />
+    <Compile Include="MobileInventory\MobileInventoryEslEntry.cs" />
+    <Compile Include="MobileInventory\ItemCheck.cs" />
+    <Compile Include="MobileTerminal.cs" />
+    <Compile Include="NonPersistant\AjaxContactFormValidationData.cs" />
+    <Compile Include="NonPersistant\ContactFormEmailTemplate.cs" />
+    <Compile Include="NonPersistant\CouponBase.cs" />
+    <Compile Include="NonPersistant\CustomerUser.cs" />
+    <Compile Include="NonPersistant\EmailTemplate.cs" />
+    <Compile Include="NonPersistant\ForgotPasswordEmailTemplate.cs" />
+    <Compile Include="NonPersistant\GeneratePasswordEmailTemplate.cs" />
+    <Compile Include="NonPersistant\ImportFileRecordField.cs" />
+    <Compile Include="NonPersistant\ImportFileRecordHeader.cs" />
+    <Compile Include="NonPersistant\MemberValuesDifference.cs" />
+    <Compile Include="NonPersistant\OrderEmailTemplate.cs" />
+    <Compile Include="NonPersistant\PrintedCustomer.cs" />
+    <Compile Include="NonPersistant\ReflectionModelDescription.cs" />
+    <Compile Include="NonPersistant\Token.cs" />
+    <Compile Include="NonPersistant\SignUpEmailTemplate.cs" />
+    <Compile Include="ActionType.cs" />
+    <Compile Include="NonPersistant\ActionTypeTriggerInfo.cs" />
+    <Compile Include="NonPersistant\VariableDependency.cs" />
+    <Compile Include="NonPersistant\PrintServiceSettings.cs" />
+    <Compile Include="PromotionPriceCatalogApplicationRule.cs" />
+    <Compile Include="PromotionPriceCatalogExecution.cs" />
+    <Compile Include="SFA.cs" />
+    <Compile Include="StoreControllerCommand.cs" />
+    <Compile Include="POSCommand.cs" />
+    <Compile Include="POSDocumentSeries.cs" />
+    <Compile Include="POSUpdaterManualVersion.cs" />
+    <Compile Include="PriceCatalogPolicyPromotion.cs" />
+    <Compile Include="PromotionApplicationRuleDetail.cs" />
+    <Compile Include="PromotionApplicationRuleDetailCustomDataViewCondition.cs" />
+    <Compile Include="PromotionCustomDataViewApplicationRule.cs" />
+    <Compile Include="PromotionApplicationRuleDetailCustomDataViewParameter.cs" />
+    <Compile Include="Reason.cs" />
+    <Compile Include="ReasonCategory.cs" />
+    <Compile Include="ResendObjectRequest.cs" />
+    <Compile Include="StoreDocumentSeriesTypePrintServiceSettings.cs" />
+    <Compile Include="StorePriceCatalogPolicy.cs" />
+    <Compile Include="SupportingClasses\CashierVatRates.cs" />
+    <Compile Include="SupportingClasses\CashDeviceItem.cs" />
+    <Compile Include="SupportingClasses\CashRegisterPaymentMethods.cs" />
+    <Compile Include="SupportingClasses\CashierDepartment.cs" />
+    <Compile Include="SupportingClasses\DailyTotal.cs" />
+    <Compile Include="SupportingClasses\ExpandoJSONConverter.cs" />
+    <Compile Include="SupportingClasses\CashRegisterItemUpdate.cs" />
+    <Compile Include="SupportingClasses\ItemCashRegister.cs" />
+    <Compile Include="SupportingClasses\ItemSales.cs" />
+    <Compile Include="UserDailyTotalsCashCountDetail.cs" />
+    <Compile Include="Variable.cs" />
+    <Compile Include="SynchronizationInfo.cs" />
+    <Compile Include="PriceCatalogPromotion.cs" />
+    <Compile Include="PrintLabelSettings.cs" />
+    <Compile Include="PromotionCustomerCategoryApplicationRule .cs" />
+    <Compile Include="PromotionCustomerApplicationRule.cs" />
+    <Compile Include="PromotionDocumentApplicationRule.cs" />
+    <Compile Include="PromotionItemCategoryApplicationRule.cs" />
+    <Compile Include="PromotionItemApplicationRule.cs" />
+    <Compile Include="PromotionItemCategoryExecution.cs" />
+    <Compile Include="PromotionDocumentExecution.cs" />
+    <Compile Include="PromotionItemExecution.cs" />
+    <Compile Include="Label.cs" />
+    <Compile Include="NonPersistant\CustomField.cs" />
+    <Compile Include="NonPersistant\CustomFieldStorage.cs" />
+    <Compile Include="NonPersistant\AbstractPromotion.cs" />
+    <Compile Include="OwnerImage.cs" />
+    <Compile Include="Promotion.cs" />
+    <Compile Include="PromotionApplicationRule.cs" />
+    <Compile Include="PromotionApplicationRuleGroup.cs" />
+    <Compile Include="PromotionExecution.cs" />
+    <Compile Include="PromotionDisplayResult.cs" />
+    <Compile Include="PromotionPrintResult.cs" />
+    <Compile Include="PromotionResult.cs" />
+    <Compile Include="Scale.cs" />
+    <Compile Include="SpreadSheet.cs" />
+    <Compile Include="StoreDailyReport.cs" />
+    <Compile Include="StoreDailyReportDailyTotal.cs" />
+    <Compile Include="StoreDailyReportDocumentHeader.cs" />
+    <Compile Include="StoreDailyReportLine.cs" />
+    <Compile Include="StoreDailyReportPayment.cs" />
+    <Compile Include="StoreBarcodeType.cs" />
+    <Compile Include="SupplierImportFileRecordField.cs" />
+    <Compile Include="SupplierImportFileRecordHeader.cs" />
+    <Compile Include="SupplierImportFilesSet.cs" />
+    <Compile Include="SupplierImportMappingDetail.cs" />
+    <Compile Include="SupplierImportMappingHeader.cs" />
+    <Compile Include="SupportingClasses\DocumentDetailAssociation.cs" />
+    <Compile Include="TaxOffice.cs" />
+    <Compile Include="TemporaryObject.cs" />
+    <Compile Include="TransactionCoupon.cs" />
+    <Compile Include="VariableActionType.cs" />
+    <Compile Include="VariableValues.cs" />
+    <Compile Include="CustomDataView.cs" />
+    <Compile Include="VerifyEmailToken.cs" />
+    <Compile Include="WidgetManager.cs" />
+    <Compile Include="WRMApplicationSettings.cs" />
+    <Compile Include="ZReportSequence.cs" />
+    <Compile Include="CustomEnumerationDefinition.cs" />
+    <Compile Include="CustomEnumerationValue.cs" />
+    <Compile Include="SupportingClasses\AbstractLinqQuery.cs" />
+    <Compile Include="Address.cs" />
+    <Compile Include="AddressType.cs" />
+    <Compile Include="ApplicationLog.cs" />
+    <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="Barcode.cs" />
+    <Compile Include="BarcodeType.cs" />
+    <Compile Include="NonPersistant\BaseObj.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NonPersistant\BasicObj.cs" />
+    <Compile Include="NonPersistant\Category.cs" />
+    <Compile Include="Buyer.cs" />
+    <Compile Include="MinistryDocumentType.cs" />
+    <Compile Include="RawDataNumericAttribute.cs" />
+    <Compile Include="SpecialItem.cs" />
+    <Compile Include="SupportingClasses\IOwner.cs" />
+    <Compile Include="OwnerApplicationSettings.cs" />
+    <Compile Include="OwnerCategories.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RequiredField.cs" />
+    <Compile Include="ScannedDocumentHeader.cs" />
+    <Compile Include="CustomReport.cs" />
+    <Compile Include="DeletedObject.cs" />
+    <Compile Include="SupportingClasses\DeviceCommand.cs" />
+    <Compile Include="DocumentTypeCustomReport.cs" />
+    <Compile Include="IndirectDeviceSettings.cs" />
+    <Compile Include="PaymentMethodField.cs" />
+    <Compile Include="Attributes\PhysicalDeleteAttribute.cs" />
+    <Compile Include="POSActionLevel.cs" />
+    <Compile Include="POSActionLevelsSet.cs" />
+    <Compile Include="POSStatus.cs" />
+    <Compile Include="RelativeDocumentDetail.cs" />
+    <Compile Include="RelativeDocument.cs" />
+    <Compile Include="ReportCategory.cs" />
+    <Compile Include="ReportRole.cs" />
+    <Compile Include="StoreControllerTerminaDeviceAssociation.cs" />
+    <Compile Include="NonPersistant\TotalDetail.cs" />
+    <Compile Include="TransferPurpose.cs" />
+    <Compile Include="TransformationRule.cs" />
+    <Compile Include="Attributes\UniqueFieldsAttribute.cs" />
+    <Compile Include="COMDeviceSettings.cs" />
+    <Compile Include="SupplierNew.cs" />
+    <Compile Include="NonPersistant\absAnalyticTree.cs" />
+    <Compile Include="ControllerMessage.cs" />
+    <Compile Include="CustomerPopoularItems.cs" />
+    <Compile Include="POSDevice.cs" />
+    <Compile Include="DeviceSettings.cs" />
+    <Compile Include="EthernetDeviceSettings.cs" />
+    <Compile Include="FormMessage.cs" />
+    <Compile Include="FormMessageDetail.cs" />
+    <Compile Include="SupportingClasses\IAnalyticTree.cs" />
+    <Compile Include="EntityFieldAccessPermission.cs" />
+    <Compile Include="ItemBarcode.cs" />
+    <Compile Include="ItemSpecification.cs" />
+    <Compile Include="LPTDeviceSettings.cs" />
+    <Compile Include="OPOSDeviceSettings.cs" />
+    <Compile Include="OPOSPrinterSettings.cs" />
+    <Compile Include="POS.cs" />
+    <Compile Include="POSKeysLayout.cs" />
+    <Compile Include="POSLayout.cs" />
+    <Compile Include="POSKeyMapping.cs" />
+    <Compile Include="POSPrintFormat.cs" />
+    <Compile Include="PrinterLogoLocation.cs" />
+    <Compile Include="PrinterStation.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="StoreControllerSettings.cs" />
+    <Compile Include="TableVersion.cs" />
+    <Compile Include="NonPersistant\Terminal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TerminalDevice.cs" />
+    <Compile Include="NonPersistant\TerminalDeviceAssociation.cs" />
+    <Compile Include="NonPersistant\Translation.cs" />
+    <Compile Include="NonPersistant\MLString.cs" />
+    <Compile Include="StoreAnalyticTree.cs" />
+    <Compile Include="StoreCategory.cs" />
+    <Compile Include="DataFileRecordDetail.cs" />
+    <Compile Include="DataFileRecordHeader.cs" />
+    <Compile Include="DecodedRawData.cs" />
+    <Compile Include="DataFileReceived.cs" />
+    <Compile Include="DailyTotals.cs" />
+    <Compile Include="DailyTotalsDetail.cs" />
+    <Compile Include="ItemStore.cs" />
+    <Compile Include="UnreferencedDocumentDetail.cs" />
+    <Compile Include="Attributes\UpdaterAttribute.cs" />
+    <Compile Include="UpdaterMode.cs" />
+    <Compile Include="UserDailyTotals.cs" />
+    <Compile Include="UserDailyTotalsDetail.cs" />
+    <Compile Include="DocumentPayment.cs" />
+    <Compile Include="LinkedItem.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="CustomerAnalyticTree.cs" />
+    <Compile Include="CustomerCategory.cs" />
+    <Compile Include="CustomerCategoryDiscount.cs" />
+    <Compile Include="CustomerStorePriceList.cs" />
+    <Compile Include="DeliveryType.cs" />
+    <Compile Include="Division.cs" />
+    <Compile Include="DocumentDetail.cs" />
+    <Compile Include="DocumentHeader.cs" />
+    <Compile Include="DocumentSequence.cs" />
+    <Compile Include="DocumentSeries.cs" />
+    <Compile Include="DocumentStatus.cs" />
+    <Compile Include="EntityAccessPermision.cs" />
+    <Compile Include="FieldPermission.cs" />
+    <Compile Include="SupportingClasses\GlobalSettings.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="CategoryNode.cs" />
+    <Compile Include="ItemAnalyticTree.cs" />
+    <Compile Include="ItemCategory.cs" />
+    <Compile Include="Attributes\LocalizedDisplayNameAttribute.cs" />
+    <Compile Include="ItemStock.cs" />
+    <Compile Include="Offer.cs" />
+    <Compile Include="OfferDetail.cs" />
+    <Compile Include="Permission.cs" />
+    <Compile Include="Phone.cs" />
+    <Compile Include="PriceCatalog.cs" />
+    <Compile Include="PriceCatalogDetail.cs" />
+    <Compile Include="CompaniesGroup.cs" />
+    <Compile Include="MemberType.cs" />
+    <Compile Include="PaymentMethod.cs" />
+    <Compile Include="PhoneType.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RoleEntityAccessPermision.cs" />
+    <Compile Include="Seasonality.cs" />
+    <Compile Include="Store.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StoreDocumentSeriesType.cs" />
+    <Compile Include="StorePriceList.cs" />
+    <Compile Include="CompanyNew.cs" />
+    <Compile Include="TablePermission.cs" />
+    <Compile Include="MeasurementUnit.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="DocumentType.cs" />
+    <Compile Include="NonPersistant\Lookup2Fields.cs" />
+    <Compile Include="NonPersistant\LookupField.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trader.cs" />
+    <Compile Include="UserTypeAccess.cs" />
+    <Compile Include="VatCategory.cs" />
+    <Compile Include="VatFactor.cs" />
+    <Compile Include="VatLevel.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Attributes\vGreaterThanDate.cs" />
+    <Compile Include="Attributes\vRequiredAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Discounts.cd" />
+    <None Include="packages.config" />
+    <None Include="POSClassDiagram.cd" />
+    <None Include="Promotions.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="__RetailModel.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.ResourcesLib\ITS.Retail.ResourcesLib.csproj">
+      <Project>{20714dcf-9571-4681-9c21-6659426c3f33}</Project>
+      <Name>ITS.Retail.ResourcesLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Connectors\ITS.Retail.Platform.Common.csproj">
+      <Project>{29032d9c-3ec3-425a-9492-3a448db0c06a}</Project>
+      <Name>ITS.Retail.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Kernel\ITS.Retail.Platform.Kernel.csproj">
+      <Project>{522ccf3a-1113-47f9-b8b5-1ee6bbaa161b}</Project>
+      <Name>ITS.Retail.Platform.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.WRM.Model.Interface\ITS.WRM.Model.Interface.csproj">
+      <Project>{8758AB70-DDA1-422C-AE2A-F3E308F3DEC6}</Project>
+      <Name>ITS.WRM.Model.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

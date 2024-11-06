@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D12BF73-53C7-4C90-ADFD-26654D6FE4D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.Platform.Enumerations</RootNamespace>
+    <AssemblyName>ITS.Retail.Platform.Enumerations</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ITSStrong.key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NLog.4.2.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionParametersAttribute.cs" />
+    <Compile Include="ApplicationStatus.cs" />
+    <Compile Include="Attributes\ActionTypeInfoAttribute.cs" />
+    <Compile Include="Attributes\AvailabeTraderTypeAttribute.cs" />
+    <Compile Include="Attributes\IsCashRegisterAttribute.cs" />
+    <Compile Include="BarcodeParsingResult.cs" />
+    <Compile Include="ComparisonOperator.cs" />
+    <Compile Include="DataBaseConnectionType.cs" />
+    <Compile Include="eApplicationInstance.cs" />
+    <Compile Include="eCashRegisterItemStatus.cs" />
+    <Compile Include="eCashCountRecordTypes.cs" />
+    <Compile Include="eDocumentDetailPrintdescription.cs" />
+    <Compile Include="eDocumentTraderType.cs" />
+    <Compile Include="eFiscalResponseType.cs" />
+    <Compile Include="eGroupOperatorType.cs" />
+    <Compile Include="ePermition.cs" />
+    <Compile Include="ePOSDbType.cs" />
+    <Compile Include="eStoreControllerCommand.cs" />
+    <Compile Include="eTotalizersUpdateMode.cs" />
+    <Compile Include="eUserParameterType.cs" />
+    <Compile Include="GeneratedCouponStatus.cs" />
+    <Compile Include="GridNavigationDirection.cs" />
+    <Compile Include="ItemStockAffectionOptions.cs" />
+    <Compile Include="KernelLogLevel.cs" />
+    <Compile Include="POSFileDocumentHeaderStatus.cs" />
+    <Compile Include="PriceCatalogSearchMethod.cs" />
+    <Compile Include="PriceType.cs" />
+    <Compile Include="PrintResult.cs" />
+    <Compile Include="VariableDisplayValuesMode.cs" />
+    <Compile Include="VariableReplaceMethod.cs" />
+    <Compile Include="B2CPaymentMethodType.cs" />
+    <Compile Include="ConnectionType.cs" />
+    <Compile Include="CouponAmountIsAppliedAs.cs" />
+    <Compile Include="CouponAmountType.cs" />
+    <Compile Include="CouponAppliesOn.cs" />
+    <Compile Include="CouponCanBeUsedMessage.cs" />
+    <Compile Include="DatabaseAction.cs" />
+    <Compile Include="DaysOfWeek.cs" />
+    <Compile Include="DeviceType.cs" />
+    <Compile Include="DeviceTypeAttribute.cs" />
+    <Compile Include="DocumentSource.cs" />
+    <Compile Include="eCultureInfo.cs" />
+    <Compile Include="eCurrencyPattern.cs" />
+    <Compile Include="eDeviceCheckResult.cs" />
+    <Compile Include="eDeviceSpecificType.cs" />
+    <Compile Include="eDirection.cs" />
+    <Compile Include="eDiscountSource.cs" />
+    <Compile Include="eDiscountType.cs" />
+    <Compile Include="eDocTypeCustomerCategory.cs" />
+    <Compile Include="eDocumentAdvancedFormMode.cs" />
+    <Compile Include="eDocumentType.cs" />
+    <Compile Include="eDocumentTypeItemCategory.cs" />
+    <Compile Include="eDocumentTypeMeasurementUnit.cs" />
+    <Compile Include="eDocumentTypeView.cs" />
+    <Compile Include="eDocumentValueFactor.cs" />
+    <Compile Include="eDXCallbackArgument.cs" />
+    <Compile Include="eEntryMode.cs" />
+    <Compile Include="eForcedWithdrawMode.cs" />
+    <Compile Include="eFormatType.cs" />
+    <Compile Include="eItemCustomPriceOptions.cs" />
+    <Compile Include="eItemExecutionMode.cs" />
+    <Compile Include="eLoyaltyRefundType.cs" />
+    <Compile Include="eMaritalStatus.cs" />
+    <Compile Include="eMeasurementUnitType.cs" />
+    <Compile Include="eModule.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="eOwnershipScope.cs" />
+    <Compile Include="ePaymentMethod.cs" />
+    <Compile Include="ePosCommand.cs" />
+    <Compile Include="ePOSDocumentTypes.cs" />
+    <Compile Include="ePriceSuggestionType.cs" />
+    <Compile Include="ePrintType.cs" />
+    <Compile Include="ePromotionExecutionPriority.cs" />
+    <Compile Include="ePromotionResultExecutionPlan.cs" />
+    <Compile Include="eReprintZReportsMode.cs" />
+    <Compile Include="eRoleType.cs" />
+    <Compile Include="eServiceResponce.cs" />
+    <Compile Include="eSex.cs" />
+    <Compile Include="eStatusLabelType.cs" />
+    <Compile Include="eStoreDailyReportDocHeaderType.cs" />
+    <Compile Include="eStoreDocumentType.cs" />
+    <Compile Include="eTraderType.cs" />
+    <Compile Include="eTransformationLevel.cs" />
+    <Compile Include="eTransformationStatus.cs" />
+    <Compile Include="eUpdateDirection.cs" />
+    <Compile Include="eUpdaterMode.cs" />
+    <Compile Include="DeviceResult.cs" />
+    <Compile Include="eActions.cs" />
+    <Compile Include="eAlignment.cs" />
+    <Compile Include="eCondition.cs" />
+    <Compile Include="eDailyRecordTypes.cs" />
+    <Compile Include="eDisplayMode.cs" />
+    <Compile Include="eDivision.cs" />
+    <Compile Include="eDownloadingStatus.cs" />
+    <Compile Include="eFiscalDevice.cs" />
+    <Compile Include="eFiscalMethod.cs" />
+    <Compile Include="eIdentifier.cs" />
+    <Compile Include="eKeyStatus.cs" />
+    <Compile Include="eLocale.cs" />
+    <Compile Include="eMachineStatus.cs" />
+    <Compile Include="eNavigation.cs" />
+    <Compile Include="eNotificationsTypes.cs" />
+    <Compile Include="eOpenDrawerMode.cs" />
+    <Compile Include="ePOSUserLevel.cs" />
+    <Compile Include="eReportType.cs" />
+    <Compile Include="eSource.cs" />
+    <Compile Include="eTotlaizorAction.cs" />
+    <Compile Include="eUploadingStatus.cs" />
+    <Compile Include="eWizardAction.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FiscalDeviceAttribute.cs" />
+    <Compile Include="FiscalMethodAttribute.cs" />
+    <Compile Include="Fiscal\eSalesType.cs" />
+    <Compile Include="LibraryFileNameAttribute.cs" />
+    <Compile Include="eMinistryVatCategoryCode.cs" />
+    <Compile Include="LicenseServerInstance.cs" />
+    <Compile Include="LogLevel.cs" />
+    <Compile Include="MessageType.cs" />
+    <Compile Include="MicrelecStatusCode.cs" />
+    <Compile Include="NumericType.cs" />
+    <Compile Include="OPOSErrorCode.cs" />
+    <Compile Include="PaddingDirection.cs" />
+    <Compile Include="PayPalMode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScaleCommunicationType.cs" />
+    <Compile Include="SupportedConnectionsAttribute.cs" />
+    <Compile Include="TotalizerAction.cs" />
+    <Compile Include="UserType.cs" />
+    <Compile Include="eViewType.cs" />
+    <Compile Include="VariableMethods.cs" />
+    <Compile Include="ActionEntityCategory.cs" />
+    <Compile Include="VariableSource.cs" />
+    <Compile Include="ViewModel\InsertedCustomerViewModel.cs" />
+    <Compile Include="WincorFiscalPrinterStatusCode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\POS\ITS.POS.Resources\ITS.POS.Resources.csproj">
+      <Project>{f99f8098-bb66-494b-83ce-b70de3e35538}</Project>
+      <Name>ITS.POS.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.ResourcesLib\ITS.Retail.ResourcesLib.csproj">
+      <Project>{20714dcf-9571-4681-9c21-6659426c3f33}</Project>
+      <Name>ITS.Retail.ResourcesLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ITSStrong.key.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(TargetPath) $(SolutionDir)ITS\Retail\DesktopClient\ITS.OfficeManager.Loader\ITS.OfficeManager.Loader\references\  /y
+
+xcopy $(TargetPath) $(SolutionDir)ITS\POS\Fiscal\ITS.POS.Fiscal.GUI\reference\  /y
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

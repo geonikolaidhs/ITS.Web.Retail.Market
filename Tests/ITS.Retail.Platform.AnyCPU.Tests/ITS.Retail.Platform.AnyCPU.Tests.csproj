@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{794E711C-A517-4955-B7AF-17DCA9716D0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.Platform.Tests</RootNamespace>
+    <AssemblyName>ITS.Retail.Platform.AnyCPU.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebDriver">
+      <HintPath>..\..\packages\Selenium.WebDriver.2.43.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\..\packages\Selenium.Support.2.43.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fixtures\PosCommonFixture.cs" />
+    <Compile Include="POS\CustomerServiceTests.cs" />
+    <Compile Include="POS\DocumentServiceTests.cs" />
+    <Compile Include="POS\MockSessionManager.cs" />
+    <Compile Include="POS\ItemServiceTests.cs" />
+    <Compile Include="POS\PromotionServiceTests.cs" />
+    <Compile Include="POS\ScannedCodeHandlerTests.cs" />
+    <Compile Include="POS\TotalizersServiceTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\UpdaterTests.cs" />
+    <Compile Include="MemoryXpoHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ITS\POS\Client\ITS.POS.Client.Exceptions\ITS.POS.Client.Exceptions.csproj">
+      <Project>{39b5d2e6-a62a-4496-a7a4-7ad4778091f9}</Project>
+      <Name>ITS.POS.Client.Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\POS\Client\ITS.POS.Client\ITS.POS.Client.csproj">
+      <Project>{1cdde1a0-6186-4c9d-93c6-11c4e6a0bc71}</Project>
+      <Name>ITS.POS.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\POS\Hardware\ITS.POS.Hardware.Common\ITS.POS.Hardware.Common.csproj">
+      <Project>{b9021d8b-0f2e-478c-b5b8-168619cce217}</Project>
+      <Name>ITS.POS.Hardware.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\POS\Model\ITS.POS.Model.Master\ITS.POS.Model.Master.csproj">
+      <Project>{b5ae2cbb-bb0c-4df1-9ce9-4c4f6c63f8a9}</Project>
+      <Name>ITS.POS.Model.Master</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\POS\Model\ITS.POS.Model.Settings\ITS.POS.Model.Settings.csproj">
+      <Project>{36d162be-1c48-46f1-a054-99908e911373}</Project>
+      <Name>ITS.POS.Model.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\POS\Model\ITS.POS.Model.Trasactions\ITS.POS.Model.Transactions.csproj">
+      <Project>{efd85f17-5080-46e7-b882-18a1450dbd95}</Project>
+      <Name>ITS.POS.Model.Transactions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\POS\Model\ITS.POS.Model.Versions\ITS.POS.Model.Versions.csproj">
+      <Project>{fcc13fcf-2f08-4529-a169-872abc82c6d8}</Project>
+      <Name>ITS.POS.Model.Versions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Libraries\ITS.Retail.Common\ITS.Retail.Common.csproj">
+      <Project>{d177ff14-b965-46c4-bd1e-15d9b5bfae08}</Project>
+      <Name>ITS.Retail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Libraries\ITS.Retail.ResourcesLib\ITS.Retail.ResourcesLib.csproj">
+      <Project>{20714dcf-9571-4681-9c21-6659426c3f33}</Project>
+      <Name>ITS.Retail.ResourcesLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Model\ITS.Retail.Model\ITS.Retail.Model.csproj">
+      <Project>{c01666bd-1b8b-474a-9937-6b16fcde68b5}</Project>
+      <Name>ITS.Retail.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Platform\ITS.Retail.Platform.Connectors\ITS.Retail.Platform.Common.csproj">
+      <Project>{29032d9c-3ec3-425a-9492-3a448db0c06a}</Project>
+      <Name>ITS.Retail.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Platform\ITS.Retail.Platform.Kernel\ITS.Retail.Platform.Kernel.csproj">
+      <Project>{522ccf3a-1113-47f9-b8b5-1ee6bbaa161b}</Project>
+      <Name>ITS.Retail.Platform.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\Tools\ITS.Retail.MigrationTool\ITS.Retail.MigrationTool.csproj">
+      <Project>{7b508abe-4aaf-4669-9276-9aa98d5edd71}</Project>
+      <Name>ITS.Retail.MigrationTool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ITS\Retail\WebClient\ITS.Retail.WebClient.Helpers\ITS.Retail.WebClient.Helpers.csproj">
+      <Project>{58b0f2a3-13ca-4262-b654-bac8a5c568cc}</Project>
+      <Name>ITS.Retail.WebClient.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Kernel\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*" "$(SolutionDir)Tests\Test Assemblies\" /y</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

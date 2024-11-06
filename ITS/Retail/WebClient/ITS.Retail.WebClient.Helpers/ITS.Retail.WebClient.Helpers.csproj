@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{58B0F2A3-13CA-4262-B654-BAC8A5C568CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.WebClient.Helpers</RootNamespace>
+    <AssemblyName>ITS.Retail.WebClient.Helpers</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CsQuery">
+      <HintPath>..\..\..\..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Docs.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Mvc5.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v15.2.Wizard, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v15.2.UI, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v15.2.UI, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.2.Extensions, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="ITS.Licensing.Client.Core">
+      <HintPath>..\ITS.Retail.WebClient.Licensing\LicensingLibraries\ITS.Licensing.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ITS.Licensing.Common.Implementations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ITS.Retail.WebClient.Licensing\LicensingLibraries\ITS.Licensing.Common.Implementations.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-AnyCPU, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\Magick.NET-Q8-AnyCPU.6.8.9.601\lib\net40-client\Magick.NET-AnyCPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\Npgsql.2.0.14.2\lib\net40\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NLog.4.2.3\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.0.14.2, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\Npgsql.2.0.14.2\lib\net40\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
+    <Reference Include="PreMailer.Net">
+      <HintPath>..\..\..\..\packages\PreMailer.Net.1.3.0\lib\net40\PreMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="ActionTypeHelper.cs" />
+    <Compile Include="AddressHelper.cs" />
+    <Compile Include="AppiSettings.cs" />
+    <Compile Include="AuxilliaryClasses\DocumentVatInfo.cs" />
+    <Compile Include="AuxilliaryClasses\GenericViewModel.cs" />
+    <Compile Include="AuxilliaryClasses\GenericViewRuleset.cs" />
+    <Compile Include="AuxilliaryClasses\LogErrorMessage.cs" />
+    <Compile Include="AuxilliaryClasses\PriceCatalogPolicyPriceResult.cs" />
+    <Compile Include="AuxilliaryClasses\ProductQuantity.cs" />
+    <Compile Include="AuxilliaryClasses\Reevaluate.cs" />
+    <Compile Include="AuxilliaryClasses\WeightedBarcodeInfo.cs" />
+    <Compile Include="B2CHelper.cs" />
+    <Compile Include="BridgeHelper.cs" />
+    <Compile Include="BusinessLogic.cs" />
+    <Compile Include="CompressionHelper.cs" />
+    <Compile Include="ConnectionHelper.cs" />
+    <Compile Include="CouponHelper.cs" />
+    <Compile Include="CultureHelper.cs" />
+    <Compile Include="CustomerHelper.cs" />
+    <Compile Include="DialogOptions.cs" />
+    <Compile Include="DiscountHelper.cs" />
+    <Compile Include="DocumentHelper.cs" />
+    <Compile Include="DocumentPermissionHelper.cs" />
+    <Compile Include="DocumentSeriesHelper.cs" />
+    <Compile Include="DocumentTypeHelper.cs" />
+    <Compile Include="DynamicComboBoxDatasourceBuilder.cs" />
+    <Compile Include="eDocumentFields.cs" />
+    <Compile Include="EnumerationHelper.cs" />
+    <Compile Include="EnumTranslationHelper.cs" />
+    <Compile Include="ePermition.cs" />
+    <Compile Include="ExcelWriter.cs" />
+    <Compile Include="Exceptions\DocumentSequenceSyncException.cs" />
+    <Compile Include="Factories\CashRegisterFactory.cs" />
+    <Compile Include="FormMessageHelper.cs" />
+    <Compile Include="GenericViewHelper.cs" />
+    <Compile Include="GridExportHelper.cs" />
+    <Compile Include="HeaderOptions.cs" />
+    <Compile Include="HtmlCustomButtonOptions.cs" />
+    <Compile Include="ItemHelper.cs" />
+    <Compile Include="ItemStockHelper.cs" />
+    <Compile Include="ITSLogHelper.cs" />
+    <Compile Include="JSHelper.cs" />
+    <Compile Include="LicenseUserDistributionHelper.cs" />
+    <Compile Include="LoginHelper.cs" />
+    <Compile Include="MailHelper.cs" />
+    <Compile Include="MaskHelper.cs" />
+    <Compile Include="PaymentFieldHelper.cs" />
+    <Compile Include="POSHelper.cs" />
+    <Compile Include="PriceCatalogHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportHelper.cs" />
+    <Compile Include="RetailAtStoreHelper.cs" />
+    <Compile Include="RetailHelper.cs" />
+    <Compile Include="ScaleExportHelper.cs" />
+    <Compile Include="SelectedItemsQty.cs" />
+    <Compile Include="SliderHelper.cs" />
+    <Compile Include="SpreadsheetUtils.cs" />
+    <Compile Include="StoreControllerAppiSettings.cs" />
+    <Compile Include="StoreDailyReportHelper.cs" />
+    <Compile Include="StoreHelper.cs" />
+    <Compile Include="HtmlButtonOptions.cs" />
+    <Compile Include="SyncronizationInfoHelper.cs" />
+    <Compile Include="ToolbarOptions.cs" />
+    <Compile Include="ToolsHelper.cs" />
+    <Compile Include="TraderHelper.cs" />
+    <Compile Include="TransferPurposeHelper.cs" />
+    <Compile Include="TreeHelper.cs" />
+    <Compile Include="UserHelper.cs" />
+    <Compile Include="VersionHelper.cs" />
+    <Compile Include="WebServicesHelpers\POSCommandDescription.cs" />
+    <Compile Include="WebServicesHelpers\POSCommandSet.cs" />
+    <Compile Include="WebServicesHelpers\RetailStoreControllerHelper.cs" />
+    <Compile Include="WebServicesHelpers\SerializableTuple.cs" />
+    <Compile Include="WebServicesHelpers\SyncCriteriaHelper.cs" />
+    <Compile Include="WebServicesHelpers\UpdaterServiceHelper.cs" />
+    <Compile Include="Wizard.cs" />
+    <Compile Include="WizardActionEventArgs.cs" />
+    <Compile Include="WizardOptions.cs" />
+    <Compile Include="WizardStepOptions.cs" />
+    <Compile Include="WizardStep.cs" />
+    <Compile Include="XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\ITS.Common.Communication\ITS.Common.Communication.csproj">
+      <Project>{BD9774DE-1839-47C2-9068-EBA1E0151CF2}</Project>
+      <Name>ITS.Common.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\POS\Hardware\ITS.POS.Hardware.Common\ITS.POS.Hardware.Common.csproj">
+      <Project>{b9021d8b-0f2e-478c-b5b8-168619cce217}</Project>
+      <Name>ITS.POS.Hardware.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\POS\Hardware\ITS.POS.Hardware.RBSPOSEliot.CashRegister\ITS.Hardware.RBSPOSEliot.CashRegister.csproj">
+      <Project>{0d68835f-0319-4dac-884b-13b5a5c1efed}</Project>
+      <Name>ITS.Hardware.RBSPOSEliot.CashRegister</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\POS\Hardware\ITS.POS.Hardware\ITS.POS.Hardware.csproj">
+      <Project>{fb9530ba-a2bf-4561-8247-ba8f08713914}</Project>
+      <Name>ITS.POS.Hardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\ITS.Retail.Model\ITS.Retail.Model.csproj">
+      <Project>{C01666BD-1B8B-474A-9937-6B16FCDE68B5}</Project>
+      <Name>ITS.Retail.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\External\SevenZip\LZMA\LZMA.csproj">
+      <Project>{04A7E605-70BC-4A97-8F56-00A3F59BCC1D}</Project>
+      <Name>LZMA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.ResourcesLib\ITS.Retail.ResourcesLib.csproj">
+      <Project>{20714DCF-9571-4681-9C21-6659426C3F33}</Project>
+      <Name>ITS.Retail.ResourcesLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\ITS.Retail.Common\ITS.Retail.Common.csproj">
+      <Project>{D177FF14-B965-46C4-BD1E-15D9B5BFAE08}</Project>
+      <Name>ITS.Retail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Connectors\ITS.Retail.Platform.Common.csproj">
+      <Project>{29032d9c-3ec3-425a-9492-3a448db0c06a}</Project>
+      <Name>ITS.Retail.Platform.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Platform\ITS.Retail.Platform.Kernel\ITS.Retail.Platform.Kernel.csproj">
+      <Project>{522ccf3a-1113-47f9-b8b5-1ee6bbaa161b}</Project>
+      <Name>ITS.Retail.Platform.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tools\ITS.Retail.PrintServer.Common\ITS.Retail.PrintServer.Common.csproj">
+      <Project>{F8E5C308-076E-4C0D-8EAF-D59DA382174E}</Project>
+      <Name>ITS.Retail.PrintServer.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tools\ITS.Retail.PrintServer.Service\ITS.Retail.PrintServer.Service.csproj">
+      <Project>{1A92B6B8-8318-49E3-8F17-6046542D67B3}</Project>
+      <Name>ITS.Retail.PrintServer.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.Retail.WebClient.Licensing\ITS.Retail.WebClient.Licensing.csproj">
+      <Project>{1CC4ED43-16CB-4607-B63F-17C14EC5CB57}</Project>
+      <Name>ITS.Retail.WebClient.Licensing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Promotions\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

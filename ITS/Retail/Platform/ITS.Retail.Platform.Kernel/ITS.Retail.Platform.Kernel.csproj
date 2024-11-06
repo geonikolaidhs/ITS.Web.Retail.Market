@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{522CCF3A-1113-47F9-B8B5-1EE6BBAA161B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITS.Retail.Platform.Kernel</RootNamespace>
+    <AssemblyName>ITS.Retail.Platform.Kernel</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Libraries\ITS.Retail.ResourcesLib\AssemblyVersionInfo.cs">
+      <Link>AssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="DocumentNegativeTotalException.cs" />
+    <Compile Include="Model\ICompany.cs" />
+    <Compile Include="Model\ICustomerCategory.cs" />
+    <Compile Include="Model\IDivision.cs" />
+    <Compile Include="Model\IDocumentPayment.cs" />
+    <Compile Include="Model\IItemCategory.cs" />
+    <Compile Include="Model\ILeaflet.cs" />
+    <Compile Include="Model\IPaymentMethod.cs" />
+    <Compile Include="Model\IPriceCatalogDetail.cs" />
+    <Compile Include="Model\IPriceCatalogDetailTimeValue.cs" />
+    <Compile Include="Model\IPriceCatalogPolicy.cs" />
+    <Compile Include="Model\IPriceCatalogPolicyDetail.cs" />
+    <Compile Include="Model\IPriceCatalogPolicyPromotion.cs" />
+    <Compile Include="Model\IPromotionApplicationRuleDetail.cs" />
+    <Compile Include="Model\IPromotionApplicationRuleDetailCustomDataViewCondition.cs" />
+    <Compile Include="Model\IPromotionApplicationRuleDetailCustomDataViewParameter.cs" />
+    <Compile Include="Model\IPromotionCustomDataViewApplicationRule.cs" />
+    <Compile Include="Model\IPromotionCustomerApplicationRule.cs" />
+    <Compile Include="Model\IPromotionCustomerCategoryApplicationRule.cs" />
+    <Compile Include="Model\IPromotionDocumentApplicationRule.cs" />
+    <Compile Include="Model\IPromotionPriceCatalogApplicationRule.cs" />
+    <Compile Include="Model\IPromotionPriceCatalogExecution.cs" />
+    <Compile Include="Model\IRole.cs" />
+    <Compile Include="Model\IStore.cs" />
+    <Compile Include="Model\IStorePriceCatalogPolicy.cs" />
+    <Compile Include="Model\ITransactionCoupon.cs" />
+    <Compile Include="Model\IUser.cs" />
+    <Compile Include="PlatformPersistentObjectMap.cs" />
+    <Compile Include="PlatformDocumentDiscountService.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="IPlatformDocumentDiscountService.cs" />
+    <Compile Include="IPlatformPersistentObjectMap.cs" />
+    <Compile Include="IPlatformRoundingHandler.cs" />
+    <Compile Include="Model\IAnalyticTree.cs" />
+    <Compile Include="Model\ICustomer.cs" />
+    <Compile Include="Model\ICustomerAnalyticTree.cs" />
+    <Compile Include="Model\IDiscountType.cs" />
+    <Compile Include="Model\IItemAnalyticTree.cs" />
+    <Compile Include="Model\ILookup2Fields.cs" />
+    <Compile Include="Model\ILookupField.cs" />
+    <Compile Include="Model\IPriceCatalogPromotion.cs" />
+    <Compile Include="Model\IPromotionApplicationRule.cs" />
+    <Compile Include="Model\IPromotionApplicationRuleGroup.cs" />
+    <Compile Include="Model\IPromotionDocumentExecution.cs" />
+    <Compile Include="Model\IPromotionExecution.cs" />
+    <Compile Include="Model\IPromotionItemApplicationRule.cs" />
+    <Compile Include="Model\IPromotionItemCategoryApplicationRule.cs" />
+    <Compile Include="Model\IPromotionItemCategoryExecution.cs" />
+    <Compile Include="Model\IPromotionItemExecution.cs" />
+    <Compile Include="PlatformPriceCatalogDetailService.cs" />
+    <Compile Include="PlatformPromotionService.cs" />
+    <Compile Include="IIntermediateDocumentService.cs" />
+    <Compile Include="IPlatformPromotionService.cs" />
+    <Compile Include="IKernel.cs" />
+    <Compile Include="IKernelModule.cs" />
+    <Compile Include="Model\ICategoryNode.cs" />
+    <Compile Include="Model\IDocumentDetail.cs" />
+    <Compile Include="Model\IDocumentDetailDiscount.cs" />
+    <Compile Include="Model\IDocumentHeader.cs" />
+    <Compile Include="Model\IDocumentPromotion.cs" />
+    <Compile Include="Model\IOwnerApplicationSettings.cs" />
+    <Compile Include="Model\IPersistentObject.cs" />
+    <Compile Include="Model\IPriceCatalog.cs" />
+    <Compile Include="Model\IPromotion.cs" />
+    <Compile Include="IIntermediateModelManager.cs" />
+    <Compile Include="Promotions\DenormalizedCategory.cs" />
+    <Compile Include="Promotions\DenormalizedDocumentDataLine.cs" />
+    <Compile Include="Promotions\IPromotionConstrain.cs" />
+    <Compile Include="Promotions\IPromotionCriteria.cs" />
+    <Compile Include="Promotions\PromotionAndCriteria.cs" />
+    <Compile Include="Promotions\PromotionCustomerCategoryCriteria.cs" />
+    <Compile Include="Promotions\PromotionCustomerCriteria.cs" />
+    <Compile Include="Promotions\PromotionDocumentConstrain.cs" />
+    <Compile Include="Promotions\PromotionDocumentCriteria.cs" />
+    <Compile Include="Promotions\PromotionItemCategoryConstrain.cs" />
+    <Compile Include="Promotions\PromotionItemCategoryCriteria.cs" />
+    <Compile Include="Promotions\PromotionItemConstrain.cs" />
+    <Compile Include="Promotions\PromotionItemCriteria.cs" />
+    <Compile Include="Promotions\PromotionNotCriteria.cs" />
+    <Compile Include="Promotions\PromotionOrCriteria.cs" />
+    <Compile Include="Promotions\PromotionPriceCatalogConstrain.cs" />
+    <Compile Include="Promotions\PromotionPriceCatalogCriteria.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PlatformRoundingHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\POS\ITS.POS.Resources\ITS.POS.Resources.csproj">
+      <Project>{f99f8098-bb66-494b-83ce-b70de3e35538}</Project>
+      <Name>ITS.POS.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ITS.Retail.Platform.Enumerations\ITS.Retail.Platform.Enumerations.csproj">
+      <Project>{0d12bf73-53c7-4c90-adfd-26654d6fe4d4}</Project>
+      <Name>ITS.Retail.Platform.Enumerations</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
