@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.Licensing.LicenseModel.Customer">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.License">
+    <Position X="9" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQAAAAAAEAEAIJAAAAAAAAABCAEAAAIAAAgAAAAAEAA=</HashCode>
+      <FileName>License.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.SerialNumber">
+    <Position X="10.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAEAAJABEBAAQJAAAEAAAAAAAAAAIAgABAAggEQAAIA=</HashCode>
+      <FileName>SerialNumber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.ApplicationInfo">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAgIAEAIAAIAAIQAAAAQAMAAEAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>ApplicationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.ApplicationVersion">
+    <Position X="0.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAAAAQQAAAE=</HashCode>
+      <FileName>ApplicationVersion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.ValidationRule">
+    <Position X="7.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAIAAAAAAAAAAAQEAAAAAAACAAAAAAAQ=</HashCode>
+      <FileName>ValidationRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.Rule">
+    <Position X="5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAAAAAgAJAAAAAAEAAAAAEAAAAEAAAgAAAEpAA=</HashCode>
+      <FileName>Rule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Licensing.LicenseModel.BasicObj">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEABEACAAAIAAQAAAAIAAAAACCAVAIAEAAAAgAAE=</HashCode>
+      <FileName>BasicObj.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "CloseWindowWithReload";
+}
+
+<script>
+    self.opener.refreshgrid();
+    //setTimeout("window.close()",150); //This in case we want to delay closing window
+    window.close();
+</script>

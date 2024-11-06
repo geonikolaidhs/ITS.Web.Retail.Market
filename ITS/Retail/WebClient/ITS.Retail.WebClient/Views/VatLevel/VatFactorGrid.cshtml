@@ -1,0 +1,241 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    settings.Name = "grdVatFactor";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+
+    if ((bool)ViewData["TableCanUpdate"] || (bool)ViewData["TableCanDelete"] || (bool)ViewData["TableCanInsert"])
+    {
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                if ((bool)ViewData["TableCanUpdate"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+                if ((bool)ViewData["TableCanDelete"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                if ((bool)ViewData["TableCanInsert"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\" title=\"" + Resources.New + "\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+            });
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+    }
+    settings.Columns.Add( col => {
+            col.FieldName ="Code";
+            col.Caption = Resources.Code;
+        
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Factor";
+        col.Caption = Resources.Factor;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.PropertiesEdit.DisplayFormatString = "0.00%";
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "VatLevel.Description";
+        column.Caption = Resources.VatLevel;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "VatCategory.Description";
+        column.Caption = Resources.VatCategory;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsDefault";
+        col.Caption = Resources.Default;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false; 
+    settings.Settings.ShowFilterRowMenu = true; 
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "VatLevel", Action = "VatFactorGrid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(60);
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "VatLevel", Action = "VatFactorInlineEditingAddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "VatLevel", Action = "VatFactorInlineEditingUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "VatLevel", Action = "VatFactorInlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.CommandColumn.Width = 150;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.VatFactors;
+    //settings.ClientSideEvents.BeginCallback = "VatFactorBeginCallback";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsText.PopupEditFormCaption = Resources.VatFactors;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "VatFactorsBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "VatFactorsCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+       
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Code + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).Bind(DataBinder.Eval(item, "Code")).Render();
+       
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Factor + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "Factor";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+            edtSettings.Properties.MaskSettings.Mask = "<0..999>.<0..999>%";
+            edtSettings.Properties.DisplayFormatInEditMode = true;
+            edtSettings.Properties.MaskSettings.IncludeLiterals = MaskIncludeLiteralsMode.DecimalSymbol;
+        }).Bind((DataBinder.Eval(item, "Factor")) == null ? "" : (DataBinder.Eval(item, "Factor"))*100).Render();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.VatLevel + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "VatLevelCb";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).BindList(ViewBag.VatLevelComboBox).Bind(DataBinder.Eval(item, "VatLevel!Key")).Render();
+        
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.VatCategory + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "VatCategoryCb";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).BindList(ViewBag.VatCategoryComboBox).Bind(DataBinder.Eval(item, "VatCategory!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.Default ;
+            edtSettings.Name = "IsDefault";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "IsDefault") ?? false).Render();
+       
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("</div>");
+    });
+}).Bind(ViewData["VatFactor"]).GetHtml()

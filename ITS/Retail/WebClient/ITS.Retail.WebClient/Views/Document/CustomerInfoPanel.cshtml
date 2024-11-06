@@ -1,0 +1,13 @@
+﻿@using ITS.Retail.Model;
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "customerInfoPanel";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "CustomerInfoPanel" };
+    settings.SettingsLoadingPanel.Enabled = false;
+    settings.SetContent(() =>
+    {
+        @Html.RenderPartial("CustomerInfo");
+    });
+   
+}).GetHtml()

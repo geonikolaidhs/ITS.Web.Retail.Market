@@ -1,0 +1,16 @@
+﻿@Html.DevExpress().TrackBar(settings => 
+{
+    settings.Name = "TopCustomerTrackBar";
+    settings.Properties.ScalePosition = ScalePosition.LeftOrTop;
+    settings.Properties.AllowMouseWheel = false;
+    settings.Width = 390;
+    settings.Properties.ValueToolTipPosition = ValueToolTipPosition.RightOrBottom;
+    settings.Properties.ValueType = typeof(int);
+    settings.Properties.Items.AddRange(new TrackBarItem[] {
+        new TrackBarItem("10",10), new TrackBarItem("20",20),
+        new TrackBarItem("30",30), new TrackBarItem("50",50), new TrackBarItem("100",100)
+    });
+    settings.Position = 0;
+    settings.Properties.EnableClientSideAPI = true;
+    settings.Properties.ClientSideEvents.ValueChanged = "onCustomersFilterChange";
+}).GetHtml()

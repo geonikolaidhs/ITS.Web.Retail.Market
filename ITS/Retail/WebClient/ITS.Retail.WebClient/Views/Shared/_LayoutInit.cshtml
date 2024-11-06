@@ -1,0 +1,98 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@*@using Glimpse.Mvc.Html*@
+
+<!DOCTYPE HTML>
+<!--[if IE]>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<![endif]-->
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+        @Html.Action("LoginStylesAndStaticScripts", "Login")
+        
+        
+        <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+        @Html.DevExpress().GetScripts(
+            new Script { ExtensionSuite = ExtensionSuite.Editors }
+        )
+             @RenderSection("HeaderScriptsAndStyles", required: false)
+        <link href="@Url.Content("~/Content/css/Init.css?ver=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/font-awesome/css/font-awesome.min.css?ver=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css" />               
+        <link href="@Url.Content("~/Content/css/jquery-ui-1.8.21.custom.css")" rel="stylesheet" type="text/css" />
+
+        <script src="@Url.Content("~/Scripts/respond.min.js")" type="text/javascript"></script>
+	    <link rel="shortcut icon" media="all" type="image/x-icon" href="@Url.Content("~/Content/favicon.ico")" />
+        @if (ViewBag.ShowNavigation != null && Boolean.Parse(ViewBag.ShowNavigation.ToString()) == false)
+        {
+            <base target="_self" />
+        }
+        <script>
+            $(document).ready(function () {
+                updateNotifications();
+            });
+
+        </script>
+    </head>
+    <!--[if lt IE 9]>
+        <body class="body_init">
+            <div class="ieError">
+                <div>
+                    <h3>Ενημέρωση χρηστών Internet Explorer</h3>
+                    <p>Ενημερώνουμε οτι η εφαρμογή απαιτεί τη χρήση Internet Explorer 9 ή νεότερο.</p>
+                    <p>Παρακαλούμε σε περίπτωση χρήσης νέων εκδόσεων του Internet Explorer να <STRONG>μήν</STRONG> χρησμοποιείτε τη λειτουργία συμβατότητας (compatibility mode).</p>
+                    <p>Προτείνονται οι παρακάτω δωρεάν σύγχρονοι περιηγητές:</p>
+                    <p><A class=download href="http://www.mozilla.org/en-US/firefox/new/" target=_blank>Mozilla Firefox</A>, <A class=download href="https://www.google.com/intl/en/chrome/browser/" target=_blank>Google Chrome</A>, <A class=download href="http://www.opera.com/computer/windows">Opera Browser</A></p>
+                </div>   
+         </div>
+        </body>
+    <![endif]-->
+    <body class="body_init">
+            <input type="hidden" value="@Url.Content("~")" id="HOME" />
+           
+            <div class="wrapper_init">
+                 <div id="its_info">
+                @{
+                    String url;
+                    CompanyNew owner = ViewBag.Owner as CompanyNew;
+                    if (owner != null && owner.OwnerApplicationSettings != null) { 
+                        url = Url.Content("~/About/Index"); 
+                    } 
+                    else { url = Url.Content("~/About/ItsSA"); }
+                }
+                <a href='@url' ></a>
+                <a id="itslink" href='@Url.Content("~/About/ItsSA")'></a>
+            </div>
+                @Html.Partial("../Notification/NotifyUser") 
+                <div class="container">
+                  @RenderBody()
+                </div>  
+                <div class="push"></div>
+            </div>
+            <div class="footer footer_init">
+                <a href='http://www.its.net.gr/'>@Resources.DesignedDevelopedBy <img src="@Url.Content("~/Content/ITS.png")" /></a>
+                <span id='connectedUsers'></span>
+                @{ string version = @System.Reflection.Assembly.GetAssembly(typeof(ITS.Retail.WebClient.MvcApplication)).GetName().Version.ToString(); }
+                <span>
+                    Ver. @version&nbsp;
+                    @{
+                        string patchFile = Server.MapPath("~/patch.txt");
+                        if (File.Exists(patchFile))
+                        {
+                            string patchVersion;
+                            using (StreamReader reader = new StreamReader(patchFile))
+                            {
+                                patchVersion = reader.ReadToEnd();
+                            }
+                            @patchVersion
+                        }
+                    }
+                </span>
+                @if (ViewBag.DebugFooterInfo != null)
+                {           
+                    <span style="color: red">@ViewBag.DebugFooterInfo</span>
+                }
+        </div>   
+      <!-- [endif] -->
+    </body>
+</html>

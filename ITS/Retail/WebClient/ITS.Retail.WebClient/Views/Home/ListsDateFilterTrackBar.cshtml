@@ -1,0 +1,17 @@
+﻿@Html.DevExpress().TrackBar(settings => 
+{
+    settings.Name = "DateFilterTrackBar";
+    settings.Properties.AllowMouseWheel = false;
+    settings.Properties.ScalePosition = ScalePosition.LeftOrTop;
+    settings.Properties.ValueToolTipPosition = ValueToolTipPosition.RightOrBottom;
+    settings.Properties.ValueType = typeof(int);
+    settings.Width = 390;
+    settings.Properties.Items.AddRange(new TrackBarItem[] {
+        new TrackBarItem("15 " + ITS.Retail.ResourcesLib.Resources.DaysShort,15), new TrackBarItem("30 " + ITS.Retail.ResourcesLib.Resources.DaysShort,30),
+        new TrackBarItem("60 " + ITS.Retail.ResourcesLib.Resources.DaysShort,60), new TrackBarItem("90 " + ITS.Retail.ResourcesLib.Resources.DaysShort,90),
+        new TrackBarItem(ITS.Retail.ResourcesLib.Resources.SixMonths,180), new TrackBarItem(ITS.Retail.ResourcesLib.Resources.OneYear,365)
+    });
+    settings.Position = 5;
+    settings.Properties.EnableClientSideAPI = true;
+    settings.Properties.ClientSideEvents.ValueChanged = "onValueChangedDateFilterTrackBack";
+}).GetHtml()

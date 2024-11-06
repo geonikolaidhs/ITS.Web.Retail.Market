@@ -1,0 +1,99 @@
+﻿@model ITS.Retail.Model.ItemCategory
+@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbp";
+
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "PopUpCallBackPanel" };
+    settings.CustomJSProperties = (object sender, CustomJSPropertiesEventArgs args) =>
+    {
+        args.Properties.Add("cp_success", ViewData["Success"]);
+        args.Properties.Add("cp_unexpandable", ViewBag.Unexpandable);
+        args.Properties.Add("cp_parentunexpandable", ViewBag.ParentUnexpandable ?? false);
+    };
+    settings.ClientSideEvents.EndCallback = "popUpCallbackPanel_OnEndCallback";
+    settings.ClientSideEvents.BeginCallback = "popUpCallbackPanel_OnBeginCallback";
+
+    settings.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnsave";
+        headerOptions.SaveButton.OnClick = "EditTreeViewPopupValidation";
+        headerOptions.CancelButton.Name = "btncancel";
+        headerOptions.CancelButton.OnClick = "hidepopup";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='validateForm'><tr><td>");
+
+        @Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.ControlStyle.CssClass = "label required_field";
+            lblsettings.Text = Resources.Code + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.Name = "lbldescr";
+            lblsettings.ControlStyle.CssClass = "label required_field";
+            lblsettings.Text = Resources.Description + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.Name = "lblpoints";
+            lblsettings.Text = Resources.Points + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        @Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Name = "txtcode";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Code")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Name = "txtdescr";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().SpinEdit(spinsettings =>
+        {
+            spinsettings.Name = "txtpoints";
+            spinsettings.Properties.MinValue = 0;
+            spinsettings.Properties.MaxValue = 999999999;
+            spinsettings.Properties.MaxLength = 999999999;
+            spinsettings.Properties.NumberType = SpinEditNumberType.Integer;
+        }).Bind(DataBinder.Eval(Model,"Points") ?? 0).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        @Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Name = "HiddenParent";
+            txtsettings.ClientVisible = false;
+            txtsettings.Text = (ViewData["parent"] != null ? ViewData["parent"].ToString() : "");
+        }).Render();
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+    });
+}).GetHtml()

@@ -1,0 +1,13 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxmvc" Namespace="DevExpress.Web.Mvc" Assembly="DevExpress.Web.Mvc.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dxmvc:MVCxDateEdit runat="server" ShowShadow="False" Spacing="0" SpriteCssFilePath="{0}/sprite.css" CssPostfix="ITSTheme1" CssFilePath="{0}/styles.css">
+    <CalendarProperties>
+		<LoadingPanelImage Url="Editors/Loading.gif" />
+		<Style>
+			<Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" />
+		</Style>
+	</CalendarProperties>
+</dxmvc:MVCxDateEdit>
+

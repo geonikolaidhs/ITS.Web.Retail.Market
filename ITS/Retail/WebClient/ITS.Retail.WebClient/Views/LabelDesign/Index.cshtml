@@ -1,0 +1,20 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@model IEnumerable<ITS.Retail.Model.Label>
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/LabelDesign.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>   
+    <script src="@Url.Content("~/Scripts/scripts/EditLabelDesign.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/LabelDesign.css?ver=" + ViewData["ApplicationVersionNumber"])" />
+}
+
+@{
+    ViewBag.Title = Resources.Labels;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid", Model)
+

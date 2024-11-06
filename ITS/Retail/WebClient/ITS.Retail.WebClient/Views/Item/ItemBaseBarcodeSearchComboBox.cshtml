@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Enabled = true;
+        combosettings.Name = "ItemBaseBarcodeSearchComboBox";
+        combosettings.Width = 230;
+        combosettings.Properties.DropDownWidth = 350;
+        combosettings.CallbackRouteValues = new { Controller = "Item", Action = "ItemBaseBarcodeSearchComboBox" };
+        combosettings.Properties.EnableCallbackMode = true;
+        combosettings.Properties.CallbackPageSize = 15;
+        combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        combosettings.Properties.TextField = "Code";
+        combosettings.Properties.ValueType = typeof(Guid);
+        combosettings.Properties.ValueField = "Oid";
+        combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+        combosettings.Properties.FilterMinLength = 2;
+        combosettings.Properties.NullText = Resources.ComboBoxNote;
+        combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+        var button = new EditButton(" ");
+        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        combosettings.Properties.Buttons.Add(button);
+        button.Image.AlternateText = Resources.Clear;
+        
+        combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+        combosettings.Properties.Columns.Add("Item.Name", Resources.CompanyName, 130);
+
+    }).BindList(ITS.Retail.WebClient.Controllers.ItemController.BarcodesRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.ItemController.BarcodeRequestedByValue).GetHtml()

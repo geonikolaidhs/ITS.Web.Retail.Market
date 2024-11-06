@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Coupon>
+
+@{
+    ViewBag.Title = Resources.Coupons;
+}
+
+
+@section HeaderScriptsAndStyles {
+
+    <script src="@Url.Content("~/Scripts/scripts/Coupon.js")"></script>
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/bootstrap.css")" />
+
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+
+@*@{
+    if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.RETAIL
+        || ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.DUAL_MODE
+       )
+    {
+        @Html.Action("MassivelyCreateCouponsPopUp")
+    }
+}*@
+@Html.Partial("Grid", Model)
+

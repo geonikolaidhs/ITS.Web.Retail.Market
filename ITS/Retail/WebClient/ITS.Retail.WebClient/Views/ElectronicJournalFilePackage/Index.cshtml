@@ -1,0 +1,19 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.ElectronicJournalFilePackages;
+}
+ @section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ElectronicJournalFilePackage.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+        Dictionary<string, object> FormAttributes = new Dictionary<string, object>();
+        FormAttributes.Add("id", "downloadEJs");
+}
+
+@using (Html.BeginForm("Download", "ElectronicJournalFilePackage", FormMethod.Post, htmlAttributes: FormAttributes))
+{
+    @Html.Hidden("Oids");
+}
+
+@Html.Partial("Grid")

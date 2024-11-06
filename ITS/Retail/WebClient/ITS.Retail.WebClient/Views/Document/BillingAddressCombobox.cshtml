@@ -1,0 +1,55 @@
+﻿@using ITS.Retail.Model;
+@using System.Collections;
+@using ITS.Retail.Platform.Enumerations;
+
+@{
+    DocumentHeader documentHeader = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+    
+    IEnumerable<Address> addresses = null;
+            
+    if(documentHeader != null)
+    { 
+        switch(documentHeader.Division){
+            case eDivision.Purchase:
+                if (documentHeader.Supplier != null && documentHeader.Supplier.Trader!=null)
+                {
+                    addresses = documentHeader.Supplier.Trader.Addresses;
+                }
+                break;
+            case eDivision.Sales:
+                if (documentHeader.Customer != null && documentHeader.Customer.Trader!=null)
+                {
+                    addresses = documentHeader.Customer.Trader.Addresses;
+                }
+                break;
+            case eDivision.Store:
+                break;
+            default :
+                break;
+        }
+    }
+}
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+        settings.Name = "BillingAddressCombobox";
+        settings.CallbackRouteValues = new { Controller = "Document", Action = "BillingAddressCombobox" };
+    
+        settings.SettingsLoadingPanel.Enabled = true;
+        settings.SetContent(() =>
+        {
+           
+            Html.DevExpress().ComboBox(combosettings =>
+            {
+                combosettings.Name = "BillingAddress";
+                combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                combosettings.Properties.TextField = "Description";
+                combosettings.Properties.ValueField = "Oid";
+                //combosettings.ControlStyle.CssClass = "xlarge";
+                combosettings.Properties.ValueType = typeof(Guid);
+                combosettings.Properties.ClientSideEvents.ValueChanged = "BillingAddressValueChanged";
+            }).BindList(addresses).Bind(DataBinder.Eval(documentHeader.BillingAddress, "Oid")).GetHtml();
+
+        });
+}).GetHtml()

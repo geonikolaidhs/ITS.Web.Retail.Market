@@ -1,0 +1,33 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model
+@using ITS.Retail.WebClient.Controllers
+
+@{
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = "CustomerComboBox";
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.CallbackRouteValues = new { Controller = "User", Action = "CustomersComboBoxPartial" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.Columns.Add("CompanyName", Resources.CompanyName);
+    combosettings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode);
+    combosettings.Properties.TextField = "CompanyName";
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+    if(ViewBag.IsPOS != null && (bool)ViewBag.IsPOS)
+    {
+        combosettings.ClientEnabled = false;
+    }
+}).BindList(UserController.CustomersRequestedByFilterCondition, UserController.ObjectRequestedByValue<Customer>).BindList(UserController.GetObjectByValue<Customer>(DataBinder.Eval(ViewData["UserCustomer"], "Oid"))).Bind(DataBinder.Eval(ViewData["UserCustomer"], "Oid")).GetHtml()

@@ -1,0 +1,173 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model ITS.Retail.Model.DiscountType
+
+@using (Html.BeginForm("Save", "DiscountType", FormMethod.Post))
+{
+    <div class='ValidationContainer background-light-grey'>
+        @{
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2"; 
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        }
+        <table class='headerTable validateForm'>
+            <tr>
+                <td>
+                    @{
+                        Html.DevExpress().Label(
+                            edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label required_field";
+                                edtSettings.Text = Resources.Code + ":";
+                                edtSettings.AssociatedControlName = "Code";
+                            }
+                        ).Render();
+                    }
+                    @{Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "Code";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = true;
+                        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                    }
+                ).Bind(Model.Code).Render();
+                    }
+                </td>
+                <td>
+                    @{ Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label required_field";
+                    edtSettings.Text = Resources.Description + ":";
+                    edtSettings.AssociatedControlName = "Description";
+                }
+            ).Render();
+                    }
+                    @{
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Description";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(Model.Description).Render();
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @{
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Priority + ":";
+        edtSettings.AssociatedControlName = "Priority";
+    }).Render();
+                    }
+                    @{
+    Html.DevExpress().SpinEdit(edtSettings =>
+    {
+        edtSettings.Name = "Priority";
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.SpinButtons.Visible = false;
+        edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        edtSettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+        edtSettings.Properties.Increment = 1M;
+        edtSettings.Properties.LargeIncrement = 5M;
+        edtSettings.Properties.MinValue = 0M;
+        edtSettings.Properties.AllowMouseWheel = false;
+        edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+        edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        edtSettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+        edtSettings.ControlStyle.CssClass = "editor";
+
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(Model.Priority).Render();
+                    }
+                </td>
+                <td>
+
+                    @Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "required_field";
+            edtSettings.Text = Resources.DiscountType + ":";
+            edtSettings.AssociatedControlName = "eDiscountType";
+        }).GetHtml()
+                    @{
+    Html.DevExpress().ComboBox(cmbSettings =>
+    {
+        cmbSettings.Name = "eDiscountType";
+        cmbSettings.Properties.ValueField = "Key";
+        cmbSettings.Properties.TextField = "Value";
+        cmbSettings.ControlStyle.CssClass = "editor";
+        cmbSettings.ShowModelErrors = true;
+        cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        cmbSettings.Properties.ValueType = typeof(eDiscountType);
+        cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).BindList(Enum<eDiscountType>.GetLocalizedDictionary()).Bind(Model.eDiscountType).GetHtml();
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @{
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.IsUnique;
+        edtSettings.Name = "IsUnique";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+    }).Bind(Model.IsUnique).Render();
+                    }
+                </td>
+                <td>
+                    @{
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.DiscardsOtherDiscounts;
+        edtSettings.Name = "DiscardsOtherDiscounts";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+    }).Bind(Model.DiscardsOtherDiscounts).Render();
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @{
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.IsHeaderDiscount;
+        edtSettings.Name = "IsHeaderDiscount";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+    }).Bind(Model.IsHeaderDiscount).Render();
+                    }
+                </td>
+            </tr>
+
+
+        </table>
+
+    </div>
+    Html.RenderPartial("ValueGrid", Model.DiscountTypeFields);
+
+}

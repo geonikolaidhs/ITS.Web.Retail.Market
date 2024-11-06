@@ -1,0 +1,193 @@
+﻿@model IEnumerable<ITS.Retail.Model.Customer>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.AccessibilityCompliant = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Customers;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.Name = "allowedCustomersSelection";
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "CustomerCategory", Action = "AllowedCustomers", CategoryID = ViewData["CategoryID"] };
+    settings.ControlStyle.CssClass = "grid";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+    settings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+    {
+        if (ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings != null && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.PadItemCodes
+            && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Code")
+            {
+                string s = e.Value as string;
+                if (s == null) return;
+                e.DisplayText = s.TrimStart(ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+        }
+    };
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Oid";
+        column.Visible = false;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CardID";
+        column.Caption = Resources.CardID;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxCode";
+        column.Caption = Resources.TaxCode;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CompanyName";
+        col.Caption = Resources.CompanyName;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxOfficeLookUp.Description";
+        column.Caption = Resources.TaxOffice;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Profession";
+        column.Caption = Resources.Profession;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultAddress.Description";
+        column.Caption = Resources.DefaultAddress;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultAddress.DefaultPhone.Number";
+        column.Caption = Resources.DefaultPhone;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultStore.Name";
+        column.Caption = Resources.Store;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "VatLevel.Description";
+        column.Caption = Resources.VatLevel;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsActive";
+        column.Caption = Resources.Active;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "BreakOrderToCentral";
+        column.Caption = Resources.BreakOrderToCentral;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.ClientSideEvents.BeginCallback = "AddCustomersToCategory.OnBeginCallbackAllowedCustomersGrid";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+}).Bind(Model).GetHtml()
+

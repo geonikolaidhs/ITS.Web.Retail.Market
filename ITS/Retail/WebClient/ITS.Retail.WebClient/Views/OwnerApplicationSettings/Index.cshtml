@@ -1,0 +1,86 @@
+﻿@using ITS.Retail.ResourcesLib
+@{
+    ViewBag.Title = Resources.OwnerApplicationSettings;
+    ViewBag.EnableDevexpressHtmlEditor = true;
+
+}
+
+@{
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Item.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+
+@section HeaderScriptsAndStyles
+{
+    <script src="@Url.Content("~/Scripts/scripts/OwnerApplicationSettings.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@if (BaseController.CurrentOwnerStatic != null)
+{
+    using (Html.BeginForm("Index", "OwnerApplicationSettings", FormMethod.Post, new { id = "EditingForm" }))
+    {
+        @Html.DevExpress().PageControl(tab_settings =>
+        {
+            tab_settings.AccessibilityCompliant = false;
+            tab_settings.Name = "settings_tabs";
+            tab_settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            tab_settings.TabAlign = TabAlign.Justify;
+            tab_settings.TabPosition = TabPosition.Top;
+            tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            tab_settings.EnableTabScrolling = true;
+            tab_settings.EnableHotTrack = true;
+            tab_settings.Styles.Content.BorderTop.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+            tab_settings.TabPages.Add(Resources.MenuApplicationSettings).SetContent(() =>
+            {
+                Html.RenderPartial("../Company/MenuApplicationSettings", BaseController.OwnerApplicationSettings == null ? null :
+                    BaseController.OwnerApplicationSettings);
+            });
+
+            tab_settings.TabPages.Add(Resources.TermsAndConditions).SetContent(() =>
+            {
+                Html.RenderPartial("TermsEditor", BaseController.OwnerApplicationSettings);
+            });
+
+            tab_settings.TabPages.Add(Resources.ProductsShipping).SetContent(() =>
+            {
+                Html.RenderPartial("B2CProductsShipping", BaseController.OwnerApplicationSettings);
+            });
+
+            tab_settings.TabPages.Add(Resources.TransactionsSafety).SetContent(() =>
+            {
+                Html.RenderPartial("B2CTransactionsSafety", BaseController.OwnerApplicationSettings);
+            });
+
+            tab_settings.TabPages.Add(Resources.Company).SetContent(() =>
+            {
+                Html.RenderPartial("B2CCompany", BaseController.OwnerApplicationSettings);
+            });
+
+            tab_settings.TabPages.Add(Resources.UsefullInfo).SetContent(() =>
+            {
+                Html.RenderPartial("B2CUsefullInfo", BaseController.OwnerApplicationSettings);
+            });
+
+            tab_settings.TabPages.Add(Resources.FAQ).SetContent(() =>
+            {
+                Html.RenderPartial("B2CFAQ", BaseController.OwnerApplicationSettings);
+            });
+
+        }).GetHtml()
+
+        if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+        {
+            ViewContext.Writer.Write("<div class='IndexView_button_container button_container'>");
+            Html.DevExpress().Button(btn_settings =>
+            {
+                btn_settings.Name = "btnUpdate";
+                btn_settings.Text = Resources.Save;
+                btn_settings.ControlStyle.CssClass = "button";
+                btn_settings.UseSubmitBehavior = true;
+                btn_settings.ClientSideEvents.Click = "ValidateForm";
+                btn_settings.Enabled = (bool)ViewData["TableCanInsert"];
+                btn_settings.ClientVisible = (bool)ViewData["TableCanInsert"];
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+        }
+    }
+}

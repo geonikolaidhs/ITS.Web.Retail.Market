@@ -1,0 +1,11 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxPager runat="server" CurrentPageNumberFormat="{0}" ItemSpacing="0px" SpriteCssFilePath="{0}/sprite.css" CssPostfix="SimpleB2C" CssFilePath="{0}/styles.css">
+    <PageSizeItemSettings ShowPopupShadow="False">
+        <DropDownImage>
+            <SpriteProperties HottrackedCssClass="dxWeb_pPopOutHover_SimpleB2C" PressedCssClass="dxWeb_pPopOutPressed_SimpleB2C" />
+        </DropDownImage>
+    </PageSizeItemSettings>
+</dx:ASPxPager>
+

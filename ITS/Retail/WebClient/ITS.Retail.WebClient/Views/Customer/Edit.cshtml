@@ -1,0 +1,536 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@model Customer
+
+@{
+    bool enabled = !(bool)ViewData["OwnEdit"];
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@using (Html.BeginForm("Save", "Customer", FormMethod.Post, new { id = "EditingForm" }))
+{
+    @Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("Customer_ID", ViewData["Customer_ID"].ToString()));
+        ViewContext.Writer.Write(Html.Hidden("TraderID", ViewData["TraderID"].ToString()));
+        ViewContext.Writer.Write(Html.Hidden("isOwnerEdit", ViewData["OwnEdit"].ToString()));
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "btnSaveOnClick";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable validateForm'><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+            edtSettings.AssociatedControlName = "Code";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            if ((bool)Session["IsNewCustomer"])
+            {
+                edtSettings.Properties.ClientSideEvents.LostFocus = "UpdateNewCustomerDetails";
+            }
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+        }).Bind(Model.Code).GetHtml();
+
+        ViewContext.Writer.Write("</td><td style='position:relative'>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TaxCode + ":";
+            edtSettings.AssociatedControlName = "TaxCode";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "TaxCode";
+            edtSettings.ControlStyle.CssClass = "editor taxcodeInput";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            if ((bool)Session["IsNewCustomer"])
+            {
+                edtSettings.Properties.ClientSideEvents.LostFocus = "UpdateNewCustomerDetails";
+            }
+        }).Bind(Model.Trader.TaxCode).GetHtml();
+
+        ViewContext.Writer.Write("<button type='button' onclick='checkVatBtnClick(); return false;' id='taxcodeButton' class='fa fa-check taxcodeButton'> " + Resources.CheckVatNumber + " </button>");
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.CompanyName + ":";
+            edtSettings.AssociatedControlName = "CompanyName";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "CompanyName";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(Model.CompanyName).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Profession;
+            edtSettings.Properties.CaptionStyle.CssClass = "label required_field";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "Profession";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.Profession).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TaxOffice + ":";
+            edtSettings.AssociatedControlName = "TaxOffice";
+        }).GetHtml();
+
+        Html.RenderPartial("SelectTaxOffice");
+
+        ViewContext.Writer.Write("</td><tr></tr><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.VatLevel + ":";
+            edtSettings.AssociatedControlName = "VatLevel";
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "VatLevel";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+
+        }).BindList(ViewBag.VatLevelComboBox).Bind(DataBinder.Eval(Model, "VatLevel!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.DefaultAddress;
+            edtSettings.AssociatedControlName = "DeffaultAddress";
+        }).GetHtml();
+
+        Html.RenderAction("UpdateAddressComboBox", "Customer", new { TraderID = ViewData["TraderID"].ToString() });
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.PaymentMethod;
+            edtSettings.AssociatedControlName = "PaymentMethod";
+            edtSettings.Enabled = true;
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "PaymentMethod";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+        }).BindList(ViewBag.PaymentMethodComboBox).Bind(DataBinder.Eval(Model, "PaymentMethod!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Balance + ":";
+            edtSettings.AssociatedControlName = "Balance";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Balance";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(Model.Balance).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Discount + " % :";
+            edtSettings.AssociatedControlName = "Discount";
+        }).GetHtml();
+
+
+        @Html.DevExpress().SpinEdit(
+            set =>
+            {
+                set.Name = "Discount";
+                set.Properties.NumberType = SpinEditNumberType.Float;
+                set.Properties.MinValue = 0;
+                set.Properties.MaxValue = 100;
+                set.Properties.Increment = 1.0M;
+                set.Properties.LargeIncrement = 1;
+                set.ControlStyle.CssClass = "editor";
+                set.Properties.SpinButtons.ShowIncrementButtons = true;
+                set.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                set.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                set.Enabled = true;
+                set.ReadOnly = false;
+                set.ClientEnabled = true;
+            }
+    ).Bind(Model.Discount * 100).GetHtml();
+
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.RefundStore;
+            edtSettings.AssociatedControlName = "RefundStore";
+            edtSettings.Enabled = true;
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "RefundStore";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            //edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+        }).BindList(ViewBag.RefundStoreComboBox).Bind(DataBinder.Eval(Model, "RefundStore!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.PriceCatalogPolicy;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "PriceCatalogPolicy";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+        }).BindList(ViewBag.PriceCatalogPolicies).Bind(DataBinder.Eval(Model, "PriceCatalogPolicy!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.CardID;
+            edtSettings.AssociatedControlName = "CardID";
+            edtSettings.Enabled = true;
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "CardID";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.CardID).GetHtml();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-bottom\">");
+
+        if (!(bool)ViewData["OwnEdit"])
+        {
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Text = Resources.Active;
+                edtSettings.Name = "IsActive";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.ShowModelErrors = true;
+            }).Bind(Model.IsActive).GetHtml();
+        }
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-bottom\">");
+        if (!(bool)ViewData["OwnEdit"])
+        {
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Text = Resources.BreakOrderToCentral;
+                edtSettings.Name = "BreakOrderToCentral";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.ShowModelErrors = true;
+            }).Bind(Model.BreakOrderToCentral).GetHtml();
+        }
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        if ((bool)ViewData["GDPREnabled"] == true)
+        {
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Name + ":*";
+                edtSettings.AssociatedControlName = "FirstName";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "FirstName";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.Trader.FirstName).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Surname + ":*";
+                edtSettings.AssociatedControlName = "LastName";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "LastName";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.Trader.LastName).GetHtml();
+
+            ViewContext.Writer.Write("</td><td></td><td></td><td></td></tr>");
+
+            ViewContext.Writer.Write("<tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRRegistrationDate + ":";
+                edtSettings.AssociatedControlName = "GDPRRegistrationDate";
+            }).GetHtml();
+
+            Html.DevExpress().DateEdit(edtSettings =>
+            {
+                edtSettings.Name = "GDPRRegistrationDate";
+                edtSettings.Enabled = true;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.Trader.GDPRRegistrationDate).GetHtml();
+
+
+            ViewContext.Writer.Write("</td><td rowspan=\"2\">");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRComments + ":";
+                edtSettings.AssociatedControlName = "GDPRComments";
+            }).GetHtml();
+            Html.DevExpress().Memo(edtSettings =>
+            {
+                edtSettings.Name = "GDPRComments";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.GDPRComments).GetHtml();
+            ViewContext.Writer.Write("</td><td  colspan=\"2\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRExportProtocolNumber + ":";
+                edtSettings.AssociatedControlName = "GDPRExportProtocolNumber";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "GDPRExportProtocolNumber";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.GDPRExportProtocolNumber).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRExportDate + ":";
+                edtSettings.AssociatedControlName = "GDPRExportDate";
+            }).GetHtml();
+
+            Html.DevExpress().DateEdit(edtSettings =>
+            {
+                edtSettings.Name = "GDPRExportDate";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.GDPRExportDate).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRExportUser + ":";
+                edtSettings.AssociatedControlName = "GDPRExportUser";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "GDPRExportUser";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.GDPRExportUser).GetHtml();
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRRegistrationsProtocolNumber + ":";
+                edtSettings.AssociatedControlName = "GDPRProtocolNumber";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "GDPRProtocolNumber";
+                edtSettings.Enabled = true;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.Trader.GDPRProtocolNumber).GetHtml();
+
+            ViewContext.Writer.Write("</td><td colspan=\"2\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRAnonymizationProtocolNumber + ":";
+                edtSettings.AssociatedControlName = "GDPRAnonymizationProtocolNumber";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "GDPRAnonymizationProtocolNumber";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+            }).Bind(Model.GDPRAnonymizationProtocolNumber).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.GDPRAnonymizationDate + ":";
+                edtSettings.AssociatedControlName = "GDPRAnonymizationDate";
+            }).GetHtml();
+
+            Html.DevExpress().DateEdit(edtSettings =>
+            {
+                edtSettings.Name = "GDPRAnonymizationDate";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.GDPRAnonymizationDate).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+
+                edtSettings.Text = Resources.GDPRAnonymizationUser + ":";
+                edtSettings.AssociatedControlName = "GDPRAnonymizationUser";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "GDPRAnonymizationUser";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.GDPRAnonymizationUser).GetHtml();
+        }
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+
+
+        if ((bool)ViewData["GDPREnabled"] == true)
+        {
+            Html.DevExpress().FormLayout(form =>
+            {
+                form.Name = "customerForm";
+                form.ColCount = 4;
+                form.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                form.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                form.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+                form.RequiredMarkDisplayMode = RequiredMarkMode.None;
+                form.ShowItemCaptionColon = false;
+                form.ControlStyle.CssClass = "margin-0-auto";
+                var group = form.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.ColCount = 4;
+                    groupSettings.ShowCaption = DefaultBoolean.False;
+                });
+                group.Items.Add(x => x.Email, FormInstances.TextBoxItem(enabled: !(bool)ViewData["OwnEdit"], captionLocation: LayoutItemCaptionLocation.Top)).Caption = Resources.email + ":*";
+                group.Items.Add(x => x.FatherName, FormInstances.TextBoxItem(enabled: !(bool)ViewData["OwnEdit"], captionLocation: LayoutItemCaptionLocation.Top)).Caption = Resources.FatherName + ":*";
+                group.Items.Add(x => x.Dogs, FormInstances.SpinEditItem(enabled: !(bool)ViewData["OwnEdit"], type: SpinEditNumberType.Integer, captionLocation: LayoutItemCaptionLocation.Top)).Caption = Resources.Dogs + ":*";
+                group.Items.Add(x => x.Cats, FormInstances.SpinEditItem(enabled: !(bool)ViewData["OwnEdit"], type: SpinEditNumberType.Integer, captionLocation: LayoutItemCaptionLocation.Top)).Caption = Resources.Cats + ":*";
+                group.Items.Add(x => x.OtherPets, FormInstances.SpinEditItem(enabled: !(bool)ViewData["OwnEdit"], type: SpinEditNumberType.Integer, captionLocation: LayoutItemCaptionLocation.Top)).Caption = Resources.OtherPets + ":*";
+                group.Items.Add(x => x.Sex, FormInstances.ComboBoxItem(Html: Html, Model: Model.Sex, enabled: !(bool)ViewData["OwnEdit"], dataSource: Enum<eSex>.GetLocalizedDictionary(), valueField: "Key", textField: "Value", valueType: typeof(eSex), captionPosition: LayoutItemCaptionLocation.Top)).Caption = Resources.Sex + ":*";
+                group.Items.Add(x => x.MaritalStatus, FormInstances.ComboBoxItem(Html: Html, Model: Model.MaritalStatus, enabled: !(bool)ViewData["OwnEdit"], dataSource: Enum<eMaritalStatus>.GetLocalizedDictionary(), valueField: "Key", textField: "Value", valueType: typeof(eMaritalStatus), captionPosition: LayoutItemCaptionLocation.Top)).Caption = Resources.MaritalStatus + ":*";
+                group.Items.Add(x => x.BirthDate, FormInstances.DateItem(enabled: !(bool)ViewData["OwnEdit"], captionLocation: LayoutItemCaptionLocation.Top)).Caption = Resources.BirthDate + ":*";
+            }).GetHtml();
+        }
+
+        ViewData["displayCommands"] = true;
+        ViewBag.EditMode = ViewData["EditMode"];
+        @Html.RenderPartial("CustomerTabView", Model);
+    });
+
+}).GetHtml()
+
+
+}
+
+
+
+
+
+

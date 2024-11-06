@@ -1,0 +1,80 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{    
+    DocumentHeader documentHeader = Session["currentDocument"] as DocumentHeader;
+
+    if (documentHeader.Customer != null)
+    {
+        ViewBag.Title += " " + Resources.Customer + ": "+ documentHeader.Customer.CompanyName
+            + " (" + documentHeader.Customer.Code.TrimStart(("0").ToCharArray()) + ")";
+    }
+    
+    ViewBag.KeepNotificationSpace = true;
+    ViewBag.ShowNavigation = false;
+    Html.EnableClientValidation();
+}
+
+
+@if( documentHeader.Customer==null )
+{
+    ViewBag.ActionName = "OrderItems";
+    using (Html.BeginForm("SelectCustomer", "Document", FormMethod.Post, new { id = "SelectCustomerForm" }))
+    {
+        string form_id = "SelectCustomerForm";
+        ViewContext.Writer.Write(Html.Hidden("docType" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docSeries" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docNumber" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docFinDate" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docStatus" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docChecked" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docExecuted" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docInvoiceDate" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docDelAddr" + form_id));
+        ViewContext.Writer.Write(Html.Hidden("docRemarks" + form_id));
+        
+        Html.DevExpress().RoundPanel(settings =>
+        {
+            settings.Name = "CustomerPanel";
+            settings.HeaderText = Resources.NewDocument;
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings.SetContent(() =>
+            {
+                @Html.DevExpress().Label(label_settings =>
+                {
+                    label_settings.Name = "customer";
+                    label_settings.Text = Resources.PleaseSelectACustomer;
+                }).GetHtml();
+                Html.RenderPartial("SelectCustomer");
+            });
+        }).GetHtml();
+    }
+}
+else if (documentHeader.PriceCatalogPolicy != null)
+{ 
+    Html.RenderPartial("DocumentMenuPanel");
+    Html.RenderPartial("DocumentInfoPanel");   
+
+    Guid documentGuid = documentHeader.Session.IsNewObject(documentHeader) ? Guid.Empty : documentHeader.Oid;
+    ViewContext.Writer.Write(Html.Hidden("Oid",documentGuid.ToString()));
+        
+    ViewContext.Writer.Write(Html.Hidden("Mode", documentHeader.Division));
+        
+    ViewContext.Writer.Write(Html.Hidden("HasReturnedFromOrderItemsForm", true));
+        
+    Html.DevExpress().HyperLink(btnsettings =>
+    {
+        btnsettings.Name = "Continuebtn";
+        btnsettings.Properties.Text = Resources.Back;
+        btnsettings.ControlStyle.CssClass = "add_button";
+        btnsettings.Properties.ClientSideEvents.Click = "ContinueButtonClick";
+        btnsettings.NavigateUrl = "#";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("<h2>" + Resources.SelectYourProducts + "</h2>"); 
+    @Html.Partial("OrderTabsCustomer")
+}
+else
+{
+    <h2>@Resources.CustomerHasNoPriceCatalog</h2>
+}

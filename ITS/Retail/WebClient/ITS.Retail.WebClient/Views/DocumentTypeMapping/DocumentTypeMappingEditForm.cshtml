@@ -1,0 +1,42 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<table><tr><td>
+
+        @Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "required_field";
+            edtSettings.Text = Resources.DocumentTypeMapping+":";
+            edtSettings.AssociatedControlName = "eDocumentType";
+        }).GetHtml()
+</td><td>
+
+        @Html.DevExpress().ComboBox(cmbSettings =>
+        {
+            cmbSettings.Name = "eDocumentType";
+            cmbSettings.ControlStyle.CssClass = "editor";
+            cmbSettings.ShowModelErrors = true;
+            cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+        }).BindList(Enum.GetValues(typeof(ITS.Retail.Mobile.AuxilliaryClasses.eDocumentType))).Bind(DataBinder.Eval(ViewData["item"], "eDocumentType")).GetHtml()
+</td></tr><tr><td>
+        
+        @Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "required_field";
+            edtSettings.Text = Resources.DocumentType+":";
+        }).GetHtml()
+
+</td><td>
+
+      @Html.DevExpress().ComboBox(cmbSettings =>
+      {
+            cmbSettings.Name = "DocType";
+            cmbSettings.ControlStyle.CssClass = "editor";
+            cmbSettings.Properties.ValueField = "Oid";
+            cmbSettings.Properties.ValueType = typeof(Guid);
+            cmbSettings.Properties.TextField = "Description";
+            cmbSettings.ShowModelErrors = true;
+            cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+      }).BindList(ViewBag.DocumentTypes).Bind(DataBinder.Eval(ViewData["item"], "DocumentType!Key")).GetHtml()
+</td></tr></table>

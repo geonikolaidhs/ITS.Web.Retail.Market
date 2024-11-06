@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">Retail</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="menu_settings">Ρυθμίσεις</string>
+    <string name="title_activity_main">Retail</string>
+    <string name="large_text">Large Text</string>
+    <string name="largetext2">LargeText2</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="code_barcode">Κωδ./BarCode</string>
+    <string name="qty">Ποσότητα</string>
+    <string name="description">Περιγραφή</string>
+    <string name="descriptionBOLDUL"><u><b>Περιγραφή</b></u></string><string name="limitedItemsFromNewItems">Τα αποτελέσματα της αναζήτησης έχουν περιοριστεί σε var1 είδη. Παρακαλώ επιλέξτε μία πιο πρόσφατη ημερομηνία για να αποφύγετε παρόμοια μηνύματα.</string>
+    <string name="price">Τιμή</string>
+    <string name="Order">Παραγγελία</string>
+    <string name="History">Ιστορικό</string>
+    <string name="Exit">Έξοδος</string>
+    <string name="Login">Εισοδος</string><string name="updateConfirmation">Θέλετε να γίνει ενημέρωση ;</string><string name="youCannotUpdatewhileYouHaveOrders">Δεν μπορείτε να κάνετε ενημέρωση όσο έχετε μη απεσταλμένες παραγγελίες</string>
+    <string name="Password">Κωδικός</string>
+    <string name="Username">Όνομα Χρήστη</string><string name="noDocumentsFound">Δεν βρέθηκαν παραστατικά</string><string name="shouldUpdateConfirmation">Πρέπει να ενημερωθεί η εφαρμογή. Να γίνει τώρα;</string><string name="comments">Σχόλια</string>
+    <string name="SendOrder">Αποστολή</string>
+    <string name="customer">Πελάτης</string>
+    <string name="documennt_status">Κατάσταση Παρ.</string>
+    <string name="total">Σύνολο</string><string name="userHasNoStores">Ο Χρήστης δεν έχει καταστήματα</string><string name="useFilters">Χρήση Φίλτρων</string>
+    <string name="total_discount">Συν. Έκπτωση</string><string name="orderQty">Ποσ.</string>
+    <string name="final_amount">Τελικό Ποσό</string><string name="checkPrice">Εύρεση Τιμής</string>
+    <string name="total_after_discount">Συν. Μετά την Έκπτωση</string>
+    <string name="total_vat_amount">ΦΠΑ</string>
+    <string name="serverurl">Server URL</string>
+    <string name="savesettings">Αποθήκευση</string>
+    <string name="revertsettings">Άκυρο</string><string name="RestoreDeliveryAddress">Προεπιλ. Διεύθυνση</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="MainMenu">Βασικο Μενου</string><string name="deleteConfirmation">Διαγραφή var1 ;</string><string name="exitOrderConfirmation">Έξοδος από την παραγγελία;</string><string name="sendOrderConfirmation">Αποστολή παραγγελίας ;</string>
+    <string name="SelectCustomer">Επιλογη Πελατη</string>
+    <string name="OrderForm">ΦΟΡΜΑ ΠΑΡΑΓΓΕΛΙΑΣ</string>
+    <string name="OrderTotals">Συνολα Παραγγελιας</string>
+    <string name="showitems">Προβολή Ειδών</string>
+    <string name="ItemCategories">ΚΑΤΗΓΟΡΙΕΣ ΕΙΔΩΝ</string>
+    <string name="newitemsfrom">Νέα είδη από</string>
+    <string name="ordernewitems">Παρ. Νεων Ειδων</string>
+    <string name="update">Ενημέρωση</string>
+    <string name="uploadAll">Αποστολή Όλων</string>
+    <string name="code">Κωδ.</string>
+    <string name="barcode">Barcode</string>
+    <string name="unitPrice">Τιμή Μον.</string>
+    <string name="totalVatAmount">Συν. ΦΠΑ</string><string name="settingsHeader">ΡΥΘΜΙΣΕΙΣ</string>
+    <string name="grossTotal">Τελικό Συν.</string>
+    <string name="scan">Σάρωση</string><string name="day">Σήμερα</string>
+    <string name="month">Τελευταίο Μήνα</string><string name="week">Τελευταία Εβδομάδα</string>
+    <string name="specify">Άλλο</string><string name="deliveryAddress">Διεύθ. Παράδοσης</string>
+    <string name="orderSentSuccessfully">Η παραγγελία εστάλει επιτυχώς.</string>
+    <string name="orderSendSuccesfullyButLocalNotDel">Η παραγγελία εστάλει επιτυχώς, αλλά το τοπικό αντίγραφό ίσως να μην διαγράφτηκε.</string>
+    <string name="orderSendFail">Η αποστολή της παραγγελίας απέτυχε.</string><string name="itemNotFound">Το είδος δεν βρέθηκε.</string>
+    <string name="invalidLogin">Λάθος Όνομα χρήστη και/ή Κωδικός</string><string name="invalidQty">Μη έγκυρη ποσότητα</string>
+    <string name="changeQuantity">Αλλαγή Ποσότητας</string><string name="syncWaitMessage">Συγχρονισμός Δεδομένων &#8230;</string>
+    <string name="noConnectionMessage">Δεν υπάρχει σύνδεση με τον απομακρυσμένο διακομιστή.</string>
+    <string name="warning3G">Η σύνδεση δικτύου σας προέρχεται από τον πάροχο του τηλεφωνικόυ σας δικτύου (3G). Αυτή η ενέργεια ίσως μεταφέρει τεράστιο όγκο δεδομένων (Εκτίμηση var1). Είστε σίγουρος/η;</string><string name="yes">Ναι</string><string name="no">Όχι</string><string name="chooseQty">Επιλέξτε Ποσότητα</string>
+    <string name="bcScannerMessage">Αυτή η εφαρμογή χρειάζεται το Barcode Scanner. Θέλετε να το εγκαταστήσετε ;</string><string name="batch">Μαζική Εισ.</string><string name="cancel">Ακύρωση</string><string name="bcScannerMessageTitle">Εγκατάσταση Barcode Scanner ;</string><string name="uploadAllOrdersReportNoErrors">var1 Παραγγελίες στάλθηκαν επιτυχώς.</string><string name="uploadAllOrdersReportWithErrors">var1 Παραγγελίες στάλθηκαν επιτυχώς. var2  Παραγγελίες απέτυχαν.</string>
+    <string name="noOrders">Δεν υπάρχουν παραγγελίες για αποστολή.</string><string name="exportSuccessMessage">Η Εξαγωγή ολοκληρώθηκε με επιτυχία.</string>
+    <string name="exportFailMessage">Η εξαγωγή απέτυχε. Ελέγξτε την κάρτα SD. Εάν η συσκευή σας είναι συνδεμένη με τον Η/Υ μέσω USB παρακαλώ αποσυνδέστε την.</string><string name="importSuccessMessage">Η εισαγωγή ολοκληρώθηκε με επιτυχία. Ξεκινήστε ξανά την εφαρμογή.</string><string name="importFailMessage">Η εισαγωγή του αρχείου απέτυχε. Ελέγξτε ότι το αρχείο υπάρχει.</string><string name="exportDBtoSD">Εξαγωγή της DB στην SD</string>
+    <string name="importDBfromSD">Εισαγωγή της DB από την SD</string><string name="orderIsEmpty">Η Παραγγελία είναι άδεια.</string>
+    <string name="path">Διαδρομή:</string><string name="importing">Εισαγωγή Βάσης Δεδομένων &#8230;</string>
+    <string name="exporting">Εξαγωγή Βάσης Δεδομένων &#8230;</string><string name="search">Αναζήτηση</string>
+    <string name="itemSearch">Αναζητηση Ειδων Με Περιγραφη</string><string name="itemSearchFailMessage">Πληκτρολογήστε τουλάχιστον 3 χαρακτήρες.</string>
+    <string name="btnShowNewItems">Προβολή Νέων ειδών</string><string name="ordersFoundMessage">Βρέθηκαν var1 παραγγελίες. Αποστολή όλων ;</string>
+    <string name="limitedItemsFromCategory">Τα αποτελέσματα της αναζήτησης έχουν περιοριστεί σε var1 είδη. Παρακαλώ επιλέξτε μία πιο συγκεκριμένη κατηγορία για να αποφύγετε παρόμοια μηνύματα.</string>
+    <string name="itemInfo">Πληροφορίες Είδους</string>
+    <string name="topItems">(Πρώτα var1 είδη)</string>
+    <string name="allCategories">Όλες οι κατηγορίες</string>
+    <string name="developer">ITS S.A.</string>
+    <string name="developerSubtitle">Υπηρεσίες Πληροφορικής &amp; Επικοινωνιών</string>
+    <string name="support">Τεχνική Υποστήριξη</string>
+    <string name="supportInfo">Τηλ. Κέντρο: 2310 486304, E-mail: swsupport@itservices.gr</string>
+    <string name="about">Πληροφορίες</string>
+    <string name="offers">Προσφορες</string><string name="unableToOrderItemInactive">Δεν μπορείτε να προσθέσετε αυτό το είδος. Eίναι ανενεργό.</string>
+    <string name="invalidOrderMessage">Εντοπίστηκε μη έγκυρη Παραγγελία</string>
+    <string name="itemCode">Κωδ. Είδους</string>
+    <string name="itemIsInactive">Το είδος δεν είναι πλέον ενεργό</string>
+    <string name="noPrice">Ο πελάτης δεν έχει πλέον τιμή για αυτό το είδος</string>
+    <string name="problem">Πρόβλημα</string>
+    <string name="itemHasNoDefaultBarcode">Το είδος δεν έχει &quot;Κύριο Barcode&quot;.</string>
+    <string name="unableToOrderItemNoPCD">Δεν μπορείτε να προσθέσετε αυτό το είδος. Ο επιλεγμένος πελάτης δεν μπορεί να το παραγγείλει.</string>
+    <string name="mustSynchronize">Πρέπει να κάνετε Ενημέρωση των δεδομένων σας.</string>
+    <string name="pleaseWait">Παρακαλώ Περιμένετε &#8230;</string>
+    <string name="items">Είδη</string>
+    <string name="updateCompletedSuccessfully">Η ενημέρωση ολοκληρώθηκε με επιτυχία.</string>
+    <string name="noNewItemsFound">Δεν βρέθηκαν νέα είδη από: var1.</string><string name="taxCode">Α.Φ.Μ.</string>
+    <string name="companyName">Επωνυμία</string><string name="ok">OK</string>
+    <string name="zeroQtysMessage">Υπάρχουν μηδενικές ποσότητες στην παραγγελία σας.</string>
+    <string name="zeroQtysMultipleOrdersMessage">Υπάρχουν μηδενικές ποσότητες σε μία ή περισσότερες παραγγελίες σας</string>
+    <string name="aboutHeader">ΠΛΗΡΟΦΟΡΙΕΣ</string><string name="maxOrderQty">Μέγ. Ποσ. Παραγγελίας</string><string name="measurementUnit">Μον. Μέτρησης</string><string name="totalDiscount">Έκπτωση</string><string name="packingQty">Μονάδα Συσκευασίας</string>
+    <string name="unavailable">δεν είναι διαθέσιμη αυτή τη στιγμή</string>
+    <string name="Filter">Φιλτράρισμα αποτελεσμάτων βάσει Ονόματος ή Κωδικού</string>
+    <string name="noItemsFound">Δεν βρέθηκαν είδη</string>
+    <string name="extradiscount">Πρ. Έκπτωση</string>
+    <string name="invalidvalue">Μη έγκυρη τιμή</string>
+    <string name="txtFinalizeDate">Ημερομηνία Ολοκλήρωσης</string>
+    <string name="txtPriceCatalog">Τιμοκατάλογος</string>
+    <string name="txtInfoVatCategory">ΦΠΑ %</string>
+    <string name="AllowMultipleLines">Διπλοεγγραφές</string>
+    <string name="store">Κατάστημα</string><string name="xslPath">Διαδρομή XSL</string>
+    <string name="DefaultAddress">Προεπιλεγμένη διεύθυνση</string>
+    <string name="Phone">Τηλέφωνο</string>
+    <string name="Add">Προσθήκη</string>
+	<string name="AddNewCustomer">Προσθήκη Νέου Πελάτη</string>
+	<string name="LeaveCodeEmptyForAutogenerated">Αφήστε κενό τον κωδικό για αυτόματη απόδοση</string>
+	<string name="TaxCodeRequired">Το ΑΦΜ είναι υποχρεωτικό πεδίο</string>
+	<string name="CustomerCodeNotExist">Ο κωδικός πελάτη που έχετε καθορίσει δεν πάρχει</string>
+	<string name="InvalidUser">Πρόβλημα αυθεντικοποίησης</string>
+	<string name="NetworkError">Σφάλμα δικτύου. Παρακαλώ δοκιμάστε αργότερα.</string>
+	<string name="PriceCatalogProblem">Ο τιμοκατάλογος που επιλέξατε δεν είναι συνδεμένος με αυτό το κατάστημα.</string>
+	<string name="AccessProblem">Δεν έχετε εξουσιοδότητση για τη συγκεκριμένη ενέργεια.</string>
+	<string name="TaxCodeNotFound">Ένας νέος πελάτης με το ΑΦΜ που δηλώσατε δεν μπορεί να δημιουργηθεί αυτοματοποιημένα.</string>
+	<string name="TaxCodeCreated">Ο νέος πελάτης έχει δημιουργηθεί στο online σύστημα. Παρακαλώ αναβαθμίστε τα τοπικά δεδομένα για να λάβετε τις σχετικές εγγραφές.</string>
+	<string name="CustomerExists">Ο πελάτης με το ΑΦΜ που δηλώσατε υπάρχει ήδη στο online σύστημα. Παρακαλώ αναβαθμίστε τα τοπικά δεδομένα για να λάβετε τις σχετικές εγγραφές.</string>		
+	<string name="InitiatingUpdate">Πατήστε OK για εκκίνηση της διαδικασίας αναβάθμισης των τοπικών δεδομένων.</string>
+	<string name="Image">Εικόνα</string><string name="exit_confirmation">Έξοδος απο την εφαρμογή; </string><string name="defaultPriceCatalog">Προεπιλ. Τιμοκατάλογος</string><string name="defaultStore">Προεπιλ. Κατάστημα</string>
+	<string name="showHeader">Πληροφορίες</string><string name="defaultAllowMultiLines">Προεπιλ. Διπλοεγγραφές</string><string name="discount">Έκπτωση</string>
+	<string name="FromFilter">Από:</string><string name="ToFilter">Έως:</string><string name="StatusFilter">Κατάσταση:</string><string name="TypeFilter">Τύπος:</string><string name="HasBeenCheckedFilter">Ελέγχθηκε:</string><string name="HasBeenExecutedFilter">Εκτελέστηκε:</string>
+	<string name="defaultDocumentStatus">Προεπιλ. Κατάσταση Παρ.</string><string name="gsisError">Παρουσιάστηκε ένα πρόβλημα κατά την επικοινωνία με το https://www1.gsis.gr/wsgsis/RgWsBasStoixN/RgWsBasStoixNSoapHttpPort</string>
+	<string name="customerTab">Καρτέλα Πελάτη</string>
+	<string name="DateFinalization">Ημερομηνία Οριστικοποίησης</string>
+	<string name="maxOrderQtyExceeded">Ξεπεράσατε την μέγιστη ποσότητα παραγγελίας. Μέγιστη: var1</string>
+</resources>

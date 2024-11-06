@@ -1,0 +1,32 @@
+﻿ @using ITS.Retail.ResourcesLib;
+@Html.DevExpress().ComboBox(comboSettings =>
+{
+    comboSettings.Enabled = true;
+    comboSettings.Name = "ParentCatalog";
+
+    comboSettings.ControlStyle.CssClass = "editor";
+    comboSettings.Properties.DropDownWidth = 350;
+    comboSettings.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "PriceCatalogsComboBoxPartial" };
+    comboSettings.Properties.CallbackPageSize = 15;
+    comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    comboSettings.Properties.TextField = "Description";
+    comboSettings.Properties.ValueType = typeof(Guid);
+    comboSettings.Properties.ValueField = "Oid";
+    comboSettings.Properties.Columns.Add("Code", Resources.Code, 90);
+    comboSettings.Properties.Columns.Add("Description", Resources.Description, 130);
+
+    comboSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    //comboSettings.Properties.FilterMinLength = 2;
+    comboSettings.Properties.NullText = Resources.ComboBoxNote;
+    comboSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+
+    if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+    {
+        EditButton button = new EditButton(" ");
+        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        button.Image.AlternateText = Resources.Clear;
+        comboSettings.Properties.Buttons.Add(button);
+    }
+
+    comboSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+}).BindList(ITS.Retail.WebClient.Controllers.PriceCatalogController.PriceCatalogsRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.PriceCatalogController.PriceCatalogRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.PriceCatalogController.GetPriceCatalogByValue(DataBinder.Eval(Model, "ParentCatalog!Key"))).Bind(DataBinder.Eval(Model, "ParentCatalog!Key")).GetHtml()

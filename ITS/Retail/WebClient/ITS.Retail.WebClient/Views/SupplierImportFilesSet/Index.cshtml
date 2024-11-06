@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SupplierImportFilesSetViewModel>
+@using ITS.Retail.ResourcesLib;
+@using System.Linq;
+@using ITS.Retail.Platform.Enumerations;
+
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/SupplierImportFilesSet.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.SupplierImportFilesSet;
+}
+
+@Html.Partial("Grid")

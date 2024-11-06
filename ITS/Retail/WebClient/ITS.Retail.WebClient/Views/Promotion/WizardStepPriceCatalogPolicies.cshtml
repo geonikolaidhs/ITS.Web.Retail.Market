@@ -1,0 +1,44 @@
+﻿@model PromotionWizardModel
+@{
+    var wiz = ViewData["Wizard"];
+    Wizard wizard = null;
+    if (wiz != null && wiz is Wizard)
+    {
+        wizard = (Wizard)wiz;
+    }
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+   
+    ViewContext.Writer.Write(Html.Hidden("PriceCatalogPoliciesString_selected", Model.PriceCatalogPoliciesString));
+    //PriceCatalogsString_selected
+    var list = DataBinder.Eval(Model, "PriceCatalogPolicyPromotions");
+    if (list is IEnumerable<PriceCatalogPolicyPromotionWizardModel>)
+    {
+        list = ((IEnumerable<PriceCatalogPolicyPromotionWizardModel>)list).Where(x => x.IsDeleted == false);
+    }
+}
+
+<table class="wizard-grid">
+    <tr>
+        <td width="75%" valign="top">
+            @Html.Partial("PriceCatalogPoliciesList")
+        </td>
+        @*<td valign="top" class="selected-pricecatalog-listbox">
+            @Html.DevExpress().ListBox(settings =>
+            {
+                settings.Name = "PriceCatalogPolicyPromotionList";
+                settings.Properties.EnableClientSideAPI = true;
+                settings.Enabled = true;
+                settings.ClientEnabled = false;
+                settings.Properties.ValueField = "PriceCatalogPolicyDescription";
+                settings.Properties.TextField = "PriceCatalogPolicyDescription";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.Height = 326;
+                settings.Properties.Caption = Resources.SelectedPriceCatalogs;
+                settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                settings.ControlStyle.CssClass = "selected-pricecatalog-listbox-container";
+
+            }).BindList(list).GetHtml()
+        </td>*@
+    </tr>
+</table>

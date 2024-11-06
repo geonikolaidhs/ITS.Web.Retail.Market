@@ -1,0 +1,55 @@
+﻿@model DevExpress.Xpo.XPCollection<ItemExtraInfo>
+
+@{
+<div class='grey-border-with-bg  background-light-grey'>
+        <div class='col row'>
+            <div class='col col-xs-3'>
+  @Html.DevExpress().TextBox(edtSettings =>
+   {
+       edtSettings.Name = "ItemExtraInfoDescription";
+       edtSettings.ControlStyle.CssClass = "editor";
+       edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+       edtSettings.Properties.CaptionStyle.CssClass = "label";
+       edtSettings.Properties.Caption = Resources.Description;
+   }).Bind(DataBinder.Eval(Model, "Description")).GetHtml()
+    </div>
+        <div class='col col-xs-1'>
+        </div>
+        <div class='col col-xs-3'>
+            @Html.DevExpress().Memo(settings =>
+         {
+             settings.Name = "ItemExtraInfoIngredients";
+             settings.Properties.Caption = Resources.Ingredients;
+             settings.ControlStyle.CssClass = "form-control";
+                settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+             settings.Properties.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+             settings.ControlStyle.CssClass = "form-control";
+             settings.Properties.Rows = 6;
+         }).Bind(DataBinder.Eval(Model, "Ingredients")).GetHtml()
+    </div>
+     </div>
+        <div class='col row'>
+            <div class='col col-xs-3'>
+    @Html.DevExpress().DateEdit(dt_settings =>
+   {
+       dt_settings.Name = "ItemExtraInfoPackedAt";
+       dt_settings.Properties.Caption = Resources.PackedAt;
+                dt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+       dt_settings.Properties.EditFormat = EditFormat.DateTime;
+   }).Bind(DataBinder.Eval(Model, "PackedAt")).GetHtml()
+    </div>
+            <div class='col col-xs-1'>
+            </div>
+            <div class='col col-xs-3'>
+    @Html.DevExpress().DateEdit(dt_settings =>
+   {
+       dt_settings.Name = "ItemExtraInfoExpiresAt";
+       dt_settings.Properties.Caption = Resources.ExpiresAt;
+                dt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+       dt_settings.Properties.EditFormat = EditFormat.DateTime;
+   }).Bind(DataBinder.Eval(Model, "ExpiresAt")).GetHtml()
+    </div>
+</div>
+    </div>
+}

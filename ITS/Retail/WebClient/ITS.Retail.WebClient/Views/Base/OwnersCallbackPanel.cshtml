@@ -1,0 +1,10 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@if (UserHelper.RenderOwnerCombobox(ViewBag.CurrentUser))
+{
+    ViewContext.Writer.Write("<table><tr><td>");
+    Html.RenderPartial("../Base/OwnersComboBoxPartial");
+    ViewContext.Writer.Write("</td></tr></table>");
+}

@@ -1,0 +1,217 @@
+﻿@model IEnumerable<ITS.Retail.Model.Scale>
+@{
+    var settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(ITS.Retail.Model.Scale), typeof(ScaleController), "grdScales", excludeFields: new List<string>() { "Owner", "IsDefault" });
+    settings.SettingsText.Title = Resources.Scale;
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Scale", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Scale", Action = "UpdatePartial" };
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.Edit;
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnScaleUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnPScaleCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class=\"scale-table\"><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Code")).Render();
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.ExportFormatString + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ExportFormatString";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "ExportFormatString")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.ExportFullFilePath + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ExportFullFilePath";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "ExportFullFilePath")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Locale + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Encoding";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+
+            edtSettings.Properties.ValueField = "CodePage";
+            edtSettings.Properties.ValueType = typeof(int);
+            edtSettings.Properties.TextField = "Name";
+
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        }).BindList(ViewBag.Encodings).Bind(DataBinder.Eval(item, "Encoding")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.DirectSQL + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Memo(edtSettings =>
+        {
+            edtSettings.Name = "DirectSQL";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "DirectSQL")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.ExportVersion + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "ExportVersion";
+            datesettings.Properties.EditFormat = EditFormat.DateTime;
+            datesettings.Properties.TimeSectionProperties.Visible = true;
+            datesettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            datesettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            datesettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "ExportVersion")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UseDirectSQL;
+            edtSettings.Name = "UseDirectSQL";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(item, "UseDirectSQL") ?? false).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("<div class=\"tag-list\">");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{0}</span><span class=\"small\">Kωδικός Είδους</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{1}</span><span class=\"small\">Περγραφή Είδους</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{2}</span><span class=\"small\">PLU</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{3}</span><span class=\"small\">Barcode Prefix</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{4}</span><span class=\"small\">Τιμή μονάδος</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{5}</span><span class=\"small\">0: Ενεργό, 1: Μη ενεργό</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{6}</span><span class=\"small\">0: Ζυγιζόμενο, 1: Τεμαχιακό</span></div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

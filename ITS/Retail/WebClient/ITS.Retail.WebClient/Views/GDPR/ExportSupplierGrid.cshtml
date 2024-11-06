@@ -1,0 +1,199 @@
+﻿@model IQueryable<ITS.Retail.Model.SupplierNew>
+@using ITS.Retail.ResourcesLib;
+@{
+    GridViewSettings settings = new GridViewSettings();
+
+    settings.AccessibilityCompliant = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "DELETESELECTED" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+            grid.Selection.UnselectAll();
+    };
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    //settings.CommandColumn.Visible = true;
+    //settings.CommandColumn.ShowSelectCheckbox = true;
+    //settings.CommandColumn.VisibleIndex = 0;
+
+
+    //settings.CommandColumn.Width = 50;
+    //settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    //settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    //settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    int ctr = 0;
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+            ctr++;
+            int x = (int)DataBinder.Eval(c.DataItem, "GDPRExportProtocolNumber");
+            if (x == 0)
+                ViewContext.Writer.Write("<a href=\"javascript:unhide('PrintExportSupplier?id=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "', " + ctr.ToString() + ")\" title=\"" + Resources.GDPRExportPrint + "\"><img src='" + Url.Content("~/Content/img/print.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRExportPrint + "\" /></a><a  id='b" + ctr.ToString() + "' style='display:none;' href=\"ExportSupplierData?id=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "\" title=\"" + Resources.GDPRExport + "\"><img src='" + Url.Content("~/Content/img/down.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRExport + "\" /></a>");
+            else
+                ViewContext.Writer.Write("<a href=\"javascript:unhide('PrintExportSupplier?id=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "', " + ctr.ToString() + ")\" title=\"" + Resources.GDPRExportPrint + "\"><img src='" + Url.Content("~/Content/img/print.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRExportPrint + "\" /></a><a  id='b" + ctr.ToString() + "' href=\"ExportSupplierData?id=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "\" title=\"" + Resources.GDPRExport + "\"><img src='" + Url.Content("~/Content/img/down.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRExport + "\" /></a>");
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.MinWidth = 70;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.Caption = Resources.Code;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxCode";
+        column.Caption = Resources.TaxCode;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CompanyName";
+        column.Caption = Resources.CompanyName;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Profession";
+        column.Caption = Resources.Profession;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxOfficeLookUp.Description";
+        column.Caption = Resources.TaxOffice;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultAddress.Description";
+        column.Caption = Resources.DefaultAddress;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsActive";
+        column.Caption = Resources.Active;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Name = "grdGDPRExportSupplier";
+
+    settings.Settings.ShowPreview = true;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowAsPopup;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "GDPR", Action = "ExportSupplierGrid" };
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    //settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "GDPR", Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Supplier;
+
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.ClientSideEvents.Init = "CustomizationWindow";
+
+    if (ViewBag.EnableOriginalJSEvents == null || ViewBag.EnableOriginalJSEvents)
+    {
+        settings.ClientSideEvents.BeginCallback = "Component.PassValuesOnGrid";
+        settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+        settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    }
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+    Session["SupplierGridSettings"] = settings;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+<script>
+    function unhide(url, aa) {
+        @if (Session["GDPRError"] !=null)
+        {
+            @:alert("@Session["GDPRError"]");
+        }
+        else
+        {
+            @: $("#b" + aa).css("display", "inline-block");
+            @:    window.open(url, "_blank");
+        }
+    }
+</script>

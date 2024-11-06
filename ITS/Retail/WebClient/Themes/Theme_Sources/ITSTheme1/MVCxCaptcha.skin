@@ -1,0 +1,10 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxmvc" Namespace="DevExpress.Web.Mvc" Assembly="DevExpress.Web.Mvc.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dxmvc:MVCxCaptcha runat="server" SpriteCssFilePath="{0}/sprite.css" CssPostfix="ITSTheme1" CssFilePath="{0}/styles.css">
+    <LoadingPanelImage Url="Editors/Loading.gif" />
+    <RefreshButtonStyle Font-Italic="False" Font-Size="0pt" ForeColor="White" />
+    <ChallengeImage BorderWidth="0" ForegroundColor="White" BackgroundColor="#06A7FF" BorderColor="" />
+</dxmvc:MVCxCaptcha>
+

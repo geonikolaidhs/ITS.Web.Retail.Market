@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PriceCatalogPolicy>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+
+@{
+    List<string> excludeFields = new List<string>() { "ReferenceCode", "Owner"};
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(PriceCatalogPolicy), typeof(PriceCatalogPolicyController), "grdPriceCatalogPolicy", GridViewCommandColumnType.CHECKBOX, true, true, false, excludeFields: excludeFields);
+
+    settings.CallbackRouteValues = new { Controller = "PriceCatalogPolicy", Action = "Grid" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "PriceCatalogPolicy", Action = "PriceCatalogPolicyDelete" };
+    settings.SettingsEditing.AddNewRowRouteValues = settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "PriceCatalogPolicy", Action = "PriceCatalogPolicyUpdate" };
+    settings.SettingsText.Title = Resources.PriceCatalogPolicies;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

@@ -1,0 +1,373 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+@using ITS.Retail.WebClient.Helpers;
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Areas/B2C/Views/Membership/_EmailLayout.cshtml";
+    ITS.Retail.Model.NonPersistant.OrderEmailTemplate orderEmailTemplate = (ITS.Retail.Model.NonPersistant.OrderEmailTemplate)Model;
+}
+
+<tbody>
+    <tr>
+        <td>
+            <!-- content start -->
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h1 class="text-primary">@Resources.NewOrder @Resources.WithNumber @orderEmailTemplate.DocumentHeader.DocumentNumber</h1>
+
+                                            <p>
+                                                @Resources.ThankYouForYourOrder. @Resources.IfYouWantToSeeYourOrdersClickOnTheFollowingLink<br>
+                                                <a href="@Url.Action("OrderHistory", "User", null, this.Request.Url.Scheme)">@Resources.OrderHistory</a>
+                                            </p>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td class="panel order-header">
+                                            <h6 class="center title">@Resources.OrderReview</h6>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr class="callout">
+                                        <td class="panel">
+                                            <p>@Resources.Date: @orderEmailTemplate.DocumentHeader.FinalizedDate.ToString("dd/MM/yyyy")</p>
+                                            @{
+                                                DocumentPayment documentPayment = orderEmailTemplate.DocumentHeader.DocumentPayments.FirstOrDefault();
+                                                string paymentMethodDescription = string.Empty;
+                                                if(documentPayment!=null && documentPayment.PaymentMethod!=null)
+                                                {
+                                                    paymentMethodDescription = documentPayment.PaymentMethod.Description;
+                                                }
+
+                                                string documentStatus = orderEmailTemplate.DocumentHeader.Status != null
+                                                                        ? orderEmailTemplate.DocumentHeader.Status.Description
+                                                                        : "";
+                                            }
+                                            <p>@Resources.PaymentMethod: @paymentMethodDescription</p>
+                                            <p>@Resources.DocumentStatus: @documentStatus</p>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td class="panel order-header">
+                                            <h6 class="center title">@Resources.Customer</h6>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tr>
+                                    <td class="panel sub-grid">
+                                        <table>
+                                            <tr>
+                                                <td class="four sub-columns">
+
+                                                    <p class="text-center">@Resources.Name: @orderEmailTemplate.DocumentHeader.Customer.Trader.FirstName</p>
+
+                                                </td>
+                                                <td class="four sub-columns">
+
+                                                    <p class="text-center">@Resources.LastName: @orderEmailTemplate.DocumentHeader.Customer.Trader.LastName </p>
+
+                                                </td>
+                                                <td class="four sub-columns last">
+
+                                                    <p class="text-center">Email: @orderEmailTemplate.DocumentHeader.Customer.Code</p>
+
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="expander"></td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tr>
+                                    <td class="panel sub-grid">
+                                        <table>
+                                            <tr>
+                                                <td class="four sub-columns">
+
+                                                    <p class="text-center">@Resources.Phone: @orderEmailTemplate.DocumentHeader.BillingAddress.Phones.FirstOrDefault().Number</p>
+
+                                                </td>
+                                                <td class="four sub-columns">
+
+                                                    <p class="text-center">@Resources.City: @orderEmailTemplate.DocumentHeader.BillingAddress.City</p>
+
+                                                </td>
+                                                <td class="four sub-columns last">
+
+                                                    <p class="text-center">@Resources.Street: @orderEmailTemplate.DocumentHeader.BillingAddress.Street</p>
+
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="expander"></td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tr>
+                                    <td class="panel sub-grid">
+                                        <table>
+                                            <tr>
+                                                <td class="eight sub-columns">
+
+                                                    <p class="text-center">@Resources.Region: @orderEmailTemplate.DocumentHeader.BillingAddress.Region</p>
+
+                                                </td>
+                                                <td class="four sub-columns">
+
+                                                    <p class="text-center">@Resources.PostCode: @orderEmailTemplate.DocumentHeader.BillingAddress.PostCode</p>
+
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="expander"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td class="panel order-header">
+                                            <h6 class="center title">@Resources.Products</h6>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td class="panel sub-grid">
+                                            <table>
+                                                <tr>
+                                                    <td class="six sub-columns">
+
+                                                        <p>@Resources.Title </p>
+
+                                                    </td>
+                                                    <td class="three sub-columns">
+
+                                                        <p>@Resources.Quantity</p>
+
+                                                    </td>
+                                                    <td class="three sub-columns last">
+                                                        <p class="text-right">@Resources.Price</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            @foreach(DocumentDetail documentDetail in orderEmailTemplate.DocumentHeader.DocumentDetails)
+            {
+                <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tr>
+                                    <td class="panel sub-grid">
+                                        <table>
+                                            <tr>
+                                                <td class="six sub-columns">
+
+                                                    <p>@documentDetail.Item.Name</p>
+
+                                                </td>
+                                                <td class="three sub-columns">
+
+                                                    <p>@BusinessLogic.RoundAndStringifyOnTwoDigits(documentDetail.Qty)</p>
+
+                                                </td>
+                                                <td class="three sub-columns last">
+
+                                                    <p class="text-right">@BusinessLogic.RoundAndStringifyOnTwoDigits(documentDetail.GrossTotal) &euro;</p>
+
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="expander"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            }
+            @* repeat the above table for each product*@
+            @* Total Line*@
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+                            <table class="twelve columns">
+                                <tr>
+                                    <td class="panel sub-grid">
+                                        <table>
+                                            <tr>
+                                                <td class="nine sub-columns">
+                                                    <h6>@Resources.TotalB2C </h6>
+                                                </td>
+                                                <td class="three sub-columns last">
+                                                    <h5 class="text-right">@BusinessLogic.RoundAndStringifyOnTwoDigits(orderEmailTemplate.DocumentHeader.GrossTotal) &euro;</h5>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="expander"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @if ( !string.IsNullOrEmpty(orderEmailTemplate.DocumentHeader.Remarks) )
+            {
+                <table class="row">
+                    <tbody>
+                        <tr>
+                            <td class="wrapper last">
+                                <table class="twelve columns">
+                                    <tbody>
+                                        <tr>
+                                            <td class="panel order-header">
+                                                <h6 class="center title">@Resources.Remarks</h6>
+                                            </td>
+                                            <td class="expander"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="row">
+                    <tbody>
+                        <tr>
+                            <td class="wrapper last">
+                                <table class="twelve columns">
+                                    <tbody>
+                                        <tr>
+                                            <td class="panel">
+                                                <p class="center">@orderEmailTemplate.DocumentHeader.Remarks</p>
+                                            </td>
+                                            <td class="expander"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+
+            <!-- container end below -->
+        </td>
+    </tr>
+</tbody>

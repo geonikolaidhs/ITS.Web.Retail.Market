@@ -1,0 +1,128 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+	settings.Name = "grdPOSDevices";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+	settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+	settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+	{
+		if (e.RowType == GridViewRowType.Data)
+			e.Row.Attributes.Remove("oncontextmenu");
+	};
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+	settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "POSDevice", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    if ((bool)ViewData["TableCanUpdate"])
+    {
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "POSDevice", Action = "Update" };
+    }
+    if ((bool)ViewData["TableCanDelete"])
+    {
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "POSDevice", Action = "Delete" };
+    }
+    if ((bool)ViewData["TableCanInsert"])
+    {
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "POSDevice", Action = "Add" };
+    }
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Devices;
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center; 
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+	settings.Columns.Add(col =>
+	{
+		col.FieldName = "Name";
+		col.Caption = Resources.DeviceName;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+	});
+
+	settings.Columns.Add(col =>
+	{
+		col.FieldName = "ConnectionType";
+		col.Caption = Resources.ConnectionType;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+	});
+
+	settings.Columns.Add(col =>
+	{
+		col.FieldName = "DeviceSettings.DeviceType";
+		col.Caption = Resources.DeviceType;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+	});
+    
+	settings.SetEditFormTemplateContent(editContent =>
+	{
+	});
+
+}).Bind(Model).GetHtml()

@@ -1,0 +1,79 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.InformationSheets;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Item.css?v=" + ViewData["ApplicationVersionNumber"]));
+
+}
+
+@section HeaderScriptsAndStyles
+{
+    <script src="@Url.Content("~/Scripts/scripts/TreeView.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 30%;" class="vertical-align-td-top">
+            <table style="height:100%;width:100%;padding-top:4px;">
+                <tr>
+                    <td class="title-container" style="width:50%">
+                        @Html.DevExpress().Label(edtSettings =>
+                        {
+                            edtSettings.ControlStyle.CssClass = "label";
+                            edtSettings.Text = Resources.ItemCategories;
+
+                        }).GetHtml()
+                    </td>
+
+                    <td style="width:50%">
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "btnSave";
+                            settings.Text = Resources.Save; //+ " & " + Resources.Print;
+                            settings.ClientSideEvents.Click = "GetExtraFile";
+                            settings.ControlStyle.CssClass = "zero-padding";
+                            settings.Height = System.Web.UI.WebControls.Unit.Pixel(31);
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).GetHtml()
+                    </td>
+                    @*<td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "btnPreview";
+                            settings.Text = Resources.View;
+                            settings.ClientSideEvents.Click = "ExtraFilePreview";
+                            settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).GetHtml()
+                    </td>*@
+                </tr>
+            </table>
+            <div id="CategoriesTree" class="category-tree">
+                @Html.Partial("TreeViewPartial")
+            </div>           
+        </td>
+        <td class="vertical-align-td-top">
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "showMembersOfCategoryBtn";
+                            settings.Text = Resources.Select;
+                            settings.ClientVisible = false;
+                            settings.ClientSideEvents.Click = "showMembersOfCategoryBtnClick";
+                        }).GetHtml()
+                    </td>
+                </tr>
+                <tr>
+                    <td>                        
+
+                        @Html.Partial("ItemsOfNode", ViewData["ItemAnalyticTree"])
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+

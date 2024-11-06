@@ -1,0 +1,9 @@
+﻿@model IEnumerable<TaxOffice>
+@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = Resources.TaxOffice;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

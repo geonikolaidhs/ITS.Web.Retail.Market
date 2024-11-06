@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget0"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/row_height"
+    android:layout_toRightOf="@android:id/icon"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/row_height"
+        android:layout_margin="10dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal" >
+        
+          <TextView
+              android:id="@+id/itemRow_itemCode"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent"
+              android:layout_weight="0.85"
+              android:ellipsize="none"
+              android:gravity="center_vertical"
+              android:scrollHorizontally="false"
+              android:text="@string/code"
+              android:textColor="@android:color/holo_blue_light"
+              android:textSize="@dimen/text_small" />
+          
+        <TextView
+            android:id="@+id/itemRow_itemName"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.6"
+            android:ellipsize="none"
+            android:gravity="center_vertical"
+            android:scrollHorizontally="false"
+            android:text="@string/description"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/itemRow_unitPrice"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.8"
+            android:ellipsize="none"
+            android:gravity="right|center_vertical"
+            android:scrollHorizontally="false"
+            android:text="@string/unitPrice"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/itemRow_orderQty"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.8"
+            android:ellipsize="none"
+            android:gravity="right|center_vertical"
+            android:scrollHorizontally="false"
+            android:text="@string/orderQty"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+</LinearLayout>

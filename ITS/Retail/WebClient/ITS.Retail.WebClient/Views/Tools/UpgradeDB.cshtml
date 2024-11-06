@@ -1,0 +1,7 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().TextBox( settings => {
+    settings.Name = "txtBox";
+    settings.Text = Resources.DatabaseUpgradeSuccessfull;
+    
+}).GetHtml()

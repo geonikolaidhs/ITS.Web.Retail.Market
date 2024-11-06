@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4d3a5be8-cc47-4e7e-9748-8e980b7f3a05" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ITSStoreControllerDesktopService4.xsd" MetadataType="Schema" ID="36d419ce-938e-4a17-a79d-117884473b80" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd4" />
+    <MetadataFile FileName="ITSStoreControllerDesktopService.xsd" MetadataType="Schema" ID="f9b22e11-d5a5-4688-86dc-736b65bd3944" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ITSStoreControllerDesktopService.disco" MetadataType="Disco" ID="f267861a-1ad6-4021-a747-28a684fbd8b5" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?disco" />
+    <MetadataFile FileName="ITSStoreControllerDesktopService1.xsd" MetadataType="Schema" ID="19c8b1a4-bcbf-43ab-8d82-4aa1fea43ea0" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ITSStoreControllerDesktopService2.xsd" MetadataType="Schema" ID="b89f060a-dad0-43a5-97f3-c9f5b1349c16" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ITSStoreControllerDesktopService.wsdl" MetadataType="Wsdl" ID="01e4b642-45ba-4f91-ba90-62e2904a9010" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?wsdl" />
+    <MetadataFile FileName="ITSStoreControllerDesktopService3.xsd" MetadataType="Schema" ID="1f919699-2abf-41c1-97d1-9a6915db7f3c" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

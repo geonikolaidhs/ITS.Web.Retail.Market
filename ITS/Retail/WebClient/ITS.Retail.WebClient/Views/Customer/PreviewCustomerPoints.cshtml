@@ -1,0 +1,23 @@
+﻿@{   
+    ViewBag.Title = Resources.PreviewCustomerPoints;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Customer.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdPreviewCustomerPoints)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+@Html.Partial("PreviewCustomerPointsGrid")
+

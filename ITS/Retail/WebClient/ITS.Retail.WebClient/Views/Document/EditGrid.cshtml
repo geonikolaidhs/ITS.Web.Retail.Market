@@ -1,0 +1,629 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.WebClient.Extensions;
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    eDocumentTypeView form = DocumentHelper.CurrentUserDocumentView(ViewBag.CurrentUser, document.DocumentType);
+    int displayDigits = BaseController.OwnerApplicationSettings == null ? 4 : (int)BaseController.OwnerApplicationSettings.DisplayDigits;
+    List<string> includedFields = new List<string>() { "" };
+    string PopUpFormCaption = Resources.Item;
+
+    if (ViewBag.DocumentDetailFormMode == "Add")
+    {
+        PopUpFormCaption = Resources.Add;
+    }
+    else if (ViewBag.DocumentDetailFormMode == "Edit")
+    {
+        PopUpFormCaption = Resources.Edit;
+    }
+
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(DocumentDetail), typeof(DocumentController), "grdEditGrid", GridViewCommandColumnType.ICONS,
+        includedFields: includedFields);
+
+    settings.SettingsText.Title = Resources.DocumentDetails;
+    settings.SettingsText.PopupEditFormCaption = PopUpFormCaption;
+    settings.CommandColumn.Caption = " ";
+    settings.CommandColumn.ShowNewButtonInHeader = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.ClientSideEvents.ColumnMoving = "grdEditGridColumnMoving";
+    settings.SettingsPopup.EditForm.Width = 900;
+    settings.SettingsPopup.EditForm.MinWidth = 900;
+    settings.SettingsPopup.EditForm.ResizingMode = ResizingMode.Live;
+    settings.SettingsPopup.EditForm.MinHeight = 400;
+    settings.SettingsPopup.EditForm.AllowResize = false;
+    settings.SettingsPopup.EditForm.CloseOnEscape = AutoBoolean.False;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.AlwaysShowPager = true;
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "EditGrid", InViewMode = ViewData["InViewMode"], DocumentOid = document.Oid };
+
+    if (ViewData["InViewMode"] == null || (bool)ViewData["InViewMode"] == false)
+    {
+        settings.ClientSideEvents.BeginCallback = "DocumentEditGridBeginCallback";
+        settings.ClientSideEvents.EndCallback = "DocumentEditGridEndCallback";
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Document", Action = "DeleteDocumentDetail" };
+    }
+    else
+    {
+        settings.ClientSideEvents.EndCallback = "CustomizationWindow";
+        settings.CommandColumn.Visible = false;
+    }
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    if (document.DocumentType == null
+     || document.DocumentType.ManualLinkedLineInsertion == false
+       )
+    {
+        settings.CommandButtonInitialize = (s, e) =>
+        {
+            if (e.ButtonType == ColumnCommandButtonType.Edit || e.ButtonType == ColumnCommandButtonType.Delete)
+            {
+                if (freezeEdit)
+                {
+                    e.Visible = false;
+                }
+                else
+                {
+                    MVCxGridView mvcxGridView = s as MVCxGridView;
+                    bool IsLinkedLine = (bool)mvcxGridView.GetRowValues(e.VisibleIndex, "IsLinkedLine");
+                    bool IsCanceled = (bool)mvcxGridView.GetRowValues(e.VisibleIndex, "IsCanceled");
+                    bool IsReturned = (bool)mvcxGridView.GetRowValues(e.VisibleIndex, "IsReturn");
+                    e.Visible = !IsLinkedLine && !IsCanceled && !IsReturned;
+                }
+            }
+            else if (e.ButtonType == ColumnCommandButtonType.Update)
+            {
+                e.Visible = false;
+            }
+        };
+    }
+
+    settings.HtmlDataCellPrepared = (object sender, ASPxGridViewTableDataCellEventArgs e) =>
+    {
+        MVCxGridView View = sender as MVCxGridView;
+        if (e.VisibleIndex >= 0)
+        {
+            object IsCanceled = View.GetRowValues(e.VisibleIndex, "IsCanceled");
+            object IsReturn = View.GetRowValues(e.VisibleIndex, "IsReturn");
+            object IsLinkedLine = View.GetRowValues(e.VisibleIndex, "IsLinkedLine");
+
+            if (IsCanceled != null && IsCanceled.ToString() != "" && (bool)IsCanceled)
+            {
+                e.Cell.ControlStyle.CssClass += " inactiveRow";
+            }
+            if (IsReturn != null && IsReturn.ToString() != "" && (bool)IsReturn)
+            {
+                e.Cell.ControlStyle.BackColor = System.Drawing.Color.HotPink;
+            }
+
+            if (document.DocumentType != null
+              && document.DocumentType.ManualLinkedLineInsertion
+               )
+            {
+                if (IsLinkedLine != null && IsLinkedLine.ToString() != "" && (bool)IsLinkedLine)
+                {
+                    e.Cell.ControlStyle.BackColor = System.Drawing.Color.Cornsilk;
+                }
+            }
+        }
+    };
+
+    settings.CustomButtonInitialize = (s, e) =>
+    {
+        try
+        {
+            MVCxGridView g = s as MVCxGridView;
+            bool IsLinkedLine = (bool)g.GetRowValues(e.VisibleIndex, "IsLinkedLine");
+            e.Visible = IsLinkedLine ? DefaultBoolean.True : DefaultBoolean.False;
+            e.Image.Url = "~/Content/img/link.png?ver=" + ViewData["ApplicationVersionNumber"];
+        }
+        catch (Exception)
+        {
+
+        }
+    };
+
+    switch (form)
+    {
+        case eDocumentTypeView.Advanced:
+            settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+            settings.StylesPopup.EditForm.CloseButton.CssClass = "hidden-button";
+            break;
+        case eDocumentTypeView.Simple:
+            settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+            break;
+    }
+
+    settings.SetEditFormTemplateContent(editFormTemplateContent =>
+    {
+        if (!freezeEdit)
+        {
+            var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editFormTemplateContent.DataItem;
+            DocumentDetail documentDetail = null;
+
+            try
+            {
+                documentDetail = DataBinder.Eval(item, "This");
+            }
+            catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException)
+            {
+            }
+            Html.RenderPartial("DocumentDetail" + form.GetDescription() + document.Division.GetDescription(), model: documentDetail);
+        }
+    });
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+        MVCxGridView View = sender as MVCxGridView;
+        if (e.VisibleIndex >= 0 && (ITS.Retail.WebClient.Helpers.UserHelper.IsCustomer(ViewBag.CurrentUser) == false))
+        {
+            object ax = View.GetRowValues(e.VisibleIndex, "CentralStore.Code");
+            if (ax != null && ax.ToString() != "" && ax.ToString() != document.Store.Code)
+            {
+                e.Row.BackColor = System.Drawing.Color.Silver;
+            }
+        }
+
+        if (e.VisibleIndex >= 0 && ViewBag.NotIncludedDetails != null)
+        {
+            if (((List<string>)ViewBag.NotIncludedDetails).Contains(View.GetRowValues(e.VisibleIndex, "Oid").ToString()))
+            {
+                e.Row.BackColor = System.Drawing.Color.Red;
+            }
+        }
+    };
+
+    settings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+    {
+        if (BaseController.OwnerApplicationSettings != null && BaseController.OwnerApplicationSettings.PadItemCodes &&
+            BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Item.Code")
+            {
+
+                string s = e.Value as string;
+                if (s == null)
+                {
+                    return;
+                }
+
+                e.DisplayText = s.TrimStart(BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "LineNumber";
+        col.Caption = Resources.LineNumber;
+        col.SortAscending();
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.Code";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Barcode.Code";
+        col.Caption = Resources.Barcode;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CustomDescription";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    if (document.UsesPackingQuantities)
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "MeasurementUnit.Description";
+            col.Caption = Resources.MeasurementUnit;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Qty";
+            col.Caption = Resources.Quantity;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.PropertiesEdit.DisplayFormatString = "N" + displayDigits;
+            col.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PackingMeasurementUnit.Description";
+        col.Caption = document.UsesPackingQuantities ? Resources.PackingMeasurementUnit : Resources.MeasurementUnit;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PackingQuantity";
+        col.Caption = document.UsesPackingQuantities ? Resources.QunatityPacks : Resources.Quantity;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.PropertiesEdit.DisplayFormatString = "N" + displayDigits;
+        col.SetEditItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<table><tr><td>");
+            DocumentDetail docDet = (DocumentDetail)DataBinder.Eval(c.DataItem, "This");
+            bool qsc = false;
+            try
+            {
+                qsc = docDet.PackingMeasurementUnit == null ? false : docDet.PackingMeasurementUnit.SupportDecimal;
+            }
+            catch (Exception)
+            {
+            }
+            ViewContext.Writer.Write(Html.Hidden("qty_support_decimal", qsc ? 1 : 0));
+
+            decimal quantity = 0;
+            decimal.TryParse(c.Text, out quantity);
+
+            Html.DevExpress().SpinEdit(txt_settings =>
+            {
+                txt_settings.Name = "qty_spin_edit";
+                txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                txt_settings.Properties.ClientSideEvents.KeyPress = "qty_spin_editLostFocusKeyPress";
+                txt_settings.Properties.ClientSideEvents.Init = "function (s,e){" + txt_settings.Name + ".Focus();}";
+                txt_settings.Properties.SpinButtons.Visible = false;
+                txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                txt_settings.Properties.Increment = 1M;
+                txt_settings.Properties.LargeIncrement = 5M;
+                txt_settings.Properties.MinValue = 0M;
+                txt_settings.Properties.AllowMouseWheel = false;
+                txt_settings.Properties.NumberType = SpinEditNumberType.Float;
+                txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                if (qsc)
+                {
+                    txt_settings.Properties.NumberType = SpinEditNumberType.Float;
+                }
+                else
+                {
+                    txt_settings.Properties.NumberType = SpinEditNumberType.Integer;
+                }
+            }).Bind(quantity).GetHtml();
+
+            ViewContext.Writer.Write("</td><td class=\"inserted_btn\">");
+
+            ViewContext.Writer.Write("</td></tr></table>");
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UnitPrice";
+        col.Caption = Resources.UnitPrice;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatItemValueString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "NetTotalBeforeDiscount";
+        col.Caption = Resources.NetTotal;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PriceCatalogDiscountAmount";//FirstDisount
+col.Caption = Resources.Discount + " 1";
+        col.PropertiesEdit.DisplayFormatString = "p";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.Visible = false;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    if (document != null && document.DocumentType != null)
+    {
+        settings.Columns.Add(col =>
+        {
+            if (document.DocumentType.IsForWholesale)
+            {
+                col.FieldName = "CustomDiscountsPercentageWholeSale";
+            }
+            else
+            {
+                col.FieldName = "CustomDiscountsPercentageRetail";
+            }
+            col.Caption = Resources.DocumentLineDiscount;
+            col.PropertiesEdit.DisplayFormatString = "p";
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.Visible = false;
+            col.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TotalDiscount";
+        col.Caption = Resources.TotalDiscount;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "NetTotal";
+        col.Caption = Resources.TotalAfterDiscount;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TotalVatAmount";
+        col.Caption = Resources.TotalVATAmount;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "GrossTotal";
+        col.Caption = Resources.GrossTotal;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.PackingQty";
+        col.Caption = Resources.PackingQty;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "VatFactor";
+        col.PropertiesEdit.DisplayFormatString = "p";
+        col.Caption = Resources.VatFactor;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Points";
+        col.Caption = Resources.Points;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    if (UserHelper.IsCustomer(ViewBag.CurrentUser) == false)
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "CentralStore.Code";
+            col.Caption = Resources.SP;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Reason.Description";
+        col.Caption = Resources.Reason;
+        col.Visible = false;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Remarks";
+        col.Caption = Resources.Remarks;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.Visible = false;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "IsNotAvailable";
+        column.Caption = Resources.NotIncludedItem;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().CheckBox(chkboxsettings =>
+            {
+                chkboxsettings.Name = c.KeyValue.ToString();
+                if (ViewBag.NotIncludedDetails != null && ((List<string>)ViewBag.NotIncludedDetails).Contains(DataBinder.Eval(c.DataItem, "Oid").ToString()))
+                {
+                    chkboxsettings.Checked = true;
+                    chkboxsettings.ReadOnly = false;
+                }
+                else
+                {
+                    chkboxsettings.Checked = false;
+                    chkboxsettings.ReadOnly = true;
+                }
+                chkboxsettings.Properties.ClientSideEvents.CheckedChanged = "NotAvailableItemUnchecked";
+            }).Render();
+        });
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

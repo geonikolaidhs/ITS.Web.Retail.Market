@@ -1,0 +1,574 @@
+﻿@model ITS.Retail.Model.DocumentDetail
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+@using DevExpress.Data.Filtering;
+
+@{
+
+    Html.DevExpress().CallbackPanel(settings =>
+    {
+        settings.Name = "itemPanelStore";
+        settings.ControlStyle.CssClass = "documentDetailForm";
+        settings.CallbackRouteValues = new { Controller = "Document", Action = "DocumentDetailAdvancedStore" };
+        settings.ClientSideEvents.Init = "itemPanelInitialization";
+        settings.ClientSideEvents.BeginCallback = "itemPanelStoreBeginCallback";
+        settings.ClientSideEvents.EndCallback = "itemPanelStoreEndCallback";
+        settings.SettingsLoadingPanel.Enabled = false;
+
+        ITS.Retail.Model.DocumentHeader documentHeader = ViewData["currentDocument"] != null ? (ITS.Retail.Model.DocumentHeader)ViewData["currentDocument"] : (ITS.Retail.Model.DocumentHeader)Session["currentDocument"];
+        ViewBag.InViewMode = ViewBag.InViewMode ?? ViewData["currentDocument"] != null;
+        ITS.Retail.Model.DocumentDetail docdet = Model;
+        bool freezeEdit = false;
+        if (docdet != null)
+        {
+            freezeEdit = (documentHeader.TransformationLevel == eTransformationLevel.FREEZE_EDIT || docdet.IsLinkedLine || docdet.IsCanceled);
+        }
+
+        bool EditMode = ViewBag.DocumentDetailFormMode == "Edit";
+        bool AddMode = ViewBag.DocumentDetailFormMode == "Add";
+        bool StartAddMode = ViewBag.DocumentDetailFormMode == "StartAdd";
+        bool HiddenMode = ViewBag.DocumentDetailFormMode == "Hidden";
+
+        bool editMode = (EditMode || AddMode || StartAddMode) && !freezeEdit;
+
+        settings.SetContent(() =>
+        {
+
+
+            bool AcceptsCustomDescription = ViewData["currentDocument"] != null
+                                      ? false
+                                      : (ITS.Retail.WebClient.Helpers.UserHelper.IsCustomer(ViewBag.CurrentUser) == false
+                                            && (docdet == null || docdet.Item == null ? false : docdet.Item.AcceptsCustomDescription)
+                                        );
+
+            bool IsWholeSale = documentHeader.DocumentType == null
+                                ? false
+                                : documentHeader.DocumentType.IsForWholesale;
+
+            bool docTypeIsDefined = documentHeader != null && documentHeader.DocumentType != null;
+
+            ViewContext.Writer.Write("<div class='upinfo'>");
+            int isNewDetail = ViewBag.DocumentDetailIsNew ? 1 : 0;
+            ViewContext.Writer.Write("<input type='hidden' value='" + ViewBag.DocumentDetailFormMode + "' id='DocumentDetailFormMode' />");
+
+            if (StartAddMode || AddMode || EditMode)
+            {
+                @Html.DevExpress().CheckBox(cbx_settings =>
+                {
+                    cbx_settings.Name = "checkNewItem";
+                    cbx_settings.Text = Resources.Auto + " " + Resources.NewRecord;
+                    cbx_settings.ControlStyle.CssClass = "editor checkbox-item-advanced";
+                    cbx_settings.Enabled = editMode;
+                    cbx_settings.Checked = ViewBag.checkbox != null ? ViewBag.checkbox : true;
+                    cbx_settings.Properties.ValueGrayed = false;
+                    cbx_settings.Properties.ValueUnchecked = false;
+                    cbx_settings.Properties.ValueType = typeof(bool);
+                    cbx_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                }).Render();
+            }
+
+            if (EditMode || AddMode || StartAddMode)
+            {
+                Html.DevExpress().Image(btnSettings =>
+                {
+                    btnSettings.Name = "btnPreviousItem";
+                    btnSettings.ImageUrl = "~/Content/img/arrow-previous-small.png?ver=" + ViewData["ApplicationVersionNumber"];
+                    btnSettings.ToolTip = Resources.Previous + " " + Resources.Item;
+                    btnSettings.ControlStyle.CssClass = "Upbutton left";
+                    btnSettings.Enabled = (docdet != null && EditMode && ViewBag.previousOid != null);
+                    btnSettings.ClientEnabled = EditMode;
+                    btnSettings.Properties.ClientSideEvents.Click = "function(s,e){ChangeItem(s,e,'" + ViewBag.previousOid + "')}";
+                }).Render();
+
+                Html.DevExpress().Image(btnSettings =>
+                {
+                    btnSettings.Name = "btnNextItem";
+                    btnSettings.ImageUrl = "~/Content/img/arrow-next-small.png?ver=" + ViewData["ApplicationVersionNumber"];
+                    btnSettings.ToolTip = Resources.Next + " " + Resources.Item;
+                    btnSettings.ControlStyle.CssClass = "Upbutton right";
+                    btnSettings.Enabled = (docdet != null && EditMode && ViewBag.nextOid != null);
+                    btnSettings.ClientEnabled = EditMode;
+                    btnSettings.Properties.ClientSideEvents.Click = "function(s,e){ChangeItem(s,e,'" + ViewBag.nextOid + "')}";
+                }).Render();
+            }
+
+            if (EditMode || AddMode || StartAddMode)
+            {
+                @Html.DevExpress().Button(s =>
+                {
+                    s.Name = "btnSaveItem";
+                    s.Text = Resources.Save;
+                    s.ToolTip = Resources.Save + " (Ctrl + Enter)";
+                    s.ControlStyle.CssClass = "button-font-size-12";
+                    s.Enabled = (docdet != null && (EditMode || AddMode));
+                    s.ClientSideEvents.Click = "UpdateItem";
+
+                }).GetHtml();
+
+                @Html.DevExpress().Button(s =>
+                {
+                    s.Name = "btnSaveCloseItem";
+                    s.Text = Resources.SaveAndCloseExcerpt;
+                    s.ToolTip = Resources.SaveAndClose;
+                    s.ControlStyle.CssClass = "button-font-size-12";
+
+                    s.Enabled = (docdet != null && (EditMode || AddMode));
+                    s.ClientSideEvents.Click = "UpdateItem";
+
+                }).GetHtml();
+            }
+
+            if (AddMode || StartAddMode || EditMode)
+            {
+                @Html.DevExpress().Button(s =>
+                {
+                    s.Name = "btnRecalculateItem";
+                    s.Text = Resources.Recalculate;
+                    s.ToolTip = Resources.Recalculate;
+                    s.ControlStyle.CssClass = "button-font-size-11";
+                    s.ClientSideEvents.Click = "RecalculateDocumentDetail";
+                    s.Enabled = editMode;
+                }).GetHtml();
+            }
+
+            if (!ViewBag.InViewMode && (ViewBag.DocumentDetailFormMode == "StartAdd" || ViewBag.DocumentDetailFormMode == "Add" || ViewBag.DocumentDetailFormMode == "Edit"))
+            {
+                @Html.DevExpress().Button(s =>
+                {
+                    s.Name = "btnCancelItem";
+                    s.Text = Resources.Close;
+                    s.ToolTip = Resources.Close;
+                    s.ClientSideEvents.Click = "CancelItem";
+                    s.ControlStyle.CssClass = "button-font-size-12";
+                }).GetHtml();
+            }
+
+            if (ViewBag.DocumentDetailFormMode != "Hidden")
+            {
+                ViewContext.Writer.Write("<div class=\"total\"><label>" + Resources.TotalSort + "</label>");
+                string final_sum = (docdet == null ? 0 : docdet.GrossTotal).ToString() + " €";
+                @Html.DevExpress().Label(final_sum_settings =>
+                {
+                    final_sum_settings.Name = "final_sum";
+                    final_sum_settings.Enabled = true;
+                    final_sum_settings.ClientEnabled = false;
+                    final_sum_settings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+                    final_sum_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                }).Bind(final_sum).GetHtml();
+                ViewContext.Writer.Write("</div>");
+            }
+            ViewContext.Writer.Write("</div>");
+
+
+            ViewContext.Writer.Write("<div>");
+            Html.RenderPartial("SearchByBarcode");
+            Html.RenderPartial("SearchByDescriptionStore");
+            ViewContext.Writer.Write("</div>");
+
+            if (ViewBag.DocumentDetailFormMode != "Hidden")
+            {
+
+                String itemCode = docdet == null || docdet.Item == null ? "" : docdet.Item.Code;
+                if (itemCode != null && docdet != null && docdet.Item != null && docdet.Item.Owner.OwnerApplicationSettings.PadItemCodes)
+                {
+                    itemCode = itemCode.TrimStart(docdet.Item.Owner.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+                }
+
+
+                ViewContext.Writer.Write("<div>");
+                ViewContext.Writer.Write("<div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.Code + "</label>");
+
+                ViewContext.Writer.Write(Html.Hidden("hidden_quantity", docdet == null ? "" : docdet.Qty.ToString().Replace(",", ".")));
+                @Html.DevExpress().TextBox(txtbxsetings =>
+                {
+                    txtbxsetings.Name = "item_info_code";
+                    txtbxsetings.ControlStyle.CssClass = "textOnly";
+                    txtbxsetings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    txtbxsetings.ReadOnly = true;
+                    txtbxsetings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txtbxsetings.ClientEnabled = false;
+
+                }).Bind(itemCode).GetHtml();
+                ViewContext.Writer.Write("</div><div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.Barcode + "</label>");
+                @Html.DevExpress().TextBox(txtbxsetings =>
+                {
+                    txtbxsetings.Name = "item_info_barcode";
+                    txtbxsetings.ControlStyle.CssClass = "textOnly";
+                    txtbxsetings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    txtbxsetings.Enabled = true;
+                    txtbxsetings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txtbxsetings.ReadOnly = true;
+                    txtbxsetings.ClientEnabled = false;
+                    txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                }).Bind(docdet == null || docdet.Barcode == null ? "" : docdet.Barcode.Code).GetHtml();
+
+                ViewContext.Writer.Write("</div><div class='floated item_info_name'>");
+                ViewContext.Writer.Write("<label>" + Resources.Description + "</label>");
+
+                @Html.DevExpress().TextBox(txtbxsetings =>
+                {
+                    txtbxsetings.Name = "item_info_name";
+                    txtbxsetings.Enabled = true;
+                    txtbxsetings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txtbxsetings.ReadOnly = !AcceptsCustomDescription;
+                    txtbxsetings.ControlStyle.CssClass = "textOnly";
+                    txtbxsetings.ClientEnabled = AcceptsCustomDescription;
+                    if (AcceptsCustomDescription)
+                    {
+                        txtbxsetings.Properties.ClientSideEvents.KeyPress = "CustomItemDescriptionOnKeyPressed";
+                    }
+                    txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                }).Bind(docdet == null ? "" : docdet.CustomDescription).GetHtml();
+                ViewContext.Writer.Write("</div></div><div>");
+                ViewContext.Writer.Write("<div class='floated'><label>" + Resources.Quantity + "</label>");
+
+                bool DecimalEnabled = false;
+                if (docdet != null && docdet.MeasurementUnit != null)
+                {
+                    DecimalEnabled = docdet.MeasurementUnit.SupportDecimal;
+                }
+                Html.DevExpress().SpinEdit(txt_settings =>
+                {
+                    txt_settings.Name = "spinlineqty";
+                    txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txt_settings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                    txt_settings.Enabled = editMode;
+                    txt_settings.Properties.SpinButtons.Visible = false;
+                    txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    txt_settings.Properties.Increment = 1M;
+                    txt_settings.Properties.LargeIncrement = 5M;
+                    txt_settings.Properties.MinValue = 0M;
+                    txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    if (DecimalEnabled)
+                    {
+                        txt_settings.Properties.NumberType = SpinEditNumberType.Float;
+                    }
+                    else
+                    {
+                        txt_settings.Properties.NumberType = SpinEditNumberType.Integer;
+                    }
+                    txt_settings.Properties.AllowMouseWheel = false;
+                }).Bind(docdet == null ? 1 : docdet.PackingQuantity).GetHtml();
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("<div class='floated'>");
+
+                @Html.DevExpress().Label(lbl_settings =>
+                {
+                    lbl_settings.Name = "MeasurementUnitLabel";
+                    lbl_settings.Text = documentHeader.UsesPackingQuantities ? Resources.MeasurementUnits : Resources.MeasurementUnit;
+                    lbl_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    lbl_settings.ControlStyle.CssClass = "label";
+                }).GetHtml();
+
+                string customMeasurementUnit = docdet == null ? "" : docdet.CustomMeasurementUnit;
+                if (documentHeader.UsesPackingQuantities && docdet != null)
+                {
+                    customMeasurementUnit = docdet.MeasurementUnitsQuantities;
+                    if (string.IsNullOrEmpty(customMeasurementUnit))
+                    {
+                        customMeasurementUnit = docdet.CustomMeasurementUnit;
+                    }
+                }
+
+                @Html.DevExpress().TextBox(txtbxsetings =>
+                {
+                    txtbxsetings.Name = "CustomMeasurementUnit";
+                    txtbxsetings.ControlStyle.CssClass = "textOnly";
+                    txtbxsetings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    txtbxsetings.Enabled = true;
+                    txtbxsetings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txtbxsetings.ReadOnly = true;
+                    txtbxsetings.ClientEnabled = false;
+                    txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                }).Bind(customMeasurementUnit).GetHtml();
+
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.VatCategory + "(%): " + "</label>");
+
+                VatFactor vatFactor = docdet == null ? null : docdet.Session.GetObjectByKey<VatFactor>(docdet.VatFactorGuid);
+                if (vatFactor == null)
+                {
+                    (ViewBag.VatFactors as XPCollection<VatFactor>).FirstOrDefault();
+                }
+                Html.DevExpress().ComboBox(cmbSettings =>
+                {
+                    cmbSettings.Name = "fpa_factor";
+                    cmbSettings.ControlStyle.CssClass = "editor";
+                    cmbSettings.Properties.TextField = "ValueString";
+                    cmbSettings.Properties.ValueField = "Oid";
+                    cmbSettings.Properties.ValueType = typeof(Guid);
+                    cmbSettings.ShowModelErrors = false;
+                    cmbSettings.Enabled = false;
+                    cmbSettings.ReadOnly = true;
+                    cmbSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    cmbSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    cmbSettings.Properties.TextFormatString =
+                    cmbSettings.Properties.ClientSideEvents.ValueChanged = "ComboboxValueChanged";
+                    cmbSettings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                }).BindList(ViewBag.VatFactors).Bind(DataBinder.Eval(vatFactor, "Oid")).GetHtml();
+
+
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("<div class='floated custom_price'>");
+                ViewContext.Writer.Write("<label>" + Resources.UnitPrice + "</label>");
+
+                string customPriceBind = "";
+                if (docdet != null)
+                {
+                    if (docdet.CustomUnitPrice > 0)
+                    {
+                        customPriceBind = docdet.CustomUnitPrice.ToString();
+                    }
+                    else
+                    {
+                        customPriceBind = IsWholeSale ? docdet.UnitPriceAfterDiscount.ToString() : docdet.FinalUnitPrice.ToString();
+                    }
+                }
+                @Html.DevExpress().SpinEdit(txt_settings =>
+                {
+                    txt_settings.Name = "custom_price";
+                    txt_settings.ControlStyle.CssClass = "textOnly";
+                    txt_settings.ReadOnly = true;
+                    txt_settings.ClientEnabled = false;
+                    txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txt_settings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                    txt_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    txt_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    txt_settings.Properties.SpinButtons.Enabled = false;
+                    txt_settings.Enabled = true;
+                    txt_settings.Properties.NumberType = SpinEditNumberType.Float;
+                    txt_settings.Properties.NumberFormat = SpinEditNumberFormat.Custom;
+                    txt_settings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatItemValueString;
+                    txt_settings.Properties.AllowMouseWheel = false;
+                    txt_settings.Properties.SpinButtons.Visible = false;
+                    txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                }).Bind(customPriceBind).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("</div>");
+
+
+                ViewContext.Writer.Write("<div class='floated'><label>" + Resources.NetTotal + "</label>");
+                @Html.DevExpress().TextBox(totalcostsettings =>
+                {
+                    totalcostsettings.Name = "total_cost";
+                    totalcostsettings.Enabled = true;
+                    totalcostsettings.ControlStyle.CssClass = "textOnly";
+                    totalcostsettings.ReadOnly = true;
+                    totalcostsettings.Width = System.Web.UI.WebControls.Unit.Percentage(98);
+                    totalcostsettings.ClientEnabled = false;
+                    totalcostsettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    totalcostsettings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+                    totalcostsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                }).Bind(docdet == null ? null : (double?)docdet.NetTotalBeforeDiscount).GetHtml();
+                ViewContext.Writer.Write("</div>");
+
+        @*   Discount elements   *@
+                decimal userDiscountPercentage = 0;
+                if (docdet != null)
+                {
+                    if (documentHeader.DocumentType.IsForWholesale)
+                    {
+                        userDiscountPercentage = docdet.CustomDiscountsPercentageWholeSale;
+                    }
+                    else
+                    {
+                        userDiscountPercentage = docdet.CustomDiscountsPercentageRetail;
+                    }
+                }
+
+                ViewContext.Writer.Write("<div>");
+
+                ViewContext.Writer.Write(Html.Hidden("userDiscount", docdet == null || docdet.SecondDiscount == null ? 0 : docdet.SecondDiscount, new { id = "userDiscount" }));
+                ViewContext.Writer.Write(Html.Hidden("isPercentage", "true", new { id = "isPercentage" }));
+                ViewContext.Writer.Write("<div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.DocumentLineDiscount + " % </label>");
+
+                @Html.DevExpress().SpinEdit(txt_settings =>
+                {
+                    txt_settings.Name = "userDiscountPercentage";
+                    txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txt_settings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                    txt_settings.Properties.ClientSideEvents.ValueChanged = "RefreshUserHiddenInputs";
+                    txt_settings.Enabled = editMode;
+                    txt_settings.Properties.NumberType = SpinEditNumberType.Float;
+                    txt_settings.Properties.DisplayFormatInEditMode = true;
+                    txt_settings.Properties.DecimalPlaces = 2;
+                    txt_settings.Properties.SpinButtons.Visible = false;
+                    txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    txt_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    txt_settings.Properties.Increment = 0;
+                    txt_settings.Properties.LargeIncrement = 0;
+                    txt_settings.Properties.AllowMouseWheel = false;
+                }).Bind((double?)(userDiscountPercentage * 100)).GetHtml();
+
+                ViewContext.Writer.Write("</div><div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.DocumentLineDiscount + "(€): </label>");
+
+                @Html.DevExpress().SpinEdit(txt_settings =>
+                {
+                    txt_settings.Name = "userDiscountMoneyValue";
+                    txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    txt_settings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                    txt_settings.Properties.ClientSideEvents.ValueChanged = "RefreshUserHiddenInputs";
+                    txt_settings.Enabled = editMode;
+                    txt_settings.Properties.NumberType = SpinEditNumberType.Float;
+                    txt_settings.Properties.NumberFormat = SpinEditNumberFormat.Custom;
+                    txt_settings.Properties.DisplayFormatString = documentHeader.Owner.OwnerApplicationSettings.formatCurrencyString;
+                    txt_settings.Properties.SpinButtons.Visible = false;
+                    txt_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    txt_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    txt_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    txt_settings.Properties.Increment = 0;
+                    txt_settings.Properties.LargeIncrement = 0;
+                    txt_settings.Properties.AllowMouseWheel = false;
+                }).Bind(docdet == null ? null : (double?)docdet.CustomDiscountsAmount).GetHtml();
+
+
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("</div<div>");
+        @* END OF Discount elements   *@
+
+        @*  Total Discounts *@
+                ViewContext.Writer.Write("<div class='floated item_info_name'><label>" + Resources.TotalDiscountPercentage + "</label>");
+
+                @Html.DevExpress().SpinEdit(total_after_discountsettings =>
+                {
+                    total_after_discountsettings.Name = "total_discount_percentage";
+                    total_after_discountsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    total_after_discountsettings.Enabled = true;
+                    total_after_discountsettings.ReadOnly = true;
+                    total_after_discountsettings.ControlStyle.CssClass = "textOnly";
+                    total_after_discountsettings.ClientEnabled = false;
+
+                    total_after_discountsettings.Properties.NumberType = SpinEditNumberType.Float;
+                    total_after_discountsettings.Properties.DecimalPlaces = 2;
+                    total_after_discountsettings.Properties.SpinButtons.Visible = false;
+                    total_after_discountsettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    total_after_discountsettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    total_after_discountsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+
+                    total_after_discountsettings.Properties.Increment = 0;
+                    total_after_discountsettings.Properties.LargeIncrement = 0;
+                }).Bind(docdet != null ? (double?)(docdet.TotalDiscountPercentage) : null).GetHtml();
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("<div class='floated item_info_name'><label>" + Resources.TotalDiscount + " €</label>");
+
+                @Html.DevExpress().SpinEdit(total_after_discountsettings =>
+                {
+                    total_after_discountsettings.Name = "total_discount";
+                    total_after_discountsettings.Enabled = true;
+                    total_after_discountsettings.ControlStyle.CssClass = "textOnly";
+                    total_after_discountsettings.ClientEnabled = false;
+                    total_after_discountsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    total_after_discountsettings.ReadOnly = true;
+                    total_after_discountsettings.Properties.NumberType = SpinEditNumberType.Float;
+                    total_after_discountsettings.Properties.NumberFormat = SpinEditNumberFormat.Custom;
+                    total_after_discountsettings.Properties.DisplayFormatString = documentHeader.Owner.OwnerApplicationSettings.formatCurrencyString;
+                    total_after_discountsettings.Properties.SpinButtons.Visible = false;
+                    total_after_discountsettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    total_after_discountsettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    total_after_discountsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    total_after_discountsettings.Properties.Increment = 0;
+                    total_after_discountsettings.Properties.LargeIncrement = 0;
+                    total_after_discountsettings.Properties.DecimalPlaces = 2;
+                }).Bind(docdet != null ? (double?)docdet.TotalDiscount : null).GetHtml();
+                ViewContext.Writer.Write("</div></div><div>");
+
+
+                ViewContext.Writer.Write("<div class='floated'><label>" + Resources.TotalAfterDiscount + "</label>");
+
+
+                @Html.DevExpress().TextBox(total_after_discountsettings =>
+                {
+                    total_after_discountsettings.Name = "net_total";
+                    total_after_discountsettings.Enabled = false;//editMode;
+            total_after_discountsettings.ControlStyle.CssClass = "textOnly";
+                    total_after_discountsettings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                    total_after_discountsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    total_after_discountsettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    total_after_discountsettings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+                    total_after_discountsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    total_after_discountsettings.ReadOnly = true;
+                }).Bind(docdet == null ? null : (double?)docdet.NetTotal).GetHtml();
+
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("<div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.TotalVATAmount + "(€):" + "</label>");
+
+                @Html.DevExpress().SpinEdit(final_fpa_sum_settings =>
+                {
+                    final_fpa_sum_settings.Name = "total_vat_amount";
+                    final_fpa_sum_settings.Enabled = false;//editMode;
+            final_fpa_sum_settings.ControlStyle.CssClass = "textOnly";
+                    final_fpa_sum_settings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressed";
+                    final_fpa_sum_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    final_fpa_sum_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    final_fpa_sum_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    final_fpa_sum_settings.Properties.AllowMouseWheel = false;
+                    final_fpa_sum_settings.Properties.NumberType = SpinEditNumberType.Float;
+                    final_fpa_sum_settings.Properties.NumberFormat = SpinEditNumberFormat.Custom;
+                    final_fpa_sum_settings.Properties.DisplayFormatString = documentHeader.Owner.OwnerApplicationSettings.formatCurrencyString;
+                    final_fpa_sum_settings.Properties.SpinButtons.Visible = false;
+                    final_fpa_sum_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    final_fpa_sum_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    final_fpa_sum_settings.Properties.Increment = 0;
+                    final_fpa_sum_settings.Properties.LargeIncrement = 0;
+                }).Bind(docdet == null ? null : (double?)docdet.TotalVatAmount).GetHtml();
+                ViewContext.Writer.Write("</div>");
+
+
+                ViewContext.Writer.Write("<div class='floated'>");
+                ViewContext.Writer.Write("<label>" + Resources.TotalSort + "</label>");
+
+                @Html.DevExpress().SpinEdit(final_sum_settings =>
+                {
+                    final_sum_settings.Name = "gross_total";
+                    final_sum_settings.Enabled = true;
+                    final_sum_settings.ControlStyle.CssClass = "textOnly";
+                    final_sum_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    final_sum_settings.ClientEnabled = false;
+                    final_sum_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+
+                    final_sum_settings.Properties.NumberType = SpinEditNumberType.Float;
+                    final_sum_settings.Properties.NumberFormat = SpinEditNumberFormat.Custom;
+                    final_sum_settings.Properties.DisplayFormatString = documentHeader.Owner.OwnerApplicationSettings.formatCurrencyString;
+                    final_sum_settings.Properties.SpinButtons.Visible = false;
+                    final_sum_settings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    final_sum_settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    final_sum_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    final_sum_settings.Properties.Increment = 0;
+                    final_sum_settings.Properties.LargeIncrement = 0;
+                }).Bind(docdet == null ? null : (double?)docdet.GrossTotal).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("</div><div class='floated full_width'>");
+
+                ViewContext.Writer.Write("<label>" + Resources.Remarks + "</label>");
+
+                @Html.DevExpress().Memo(txt_settings =>
+                {
+                    txt_settings.Name = "Remarks";
+                    txt_settings.Height = 80;
+                    txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(98);
+                    txt_settings.Enabled = editMode;
+                    txt_settings.TabIndex = -1;
+                }).Bind(docdet != null ? docdet.Remarks : "").Render();
+
+                ViewContext.Writer.Write("</div>");
+            }
+        });
+    }).GetHtml();
+}

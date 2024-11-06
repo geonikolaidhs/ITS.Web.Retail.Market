@@ -1,0 +1,73 @@
+﻿@model PromotionPriceCatalogApplicationRuleWizardModel
+
+    @{
+        Wizard wiz = ViewData["Wizard"] as Wizard;
+        Wizard wizard = null;
+        if (wiz != null && wiz is Wizard)
+        {
+            wizard = wiz;
+        }
+
+        Html.EnableClientValidation();
+        Html.EnableUnobtrusiveJavaScript();
+        var pcs = PromotionController.GetPriceCatalogs();
+    }
+
+    @Html.DevExpress().TreeList(settings =>
+{
+    settings.Name = "PriceCatalogTreeList";
+    settings.CallbackRouteValues = new { Controller = "Promotion", Action = "PriceCatalogsTreeList", WizardID = wizard.ID, RuleID = Model.Oid };
+
+    settings.Caption = Resources.PriceCatalogs;
+
+
+    settings.AutoGenerateColumns = false;
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Description";
+        column.Caption = Resources.PriceCatalogs;
+    });
+
+
+    settings.KeyFieldName = "Oid";
+    settings.ParentFieldName = "ParentCatalogOid";
+
+
+    settings.CommandColumn.Visible = false;
+
+    settings.Styles.Header.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.Styles.Header.BorderTop.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+    settings.Styles.Header.BorderLeft.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+    settings.Styles.Header.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+    settings.Styles.Header.CssClass = "tree-list-header";
+    settings.ControlStyle.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+    settings.ControlStyle.CssClass = "tree-list-border-blue";
+    settings.StylesEditors.EnableFocusedStyle = true;
+    settings.Settings.ShowPreview = false;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.None;
+    settings.Settings.SuppressOuterGridLines = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ScrollableHeight = 300;
+    settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+    settings.SettingsSelection.Enabled = true;
+    settings.SettingsSelection.AllowSelectAll = true;
+
+    settings.DataBound += (object sender, EventArgs e) =>
+    {
+        List<Guid> keys = Model.ActivePriceCatalogs;
+        foreach (DevExpress.Web.ASPxTreeList.TreeListNode node in (sender as MVCxTreeList).Nodes)
+        {
+            PromotionController.SelectNodeRecursivelly(node, keys);
+        }
+    };
+
+    settings.ClientSideEvents.SelectionChanged = "PriceCatalogTreeList_SelectionChanged";
+    settings.ClientSideEvents.Init = "CompanyProms.PriceCatalogTreeListInit";
+    settings.CustomJSProperties += (object sender, DevExpress.Web.ASPxTreeList.TreeListCustomJSPropertiesEventArgs e) =>
+    {
+        e.Properties.Add("cp_Values", pcs.Select(x => x.Description).ToList());
+
+    };
+
+}).Bind(pcs).GetHtml()
+

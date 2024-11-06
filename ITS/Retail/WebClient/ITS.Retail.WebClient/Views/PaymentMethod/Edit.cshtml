@@ -1,0 +1,259 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{  
+    PaymentMethod paymentMethod = ViewData["currentPaymentMethod"] as PaymentMethod;
+    using (Html.BeginForm("Save", "PaymentMethod", FormMethod.Post))
+    {
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray  margin-auto'><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(paymentMethod.Code).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+
+        }).Bind(paymentMethod.Description).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.PaymentMethodType + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "PaymentMethodType";
+            cmb_settings.Properties.ValueType = typeof(ITS.Retail.Platform.Enumerations.ePaymentMethodType);
+            cmb_settings.Properties.ValueField = "Key";
+            cmb_settings.Properties.TextField = "Value";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum<ePaymentMethodType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(paymentMethod, "PaymentMethodType")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "OpensDrawer";
+            edtSettings.Text = Resources.OpensDrawer;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(paymentMethod.OpensDrawer).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "CanExceedTotal";
+            edtSettings.Text = Resources.CanExceedTotal;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(paymentMethod.CanExceedTotal).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ReferenceCode + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ReferenceCode";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(paymentMethod.ReferenceCode).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.NeedsRatification;
+            edtSettings.Name = "NeedsRatification";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(paymentMethod.NeedsRatification).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "GiveChange";
+            edtSettings.Text = Resources.GiveChange;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(paymentMethod.GiveChange).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "IncreasesDrawerAmount";
+            edtSettings.Text = Resources.IncreasesDrawerAmount;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(paymentMethod.IncreasesDrawerAmount).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "UseEDPS";
+            edtSettings.Text = Resources.UseEDPS;
+            edtSettings.ControlStyle.CssClass = "editor";
+
+        }).Bind(paymentMethod.UseEDPS).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "IsNegative";
+            edtSettings.Text = Resources.IsNegative;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(paymentMethod.IsNegative).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "UsesInstallments";
+            edtSettings.Text = Resources.UsesInstallments;
+            edtSettings.ControlStyle.CssClass = "editor";
+
+        }).Bind(paymentMethod.UsesInstallments).Render();
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(
+           edtSettings =>
+           {
+               edtSettings.Name = "ForceEdpsOffline";
+               edtSettings.Text = Resources.ForceEdpsOffline;
+               edtSettings.ControlStyle.CssClass = "editor";
+
+           }
+       ).Bind(paymentMethod.ForceEdpsOffline).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "UseCardlink";
+            edtSettings.Text = Resources.UseCardlink;
+            edtSettings.ControlStyle.CssClass = "editor";
+
+        }).Bind(paymentMethod.UseCardlink).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AffectsCustomerBalance;
+            edtSettings.Name = "AffectsCustomerBalance";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(paymentMethod.AffectsCustomerBalance).Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.DisplayInCashCount;
+            edtSettings.Name = "DisplayInCashCount";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(paymentMethod.DisplayInCashCount).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.HandelsCurrencies;
+            edtSettings.Name = "HandelsCurrencies";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(paymentMethod.HandelsCurrencies).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.CashierDeviceCode;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "CashierDeviceCode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99;
+            edtSettings.Properties.MaxLength = 99;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+            edtSettings.Number = 0;
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        }).Bind(paymentMethod.CashierDeviceCode).Render();
+
+
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+        Html.RenderPartial("PaymentFields", (Session["currentPaymentMethod"] as ITS.Retail.Model.PaymentMethod).PaymentMethodFields);
+    }
+}

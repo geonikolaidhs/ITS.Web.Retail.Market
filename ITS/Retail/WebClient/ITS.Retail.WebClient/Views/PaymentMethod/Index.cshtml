@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ITS.Retail.Model.PaymentMethod>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.PaymentMethods;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/EditPaymentMethod.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid", Model)

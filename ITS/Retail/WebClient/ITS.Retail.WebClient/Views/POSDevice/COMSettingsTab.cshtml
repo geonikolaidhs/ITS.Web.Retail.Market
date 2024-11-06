@@ -1,0 +1,140 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model ITS.Retail.Model.POSDevice
+@{
+
+    ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.ControlStyle.CssClass = "label";
+    edtSettings.Text = Resources.PortName + ":";
+}).Render();
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "COMPortName";
+        }
+    ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "PortName")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.BaudRate + ":";
+        }).Render();
+
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "BaudRate";
+        }
+    ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "BaudRate")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.ControlStyle.CssClass = "label";
+    edtSettings.Text = Resources.DataBits + ":";
+}).Render();
+
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "DataBits";
+        }
+    ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "DataBits")).Render();
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.ControlStyle.CssClass = "label";
+    edtSettings.Text = Resources.Handshake + ":";
+}).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "Handshake";
+    }).BindList(Enum.GetValues(typeof(System.IO.Ports.Handshake))).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "Handshake")).GetHtml();
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.ControlStyle.CssClass = "label";
+    edtSettings.Text = Resources.Parity + ":";
+}).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "Parity";
+    }).BindList(Enum.GetValues(typeof(System.IO.Ports.Parity))).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "Parity")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.ControlStyle.CssClass = "label";
+    edtSettings.Text = Resources.StopBits + ":";
+}).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "StopBits";
+    }).BindList(Enum.GetValues(typeof(System.IO.Ports.StopBits))).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "StopBits")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.ControlStyle.CssClass = "label";
+    edtSettings.Text = Resources.WriteTimeOut + ":";
+}).Render();
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "WriteTimeOut";
+        }
+    ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMDeviceSettings, "WriteTimeOut")).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td class='scale_settings'>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Name = "ScaleReadPatternlbl";
+        edtSettings.Text = Resources.ScaleReadPattern + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(
+           edtSettings =>
+           {
+               edtSettings.Name = "ScaleReadPattern";
+           }
+       ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMScaleSettings, "ScaleReadPattern")).Render();
+
+    ViewContext.Writer.Write("</td><td class='scale_settings'>");
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Text = Resources.CommunicationType + ":";
+        edtSettings.Name = "CommunicationTypelbl";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "CommunicationType";
+    }).BindList(Enum.GetValues(typeof(ITS.Retail.Platform.Enumerations.ScaleCommunicationType))).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.COMScaleSettings, "CommunicationType")).GetHtml();
+
+    ViewContext.Writer.Write("</td></tr></table>");
+}

@@ -1,0 +1,131 @@
+﻿
+@model IEnumerable<ITS.Retail.Model.SupplierNew>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.ShowSettings = true;
+    ViewBag.Title = Resources.GDPRExport;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/GDPR.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditSupplier.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>  
+}
+@Html.Partial("../Shared/PopupViewCallbackPanel")
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+@Html.Partial("PopupAssosiatedEditCallbackPanel")
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+        ViewContext.Writer.Write("<ul class='simpleForm'><li>");
+
+        ViewContext.Writer.Write("<label for=\"supplier_code_I\">" + Resources.Code + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "supplier_code";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"supplier_name_I\">" + Resources.CompanyName + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "supplier_name";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"supplier_tax_number_I\">" + Resources.TaxCode + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "supplier_tax_number";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"is_active_I\">" + Resources.Active + "</label>");
+        
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "is_active";
+            combosettings.Properties.Items.Add("", -1);
+            combosettings.Properties.Items.Add(Resources.Yes, 1);
+            combosettings.Properties.Items.Add(Resources.No, 0);
+            combosettings.ControlStyle.CssClass = "search_filter";
+            combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+
+            combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            combosettings.Properties.Buttons.Add(button);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"FcreatedOn_I\">" + Resources.NewSuppliersFrom + "</label>");
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Properties.EditFormat = EditFormat.DateTime;
+            deSettings.Name = "FcreatedOn";
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"FupdatedOn_I\">" + Resources.Updated + "</label>");
+        
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Properties.EditFormat = EditFormat.DateTime;
+            deSettings.Name = "FupdatedOn";
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+        }).GetHtml();
+        ViewContext.Writer.Write("</li></ul>");
+        @Html.DevExpress().Button(
+           settings2 =>
+           {
+               settings2.Name = "btnSearch";
+               settings2.Text = Resources.Search;
+               settings2.UseSubmitBehavior = true;
+               settings2.ClientSideEvents.Click = "Component.SearchSupplier";
+           }
+       ).GetHtml();
+    });
+}).GetHtml()
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdGDPRExportSupplier)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+
+@Html.Partial("ExportSupplierGrid", Model)
+
+

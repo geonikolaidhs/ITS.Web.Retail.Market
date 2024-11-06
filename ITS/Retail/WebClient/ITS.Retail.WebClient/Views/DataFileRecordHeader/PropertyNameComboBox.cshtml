@@ -1,0 +1,12 @@
+﻿@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = "PropertyName";
+    combosettings.ControlStyle.CssClass = "editor";
+    //combosettings.Properties.ValueField = "Key";
+    //combosettings.Properties.TextField = "Value";
+    combosettings.Properties.ValueType = typeof(string);
+    combosettings.ShowModelErrors = true;
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+    
+}).BindList(ViewBag.PropertyNameComboBox).Bind(DataBinder.Eval(ViewData["item"], "PropertyName") ?? "").GetHtml()

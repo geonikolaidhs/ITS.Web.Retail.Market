@@ -1,0 +1,14 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+<h3 class="TitleHeader">@Resources.VariableValues</h3>
+
+@Html.React("Components.VariableValuesDisplay", new { 
+    initialData = Model, 
+    urlGetDataView = Url.Action("GetDataView","VariableValuesDisplay"),
+    urlGetViewParameters = Url.Action("GetViewParameters", "VariableValuesDisplay"),
+    urlGetVariableValues = Url.Action("GetVariableValues", "VariableValuesDisplay"),
+    urlSearchByType = Url.Action("SearchLookUpObject", "VariableValuesDisplay"),
+    language = Response.Cookies["_culture"].Value
+})

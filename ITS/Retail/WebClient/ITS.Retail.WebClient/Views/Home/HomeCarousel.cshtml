@@ -1,0 +1,41 @@
+﻿@*@{
+        //!!!!!!!!TO DO o κώδικας είναι παλιός πρέπει να γίνει όπως το Views\Document\Carousel.cshtml
+
+        // string path = "~/Content/Slider/";
+        List<string> sliderImages = ITS.Retail.WebClient.Helpers.SliderHelper.GetSliderImagesNames(Server.MapPath(path));
+    }
+    @if(sliderImages.Count>0){
+        int imageCounter = 0;
+
+        <div id="document_wrapper">
+            <div id="container">
+                <div id="gallery">
+                    <div class="carousel carousel-center">
+                        <div class="carousel-slider">
+
+                           @foreach (string imageName in sliderImages)
+                           {
+                               imageCounter++;
+                               if (imageCounter == 1)
+                               {
+                                   ViewContext.Writer.Write("<div class=\"carousel-content\"><div>");
+                               }
+                              <img src="@Url.Content(path+imageName)"/>
+                               if (imageCounter == 2)
+                               {
+                                   ViewContext.Writer.Write("</div></div>");
+                                   imageCounter = 0;
+                               }
+                           }
+                           @if (sliderImages.Count % 2 != 0)
+                           {
+                               ViewContext.Writer.Write("</div></div>");
+                           }
+                        </div>
+                    </div>
+                    <div class="view_carousel"></div>
+                    <div id="close_btn"></div>
+                </div>
+            </div>
+        </div>
+    }*@ 

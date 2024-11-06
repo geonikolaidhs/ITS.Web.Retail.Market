@@ -1,0 +1,24 @@
+﻿@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "StorePriceListCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Customer", Action = "GetStorePriceLists" };
+    cpbseriessettings.SetContent(() =>
+    {
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "CustomerPriceLIst";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "PriceList.Description";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.ShowModelErrors = true;
+            combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            combosettings.Enabled = !(bool)ViewData["OwnEdit"];
+
+        }).BindList(ViewBag.StorePriceLists).Bind(ViewData["CustomerStorePriceList"] == null || (ViewData["CustomerStorePriceList"].ToString()) == Guid.Empty.ToString() ? null : ViewData["CustomerStorePriceList"]).Render();
+    });
+    if(!(bool)ViewData["OwnEdit"])
+        cpbseriessettings.ClientSideEvents.BeginCallback = "grdCustomerStorePriceListCallback";
+    cpbseriessettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+}).GetHtml()

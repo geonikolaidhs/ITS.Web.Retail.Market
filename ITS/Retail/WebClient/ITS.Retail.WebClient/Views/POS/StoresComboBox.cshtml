@@ -1,0 +1,38 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{ComboBoxExtension cmb = Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = ViewData["IsFilter"] != null && Boolean.Parse(ViewData["IsFilter"].ToString()) ? "fstore" : "Store";
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.Properties.DropDownWidth = 350;
+    combosettings.CallbackRouteValues = new { Controller = "POS", Action = "StoresComboBox", IsFilter = ViewData["IsFilter"] != null && Boolean.Parse(ViewData["IsFilter"].ToString()) };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.ShowModelErrors = !(ViewData["Isfilter"] != null && Boolean.Parse(ViewData["IsFilter"].ToString()));
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.FilterMinLength = 0;
+
+    combosettings.Properties.Columns.Add("Name", Resources.Name, 90);
+    combosettings.Properties.Columns.Add("Address.City", Resources.City, 50);
+    combosettings.Properties.Columns.Add("Address.Description", Resources.Description, 90);
+    combosettings.Properties.TextFormatString = "{0} {1} {2}";
+    combosettings.Properties.TextField = "Name";
+
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 0;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+});
+if(ViewData["IsFilter"] != null && Boolean.Parse(ViewData["IsFilter"].ToString()))
+{
+    cmb.BindList(POSController.StoresRequestedByFilterCondition,POSController.ObjectRequestedByValue<Store>).GetHtml();
+}
+else
+{
+    cmb.BindList(POSController.StoresRequestedByFilterCondition, POSController.ObjectRequestedByValue<Store>).BindList(POSController.GetObjectByValue<Store>(DataBinder.Eval(Model, "Store!Key"))).Bind(DataBinder.Eval(Model, "Store!Key")).GetHtml();
+}
+}

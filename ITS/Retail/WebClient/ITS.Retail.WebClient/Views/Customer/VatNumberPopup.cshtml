@@ -1,0 +1,494 @@
+﻿
+
+<style>
+    .taxcodeInput {
+        display: inline-block !important;
+        width: 78% !important;
+    }
+
+    .taxcodeButton {
+        display: inline-block !important;
+        width: 100px !important;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        background-color: #458c45;
+        border: none;
+        font-weight: 600 !important;
+        color: white !important;
+        padding: 13px 2px;
+        text-align: center;
+        font-size: 11px;
+        cursor: pointer;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin-bottom: 2px !important;
+        padding-bottom: 11px !important;
+        margin-top: -12px !important;
+        line-height: 0.8 !important;
+        max-height: 50px;
+        border-color: #458c45;
+    }
+
+        .taxcodeButton:hover {
+            border-color: #3d793d;
+            background-color: #3d793d;
+        }
+
+        .taxcodeButton:focus {
+            border-color: #3d793d;
+            background-color: #3d793d;
+        }
+
+    .dsNone {
+        display: none;
+    }
+
+    .lineModal {
+        border-bottom: thin #9a8989 1px;
+    }
+
+    .no {
+        background-color: #af1e1e !important;
+        width: 110px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+        .no:hover {
+            background-color: #982323 !important;
+        }
+
+    .yes {
+        background-color: #4b7ea9 !important;
+        width: 110px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+        .yes:hover {
+            background-color: #447196 !important;
+        }
+
+    #myModal {
+        max-width: 1000px !important;
+        margin: auto;
+        z-index: 99999999999 !important;
+    }
+
+        #myModal .modal-header {
+            max-width: 1000px !important;
+            padding: 2px 16px;
+            color: white;
+            background-color: #306130;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        #myModal .modal-body {
+            max-width: 1000px !important;
+            padding: 2px 16px;
+            font-size: 14px;
+            color: #5d5c5c;
+        }
+
+        #myModal .modal-footer {
+            padding: 2px 16px;
+            background-color: #306130;
+            color: white;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+    #modalFooter {
+        padding: 2px 16px;
+        color: white;
+        float: left;
+    }
+
+    #myModal .modal-content {
+        position: relative;
+        background-color: #f3f3ef;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    #ModalClose {
+        cursor: pointer;
+        color: rgba(0,0,0,0.5);
+        float: right;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .VatCheckSuccess {
+        background-color: #306130 !important;
+    }
+
+    .VatCheckFail {
+        background-color: #b10e0e !important;
+    }
+
+    .wrapper .container table.headerTable, .document-header-form {
+        padding-top: 20px !important;
+    }
+
+    .headerTable .validateForm {
+        padding-top: 20px !important;
+    }
+</style>
+
+
+
+
+
+
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="ModalClose" class="ModalClose">&times;</span>
+            <h2 id="modalTitle">Modal Header</h2>
+        </div>
+        <div class="modal-body">
+            <div style="width:100%">
+                <div style="width:12%; display : inline-block; padding-left: 5px; text-align : right; font-weight : 600!important">
+                    <p> @ITS.Retail.ResourcesLib.Resources.CompanyName  : </p>
+                    <p> @ITS.Retail.ResourcesLib.Resources.Address :  </p>
+                    <p> @ITS.Retail.ResourcesLib.Resources.Number :  </p>
+                    <p> @ITS.Retail.ResourcesLib.Resources.City :   </p>
+                    <p> @ITS.Retail.ResourcesLib.Resources.PostCode :  </p>
+                </div>
+
+                <div style="width:80%; display : inline-block; text-align:left; padding-left:5px;">
+                    <p id="ModalCompanyName" class="dsNone lineModal"> </p>
+                    <p id="ModalAddress" class="dsNone lineModal"> </p>
+                    <p id="ModalAddressNo" class="dsNone lineModal"> </p>
+                    <p id="ModalCity" class="dsNone lineModal"> </p>
+                    <p id="ModalPostCode" class="dsNone lineModal"> </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div style="width:60%; display:inline-block; float:left;">
+                <h3 id="modalFooter"></h3>
+            </div>
+            <div style="width:40%;  display:inline-block;">
+                <div id="yesBtn" class="btn yes" ; style="display:inline-block">
+                    @ITS.Retail.ResourcesLib.Resources.Yes
+                </div>
+                <div id="noBtn" class="btn no" ; style="display:inline-block">
+                    @ITS.Retail.ResourcesLib.Resources.No
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var response = false;
+    var CompanyName = '';
+    var postCode = '';
+    var address = '';
+    var addressNo = '';
+    var city = '';
+    var onAjaxRequest = false;
+
+
+    function UpdateAddressGridFromViesData()
+    {
+        setTimeout(function () {
+            try {
+                if (response == true) {
+                    SetDefaultVatLevelToAddressForm();
+                    Street.SetValue(address + " " + addressNo);
+                    City.SetValue(city);
+                    PostCode.SetValue(postCode);
+                    $("#grdAddressEdit #Profession_I").val($("#EditingForm #Profession_I").val());
+                }
+            } catch (error) { }
+        }, 1200);
+    }
+
+    function checkVatBtnClick(s, e) {
+        var path = $("#HOME").val() + "Customer/CheckAfm";
+        var error = ValidateTaxcode(TaxCode.GetValue());
+
+        if (error === '') {
+
+            var country = "";
+            var taxcode = TaxCode.GetValue();
+
+
+            if (AllCharsAreDigits(taxcode) === true)
+                country = "EL";
+
+            if (taxcode.length > 1)
+                if (isNaN(taxcode[0]) === true && isNaN(taxcode[1]) === true)
+                    country = taxcode[0] + taxcode[1];
+
+            var numericCode = GetNumericChars(taxcode);
+            console.log(numericCode);
+            console.log(country);
+
+            if (onAjaxRequest) {
+                try { onAjaxRequest = false; } catch (error) { console.log(error); }
+                return false;
+            }
+
+
+            $.ajax({
+                type: 'POST',
+                url: path,
+                data: { 'TaxCode': numericCode, 'CountryCode': country},
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data.ValidResponse == true) {
+
+                        CompanyName = RemoveCharFromString(data.CompanyName, "|");
+                        var CompanyAddress = RemoveCharFromString(data.CompanyAddress, "|");
+                        var stringArray = CompanyAddress.split(/(\s+)/).filter(function (e) {
+                            return e.trim().length > 0;
+                        });
+
+
+                        var strLength = CompanyAddress.length;
+                        for (var i = 0; i < stringArray.length; i++) {
+                            var isnum = /^\d+$/.test(stringArray[i]);
+                            if (isnum === true && (stringArray[i].length === 5 || stringArray[i].length === 4)) {
+                                postCode = stringArray[i];
+                                var postCodeStartIndex = CompanyAddress.indexOf(postCode);
+                                city = (CompanyAddress.substring((postCodeStartIndex + 5), strLength)).replace(/[- ()\s]/g, '');
+                                addressNo = stringArray[i - 1];
+                                var addressNoStartIndex = CompanyAddress.indexOf(addressNo);
+                                address = (CompanyAddress.substring(0, addressNoStartIndex));
+                                break;
+                            }
+                        }
+
+                        var modal = document.getElementById('myModal');
+                        var span = document.getElementsByClassName("close")[0];
+                        modal.style.display = "block";
+
+
+                        $(".modal-header").removeClass("VatCheckFail");
+                        $(".modal-header").addClass("VatCheckSuccess");
+                        $("#modalTitle").text('@ITS.Retail.ResourcesLib.Resources.TaxCodeValidated');
+                        $("#modalFooter").text('@ITS.Retail.ResourcesLib.Resources.FillTheForm')
+                        $(".modal-body").removeClass("dsNone");
+                        $(".modal-footer").removeClass("dsNone");
+
+                        if (CompanyName != '') {
+                            $('#ModalCompanyName').removeClass('dsNone');
+                            $('#ModalCompanyName').text(CompanyName);
+                        }
+                        else {
+                            $('#ModalCompanyName').addClass('dsNone');
+                        }
+
+                        if (address != '') {
+                            $('#ModalAddress').removeClass('dsNone');
+                            $('#ModalAddress').text(address);
+                        } else {
+                            $('#ModalAddress').addClass('dsNone');
+                        }
+
+                        if (addressNo != '') {
+                            $('#ModalAddressNo').removeClass('dsNone');
+                            $('#ModalAddressNo').text(addressNo);
+                        } else {
+                            $('#ModalAddressNo').addClass('dsNone');
+                        }
+
+                        if (city != '') {
+                            $('#ModalCity').removeClass('dsNone');
+                            $('#ModalCity').text(city);
+                        } else {
+                            $('#ModalCity').addClass('dsNone');
+                        }
+
+                        if (postCode != '') {
+                            $('#ModalPostCode').removeClass('dsNone');
+                            $('#ModalPostCode').text(postCode);
+                        }
+                        else {
+                            $('#ModalPostCode').addClass('dsNone');
+                        }
+
+                        $("#ModalClose").click(function () {
+                            document.getElementById('myModal').style.display = "none";
+                        });
+
+                        $("#yesBtn").click(function () {
+                            response = true;
+                            Code.SetValue(TaxCode.GetValue());
+                            $("#CompanyName_I").val(CompanyName);
+                            SetDefaultVatLevel();
+                            document.getElementById('myModal').style.display = "none";
+
+                        });
+                    }
+                    else
+                    { //valid is false
+                        response = false;
+                        var modal = document.getElementById('myModal');
+                        var span = document.getElementsByClassName("close")[0];
+                        modal.style.display = "block";
+
+                        $("#modalTitle").text('@ITS.Retail.ResourcesLib.Resources.CouldNotValidateTaxcode');
+                        $(".modal-header").removeClass("VatCheckSuccess");
+                        $(".modal-header").addClass("VatCheckFail");
+                        $(".modal-body").addClass("dsNone");
+                        $(".modal-footer").addClass("dsNone");
+
+                        setTimeout(function () {
+                            document.getElementById('myModal').style.display = "none";
+                        }, 2500);
+
+                    }
+
+                    $("#ModalClose").click(function () {
+                        document.getElementById('myModal').style.display = "none";
+                    });
+
+                    $("#noBtn").click(function () {
+                        document.getElementById('myModal').style.display = "none";
+                    });
+                }
+            });
+        }
+    }
+
+    function RemoveCharFromString(text, char)
+    {
+        var i = 25;
+        if (text.length < i)
+            i = text.length
+
+        var result = text;
+        for (var j = 0; j < i; j++)
+            result= result.replace(char, "");
+
+        return result;
+    }
+
+
+    function ValidateTaxcode(taxcode)
+    {
+
+        var errorMessage = '';
+        if (taxcode === null || taxcode === '')
+        {
+            errorMessage =  '@ITS.Retail.ResourcesLib.Resources.TaxCodeCannotBeNull';
+            alert(errorMessage);
+            return errorMessage;
+        }
+
+        var NumericTaxCode = GetNumericChars(taxcode);
+        if (NumericTaxCode.length < 9)
+        {
+            errorMessage = '@ITS.Retail.ResourcesLib.Resources.TaxCodeShouldbe9digits';
+            alert(errorMessage);
+            return errorMessage;
+        }
+
+        for (var i = 0; i < taxcode.length; i++)
+        {
+            if (isNaN(taxcode[i]) === true && i > 1)
+            {
+                errorMessage = '@ITS.Retail.ResourcesLib.Resources.OnlyDigitsAllowed';
+                alert(errorMessage);
+                return errorMessage;
+            }
+        }
+
+        return errorMessage;
+    }
+
+    function GetNumericChars(taxcode)
+    {
+        var numeric = [];
+        var result = "";
+
+        for (var i = 0; i < taxcode.length; i++)
+            if (isNaN(taxcode[i]) === false)
+                numeric.push(taxcode[i]);
+
+        for (var i = 0; i < numeric.length; i++)
+            result += numeric[i];
+
+        return result;
+    }
+
+
+    function AllCharsAreDigits(text) {
+
+        for (var i = 0; i < text.length; i++)
+            if (isNaN(text[i]) === true)
+                return false;
+
+        return true
+    }
+
+    function SetDefaultVatLevel() {
+
+        var path = $("#HOME").val() + "Customer/GetDefaultVatLevel";
+
+        $.ajax({
+            type: 'POST',
+            url: path,
+            data: {},
+            cache: false,
+            success: function (data) {
+                VatLevel.SetValue(data.key);
+            },
+            error: function () { }
+        });
+
+    }
+
+    function SetDefaultVatLevelToAddressForm() {
+
+        var path = $("#HOME").val() + "Customer/GetDefaultVatLevel";
+
+        $.ajax({
+            type: 'POST',
+            url: path,
+            data: {},
+            cache: false,
+            success: function (data) {
+                VatLevelCb.SetValue(data.key);
+                var element = document.getElementById("VatLevelCb_I");
+                if ("createEvent" in document) {
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent("change", false, true);
+                    element.dispatchEvent(evt);
+                }
+                else
+                    element.fireEvent("onchange");
+
+                ASPx.ETextChanged('VatLevelCb');
+            },
+            error: function () { }
+        });
+
+    }
+
+</script>

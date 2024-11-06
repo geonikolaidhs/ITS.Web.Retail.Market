@@ -1,0 +1,102 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using System.Web.UI.WebControls;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdFormMessages";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "FormMessage", Action = "Grid" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "FormMessage", Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Messages;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.Settings.UseFixedTableLayout = true;
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Oid";
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(DataBinder.Eval(c.DataItem, "this"));
+        });
+        col.Caption = Resources.Message;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 250;// Unit.Percentage(100);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MessagePlace";
+        col.Caption = Resources.MessagePlace;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 250;
+    });
+}).Bind(Model).GetHtml()

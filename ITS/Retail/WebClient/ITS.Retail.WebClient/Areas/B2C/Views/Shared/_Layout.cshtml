@@ -1,0 +1,199 @@
+﻿@{
+    ITS.Retail.WebClient.AuxillaryClasses.CustomJSProperties customJSProperties = ViewData["CustomJSProperies"] as ITS.Retail.WebClient.AuxillaryClasses.CustomJSProperties;
+}
+
+@using ITS.Retail.ResourcesLib;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title</title>
+    @Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = DevExpressHelper.Theme },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = DevExpressHelper.Theme }           
+            
+        )
+
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/Content/B2C/favicon.ico")" />
+
+    <meta name="description" content="@ViewBag.MetaDescription">    
+    
+    <meta name="keywords" content="B2C, eshop, retail">
+    <script type="text/javascript">
+    @if (customJSProperties != null)
+        {
+            ViewContext.Writer.Write(customJSProperties.ToJavascript());
+        }
+    </script>
+    @System.Web.Optimization.Styles.Render("~/content/B2C/bundles/b2c.css")
+    @System.Web.Optimization.Scripts.Render("~/bundles/B2C/b2cmain.js")
+
+    @* USE FOR WEBKIT
+        
+        <script src="//use.typekit.net/sli3uhk.js"></script>
+    <script>try { Typekit.load(); } catch (e) { }</script>*@
+
+    @Html.DevExpress().GetScripts(           
+            new Script { ExtensionSuite = ExtensionSuite.Editors },
+            new Script { ExtensionSuite = ExtensionSuite.GridView }
+        )
+
+    @RenderSection("HeaderScriptsAndStyles", required: false)
+
+
+
+
+</head>
+
+<body>
+    
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    @if (ViewBag.CategoriesExist == true)
+    {
+        <div id="menu"></div>
+        using (
+        Ajax.BeginForm("Search", new { Controller = "Products" },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            OnBegin = "Layout.ShowLoadingPanel",
+            OnComplete = "Products.ProductListing",
+            UpdateTargetId = "maincontent",
+            InsertionMode = InsertionMode.Replace,
+            OnSuccess = "Layout.HideLoadingPanel"
+        },
+        new { @class = "filters nav navbar-form nav navbar-form navbar-right form-wrapper collapse-mobile", @id = "category-form" }
+
+        ))
+        {
+            @Html.Hidden("CategoryID")
+        }
+    }
+    <div id="menu-right">
+        <nav>
+            <h2><i class="fa fa-shopping-cart"></i>@Resources.MyCart</h2>
+            <ul id="shopping-cart-container">               
+                    @Html.Partial("ShoppingCartSideBar", ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.ShoppingCart)                
+            </ul>
+        </nav>
+    </div>
+
+    @using (Ajax.BeginForm("ShoppingCartView", new { Controller = "Base" }, new AjaxOptions
+    {
+            HttpMethod = "POST",
+            OnBegin = "Layout.ShowLoadingPanel",
+            UpdateTargetId = "shopping-cart-container",
+            InsertionMode = InsertionMode.Replace,
+            OnSuccess = "Layout.HideLoadingPanel",
+            OnComplete = "Layout.RightSidebarRefresh"
+        },
+        new { id = "shopping-cart-form" })){
+            @Html.Hidden("rs-action")
+            @Html.Hidden("rs-PriceCatalogDetailOid")
+            @Html.Hidden("rs-DocumentDetailOid")
+            @Html.Hidden("rs-Qty")
+        }
+    
+    
+
+    <div id="wrapper">
+        @Html.Partial("./Menu")
+        <div class="container" id="alerts">
+            @Html.Partial("Alerts")
+        </div>
+        <div>
+            @Html.DevExpress().LoadingPanel(settings =>
+               {
+                   settings.Name = "LoadingPanel";
+                   settings.Modal = true;
+                   settings.ContainerElementID = "wrapper";
+               }).GetHtml()
+        </div>
+        <div id="maincontent" class="container page">
+
+            @RenderBody()
+
+        </div>
+    </div>    
+
+    @Html.Partial("Footer")
+    
+
+        @{string controller = ViewBag.ControllerName.ToString();}
+        <script type="text/javascript">
+            $(window).bind("load", function () {
+                Layout.Init();
+                Layout.notifyUser();
+
+                setTimeout(function () {
+                    $('body').addClass('loaded');
+                }, 0);
+
+                $(document).on('click', '.yamm .dropdown-menu', function (e) {
+                    e.stopPropagation()
+                })
+            });
+
+            $(window).resize(function () {
+                $('#menu').multilevelpushmenu('option', 'menuHeight', $(document).height());
+                $('#menu').multilevelpushmenu('redraw');
+
+                if ($(document).width() <= 768) {
+                    $('#menu-right').multilevelpushmenu('option', 'menuHeight', $(document).height());
+                    $('#menu-right').multilevelpushmenu('option', 'menuWidth', '320px');
+                    $('#menu-right').multilevelpushmenu('redraw');
+                }
+                else {                  
+                    $('#menu-right').multilevelpushmenu('option', 'menuHeight', $(document).height());
+                    $('#menu-right').multilevelpushmenu('redraw');
+                }
+
+            });
+
+
+        </script>
+       
+        @if (!String.IsNullOrWhiteSpace(ViewBag.Company.OwnerApplicationSettings.GoogleAnalyticsID) && 1 == 0)
+        {
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', '@ViewBag.Company.OwnerApplicationSettings.GoogleAnalyticsID', 'auto');
+                ga('send', 'pageview');
+            </script>
+        }
+
+        @if (ViewData["FontCssName"] != null)
+        {
+            <script type="text/javascript" src="~/Content/B2C/customize/fonts/@(ViewData["FontCssName"]).js"></script>
+            <script type="text/javascript">
+                (function () {
+                    var wf = document.createElement('script');
+                    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                    wf.type = 'text/javascript';
+                    wf.async = 'true';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(wf, s);
+                })();
+            </script>
+
+            <link rel="stylesheet" href="~/Content/B2C/customize/fonts/@(ViewData["FontCssName"]).css">
+
+        }
+
+</body>
+</html>

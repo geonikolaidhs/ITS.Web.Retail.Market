@@ -1,0 +1,40 @@
+﻿@using ITS.Retail.ResourcesLib
+@{
+    @Html.DevExpress().CallbackPanel(callbacksettings =>
+    {
+        callbacksettings.Name = "StoresComboBoxCallBackPanel";
+        callbacksettings.CallbackRouteValues = new { Controller = "ActionType", Action = "StoresComboBoxPartial" };
+        callbacksettings.SetContent(() =>
+        {
+            Html.DevExpress().ComboBox(combosettings =>
+            {
+                combosettings.Properties.Caption = Resources.Store + ":";
+                combosettings.Properties.CaptionStyle.CssClass = "label";
+                combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+                combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                combosettings.Name = "StoreCombobox";
+                combosettings.Properties.DropDownWidth = System.Web.UI.WebControls.Unit.Percentage(100);
+                //combosettings.CallbackRouteValues = new { Controller = "ActionType", Action = "StoresComboBoxPartial" };
+                combosettings.Properties.CallbackPageSize = 15;
+                combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                combosettings.Properties.ValueField = "Oid";
+                combosettings.Properties.ValueType = typeof(Guid);
+                combosettings.Properties.Columns.Add("Code", Resources.StoreCode, 90);
+                combosettings.Properties.Columns.Add("Name", Resources.ItemName, 90);
+                combosettings.Properties.Columns.Add("Address.City", Resources.City, 50);
+                combosettings.Properties.Columns.Add("Address.Description", Resources.Description, 90);
+                combosettings.Properties.TextFormatString = "{0} {1} {2} {3}";
+                combosettings.Properties.TextField = "Name";
+                combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                combosettings.Properties.FilterMinLength = 1;
+                combosettings.Properties.NullText = Resources.ComboBoxNote;
+                combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                EditButton button = new EditButton(" ");
+                button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                button.Image.AlternateText = Resources.Clear;
+                combosettings.Properties.Buttons.Add(button);
+                combosettings.ClientEnabled = ViewData["UpdateMode"] != null && (eTotalizersUpdateMode)ViewData["UpdateMode"] == eTotalizersUpdateMode.STORE;
+            }).BindList(DocumentSeriesController.StoresRequestedByFilterCondition, DocumentSeriesController.ObjectRequestedByValue<Store>).BindList(DocumentSeriesController.GetObjectByValue<Store>(DataBinder.Eval(Model, "Store!Key"))).Bind(DataBinder.Eval(Model, "Store!Key")).GetHtml();
+        });
+    }).GetHtml()
+}

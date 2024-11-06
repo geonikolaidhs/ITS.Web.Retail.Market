@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = ITS.Retail.ResourcesLib.Resources.ScannedDocumentHeaders;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ScannedDocumentHeader.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@Html.Partial("Grid")

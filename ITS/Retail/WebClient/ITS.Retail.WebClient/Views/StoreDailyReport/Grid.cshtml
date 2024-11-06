@@ -1,0 +1,96 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(StoreDailyReport), typeof(StoreDailyReportController), "grdStoreDailyReport", columnType: GridViewCommandColumnType.CHECKBOX,generateColumns : false);
+    settings.CallbackRouteValues = new { Controller = "StoreDailyReport", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.StoreDailyReports;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    settings.ClientSideEvents.BeginCallback = "StoreDailyReport.grdStoreDailyReportBeginCallback";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.ClientSideEvents.Init = "CustomizationWindow";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.ReadOnly = true;
+        column.Caption = Resources.Code;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReportDate";
+        column.ReadOnly = true;
+        column.Caption = Resources.ReportDate;
+        column.PropertiesEdit.DisplayFormatString = "dd-MMM-yyyy";
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CollectionsTotal";
+        column.ReadOnly = true;
+        column.Caption = Resources.CollectionsTotal;
+        column.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CreditsPaymentsWithDrawsTotal";
+        column.ReadOnly = true;
+        column.Caption = Resources.CreditsPaymentsWithDrawsTotal;
+        column.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CashDelivery";
+        column.ReadOnly = true;
+        column.Caption = Resources.CashDelivery;
+        column.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReportTotal";
+        column.ReadOnly = true;
+        column.Caption = Resources.ReportTotal;
+        column.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "POSDifference";
+        column.ReadOnly = true;
+        column.Caption = Resources.POSDifference;
+        column.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

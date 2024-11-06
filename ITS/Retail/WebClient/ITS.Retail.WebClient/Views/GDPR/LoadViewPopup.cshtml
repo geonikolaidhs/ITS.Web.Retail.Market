@@ -1,0 +1,31 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    
+    var nm = ViewData["FirstName"];
+    var lm = ViewData["LastName"];
+    var cn = ViewData["CompanyName"];
+    string title = Resources.CustomerDetails + " ";
+    if (nm != null){ title += nm.ToString() + " ";}
+    if (lm != null) { title += lm.ToString() + " "; }
+    if (cn != null){ title += cn.ToString() + " ";}
+    if (ViewData["ID"] != null)
+    {
+        PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("LoadViewPopup");
+        popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";   
+        popUpSettings.CallbackRouteValues = new { Controller = "Customer", Action = "LoadViewPopup", ID = ViewData["ID"] };
+        popUpSettings.HeaderText = title;
+        popUpSettings.ControlStyle.CssClass = "isInviewMode";
+        popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+        popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+        
+        popUpSettings.SetContent(() =>
+        {
+            @Html.RenderAction("GetTraderDescription", "Customer", new { CustomerID = ViewData["ID"] });
+            @Html.RenderAction("CustomerTabView", "Customer", new { CustomerID = ViewData["ID"], displayCommands = false, editMode = false });
+        });
+
+
+        Html.DevExpress().PopupControl(popUpSettings).GetHtml();
+    }
+        
+}

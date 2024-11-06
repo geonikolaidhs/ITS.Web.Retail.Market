@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ITS.MobileAtStore.ObjectModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ITS.MobileAtStore.ObjectModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfProductQuantity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductQuantity" nillable="true" type="tns:ProductQuantity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductQuantity" nillable="true" type="tns:ArrayOfProductQuantity" />
+  <xs:complexType name="ProductQuantity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExtraCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductQuantity" nillable="true" type="tns:ProductQuantity" />
+  <xs:complexType name="ArrayOfOffer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Offer" nillable="true" type="tns:Offer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOffer" nillable="true" type="tns:ArrayOfOffer" />
+  <xs:complexType name="Offer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AA" type="xs:int" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescriptionProcessed" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiscountPercent" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FinalPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IsSingleItemDiscount" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LoyaltyText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfferId" type="xs:int" />
+      <xs:element minOccurs="0" name="OperationId" type="xs:int" />
+      <xs:element minOccurs="0" name="ValidForMembers" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Offer" nillable="true" type="tns:Offer" />
+  <xs:complexType name="Customer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AFM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Customer" nillable="true" type="tns:Customer" />
+  <xs:complexType name="ArrayOfWarehouse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Warehouse" nillable="true" type="tns:Warehouse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWarehouse" nillable="true" type="tns:ArrayOfWarehouse" />
+  <xs:complexType name="Warehouse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Warehouse" nillable="true" type="tns:Warehouse" />
+  <xs:complexType name="ArrayOfPriceCatalogPolicy">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PriceCatalogPolicy" nillable="true" type="tns:PriceCatalogPolicy" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPriceCatalogPolicy" nillable="true" type="tns:ArrayOfPriceCatalogPolicy" />
+  <xs:complexType name="PriceCatalogPolicy">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PriceCatalogPolicy" nillable="true" type="tns:PriceCatalogPolicy" />
+</xs:schema>

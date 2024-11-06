@@ -1,0 +1,15 @@
+﻿@model OwnerApplicationSettings
+@using ITS.Retail.WebClient.Extensions;
+@{
+    string callbackRouteValuesController = "OwnerApplicationSettings";
+    string callbackRouteValuesAction = "B2CPriceCatalog";
+    string callbackRouteValuesArea = string.Empty;
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = OwnerApplicationSettingsController.PriceCatalogsRequestedByFilterCondition;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = OwnerApplicationSettingsController.PriceCatalogRequestedByValue;
+
+    string name = ViewData["Name"] as string;
+    FormInstances.DropDownListNotSearchableComboBoxBody(Html: Html, enabled: true, callbackRouteValuesController: callbackRouteValuesController, callbackRouteValuesAction: callbackRouteValuesAction, callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, name: name, valueType: typeof(Guid), modelType: typeof(PriceCatalog), model: Model == null ? null : DataBinder.Eval(Model.B2CPriceCatalog, "Oid")).Render();
+}
+
+

@@ -1,0 +1,61 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<table><tr><td>
+
+    @Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Locale + ":";
+        edtSettings.AssociatedControlName = "Locale";
+    }).GetHtml()
+
+</td><td>
+
+    @Html.DevExpress().ComboBox(
+		edtSettings =>
+		{
+			edtSettings.Name = "Locale";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;                  
+		}
+	).BindList(ViewBag.Cultures).Bind(DataBinder.Eval(ViewData["item"], "Locale")).GetHtml()
+
+</td></tr><tr><td>
+
+    @Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Description + ":";
+        edtSettings.AssociatedControlName = "Description";
+    }).GetHtml()
+
+</td><td>
+     
+    @Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.EncodeHtml = true;
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(ViewData["item"], "Description")).GetHtml()
+
+</td></tr><tr><td>
+
+   @Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Text = Resources.Default;
+                edtSettings.Name = "IsDefaultCheckbox";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+            }
+        ).Bind(DataBinder.Eval(ViewData["item"], "IsDefault") ?? false).GetHtml()
+
+ </td></tr></table>
+        

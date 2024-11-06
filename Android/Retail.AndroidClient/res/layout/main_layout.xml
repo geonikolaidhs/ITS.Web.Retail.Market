@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/dummyId343543"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <include layout="@layout/tab_order_by_offer" />
+
+			<include layout="@layout/tab_order_totals"   />         
+
+            <include layout="@layout/tab_order_by_category" />
+
+            <include layout="@layout/tab_settings" />
+
+            <include layout="@layout/tab_about" />
+
+            <include layout="@layout/tab_login" />
+
+            <include layout="@layout/tab_item_info" />
+
+            <include layout="@layout/tab_item_search" />
+
+            <include layout="@layout/tab_order" />
+
+            <include layout="@layout/tab_order_by_new" />
+
+            <include layout="@layout/tab_select_customer" />
+
+            <include layout="@layout/tab_main_menu" />
+            
+            <include layout="@layout/tab_customer_info" />
+            
+            <include layout="@layout/tab_item_list" />
+            
+            <include layout="@layout/tab_check_price" />
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>

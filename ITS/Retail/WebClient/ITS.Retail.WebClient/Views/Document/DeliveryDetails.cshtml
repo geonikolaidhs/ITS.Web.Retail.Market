@@ -1,0 +1,79 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+}
+
+<table class="style_table">
+    <tr><td colspan="4" class='head'><h2>@Resources.DeliveryDetails</h2></td></tr>
+    <tr>
+        <td class='infoLabels'>@Resources.TransferMethod</td>
+        <td>
+            @Html.DevExpress().TextBox(txt_settings =>
+            {
+                txt_settings.Name = "TransferMethod";
+                txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                if (ViewBag.InViewMode)
+                {
+                    txt_settings.Enabled = false;
+                }
+            }).Bind(document.TransferMethod).GetHtml()
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.PlaceOfLoading</td>
+        <td>
+            @Html.DevExpress().TextBox(txt_settings =>
+            {
+                txt_settings.Name = "PlaceOfLoading";
+                txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                if (ViewBag.InViewMode)
+                {
+                    txt_settings.Enabled = false;
+                }
+            }).Bind(document.PlaceOfLoading).GetHtml()
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.TransferPurpose</td>
+        <td>
+            @if (!ViewBag.InViewMode)
+            {
+                @Html.DevExpress().ComboBox(combosettings =>
+                {
+                    combosettings.Name = "TransferPurpose";
+                    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                    combosettings.Properties.TextField = "Description";
+                    combosettings.Properties.ValueField = "Oid";
+                    combosettings.ControlStyle.CssClass = "size width-154";
+                    combosettings.Properties.ValueType = typeof(Guid);
+                    combosettings.Properties.DropDownButton.Visible = true;
+                }).BindList(ViewBag.TransferPurposes).Bind(DataBinder.Eval(document,"TransferPurpose!Key")).GetHtml()
+            }
+            else
+            {
+                @Html.DevExpress().TextBox(txt_settings =>
+                {
+                    txt_settings.Name = "TransferPurpose";
+                    txt_settings.Text = document.TransferPurpose != null ? document.TransferPurpose.Description : " ";
+                    txt_settings.Enabled = false;
+                }).GetHtml()
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.VehicleNumber</td>
+        <td>
+            @Html.DevExpress().TextBox(txt_settings =>
+            {
+                txt_settings.Name = "VehicleNumber";
+                txt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                if (ViewBag.InViewMode)
+                {
+                    txt_settings.Enabled = false;
+                }
+            }).Bind(document.VehicleNumber).GetHtml()
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,81 @@
+﻿@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(viewContext: ViewContext, objectType: typeof(DocTypeCustomerCategory), controllerType: typeof(DocumentTypeController), gridName: "gridDocTypeCustCategories", columnType: GridViewCommandColumnType.ICONS, generateColumns: false);
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "DocumentType", Action = "CustomerCategoryUpdatePartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DocumentType", Action = "CustomerCategoryUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "DocumentType", Action = "CustomerCategoryDeletePartial" };
+    settings.CallbackRouteValues = new { Controller = "DocumentType", Action = "CustomerCategoryGrid"};
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallbackCategoryGrid";
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsText.Title = Resources.CustomerCategories;
+    settings.SettingsText.PopupEditFormCaption = Resources.CustomerCategory;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CustomerCategory.Code";
+        column.Caption = Resources.Code;
+        column.SortAscending();
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CustomerCategory.Description";
+        column.Caption = Resources.Description;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultCategoryForNewCustomer";
+        column.Caption = Resources.IsDefault;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().CheckBox(chkboxsettings =>
+            {
+                chkboxsettings.Name = c.KeyValue.ToString();
+                chkboxsettings.Properties.ClientSideEvents.CheckedChanged = "SetDefaultCategory";
+            }).Bind(DataBinder.Eval(c.DataItem, "DefaultCategoryForNewCustomer")).GetHtml();
+        });
+    });
+
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        Html.RenderPartial("CustomerCategoryTreeView");
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["Customer"] = item;
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnCustomerAnalyticTreeUpdate";
+        headerOptions.SaveButton.OnClick = "OnSaveBtnClickCustomerAnalyticTree";
+        headerOptions.CancelButton.Name = "btnCustomerAnalyticTreeCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+    });
+
+
+
+    settings.DataBinding = (object sender, EventArgs e) =>
+    {
+        (sender as ASPxGridView).ForceDataRowType(typeof(DocTypeCustomerCategory));
+    };
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

@@ -1,0 +1,38 @@
+﻿@model OwnerApplicationSettings
+@using ITS.Retail.WebClient.Extensions;
+@{
+    string callbackRouteValuesController = "Company";
+    string callbackRouteValuesAction = "ReportsComboBox";
+    string callbackRouteValuesArea = string.Empty;
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = CompanyController.CustomReportMethodRequestedByFilterCondition;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = CompanyController.CustomReportMethodRequestedByValue;
+
+    string name = ViewData["Name"] as string;
+    object model = null;
+    if (Model != null)
+    {
+        switch (name)
+        {
+            case "CustomerExportProtocolReport":
+                model = DataBinder.Eval(Model.CustomerExportProtocolReport, "Oid");
+                break;
+            case "CustomerAnonymizationProtocolReport":
+                model = DataBinder.Eval(Model.CustomerAnonymizationProtocolReport, "Oid");
+                break;
+            case "SupplierExportProtocolReport":
+                model = DataBinder.Eval(Model.SupplierExportProtocolReport, "Oid");
+                break;
+            case "SupplierAnonymizationProtocolReport":
+                model = DataBinder.Eval(Model.SupplierAnonymizationProtocolReport, "Oid");
+                break;
+            default:
+                model = null;
+                break;
+        }
+    }
+    
+    FormInstances.DropDownListNotSearchableComboBoxBody(Html: Html, enabled: true, callbackRouteValuesController: callbackRouteValuesController, callbackRouteValuesAction: callbackRouteValuesAction, callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, name: name, valueType: typeof(Guid), modelType: typeof(CustomReport), model: model).Render();
+}
+
+

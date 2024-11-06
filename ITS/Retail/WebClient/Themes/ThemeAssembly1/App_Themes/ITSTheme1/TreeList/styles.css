@@ -1,0 +1,263 @@
+.dxtlControl_ITSTheme1
+{
+	cursor: default;
+	font: 11px arial ;
+	color: #333333;
+	border: 1px none #c0c0c0;
+}
+.dxtlControl_ITSTheme1 caption
+{
+	background: #ACACAC none;
+	border-bottom: 0 solid #c0c0c0;
+	border: 1px solid #c0c0c0;
+	color: White;
+	font-size: 15px;
+	font-weight: normal;
+	padding: 3px 3px 5px;
+	text-align: center;
+}
+
+/* Indent cells */
+.dxtlIndent_ITSTheme1,
+.dxtlIndentWithButton_ITSTheme1
+{
+	vertical-align: top;
+	background: white none no-repeat top center;
+}
+.dxtlIndent_ITSTheme1
+{
+	padding: 0 11px;
+}
+.dxtlIndentWithButton_ITSTheme1
+{
+	padding: 5px 7px 6px;
+}
+.dxtlSelectionCell_ITSTheme1
+{
+	border: 1px solid #cfcfcf;
+}
+
+/* Tree-lines cells */
+.dxtlLineRoot_ITSTheme1
+{
+
+}
+
+.dxtlLineFirst_ITSTheme1
+{
+
+}
+.dxtlLineMiddle_ITSTheme1
+{
+
+}
+.dxtlLineLast_ITSTheme1
+{
+
+}
+
+.dxtlLineFirstRtl_ITSTheme1
+{
+}
+.dxtlLineMiddleRtl_ITSTheme1
+{
+
+}
+.dxtlLineLastRtl_ITSTheme1
+{
+}
+
+/* Headers */
+.dxtlHeader_ITSTheme1
+{
+	border: 1px solid #c0c0c0;
+	padding: 4px 6px 5px;
+	font-weight: normal;
+}
+.dxtlHeader_ITSTheme1 table.dxtl
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+.dxtlHeader_ITSTheme1 td.dxtl
+{
+	padding: 0;
+}
+.dxtlHeader_ITSTheme1,
+.dxtlHeader_ITSTheme1 td.dxtl
+{
+	white-space: nowrap;
+	text-align: left;
+	overflow: hidden;
+}
+.dxtlControl_ITSTheme1 .dxpc-content 
+{
+	padding: 10px!important;
+}
+/* Nodes */
+.dxtlNode_ITSTheme1
+{
+	background: white none;
+}
+.dxtlAltNode_ITSTheme1
+{
+	background-color: WhiteSmoke;
+}
+.dxtlSelectedNode_ITSTheme1
+{
+	background: #e0e0e0 none;
+}
+.dxtlFocusedNode_ITSTheme1
+{
+	background: #06A7FFnone;
+	color: white;
+}
+.dxtlInlineEditNode_ITSTheme1
+{
+	background: white none;
+}
+.dxtlEditFormDisplayNode_ITSTheme1
+{
+	background: white none;
+}
+
+.dxtlNode_ITSTheme1 td.dxtl, 
+.dxtlAltNode_ITSTheme1  td.dxtl, 
+.dxtlSelectedNode_ITSTheme1 td.dxtl, 
+.dxtlFocusedNode_ITSTheme1 td.dxtl,
+.dxtlEditFormDisplayNode_ITSTheme1 td.dxtl,
+.dxtlCommandCell_ITSTheme1
+{
+	padding: 3px 6px 4px;
+	border: 1px solid #cfcfcf;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.dxtlInlineEditNode_ITSTheme1 td.dxtl
+{
+	border: 1px solid #cfcfcf;
+	padding: 1px;
+}
+
+/* Preview */
+.dxtlPreview_ITSTheme1
+{
+	color: #7f7f7f;
+	padding: 14px;
+	border: 1px solid #cfcfcf;
+	overflow: hidden;
+}
+
+/* Footers */
+.dxtlGroupFooter_ITSTheme1
+{
+}
+.dxtlFooter_ITSTheme1
+{
+}
+.dxtlGroupFooter_ITSTheme1 td.dxtl,
+.dxtlFooter_ITSTheme1 td.dxtl
+{
+	padding: 5px 6px 6px;
+	white-space: nowrap;
+	border: 1px solid #cfcfcf;
+	overflow: hidden;
+}
+
+/* Pagers */
+.dxtlPagerTopPanel_ITSTheme1
+{
+	border-bottom: 1px none #c0c0c0;
+	padding: 4px 0;
+}
+.dxtlPagerBottomPanel_ITSTheme1
+{
+	border-top: 1px none #c0c0c0;
+	padding: 7px 0;
+}
+
+/* Editing */
+.dxtlEditForm_ITSTheme1
+{
+	border: 1px solid #D3D3D3;
+	padding: 8px 10px 10px;
+}
+.dxtlEditFormCaption_ITSTheme1,
+.dxtlEditFormEditCell_ITSTheme1
+{
+	padding: 4px;
+}
+.dxtlEditFormCaption_ITSTheme1
+{
+	padding-left: 10px;
+	white-space: nowrap;
+}
+.dxtlError_ITSTheme1
+{
+	background: #FFC8C8 none;
+	color: #FF0000;
+	padding: 6px 10px;
+	border: 1px solid #cfcfcf;
+}
+.dxtlPopupEditForm_ITSTheme1
+{
+	padding: 0;
+	min-width: 300px;
+}
+
+/* Links */
+.dxtlControl_ITSTheme1 a
+{
+	color: #06A7FF;
+}
+.dxtlControl_ITSTheme1 a:hover
+{
+}
+.dxtlFocusedNode_ITSTheme1 a
+{
+	color: White;
+}
+.dxtlSelectedNode_ITSTheme1 a
+{
+	color: #06A7FF;
+}
+.dxtlCommandCell_ITSTheme1 a
+{
+	margin-right: 3px;
+}
+/* Customization window */
+.dxtlControl_ITSTheme1 .dxpcLite_ITSTheme1 .dxpc-content
+{
+	min-width: 220px;
+}
+
+/* Loading panel */
+.dxtlLoadingPanel_ITSTheme1
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px arial ;
+	color: #333333;
+}
+.dxtlLoadingPanel_ITSTheme1 td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 10px 14px;
+}
+.dxtlLoadingDiv_ITSTheme1
+{
+	background: white none;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+
+/* Disabled */
+.dxtlDisabled_ITSTheme1,
+.dxtlDisabled_ITSTheme1 .dxtl
+{
+	color: #b8b8b8;
+	cursor: default;
+}
+
+

@@ -1,0 +1,1607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetChanges">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TypeName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="version" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="deviceID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="identifier" type="tns:eIdentifier" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="eIdentifier">
+        <s:restriction base="s:string">
+          <s:enumeration value="POS" />
+          <s:enumeration value="STORECONTROLLER" />
+          <s:enumeration value="MASTER" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetChangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChangesResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="totalChanges" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreControllerCommands">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="storeControllerOid" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="isOnline" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreControllerCommandsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStoreControllerCommandsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPosStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posOid" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="tns:eMachineStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="eMachineStatus">
+        <s:list>
+          <s:simpleType>
+            <s:restriction base="s:string">
+              <s:enumeration value="UNKNOWN" />
+              <s:enumeration value="SALE" />
+              <s:enumeration value="OPENDOCUMENT" />
+              <s:enumeration value="OPENDOCUMENT_PAYMENT" />
+              <s:enumeration value="CLOSED" />
+              <s:enumeration value="PAUSE" />
+              <s:enumeration value="DAYSTARTED" />
+            </s:restriction>
+          </s:simpleType>
+        </s:list>
+      </s:simpleType>
+      <s:element name="SendPosStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendPosStatusResult" type="tns:POSCommandSet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="POSCommandSet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Commands" type="tns:ArrayOfSerializableTupleOfePosCommandString" />
+          <s:element minOccurs="1" maxOccurs="1" name="Expire" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSerializableTupleOfePosCommandString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SerializableTupleOfePosCommandString" type="tns:SerializableTupleOfePosCommandString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SerializableTupleOfePosCommandString">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Item1" type="tns:ePosCommand" />
+          <s:element minOccurs="0" maxOccurs="1" name="Item2" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ePosCommand">
+        <s:list>
+          <s:simpleType>
+            <s:restriction base="s:string">
+              <s:enumeration value="NONE" />
+              <s:enumeration value="SEND_CHANGES" />
+              <s:enumeration value="RESTART_POS" />
+              <s:enumeration value="ISSUE_X" />
+              <s:enumeration value="ISSUE_Z" />
+              <s:enumeration value="RELOAD_ENTITIES" />
+              <s:enumeration value="RETRY_IMMEDIATE" />
+              <s:enumeration value="EXECUTE_POS_SQL" />
+              <s:enumeration value="EXECUTE_POS_CMD" />
+              <s:enumeration value="POS_UPDATE" />
+              <s:enumeration value="POS_APPLICATION_RESTART" />
+            </s:restriction>
+          </s:simpleType>
+        </s:list>
+      </s:simpleType>
+      <s:element name="CreateCommandResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posOid" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="commandType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="command" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="commandResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateCommandResultResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetGlobalsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGlobalsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGlobalsXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUpdaterModesXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUpdaterModesXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUpdaterModesXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomActionCodesXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomActionCodesXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomActionCodesXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDevicesByteXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDevicesByteXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDevicesByteXmlResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDevicesXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDevicesXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDevicesXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActionLevelsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetActionLevelsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActionLevelsXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPOSVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOSVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSLoaderLink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSLoaderLinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOSLoaderLinkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSClientLink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSClientLinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOSClientLinkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="typeName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="deviceID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="identifier" type="tns:eIdentifier" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PostDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="typeName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="deviceID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetVersionResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVariableValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customDataViewOid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gridOids" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paramValues" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVariableValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVariableValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetXFormat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetXFormatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetXFormatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetZFormat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetZFormatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetZFormatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceiptFormat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceiptFormatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceiptFormatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomLayout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomLayoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomLayoutResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetZReportSequence">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PosOid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetZReportSequenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetZReportSequenceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentSequence">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentSeriesOid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentSequenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentSequenceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSpecificDeviceDLLLinks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSpecificDeviceDLLLinksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSpecificDeviceDLLLinksResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InsertOrUpdateRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="storeControllerOid" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="typeName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonObject" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertOrUpdateRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertOrUpdateRecordResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostSynchronizationInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deviceOid" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="deviceName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="databaseCount" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="version" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="entityName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="direction" type="tns:eSyncInfoEntityDirection" />
+            <s:element minOccurs="1" maxOccurs="1" name="minVersion" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="eSyncInfoEntityDirection">
+        <s:restriction base="s:string">
+          <s:enumeration value="UP" />
+          <s:enumeration value="DOWN" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PostSynchronizationInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PostSynchronizationInfoResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="serverVersion" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="serverEntityCount" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="storeControllerOid" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="typeName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="oid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteRecordResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExistingUsableCoupon">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="deviceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="storeGuid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExistingUsableCouponResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetExistingUsableCouponResult" type="tns:CouponViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CouponViewModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="CouponMaskOid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Owner" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfTimesUsed" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsUnique" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CouponAppliesOn" type="tns:CouponAppliesOn" />
+          <s:element minOccurs="1" maxOccurs="1" name="CouponAmountType" type="tns:CouponAmountType" />
+          <s:element minOccurs="1" maxOccurs="1" name="CouponAmountIsAppliedAs" type="tns:CouponAmountIsAppliedAs" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountType" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsActiveFromDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsActiveUntilDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentMethod" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="CouponCategory" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="CouponCategoryDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DecodedString" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CouponAppliesOn">
+        <s:restriction base="s:string">
+          <s:enumeration value="ITEM" />
+          <s:enumeration value="GROSS_TOTAL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CouponAmountType">
+        <s:restriction base="s:string">
+          <s:enumeration value="PERCENTAGE" />
+          <s:enumeration value="VALUE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CouponAmountIsAppliedAs">
+        <s:restriction base="s:string">
+          <s:enumeration value="DISCOUNT" />
+          <s:enumeration value="PAYMENT_METHOD" />
+          <s:enumeration value="POINTS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UpdateCoupons">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transactionCoupons" type="tns:ArrayOfTransactionCouponViewModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransactionCouponViewModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionCouponViewModel" nillable="true" type="tns:TransactionCouponViewModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransactionCouponViewModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="Coupon" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateCouponsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateCouponsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="errorMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DirectPostNewDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="document" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="posOid" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="identifier" type="tns:eIdentifier" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DirectPostNewDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DirectPostNewDocumentResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="errorMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotTransferedObjects">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="expectedTransferedObjects" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNotTransferedObjectsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNotTransferedObjectsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReportSettingsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReportSettingsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReportSettingsXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSReportLibrary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOSReportLibraryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOSReportLibraryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetITSRetailCommonLibrary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="posid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetITSRetailCommonLibraryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetITSRetailCommonLibraryResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetChangesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChanges" />
+  </wsdl:message>
+  <wsdl:message name="GetChangesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreControllerCommandsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStoreControllerCommands" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreControllerCommandsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStoreControllerCommandsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPosStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPosStatus" />
+  </wsdl:message>
+  <wsdl:message name="SendPosStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPosStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateCommandResultSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateCommandResult" />
+  </wsdl:message>
+  <wsdl:message name="CreateCommandResultSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateCommandResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGlobalsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetGlobalsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGlobalsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUpdaterModesXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUpdaterModesXml" />
+  </wsdl:message>
+  <wsdl:message name="GetUpdaterModesXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUpdaterModesXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomActionCodesXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomActionCodesXml" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomActionCodesXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomActionCodesXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDevicesByteXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDevicesByteXml" />
+  </wsdl:message>
+  <wsdl:message name="GetDevicesByteXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDevicesByteXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDevicesXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDevicesXml" />
+  </wsdl:message>
+  <wsdl:message name="GetDevicesXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDevicesXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActionLevelsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActionLevelsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetActionLevelsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActionLevelsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOSVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOSVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSLoaderLinkSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOSLoaderLink" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSLoaderLinkSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOSLoaderLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSClientLinkSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOSClientLink" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSClientLinkSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOSClientLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostDataSoapIn">
+    <wsdl:part name="parameters" element="tns:PostData" />
+  </wsdl:message>
+  <wsdl:message name="PostDataSoapOut">
+    <wsdl:part name="parameters" element="tns:PostDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVariableValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVariableValues" />
+  </wsdl:message>
+  <wsdl:message name="GetVariableValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVariableValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetXFormatSoapIn">
+    <wsdl:part name="parameters" element="tns:GetXFormat" />
+  </wsdl:message>
+  <wsdl:message name="GetXFormatSoapOut">
+    <wsdl:part name="parameters" element="tns:GetXFormatResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetZFormatSoapIn">
+    <wsdl:part name="parameters" element="tns:GetZFormat" />
+  </wsdl:message>
+  <wsdl:message name="GetZFormatSoapOut">
+    <wsdl:part name="parameters" element="tns:GetZFormatResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptFormatSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceiptFormat" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptFormatSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceiptFormatResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomLayoutSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomLayout" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomLayoutSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomLayoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetZReportSequenceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetZReportSequence" />
+  </wsdl:message>
+  <wsdl:message name="GetZReportSequenceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetZReportSequenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSequenceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentSequence" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSequenceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentSequenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecificDeviceDLLLinksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSpecificDeviceDLLLinks" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecificDeviceDLLLinksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSpecificDeviceDLLLinksResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertOrUpdateRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertOrUpdateRecord" />
+  </wsdl:message>
+  <wsdl:message name="InsertOrUpdateRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertOrUpdateRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostSynchronizationInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:PostSynchronizationInfo" />
+  </wsdl:message>
+  <wsdl:message name="PostSynchronizationInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:PostSynchronizationInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteRecord" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetExistingUsableCouponSoapIn">
+    <wsdl:part name="parameters" element="tns:GetExistingUsableCoupon" />
+  </wsdl:message>
+  <wsdl:message name="GetExistingUsableCouponSoapOut">
+    <wsdl:part name="parameters" element="tns:GetExistingUsableCouponResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCouponsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCoupons" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCouponsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCouponsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DirectPostNewDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:DirectPostNewDocument" />
+  </wsdl:message>
+  <wsdl:message name="DirectPostNewDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:DirectPostNewDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNotTransferedObjectsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNotTransferedObjects" />
+  </wsdl:message>
+  <wsdl:message name="GetNotTransferedObjectsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNotTransferedObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReportSettingsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReportSettingsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetReportSettingsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReportSettingsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSReportLibrarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOSReportLibrary" />
+  </wsdl:message>
+  <wsdl:message name="GetPOSReportLibrarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOSReportLibraryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetITSRetailCommonLibrarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetITSRetailCommonLibrary" />
+  </wsdl:message>
+  <wsdl:message name="GetITSRetailCommonLibrarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetITSRetailCommonLibraryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="POSUpdateServiceSoap">
+    <wsdl:operation name="GetChanges">
+      <wsdl:input message="tns:GetChangesSoapIn" />
+      <wsdl:output message="tns:GetChangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerCommands">
+      <wsdl:input message="tns:GetStoreControllerCommandsSoapIn" />
+      <wsdl:output message="tns:GetStoreControllerCommandsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPosStatus">
+      <wsdl:input message="tns:SendPosStatusSoapIn" />
+      <wsdl:output message="tns:SendPosStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCommandResult">
+      <wsdl:input message="tns:CreateCommandResultSoapIn" />
+      <wsdl:output message="tns:CreateCommandResultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalsXml">
+      <wsdl:input message="tns:GetGlobalsXmlSoapIn" />
+      <wsdl:output message="tns:GetGlobalsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdaterModesXml">
+      <wsdl:input message="tns:GetUpdaterModesXmlSoapIn" />
+      <wsdl:output message="tns:GetUpdaterModesXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomActionCodesXml">
+      <wsdl:input message="tns:GetCustomActionCodesXmlSoapIn" />
+      <wsdl:output message="tns:GetCustomActionCodesXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesByteXml">
+      <wsdl:input message="tns:GetDevicesByteXmlSoapIn" />
+      <wsdl:output message="tns:GetDevicesByteXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesXml">
+      <wsdl:input message="tns:GetDevicesXmlSoapIn" />
+      <wsdl:output message="tns:GetDevicesXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActionLevelsXml">
+      <wsdl:input message="tns:GetActionLevelsXmlSoapIn" />
+      <wsdl:output message="tns:GetActionLevelsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSVersion">
+      <wsdl:input message="tns:GetPOSVersionSoapIn" />
+      <wsdl:output message="tns:GetPOSVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSLoaderLink">
+      <wsdl:input message="tns:GetPOSLoaderLinkSoapIn" />
+      <wsdl:output message="tns:GetPOSLoaderLinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSClientLink">
+      <wsdl:input message="tns:GetPOSClientLinkSoapIn" />
+      <wsdl:output message="tns:GetPOSClientLinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostData">
+      <wsdl:input message="tns:PostDataSoapIn" />
+      <wsdl:output message="tns:PostDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVariableValues">
+      <wsdl:input message="tns:GetVariableValuesSoapIn" />
+      <wsdl:output message="tns:GetVariableValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetXFormat">
+      <wsdl:input message="tns:GetXFormatSoapIn" />
+      <wsdl:output message="tns:GetXFormatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetZFormat">
+      <wsdl:input message="tns:GetZFormatSoapIn" />
+      <wsdl:output message="tns:GetZFormatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptFormat">
+      <wsdl:input message="tns:GetReceiptFormatSoapIn" />
+      <wsdl:output message="tns:GetReceiptFormatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomLayout">
+      <wsdl:input message="tns:GetCustomLayoutSoapIn" />
+      <wsdl:output message="tns:GetCustomLayoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetZReportSequence">
+      <wsdl:input message="tns:GetZReportSequenceSoapIn" />
+      <wsdl:output message="tns:GetZReportSequenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentSequence">
+      <wsdl:input message="tns:GetDocumentSequenceSoapIn" />
+      <wsdl:output message="tns:GetDocumentSequenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecificDeviceDLLLinks">
+      <wsdl:input message="tns:GetSpecificDeviceDLLLinksSoapIn" />
+      <wsdl:output message="tns:GetSpecificDeviceDLLLinksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertOrUpdateRecord">
+      <wsdl:input message="tns:InsertOrUpdateRecordSoapIn" />
+      <wsdl:output message="tns:InsertOrUpdateRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostSynchronizationInfo">
+      <wsdl:input message="tns:PostSynchronizationInfoSoapIn" />
+      <wsdl:output message="tns:PostSynchronizationInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecord">
+      <wsdl:input message="tns:DeleteRecordSoapIn" />
+      <wsdl:output message="tns:DeleteRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetExistingUsableCoupon">
+      <wsdl:input message="tns:GetExistingUsableCouponSoapIn" />
+      <wsdl:output message="tns:GetExistingUsableCouponSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCoupons">
+      <wsdl:input message="tns:UpdateCouponsSoapIn" />
+      <wsdl:output message="tns:UpdateCouponsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DirectPostNewDocument">
+      <wsdl:input message="tns:DirectPostNewDocumentSoapIn" />
+      <wsdl:output message="tns:DirectPostNewDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotTransferedObjects">
+      <wsdl:input message="tns:GetNotTransferedObjectsSoapIn" />
+      <wsdl:output message="tns:GetNotTransferedObjectsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportSettingsXml">
+      <wsdl:input message="tns:GetReportSettingsXmlSoapIn" />
+      <wsdl:output message="tns:GetReportSettingsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSReportLibrary">
+      <wsdl:input message="tns:GetPOSReportLibrarySoapIn" />
+      <wsdl:output message="tns:GetPOSReportLibrarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetITSRetailCommonLibrary">
+      <wsdl:input message="tns:GetITSRetailCommonLibrarySoapIn" />
+      <wsdl:output message="tns:GetITSRetailCommonLibrarySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="POSUpdateServiceSoap" type="tns:POSUpdateServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetChanges">
+      <soap:operation soapAction="http://tempuri.org/GetChanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerCommands">
+      <soap:operation soapAction="http://tempuri.org/GetStoreControllerCommands" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPosStatus">
+      <soap:operation soapAction="http://tempuri.org/SendPosStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCommandResult">
+      <soap:operation soapAction="http://tempuri.org/CreateCommandResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalsXml">
+      <soap:operation soapAction="http://tempuri.org/GetGlobalsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdaterModesXml">
+      <soap:operation soapAction="http://tempuri.org/GetUpdaterModesXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomActionCodesXml">
+      <soap:operation soapAction="http://tempuri.org/GetCustomActionCodesXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesByteXml">
+      <soap:operation soapAction="http://tempuri.org/GetDevicesByteXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesXml">
+      <soap:operation soapAction="http://tempuri.org/GetDevicesXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActionLevelsXml">
+      <soap:operation soapAction="http://tempuri.org/GetActionLevelsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSVersion">
+      <soap:operation soapAction="http://tempuri.org/GetPOSVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSLoaderLink">
+      <soap:operation soapAction="http://tempuri.org/GetPOSLoaderLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSClientLink">
+      <soap:operation soapAction="http://tempuri.org/GetPOSClientLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostData">
+      <soap:operation soapAction="http://tempuri.org/PostData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVariableValues">
+      <soap:operation soapAction="http://tempuri.org/GetVariableValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetXFormat">
+      <soap:operation soapAction="http://tempuri.org/GetXFormat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZFormat">
+      <soap:operation soapAction="http://tempuri.org/GetZFormat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptFormat">
+      <soap:operation soapAction="http://tempuri.org/GetReceiptFormat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomLayout">
+      <soap:operation soapAction="http://tempuri.org/GetCustomLayout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZReportSequence">
+      <soap:operation soapAction="http://tempuri.org/GetZReportSequence" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentSequence">
+      <soap:operation soapAction="http://tempuri.org/GetDocumentSequence" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecificDeviceDLLLinks">
+      <soap:operation soapAction="http://tempuri.org/GetSpecificDeviceDLLLinks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertOrUpdateRecord">
+      <soap:operation soapAction="http://tempuri.org/InsertOrUpdateRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostSynchronizationInfo">
+      <soap:operation soapAction="http://tempuri.org/PostSynchronizationInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecord">
+      <soap:operation soapAction="http://tempuri.org/DeleteRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExistingUsableCoupon">
+      <soap:operation soapAction="http://tempuri.org/GetExistingUsableCoupon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCoupons">
+      <soap:operation soapAction="http://tempuri.org/UpdateCoupons" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DirectPostNewDocument">
+      <soap:operation soapAction="http://tempuri.org/DirectPostNewDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotTransferedObjects">
+      <soap:operation soapAction="http://tempuri.org/GetNotTransferedObjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportSettingsXml">
+      <soap:operation soapAction="http://tempuri.org/GetReportSettingsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSReportLibrary">
+      <soap:operation soapAction="http://tempuri.org/GetPOSReportLibrary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetITSRetailCommonLibrary">
+      <soap:operation soapAction="http://tempuri.org/GetITSRetailCommonLibrary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="POSUpdateServiceSoap12" type="tns:POSUpdateServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetChanges">
+      <soap12:operation soapAction="http://tempuri.org/GetChanges" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerCommands">
+      <soap12:operation soapAction="http://tempuri.org/GetStoreControllerCommands" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPosStatus">
+      <soap12:operation soapAction="http://tempuri.org/SendPosStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCommandResult">
+      <soap12:operation soapAction="http://tempuri.org/CreateCommandResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGlobalsXml">
+      <soap12:operation soapAction="http://tempuri.org/GetGlobalsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdaterModesXml">
+      <soap12:operation soapAction="http://tempuri.org/GetUpdaterModesXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomActionCodesXml">
+      <soap12:operation soapAction="http://tempuri.org/GetCustomActionCodesXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesByteXml">
+      <soap12:operation soapAction="http://tempuri.org/GetDevicesByteXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesXml">
+      <soap12:operation soapAction="http://tempuri.org/GetDevicesXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActionLevelsXml">
+      <soap12:operation soapAction="http://tempuri.org/GetActionLevelsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetPOSVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSLoaderLink">
+      <soap12:operation soapAction="http://tempuri.org/GetPOSLoaderLink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSClientLink">
+      <soap12:operation soapAction="http://tempuri.org/GetPOSClientLink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostData">
+      <soap12:operation soapAction="http://tempuri.org/PostData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVariableValues">
+      <soap12:operation soapAction="http://tempuri.org/GetVariableValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetXFormat">
+      <soap12:operation soapAction="http://tempuri.org/GetXFormat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZFormat">
+      <soap12:operation soapAction="http://tempuri.org/GetZFormat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptFormat">
+      <soap12:operation soapAction="http://tempuri.org/GetReceiptFormat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomLayout">
+      <soap12:operation soapAction="http://tempuri.org/GetCustomLayout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetZReportSequence">
+      <soap12:operation soapAction="http://tempuri.org/GetZReportSequence" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentSequence">
+      <soap12:operation soapAction="http://tempuri.org/GetDocumentSequence" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecificDeviceDLLLinks">
+      <soap12:operation soapAction="http://tempuri.org/GetSpecificDeviceDLLLinks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertOrUpdateRecord">
+      <soap12:operation soapAction="http://tempuri.org/InsertOrUpdateRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostSynchronizationInfo">
+      <soap12:operation soapAction="http://tempuri.org/PostSynchronizationInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecord">
+      <soap12:operation soapAction="http://tempuri.org/DeleteRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://tempuri.org/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExistingUsableCoupon">
+      <soap12:operation soapAction="http://tempuri.org/GetExistingUsableCoupon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCoupons">
+      <soap12:operation soapAction="http://tempuri.org/UpdateCoupons" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DirectPostNewDocument">
+      <soap12:operation soapAction="http://tempuri.org/DirectPostNewDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotTransferedObjects">
+      <soap12:operation soapAction="http://tempuri.org/GetNotTransferedObjects" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportSettingsXml">
+      <soap12:operation soapAction="http://tempuri.org/GetReportSettingsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOSReportLibrary">
+      <soap12:operation soapAction="http://tempuri.org/GetPOSReportLibrary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetITSRetailCommonLibrary">
+      <soap12:operation soapAction="http://tempuri.org/GetITSRetailCommonLibrary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="POSUpdateService">
+    <wsdl:port name="POSUpdateServiceSoap" binding="tns:POSUpdateServiceSoap">
+      <soap:address location="http://10.3.1.154/leonsc/Posupdateservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="POSUpdateServiceSoap12" binding="tns:POSUpdateServiceSoap12">
+      <soap12:address location="http://10.3.1.154/leonsc/Posupdateservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

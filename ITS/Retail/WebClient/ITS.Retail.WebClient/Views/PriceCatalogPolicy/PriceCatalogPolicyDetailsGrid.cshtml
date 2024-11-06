@@ -1,0 +1,123 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+
+@{
+    List<string> excludeFields = new List<string>() { "PriceCatalogPolicy", "TakesEffect" };
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(PriceCatalogPolicyDetail), typeof(PriceCatalogPolicyController), "grdPriceCatalogPolicyDetails", GridViewCommandColumnType.ICONS, true, true, false, excludeFields: excludeFields);
+
+    settings.CallbackRouteValues = new { Controller = "PriceCatalogPolicy", Action = "PriceCatalogPolicyDetailsGrid" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "PriceCatalogPolicy", Action = "PriceCatalogPolicyDetailDelete" };
+    settings.SettingsEditing.AddNewRowRouteValues = settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "PriceCatalogPolicy", Action = "PriceCatalogPolicyDetailUpdate" };
+    settings.SettingsText.Title = Resources.PriceCatalogPolicyDetails;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewData["item"] = item;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnPriceCatalogPolicyDetailUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e, "+ settings.Name +" );}";
+        headerOptions.CancelButton.Name = "btnPriceCatalogPolicyDetailCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table>");
+        ViewContext.Writer.Write("<tr><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.PriceCatalog + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "PriceCatalogCb";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.PriceCatalogs).Bind(DataBinder.Eval(item, "PriceCatalog!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.PriceCatalogSearchMethod + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "PriceCatalogSearchMethod";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(PriceCatalogSearchMethod);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum<PriceCatalogSearchMethod>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "PriceCatalogSearchMethod")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Sort + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "Sort";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+            edtSettings.Properties.MaxValue = 9999;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Sort")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.IsDefault + ":";
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "IsDefault";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "IsDefault") ?? false).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("</table>");
+        ViewContext.Writer.Write("</div>");
+    });
+
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Platform.Enumerations;
+
+@model DocumentHeader
+@{
+    ViewBag.ShowNavigation = false;
+    if (Model.Session.IsNewObject(Model))
+    {
+        ViewBag.Title = Resources.NewDocument;
+    }
+    else
+    {
+        ViewBag.Title = Resources.EditDocument;
+    }
+    eDocumentTypeView ViewForm = (eDocumentTypeView)ViewBag.DocumentViewForm;
+
+    <div id="EditDocHeaderForm">
+         @Html.Partial(ViewForm.ToString(),Model)
+    </div>
+    <div id="documentEditPageControlContainer"  @if (ViewBag.InViewMode) { ViewContext.Writer.Write("class=' isInviewMode'"); }>
+        @Html.Partial("OrderTabsCallbackPanel")
+    </div>
+
+    @Html.Partial("DialogCallbackPanel")
+}
+
+

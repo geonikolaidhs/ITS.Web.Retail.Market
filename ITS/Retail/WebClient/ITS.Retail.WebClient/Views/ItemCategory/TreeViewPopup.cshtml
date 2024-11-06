@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().TreeView(settings =>
+{
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TreeViewPopup" };
+    settings.Name = "CategoryTreeViewPopup";
+    settings.AllowCheckNodes = false;
+    settings.AllowSelectNode = true;
+    settings.CheckNodesRecursive = true;
+    settings.EnableAnimation = true;
+    settings.EnableHotTrack = true;
+    settings.ShowTreeLines = true;
+    settings.ShowExpandButtons = true;
+    settings.ClientSideEvents.NodeClick = "CategoryTreeViewPopupGetData";
+}).BindToVirtualData(TreeHelper.VirtualModeCreateChildren<ItemCategory>(ViewBag.Owner)).GetHtml()

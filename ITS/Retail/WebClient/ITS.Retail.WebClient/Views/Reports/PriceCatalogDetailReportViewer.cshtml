@@ -1,0 +1,12 @@
+﻿@Html.DevExpress().ReportViewer(settings =>
+{
+    // The following settings are necessary for a Report Viewer. 
+    settings.Name = "PriceCatalogDetailReportViewer";
+    settings.Report = (ITS.Retail.ReportsLibrary.PriceCatalogDetailsReport)ViewData["Report"];
+    // Callback and export route values specify corresponding controllers and their actions. 
+    // These settings are necessary as well. 
+    settings.CallbackRouteValues = new { Controller = "Reports", Action = "PriceCatalogDetailReportViewer" };
+    settings.ExportRouteValues = new { Controller = "Reports", Action = "PriceCatalogDetailExportReportViewer" };
+    settings.Report.DataSource = Model;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+}).GetHtml()

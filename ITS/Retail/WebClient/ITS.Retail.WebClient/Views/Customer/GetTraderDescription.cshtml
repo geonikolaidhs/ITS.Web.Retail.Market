@@ -1,0 +1,630 @@
+﻿@model Customer
+@using ITS.Retail.ResourcesLib;
+
+@{
+    if ((bool)ViewData["isOwnEdit"])
+    {
+        var v = Html.DevExpress().RoundPanel(set=>
+        {
+            set.Name = "";
+            set.ShowHeader = false;
+            set.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            set.SetContent(()=>
+            {
+                ViewContext.Writer.Write("<table class='headerTable TraderDescription'><tr><td>");
+
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = Resources.Code;
+                        edtSettings.AssociatedControlName = "StoreCode";
+                    }
+                )
+                .GetHtml();
+                Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "StoreCode";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.Enabled = false;
+                        edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    }
+                    ).Bind(Model.DefaultStore==null? "" : Model.DefaultStore.Code).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = Resources.Description;
+                        edtSettings.AssociatedControlName = "StoreDescription";
+                    }
+                )
+                .GetHtml();
+                Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "StoreDescription";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.Enabled = false;
+                        edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    }).Bind(Model==null || Model.DefaultStore==null ? null : Model.DefaultStore.Name).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = Resources.DefaultAddress;
+                        edtSettings.AssociatedControlName = "StoreAddress";
+                    }
+                ).GetHtml();
+                
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                        edtSettings.Name = "StoreAddress";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.Enabled = false;
+                        edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                }).Bind(Model == null || Model.DefaultStore == null ? null : Model.DefaultStore.Address.Description).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+             
+                Html.DevExpress().Label(
+                    edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+						edtSettings.Text = Resources.StorePhones;
+                    }
+                ).GetHtml();
+				
+                Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "StorePhones";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.Enabled = false;
+                        edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    }
+                ).Bind(ViewData["StorePhones"]).GetHtml();
+				
+                ViewContext.Writer.Write("</td></tr></table>" );
+            });            
+        }).GetHtml();
+        ViewContext.Writer.Write(v);
+    }
+}
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "showForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"background-light-grey\"><table class=\"headerTable margin-0-border-light-gray  margin-0-auto\"><tr><td>");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Code;
+                edtSettings.AssociatedControlName = "Code";
+            }
+        )
+        .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Code)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.TaxCode;
+                edtSettings.AssociatedControlName = "TaxCode";
+            }
+        )
+        .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "TaxCode";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Trader.TaxCode)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+          edtSettings =>
+          {
+              edtSettings.ControlStyle.CssClass = "label";
+              edtSettings.Text = Resources.CompanyName;
+              edtSettings.AssociatedControlName = "CompanyName";
+          }
+      )
+      .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "CompanyName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.CompanyName)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+           edtSettings =>
+           {
+               edtSettings.ControlStyle.CssClass = "label";
+               edtSettings.Text = Resources.Profession;
+               edtSettings.AssociatedControlName = "Profession";
+           }
+       ).GetHtml();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Profession";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Profession).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.TaxOffice;
+                edtSettings.AssociatedControlName = "TaxOffice";
+            }
+        ).GetHtml();
+        Html.DevExpress().TextBox(
+            txtboxSettings =>
+            {
+                txtboxSettings.Name = "TaxOffice";
+                txtboxSettings.ControlStyle.CssClass = "editor";
+                txtboxSettings.Enabled = false;
+                txtboxSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        ).Bind(Model.Trader.TaxOfficeLookUp != null ? Model.Trader.TaxOfficeLookUp.Description : "").GetHtml();        
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+          edtSettings =>
+          {
+              edtSettings.ControlStyle.CssClass = "label";
+              edtSettings.Text = Resources.Active;
+              edtSettings.AssociatedControlName = "IsActive";
+          }
+      ).GetHtml();
+        
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                
+                edtSettings.Name = "IsActive";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+            ).Bind(Model.IsActive ? Resources.Yes : Resources.No).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+   
+        Html.DevExpress().Label(
+           edtSettings =>
+           {
+               edtSettings.ControlStyle.CssClass = "label";
+               edtSettings.Text = Resources.VatLevel;
+           }
+       ).GetHtml();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "VatLevel";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.VatLevel == null ? "": Model.VatLevel.Description)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.DefaultAddress;
+                edtSettings.AssociatedControlName = "DefaultAddress";
+            }
+        ).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultAddress";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Enabled = false;
+            edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+        }).Bind((Model.DefaultAddress==null)?"":Model.DefaultAddress.Description).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.CardID;
+            edtSettings.AssociatedControlName = "CardID";
+        }
+        ).GetHtml();
+
+        Html.DevExpress().TextBox(
+          edtSettings =>
+          {
+              edtSettings.Name = "CardID";
+              edtSettings.ControlStyle.CssClass = "editor";
+              edtSettings.Enabled = false;
+              edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+          }
+      )
+      .Bind((Model.CardID == null) ? "" : Model.CardID)
+      .GetHtml();
+
+        if (!((bool)ViewData["isOwnEdit"]))
+        {
+            ViewContext.Writer.Write("</td><td>");
+            
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.PaymentMethod;
+                    edtSettings.AssociatedControlName = "PaymentMethod";
+                }
+            ).GetHtml();
+
+
+            Html.DevExpress().TextBox(
+              edtSettings =>
+              {
+                  edtSettings.Name = "PaymentMethod";
+                  edtSettings.ControlStyle.CssClass = "editor";
+                  edtSettings.Enabled = false;
+                  edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+              }
+          )
+          .Bind((Model.PaymentMethod == null) ? "" : Model.PaymentMethod.Description)
+          .GetHtml();
+          ViewContext.Writer.Write("</td></tr><tr><td>");
+        }
+        else
+        {
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+        }
+       
+        Html.DevExpress().Label(
+           edtSettings =>
+           {
+               edtSettings.ControlStyle.CssClass = "label";
+               edtSettings.Text = Resources.Name;
+               edtSettings.AssociatedControlName = "FirstName";
+           }
+       )
+       .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "FirstName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Trader.FirstName)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Surname;
+                edtSettings.AssociatedControlName = "LastName";
+            }
+        )
+        .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "LastName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Trader.LastName)
+        .GetHtml();
+        
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Points;
+                edtSettings.AssociatedControlName = "Points";
+            }
+        )
+        .GetHtml();
+        
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Points";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.CollectedPoints)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().Label(
+           edtSettings =>
+           {
+               edtSettings.ControlStyle.CssClass = "label";
+               edtSettings.Text = Resources.RefundStore;
+               edtSettings.AssociatedControlName = "RefundStore";
+               edtSettings.Enabled = true;
+           }
+       ).GetHtml();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "RefundStore";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        ).Bind((Model.RefundStore == null) ? "" : Model.RefundStore.Name).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        
+
+        if (!((bool)ViewData["isOwnEdit"]))
+        {
+            ViewContext.Writer.Write("<table class=\"headerTable margin-0-border-light-gray  margin-0-auto\"><tr>");
+            ViewContext.Writer.Write("<td>");
+            
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = "Email";
+                    edtSettings.AssociatedControlName = "Email";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Email";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;                   
+                }
+            )
+            .Bind(Model.Email)
+            .GetHtml();        
+            
+            ViewContext.Writer.Write("</td>");
+            
+            ViewContext.Writer.Write("<td>");
+            
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.FatherName;
+                    edtSettings.AssociatedControlName = "FatherName";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "FatherName";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;                   
+                }
+            )
+            .Bind(Model.FatherName)
+            .GetHtml();        
+            
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Dogs;
+                    edtSettings.AssociatedControlName = "Dogs";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Dogs";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;
+                }
+            )
+            .Bind(Model.Dogs)
+            .GetHtml();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Cats;
+                    edtSettings.AssociatedControlName = "Cats";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Cats";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;
+                }
+            )
+            .Bind(Model.Cats)
+            .GetHtml();
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("</tr>");
+            ViewContext.Writer.Write("<tr>");
+            
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.OtherPets;
+                    edtSettings.AssociatedControlName = "OtherPets";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "OtherPets";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;
+                }
+            )
+            .Bind(Model.Cats)
+            .GetHtml();
+            ViewContext.Writer.Write("</td>");
+            
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Sex;
+                    edtSettings.AssociatedControlName = "Sex";
+                }
+            )
+            .GetHtml();
+            
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Sex";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;
+                }
+            )
+            .Bind(Model.Sex.ToLocalizedString())
+            .GetHtml();
+            
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.MaritalStatus;
+                    edtSettings.AssociatedControlName = "MaritalStatus";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "MaritalStatus";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;
+                }
+            )
+            .Bind(Model.MaritalStatus.ToLocalizedString())
+            .GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+
+
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.BirthDate;
+                    edtSettings.AssociatedControlName = "BirthDate";
+                }
+            )
+            .GetHtml();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "BirthDate";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Enabled = false;
+                }
+            )
+            .Bind(Model.BirthDate)
+            .GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+            
+            ViewContext.Writer.Write("</tr></table>");
+        }
+        
+        
+       
+    });
+}).GetHtml()
+

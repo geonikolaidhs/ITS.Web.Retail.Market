@@ -1,0 +1,31 @@
+﻿@{
+    TreeViewVirtualModeCreateChildrenMethod bindToVirtualMethod = ViewData["VirtualPriceCatalogsTreeMethod"] as TreeViewVirtualModeCreateChildrenMethod;
+    var treeView = Html.DevExpress().TreeView(settings =>
+    {
+        settings.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "TreeView" };
+        settings.Name = "priceCatalogTreeView";
+        settings.AllowCheckNodes = false;
+        settings.AllowSelectNode = true;
+        settings.CheckNodesRecursive = true;
+        settings.EnableAnimation = true;
+        settings.EnableHotTrack = true;
+        settings.ShowTreeLines = true;
+        settings.ShowExpandButtons = true;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        settings.ClientSideEvents.NodeClick = "priceCatalogTreeViewGetData";
+        settings.ClientSideEvents.ExpandedChanged = "priceCatalogTreeViewExpanded";
+        settings.ClientSideEvents.EndCallback = "priceCatalogTreeViewExpanded";
+
+    });
+
+    if (bindToVirtualMethod != null)
+    {
+        treeView.BindToVirtualData(bindToVirtualMethod).GetHtml();
+    }
+    else
+    {
+        //Static bind, deprecated
+        treeView.Bind(ViewData["PriceCatalogsTree"]).GetHtml();
+    }
+}

@@ -1,0 +1,57 @@
+﻿@using ITS.Retail.Model;
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    
+    foreach (RelativeDocument derivedDoc in document.DerivedDocuments)
+    {
+        <div class="panel panel-primary panel-custom">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @Resources.Document
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="float-left">
+                    <p>
+                        <span>@Resources.Date:</span>
+
+                        @derivedDoc.DerivedDocument.FinalizedDate.ToShortDateString()
+                    </p>
+
+                    <p>
+                        <span>
+                            @Resources.DocumentSeries:
+                        </span>
+
+                        @derivedDoc.DerivedDocument.DocumentSeries
+                    </p>
+
+                    <p>
+                        <span>
+                            @Resources.DocumentNumber:
+                        </span>
+
+                        @derivedDoc.DerivedDocument.DocumentNumber
+                    </p>
+
+                    <p>
+                        <span>
+                            @Resources.DocumentType:
+                        </span>
+
+                        @derivedDoc.DerivedDocument.DocumentType.Description
+                    </p>
+                </div>
+                @*<div class="float-right">
+                        @{
+                            String derivedDocuments = "<a href=\"#\" class='relatedPopUp' onclick=\"ShowRelativeDocumentPopup('document_" + derivedDoc.DerivedDocument.Oid.ToString().Replace('-', '_') + "'); \" >" + Resources.Theme + "</a>";
+                            Html.ViewContext.Writer.Write(derivedDocuments);
+                        }
+                </div>*@
+            </div>
+        </div>
+    }
+
+}

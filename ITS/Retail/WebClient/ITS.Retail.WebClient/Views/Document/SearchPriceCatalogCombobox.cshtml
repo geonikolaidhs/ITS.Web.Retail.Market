@@ -1,0 +1,48 @@
+﻿@using ITS.Retail.WebClient.Controllers;
+
+@{
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "storePriceCatalogs";
+    cmb_settings.Properties.TextField = "PriceCatalog";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    cmb_settings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+    button = new EditButton("");
+    button.Image.Url = Url.Content("~/Content/img/search.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Add;
+    cmb_settings.Properties.Buttons.Add(button);
+
+    if (BaseController.OwnerApplicationSettings.AllowPriceCatalogSelection && ViewBag.InViewMode == false)
+    {
+        cmb_settings.Properties.ClientSideEvents.ValueChanged = "UpdateDocHeader";
+        cmb_settings.Properties.ClientSideEvents.KeyPress = "CheckIfEnterKeyPressed";
+        cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+
+        cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+    }
+    else
+    {
+        cmb_settings.ClientEnabled = false;
+        cmb_settings.Properties.Buttons.Clear();
+        cmb_settings.Properties.DropDownButton.Visible = false;
+    }
+
+    cmb_settings.Properties.Columns.Add("Description", Resources.PriceCatalog, 90);
+    cmb_settings.Properties.Columns.Add("Code", Resources.Code, 90);
+    cmb_settings.Properties.CallbackPageSize = 15;
+    cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+
+    cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_settings.Properties.FilterMinLength = 0;
+    cmb_settings.CallbackRouteValues = new { Controller = "Document", Action = "ReturnView", ViewName = "SearchPriceCatalogCombobox", IsPartial = true };
+    cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+
+}).BindList(DocumentController.PriceCatalogRequestedByFilterCondition, DocumentController.ObjectRequestedByValue<PriceCatalog>).BindList(DocumentController.GetObjectByValue<PriceCatalog>(DataBinder.Eval(Session["currentDocument"], "PriceCatalog!Key"))).Bind(DataBinder.Eval(Session["currentDocument"], "PriceCatalog!Key")).GetHtml()

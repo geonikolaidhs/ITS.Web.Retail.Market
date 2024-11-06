@@ -1,0 +1,90 @@
+﻿@model ITS.Retail.Model.POSActionLevelsSet
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+
+@using (Html.BeginForm("Save", "POSActionLevelsSet", FormMethod.Post, new { id = "EditForm" }))
+{
+    
+	@Html.DevExpress().RoundPanel(settings =>
+{
+	settings.Name = "editForm";
+    settings.ShowHeader = false;
+	settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+	settings.SetContent(() =>
+	{
+        ViewContext.Writer.Write(Html.Hidden("POSActionLevelsSetGuid", ViewData["POSActionLevelsSetGuid"].ToString()));
+
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2"; 
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-auto'><tr><td>");
+
+		Html.DevExpress().Label(
+			edtSettings =>
+			{
+                edtSettings.ControlStyle.CssClass = "label required_field";
+				edtSettings.Text = Resources.Code+":";
+			}).Render();
+
+		ViewContext.Writer.Write("</td><td>");
+
+		Html.DevExpress().TextBox(
+			edtSettings =>
+			{
+				edtSettings.Name = "Code";
+				edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+			}
+		)
+		.Bind(DataBinder.Eval(Model, "Code"))
+		.Render();
+
+		ViewContext.Writer.Write("</td></tr><tr><td>");
+
+		Html.DevExpress().Label(
+	edtSettings =>
+	{
+		edtSettings.ControlStyle.CssClass = "label";
+		edtSettings.Text = Resources.Description + ":";
+	}
+	).Render();
+
+		ViewContext.Writer.Write("</td><td>");
+
+		Html.DevExpress().TextBox(
+			edtSettings =>
+			{
+                edtSettings.Name = "Description";
+				edtSettings.ControlStyle.CssClass = "editor";
+			}
+		)
+        .Bind(DataBinder.Eval(Model, "Description"))
+		.Render();
+		ViewContext.Writer.Write("</td></tr></table>");
+		ViewContext.Writer.Write("</div>");
+        
+        @Html.DevExpress().PageControl(
+                settings2 =>
+                {
+                    settings2.AccessibilityCompliant = false;
+                    settings2.Name = "pcFeatures2";
+                    settings2.ActivateTabPageAction = ActivateTabPageAction.Click;
+                    settings2.TabAlign = TabAlign.Left;
+                    settings2.TabPosition = TabPosition.Top;
+                    settings2.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings2.TabPages.Add(Resources.POSActionLevels).SetContent(() =>
+                    {
+                        @Html.RenderPartial("ActionLevelsGrid", Model.POSActionLevels);
+                    });
+                }).Render();
+	});
+}).GetHtml();
+}

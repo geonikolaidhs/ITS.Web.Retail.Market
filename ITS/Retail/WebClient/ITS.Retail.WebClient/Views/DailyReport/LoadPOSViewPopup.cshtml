@@ -1,0 +1,12 @@
+﻿@{
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("dailyReportPOS_" + ViewData["DailyTotalID"].ToString().Replace('-', '_'));
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "DailyReport", Action = "LoadPOSViewPopup", DailyTotalID = ViewData["DailyTotalID"] };
+    popUpSettings.SetContent(() =>
+    {
+        @Html.RenderAction("DailyTotalDetails", "DailyReport", new { DailyTotalID = ViewData["DailyTotalID"] });
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+

@@ -1,0 +1,222 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{    
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdDocumentPayments";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "Payments", currentDocumentHeaderOid = document.Oid };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = 490;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Document", Action = "DeletePayment" };
+    settings.SettingsEditing.AddNewRowRouteValues = settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Document", Action = "UpdatePayment" };
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 8;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsPager.AlwaysShowPager = true;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = false;
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    if (!ViewBag.InViewMode && document.DocumentType.UsesPaymentMethods)
+    {
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.HeaderStyle.Wrap = DefaultBoolean.True;
+            if (Session["currentDocument"] != null)
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    if ((bool)ViewData["TableCanUpdate"])
+                    {
+                        ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+                    }
+
+                    if ((bool)ViewData["TableCanDelete"])
+                    {
+                        ViewContext.Writer.Write(
+                           "<a href='javascript:;' onclick=\"grdDocumentPayments.DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a></div>"
+                        );
+                    }
+                });
+
+                if ((bool)ViewData["TableCanInsert"])
+                {
+                    column.SetHeaderTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                           "<a href='javascript:;' onclick=\"grdDocumentPayments.AddNewRow();\" title=\"" + Resources.Add + "\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a></div>"
+                        );
+                    });
+                }
+            }
+            column.Width = 70;
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+
+        });
+    }
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Amount";
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Caption = Resources.FinalAmount;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = 250;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "PaymentMethod.Description";
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Caption = Resources.PaymentMethod;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = 250;
+    });
+
+
+    settings.SettingsText.PopupEditFormCaption = Resources.PaymentMethod;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+
+        headerOptions.SaveButton.Name = "btnOk";
+        headerOptions.SaveButton.UseSubmitBehavior = true;
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnClose";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+
+        ViewContext.Writer.Write("<div class=\"pull-left width-230\">");
+        /*End of header banner*/
+        @Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.PaymentMethod;
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+        Html.RenderAction("DocumentPaymentCombobox");
+        ViewContext.Writer.Write("<br>");
+        Html.RenderAction("DocumentPaymentMethodForm", (item as DocumentPayment) == null ? null : (item as DocumentPayment).PaymentMethod);
+
+        if (document.Division != eDivision.Financial)
+        {
+
+            ViewContext.Writer.Write("</div><div class=\"pull-left width-230\">");
+
+            @Html.DevExpress().Label(lblSettings =>
+            {
+                lblSettings.ControlStyle.CssClass = "font-bold font-color-red";
+                lblSettings.Text = Resources.Total;
+            }).GetHtml();
+
+
+            @Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.ControlStyle.CssClass = "font-bold border-color-red";
+                txtSettings.Name = "TotalTextBox";
+                txtSettings.ReadOnly = true;
+
+            }).Bind(document.GrossTotal.ToString()).GetHtml();
+
+            ViewContext.Writer.Write("<br>");
+            @Html.DevExpress().Label(lblSettings =>
+            {
+                lblSettings.ControlStyle.CssClass = "font-bold font-color-red";
+                lblSettings.Text = Resources.Balance;
+            }).GetHtml();
+
+
+            decimal dif = document.GrossTotal;
+            if (document.DocumentPayments.Count() > 0)
+            {
+                dif -= document.DocumentPayments.Sum(payment => payment.Amount);
+            }
+            @Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.ControlStyle.CssClass = "font-bold border-color-red";
+                txtSettings.Name = "balanceTextBox";
+                txtSettings.ReadOnly = true;
+
+            }).Bind(dif.ToString()).GetHtml();
+
+
+            ViewContext.Writer.Write("</div>");
+
+
+            ViewContext.Writer.Write("<div class='center-payment-button'>");
+            Html.DevExpress().Button(btnsettings =>
+            {
+                btnsettings.Name = "AddRemainingPaymentAmount";
+                btnsettings.Text = Resources.TotalRemainingAmount;
+                btnsettings.EncodeHtml = false;
+                btnsettings.UseSubmitBehavior = false;
+                btnsettings.ClientSideEvents.Click = "AddRemainingPaymentAmountClick";
+            }).GetHtml();
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+        }
+
+    });
+
+    settings.SettingsPager.EnableAdaptivity = true;
+}).Bind(Model).GetHtml()

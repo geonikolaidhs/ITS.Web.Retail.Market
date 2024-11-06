@@ -1,0 +1,31 @@
+﻿@model ITS.Retail.WebClient.ViewModel.LicenseActivationViewModel
+
+@{
+    ViewBag.Title = "Activate";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+<h2>Activate</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @*<legend>Please insert the serial number that was provided to you</legend>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SerialNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SerialNumber)
+            @Html.ValidationMessageFor(model => model.SerialNumber)
+        </div>
+
+        <p>
+            <input type="submit" value="Activate" />
+        </p>
+    </fieldset>
+}
+
+@Html.DisplayFor(model=> model.ActivationError)

@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "PopupEditCallbackPanel";
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.CallbackRouteValues = new { Controller = (String)ViewBag.ControllerName, Action = "PopupEditCallbackPanel" };
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("LoadEditPopup", (String)ViewBag.ControllerName, new { ID = ViewData["ID"], Recover = ViewData["Recover"], Division = ViewData["Division"], LoadFromSession = ViewData["LoadFromSession"], HasReturnedFromOrderItemsForm = ViewData["HasReturnedFromOrderItemsForm"], RestoreTemporary = ViewData["RestoreTemporary"],Copy = ViewData["Copy"] });           
+    });
+    settings.ClientSideEvents.BeginCallback = "OnInitPopupEditCallbackPanel";
+}).GetHtml()
+
+

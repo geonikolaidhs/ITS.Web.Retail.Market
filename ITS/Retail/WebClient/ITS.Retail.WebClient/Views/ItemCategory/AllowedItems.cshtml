@@ -1,0 +1,221 @@
+﻿@model IEnumerable<ITS.Retail.Model.Item>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.AccessibilityCompliant = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Items;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages; 
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.Name = "allowedItemsSelection";
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "ItemCategory", Action = "AllowedItems", CategoryID=ViewData["CategoryID"] };
+    settings.ControlStyle.CssClass = "grid";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+
+    settings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+    {
+        if (ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings != null && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.PadItemCodes
+            && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Code")
+            {
+                string s = e.Value as string;
+                if (s == null) return;
+                e.DisplayText = s.TrimStart(ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+        }
+    };
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Oid";
+        column.Visible = false;
+    });
+            
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.Width = 100;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Name";
+        col.Caption = Resources.ItemName;
+        col.Width = 250;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ExtraDescription";
+        col.Caption = Resources.Description;
+        col.Width = 250;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    if (ITS.Retail.WebClient.Helpers.UserHelper.IsAdmin(ViewBag.CurrentUser))
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Owner.CompanyName";
+            col.Caption = Resources.Company;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "VatCategory.Description";
+        col.Caption = Resources.VatCategory;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultBarcode.Code";
+        col.Caption = Resources.DefaultBarcode;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MotherCode.Code";
+        col.Caption = Resources.MotherCode;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultSupplier.CompanyName";
+        col.Caption = Resources.ItemSupplier;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Visible = false;
+        col.FieldName = "Seasonality.Description";
+        col.Caption = Resources.Seasonality;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Visible = false;
+        col.FieldName = "Buyer.Description";
+        col.Caption = Resources.Buyer;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "InsertedDate";
+        col.Caption = Resources.InsertedDate;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Visible = false;
+        col.FieldName = "PackingMeasurementUnit.Description";
+        col.Caption = Resources.PackingMeasurementUnit;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Visible = false;
+        col.FieldName = "PackingQty";
+        col.Caption = Resources.PackingQty;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Visible = false;
+        col.FieldName = "MaxOrderQty";
+        col.Caption = Resources.MaxOrderQty;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsActive";
+        column.Caption = Resources.IsActive;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.ClientSideEvents.BeginCallback = "AddItemsToCategory.OnBeginCallbackAllowedItemsGrid";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+}).Bind(Model).GetHtml()
+

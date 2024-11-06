@@ -1,0 +1,21 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxmvc" Namespace="DevExpress.Web.Mvc" Assembly="DevExpress.Web.Mvc.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dxmvc:MVCxPopupMenu runat="server" ShowSubMenuShadow="False" SpriteCssFilePath="{0}/sprite.css" CssPostfix="ITSTheme1" CssFilePath="{0}/styles.css">
+    <VerticalPopOutImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mVerticalPopOutHover_ITSTheme1" />
+    </VerticalPopOutImage>
+    <VerticalPopOutRtlImage>
+        <SpriteProperties HottrackedCssClass=".dxWeb_mVerticalPopOutHoverRtl_ITSTheme1" />
+    </VerticalPopOutRtlImage>
+    <ScrollUpButtonImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mScrollUpHover_ITSTheme1" />
+    </ScrollUpButtonImage>
+    <ScrollDownButtonImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mScrollDownHover_ITSTheme1" />
+    </ScrollDownButtonImage>
+    <LoadingPanelImage Url="Web/Loading.gif" />
+    <SubMenuStyle GutterWidth="0px" />
+</dxmvc:MVCxPopupMenu>
+

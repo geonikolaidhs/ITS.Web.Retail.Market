@@ -1,0 +1,16 @@
+;!@Install@!UTF-8!
+Title="ITS WRM Disign Installation"
+BeginPrompt="ITS WRM Disign Installation\nThis setup tool will install the ITS WRM Disign Tool"
+; Installation folder
+InstallPath="%ProgramFiles%\\ITS\\ITS Disign"
+GUIMode="0"
+GUIFlags="8+32+64+256+4096"
+ExtractDialogText="Installing..."
+ExtractPathText="ITS WRM Disign Installation Path"
+ExtractPathTitle="Select path"
+ExtractTitle="Extracting files..."
+Shortcut="P,{%%T\\DiSign Configuration.EXE},{},{ITS WRM Tools},{ITS WRM Disign Configurator},{ITS WRM Disign Configurator}"
+FinishMessage="ITS WRM Disign has been installed.\n\nClick the icon on the start menu to launch the program."
+ExtractPathWidth="400"
+MiscFlags="4"
+;!@InstallEnd@!

@@ -1,0 +1,16 @@
+;!@Install@!UTF-8!
+Title="ITS WRM Print Service Installation"
+BeginPrompt="ITS WRM Print Service Installation\nThis setup tool will install the WRM Print Service"
+; Installation folder
+InstallPath="%ProgramFiles%\\ITS\\WRM Print Service"
+GUIMode="0"
+GUIFlags="8+32+64+256+4096"
+ExtractDialogText="Installing..."
+ExtractPathText="WRM Report Designer Installation Path"
+ExtractPathTitle="Select path"
+ExtractTitle="Extracting files..."
+Shortcut="P,{%%T\\ITS.Retail.PrintServer.Configurator.exe},{},{ITS WRM Tools},{ITS WRM Print Service},{ITS WRM Print Service}"
+FinishMessage="ITS WRM Print Service has been installed.\n\nClick the icon on the start menu to launch the program."
+ExtractPathWidth="400"
+MiscFlags="4"
+;!@InstallEnd@!

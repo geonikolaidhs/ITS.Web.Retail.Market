@@ -1,0 +1,129 @@
+﻿<Window xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  x:Class="StoreControllerReconstructor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreControllerReconstructor"
+        mc:Ignorable="d"
+        Title="Store Controller Reconstructor" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid Margin="-1,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="137*"></RowDefinition>
+            <RowDefinition Height="31*"></RowDefinition>
+            <RowDefinition Height="31*"></RowDefinition>
+            <RowDefinition Height="84*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Header="Source" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" FontWeight="Bold">Database Type :</Label>
+                <ListBox Grid.Row="1" Name="SourceServerType">
+                    <ListBoxItem>MS SQL</ListBoxItem>
+                    <ListBoxItem>Postgres</ListBoxItem>
+                </ListBox>
+                <Label Grid.Row="2" FontWeight="Bold">Server :</Label>
+                <TextBox Grid.Row="3" Name="SourceServer" Text="{Binding Path=SourceConnectionSettings.Server, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="4" FontWeight="Bold">Database :</Label>
+                <TextBox Grid.Row="5" Name="SourceDatabase" Text="{Binding Path=SourceConnectionSettings.Database, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="6" FontWeight="Bold">Username :</Label>
+                <TextBox Grid.Row="7" Name="SourceUserName" Text="{Binding Path=SourceConnectionSettings.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="8" FontWeight="Bold">Password :</Label>
+                <PasswordBox Grid.Row="9" Name="SourcePassword" ></PasswordBox>
+                <Label Grid.Row="10" FontWeight="Bold">Store (Code) :</Label>
+                <TextBox Grid.Row="11" Name="SourceStore" Text="{Binding Path=StoreCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Grid.Row="12" Name="ButtonTestConnection" xml:space="preserve" FontWeight="Bold" Click="TestConnection_Click">Test Connection</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Destination" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="15"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" FontWeight="Bold">Database Type :</Label>
+                <ListBox Grid.Row="1" Name="DestinationServerType">
+                    <ListBoxItem>MS SQL</ListBoxItem>
+                    <ListBoxItem>Postgres</ListBoxItem>
+                </ListBox>
+                <Label Grid.Row="2" FontWeight="Bold">Server :</Label>
+                <TextBox Grid.Row="3" Name="DestinationServer" Text="{Binding Path=DestinationConnectionSettings.Server, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="4" FontWeight="Bold">Database :</Label>
+                <TextBox Grid.Row="5" Name="DestinationDatabase" Text="{Binding Path=DestinationConnectionSettings.Database, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="6" FontWeight="Bold">Username :</Label>
+                <TextBox Grid.Row="7" Name="DestinationUserName" Text="{Binding Path=DestinationConnectionSettings.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Row="8" FontWeight="Bold">Password :</Label>
+                <PasswordBox Grid.Row="9" Name="DestinationPassword"></PasswordBox>
+                <Button Name="ButtonTransferData" Grid.Row="10" FontWeight="Bold" Click="TransferData_Click">Transfer Data</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Get Documents From :" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold">Start Date :</Label>
+                <DatePicker Grid.Row="0" Name="DatePickerStart" HorizontalAlignment="Left" Margin="70,0,0,0"/>
+                <Label Grid.Row="1" HorizontalAlignment="Left" FontWeight="Bold">End Date :</Label>
+                <DatePicker Grid.Row="1" Name="DatePickerEnd" HorizontalAlignment="Left" Margin="70,0,0,0"/>
+                <Button Grid.Row="1" Name="ButtonDocumentFilter" HorizontalAlignment="Left" Margin="180,0,0,0" FontWeight="Bold" Click="DocumentFilter_Click">Get Documents</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="94*"></ColumnDefinition>
+                    <ColumnDefinition Width="120*"></ColumnDefinition>
+                    <ColumnDefinition Width="22*"/>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="492*"/>
+                </Grid.ColumnDefinitions>
+                <Label Name="TotalProgresLabel" Grid.Row="0" Grid.Column="0" FontWeight="Bold">Συνολική Πρόοδος :</Label>
+                <ProgressBar Name="TotalProgresBar" Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="100" Grid.ColumnSpan="4"></ProgressBar>
+                <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="4" Text="{Binding ElementName=TotalProgresBar, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="156,4,318,4"/>
+
+                <Label Name="TableProgressLabel" Grid.Row="1" Grid.Column="0" FontWeight="Bold">Πρόοδος Πίνακα :</Label>
+                <ProgressBar Name="TableProgresBar" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="100" Grid.ColumnSpan="4"></ProgressBar>
+                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="4" Text="{Binding ElementName=TableProgresBar, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="156,5,318,4"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+            <RichTextBox Name="LogRichTextBox" />
+        </GroupBox>
+    </Grid>
+</Window>

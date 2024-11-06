@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/orders_total_tab"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" >
+
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="10dp" >
+
+        <TableLayout
+            android:id="@+id/ll111336"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/lblPriceCatalog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:text="@string/customer"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tblrowsss"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/lblPriceCatalog123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:text="@string/deliveryAddress"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/text_tiny" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tblrowsss123123"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/lblStore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/store"
+                    android:layout_span="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <Spinner
+                    android:id="@+id/cmbStore"
+                    android:layout_height="40dp"
+                    android:layout_span="2" />
+
+                <Button
+                    android:id="@+id/btnRestoreDeliveryAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:text="@string/RestoreDeliveryAddress"
+                    android:textSize="@dimen/text_tiny" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:text="@string/documennt_status"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <Spinner
+                    android:id="@+id/cmbDocumentStatus"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_span="3" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total"
+                    android:layout_span="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtTotal"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:editable="false"
+                    android:layout_span="1"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_span="1"
+                    android:text="@string/total_discount"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtTotalDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/textView6356335645234234277"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:text="@string/total_after_discount"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtNetTotal"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_span="1"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/TextView453432523423434"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_span="1"
+                    android:text="@string/items"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtItemsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_vat_amount"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtTotalVat"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+                <TextView
+                    android:id="@+id/TextView05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/final_amount"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtFinalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="1dip"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/lblAppSettingsDefaultStore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtFinalizeDate"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <DatePicker
+                    android:id="@+id/dtFinalizeDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:layout_span="3"
+                    android:calendarViewShown="false" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tblrowsss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/lblPriceCatalog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtPriceCatalog"
+                    android:layout_span="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtPriceCatalog"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/text_tiny" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow534357"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/lblComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
+                    android:text="@string/comments"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtComments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:textSize="@dimen/text_tiny" />
+                
+            </TableRow>
+            
+            <TableRow
+                android:id="@+id/tableRow534357"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+				<Button
+				    android:id="@+id/btnSendCurrentOrder"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_span="4"
+				    android:layout_gravity="right"
+				    android:text="@string/SendOrder" />
+                
+            </TableRow>
+
+        </TableLayout>
+
+</ScrollView>
+</FrameLayout>

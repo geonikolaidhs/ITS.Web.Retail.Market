@@ -1,0 +1,37 @@
+﻿@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib;
+
+@{
+    if (ViewData["ID"] != null)
+    {
+        PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("LoadEditPopup",Width: 50, Height:50);
+        popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";
+        popUpSettings.CallbackRouteValues = new { Controller = (String)ViewBag.ControllerName, Action = "LoadEditPopup", ID = ViewData["ID"] };
+        popUpSettings.HeaderText = ViewBag.Title;
+        popUpSettings.AllowResize = false;
+        popUpSettings.AllowDragging = false;    
+        popUpSettings.AutoUpdatePosition = true;
+
+
+        popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+        popUpSettings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+        popUpSettings.ClientSideEvents.Shown = "function(s,e) {" + popUpSettings.Name + ".SetHeight(window.innerHeight);" + popUpSettings.Name + ".SetWidth(window.innerWidth);  }";
+
+        popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+        popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+        
+        popUpSettings.ClientSideEvents.CloseUp = "RefreshGrid";   
+        popUpSettings.Styles.CloseButton.CssClass = "hidden-button";
+        
+        
+        
+        popUpSettings.SetContent(() =>
+        {
+            @Html.RenderAction("Edit", (String)ViewBag.ControllerName, new { Oid = ViewData["ID"] });
+
+        });
+        Html.DevExpress().PopupControl(popUpSettings).GetHtml();
+    }
+    
+}

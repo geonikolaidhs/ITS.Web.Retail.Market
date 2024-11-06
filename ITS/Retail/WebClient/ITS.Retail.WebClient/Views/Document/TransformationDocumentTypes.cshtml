@@ -1,0 +1,21 @@
+﻿@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "TransformationRuleCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TransformationDocumentTypes" };
+    cpbseriessettings.SetContent(() =>
+    {
+        TransformationRule rule = ViewData["defaultRule"] as TransformationRule;
+        Guid? defaultTypeOid = rule == null ? null as Guid? : rule.DerrivedType.Oid;
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "TransformationRuleDerrivedType";
+            combosettings.Properties.ValueField = "DerrivedType.Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.Properties.TextField = "DerrivedType.Description";
+            combosettings.Properties.ClientSideEvents.ValueChanged = "OnTransformationRuleChanged";
+        }).BindList(Model).Bind(defaultTypeOid).Render();
+    });
+}).GetHtml()

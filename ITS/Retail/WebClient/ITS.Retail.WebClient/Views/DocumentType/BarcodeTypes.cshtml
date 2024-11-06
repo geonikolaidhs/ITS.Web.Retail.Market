@@ -1,0 +1,43 @@
+﻿@using ITS.Retail.Model
+@using DevExpress.Xpo
+@model XPCollection<DocumentTypeBarcodeType>
+
+
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    GridViewSettings gridSettings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(DocumentTypeBarcodeType), typeof(DocumentTypeController), "grdBarcodeTypes", generateColumns: false, columnType: GridViewCommandColumnType.ICONS);
+
+    gridSettings.SettingsEditing.AddNewRowRouteValues = gridSettings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DocumentType", Action = "AddBarcodeType" };
+    gridSettings.SettingsEditing.DeleteRowRouteValues = new { Controller = "DocumentType", Action = "DeleteBarodeType" };
+    gridSettings.CallbackRouteValues = new { Controller = "DocumentType", Action = "BarcodeTypes" };
+    gridSettings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    gridSettings.SettingsText.Title = Resources.DocumentTypeBarcodeTypesForWeightedBarcodes;
+    gridSettings.SettingsText.PopupEditFormCaption = Resources.BarcodeType;
+
+    gridSettings.Columns.Add(col =>
+    {
+        col.FieldName = "BarcodeType.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Description;
+    });
+
+    gridSettings.SetEditFormTemplateContent(editContent =>
+    {
+        object item = (@ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : DataBinder.Eval(editContent.DataItem, "This")) as object;
+
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnSaveDocumentTypeBarcodeType";
+        headerOptions.SaveButton.OnClick = "function(s, e){ " + gridSettings.Name + ".UpdateEdit(); }";
+        headerOptions.CancelButton.Name = "btnCancelDocumentTypeBarcodeType";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + gridSettings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.Modal;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+
+        Html.RenderPartial("BarcodeTypesComboBox", model: item == null ? new DocumentTypeBarcodeType(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork()) : item);
+    });
+
+    Html.DevExpress().GridView(gridSettings).Bind(Model).GetHtml();
+}
+

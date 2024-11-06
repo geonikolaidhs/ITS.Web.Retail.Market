@@ -1,0 +1,207 @@
+﻿@using DevExpress.Data.Filtering;
+
+@{
+    var item = ViewData["item"];
+
+    DocumentSequence documentSequence = null;
+    DocumentSeries documentSeries = DataBinder.Eval(item, "this") as DocumentSeries;
+    if (documentSeries != null)
+    {
+        documentSequence = documentSeries.Session.FindObject<DocumentSequence>(new BinaryOperator("DocumentSeries", documentSeries.Oid));
+    }
+    ViewContext.Writer.Write("<div class='ValidationContainer'>");
+
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.Name = "btnUpdateDocumentSequence";
+    headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e,grdDocumentSeries);}";
+    headerOptions.CancelButton.Name = "btnCancelDocumentSequence";
+    headerOptions.CancelButton.OnClick = "function(s, e){ grdDocumentSeries.CancelEdit(); }";
+    headerOptions.ViewType = eViewType.PopUp;
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+
+    ViewContext.Writer.Write("<table><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Code + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Code";
+        edtSettings.ReadOnly = true;
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).Bind(DataBinder.Eval(item, "Code")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Description + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Description";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+    }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Store + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "StoreName";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+        edtSettings.Text = documentSeries.Store == null ? string.Empty : documentSeries.Store.Name;
+    }).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Remarks + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Remarks";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+    }).Bind(DataBinder.Eval(item, "Remarks")).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Module + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "eModule";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+        edtSettings.Text = documentSeries.eModule.ToLocalizedString();
+    }).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Name = "SeriesComboBoxName";
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.IsCanceledBy + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "IsCanceledByDescription";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+        edtSettings.Text = documentSeries.IsCanceledBy == null ? string.Empty : documentSeries.IsCanceledBy.Description;
+    }).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.PrintedCode;
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "PrintedCode";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+    }).Bind(DataBinder.Eval(item, "PrintedCode")).Render();
+
+    if (ViewBag.DocSeqNumCanChange != null && ViewBag.DocSeqNumCanChange == true)
+    {
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.DocumentSequence + ":";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "DocumentSequence.DocumentNumber";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind((documentSequence != null) ? documentSequence.DocumentNumber : 0).Render();
+    }
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.ReferenceCode + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "ReferenceCode";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+    }).Bind(DataBinder.Eval(item, "ReferenceCode")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "POSName";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ReadOnly = true;
+        edtSettings.Text = documentSeries.POS == null ? string.Empty : documentSeries.POS.Name;
+    }).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.IsCancelingSeries;
+        edtSettings.Name = "IsCancelingSeries";
+        edtSettings.ControlStyle.CssClass = "editor padding-top-25";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ReadOnly = true;
+    }).Bind(DataBinder.Eval(item, "IsCancelingSeries") ?? false).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.HasAutomaticNumbering;
+        edtSettings.Name = "HasAutomaticNumbering";
+        edtSettings.ControlStyle.CssClass = "editor padding-top-25";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ReadOnly = true;
+    }).Bind(DataBinder.Eval(item, "HasAutomaticNumbering") ?? false).Render();
+
+    ViewContext.Writer.Write("</td></tr>");
+    ViewContext.Writer.Write("</table>");
+    ViewContext.Writer.Write("</div>");
+}

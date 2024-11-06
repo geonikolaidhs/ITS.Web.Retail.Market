@@ -1,0 +1,61 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+#rblPrintingType {
+    height: 60px;
+}
+
+.wrapper .container {
+    table {
+        &.FilterPanel {
+            position: absolute;
+            top: 34px;
+            z-index: 1;
+
+            #FilterPanelSecond_RPC {
+                background: $color_quill_gray_approx;
+                border: 1px solid $color_celeste_approx;
+                box-shadow: 0 0 12px 0 $color_gray_approx;
+                display: block;
+                overflow: hidden;
+                padding: 5px !important;
+            }
+        }
+
+        &.headerTable {
+            height: 140px;
+        }
+    }
+
+    .Labels {
+        .filter_search_container {
+            top: 0;
+        }
+
+        span#filterinfo {
+            top: 0;
+        }
+    }
+
+    .dxgvControl_ITSTheme1.styleGrid {
+        top: 5px !important;
+    }
+}
+
+.Labels .FilterPanel {
+    top: 0;
+}
+
+.labels-filters-container{
+    &.changed-on{
+        width:940px;
+    }
+    &.terminals{
+        width:850px;
+    }    
+    width:100%;
+}
+

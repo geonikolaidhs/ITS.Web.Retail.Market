@@ -1,0 +1,472 @@
+.dxgvControl_SimpleB2C,
+.dxgvDisabled_SimpleB2C
+{
+	border: 1px Solid #c0c0c0;
+	font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	background-color: White;
+	color: #333333;
+	cursor: default;
+}
+.dxgvDisabled_SimpleB2C
+{
+	color: #b8b8b8;
+}
+.dxgvControl_SimpleB2C a
+{
+	color: #ff8800;
+}
+.dxgvDisabled_SimpleB2C a
+{
+	color: #b8b8b8;
+}
+.dxgvLoadingPanel_SimpleB2C
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+}
+.dxgvLoadingPanel_SimpleB2C td
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 10px 14px;
+}
+.dxgvLoadingPanelStatusBar_SimpleB2C
+{
+	background-color: Transparent;
+}
+.dxgvLoadingPanelStatusBar_SimpleB2C td
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 0px 2px;
+}
+
+.dxgvTable_SimpleB2C
+{
+	background-color: White;
+	border-width: 0;
+	border-collapse: separate!important;
+	overflow: hidden;
+}
+.dxgvInlineEditRow_SimpleB2C,
+.dxgvDataRow_SimpleB2C
+{
+}
+.dxgvInlineEditRow_SimpleB2C td.dxgv
+{
+	border-bottom: 1px Solid #D3D3D3;
+	border-right: 1px Solid #D3D3D3;
+}
+.dxgvDataRowAlt_SimpleB2C
+{
+	background-color: WhiteSmoke;
+}
+.dxgvFilterRow_SimpleB2C
+{
+	border-top: 1px Solid #c0c0c0;
+}
+.dxgvEditForm_SimpleB2C
+{
+}
+.dxgvEditForm_SimpleB2C td.dxgv
+{
+	border-bottom: 1px Solid #D3D3D3;
+	padding: 8px 10px 10px;
+}
+.dxgvEditForm_SimpleB2C td.dxgvIndentCell
+{
+	border-right: 1px Solid #CFCFCF;
+	border-left: 1px Solid #CFCFCF;
+	border-top-width: 0px;
+}
+.dxgvSelectedRow_SimpleB2C
+{
+    background-color: #008CBA;
+    color: #FFF;
+}
+.dxgvFocusedRow_SimpleB2C,
+.dxgvFocusedRow_SimpleB2C a
+{
+	background-color:#008CBA;
+	color: White;
+}
+.dxgvFocusedRow_SimpleB2C .dxgvCommandColumn_SimpleB2C a
+{
+	color: White;
+}
+.dxgvSelectedRow_SimpleB2C .dxgvCommandColumn_SimpleB2C a
+{
+	color: #ff8800;
+}
+.dxgvPreviewRow_SimpleB2C
+{
+	color: #999999;
+}
+.dxgvDetailCell_SimpleB2C,
+.dxgvPreviewRow_SimpleB2C td.dxgv,
+.dxgvEmptyDataRow_SimpleB2C td.dxgv
+{
+	padding: 20px 2px 20px 4px;
+	border-bottom: 1px Solid #D3D3D3;
+	border-top-width: 0;
+	border-left-width: 0;
+	border-right-width: 0;
+}
+.dxgvPreviewRow_SimpleB2C td.dxgv
+{
+	padding: 10px 10px 10px 15px;
+}
+.dxgvDetailCell_SimpleB2C
+{
+	padding: 16px 18px;
+}
+.dxgvDetailRow_SimpleB2C td.dxgvIndentCell
+{
+	padding-right: 0px;
+	border-bottom: 1px Solid #D3D3D3;
+}
+.dxgvEmptyDataRow_SimpleB2C
+{
+	color: Gray;
+}
+.dxgvEmptyDataRow_SimpleB2C td.dxgv
+{
+	border-bottom: 1px Solid #CFCFCF;
+	text-align: center;
+}
+
+.dxgvEditFormDisplayRow_SimpleB2C td.dxgv,
+.dxgvDataRow_SimpleB2C td.dxgv,
+.dxgvDataRowAlt_SimpleB2C td.dxgv,
+.dxgvSelectedRow_SimpleB2C td.dxgv,
+.dxgvFocusedRow_SimpleB2C td.dxgv
+{
+	overflow: hidden;
+	border-bottom: 1px Solid #c0c0c0;
+	border-right: 1px Solid #c0c0c0;
+	border-top-width: 0;
+	border-left-width: 0;
+	padding: 3px 6px 4px;
+}
+.dxgvEditFormDisplayRow_SimpleB2C
+{
+}
+.dxgvEditFormDisplayRow_SimpleB2C td.dxgv
+{
+}
+.dxgvEditFormDisplayRow_SimpleB2C td.dxgvIndentCell
+{
+	background: #EDEDED none;
+	border-right: 1px Solid #CFCFCF;
+	border-left: 1px Solid #CFCFCF;
+	border-top-width: 0px;
+}
+
+.dxgvEditingErrorRow_SimpleB2C
+{
+	background-color: #FFC8C8;
+	color: #FF0000;
+}
+.dxgvEditingErrorRow_SimpleB2C td.dxgv
+{
+	white-space: pre-wrap;
+	border-bottom: 1px Solid #D3D3D3;
+	border-right-width: 0;
+	border-top-width: 0;
+	border-left-width: 0;
+	padding: 6px 10px;
+}
+
+.dxgvFilterRow_SimpleB2C td.dxgv
+{
+	border-bottom: 1px Solid #c0c0c0;
+	border-right: 1px Solid #c0c0c0;
+	border-top-width: 0;
+	border-left-width: 0;
+	padding: 2px;
+	overflow: hidden;
+}
+.dxgvGroupRow_SimpleB2C
+{
+}
+.dxgvFocusedGroupRow_SimpleB2C
+{
+	background-color: #ff8800;
+	color: White;
+}
+.dxgvGroupRow_SimpleB2C td.dxgv,
+.dxgvFocusedGroupRow_SimpleB2C td.dxgv
+{
+	border: 0 none;
+	vertical-align: middle;
+	white-space: nowrap;
+	border-bottom: 1px Solid #D3D3D3;
+	padding: 3px 6px 4px;
+}
+.dxgvFocusedRow_SimpleB2C td.dxgvIndentCell,
+.dxgvFocusedGroupRow_SimpleB2C td.dxgvIndentCell,
+.dxgvSelectedRow_SimpleB2C td.dxgvIndentCell
+{
+	background-color: white!important;
+	border-right: 1px solid #CFCFCF;
+	border-left: 1px solid #CFCFCF;
+	border-top-width: 0px;
+}
+.dxgvHeaderPanel_SimpleB2C
+{
+	background-color: #F9F9F9;
+	padding: 8px 6px;
+	border-bottom: 1px Solid #9F9F9F;
+}
+
+.dxgvMSDraggable_SimpleB2C .dxgvHeader_SimpleB2C,
+.dxgvMSDraggable_SimpleB2C.dxgvGroupPanel_SimpleB2C
+{
+    -ms-touch-action: pinch-zoom;
+}
+.dxgvHeader_SimpleB2C
+{
+	cursor: pointer;
+	white-space: nowrap;
+	padding: 4px 6px 5px;
+	border: 1px Solid #c0c0c0;
+	overflow: hidden;
+	font-weight: normal;
+	text-align: left;
+}
+.dxgvHeader_SimpleB2C,
+.dxgvHeader_SimpleB2C table
+{
+}
+.dxgvHeader_SimpleB2C td
+{
+	white-space: nowrap;
+}
+.dxgvHeader_SimpleB2C a
+{
+	color: #ff8800;
+}
+.dxgvPopupEditForm_SimpleB2C
+{
+	padding: 4px;
+	margin: 0;
+}
+.dxgvCustomization_SimpleB2C
+{
+	margin: 0;
+	padding: 10px;
+	min-width: 220px;
+}
+.dxgvGroupPanel_SimpleB2C
+{
+	white-space: nowrap;
+	border-bottom: 1px Solid #c0c0c0;
+	padding: 7px 4px 8px 6px;
+}
+.dxgvFooter_SimpleB2C
+{
+	white-space: nowrap;
+}
+.dxgvFooter_SimpleB2C td.dxgv
+{
+	padding: 5px 6px 6px;
+	border-bottom: 1px Solid #c0c0c0;
+	border-right-width: 0;
+}
+.dxgvGroupFooter_SimpleB2C
+{
+}
+.dxgvGroupFooter_SimpleB2C td.dxgv
+{
+	white-space: nowrap;
+}
+.dxgvGroupFooter_SimpleB2C td.dxgv
+{
+	padding: 5px 4px 6px 6px;
+	border-bottom: 1px Solid #c0c0c0;
+	border-right-width: 0;
+}
+.dxgvDataRow_SimpleB2C td.dxgvIndentCell,
+.dxgvGroupRow_SimpleB2C td.dxgvIndentCell,
+.dxgvGroupFooter_SimpleB2C td.dxgvIndentCell
+{
+	background-color: white;
+	border-right: 1px Solid #CFCFCF;
+	border-left: 1px Solid #CFCFCF;
+	border-top-width: 0px;
+}
+
+.dxgvTitlePanel_SimpleB2C, 
+.dxgvTable_SimpleB2C caption
+{
+	font-size: 15px;
+	font-weight: normal;
+	padding: 3px 3px 5px;
+	text-align: center;
+	color: #008CBA;
+	border-bottom: 1px Solid #c0c0c0;
+}
+.dxgvLoadingDiv_SimpleB2C
+{
+	background-color: Gray;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+.dxgvStatusBar_SimpleB2C
+{
+	border-top: 1px Solid #c0c0c0;
+}
+.dxgvStatusBar_SimpleB2C tr.dxgv
+{
+	height: 20px;
+}
+.dxgvStatusBar_SimpleB2C tr.dxgv > td
+{
+	padding: 4px;
+}
+.dxgvCommandColumn_SimpleB2C
+{
+	padding: 8px 4px;
+}
+.dxgvCommandColumn_SimpleB2C a
+{
+	margin: 0 3px 0 0;
+	color: #ff8800;
+}
+.dxgvCommandColumn_SimpleB2C a:hover
+{
+}
+
+.dxgvCommandColumnItem_SimpleB2C
+{
+}
+.dxgvEditFormTable_SimpleB2C
+{
+	padding: 2px 6px 6px 4px;
+	font-size: 11px;
+	min-width: 300px;
+}
+.dxgvEditFormTable_SimpleB2C a
+{
+	color: #ff8800;
+}
+.dxgvEditFormTable_SimpleB2C a:hover
+{
+}
+
+.dxgvEditFormCaption_SimpleB2C
+{
+	padding: 4px 4px 4px 10px;
+	white-space: nowrap;
+}
+
+.dxgvInlineEditCell_SimpleB2C
+{
+	padding: 1px;
+}
+
+.dxgvEditFormCell_SimpleB2C
+{
+	padding: 4px;
+	border-width: 0;
+}
+
+.dxgvPagerTopPanel_SimpleB2C,
+.dxgvPagerBottomPanel_SimpleB2C
+{
+	padding: 4px 0;
+}
+.dxgvPagerTopPanel_SimpleB2C
+{
+	border-bottom: 1px Solid #c0c0c0;
+}
+
+.dxgvDetailButton_SimpleB2C
+{
+}
+
+.dxgvFilterBar_SimpleB2C
+{
+	border-top: 1px Solid #c0c0c0;
+}
+.dxgvFilterBar_SimpleB2C a
+{
+	color: #ff8800;
+	text-decoration: underline;
+}
+.dxgvFilterBarCheckBoxCell_SimpleB2C
+{
+	padding: 0 7px;
+}
+.dxgvFilterBarImageCell_SimpleB2C
+{
+	padding: 0 1px 0 3px;
+	cursor: pointer;
+}
+.dxgvFilterBarExpressionCell_SimpleB2C
+{
+	padding: 5px 5px 8px 0;
+	white-space: nowrap;
+}
+.dxgvFilterBarClearButtonCell_SimpleB2C
+{
+	padding: 5px 6px 8px;
+}
+.dxgvFilterBuilderMainArea_SimpleB2C
+{
+	background: white none;
+	padding: 6px 2px;
+} 
+.dxgvFilterBuilderButtonArea_SimpleB2C
+{
+	border-top: 1px solid #c0c0c0;
+	padding: 6px;
+	white-space: nowrap;
+}
+
+.dxgvDataRowHover_SimpleB2C
+{
+	background-color: #f0f0f0;
+	color: #333333;
+}
+.dxgvDataRowHover_SimpleB2C a
+{
+	color: #ff8800!important;
+}
+
+
+.dxgvControl_SimpleB2C .dxpControl_SimpleB2C td.dxpCtrl_SimpleB2C, 
+.dxgvDisabled_SimpleB2C .dxpControl_SimpleB2C td.dxpCtrl_SimpleB2C,
+
+.dxgvControl_SimpleB2C .dxpLite_SimpleB2C,
+.dxgvDisabled_SimpleB2C .dxpLite_SimpleB2C
+{
+	padding-top: 4px;
+}
+
+.dxgvControl_SimpleB2C .dxgvHFSAC
+{
+    padding: 9px 0 0 4px;
+}
+.dxgvControl_SimpleB2C .dxgvHFSC
+{
+    padding: 9px 0 6px;
+}
+.dxgvControl_SimpleB2C .dxgvHFSC div
+{
+    height: 1px;
+    background: #c0c0c0;
+}
+.dxgvControl_SimpleB2C div[id$='DXEPLPC']
+{
+    height: 53px;
+}
+
+/* Removes flicking in iOS Safari*/
+.dxgvTable_SimpleB2C
+{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+

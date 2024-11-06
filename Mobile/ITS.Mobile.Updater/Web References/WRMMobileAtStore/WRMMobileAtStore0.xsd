@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ITS.Retail.WebClient.RetailAtStoreModel" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ITS.Retail.WebClient.RetailAtStoreModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/WRMMobileAtStore.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Mobile.AuxilliaryClasses" />
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/WRMMobileAtStore.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/WRMMobileAtStore.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" />
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/WRMMobileAtStore.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/ITS.MobileAtStore.ObjectModel" />
+  <xs:complexType name="Header">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Append" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CustomerAFM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CustomerCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CustomerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Details" nillable="true" type="tns:ArrayOfLine" />
+      <xs:element minOccurs="0" name="DocDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DocNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="DocStatus" type="tns:DOC_STATUS" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ITS.Retail.Mobile.AuxilliaryClasses" minOccurs="0" name="DocType" type="q1:eDocumentType" />
+      <xs:element minOccurs="0" name="ForcedOffline" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Oid" type="ser:guid" />
+      <xs:element minOccurs="0" name="OutputId" type="xs:int" />
+      <xs:element minOccurs="0" name="TerminalID" type="xs:int" />
+      <xs:element minOccurs="0" name="UpdatedOn" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Header" nillable="true" type="tns:Header" />
+  <xs:complexType name="ArrayOfLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Line" nillable="true" type="tns:Line" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLine" nillable="true" type="tns:ArrayOfLine" />
+  <xs:complexType name="Line">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" minOccurs="0" name="BarcodeParsingResult" type="q2:BarcodeParsingResult" />
+      <xs:element minOccurs="0" name="Counter" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Flyer" type="xs:int" />
+      <xs:element minOccurs="0" name="Header" type="ser:guid" />
+      <xs:element minOccurs="0" name="Oid" type="ser:guid" />
+      <xs:element minOccurs="0" name="ProdBarcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProdCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Qty1" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Uniqueid" type="ser:guid" />
+      <xs:element minOccurs="0" name="UpdatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="WeightedBarcodeValue" type="xs:decimal" />
+      <xs:element minOccurs="0" name="WeightedDecodedBarcode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Line" nillable="true" type="tns:Line" />
+  <xs:simpleType name="DOC_STATUS">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OPEN" />
+      <xs:enumeration value="CLOSED" />
+      <xs:enumeration value="EXPORTED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DOC_STATUS" nillable="true" type="tns:DOC_STATUS" />
+  <xs:complexType name="Product">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AverageMonthSales" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Barcode" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" minOccurs="0" name="BarcodeParsingResult" type="q3:BarcodeParsingResult" />
+      <xs:element minOccurs="0" name="BasicSupplier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BasicSupplierColor" type="xs:int" />
+      <xs:element minOccurs="0" name="CalculatedTotalPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ChainProduct" nillable="true" type="tns:Product" />
+      <xs:element minOccurs="0" name="ChainProductQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExtraCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExtraCodeIsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsActiveOnSupplier" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MeasurementUnitText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderMM" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Points" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PricePerMeasurementUnit" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PricePerUnit" type="xs:decimal" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ITS.MobileAtStore.ObjectModel" minOccurs="0" name="ProductQuantities" nillable="true" type="q4:ArrayOfProductQuantity" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:decimal" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ITS.MobileAtStore.ObjectModel" minOccurs="0" name="RelatedActions" nillable="true" type="q5:ArrayOfOffer" />
+      <xs:element minOccurs="0" name="RequiredQuantity" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RestInvQty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Stock" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Supplier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupportsDecimalQuantities" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VatCat" type="xs:int" />
+      <xs:element minOccurs="0" name="WeightedDecodedBarcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="extrainfo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Product" nillable="true" type="tns:Product" />
+  <xs:complexType name="ArrayOfInvLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InvLine" nillable="true" type="tns:InvLine" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInvLine" nillable="true" type="tns:ArrayOfInvLine" />
+  <xs:complexType name="InvLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Descr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Export" type="xs:int" />
+      <xs:element minOccurs="0" name="Oid" type="ser:guid" />
+      <xs:element minOccurs="0" name="ProdBarcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProdCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Qty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UpdatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="outputPath" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvLine" nillable="true" type="tns:InvLine" />
+  <xs:complexType name="ArrayOfESLInvLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ESLInvLine" nillable="true" type="tns:ESLInvLine" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfESLInvLine" nillable="true" type="tns:ArrayOfESLInvLine" />
+  <xs:complexType name="ESLInvLine">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:InvLine">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="InventoryNumber" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ESLInvLine" nillable="true" type="tns:ESLInvLine" />
+  <xs:complexType name="MobileAtStoreSettings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="QuantityNumberOfDecimalDigits" type="xs:int" />
+      <xs:element minOccurs="0" name="QuantityNumberOfIntegralDigits" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MobileAtStoreSettings" nillable="true" type="tns:MobileAtStoreSettings" />
+</xs:schema>

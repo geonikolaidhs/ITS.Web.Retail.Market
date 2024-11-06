@@ -1,0 +1,61 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@model PriceCatalogPolicy
+
+@{
+
+    Html.EnableClientValidation();
+
+    using (Html.BeginForm("Save", "PriceCatalogPolicy", FormMethod.Post))
+    {
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey margin-bottom-20'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray margin-auto'><tr><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Description;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Code;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Code")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    }
+    Html.DevExpress().PageControl(tab_settings =>
+    {
+        tab_settings.Name = "price_catalog_policy_tabs";
+        tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        tab_settings.TabPages.Add(Resources.PriceCatalogPolicyDetails).SetContent(() =>
+        {
+            Html.RenderPartial("PriceCatalogPolicyDetailsGrid", Model.PriceCatalogPolicyDetails);
+        });
+    }).GetHtml();
+}

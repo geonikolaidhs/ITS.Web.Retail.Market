@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Common.Deployment</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Common.Deployment.ServiceManagerRights">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.Connect">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.CreateService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.EnumerateService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.Lock">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.QueryLockStatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.ModifyBootConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.StandardRightsRequired">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceManagerRights.AllAccess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Deployment.ServiceRights">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.QueryConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.ChangeConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.QueryStatus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.EnumerateDependants">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.Start">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.Stop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.PauseContinue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.Interrogate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.UserDefinedControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.Delete">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.StandardRightsRequired">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceRights.AllAccess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Deployment.ServiceBootFlag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceBootFlag.Start">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceBootFlag.SystemStart">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceBootFlag.AutoStart">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceBootFlag.DemandStart">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceBootFlag.Disabled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Deployment.ServiceState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceState.Unknown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceState.NotFound">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceState.Stop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceState.Run">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceState.Stopping">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceState.Starting">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Deployment.ServiceControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.Stop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.Pause">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.Continue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.Interrogate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.Shutdown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.ParamChange">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.NetBindAdd">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.NetBindRemove">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.NetBindEnable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceControl.NetBindDisable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Deployment.ServiceError">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceError.Ignore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceError.Normal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceError.Severe">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Deployment.ServiceError.Critical">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Deployment.ServiceInstaller">
+            <summary>
+            Installs and provides functionality for handling windows services
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.Uninstall(System.String)">
+            <summary>
+            Takes a service name and tries to stop and then uninstall the windows serviceError
+            </summary>
+            <param name="ServiceName">The windows service name to uninstall</param>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.ServiceIsInstalled(System.String)">
+            <summary>
+            Accepts a service name and returns true if the service with that service name exists
+            </summary>
+            <param name="ServiceName">The service name that we will check for existence</param>
+            <returns>True if that service exists false otherwise</returns>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.InstallAndStart(System.String,System.String,System.String)">
+            <summary>
+            Takes a service name, a service display name and the path to the service executable and installs / starts the windows service.
+            </summary>
+            <param name="ServiceName">The service name that this service will have</param>
+            <param name="DisplayName">The display name that this service will have</param>
+            <param name="FileName">The path to the executable of the service</param>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.StartService(System.String)">
+            <summary>
+            Takes a service name and starts it
+            </summary>
+            <param name="Name">The service name</param>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.StopService(System.String)">
+            <summary>
+            Stops the provided windows service
+            </summary>
+            <param name="Name">The service name that will be stopped</param>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.StartService(System.IntPtr)">
+            <summary>
+            Stars the provided windows service
+            </summary>
+            <param name="hService">The handle to the windows service</param>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.StopService(System.IntPtr)">
+            <summary>
+            Stops the provided windows service
+            </summary>
+            <param name="hService">The handle to the windows service</param>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.GetServiceStatus(System.String)">
+            <summary>
+            Takes a service name and returns the <code>ServiceState</code> of the corresponding service
+            </summary>
+            <param name="ServiceName">The service name that we will check for his <code>ServiceState</code></param>
+            <returns>The ServiceState of the service we wanted to check</returns>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.GetServiceStatus(System.IntPtr)">
+            <summary>
+            Gets the service state by using the handle of the provided windows service
+            </summary>
+            <param name="hService">The handle to the service</param>
+            <returns>The <code>ServiceState</code> of the service</returns>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.WaitForServiceStatus(System.IntPtr,ITS.Common.Deployment.ServiceState,ITS.Common.Deployment.ServiceState)">
+            <summary>
+            Returns true when the service status has been changes from wait status to desired status
+            ,this method waits around 10 seconds for this operation.
+            </summary>
+            <param name="hService">The handle to the service</param>
+            <param name="WaitStatus">The current state of the service</param>
+            <param name="DesiredStatus">The desired state of the service</param>
+            <returns>bool if the service has successfully changed states within the allowed timeline</returns>
+        </member>
+        <member name="M:ITS.Common.Deployment.ServiceInstaller.OpenSCManager(ITS.Common.Deployment.ServiceManagerRights)">
+            <summary>
+            Opens the service manager
+            </summary>
+            <param name="Rights">The service manager rights</param>
+            <returns>the handle to the service manager</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,29 @@
+﻿@model ITS.Retail.Model.POSKeysLayout
+@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("Save", "POSKeysLayout", FormMethod.Post, new { id = "EditForm" }))
+{
+    
+	@Html.DevExpress().RoundPanel(settings =>
+{
+	settings.Name = "editForm";
+	settings.HeaderText = "";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+	settings.SetContent(() =>
+	{
+		ViewContext.Writer.Write(Html.Hidden("POSKeysLayoutGuid", ViewData["POSKeysLayoutGuid"].ToString()));
+
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2"; 
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        Html.RenderPartial("KeysEntryPartial");
+        Html.RenderPartial("POSKeyMappingsGrid", Model.POSKeyMappings);
+	});
+}).GetHtml();
+}

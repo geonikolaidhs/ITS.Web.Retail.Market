@@ -1,0 +1,229 @@
+﻿@model ITS.Retail.Model.Leaflet
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+@{
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = ViewBag.Mode;
+
+    eApplicationInstance applicationInstance = ViewBag.ApplicationInstance;
+    bool editOnSC = applicationInstance == eApplicationInstance.STORE_CONTROLER;
+}
+
+@using (Html.BeginForm("Save", "Leaflet", FormMethod.Post, new { id = "EditForm" }))
+{
+    ViewContext.Writer.Write(Html.Hidden("LeafletImageInfo"));
+    ViewContext.Writer.Write(Html.Hidden("LeafletImageDescription"));
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("LeafletID", ViewData["LeafletID"].ToString()));
+
+        ViewContext.Writer.Write("<div class='ValidationContainer  background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.BtnUpdateClick";
+        headerOptions.CancelButton.OnClick = "btnCancelClick";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<div class=\"container-fluid headerTable validateForm margin-0-auto-20 grey-border-with-bg padding-bottom-20-important col\">");
+
+        ViewContext.Writer.Write("<div class=\"row col\">");
+
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 col\">");
+        if (!editOnSC)
+        {
+            ViewContext.Writer.Write("<a href='#' class=\"changeImage text-center\" onclick='LeafletImagePopup.Show(); return false;'>" + Resources.ChangeImage + "</a>");
+        }
+        ViewContext.Writer.Write("<img alt='' class=\"img-responsive max-height-225 center-block\" id='imgLeafletImage' src='" + Url.Action("ShowImage", "Leaflet") + "?dt=" + DateTime.Now.Ticks + "' onclick='LeafletImagePopup.Show(); return false;' />");
+
+
+
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div class=\"Leaflet-center-div col\">");
+
+        ViewContext.Writer.Write("<table class='headerTable validateForm'><tr><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Code + ":";
+                edtSettings.AssociatedControlName = "Code";
+            }
+        )
+        .Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }
+        )
+        .Bind(DataBinder.Eval(Model, "Code"))
+        .Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+       edtSettings =>
+       {
+           edtSettings.ControlStyle.CssClass = "label required_field";
+           edtSettings.Text = Resources.Description + ":";
+       }).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Description";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }
+        ).Bind(DataBinder.Eval(Model, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-bottom\">");
+
+        Html.DevExpress().CheckBox(chb_settings =>
+        {
+            chb_settings.Name = "IsActive";
+            chb_settings.Text = Resources.IsActive;
+            chb_settings.ControlStyle.CssClass = "editor";
+            chb_settings.Properties.ValueChecked = true;
+            chb_settings.Properties.ValueGrayed = false;
+            chb_settings.Properties.ValueUnchecked = false;
+            chb_settings.Properties.ValueType = typeof(bool);
+
+        }).Bind(DataBinder.Eval(Model, "IsActive")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.StartDate + ":";
+        }
+        )
+        .Render();
+
+        Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.ControlStyle.CssClass = "editor";
+            datesettings.Name = "StartDate";
+
+        }).Bind(DataBinder.Eval(Model, "StartDate"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.EndDate + ":";
+            }
+            )
+            .Render();
+
+        Html.DevExpress().DateEdit(datesettings =>
+        {
+
+            datesettings.ControlStyle.CssClass = "editor";
+            datesettings.Name = "EndDate";
+
+
+        }).Bind(DataBinder.Eval(Model, "EndDate"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.StartTimePerDay + ":";
+        }
+        )
+        .Render();
+
+        Html.DevExpress().TimeEdit(Timesettings =>
+        {
+            Timesettings.ControlStyle.CssClass = "editor";
+            Timesettings.Name = "StartTime";
+            Timesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            Timesettings.Properties.EditFormatString = "HH:mm:ss";
+
+
+        }).Bind(DataBinder.Eval(Model, "StartTime"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.EndTimePerDay + ":";
+            }
+            )
+            .Render();
+
+        Html.DevExpress().TimeEdit(Timesettings =>
+        {
+
+            Timesettings.ControlStyle.CssClass = "editor";
+            Timesettings.Name = "EndTime";
+            Timesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            Timesettings.Properties.EditFormatString = "HH:mm:ss";
+
+        }).Bind(DataBinder.Eval(Model, "EndTime"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr></table></div></div></div></div>");
+
+        @Html.DevExpress().PageControl(page_control_settings =>
+        {
+            page_control_settings.AccessibilityCompliant = false;
+            page_control_settings.Name = "pcFeatures2";
+            page_control_settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            page_control_settings.TabAlign = TabAlign.Justify;
+            page_control_settings.TabPosition = TabPosition.Top;
+            page_control_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            page_control_settings.EnableTabScrolling = true;
+            page_control_settings.EnableHotTrack = true;
+            page_control_settings.Styles.Content.BorderTop.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+
+
+            page_control_settings.TabPages.Add(Resources.Items).SetContent(() =>
+            {
+                Html.RenderPartial("LeafletDetailGrid", Model.LeafletDetails);
+            });
+
+            page_control_settings.TabPages.Add(Resources.Stores).SetContent(() =>
+            {
+                Html.RenderPartial("LeafletStoreGrid", Model.Stores);
+            });
+
+        }).Render();
+    });
+}).GetHtml();
+
+    @Html.Partial("LeafletImagePopup")
+}

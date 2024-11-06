@@ -1,0 +1,45 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<table>
+    <tr>
+        <td>
+            @Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Properties.Caption = Resources.Code + ":";
+                txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                txtSettings.Name = "VatLevelCode";
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(DataBinder.Eval(ViewData["item"], "Code")).GetHtml()
+        </td>
+        <td>
+            @Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Text = Resources.Default;
+                edtSettings.Name = "IsDefault";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ShowModelErrors = true;
+            }).Bind(DataBinder.Eval(ViewData["item"], "IsDefault") ?? false).GetHtml()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Properties.Caption = Resources.Description + ":";
+                txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                txtSettings.Name = "VatLevelDescription";
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(DataBinder.Eval(ViewData["item"], "Description")).GetHtml()
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,48 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.Model
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(StoreDailyReportPayment), typeof(StoreDailyReportController), "grdCredits", columnType: GridViewCommandColumnType.NONE, generateColumns: false);
+    settings.CallbackRouteValues = new { Controller = "StoreDailyReport", Action = "CreditsGrid", storeDailyreportOid = ViewData["StoreDailyReportOid"] };
+    settings.ClientSideEvents.EndCallback = "StoreDailyReport.creditsGridEndCallback";
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "StoreDailyReport", Action = "CreditUpdatePartial" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.SettingsPopup.EditForm.Width = 600;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.CommandColumn.ShowNewButtonInHeader = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = false;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Hidden;
+    settings.Settings.ShowHeaderFilterButton = false;
+    settings.SettingsBehavior.AllowSort = false;
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+    
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "LineNumber";
+        column.ReadOnly = true;
+        column.Caption = Resources.LineNumber;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Description";
+        column.Caption = Resources.Description;
+        column.ReadOnly = true;
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UserValue";
+        column.Caption = Resources.UserValue;
+        column.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

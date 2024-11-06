@@ -1,0 +1,24 @@
+﻿@using ITS.Retail.Common;
+
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "ItemCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Item", Action = "DefaultBarcodeComboBox" };
+    cpbseriessettings.SetContent(() =>
+    {
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "DefaultBarcode";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Code";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            combosettings.Enabled = (ViewBag.ApplicationInstance != eApplicationInstance.STORE_CONTROLER);
+        }).BindList(ViewBag.BarcodeComboBox).Bind(DataBinder.Eval(Model, "Oid") ?? null).Render();
+    });
+}).GetHtml()

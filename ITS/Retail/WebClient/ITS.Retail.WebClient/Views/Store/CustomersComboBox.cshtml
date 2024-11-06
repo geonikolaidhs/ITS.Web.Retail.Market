@@ -1,0 +1,32 @@
+﻿@using ITS.Retail.WebClient.Controllers;
+@{ComboBoxExtension cmb = Html.DevExpress().ComboBox(cmb_settings =>
+  {
+	  cmb_settings.Name = "DefaultCustomerComboBox";
+	  cmb_settings.Properties.TextField = "Customer";
+	  cmb_settings.Properties.ValueField = "Oid";
+	  cmb_settings.Properties.ValueType = typeof(Guid);
+	  cmb_settings.CallbackRouteValues = new { Controller = "Store", Action = "CustomersComboBox" };
+	  cmb_settings.Properties.Columns.Add("CompanyName", ITS.Retail.ResourcesLib.Resources.CompanyName, 90);
+	  cmb_settings.Properties.Columns.Add("Trader.TaxCode", ITS.Retail.ResourcesLib.Resources.TaxCode, 90);
+	  cmb_settings.Properties.Columns.Add("Code", ITS.Retail.ResourcesLib.Resources.Code, 90);
+	  cmb_settings.ShowModelErrors = true;
+	  cmb_settings.Properties.CallbackPageSize = 15;
+	  cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+	  cmb_settings.Properties.DropDownWidth = 350;
+      cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+      cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+      cmb_settings.Properties.FilterMinLength = 2;
+      cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+      cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+      var button = new EditButton(" ");
+      button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+      button.Image.AlternateText = Resources.Clear;
+      cmb_settings.Properties.Buttons.Add(button);  
+      
+  });
+  cmb.BindList(StoreController.CustomersRequestedByFilterCondition, StoreController.ObjectRequestedByValue<Customer>).BindList(StoreController.GetObjectByValue<Customer>(DataBinder.Eval(Model, "DefaultCustomer!Key"))).Bind(DataBinder.Eval(Model, "DefaultCustomer!Key")).GetHtml();
+
+
+  
+}

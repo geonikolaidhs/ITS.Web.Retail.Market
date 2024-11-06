@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "PopupViewCallbackPanel";
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "PopupViewCallbackPanel" };
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("LoadViewPopup", "Home", new { ID = ViewData["ID"], Type = ViewData["Type"] });
+    });
+
+    settings.ClientSideEvents.BeginCallback = "OnInitPopupViewCallback";
+
+}).GetHtml()

@@ -1,0 +1,209 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdPOSStatuses";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowOnStatusBar;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ID";
+        col.Caption = "ID";//Resources.Code;
+col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IPAddress";
+        col.Caption = Resources.IPAddress;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Name";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsAlive";
+        col.Caption = Resources.IsOnline;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        checkBoxProperties.UseDisplayImages = true;
+
+        checkBoxProperties.DisplayImageGrayed.Url = Url.Content("~/Content/img/offline_dot.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        checkBoxProperties.DisplayImageGrayed.Width = 18;
+        checkBoxProperties.DisplayImageGrayed.Height = 18;
+        checkBoxProperties.DisplayImageChecked.Url = Url.Content("~/Content/img/online_dot.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        checkBoxProperties.DisplayImageChecked.Width = 18;
+        checkBoxProperties.DisplayImageChecked.Height = 18;
+        checkBoxProperties.DisplayImageUnchecked.Url = Url.Content("~/Content/img/offline_dot.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        checkBoxProperties.DisplayImageUnchecked.Width = 18;
+        checkBoxProperties.DisplayImageUnchecked.Height = 18;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Status.MachineStatusDate";
+        col.Caption = Resources.LatestUpdate;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Status.MachineStatus";
+        col.Caption = Resources.LastKnownStatus;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ITS.Retail.Model.POS currentPos = DataBinder.Eval(c.DataItem, "this") as ITS.Retail.Model.POS;
+            if (currentPos != null)
+            {
+                ITS.Retail.Model.POSStatus currentPosStatus = currentPos.Status;
+                if (currentPosStatus != null)
+                {
+                    ViewContext.Writer.Write(currentPosStatus.MachineStatus.ToLocalizedString());
+                }
+            }
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "";
+        col.Caption = "X";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ITS.Retail.Model.POS currentPos = DataBinder.Eval(c.DataItem, "this") as ITS.Retail.Model.POS;
+            ViewContext.Writer.Write(ITS.Retail.WebClient.Helpers.POSHelper.GetCurrentXCount(currentPos).ToString("N0"));
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "";
+        col.Caption = "X";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ITS.Retail.Model.POS currentPos = DataBinder.Eval(c.DataItem, "this") as ITS.Retail.Model.POS;
+            ViewContext.Writer.Write(ITS.Retail.WebClient.Helpers.BusinessLogic.RoundAndStringify(ITS.Retail.WebClient.Helpers.POSHelper.GetCurrentXAmount(currentPos), ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.Owner) + " €");
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "";
+        col.Caption = "Z";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ITS.Retail.Model.POS currentPos = DataBinder.Eval(c.DataItem, "this") as ITS.Retail.Model.POS;
+            ViewContext.Writer.Write(ITS.Retail.WebClient.Helpers.POSHelper.GetCurrentZCount(currentPos).ToString("N0"));
+        });
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "";
+        col.Caption = "Z";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SetDataItemTemplateContent(c =>
+{
+    ITS.Retail.Model.POS currentPos = DataBinder.Eval(c.DataItem, "this") as ITS.Retail.Model.POS;
+    ViewContext.Writer.Write(ITS.Retail.WebClient.Helpers.BusinessLogic.RoundAndStringify(ITS.Retail.WebClient.Helpers.POSHelper.GetCurrentZAmount(currentPos), ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.Owner) + " €");
+});
+    });
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "POS", Action = "POSStatusGrid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+
+    settings.CommandColumn.Visible = false;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+//settings.SettingsCookies.CookiesID = "grdPOSStatuses";
+settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.PosStatus;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+//settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+settings.ClientLayout += (sndr, evt) =>
+{
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+}).Bind(Model).GetHtml()

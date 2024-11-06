@@ -1,0 +1,470 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Common.Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Common.Utilities.ScriptExecutor">
+            <summary>
+            This class is used to create an instance passing a list of Script objects. Then by calling
+            Execute continiously until HasMoreScripts equals false, one can execute all the scripts,
+            one by one. Execute returns false if the script indicated there was an error.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptExecutor.#ctor(System.Collections.Generic.List{ITS.Common.Utilities.Script})">
+            <summary>
+            Initializes a new instance of the ScriptExecutor class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptExecutor.Execute(System.Boolean)">
+            <summary>
+            It executes the next script on the list unless retry is true. In that case
+            it executes the current one.
+            </summary>
+            <param name="retry">True if we want to execute the current script</param>
+            <returns>False if the script didn't execute correctly</returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptExecutor.ListOfScripts">
+            <summary>
+            This is the list of scripts that we pass to the constructor
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptExecutor.HasMoreScripts">
+            <summary>
+            True if there are more scripts to execute.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptExecutor.CurrentScript">
+            <summary>
+            The current script
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.ScriptTemplateProcessor">
+            <summary>
+            Takes a string and replaces its contents based on various variables.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptTemplateProcessor.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ScriptTemplateProcessor class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptTemplateProcessor.Execute(System.String)">
+            <summary>
+            Executes the script template processor, by replacing its contents based on various variables with their original values.
+            </summary>
+            <param name="template"></param>
+            <returns>The script template such that its variables are replaced to their original values.</returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.Publication">
+            <summary>
+            A publication, for ex. "PDA"
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.SqlInstance">
+            <summary>
+            The instance of the mssql, for ex. "127.0.0.1\MOBILE".
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.Database">
+            <summary>
+            The database name.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.DataFile">
+            <summary>
+            The path where the data file for the mssql is located.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.LogFile">
+            <summary>
+            The path where the log file for the mssql is located.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.Password">
+            <summary>
+            The password used for establishing of the database connection.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.ReplData">
+            <summary>
+            The path of the data file in the sql server instance, for ex. "\\CHRISTOSPC\REPLDATA".
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.AdminLogin">
+            <summary>
+            The adminstrator's user name used for establishing of the database connection.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.AdminPassword">
+            <summary>
+            The adminstrator's password used for establishing of the database connection.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.Login">
+            <summary>
+            The login instance, for ex. "Terminal".
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.DeviceId">
+            <summary>
+            The id num. of the device.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.Description">
+            <summary>
+            A description (optional). 
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.TermId">
+            <summary>
+            The id num. of the terminal.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptTemplateProcessor.ServerName">
+            <summary>
+            The name of the sql server instance.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.ScriptListBuilder">
+            <summary>
+            This class when instantiated lists all the files inside BaseDirectory sorted by name and then
+            adds to the list all the files inside the ExtraDirectory sorted by name again. BaseDirectory and
+            ExtraDirectory must be inside the ScriptsDirectory.
+            
+            Example:
+            
+            ScriptListBuilder slb = new ScriptListBuilder("C:\Scripts", "Base", "WinCE 5.0 Batch", new SqlConnection("Server=MyServer\SQLSERVER2005;Database=Test;Integrated Security=sspi"));
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptListBuilder.#ctor(System.String,System.Collections.Generic.List{System.String},System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Initializes a new instance of the ScriptListBuilder class setting the BaseDirectory equal to "Base" as a default value.
+            </summary>
+            <param name="scriptsDirectory">The directory where all the scripts reside</param>
+            <param name="extraDirectories">The name of the directory inside ScriptsDirectory that has extra scripts to be executed after the base scripts</param>
+            /// <param name="sqlConnection">The SqlConnection that is going to be used to run all the scripts</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptListBuilder.#ctor(System.String,System.String,System.Collections.Generic.List{System.String},System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates an instance
+            </summary>
+            <param name="scriptsDirectory">The directory where all the scripts reside</param>
+            <param name="baseDirectory">The name of the directory inside ScriptsDirectory where the base scripts reside</param>
+            <param name="extraDirectories">The name of the directory inside ScriptsDirectory that has extra scripts to be executed after the base scripts</param>
+            <param name="sqlConnection">The SqlConnection that is going to be used to run all the scripts</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptListBuilder.Execute(ITS.Common.Utilities.ScriptTemplateProcessor)">
+            <summary>
+            Builds a list of Script objects that represent the files found in BaseDirectory and
+            ExtraDirectory.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ScriptListBuilder.Dispose">
+            <summary>
+            Releases the stuff
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptListBuilder.ScriptsDirectory">
+            <summary>
+            This is the directory where all the scripts reside
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptListBuilder.BaseDirectory">
+            <summary>
+            This is the directory where the base scripts reside
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptListBuilder.ExtraDirectories">
+            <summary>
+            This is the directory with scripts that differentiate what the base scripts did
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ScriptListBuilder.SqlConnection">
+            <summary>
+            The SqlConnection that is going to be used for the scripts to run.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.FTPClient">
+            <summary>
+            The FTPClient implements basic ftp functionality that can upload, delete rename and download files. Also a user can 
+            get list of files in specific folders and other information through ftp protocol.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes the FTPClient object by setting the ftp server ip, username and password
+            </summary>
+            <param name="ftpServerIP">The FTP server that we will connect</param>
+            <param name="ftpUserID">The FTP server username that we will use to connect</param>
+            <param name="ftpPassword">The FTP server user password that we will use to authenticate</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.Upload(System.String,System.String)">
+            <summary>
+            Method to upload the specified file to the specified FTP Server
+            </summary>
+            <param name="localFilePath">local file path to be uploaded</param>
+            <param name="remoteFilePath">The remote file path that the local file will be saved to</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.DeleteFTP(System.String)">
+            <summary>
+            Deletes a remote file within the ftp server
+            </summary>
+            <param name="remoteFilePath">The remtoe file path to delete</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.GetFilesDetailList">
+            <summary>
+            Returns a files list which exist in the root of the ftp server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.GetFileList">
+            <summary>
+            Returns a list with all the files that exist in the root of the FTP server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.Download(System.String,System.String)">
+            <summary>
+            Downloads a file from the server to locally
+            </summary>
+            <param name="filePath">The path of the file that will be create locally</param>
+            <param name="fileName">The file path on the remote ftp server</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.GetFileSize(System.String)">
+            <summary>
+            Gets a filesize long value for a provided ftp file path
+            </summary>
+            <param name="filename">The path of the file that we want to get the size for</param>
+            <returns>The length of data for the path that we requested</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.Rename(System.String,System.String)">
+            <summary>
+            Renames a file which exists in the ftp server
+            </summary>
+            <param name="currentFilename">The current filename</param>
+            <param name="newFilename">The new name of the file</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.FTPClient.MakeDir(System.String)">
+            <summary>
+            Creates a directory in the remote ftp server
+            </summary>
+            <param name="dirName">The directory path that we will create</param>
+        </member>
+        <member name="P:ITS.Common.Utilities.FTPClient.FTPServerIP">
+            <summary>
+            Gets or sets the ftp server ip
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.FTPClient.FTPUserID">
+            <summary>
+            Gets or sets the ftp username
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.FTPClient.FTPPassword">
+            <summary>
+            Gets or sets the ftp user password
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.AssemblyTagger">
+            <summary>
+            A class for changing AssemblyInfo files
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.AssemblyTagger.Execute">
+            <summary>
+            Execute the procedure
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.AssemblyTagger.AssemblyFileName">
+            <summary>
+            The assembly filename
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.AssemblyTagger.BuildStr">
+            <summary>
+            If this is set, then it is used to fill the build portion of the version.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.AssemblyTagger.VersionStr">
+            <summary>
+            The version string
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.AssemblyTagger.IncreaseBuild">
+            <summary>
+            If we want to increase the build number
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.FileUtils">
+            <summary>
+            This static class contains useful static methods for operating on files.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.FileUtils.CombineExePathWithString(System.String)">
+            <summary>
+            It combines the current path under which we execute our application with the filename we pass.
+            </summary>
+            <param name="filename">The filename to be combined</param>
+            <returns>The final combination</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.Script">
+            <summary>
+            Represents a file on disk that contains an SQL script. When it is created it knows where the filename
+            is and what SqlConnection it is going to use for executing the contents of the filename.
+            
+            Example:
+            
+            Script script = new Script("MyScript.sql", 
+              new SqlConnection("Server=MyServer\SQLSERVER2005;Database=Test;Integrated Security=sspi"),
+              null);
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Script.#ctor(System.String,System.String,System.Data.SqlClient.SqlConnection,ITS.Common.Utilities.ScriptTemplateProcessor)">
+            <summary>
+            Initializes a new instance of the Script class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Script.GetCommand">
+            <summary>
+            It creates a new SqlCommand using the SqlConnection.
+            </summary>
+            <returns>A new SqlCommand</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Script.Execute">
+            <summary>
+            It executes the script the FileName contains.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.FileName">
+            <summary>
+            The path and name to the file that contains the script.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.CurrentState">
+            <summary>
+            Gets the current state of the script
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.CurrentStateToInt">
+            <summary>
+            Gets the current state of the script in int format
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.SqlConnection">
+            <summary>
+            The connection string to the SQL Server database where the script is going to
+            be executed.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.ScriptText">
+            <summary>
+            Holds the content of the FileName. It is being filled after Execute is called.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.ProcessedScriptText">
+            <summary>
+            Holds the content of the FileName after its has been processed. It is being filled after Execute is called.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.RowsAffected">
+            <summary>
+            When Execute has finished running, this property holds the number of rows affected by the script.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.ErrorMessage">
+            <summary>
+            It holds possible the error message if Execute catches an exception.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Script.ScriptTemplateProcessor">
+            <summary>
+            If it is not null, it is used to replace template placeholders with real values
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Script.State">
+            <summary>
+            The current state of this script
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Script.State.NOTEXECUTED">
+            <summary>
+            It hasnt been started
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Script.State.RUNNING">
+            <summary>
+            Its currently running
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Script.State.SUCCEEDED">
+            <summary>
+            It has succeeded
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Script.State.FAILED">
+            <summary>
+            It has failed
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Script.State.RETRYING">
+            <summary>
+            Its currently retrying
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.SystemInfoTool">
+            <summary>
+            A tool that can apply different types of system info.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.SystemInfoTool.instance">
+            <summary>
+            The one and only instance of the current class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.SystemInfoTool.#ctor">
+            <summary>
+            The hidden constructor.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.SystemInfoTool.getMacAddress">
+            <summary>
+            Returns the local mac address
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.SystemInfoTool.getProcessorSignature">
+            <summary>
+            Returns the processor signature
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.SystemInfoTool.getBiosSignature">
+            <summary>
+            Returns the bios signature
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.SystemInfoTool.getComputerName">
+            <summary>
+            Returns the name of the computer
+            </summary>
+            <returns>A string representing the name of the computer</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.SystemInfoTool.writePropertiesTofile(System.String,System.String)">
+            <summary>
+            Writes all available properties from the specified select in the
+            specified text file (Used for debug info only)
+            </summary>
+            <param name="select"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:ITS.Common.Utilities.SystemInfoTool.Instance">
+            <summary>
+            The one and only instance of the info tool.
+            </summary>
+        </member>
+    </members>
+</doc>

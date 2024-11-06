@@ -1,0 +1,36 @@
+﻿@using System.Threading
+@using System.Globalization
+
+@{
+    ViewBag.ShowNavigation = false;
+    Layout = "";
+    string originalCultureName = Thread.CurrentThread.CurrentCulture.Name;
+    Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = new CultureInfo("el");
+}
+
+<title>@Resources.CHECKPRICE</title>
+<header>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <script src="@Url.Content("~/Scripts/scripts/PriceChecker.js")" type="text/javascript"></script>
+</header>
+
+<body onload="priceCheckerOnLoad()">
+    <h2 style="text-align:justify">
+        @Resources.PleaseScanItemToCheckPriceOrYourCardToCheckYourPoints
+    </h2>
+    <input type="text" style=" border: 0px solid" id="searchcode" name="searchcode" onkeypress="return checkPrice(event)"/>
+    <input type="hidden" value="@Url.Content("~")" id="HOME" name="HOME" />
+    <br\>
+    <div style="float:right">
+        @Resources.CreatedBy
+        <img src="@Url.Content("~/Content/ITS.bmp")" width="25" height="20"/>
+    </div>
+</body>
+
+@{ 
+    Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(originalCultureName);
+}

@@ -1,0 +1,43 @@
+#rblPrintingType {
+  height: 60px;
+}
+
+.wrapper .container table.FilterPanel {
+  position: absolute;
+  top: 34px;
+  z-index: 1;
+}
+.wrapper .container table.FilterPanel #FilterPanelSecond_RPC {
+  background: #d5d5d5;
+  border: 1px solid #cdcdcd;
+  box-shadow: 0 0 12px 0 #7e7e7e;
+  display: block;
+  overflow: hidden;
+  padding: 5px !important;
+}
+.wrapper .container table.headerTable {
+  height: 140px;
+}
+.wrapper .container .Labels .filter_search_container {
+  top: 0;
+}
+.wrapper .container .Labels span#filterinfo {
+  top: 0;
+}
+.wrapper .container .dxgvControl_ITSTheme1.styleGrid {
+  top: 5px !important;
+}
+
+.Labels .FilterPanel {
+  top: 0;
+}
+
+.labels-filters-container {
+  width: 100%;
+}
+.labels-filters-container.changed-on {
+  width: 940px;
+}
+.labels-filters-container.terminals {
+  width: 850px;
+}

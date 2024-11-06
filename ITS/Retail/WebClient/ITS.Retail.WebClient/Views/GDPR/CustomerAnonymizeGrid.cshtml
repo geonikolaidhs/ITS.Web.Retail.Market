@@ -1,0 +1,268 @@
+﻿@model IQueryable<ITS.Retail.Model.Customer>
+@using ITS.Retail.Common;
+@using DevExpress.Xpo;
+@using ITS.Retail.ResourcesLib;
+@using System.Web.UI.WebControls;
+@{
+    GridViewSettings settings = new GridViewSettings();
+    settings.AccessibilityCompliant = true;
+
+
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
+    settings.Styles.Header.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
+
+    if (ViewBag.EnableOriginalJSEvents == null || ViewBag.EnableOriginalJSEvents)
+    {
+        settings.ClientSideEvents.BeginCallback = "Component.PassValuesOnGrid";
+        settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    }
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+            grid.Selection.UnselectAll();
+    };
+
+
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    int ctr = 0;
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            ctr++;
+            int? x = (int?)DataBinder.Eval(c.DataItem, "GDPRAnonymizationProtocolNumber");
+            if (x == 0)
+
+                ViewContext.Writer.Write(
+    "<a href=\"javascript:unhide('PrintAnonymizationCustomer?id=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "', " + ctr.ToString() + ")\" title=\"" + Resources.GDPRExportPrint + "\"><img src='" + Url.Content("~/Content/img/print.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRExportPrint + "\" /></a>" +
+    "<a  id='b" + ctr.ToString() + "' style='display:none;' href=\"javascript:Anonymize('AnonymizeCustomer?objid=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "')\" title=\"" + Resources.GDPRAnonymizeThis + "\"><img src='" + Url.Content("~/Content/img/del_new.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRAnonymizeThis + "\" /></a>"
+
+    );
+
+            else
+                ViewContext.Writer.Write(
+                                    "<a href=\"javascript:unhide('PrintAnonymizationCustomer?id=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "', " + ctr.ToString() + ")\" title=\"" + Resources.GDPRExportPrint + "\"><img src='" + Url.Content("~/Content/img/print.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRExportPrint + "\" /></a>" +
+                                   "<a  id='b" + ctr.ToString() + "' href=\"javascript:Anonymize('AnonymizeCustomer?objid=" + DataBinder.Eval(c.DataItem, "Oid").ToString() + "')\" title=\"" + Resources.GDPRAnonymizeThis + "\"><img src='" + Url.Content("~/Content/img/del_new.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.GDPRAnonymizeThis + "\" /></a>"
+
+                                );
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 70;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.Caption = Resources.Code;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CardID";
+        column.Caption = Resources.CardID;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxCode";
+        column.Caption = Resources.TaxCode;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "CompanyName";
+    //    column.Caption = Resources.CompanyName;
+    //    column.HeaderStyle.Wrap = DefaultBoolean.True;
+    //    column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    //});
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxOfficeLookUp.Description";
+        column.Caption = Resources.TaxOffice;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Profession";
+        column.Caption = Resources.Profession;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultAddress.Description";
+        column.Caption = Resources.DefaultAddress;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultAddress.DefaultPhone.Number";
+        column.Caption = Resources.DefaultPhone;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "RefundStore.Name";
+        column.Caption = Resources.Store;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "VatLevel.Description";
+        column.Caption = Resources.VatLevel;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsActive";
+        column.Caption = Resources.Active;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "BreakOrderToCentral";
+        column.Caption = Resources.BreakOrderToCentral;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Name = "grdGDPRAnonymizeCustomer";
+
+    settings.Settings.ShowPreview = false;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowAsPopup;
+
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "GDPR", Action = "CustomerAnonymizeGrid" };
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+
+
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsCookies.Enabled = false;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Customers;
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.EditForm;
+    Session["GDPRCustomerAnonymizationGridSettings"] = settings;
+
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.ClientSideEvents.Init = "CustomizationWindow";
+
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+
+
+<script>
+    function unhide(url, aa) {
+        @if (Session["GDPRError"] !=null)
+        {
+            @:alert("@Session["GDPRError"]");
+        }
+        else
+        {
+            @: $("#b" + aa).css("display", "inline-block");
+            @:    window.open(url, "_blank");
+        }
+        
+    }
+    function Anonymize(url) {
+        if (confirm('@Resources.GDPRFirstAnonymizationConfirmation')) {
+            if (confirm('@Resources.GDPRSecondAnonymizationConfirmation')) {
+                window.open(url, '_self');
+            }
+        }
+
+    }
+</script>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lblQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/qty"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/text_tiny" />
+
+    <EditText
+        android:id="@+id/txtQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/text_tiny" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/lblDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discount"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/text_tiny" />
+
+    <EditText
+        android:id="@+id/txtDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:textSize="@dimen/text_tiny" />
+
+    <GridLayout
+        android:layout_width="482dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="1" >
+
+        <LinearLayout
+            android:id="@+id/Dummy32323232325454"
+            android:layout_width="323dp"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="0" >
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/ok"
+                android:textSize="@dimen/text_tiny" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="50dp"
+                android:text="@string/cancel"
+                android:textSize="@dimen/text_tiny" />
+
+        </LinearLayout>
+
+    </GridLayout>
+
+</LinearLayout>

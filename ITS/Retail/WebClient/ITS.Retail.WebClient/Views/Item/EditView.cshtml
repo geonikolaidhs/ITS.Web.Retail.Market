@@ -1,0 +1,740 @@
+﻿@model ITS.Retail.Model.Item
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+
+@{
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = ViewBag.Mode;
+
+    eApplicationInstance applicationInstance = ViewBag.ApplicationInstance;
+    bool editOnSC = applicationInstance == eApplicationInstance.STORE_CONTROLER;
+}
+
+
+
+@using (Html.BeginForm("Save", "Item", FormMethod.Post, new { id = "EditForm" }))
+{
+
+    ViewContext.Writer.Write(Html.Hidden("ItemImageInfo"));
+    ViewContext.Writer.Write(Html.Hidden("ItemImageDescription"));
+    ViewContext.Writer.Write(Html.Hidden("ItemID", ViewData["ItemID"].ToString()));
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "editForm";
+        settings.ShowHeader = false;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+/*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.OnClick = "btnUpdateClick";
+            headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+
+/*End of header banner*/
+
+            ViewContext.Writer.Write("<div class=\"container-fluid headerTable validateForm margin-0-auto-20 grey-border-with-bg padding-bottom-20-important col\">");
+
+            ViewContext.Writer.Write("<div class=\"row col\">");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 col\">");
+            if (!editOnSC)
+            {
+                ViewContext.Writer.Write("<a href='#' class=\"changeImage text-center\" onclick='ItemImagePopup.Show(); return false;'>" + Resources.ChangeImage + "</a>");
+            }
+            ViewContext.Writer.Write("<img alt='' class=\"img-responsive max-height-225 center-block\" id='imgItemImage' src='" + Url.Action("ShowImage", "Item") + "?dt=" + DateTime.Now.Ticks + "' onclick='ItemImagePopup.Show(); return false;' />");
+
+            ViewContext.Writer.Write("<div class=\"item-center-div col\">");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsActive";
+                edtSettings.Text = Resources.IsActive;
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ReadOnly = editOnSC;
+            }).Bind(DataBinder.Eval(Model, "IsActive")).Render();
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-xs-9 col-md-10 col\">");
+            ViewContext.Writer.Write("<div class=\"row col\">");
+            ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Code;
+                edtSettings.AssociatedControlName = "Code";
+            }).Render();
+
+            object itemCodeObject = DataBinder.Eval(Model, "Code");
+            string itemCodeString = itemCodeObject == null ? null : itemCodeObject.ToString();
+
+            if (ViewBag.OwnerApplicationSettings.PadItemCodes && itemCodeString != null)                                        //TrimStart sta fields pou theloume
+{
+                itemCodeString = itemCodeString.TrimStart(ViewBag.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ClientSideEvents.LostFocus = "CheckForExistingItem";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(itemCodeString).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.MotherCode;
+                edtSettings.AssociatedControlName = "MotherCode";
+
+            }).Render();
+
+            Html.RenderPartial("ItemsComboBox");
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"row col\">");
+            ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.ItemName;
+                edtSettings.AssociatedControlName = "Name";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Name";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "Name")).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.DefaultBarcode;
+                edtSettings.AssociatedControlName = "DefaultBarcode";
+            }).Render();
+
+            Session["CurrentDefaultBarcode"] = DataBinder.Eval(Model, "DefaultBarcode!Key");
+
+            Html.RenderAction("DefaultBarcodeComboBox");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"row col\">");
+            ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.VatCategory;
+                edtSettings.AssociatedControlName = "VatCategory";
+            }).Render();
+
+            Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "VatCategory";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.TextField = "Description";
+                edtSettings.Properties.ValueField = "Oid";
+                edtSettings.Properties.ValueType = typeof(Guid);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).BindList(ViewBag.VatCategoryComboBox).Bind(DataBinder.Eval(Model, "VatCategory!Key")).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+
+            Html.DevExpress().Label(lbl_settings =>
+            {
+                lbl_settings.ControlStyle.CssClass = "label";
+                lbl_settings.Text = Resources.InsertedDate;
+            }).Render();
+
+            @Html.DevExpress().DateEdit(deSettings =>
+            {
+                deSettings.Properties.EditFormat = EditFormat.DateTime;
+                deSettings.Name = "FInsertedOn";
+                deSettings.ShowModelErrors = true;
+                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                deSettings.Enabled = !editOnSC;
+            }).Bind(Model.InsertedDate).GetHtml();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"row col\">");
+            ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Points;
+            }).Render();
+
+            Html.DevExpress().SpinEdit(edtSettings =>
+            {
+                edtSettings.Name = "points";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.MinValue = 0;
+                edtSettings.Properties.MaxValue = 999999999;
+                edtSettings.Properties.MaxLength = 999999999;
+                edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+                edtSettings.Number = 0;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "Points") ?? null).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+
+            Html.DevExpress().Label(lblsettings =>
+            {
+                lblsettings.ControlStyle.CssClass = "label";
+                lblsettings.Text = Resources.ItemSupplier;
+                lblsettings.AssociatedControlName = "ItemSupplier";
+            }).Render();
+
+            Html.RenderPartial("ItemSuppliersComboBoxPartial");
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"row col\">");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.PackingMeasurementUnit;
+            }).Render();
+
+            Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "PackingMeasurementUnit";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.TextField = "Description";
+                edtSettings.Properties.ValueField = "Oid";
+                edtSettings.Properties.ValueType = typeof(Guid);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                var button = new EditButton(" ");
+                button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                button.Image.AlternateText = Resources.Clear;
+                edtSettings.Properties.Buttons.Add(button);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).BindList(ViewBag.PackingMeasurementUnitComboBox).Bind(DataBinder.Eval(Model, "PackingMeasurementUnit!Key")).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.PackingQty;
+            }).Render();
+
+            Html.DevExpress().SpinEdit(edtSettings =>
+            {
+                edtSettings.Name = "PackingQty";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.MinValue = 0;
+                edtSettings.Properties.MaxValue = 999;
+                edtSettings.Properties.MaxLength = 999;
+                edtSettings.Number = 0;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "PackingQty") ?? null).Render();
+            ViewContext.Writer.Write("</div>");
+
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.MinOrderQty;
+                edtSettings.Enabled = !editOnSC;
+            }).Render();
+
+            Html.DevExpress().SpinEdit(edtSettings =>
+            {
+                edtSettings.Name = "MinOrderQty";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.MinValue = 0;
+                edtSettings.Properties.MaxValue = 999;
+                edtSettings.Properties.MaxLength = 999;
+                edtSettings.Number = 0;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "MinOrderQty") ?? null).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.MaxOrderQty;
+            }).Render();
+
+            Html.DevExpress().SpinEdit(edtSettings =>
+            {
+                edtSettings.Name = "MaxOrderQty";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.MinValue = 0;
+                edtSettings.Properties.MaxValue = 999;
+                edtSettings.Properties.MaxLength = 999;
+                edtSettings.Number = 0;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "MaxOrderQty") ?? null).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col row\">");
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().ComboBox(cmb_settings =>
+            {
+                cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                cmb_settings.Properties.Caption = Resources.AcceptsCustomPrice;
+                cmb_settings.Properties.CaptionStyle.CssClass = "label";
+                cmb_settings.Name = "customPriceOptions";
+                cmb_settings.Properties.ValueType = typeof(eItemCustomPriceOptions);
+                cmb_settings.Properties.ValueField = "Key";
+                cmb_settings.Properties.TextField = "Value";
+                cmb_settings.ShowModelErrors = true;
+                cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                cmb_settings.Enabled = !editOnSC;
+            }).BindList(Enum<eItemCustomPriceOptions>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CustomPriceOptions")).GetHtml();
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Description;
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "ExtraDescription";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "ExtraDescription")).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Seasonality;
+            }).Render();
+
+            Html.RenderPartial("SeasonalityComboBoxPartial");
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().Label(lblsettings =>
+            {
+                lblsettings.ControlStyle.CssClass = "label";
+                lblsettings.Text = Resources.Buyer;
+                lblsettings.AssociatedControlName = "Buyer";
+            }).Render();
+
+            Html.RenderPartial("BuyerComboBoxPartial");
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"row col\">");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.ReferenceUnit;
+            }).Render();
+
+            Html.DevExpress().SpinEdit(edtSettings =>
+            {
+                edtSettings.Name = "ref_unit";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.MinValue = 0;
+                edtSettings.Properties.MaxValue = 999999999;
+                edtSettings.Properties.MaxLength = 999999999;
+                edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "ReferenceUnit") ?? null).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.ContentUnit;
+            }).Render();
+
+            Html.DevExpress().SpinEdit(edtSettings =>
+            {
+                edtSettings.Name = "content_unit";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.MinValue = 0;
+                edtSettings.Properties.MaxValue = 999999999;
+                edtSettings.Properties.MaxLength = 999999999;
+                edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "ContentUnit") ?? null).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "AcceptsCustomDescription";
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Text = Resources.AcceptsCustomDescription;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                edtSettings.ReadOnly = editOnSC;
+            }).Bind(DataBinder.Eval(Model, "AcceptsCustomDescription")).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsCentralStored";
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Text = Resources.IsCentralStored;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                edtSettings.ReadOnly = editOnSC;
+            }).Bind(DataBinder.Eval(Model, "IsCentralStored")).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+
+
+            ViewContext.Writer.Write("<div class=\"row col\">");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-6 col\" >");
+
+            ViewContext.Writer.Write("<div class=\"row zero-col\">");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-6 zero-col\" >");
+            ViewContext.Writer.Write("<div class=\"row zero-col\">");
+            ViewContext.Writer.Write("<div class=\"col-xs-8 zero-col\" >");
+            if (!editOnSC)
+            {
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Upload;
+                }).Render();
+
+                Html.DevExpress().UploadControl(upldsettings =>
+                {
+                    upldsettings.UploadMode = UploadControlUploadMode.Auto;
+                    upldsettings.Name = "UploadExtraFileControl";
+                    upldsettings.ShowProgressPanel = true;
+                    upldsettings.CallbackRouteValues = new { Controller = "Item", Action = "UploadExtraFileControl" };
+                    upldsettings.ValidationSettings.Assign(ItemController.UploadExtraFileControlValidationSettings);
+                    upldsettings.ClientSideEvents.FileUploadComplete = "OnExtraFileUploadComplete";
+                    upldsettings.ShowUploadButton = false;
+                    upldsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                    upldsettings.NullText = Resources.DropFileHereToUpload;
+                    upldsettings.AdvancedModeSettings.EnableMultiSelect = false;
+                    upldsettings.AdvancedModeSettings.EnableFileList = false;
+                    upldsettings.AdvancedModeSettings.EnableDragAndDrop = true;
+                    upldsettings.ControlStyle.CssClass = "zero-padding-top-important";
+                }).Render();
+            }
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-xs-4 zero-col\" >");
+            ViewContext.Writer.Write("<div class=\"upload-form\">");
+
+            ViewContext.Writer.Write("<div class=\"pull-left zero-col\" >");
+            if (!editOnSC)
+            {
+                Html.DevExpress().Image(settings2 =>
+                {
+                    settings2.Name = "btnUploadExtraFile";
+                    settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+                    settings2.ToolTip = Resources.Upload;
+                    settings2.ControlStyle.CssClass = "uploadbtn square-32";
+                    settings2.Properties.ClientSideEvents.Click = "UploadExtraFileOnClick";
+                }).GetHtml();
+            }
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"col-xs-1 zero-col\" >");
+            if (!editOnSC)
+            {
+                Html.DevExpress().Image(settings2 =>
+                {
+                    settings2.Name = "btnDeleteReportFile";
+                    settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+                    settings2.ToolTip = Resources.Delete;
+                    settings2.ControlStyle.CssClass = "deletebtn square-32";
+                    settings2.Properties.ClientSideEvents.Click = "DeleteExtraFileOnClick";
+                }).GetHtml();
+            }
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-6 zero-col\" >");
+            if (!editOnSC)
+            {
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                    edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                    edtSettings.Properties.CaptionStyle.CssClass = "label";
+                    edtSettings.Properties.Caption = Resources.FileName;
+                    edtSettings.Name = "ExtraFileName";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.ReadOnly = true;
+                    edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }).Bind(DataBinder.Eval(Model, "ExtraFilename")).Render();
+            }
+            ViewContext.Writer.Write("</div>");
+
+
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsGeneralItem";
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Text = Resources.IsGeneralItem;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                edtSettings.ReadOnly = false;
+            }).Bind(DataBinder.Eval(Model, "IsGeneralItem")).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+
+
+
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "DoesNotAllowDiscount2";
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Text = Resources.DoesNotAllowDiscount;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                edtSettings.ReadOnly = editOnSC;
+            }).Bind(DataBinder.Eval(Model, "DoesNotAllowDiscount")).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+
+
+
+
+
+            ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsTax";
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Text = Resources.IsTax;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                edtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                edtSettings.ReadOnly = editOnSC;
+            }).Bind(DataBinder.Eval(Model, "Istax")).Render();
+
+            ViewContext.Writer.Write("</div>");
+
+
+
+
+
+            ViewContext.Writer.Write("<div class=\"col-xs-12 col\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Remarks;
+            }).Render();
+
+            @Html.DevExpress().Memo(deSettings =>
+            {
+                deSettings.Height = 100;
+                deSettings.Name = "Remarks";
+                deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                deSettings.ShowModelErrors = true;
+                deSettings.Enabled = !editOnSC;
+            }).Bind(DataBinder.Eval(Model, "Remarks") ?? null).Render();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+
+            @Html.DevExpress().PageControl(page_control_settings =>
+            {
+                page_control_settings.AccessibilityCompliant = false;
+                page_control_settings.Name = "pcFeatures2";
+                page_control_settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+                page_control_settings.TabAlign = TabAlign.Justify;
+                page_control_settings.TabPosition = TabPosition.Top;
+                page_control_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                page_control_settings.EnableTabScrolling = true;
+                page_control_settings.EnableHotTrack = true;
+                page_control_settings.Styles.Content.BorderTop.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+
+                page_control_settings.TabPages.Add(Resources.Barcodes).SetContent(() =>
+                {
+                    @Html.RenderPartial("BarcodeGrid", Model.ItemBarcodes);
+                });
+
+                page_control_settings.TabPages.Add(Resources.Prices).SetContent(() =>
+                {
+                    @Html.RenderPartial("PriceCatalogDetailGrid", Model.PriceCatalogs);
+                });
+
+                page_control_settings.TabPages.Add(Resources.Categories).SetContent(() =>
+                {
+                    @Html.RenderPartial("ItemAnalyticTreeGrid", Model.ItemAnalyticTrees);
+                });
+
+                page_control_settings.TabPages.Add(Resources.ChildItems).SetContent(() =>
+                {
+                    @Html.RenderPartial("ItemsOfMotherCodeGrid", Model.ChildItems);
+                });
+
+                page_control_settings.TabPages.Add(Resources.LinkedSubItems).SetContent(() =>
+                {
+                    @Html.RenderPartial("LinkedSubItemsGrid", Model.LinkedItems);
+                });
+
+                page_control_settings.TabPages.Add(Resources.ItemsLinkedTo).SetContent(() =>
+                {
+                    @Html.RenderPartial("LinkedToItemsGrid", Model.SubItems);
+                });
+
+                page_control_settings.TabPages.Add(Resources.Storages).SetContent(() =>
+                {
+                    @Html.RenderPartial("ItemStoreGrid", Model.Stores);
+                });
+
+                page_control_settings.TabPages.Add(Resources.ItemStock).SetContent(() =>
+                {
+                    @Html.RenderPartial("ItemStockGrid", Model.ItemStocks);
+                });
+
+                page_control_settings.TabPages.Add(Resources.ItemExtraInfo).SetContent(() =>
+                {
+                    @Html.RenderPartial("ItemExtraInfoGrid", Model.ItemExtraInfos);
+                });
+
+            }).Render();
+        });
+    }).GetHtml();
+}
+
+@Html.DevExpress().LoadingPanel(
+    settings =>
+    {
+        settings.Name = "EditLoadingPanel";
+        settings.Modal = true;
+        settings.ContainerElementID = "LoadEditPopup_PW-1";
+    }).GetHtml()
+
+@Html.Partial("ItemImagePopup")
+@Html.Partial("DialogCallbackPanel")

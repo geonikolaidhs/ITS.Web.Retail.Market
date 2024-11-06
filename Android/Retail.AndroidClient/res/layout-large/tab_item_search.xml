@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabItemSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <LinearLayout
+                    android:id="@+id/ll111341"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/ll111342"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <EditText
+                            android:id="@+id/txtItemName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.3"
+                            android:ems="10"
+                            android:textSize="@dimen/text_small" />
+
+                        <Button
+                            android:id="@+id/btnSearchItemByName"
+                            android:layout_width="220dp"
+                            android:layout_height="60dp"
+                            android:text="@string/search" />
+                    </LinearLayout>
+
+                    <include
+                        android:layout_height="wrap_content"
+                        layout="@layout/item_row_header" />
+
+                    <ListView
+                        android:id="@+id/lvSearchItemByNameResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+                    </ListView>
+                </LinearLayout>
+            </FrameLayout>

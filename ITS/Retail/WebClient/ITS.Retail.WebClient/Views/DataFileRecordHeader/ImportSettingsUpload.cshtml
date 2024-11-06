@@ -1,0 +1,16 @@
+﻿@using (Html.BeginForm("ImportSettingsUploadForm", "DataFileRecordHeader", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{
+    ViewContext.Writer.Write("<div class='UploadForm'>");
+    Html.DevExpress().UploadControl(settings =>
+    {
+        settings.UploadMode = UploadControlUploadMode.Standard;
+        settings.Name = "UploadControl";
+        settings.CallbackRouteValues = new { Controller = "DataFileRecordHeader", Action = "UploadControl" };
+        settings.ShowProgressPanel = true;
+        settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.DataFileRecordHeaderController.UploadControlValidationSettings);
+        settings.ClientSideEvents.FileUploadComplete = "onFileUploadComplete_UploadControl";
+    }).Render();
+
+    ViewContext.Writer.Write("</div>");
+
+}

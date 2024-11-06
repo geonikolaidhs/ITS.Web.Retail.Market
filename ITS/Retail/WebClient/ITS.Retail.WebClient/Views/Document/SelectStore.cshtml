@@ -1,0 +1,16 @@
+﻿@using ITS.Retail.ResourcesLib;
+@if (Session["StoresThatCurrentUserOwns"] != null && (Session["StoresThatCurrentUserOwns"] as List<ITS.Retail.Common.ViewModel.StoreViewModel>).Count > 1)
+{
+    <td>
+        <label for="sell_from_I" > @Resources.SelectStore</label>
+        @Html.DevExpress().ComboBox(cmp_settings =>
+        {
+            cmp_settings.Name = "sell_from";
+            cmp_settings.Properties.TextField = "Name";
+            cmp_settings.Properties.ValueField = "Oid";
+            cmp_settings.Properties.ValueType = typeof(Guid);
+            cmp_settings.ControlStyle.CssClass = "search_filter";
+            cmp_settings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).BindList(Session["StoresThatCurrentUserOwns"]).GetHtml()
+    </td>
+}

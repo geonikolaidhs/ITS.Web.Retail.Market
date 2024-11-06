@@ -1,0 +1,41 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@{
+    {
+        ViewContext.Writer.Write("<div class='IndexView_button_container button_container'><div class=\"button\">");
+
+        Html.DevExpress().ComboBox(sets =>
+        {
+            sets.Name = "labels";
+            sets.ControlStyle.CssClass = "editor";
+            sets.Properties.TextField = "Description";
+            sets.Properties.ValueField = "Oid";
+            sets.Properties.ValueType = typeof(Guid);
+            sets.ShowModelErrors = true;
+            sets.SelectedIndex = 0;
+        }).BindList(ViewBag.Labels).Render();
+        
+        ViewContext.Writer.Write("</div>");
+        
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnPrint";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = ITS.Retail.ResourcesLib.Resources.Print;
+            btnSettings.ClientSideEvents.Click = "btnPrintClick";
+        }).GetHtml();
+
+
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnExportPricer";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = Resources.Export + " Pricer";
+            btnSettings.ClientSideEvents.Click = "btnExportPricer_OnClick";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</div>");
+    }
+}
+

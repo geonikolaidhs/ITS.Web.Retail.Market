@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TemporaryObject>
+@{
+    var settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext,
+        typeof(TemporaryObject), typeof(TemporaryObjectController), "grdTempObject",
+        showAddIcon: false, generateColumns:false
+        );
+    settings.SettingsText.Title = "Temporary Object";    
+        
+    settings.Columns.Add(set => {
+        set.FieldName = "CreatedBy.UserName";
+        set.Caption = Resources.CreatedBy;
+    }); 
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "UpdatedOn";
+        set.Caption = Resources.UpdatedOn;        
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "EntityType";
+        set.Caption = Resources.EntityType;
+    });
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    }; 
+    
+    
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

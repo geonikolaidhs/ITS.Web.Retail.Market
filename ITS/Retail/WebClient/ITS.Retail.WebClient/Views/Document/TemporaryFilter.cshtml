@@ -1,0 +1,27 @@
+﻿@if (ViewBag.TemporaryDocuments != null && ViewBag.TemporaryDocuments.Count > 0)
+{    
+    <span class="smallipopHorizontal text-color-blue temporary-object-button" id="temporaryDocumentInfo">
+        <i class="fa fa-exclamation-triangle fa-2dot5x cursor-pointer" id="dd"></i>
+    </span>
+    <table id="temporaryDocumentInfoContent" class="customTooltip temp-object-dropdown">
+        <tbody>
+            <tr>
+                <th>@Resources.PendingDocuments</th>
+            </tr>
+            @foreach (TemporaryObject obj in ViewBag.TemporaryDocuments)
+            {
+                <tr>
+                    <td class="temp-object-link" data-id="@obj.Oid.ToString()" style="cursor:pointer;">
+                        @string.Format("{0}", obj.UpdatedOn)
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+    </div>
+}

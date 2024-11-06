@@ -1,0 +1,10 @@
+﻿@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "TreeViewPopupPartial";
+
+    cpbseriessettings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TreeViewPopupPartial" };
+    cpbseriessettings.SetContent(() =>
+    {
+        Html.RenderPartial("TreeViewPopup", ViewData["ItemAnalyticTree"]);
+    });
+}).GetHtml()

@@ -1,0 +1,47 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = Resources.CashierRegister;
+    //ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Settings.css?v=" + ViewData["ApplicationVersionNumber"]));
+    //ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Label.css?v=" + ViewData["ApplicationVersionNumber"]));
+
+    //if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.RETAIL)
+    //{
+
+    //    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/LabelsNonMaster.css?v=" + ViewData["ApplicationVersionNumber"]));
+    //}
+}
+
+@section HeaderScriptsAndStyles {
+    @*<script src="@Url.Content("~/Scripts/scripts/LabelsPrintingCommon.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/scripts/CashierRegister.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+
+}
+
+<div id="page_content">
+    @{
+
+        ViewContext.Writer.Write("<div class='IndexView_button_container button_container'>");
+        
+        ViewContext.Writer.Write("</div>");
+
+    }
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "FilterPanel";
+        settings.ControlStyle.CssClass = "FilterPanel";
+        settings.HeaderText = Resources.SearchFilters;
+    
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("CashierWithChangesFilters");
+        });
+
+    }).GetHtml()
+
+
+    @Html.Partial("Grid");
+    @Html.Partial("DialogCallbackPanel");
+    
+
+</div>

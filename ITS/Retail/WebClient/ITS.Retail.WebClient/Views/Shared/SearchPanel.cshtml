@@ -1,0 +1,74 @@
+﻿
+<div class="search-panel-button">
+    <button id="panel-button" class="button">
+        <i class="fa fa-search fa-2x icon"></i><span>@Resources.Search</span>
+    </button>
+</div>
+<div class="clearfix"></div>
+<div id="searchPanel" class="not-visible">
+    <div class="search-panel">
+        @using (
+            Ajax.BeginForm("Search", new { Controller = "Home" },
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "resultsSearchPanel",
+                InsertionMode = InsertionMode.Replace,
+                OnBegin = "SearchPanel.ShowResultsLoadingPanel",
+                OnSuccess = "SearchPanel.HideResultsLoadingPanel",
+            },
+            new { @class = "", @id = "search-form-mobile" }
+
+            ))
+        {
+
+
+            <div class="position-relative left-splitter">
+                <button class="button">
+                    <i class="fa fa-search fa-2x"></i>
+                </button>
+                @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Properties.NullText = Resources.SearchForItemsAndTraders;
+                        settings.Name = "searchPanelFormInput";
+                        settings.ControlStyle.CssClass = "search-panel-form-input";
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = false;                        
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.Properties.ClientSideEvents.KeyDown = "SearchPanel.OnKeyDownSearchPanelFormInput";
+                        settings.Height = 50;
+                    }).GetHtml()
+            </div>
+            <div class="position-relative right-splitter">
+                <button id="closeSearchPanel" class="button float-right">
+                    <i class="fa fa-close fa-2x icon"></i>
+                </button>
+                @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "searchPanelFormSubmit";
+                    settings.ControlStyle.CssClass = "search-panel-form-submit";
+                    settings.Text = Resources.Search;
+                    settings.UseSubmitBehavior = true;
+                    settings.Height = 50;
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.ClientSideEvents.Click = "SearchPanel.OnClickSearchPanelFormSubmit";
+                }).GetHtml()
+            </div>
+            <div class="clearfix"></div>
+            <div id="resultsSearchPanel" class="results">
+                @Html.Partial("SearchPanelResults")
+            </div>
+        }
+    </div>
+
+</div>
+
+
+
+<div>
+    @Html.DevExpress().LoadingPanel(settings =>
+    {
+        settings.Name = "ResultsLoadingPanel";
+        settings.Modal = true;
+        settings.ContainerElementID = "resultsSearchPanelContainer";
+    }).GetHtml()
+</div>

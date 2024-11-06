@@ -1,0 +1,250 @@
+﻿@using ITS.Retail.Mobile.AuxilliaryClasses;
+
+@model ITS.Retail.WebClient.ViewModel.PromotionWizardModel
+@{
+    var wiz = ViewData["Wizard"];
+    Wizard wizard = null;
+    if (wiz != null && wiz is Wizard)
+    {
+        wizard = (Wizard)wiz;
+    }
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript(); 
+}
+    @Html.DevExpress().TreeList(
+    settings =>
+    {
+        settings.Name = "PromotionTreeList";
+        settings.CallbackRouteValues = new { Controller = "Promotion", Action = "WizardStepPromotionApplicationRules", WizardID = wizard.ID};
+
+        settings.Caption = Resources.PromotionApplicationRules;
+        settings.Styles.Header.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.Styles.Header.BorderTop.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+        settings.Styles.Header.BorderLeft.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+        settings.Styles.Header.BorderRight.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+        settings.Styles.Header.CssClass = "tree-list-header";
+        settings.ControlStyle.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+        settings.ControlStyle.CssClass = "wizard-grid tree-list-border-blue";
+        settings.StylesEditors.EnableFocusedStyle = true;
+        settings.Settings.ShowPreview = false;
+        settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.None;
+        settings.Settings.SuppressOuterGridLines = false;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Settings.ScrollableHeight = 300;
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Auto;
+        settings.Columns.Add(
+           column =>
+           {
+               column.FieldName = "Description";
+               column.Caption = Resources.PromotionApplicationRule;
+           }
+        );
+
+        settings.AutoGenerateColumns = false;
+        settings.KeyFieldName = "Oid";
+        settings.ParentFieldName = "ParentOid";
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButtonInHeader = false;
+        settings.CommandColumn.SetHeaderCaptionTemplateContent(c => { ViewContext.Writer.Write(""); });
+        settings.SettingsBehavior.AutoExpandAllNodes = true;
+        settings.CommandColumn.NewButton.Visible = true;
+        settings.CommandColumn.DeleteButton.Visible = true;
+        settings.CommandColumn.EditButton.Visible = true;
+        settings.Settings.ShowPreview = false;
+
+        settings.SettingsEditing.AddNewNodeRouteValues = new { Controller = "Promotion", Action = "PromotionRuleTreeListAddNew", WizardID = wizard.ID };
+        settings.SettingsEditing.UpdateNodeRouteValues = new { Controller = "Promotion", Action = "PromotionRuleTreeListUpdate", WizardID = wizard.ID };
+        settings.SettingsEditing.DeleteNodeRouteValues = new { Controller = "Promotion", Action = "PromotionRuleTreeListDelete", WizardID = wizard.ID };
+        settings.SettingsEditing.NodeDragDropRouteValues = new { Controller = "Promotion", Action = "PromotionRuleTreeListNodeDrag", WizardID = wizard.ID };
+        settings.SettingsEditing.ConfirmDelete = true;
+
+        settings.SettingsText.CommandEdit = Resources.Edit;
+        settings.SettingsText.CommandNew = Resources.New;
+        settings.SettingsText.CommandUpdate = Resources.Update;
+        settings.SettingsText.ConfirmDelete = Resources.ConfirmDelete;
+        settings.SettingsText.CommandDelete = Resources.Delete;
+        settings.SettingsText.CommandCancel = Resources.Close;
+        settings.ClientSideEvents.BeginCallback = "PromotionTreeListBeginCallback";
+        settings.ClientSideEvents.EndCallback = "PromotionTreeListEndCallback";
+
+        settings.CommandColumnButtonInitialize = (s, e) =>
+        {
+            if (e.ButtonType == DevExpress.Web.ASPxTreeList.TreeListCommandColumnButtonType.New)
+            {
+                MVCxTreeList g = s as MVCxTreeList;
+                var node = g.FindNodeByKeyValue(e.NodeKey);
+                object obj = (node.DataItem as Dictionary<string, object>)["This"];
+                e.Visible = (obj is PromotionApplicationRuleGroupWizardModel) ? DefaultBoolean.True : DefaultBoolean.False;
+            }
+        };
+
+        settings.SettingsEditing.Mode = DevExpress.Web.ASPxTreeList.TreeListEditMode.EditForm;
+
+        settings.SetHeaderCaptionTemplateContent(h =>
+        {
+            ViewContext.Writer.Write("<input type = 'hidden' value = '" + ViewData["ObjectID"] + "' id = 'objectid' ></input>");
+        });
+
+        settings.SetEditFormTemplateContent(c =>
+        {
+            Html.EnableClientValidation();
+            Html.EnableUnobtrusiveJavaScript();
+
+            PromotionRuleWizardModel editItem = (ViewBag.EditItem is PromotionRuleWizardModel) ? (PromotionRuleWizardModel)ViewBag.EditItem :
+                ITS.Retail.WebClient.Controllers.PromotionController.GetEditedTreeListNode(c);
+            ViewContext.Writer.Write(Html.Hidden("Oid", DataBinder.Eval(editItem, "Oid")).ToHtmlString());
+            if (editItem == null)
+            {
+
+                ViewContext.Writer.Write("<div class=\"padding-bottom-10\">");
+                //New Item
+                Html.DevExpress().Label(lblSettings =>
+                {
+                    lblSettings.Name = "lblOperator";
+                    lblSettings.Text = Resources.Type;
+                }).Render();
+                Dictionary<string,string> promotionRuleTypes = typeof(PromotionRuleWizardModel).Assembly.GetTypes().Where(type => typeof(PromotionRuleWizardModel).IsAssignableFrom(type) && type.IsAbstract == false)
+                    .ToDictionary(x => x.Name,x => x.GetProperty("PersistedType").GetDisplayName());
+
+                Html.DevExpress().ComboBox(cmbSettings =>
+                {
+                    cmbSettings.Name = "PromotionRuleTypeSelector";
+                    cmbSettings.Properties.ValueField = "Key";
+                    cmbSettings.Properties.TextField = "Value";
+                    cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                    cmbSettings.Properties.ValueType = typeof(string);
+                }).BindList(promotionRuleTypes).Render();
+                ViewContext.Writer.Write("</div>");
+            }
+            else if (editItem is PromotionApplicationRuleGroupWizardModel)
+            {
+                ViewContext.Writer.Write("<div class=\"padding-bottom-10\">");
+                Html.DevExpress().Label(lblSettings =>
+                {
+                    lblSettings.Name = "lblOperator";
+                    lblSettings.Text = Resources.Operator;
+
+                }).Render();
+                //Group
+                Html.DevExpress().ComboBox(cmbSettings =>
+                {
+                    cmbSettings.Name = "Operator";
+                    cmbSettings.Properties.ValueField = "Key";
+                    cmbSettings.Properties.TextField = "Value";
+                    cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                    cmbSettings.Properties.ValueType = typeof(eGroupOperatorType);
+                }).BindList(Enum<eGroupOperatorType>.GetLocalizedDictionary())
+                .Bind(DataBinder.Eval(editItem, "Operator"))
+                .Render();
+                ViewContext.Writer.Write("</div>");
+
+            }
+            else if (editItem is PromotionCustomerApplicationRuleWizardModel)
+            {
+                //Customer
+                ViewContext.Writer.Write("<div class=\"padding-bottom-10\">");
+                Html.RenderPartial("SelectCustomer", editItem);
+                ViewContext.Writer.Write("</div>");
+
+            }
+            else if (editItem is PromotionItemApplicationRuleWizardModel)
+            {
+                //Item
+                ViewContext.Writer.Write("<div class=\"padding-bottom-10\">");
+                ViewContext.Writer.Write("<table class='promotionTable'><tr><td class=\"vertical-align-td-top\">");
+                Html.RenderPartial("SelectItem", editItem);
+                ViewContext.Writer.Write("</td>");
+                Html.RenderPartial("SelectValueQuantity", editItem);
+                ViewContext.Writer.Write("</tr></table>");
+                ViewContext.Writer.Write("</div>");
+
+            }
+            else if (editItem is PromotionCustomerCategoryApplicationRuleWizardModel)
+            {
+                ViewContext.Writer.Write("<div class=\"padding-bottom-10\">");
+                Html.RenderPartial("SelectCustomerCategory", editItem);
+                ViewContext.Writer.Write("</div>");
+            }
+            else if (editItem is PromotionItemCategoryApplicationRuleWizardModel)
+            {
+                //Item Category
+
+                ViewContext.Writer.Write("<table class='promotionTable'><tr><td class=\"vertical-align-td-top\">");
+                Html.RenderPartial("SelectItemCategory", editItem);
+                ViewContext.Writer.Write("</td>");
+                Html.RenderPartial("SelectValueQuantity", editItem);
+                ViewContext.Writer.Write("</table>");
+            }
+            else if (editItem is PromotionDocumentApplicationRuleWizardModel)
+            {
+                //Document
+                ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+                Html.DevExpress().SpinEdit(spinSettings =>
+                {
+
+                    spinSettings.Properties.Caption = Resources.Value;
+                    spinSettings.Name = "Value";
+                    spinSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                    spinSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                    spinSettings.Properties.ValidationSettings.EnableCustomValidation = true;
+                    spinSettings.Properties.ValidationSettings.RegularExpression.ValidationExpression = @"([1-9][0-9]*(\.[0-9]*[1-9])?|0\.[0-9]*[1-9])";
+                    spinSettings.Properties.EnableClientSideAPI = true;
+                }).Bind(DataBinder.Eval(editItem, "Value")).Render();
+                ViewContext.Writer.Write("</td><td>");
+                Html.DevExpress().CheckBox(chk =>
+                {
+                    chk.Name = "ValueIsRepeating";
+                    chk.Properties.ValueType = typeof(bool);
+                    chk.Properties.ValueUnchecked = false;
+                    chk.Properties.ValueChecked = true;
+                    chk.Properties.AllowGrayed = false;
+                    chk.Text = Resources.ValueIsRepeating;
+                    chk.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                    chk.ControlStyle.CssClass = "editor padding-top-25";
+                }).Bind(DataBinder.Eval(editItem, "ValueIsRepeating")).Render();
+                ViewContext.Writer.Write("</td></tr></table>");
+            }
+            else if (editItem is PromotionCustomDataViewApplicationRuleWizardModel)
+            {
+                ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+                Html.RenderPartial("SelectCustomDataView", editItem);
+                ViewContext.Writer.Write("</td></tr><tr><td>");
+                Html.RenderPartial("CustomDataViewParameters",editItem);
+                ViewContext.Writer.Write("</td></tr></table>");
+            }
+            else if(editItem is PromotionPriceCatalogApplicationRuleWizardModel)
+            {
+                ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+                PromotionPriceCatalogApplicationRuleWizardModel promotionPriceCatalogApplicationRuleWizardModel = editItem as PromotionPriceCatalogApplicationRuleWizardModel;
+                ViewContext.Writer.Write(Html.Hidden("PriceCatalogsString_initial", promotionPriceCatalogApplicationRuleWizardModel.PriceCatalogs));
+                ViewContext.Writer.Write(Html.Hidden("PriceCatalogsString_selected", promotionPriceCatalogApplicationRuleWizardModel.PriceCatalogs));
+                Html.RenderPartial("PriceCatalogsTreeList", editItem);
+
+                ViewContext.Writer.Write("</td></tr></table>");
+            }
+
+            ViewContext.Writer.Write("<div class=\"wizard-inline-buttons\">");
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnSave";
+                btnSettings.Text = Resources.Save;
+                btnSettings.ControlStyle.CssClass = "";
+                btnSettings.ClientSideEvents.Click = "function(s, e) { if(ASPxClientEdit.ValidateGroup()) " + settings.Name + ".UpdateEdit(); }";
+            }).Render();
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.Text = Resources.Close;
+                btnSettings.ControlStyle.CssClass = "wizard-button";
+                btnSettings.ClientSideEvents.Click = "function(s, e) { " + settings.Name + ".CancelEdit(); }";
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+        });
+    }).BindToVirtualData(ITS.Retail.WebClient.Controllers.PromotionController.PromotionTreeListCreateChildren(wizard.ID),
+    ITS.Retail.WebClient.Controllers.PromotionController.PromotionTreeListNodeCreating(wizard.ID)).GetHtml()
+
+
+

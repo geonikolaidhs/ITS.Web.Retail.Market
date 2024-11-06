@@ -1,0 +1,347 @@
+﻿@model ITS.Retail.Model.SupplierNew
+@using ITS.Retail.ResourcesLib;
+
+@{
+    bool enabled = !(bool)ViewData["OwnEdit"];
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();    
+}
+
+@using (Html.BeginForm("Save", "Supplier", FormMethod.Post, new { id = "EditingForm" }))
+{
+    @Html.DevExpress().RoundPanel(rsettings =>
+{
+    rsettings.Name = "editForm";
+    rsettings.ShowHeader = false;
+    rsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    rsettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("Supplier_ID", ViewData["SupplierID"].ToString()));
+        ViewContext.Writer.Write(Html.Hidden("TraderID", ViewData["TraderID"].ToString()));
+        ViewContext.Writer.Write(Html.Hidden("isOwnerEdit", ViewData["OwnEdit"].ToString()));
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "btnSaveOnClick";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable validateForm background-light-grey'><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+            edtSettings.AssociatedControlName = "Code";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+            if ((bool)Session["IsNewSupplier"])
+            {
+                edtSettings.Properties.ClientSideEvents.LostFocus = "UpdateNewSupplierDetails";
+            }
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(Model.Code).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TaxCode + ":";
+            edtSettings.AssociatedControlName = "TaxCode";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "TaxCode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            if ((bool)Session["IsNewSupplier"])
+            {
+                edtSettings.Properties.ClientSideEvents.LostFocus = "UpdateNewSupplierDetails";
+            }
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(Model.Trader.TaxCode).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.CompanyName + ":";
+            edtSettings.AssociatedControlName = "CompanyName";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "CompanyName";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(Model.CompanyName).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Profession;
+            edtSettings.AssociatedControlName = "Profession";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Profession";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.Profession).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TaxOffice + ":";
+            edtSettings.AssociatedControlName = "TaxOffice";
+        }).GetHtml();
+
+        Html.RenderPartial("SelectTaxOffice");
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.VatLevel + ":";
+            edtSettings.AssociatedControlName = "VatLevel";
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "VatLevel";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.VatLevelComboBox).Bind(DataBinder.Eval(Model, "VatLevel!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan=2>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.DefaultAddress;
+            edtSettings.AssociatedControlName = "DefaultAddress";
+        }).GetHtml();
+
+        Html.RenderAction("UpdateAddressComboBox","Supplier", new { TraderID = ViewData["TraderID"].ToString() });
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-bottom\">");
+        if (!(bool)ViewData["OwnEdit"])
+        {
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Text = Resources.Active;
+                edtSettings.Name = "IsActive";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.ShowModelErrors = true;
+            }).Bind(Model.IsActive).GetHtml();
+        }
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        if ((bool)ViewData["GDPREnabled"] == true)
+        {
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Name + ":*";
+                edtSettings.AssociatedControlName = "FirstName";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "FirstName";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.Trader.FirstName).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Surname + ":*";
+                edtSettings.AssociatedControlName = "LastName";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "LastName";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(Model.Trader.LastName).GetHtml();
+
+            ViewContext.Writer.Write("</td><td></td></tr>");
+        }
+        ViewContext.Writer.Write("<tr><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRRegistrationDate + ":";
+            edtSettings.AssociatedControlName = "GDPRRegistrationDate";
+        }).GetHtml();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "GDPRRegistrationDate";
+            edtSettings.Enabled = true;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.Trader.GDPRRegistrationDate).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRRegistrationsProtocolNumber + ":";
+            edtSettings.AssociatedControlName = "GDPRProtocolNumber";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPRProtocolNumber";
+            edtSettings.Enabled = true;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.Trader.GDPRProtocolNumber).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRComments + ":";
+            edtSettings.AssociatedControlName = "GDPRComments";
+        }).GetHtml();
+        Html.DevExpress().Memo(edtSettings =>
+        {
+            edtSettings.Name = "GDPRComments";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.GDPRComments).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRExportProtocolNumber + ":";
+            edtSettings.AssociatedControlName = "GDPRExportProtocolNumber";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPRExportProtocolNumber";
+            edtSettings.Enabled = false;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.GDPRExportProtocolNumber).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRExportDate + ":";
+            edtSettings.AssociatedControlName = "GDPRExportDate";
+        }).GetHtml();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "GDPRExportDate";
+            edtSettings.Enabled = false;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.GDPRExportDate).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRExportUser + ":";
+            edtSettings.AssociatedControlName = "GDPRExportUser";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPRExportUser";
+            edtSettings.Enabled = false;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.GDPRExportUser).GetHtml();
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRAnonymizationProtocolNumber + ":";
+            edtSettings.AssociatedControlName = "GDPRAnonymizationProtocolNumber";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPRAnonymizationProtocolNumber";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Enabled = false;
+        }).Bind(Model.GDPRAnonymizationProtocolNumber).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.GDPRAnonymizationDate + ":";
+            edtSettings.AssociatedControlName = "GDPRAnonymizationDate";
+        }).GetHtml();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "GDPRAnonymizationDate";
+            edtSettings.Enabled = false;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.GDPRAnonymizationDate).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+
+            edtSettings.Text = Resources.GDPRAnonymizationUser + ":";
+            edtSettings.AssociatedControlName = "GDPRAnonymizationUser";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPRAnonymizationUser";
+            edtSettings.Enabled = false;
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.GDPRAnonymizationUser).GetHtml();
+
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+
+        Html.RenderAction("AddressGrid", "Address", new { strTraderID = Model.Trader.Oid, displayCommands = true });
+    });
+}).GetHtml()
+}

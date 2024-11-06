@@ -1,0 +1,63 @@
+{
+  "src_folders" : ["e2e"],
+  "output_folder" : "./e2e/reports",
+  "custom_commands_path" : "",
+  "custom_assertions_path" : "",
+  "page_objects_path" : "",
+  "globals_path" : "",
+  "selenium" : {
+    "start_process" : true,
+    "server_path" : "/Users/ape/AppData/Roaming/npm/node_modules/selenium-standalone/.selenium/selenium-server/2.50.1-server.jar",
+    "log_path" : "",
+    "host" : "127.0.0.1",
+    "port" : 4444,
+    "cli_args" : {
+      "webdriver.chrome.driver" : "/Users/ape/AppData/Roaming/npm/node_modules/selenium-standalone/.selenium/chromedriver/2.21-x64-chromedriver",
+      "webdriver.ie.driver": "/Users/ape/AppData/Roaming/npm/node_modules/selenium-standalone/.selenium/iedriver/2.50.0-x64-IEDriverServer.exe"
+    }
+  },
+  "test_runner" : "mocha",
+  "test_settings" : {
+    "default" : {
+      "launch_url" : "http://localhost",
+      "selenium_port"  : 4444,
+      "selenium_host"  : "localhost",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : true,
+        "path" : "./e2e/screenshots",
+        "on_failure" : true,
+        "on_error" : false
+      },
+      "desiredCapabilities": {
+        "browserName": "firefox",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      }
+    },
+    "chrome" : {
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      }
+    },
+    "ie" : {
+      "desiredCapabilities": {
+        "browserName": "internet explorer",
+        "elementScrollBehavior": 1,
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      }
+    },
+    "firefox" : {
+      "desiredCapabilities": {
+        "browserName": "firefox",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      }
+    }
+  },
+  "test_workers": true
+
+}

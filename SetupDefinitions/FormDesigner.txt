@@ -1,0 +1,16 @@
+;!@Install@!UTF-8!
+Title="ITS POS Layout Designer Installation"
+BeginPrompt="WRM POS Layout Designer Installation\nThis setup tool will install the WRM POS Layout Designer Tool"
+; Installation folder
+InstallPath="%ProgramFiles%\\ITS\\ITS WRM POS Layout Designer"
+GUIMode="0"
+GUIFlags="8+32+64+256+4096"
+ExtractDialogText="Installing..."
+ExtractPathText="WRM POS Layout Designer Installation Path"
+ExtractPathTitle="Select path"
+ExtractTitle="Extracting files..."
+Shortcut="P,{%%T\\ITS.Retail.ReportDesigner.EXE},{},{ITS WRM Tools},{ITS WRM POS Layout Designer},{ITS WRM POS Layout Designer}"
+FinishMessage="ITS POS Layout Designer has been installed.\n\nClick the icon on the start menu to launch the program."
+ExtractPathWidth="400"
+MiscFlags="4"
+;!@InstallEnd@!

@@ -1,0 +1,211 @@
+﻿@model IEnumerable<ITS.Retail.Model.LeafletDetail>
+@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    //settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    string gridName = "";
+
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true)
+    {
+        settings.Name = "grdLeafletDetails";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+                }
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+                }
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+                    );
+                }
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+        settings.CallbackRouteValues = new { Controller = "Leaflet", Action = "LeafletDetailGrid", editMode = true };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Leaflet", Action = "LeafletDetailAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Leaflet", Action = "LeafletDetailUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Leaflet", Action = "LeafletDetailDelete" };
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallbackLeafletDetailGrid";
+        gridName = "grdLeafletDetailsEdit";
+    }
+    else
+    {
+
+        settings.Name = "grdLeafletDetails" + ViewData["LeafletID"];
+        settings.CallbackRouteValues = new { Controller = "Leaflet", Action = "LeafletDetailGrid", LeafletID = ViewData["LeafletID"], editMode = false };
+        gridName = "grdLeafletDetailsView";
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.Code";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.Name";
+        col.Caption = Resources.ItemName;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Value";
+        col.Caption = Resources.Value;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        //col.PropertiesEdit.DisplayFormatString = ViewBag.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(60);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.ItemInfo;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Items;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.SettingsText.PopupEditFormCaption = Resources.Items;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnLeafletDetailUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnLeafletDetailCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td class=\"vertical-align-td-top\" >");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Item + ":";
+            edtSettings.AssociatedControlName = "Item";
+        }).Render();
+
+        ViewData["Item"] = item;
+
+        Html.RenderPartial("BarcodesComboBoxPartial", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Value + ":";
+            edtSettings.AssociatedControlName = "Value";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "Value";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.MaxLength = 99999;
+            edtSettings.Number = 0;
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(item, "Value") ?? 0).Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");
+        
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}).Bind(Model).GetHtml()

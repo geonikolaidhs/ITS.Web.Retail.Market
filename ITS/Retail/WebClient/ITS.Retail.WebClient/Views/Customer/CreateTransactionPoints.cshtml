@@ -1,0 +1,76 @@
+﻿@model ITS.Retail.Common.ViewModel.CustomerPointTransaction
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    ViewBag.Title = Resources.CreateCustomerPointsDocument;
+}
+@section HeaderScriptsAndStylesBeforeDevExpress{
+
+    <script src="~/Scripts/scripts/CreateTransactionPoints.min.js" type="text/javascript"></script>
+    <link href="~/Content/css/CreateTransactionPoints.css" rel="stylesheet" type="text/css" />
+}
+
+@using (Html.BeginForm("PointTransaction", "Customer", FormMethod.Post))
+{
+    @Html.DevExpress().FormLayout(settings =>
+    {
+
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Name = "PointTransactionFormLayout";
+        settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+        settings.RequiredMarkDisplayMode = RequiredMarkMode.RequiredOnly;
+        settings.ControlStyle.CssClass = "form-layout-parent";
+        settings.ShowItemCaptionColon = true;
+
+        var groupItem = settings.Items.AddGroupItem(itemSettings =>
+        {
+            itemSettings.Caption = Resources.CreateCustomerPointsDocument;
+            itemSettings.ColCount = 5;
+        });
+
+
+        groupItem.Items.Add(x => x.DateTime, FormInstances.DateItem(false, caption: Resources.Date, captionLocation: LayoutItemCaptionLocation.Top));
+
+
+        groupItem.Items.Add(item =>
+        {
+            item.Name = "";
+            item.Caption = Resources.Customer;
+            item.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            item.VerticalAlign = FormLayoutVerticalAlign.Top;
+            item.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        }).SetNestedContent(() =>
+        {
+            Html.RenderPartial("CustomerComboBox", Model);
+        });
+        groupItem.Items.Add(x => x.Points, FormInstances.SpinEditItem(true, minValue: -10000, maxValue: 10000, type: SpinEditNumberType.Integer, caption: Resources.Points, errorDisplayMode: ErrorDisplayMode.ImageWithTooltip, errorTextPosition: ErrorTextPosition.Left));
+        groupItem.Items.Add(x => x.Remarks, FormInstances.MemoItem(true, captionLocation: LayoutItemCaptionLocation.Top, caption: Resources.Remarks));
+
+
+        groupItem.Items.AddGroupItem(g =>
+        {
+            g.ShowCaption = DefaultBoolean.False;
+            g.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+            g.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+            g.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+            g.CssClass = "submit-form-button";
+            g.Border.BorderWidth = 0;
+            g.Items.Add(itemSettings => itemSettings.Caption = " ").SetNestedContent(() =>
+            {
+                Html.DevExpress().Button(b =>
+                {
+                    b.Name = "buttonOK";
+                    b.Text = Resources.Submit;
+                    b.UseSubmitBehavior = true;
+                }).Render();
+            });
+
+        });
+    }).Bind(Model).GetHtml()
+
+    @Html.Hidden("Oid", Model.Oid)
+    @Html.Hidden("User", Model.User)
+
+}

@@ -1,0 +1,1376 @@
+﻿//colors
+$white: rgba(255, 255, 255, 1);
+$gallery: rgba(239, 239, 239, 1);
+$color_alabaster_approx: rgba(249, 249, 249, 1);
+$color_link_water_approx: rgba(218, 227, 236, 1);
+$alto: rgba(219, 219, 219, 1);
+$seashell: rgba(241, 241, 241, 1);
+$color_fuscous_gray_approx: rgba(80, 80, 80, 1);
+$color_lochmara_approx: rgba(3, 129, 187, 1);
+$color_trinidad_approx: rgba(240, 56, 0, 1);
+$color_camarone_approx: rgba(12, 95, 31, 1);
+$school_bus_yellow: rgba(255, 216, 0, 1);
+$color_mercury_approx: rgba(227, 227, 227, 1);
+$color_mountain_mist_approx: rgba(153, 153, 153, 1);
+$color_cararra_approx: rgba(236, 236, 236, 1);
+$color_shark_approx: rgba(39, 37, 42, 1);
+$color_woodsmoke_approx: rgba(17, 17, 17, 1);
+$color_cloud_approx: rgba(196, 196, 196, 1);
+$black: rgba(0, 0, 0, 1);
+$color_dove_gray_approx: rgba(108, 108, 108, 1);
+$color_vivid_tangerine_approx: rgba(252, 161, 133, 1);
+$color_jordy_blue_approx: rgba(133, 186, 247, 1);
+$color_casper_approx: rgba(159, 194, 206, 1);
+$color_white_lilac_approx: rgba(248, 248, 255, 1);
+$color_mako_approx: rgba(70, 74, 86, 1);
+$color_mako_60_approx: rgba(70, 74, 86, 0.6);
+$wild_sand: rgba(244, 244, 244, 1);
+$color_pink_swan_approx: rgba(187, 187, 187, 1);
+$color_sapphire_approx: rgba(36, 61, 153, 1);
+$color_supernova_approx: rgba(254, 198, 1, 1);
+
+//fonts
+$font_4: FontAwesome;
+
+//@extend-elements
+//original selectors
+//html, body
+%extend_1 {
+
+	background: $seashell;
+	color: $color_fuscous_gray_approx;	
+	font-size: 13px;
+	line-height: 24px;
+}
+
+//original selectors
+//.icon, .github-icon, .view-icon, .download-icon, .paypal-icon, .codecanyon-icon
+%extend_2 {
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 25px;
+}
+
+//original selectors
+//.white-btn, .big-white-btn
+%extend_3 {
+	border: 1px solid $color_link_water_approx;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 3px;
+	color: $color_dove_gray_approx;
+	padding: 5px 10px;
+	display: inline-block;
+	background: linear-gradient(to bottom, $white 0, $gallery 100%);
+}
+
+//original selectors
+//.cart-tbl td, .cart-tbl th
+%extend_4 {
+	border: 1px solid $color_link_water_approx;
+	border-right: 0;
+	border-left: 0;
+	padding: 5px 15px;
+	text-align: center;
+}
+
+//original selectors
+//.settings-tbl td, .settings-tbl th
+%extend_5 {
+	border-right: 1px solid $color_mercury_approx;
+	border-bottom: 1px solid $color_mercury_approx;
+	padding: 5px 15px;
+	margin: 0;
+}
+
+
+
+.glow {
+	color: $alto;
+	//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: all .25s ease 0s;
+	&:hover {
+		color: $white;
+		//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 1px 1px 10px $white;
+	}
+}
+html {
+	@extend %extend_1;
+}
+body {
+	@extend %extend_1;
+}
+pre {
+	padding: 0;
+	margin: 0;
+	code {
+		overflow: hidden;
+	}
+}
+.center {
+	margin: 0 auto;
+	width: 1000px;
+	max-width: 95%;
+}
+a {
+	text-decoration: none;
+	color: $color_lochmara_approx;
+	font-weight: bold;
+	&.normal {
+		font-weight: normal;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+
+img {
+	border: 0;
+}
+table {
+	padding: 0;
+	margin: 0;
+	border-collapse: collapse;
+}
+tr {
+	padding: 0;
+	margin: 0;
+}
+td {
+	padding: 0;
+	margin: 0;
+}
+h2 {
+	font-size: 16px;
+	margin: 30px 0 0;
+	padding: 0;
+}
+.fa-external-link {
+	font-size: 9px;
+	margin-left: 3px;
+}
+.error {
+	color: $color_trinidad_approx;
+}
+.ok {
+	color: $color_camarone_approx;
+}
+@media only screen and (max-width: 500px) {
+	.paypal-badges {
+		width: 100%;
+		text-align: center;
+		img {
+			max-width: 100%;
+		}
+	}
+	.checkout-form {
+		width: 100%;
+		text-align: center;
+	}
+}
+#black-top-bar {
+	height: 45px;
+	border-top: 1px solid $color_link_water_approx;
+	border-bottom: 1px solid $white;
+	background: $color_fuscous_gray_approx;
+}
+#header {
+	border-bottom: 1px solid $white;
+}
+#header-box {
+	height: 90px;
+	border-bottom: 1px solid $color_mercury_approx;
+}
+#logo {
+	padding: 0;
+	margin: 0;
+	line-height: 90px;	
+	font-size: 32px;
+	vertical-align: middle;
+	img {
+		height: 45px;
+		margin-right: 15px;
+		vertical-align: middle;
+		//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all .25s ease 0s;
+	}
+	a {
+		//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 1px 1px 1px $white;
+		//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all .25s ease 0s;
+		&:hover {
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: 1px 1px 10px $color_mountain_mist_approx;
+		}
+	}
+}
+#bread-crumbs {
+	background: $color_cararra_approx;
+	border-bottom: 1px solid $color_mercury_approx;
+	p {
+		padding: 10px 0;
+		margin: 0;
+	}
+}
+#bread-crumbs-box {
+	border-bottom: 1px solid $white;
+}
+#footer {
+	background: $color_shark_approx url("/content/img/common/noise.png");
+	color: $seashell;
+	margin-top: 30px;
+	a {
+		font-weight: normal;
+		color: $alto;
+	}
+}
+.footer-top-row {
+	margin: 30px 0;
+	ul {
+		line-height: 30px;
+	}
+}
+.footer-bot-row {
+	background: $color_woodsmoke_approx;
+}
+.icon {
+	@extend %extend_2;
+}
+.github-icon {
+	@extend %extend_2;
+}
+.view-icon {
+	@extend %extend_2;
+}
+.download-icon {
+	@extend %extend_2;
+	background: url("../img/common/download.png") no-repeat 0 50%;
+}
+.paypal-icon {
+	@extend %extend_2;
+}
+.codecanyon-icon {
+	@extend %extend_2;
+}
+.read-more-blue-icon {
+	background: url("../img/common/next-blue.png") no-repeat center right;
+	padding-right: 15px;
+}
+.read-more-orange-icon {
+	background: url("../img/common/next-orange.png") no-repeat center right;
+	padding-right: 15px;
+}
+.border-img {
+	border: 4px solid $white;
+	outline: 1px solid $color_cloud_approx;
+}
+.border-img-black {
+	border: 1px solid $black;
+}
+.border-img-grey4 {
+	border: 1px solid $color_cloud_approx;
+}
+.white-btn {
+	@extend %extend_3;
+	&.orange {
+		color: $color_trinidad_approx;
+		border: 1px solid $color_vivid_tangerine_approx;
+	}
+	&.blue {
+		color: $color_lochmara_approx;
+		border: 1px solid $color_jordy_blue_approx;
+	}
+	&.grey {
+		border: 1px solid $color_cloud_approx;
+	}
+}
+.big-white-btn {
+	@extend %extend_3;
+	height: 40px;
+	line-height: 40px;
+	padding: 0;
+	text-align: center;
+	margin: 0 20px 20px 0;
+	&.orange {
+		color: $color_trinidad_approx;
+		border: 1px solid $color_vivid_tangerine_approx;
+	}
+	&.blue {
+		color: $color_lochmara_approx;
+		border: 1px solid $color_jordy_blue_approx;
+	}
+	&.grey {
+		border: 1px solid $color_cloud_approx;
+	}
+}
+.f15 {
+	font-size: 15px;
+}
+.f16 {
+	font-size: 16px;
+}
+.f18 {
+	font-size: 18px;
+}
+.f20 {
+	font-size: 20px;
+}
+.lh28 {
+	line-height: 28px;
+}
+.orange {
+	color: $color_trinidad_approx;
+}
+.blue {
+	color: $color_lochmara_approx;
+}
+.light-blue2 {
+	color: $color_casper_approx;
+}
+.text-shadow {
+	//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 1px 1px 1px $white;
+}
+.title-15 {
+	font-size: 15px;
+}
+.title-24-orange {
+	font-size: 24px;
+	color: $color_trinidad_approx;
+}
+.title-24-blue {
+	font-size: 24px;
+	color: $color_lochmara_approx;
+	a {
+		font-weight: normal;
+	}
+}
+.title-16-bold-black2 {
+	color: $color_shark_approx;
+	font-size: 16px;
+	font-weight: bold;
+}
+.title-16-underline-normal {
+	font-size: 16px;
+	text-decoration: underline;
+	font-weight: normal;
+}
+.h1-30-normal {
+	margin: 0 0 30px 0;
+	padding: 0;
+	font-weight: normal;
+	font-size: 26px;
+}
+.h2-30-normal {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	font-size: 26px;
+}
+.note {
+	margin-bottom: 60px;
+	text-align: center;
+}
+@media only screen and (max-width: 400px) {
+	.white-grid-menu .grid-menu-row .grid-menu-cell {
+		width: 100%;
+	}
+}
+.demo-preview {
+	background: $white;
+	margin: 10px 0 40px;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 3px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: border-box;
+	border: 1px solid $color_mercury_approx;
+	img {
+		max-width: 100%;
+		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+		border-radius: 3px;
+	}
+}
+.vspacer {
+	border-top: 1px solid $alto;
+	border-bottom: 1px solid $white;
+	line-height: 1px;
+	font-size: 1px;
+}
+#license {
+	background: $color_white_lilac_approx;
+	margin: 20px 0;
+	padding-top: 10px;
+	p {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+	h1 {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+	h2 {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+	h3 {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+	h4 {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+	h5 {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+	h6 {
+		margin: 0;
+		padding: 0 20px 10px;
+	}
+}
+.buy-section {
+	margin: 20px 0;
+	padding: 20px;
+	background: $white;
+	vertical-align: middle;
+	font-size: 16px;
+	img {
+		vertical-align: middle;
+	}
+	input {
+		vertical-align: middle;
+	}
+	.buy-txt {
+		margin: 0 20px 0 0;
+		line-height: 50px;
+		.price {
+			font-weight: bold;
+			font-size: 18px;
+			padding: 0 15px;
+		}
+	}
+}
+#hp-colored-preview-box {
+	background-image: url('/content/img/homepage/hp-bg.jpg');
+	background-repeat: no-repeat;
+	background-color: $color_mako_approx;
+	padding: 100px 0;
+	text-align: center;
+	background-position: 50% 50%;
+	background-size: cover;
+	margin: 0 0 50px 0;
+	p {
+		
+		font-size: 40px;
+		color: $white;
+		//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 0 9px $black;
+		text-transform: uppercase;
+		background-color: $color_mako_60_approx;
+		padding: 15px;
+		margin: 0;
+	}
+	.big-white-btn {
+		border: 0;
+	}
+}
+@media only screen and (max-width: 800px) {
+	.products-grid-item {
+		width: 32%;
+	}
+}
+.bg-white1 {
+	background-color: $wild_sand;
+	border-top: 1px solid $white;
+	border-bottom: 1px solid $white;
+}
+.bg-white2-noise {
+	background-color: $gallery;
+	border-top: 1px solid $alto;
+	border-bottom: 1px solid $alto;
+	background-image: url("/content/img/common/noise.png");
+}
+.form {
+	.row {
+		margin: 0 0 15px 0;
+	}
+	label {
+		display: block;
+		float: left;
+		width: 100px;
+	}
+	input[type="text"] {
+		border: 1px solid $color_pink_swan_approx;
+		width: 200px;
+	}
+	input[type="password"] {
+		border: 1px solid $color_pink_swan_approx;
+		width: 200px;
+	}
+	.big-white-btn {
+		padding: 0 15px;
+	}
+}
+.box {
+	float: left;
+	width: 100%;
+}
+.box-25 {
+	width: 25%;
+}
+.box-30 {
+	width: 30%;
+}
+.box-40 {
+	width: 40%;
+}
+.box-50 {
+	width: 50%;
+}
+.box-55 {
+	width: 55%;
+}
+.box-60 {
+	width: 60%;
+}
+.box-70 {
+	width: 70%;
+}
+.box-100px {
+	width: 100px;
+}
+.box-170px {
+	width: 170px;
+}
+.box-200px {
+	width: 200px;
+}
+.box-mh-600 {
+	min-height: 600px;
+}
+.box-max-w-600 {
+	min-width: 600px;
+}
+.center-40 {
+	margin: 0 auto;
+	width: 40%;
+}
+.align-right {
+	text-align: right;
+}
+.align-center {
+	text-align: center;
+}
+.align-middle {
+	vertical-align: middle;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.block {
+	display: block;
+}
+.left-block {
+	display: block;
+	float: left;
+}
+.hidden {
+	display: none;
+}
+.reset-pm {
+	padding: 0;
+	margin: 0;
+}
+.reset-pm-bot {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+.p-tb-20 {
+	padding: 20px 0;
+	margin: 0;
+}
+.p-lr-20 {
+	padding: 0 20px;
+	margin: 0;
+}
+.p-lrt-20 {
+	padding: 20px 20px 0 20px;
+	margin: 0;
+}
+.p20 {
+	padding: 20px;
+	margin: 0;
+}
+.p40 {
+	padding: 40px;
+	margin: 0;
+}
+.m-tb-20 {
+	padding: 0;
+	margin: 20px 0;
+}
+.p-b-10 {
+	padding: 0 0 10px 0;
+	margin: 0;
+}
+.relative {
+	position: relative;
+}
+.absolute {
+	position: absolute;
+}
+.overflow-hidden {
+	overflow: hidden;
+}
+.hmenu {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	li {
+		float: left;
+	}
+}
+.vmenu {
+	list-style-type: square;
+	margin: 20px;
+	padding: 0 0 0 10px;
+}
+.vmenu-2 {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.arrows-menu {
+	padding: 0 0 0 15px;
+	margin: 0;
+	li {
+		list-style-image: url("../img/common/next.png");
+		padding-left: 5px;
+	}
+	.active {
+		color: $color_trinidad_approx;
+		color: $color_trinidad_approx;
+	}
+	.empty {
+		list-style: none;
+	}
+}
+.arrows-menu-p20 {
+	padding: 0 0 0 15px;
+	margin: 0;
+	margin-top: 50px;
+	li {
+		list-style-image: url("../img/common/next.png");
+		padding-left: 5px;
+		padding-bottom: 20px;
+	}
+	.active {
+		color: $color_trinidad_approx;
+		color: $color_trinidad_approx;
+	}
+	.empty {
+		list-style: none;
+	}
+}
+#social-menu {
+	li {
+		line-height: 45px;
+		padding-left: 15px;
+		font-size: 16px;
+	}
+	a {
+		color: $alto;
+	}
+}
+@media only screen and (max-width: 1300px) {
+	#social-menu {
+		float: left;
+	}
+}
+.default-menu {
+	li {
+		margin: 10px 25px 35px 0;
+		padding: 4px 0;
+		border: 1px solid transparent;
+		a {
+			color: $color_dove_gray_approx;
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: 1px 1px 1px $white;
+			//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+			transition: all .25s ease 0s;
+		}
+		&:hover a {
+			color: $color_shark_approx;
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: 1px 1px 10px $color_mountain_mist_approx;
+			.orange {
+				color: $color_trinidad_approx;
+			}
+		}
+	}
+	.orange {
+		color: $color_trinidad_approx;
+	}
+	.active {
+		border-bottom: 1px solid $white;
+		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+		border-radius: 3px;
+		padding: 0;
+		background: linear-gradient(to bottom, $white 0, $gallery 100%);
+		a {
+			padding: 3px 15px;
+			border: 1px solid $alto;
+			//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+			border-radius: 3px;
+			display: block;
+			float: left;
+		}
+	}
+}
+@media only screen and (max-width: 620px) {
+	#top-menu {
+		display: none;
+	}
+}
+@media only screen and (max-width: 930px) {
+	#header-box {
+		height: auto;
+	}
+}
+#non-auth-menu {
+	padding: 10px 0;
+	margin: 25px 0 0;
+	li {
+		margin: 0 0 0 25px;
+		
+		a {
+			font-weight: normal;
+		}
+	}
+}
+#black-top-bar-left-menu {
+	line-height: 45px;
+	margin-right: 20px;
+	a {
+		color: $alto;
+	}
+}
+#auth-menu {
+	padding: 10px 0;
+	margin: 25px 0 0;
+	li {
+		margin: 0 0 0 25px;
+		
+		a {
+			font-weight: normal;
+		}
+	}
+}
+.arrows-menu-colored {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	li: before {
+		content: '';
+		border-color: transparent $color_lochmara_approx;
+		border-style: solid;
+		border-width: 5px 0 5px 8px;
+		display: inline-block;
+		padding-right: 10px;
+		height: 0;
+		width: 0;
+	}
+}
+@media only screen and (max-width: 600px) {
+	.white-grid-menu .grid-menu-row .grid-menu-cell {
+		width: 49%;
+		ul {
+			background: $color_alabaster_approx;
+			//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+			border-radius: 2px;
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+	}
+}
+.jplist-star-rating-outer {
+	position: relative;
+	float: left;
+	height: 18px;
+	line-height: 18px;
+	font-family: $font_4;
+	font-size: 18px;
+	cursor: pointer;
+	//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: all 1s ease 0s;
+	margin-bottom: 20px;
+	&:before {
+		content: attr(data-content);
+		font-family: $font_4;
+		font-size: 18px;
+		height: 18px;
+		line-height: 18px;
+		white-space: nowrap;
+		color: $color_supernova_approx;
+	}
+}
+.jplist-star-rating-inner {
+	font-family: $font_4;
+	font-size: 18px;
+	width: 0;
+	height: 18px;
+	line-height: 18px;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: all 1s ease 0s;
+	&:before {
+		content: attr(data-content);
+		color: $color_supernova_approx;
+		font-family: $font_4;
+		font-size: 18px;
+		height: 18px;
+		line-height: 18px;
+		white-space: nowrap;
+	}
+}
+.jplist-reviews {
+	line-height: 21px;
+	margin-left: 10px;
+	float: left;
+}
+.grid-item {
+	width: 300px;
+	margin: 0 50px 30px 0;
+	.title-15 p {
+		margin-bottom: 0;
+	}
+	.links a {
+		font-size: 12px;
+	}
+}
+.grid-item-last {
+	margin-right: 0;
+}
+.product-listing {
+	padding: 20px 0 0;
+	.product {
+		background: $white;
+		margin: 0 0 20px 0;
+		height: 130px;
+		overflow: hidden;
+		border: 1px solid $alto;
+		//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+		border-radius: 3px;
+	}
+	.product-name {
+		padding: 0 0 15px 0;
+		font-size: 20px;
+		a {
+			font-weight: normal;
+		}
+	}
+	.product-description {
+		padding: 0 0 15px 0;
+	}
+	.product-content-box {
+		width: 80%;
+	}
+	.product-buy {
+		background-color: $color_link_water_approx;
+		text-align: center;
+		width: 20%;
+		height: 100%;
+		a {
+			width: 150px;
+			margin: 0 0 10px 0;
+		}
+	}
+	.product-img {
+		font-size: 0;
+		line-height: 0;
+		width: 40%;
+		text-align: center;
+		img {
+			max-width: 100%;
+		}
+		a {
+			padding: 20px;
+			display: block;
+			float: left;
+		}
+	}
+	.product-content {
+		padding: 20px 0;
+		width: 55%;
+	}
+	.product-tags {
+		margin: 10px 0 0;
+		li {
+			background: $seashell;
+			padding: 0 10px;
+			border: 1px solid $alto;
+			//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+			border-radius: 2px;
+			margin-right: 10px;
+		}
+	}
+}
+.products-grid {
+	margin: 20px 0;
+}
+.products-grid-item {
+	width: 25%;
+	min-width: 200px;
+	overflow: hidden;
+	margin: 0 0 20px 0;
+}
+.products-grid-item-content {
+	width: 90%;
+	margin: 0 10% 0 0;
+	float: left;
+	height: 270px;
+	background: $white;
+	text-align: center;
+	border: 1px solid $alto;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 3px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: border-box;
+	.buy {
+		background: $color_white_lilac_approx;
+		width: 100%;
+		height: 30px;
+		text-align: center;
+		a {
+			padding: 0 10px;
+			margin: 0;
+			display: inline-block;
+		}
+	}
+	.title {
+		
+		font-size: 16px;
+		height: 55px;
+		overflow: hidden;
+		padding: 5px 10px 0;
+		.fa {
+			margin-right: 5px;
+		}
+		a {
+			font-weight: normal;
+			&:hover {
+				color: $color_trinidad_approx;
+			}
+		}
+	}
+	.thumb {
+		padding: 20px 0 0;
+		height: 140px;
+		overflow: hidden;
+		img {
+			border: 1px solid $color_mountain_mist_approx;
+		}
+	}
+	.see-all {
+		line-height: 210px;
+		font-size: 18px;
+	}
+}
+@media only screen and (max-width: 700px) {
+	.products-grid-item {
+		width: 50%;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.products-grid-item-content {
+		width: 100%;
+		margin: 0;
+	}
+	.products-grid-item {
+		width: 100%;
+	}
+}
+.download-list {
+	input[type="checkbox"] {
+		display: none;
+	}
+	label {
+		cursor: pointer;
+		display: block;
+		min-height: 55px;
+	}
+}
+.download-list-item {
+	width: 20%;
+	cursor: pointer;
+	&.active .download-list-item-content {
+		border: 1px solid $color_trinidad_approx;
+		color: $color_trinidad_approx;
+	}
+}
+.download-list-item-content {
+	width: 92%;
+	margin: 2%;
+	padding: 2%;
+	font-size: 14px;
+	text-align: center;
+	background: $white;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	//Instead of the line below you could use @includebox-sizing($bs)
+	box-sizing: border-box;
+	border: 1px solid $white;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 3px;
+	//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: all .25s ease 0s;
+	&:hover {
+		color: $color_trinidad_approx;
+		//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 1px 1px 10px $color_pink_swan_approx;
+	}
+}
+.licenses-list {
+	.license-item {
+		background: $white;
+		border: 1px solid $color_link_water_approx;
+		margin: 0 0 15px 0;
+		padding: 10px 0;
+		.field {
+			font-weight: bold;
+			margin: 0 0 0 15px;
+			width: 120px;
+		}
+	}
+	.license-item-desc {
+		float: left;
+		width: 70%;
+	}
+	.license-item-download {
+		float: right;
+		width: 30%;
+		text-align: right;
+		a {
+			margin: 0 15px 0 0;
+		}
+	}
+}
+.tabs-nav {
+	li {
+		margin: 0 3px 0 0;
+		padding: 3px 10px;
+		cursor: pointer;
+		border: 1px solid $alto;
+		border-bottom: 0;
+		position: relative;
+		background: linear-gradient(to bottom, $white 0, $gallery 100%);
+		&:hover {
+			color: $color_shark_approx;
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: 1px 1px 10px $color_mountain_mist_approx;
+		}
+	}
+	.current {
+		color: $color_trinidad_approx;
+		background: $white;
+		span {
+			background: $white;
+			bottom: -5px;
+			height: 10px;
+			left: 0;
+			position: absolute;
+			width: 100%;
+			z-index: 100;
+		}
+		&:hover {
+			color: $color_trinidad_approx;
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: none;
+		}
+	}
+	a {
+		font-weight: normal;
+		color: $color_fuscous_gray_approx;
+	}
+}
+.tabs {
+	background: $white;
+	float: left;
+	width: 96%;
+	padding: 20px 2%;
+	border: 1px solid $alto;
+}
+.product-page {
+	.jplist-large-item {
+		background: $white;
+		margin: 0 0 10px 0;
+		font-size: 16px;
+		height: auto;
+		.big-white-btn {
+			padding: 0 15px;
+		}
+	}
+	.product-strip {
+		background: $color_mercury_approx;
+		border-top: 1px solid $white;
+		border-bottom: 1px solid $color_mercury_approx;
+		padding: 25px 0;
+	}
+	.product-strip-border {
+		border-top: 1px solid $white;
+	}
+	.product-page-title {
+		border-bottom: 1px solid $color_mercury_approx;
+	}
+	.product-left-box {
+		width: 30%;
+		text-align: center;
+		padding: 20px 0;
+		.img {
+			font-size: 0;
+		}
+		img {
+			max-width: 100%;
+			border: 1px solid $color_mountain_mist_approx;
+			//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 0 10px $color_mountain_mist_approx;
+			//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+			border-radius: 3px;
+		}
+		.included-in {
+			margin-top: 30px;
+		}
+	}
+	.product-right-box {
+		width: 67%;
+		margin: 0 0 0 3%;
+	}
+	.product-buy-section {
+		border-bottom: 1px dotted $color_lochmara_approx;
+		.price {
+			font-size: 18px;
+			
+		}
+		.download {
+			font-size: 18px;
+			
+			a {
+				font-weight: normal;
+			}
+		}
+	}
+	.tabs-nav {
+		margin-top: 30px;
+	}
+	.product-description ul {
+		margin-bottom: 20px;
+	}
+}
+.cart-tbl {
+	border: 1px solid $color_link_water_approx;
+	border-collapse: collapse;
+	background: $white;
+	width: 100%;
+	td {
+		@extend %extend_4;
+	}
+	th {
+		@extend %extend_4;
+	}
+	.img {
+		font-size: 0;
+		line-height: 0;
+		padding: 15px;
+		width: 120px;
+		img {
+			border: 1px solid $color_mountain_mist_approx;
+			width: 100px;
+		}
+	}
+}
+.settings-tbl {
+	border-collapse: collapse;
+	border-left: 1px solid $color_mercury_approx;
+	border-top: 1px solid $color_mercury_approx;
+	margin-bottom: 40px;
+	background: $white;
+	width: 100%;
+	td {
+		@extend %extend_5;
+	}
+	th {
+		@extend %extend_5;
+	}
+	.options {
+		font-weight: bold;
+	}
+	.values {
+		font-style: italic;
+	}
+	.defaults {
+		font-style: italic;
+	}
+	&.bg-white3 {
+		background-color: $color_alabaster_approx;
+		border-left: 1px dotted $color_mercury_approx;
+		border-top: 1px dotted $color_mercury_approx;
+		th {
+			background: $wild_sand;
+			border-right: 1px dotted $color_mercury_approx;
+			border-bottom: 1px dotted $color_mercury_approx;
+		}
+		td {
+			border-right: 1px dotted $color_mercury_approx;
+			border-bottom: 1px dotted $color_mercury_approx;
+		}
+		.title {
+			background: $color_alabaster_approx;
+		}
+	}
+}
+.checkout-btn {
+	backrgound: transparent;
+	border: 0;
+	margin: 30px 0 0;
+}
+.paypal-badges {
+	margin: 30px 0 0;
+}
+.empty-cart-img {
+	font-size: 100px;
+	padding: 50px 0 0;
+	margin: 0 0 20px 0;
+}
+.empty-cart-text {
+	padding: 0 0 80px 0;
+	margin: 0;
+	font-size: 20px;
+}
+#binpress-product-widget .component {
+	//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 0 10px $color_mountain_mist_approx;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	border-radius: 2px;
+}
+.change-password-form label {
+	width: 145px;
+}
+.fork-me-on-github img {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+	width: 149px;
+	height: 149px;
+}
+.fa-list-styles .fa {
+	font-size: 18px;
+	color: $color_sapphire_approx;
+	margin: 0 5px;
+}
+.grid-menu .grid-menu-row {
+	margin-bottom: 20px;
+	line-height: 30px;
+	.grid-menu-cell {
+		width: 30%;
+		ul {
+			padding: 15px 0;
+			text-align: center;
+		}
+	}
+	.grid-menu-thumb {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		font-size: 100px;
+	}
+	h2 {
+		//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all .25s ease 0s;
+		//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 1px 1px 10px $color_mountain_mist_approx;
+		font-weight: normal;
+		
+		text-align: center;
+		margin: 15px 0 0;
+		&:hover {
+			color: $color_shark_approx;
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: 1px 1px 10px $color_shark_approx;
+		}
+	}
+	a {
+		color: $color_dove_gray_approx;
+		//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all .25s ease 0s;
+		&:hover {
+			color: $color_lochmara_approx;
+		}
+	}
+}
+.white-grid-menu .grid-menu-row {
+	line-height: 30px;
+	.grid-menu-cell {
+		width: 29%;
+		margin-right: 1%;
+		margin-bottom: 1%;
+		background: $white;
+		ul {
+			padding: 15px 0;
+			text-align: center;
+		}
+		a: hover {
+			color: $color_lochmara_approx;
+		}
+	}
+	.grid-menu-cell>a {
+		padding: 15px;
+		display: block;
+		border: 1px solid $color_link_water_approx;
+		color: $color_dove_gray_approx;
+		//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all .25s ease 0s;
+	}
+	.grid-menu-thumb {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		font-size: 100px;
+	}
+	h2 {
+		//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all .25s ease 0s;
+		//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 1px 1px 10px $color_mountain_mist_approx;
+		font-weight: normal;
+		
+		text-align: center;
+		margin: 15px 0 0;
+		&:hover {
+			color: $color_shark_approx;
+			//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			text-shadow: 1px 1px 10px $color_shark_approx;
+		}
+	}
+}
+.products-grid-230 .products-grid-item-content {
+	height: 230px;
+}

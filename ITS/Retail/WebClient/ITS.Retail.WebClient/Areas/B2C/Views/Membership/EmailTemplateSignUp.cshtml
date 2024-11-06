@@ -1,0 +1,68 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Areas/B2C/Views/Membership/_EmailLayout.cshtml";
+    ITS.Retail.Model.NonPersistant.SignUpEmailTemplate signUpEmailTemplate = (ITS.Retail.Model.NonPersistant.SignUpEmailTemplate)Model;
+}
+
+<tbody>
+    <tr>
+        <td>
+            <!-- content start -->
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h1>@signUpEmailTemplate.WelcomeMessage</h1>
+
+                                            @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>*@ 
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td class="panel">
+                                            <table class="wrapper">
+                                                <tr>
+                                                    <td class="eight sub-columns">
+
+                                                        <p>@Resources.IfYouWantToSeeYourOrdersClickOnTheFollowingLink.</p>
+
+                                                    </td>
+                                                    <td class="twelve sub-columns last">
+
+                                                        <table class="button">
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@signUpEmailTemplate.URL">@Resources.Here</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- container end below -->
+        </td>
+    </tr>
+</tbody>

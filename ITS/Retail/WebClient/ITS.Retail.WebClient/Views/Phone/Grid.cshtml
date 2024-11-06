@@ -1,0 +1,192 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsText.CustomizationWindowCaption = "Επιλογή Πεδίων";    
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    if (ViewData["displayCommands"] != null && bool.Parse(ViewData["displayCommands"].ToString()) == true)
+    {
+        settings.Name = "grdPhoneEdit" + ViewData["addressid"].ToString().Replace('-', '_');       
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href=\"javascript:;\" onclick=\"" + settings.Name + ".SetFocusedRowIndex(" + c.ItemIndex.ToString() + ");" + settings.Name + ".StartEditRow(" + c.ItemIndex.ToString() + ");\" title=\"" + Resources.Edit + "\"><img src=\"" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "\" alt=\"" + Resources.Edit + "\" /></a>" +
+                    "<a href=\"javascript:;\" onclick=\"" + settings.Name + ".DeleteRow(" + c.ItemIndex.ToString() + ");\" title=\"" + Resources.Delete + "\"><img src=\"" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "\" alt=\"" + Resources.Delete + "\" /></a>"
+                );
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href=\"javascript:;\" onclick=\"" + settings.Name + ".AddNewRow();\" title=\"" + Resources.New + "\"><img src=\"" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "\" alt=\"" + Resources.Add + "\" /></a>"
+                );
+                ViewContext.Writer.Write(Html.Hidden("AddressID", ViewData["addressid"]));
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+    }
+    else
+    {
+        settings.Name = "grdPhone" + ViewData["addressid"].ToString().Replace('-', '_');
+        
+    }
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Number";
+        col.Caption = Resources.Number;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;        
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "PhoneType.Description";
+        column.Caption = Resources.PhoneType;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Phone", Action = "ParameterGrid", strAddressID = ViewData["addressid"], displayCommands = ViewData["displayCommands"] };
+    settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Phone", Action = "InlineEditingAddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Phone", Action = "InlineEditingUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Phone", Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.AccessibilityCompliant = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == "grdPhone");
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, "grdPhone", evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.Settings.ShowTitlePanel = true;
+   
+    settings.SettingsText.Title = Resources.Phones+((ViewData["extraTitle"] == null)?"":" "+Resources.ForAddress+" "+ViewData["extraTitle"].ToString()) ;        
+  
+    settings.ClientSideEvents.BeginCallback = "Component.PhoneGridOnBeginCallback";
+    settings.ClientSideEvents.EndCallback = "Component.PhoneGridOnEndCallback";
+
+    settings.CommandButtonInitialize = (s, e) =>
+    {
+        if (e.ButtonType == ColumnCommandButtonType.New)
+        {
+            if (ViewData["addressid"] == null || ViewData["addressid"].ToString() == "" || ViewData["addressid"].ToString() == "-1")
+                e.Visible = false;
+            else
+                e.Visible = true;
+
+        }
+    };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.Phone;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        Html.EnableClientValidation();
+        Html.EnableUnobtrusiveJavaScript();
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write(Html.Hidden("AddressID", ViewData["addressid"]));
+            
+        ViewContext.Writer.Write("<div class=\"ValidationContainer\">");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnPhoneUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnPhoneCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Number + ":";
+            edtSettings.AssociatedControlName = "number";
+        }).Render();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "PhoneNumber";
+            edtSettings.ControlStyle.CssClass = "editor";                  
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+        }).Bind(DataBinder.Eval(item, "Number")).Render();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.PhoneType + ":";
+            edtSettings.AssociatedControlName = "PhoneType";
+        }).Render();
+        
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "PhoneTypeCb";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;                  
+        }).BindList(ViewBag.PhoneTypeComboBox).Bind(DataBinder.Eval(item, "PhoneType!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+}).Bind(Model).GetHtml()

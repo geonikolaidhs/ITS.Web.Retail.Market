@@ -1,0 +1,11 @@
+[ignore]
+.*/coverage
+.*/css
+.*/doc
+.*/gulpfile.js
+.*/webpack.config.js
+.*/Gruntfile.js
+.*/karma.config.js
+.*/tests.webpack.js
+
+[include]

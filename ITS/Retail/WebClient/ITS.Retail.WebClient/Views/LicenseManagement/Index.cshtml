@@ -1,0 +1,95 @@
+﻿@model List<LicenseUserDistributionViewModel>
+
+
+@{
+    ViewBag.Title = Resources.LicenseManagement;
+
+    string action = Url.Action("Save", "LicenseManagement");
+}
+
+<form method="post" action="@action" accept-charset="UTF-8">
+    <table class="table-hover table-striped">
+        <tr>
+            <th>@Resources.Store</th>
+            <th>@Resources.MaxOnlineUsers</th>
+            <th>@Resources.MaxPeripheralUsers</th>
+            <th>@Resources.MaxTabletSmartPhoneUsers</th>
+        </tr>
+        <tr>
+            <td class="align-right">
+                @Resources.Total
+            </td>
+            <td class="align-right">
+                @ViewBag.UserLimit
+            </td>
+            <td class="align-right">
+                @ViewBag.PeripheralsUserLimit
+            </td>
+            <td class="align-right">
+                @ViewBag.TabletSmartPhoneUserLimit
+            </td>
+        </tr>
+    @{
+        foreach (LicenseUserDistributionViewModel userdistribution in Model)
+        {
+            <tr>
+                @{
+                string id = "ConnectedUsers" + userdistribution.Server;
+                string peripheralId = "Peripheral" + userdistribution.Server;
+                string tabletSmartphoneId = "TabletSmartPhone" + userdistribution.Server;
+                string hiddenId = "hidden" + id;
+                    <td>
+                        @if (userdistribution.Server == Guid.Empty)
+                        {
+                            <h3>@userdistribution.Description</h3>
+                        }
+                        else
+                        {
+                            @userdistribution.Description
+                        }
+                    </td>
+                    <td>
+                        @if(userdistribution.Server == Guid.Empty)
+                        {
+                            <h3>@userdistribution.MaxConnectedUsers</h3>
+                        }
+                        else
+                        {
+                            <input id="@id" name="@id" type="number" value="@userdistribution.MaxConnectedUsers" min="1" />
+                        }
+                    </td>
+                    <td>
+                        @if (userdistribution.Server == Guid.Empty)
+                        {
+                            <h3>@userdistribution.MaxPeripheralsUsers</h3>
+                        }
+                        else
+                        {
+                            <input id="@peripheralId" name="@peripheralId" type="number" value="@userdistribution.MaxPeripheralsUsers" min="0" />
+                        }
+                    </td>
+                    <td>
+                        @if (userdistribution.Server == Guid.Empty)
+                        {
+                            <h3>@userdistribution.MaxTabletSmartPhoneUsers</h3>
+                        }
+                        else
+                        {
+                            <input id="@tabletSmartphoneId" name="@tabletSmartphoneId" type="number" value="@userdistribution.MaxTabletSmartPhoneUsers" min="0" />
+                        }
+                    </td>
+                    if (userdistribution.Server != Guid.Empty)
+                    {
+                        <input id="@hiddenId+" name="@hiddenId" type="hidden" value="@userdistribution.LicenseServerInstance" />
+                    }
+                }
+            </tr>
+            }
+     }
+            <tr>
+                <td>
+                    <input class="btn btn-default" type="submit" value="@Resources.Save" />
+                </td>
+            </tr>
+    </table>
+</form>

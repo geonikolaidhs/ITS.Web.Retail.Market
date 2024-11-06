@@ -1,0 +1,95 @@
+﻿@using ITS.Retail.ResourcesLib
+@model IEnumerable<CustomerViewModel>
+@{
+    var settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext,
+        typeof(CustomerViewModel), typeof(CustomerController), "grdPreviewCustomerPoints", ITS.Retail.WebClient.Extensions.GridViewCommandColumnType.CHECKBOX,
+        false, false, false, false);
+    settings.SettingsText.Title = Resources.PreviewCustomerPoints;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+    settings.CommandColumn.ShowSelectCheckbox = true;
+
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    
+    settings.CallbackRouteValues = new { Controller = "Customer", Action = "PreviewCustomerPointsGrid" };
+    settings.ClientSideEvents.BeginCallback = "grdPreviewCustomerPoints_BeginCallback";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    ///COLLUMNS OF GRID
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CardID";
+        column.Caption = Resources.CardID;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CompanyName";
+        column.Caption = Resources.CompanyName;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CollectedPoints";
+        column.Caption = Resources.CollectedPoints;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ComputedPoints";
+        column.Caption = Resources.ComputedPoints;
+    });
+    
+    settings.Columns.Add(column =>
+    {
+     column.FieldName = "Difference";
+     column.Caption = Resources.PointDifference;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TotalEarnedPoints";
+        column.Caption = Resources.TotalEarnedPoints;
+    });
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TotalConsumedPoints";
+        column.Caption = Resources.TotalConsumedPoints;
+    });
+    
+
+
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}
+

@@ -1,0 +1,11 @@
+﻿@Html.DevExpress().ListBox(lstSettings =>
+{
+    
+    lstSettings.Name = "BarcodesListBox";
+    lstSettings.CallbackRouteValues = new { Controller = "Item", Action = "BarcodesListBox" };
+    lstSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    lstSettings.Properties.ClientSideEvents.BeginCallback = "OnBeginCallbackBarcodesListBox";
+    lstSettings.Properties.TextField = "Code";
+    lstSettings.Properties.ValueField = "Oid";
+    lstSettings.Properties.ValueType = typeof(Guid);
+}).BindList(ViewData["ItemBaseBarcodes"]).GetHtml()

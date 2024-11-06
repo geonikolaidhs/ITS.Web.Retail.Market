@@ -1,0 +1,9 @@
+﻿@Html.DevExpress().CallbackPanel(set =>
+{
+    set.Name = "treeViewCbPanel";
+    set.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TreeViewCallback" };
+    set.SetContent(() =>
+    {
+        @Html.Partial("TreeView");
+    });
+}).GetHtml()

@@ -1,0 +1,12 @@
+﻿@using System.Web.Optimization;
+
+@Html.DevExpress().GetStyleSheets(
+                new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = DevExpressHelper.Theme }
+        )
+@Scripts.Render("~/bundles/mainpage.js")
+
+
+<script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+@Html.DevExpress().GetScripts(
+            new Script { ExtensionSuite = ExtensionSuite.Editors }
+        )

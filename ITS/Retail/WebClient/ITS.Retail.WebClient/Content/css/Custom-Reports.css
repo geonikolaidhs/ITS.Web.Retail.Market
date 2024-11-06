@@ -1,0 +1,17 @@
+﻿
+.select-all-container{
+    background:#fff;
+}
+
+.select-all-report td.dxichCellSys:first-child{
+      padding-left: 11px;
+      padding-bottom: 5px;
+}
+
+.select-all-report tbody{
+    border: 1px solid #ccc;
+}
+
+.select-all-report.dxeBase_ITSTheme1{
+    margin-bottom:0px !important;
+}

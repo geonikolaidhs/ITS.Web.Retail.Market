@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ReloadTables.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+<h2>Reload Entities</h2>
+@using (Html.BeginForm("Submit", "ReloadTables"))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().CheckBox(edtSettings =>
+           {
+               edtSettings.Name = "SelectAllEntitiesCheckBox";
+               edtSettings.ControlStyle.CssClass = "editor";
+               edtSettings.ControlStyle.Font.Bold = true;
+               edtSettings.Text = ITS.Retail.ResourcesLib.Resources.SelectAll;
+               edtSettings.Properties.ValueChecked = true;
+               edtSettings.Properties.ValueGrayed = false;
+               edtSettings.Properties.ValueUnchecked = false;
+               edtSettings.Properties.ValueType = typeof(bool);
+               edtSettings.Properties.ClientSideEvents.ValueChanged = "SelectAllEntitiesCheckBox_OnValueChanged";
+           }).GetHtml()</td>
+        </tr>
+        <tr>
+            @{
+    int loops = 0;   
+            }
+            @foreach (KeyValuePair<string, string> entityNames in (ViewData["EntityNames"] as Dictionary<string, string>))
+            {
+                <td>
+                    @Html.DevExpress().CheckBox(edtSettings =>
+               {
+                   edtSettings.Name = entityNames.Key + "_EntityCheckBox";
+                   edtSettings.ControlStyle.CssClass = "editor";
+                   edtSettings.Text = entityNames.Value;
+                   edtSettings.Properties.ValueChecked = true;
+                   edtSettings.Properties.ValueGrayed = false;
+                   edtSettings.Properties.ValueUnchecked = false;
+                   edtSettings.Properties.ValueType = typeof(bool);
+               }).GetHtml()
+                </td>
+
+                loops++;
+
+                if (loops % 4 == 0)
+                {
+                    ViewContext.Writer.Write("</tr><tr>");
+                }
+            }
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnOK";
+                    btnSettings.ControlStyle.CssClass = "button";
+                    btnSettings.Text = ITS.Retail.ResourcesLib.Resources.OK;
+                    btnSettings.UseSubmitBehavior = true;
+                }).GetHtml()
+            </td>
+        </tr>
+    </table>
+}

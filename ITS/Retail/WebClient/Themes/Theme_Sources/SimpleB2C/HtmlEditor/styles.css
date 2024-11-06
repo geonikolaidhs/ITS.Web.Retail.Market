@@ -1,0 +1,266 @@
+/* ----------------- Main ----------------- */
+/* Loading panel */
+.dxheLoadingDiv_SimpleB2C
+{
+    background: white;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+}
+.dxheLoadingPanel_SimpleB2C
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+}
+.dxheLoadingPanel_SimpleB2C td.dx
+{
+white-space: nowrap;
+    	text-align: center;
+	padding: 10px 14px;
+}
+
+.dxheControl_SimpleB2C
+{
+}
+
+/* Area */
+.dxheContentArea_SimpleB2C
+{
+    padding: 6px 4px;
+}
+.dxheContentArea_SimpleB2C .dxheErrorFrame_SimpleB2C
+{
+	font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #D00707;
+	background-color: #FBC7C7;
+	margin-bottom: 6px;
+}
+.dxheContentArea_SimpleB2C .dxheErrorFrame_SimpleB2C .dxhe {
+    padding: 5px;
+}
+.dxheContentArea_SimpleB2C .dxheErrorFrame_SimpleB2C .dxhe td {
+    padding: 0px;
+}
+.dxheContentArea_SimpleB2C .dxheErrorFrame_SimpleB2C .dxheErrorFrameCloseButton_SimpleB2C {
+    cursor: pointer;
+}
+.dxheViewArea_SimpleB2C
+{
+}
+.dxheContentArea_SimpleB2C td.dxheViewArea_SimpleB2C /*B209529*/
+{
+	font-size: 0;
+}
+.dxheHtmlViewArea_SimpleB2C,
+.dxheDesignViewArea_SimpleB2C,
+.dxhePreviewArea_SimpleB2C 
+{
+    	margin: 0px;
+    	background: none #FFFFFF;
+border: 0;
+    	font-size: smaller;
+    	font: normal 12px Arial, Helvetica, sans-serif;    
+}
+.dxheContentArea_SimpleB2C .dxeMemo_SimpleB2C td,
+body.dxheDesignViewArea_SimpleB2C,
+body.dxhePreviewArea_SimpleB2C
+{
+    padding: 0 0 0 4px;
+}
+.dxheContentArea_SimpleB2C .dxeMemoEditArea_SimpleB2C
+{
+    padding-left: 0;
+    padding-right: 0;
+}
+.dxheControl_SimpleB2C.dxhe-rtl .dxheContentArea_SimpleB2C .dxeMemo_SimpleB2C td,
+body.dxheDesignViewArea_SimpleB2C.dxhe-rtl,
+body.dxhePreviewArea_SimpleB2C.dxhe-rtl
+{
+	padding: 0 4px 0 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .dxheControl_SimpleB2C.dxhe-rtl .dxheContentArea_SimpleB2C .dxeMemo_SimpleB2C td
+    {
+	    padding: 0 0 0 4px;
+    }
+}
+.dxheControl_SimpleB2C .dxeMemo_SimpleB2C textarea 
+{
+	resize: none;
+}
+/* Element appearance in DesignView */
+body.dxheDesignViewArea_SimpleB2C table.dxEmptyBorderTable_SimpleB2C,
+body.dxheDesignViewArea_SimpleB2C table.dxEmptyBorderTable_SimpleB2C td  {
+    border:1px dotted gray;
+}
+@media print 
+{
+	body.dxheDesignViewArea_SimpleB2C table.dxEmptyBorderTable_SimpleB2C,
+	body.dxheDesignViewArea_SimpleB2C table.dxEmptyBorderTable_SimpleB2C td  
+	{
+		border:0px;
+	}
+}
+
+/* Status Bar */
+.dxheStatusBar_SimpleB2C 
+{
+}
+.dxheStatusBar_SimpleB2C .dxheStatusBarTab_SimpleB2C 
+{
+    padding-left: 11px;
+    padding-right: 12px;
+    padding-bottom: 5px;
+}
+.dxheStatusBarActiveTab_SimpleB2C 
+{
+}
+.dxHtmlEditor_heSizeGrip_SimpleB2C
+{
+    cursor: se-resize;
+}
+.dxHtmlEditor_heSizeGripRtl_SimpleB2C
+{
+    cursor: ne-resize;
+}
+.dxheSizeGripContainer_SimpleB2C
+{
+    float: left;
+    height: 0;
+    width: 100%;
+    text-align: right;
+    font-size: 0;
+    margin-top: -16px;
+}
+.dxheControl_SimpleB2C.dxhe-rtl .dxheSizeGripContainer_SimpleB2C 
+{
+	text-align: left;
+}
+/* ----------------- Dialog Forms ----------------- */
+#dxInsertTableForm .buttonsCell,
+#dxInsertLinkForm .buttonsCell,
+#dxInsertImageForm .buttonsCell,
+#dxPasteFromWordForm .buttonsCell,
+#dxTableColumnPropertiesForm .buttonsCell,
+#dxSelectImageForm .buttonsCell,
+.dxheCustomDialog_SimpleB2C .dxhecd-Buttons
+{
+    background-color: white;
+    border-top: Solid 1px #E0E0E0;
+    padding: 11px;
+}
+/* Insert Image Form */
+#dxInsertImageForm .imagePreviewCell,
+#dxSelectImageForm .imagePreviewCell
+{
+    color: #878787;
+    border: dashed 1px #cac8c8;
+}
+#dxPasteFromWordForm .pasteContainerCell td
+{
+	border: Solid 1px #9F9F9F;
+}
+/*----------------- Toolbars -----------------*/
+.dxtbSpacing_SimpleB2C
+{
+	height: 1px;
+}
+.dxtbControl_SimpleB2C 
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+    width: 100%;
+    border-bottom: Solid 1px #c0c0c0;
+}
+.dxtbControl_SimpleB2C td.dxmMenu_SimpleB2C
+{
+	border-width: 0px;
+}
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-main 
+{
+	background-color: #FFFFFF;
+}
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxmtb.dxm-horizontal .dxm-separator 
+{
+}
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxmtb.dxm-horizontal .dxm-separator b
+{
+	margin-top: 3px;
+	background-color: #c0c0c0;
+}
+.dxtbComboBoxMenuItem_SimpleB2C
+{
+    padding-top: 2px;
+}
+
+/* Toolbars Lightweight Mode */
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-main {
+    border-width: 0px;
+}
+.dxmLite_SimpleB2C .dxmtb .dxtb-comboBoxMenuItem {
+	border-width: 0px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-horizontal.dxmtb .dxm-image-l .dxm-dropDownMode.dxtb-cb .dxm-content, 
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-horizontal.dxmtb .dxm-image-r .dxm-dropDownMode.dxtb-cb .dxm-content
+{
+	padding-top: 3px;
+	padding-bottom: 4px;
+}
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-horizontal.dxmtb .dxm-image-l .dxm-item.dxtb-cddi .dxm-content, 
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-horizontal.dxmtb .dxm-image-r .dxm-item.dxtb-cddi .dxm-content
+{
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-horizontal.dxmtb .dxm-image-l .dxm-item.dxtb-cddi .dxm-content img, 
+.dxtbControl_SimpleB2C .dxmLite_SimpleB2C .dxm-horizontal.dxmtb .dxm-image-r .dxm-item.dxtb-cddi .dxm-content img
+{
+	margin-top: -1px;
+}
+.dxmLite_SimpleB2C .dxhetipControl_SimpleB2C img
+{
+	vertical-align: top;
+}
+
+/* ToolbarColorButton */
+.dxtcbControl_SimpleB2C { }
+.dxtcbColorDiv_SimpleB2C
+{
+	width: 16px;
+	height: 3px;
+	font-size:0px;
+	background-color: Transparent;
+}
+
+/*----------------- RoundPanel -----------------*/
+.dxheRP.dxrpControl_SimpleB2C .dxrpContent_SimpleB2C,
+.dxheRP.dxrpControl_SimpleB2C .dxrpLE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpRE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpBE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpNHTE
+{
+}
+.dxheRP.dxrpControl_SimpleB2C .dxrpContent_SimpleB2C
+{
+    padding: 9px 8px;
+}
+.dxheRP.dxrpControl_SimpleB2C .dxrpTE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpNHTE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpLE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpHLE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpRE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpHRE,
+.dxheRP.dxrpControl_SimpleB2C .dxrpBE,
+.dxheRP.dxrpControlGB_SimpleB2C .dxrpNHTE,
+.dxheRP.dxrpControlGB_SimpleB2C .dxrpLE,
+.dxheRP.dxrpControlGB_SimpleB2C .dxrpHLE,
+.dxheRP.dxrpControlGB_SimpleB2C .dxrpRE,
+.dxheRP.dxrpControlGB_SimpleB2C .dxrpBE
+{
+}
+
+

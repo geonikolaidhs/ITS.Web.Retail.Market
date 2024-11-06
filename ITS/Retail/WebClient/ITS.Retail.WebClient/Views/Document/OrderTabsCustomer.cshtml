@@ -1,0 +1,215 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().PageControl(tab_settings =>
+{
+    tab_settings.Name = "order_tabs";
+    tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    tab_settings.CallbackRouteValues = new { Controller = "Document", Action = "OrderTabsCustomer" };
+    tab_settings.ClientSideEvents.ActiveTabChanging = "OrderTabChanging";
+    tab_settings.EnableClientSideAPI = true;
+    tab_settings.ShowTabs = false;
+
+    tab_settings.TabPages.Add(Resources.SingleOrder).SetContent(() =>
+    {
+        //---- Search content begin
+
+        DocumentDetail docdet = Session["currentDocumentDetail"] as DocumentDetail;
+        Html.RenderPartial("Carousel");
+
+        @Html.DevExpress().HyperLink(btnsettings =>
+        {
+            btnsettings.Name = "SaveHyperLink";
+            btnsettings.NavigateUrl = "#";
+            btnsettings.Properties.Text = Resources.Add;
+            btnsettings.ControlStyle.CssClass = "add_button";
+            btnsettings.Properties.EnableClientSideAPI = true;
+            btnsettings.Properties.ClientSideEvents.Click = "SvDocumentLine";
+        }).GetHtml();
+
+    ViewContext.Writer.Write("<div id=\"orderInfoContainer\">");
+    if (ViewBag.EditOneItem == null || ViewBag.EditOneItem == false)
+    {
+
+        ViewContext.Writer.Write("<div class=\"odrerInfoTable\">");
+        ViewContext.Writer.Write("<div class=\"barcode-text-container\">");
+        ViewContext.Writer.Write("<label>" + "(" + Resources.Code + "/" + Resources.Barcode + ")" + "</label>");
+        if (ViewBag.EditOneItem == null || ViewBag.EditOneItem == false)
+        {
+            ViewContext.Writer.Write("<div class=\"image-search-orders\">");
+            ViewContext.Writer.Write("<p id=\"search_img\"></p>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div>");
+            @Html.RenderPartial("SearchByBarcode");
+            ViewContext.Writer.Write("</div>");
+
+        }
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div id='SearchByDescription'>");
+        ViewContext.Writer.Write("<label>" + "(" + Resources.Description + ")" + "</label>");
+
+        if (ViewBag.EditOneItem == null || ViewBag.EditOneItem == false)
+        {
+            ViewContext.Writer.Write("<div class=\"image-search-orders\">");
+            ViewContext.Writer.Write("<p id=\"search_img\"></p>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div>");
+            @Html.RenderPartial("SearchByDescription");
+            ViewContext.Writer.Write("</div>");
+        }
+        //----- Search content end
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+    }
+
+    ViewContext.Writer.Write("<div class=\"itemInfo\">");
+
+    Html.RenderPartial("ItemImage");
+    Html.RenderPartial("ItemInfoPanel");
+    if (Session["DocumentDetail2Edit"] == null)
+    {
+        ViewContext.Writer.Write("<div class=\"tag_cloud\">");
+        Html.RenderAction("ItemTagCloudLastTwoMonths");
+        Html.RenderAction("ItemTagCloudLastYearTwoMonths");
+        ViewContext.Writer.Write("</div>");
+    }
+
+    ViewContext.Writer.Write("</div>");
+});
+
+
+    tab_settings.TabPages.Add(Resources.SearchByItemCategory).SetContent(() =>
+    {
+        Html.DevExpress().HyperLink(btnsettings =>
+        {
+            btnsettings.Name = "AddByCategory";
+            btnsettings.Properties.Text = Resources.Add;
+            btnsettings.ControlStyle.CssClass = "add_button";
+            btnsettings.Properties.ClientSideEvents.Click = "OrderMultipleItems";
+            btnsettings.NavigateUrl = "#";
+        }).GetHtml();
+
+        Html.DevExpress().Splitter(set =>
+        {
+            set.Name = "splitterCategories";
+            set.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+            set.Height = 600;
+            set.ControlStyle.CssClass = "splitterCategories";
+            set.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            set.Panes.Add(pane =>
+            {
+                pane.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+                pane.ShowCollapseBackwardButton = DefaultBoolean.True;
+                pane.AutoWidth = false;
+                pane.AllowResize = DefaultBoolean.False;
+                pane.Size = System.Web.UI.WebControls.Unit.Percentage(35);
+                pane.SetContent(() =>
+                {
+                    Html.RenderAction("TreeView", "Document");
+                });
+            });
+
+            set.Panes.Add(pane =>
+            {
+                pane.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+                pane.AutoWidth = false;
+                pane.SetContent(() =>
+                {
+                    ViewContext.Writer.Write("<table><tr><td>");
+                    ViewContext.Writer.Write(Resources.ItemSupplier + ":");
+                    ViewContext.Writer.Write("</td><td>");
+                    ViewData["Tab"] = "_categories";
+                    Html.RenderPartial("SelectItemSuppliers", ViewData["Tab"]);
+                    ViewContext.Writer.Write("</td><td>");
+                    Html.DevExpress().Image(btn_settings =>
+                    {
+                        btn_settings.Name = "clearItemSupplierCategoriesBtn";
+                        btn_settings.ImageUrl = "~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"];
+                        btn_settings.ControlStyle.CssClass = "clearbtn";
+                        btn_settings.ToolTip = Resources.Clear;
+                        btn_settings.Properties.ClientSideEvents.Click = "ClearSelectedItemSupplier";
+                    }).GetHtml();
+
+                    ViewContext.Writer.Write("</td></tr></table>");
+                    Html.RenderPartial("ItemsOfNode");
+                });
+            });
+
+        }).GetHtml();
+
+    });
+    tab_settings.TabPages.Add(Resources.SearchItemOffers).SetContent(() =>
+    {
+        ViewContext.Writer.Write("<table width='100%'><tr>");
+        @Html.DevExpress().Splitter(set =>
+        {
+            set.Name = "splitterOffers";
+            set.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+            set.Height = 600;
+            set.AllowResize = false;
+            set.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+            ViewContext.Writer.Write("<td align='left' width='50%'>");
+            Html.DevExpress().HyperLink(btnsettings =>
+            {
+                btnsettings.Name = "AddByOffer";
+                btnsettings.Properties.Text = Resources.Add;
+                btnsettings.ControlStyle.CssClass = "add_button";
+                btnsettings.Properties.ClientSideEvents.Click = "OrderMultipleOffers";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+            ViewContext.Writer.Write("<table><tr><td>");
+            ViewContext.Writer.Write(Resources.ItemSupplier + ":");
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+            ViewData["Tab"] = "_offers";
+            Html.RenderPartial("SelectItemSuppliers", ViewData["Tab"]);
+            ViewContext.Writer.Write("</td><td>");
+            Html.DevExpress().Image(btn_settings =>
+            {
+                btn_settings.Name = "clearItemSupplierOffersBtn";
+                btn_settings.ImageUrl = "~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"];
+                btn_settings.ControlStyle.CssClass = "clearbtn";
+                btn_settings.ToolTip = Resources.Clear;
+                btn_settings.Properties.ClientSideEvents.Click = "ClearSelectedItemSupplier";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td></tr></table>");
+
+            ViewContext.Writer.Write("</td></tr><tr>");
+            ViewContext.Writer.Write("<td valign='top'>");
+
+            set.Panes.Add(pane =>
+            {
+                pane.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+                pane.AutoWidth = false;
+                pane.SetContent(() =>
+                {
+                    Html.RenderAction("OrderByOffer", "Document");
+                });
+            });
+            ViewContext.Writer.Write("</td><td  valign='top' width='50%'>");
+            set.Panes.Add(pane =>
+            {
+                pane.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+                pane.AutoWidth = false;
+                pane.SetContent(() =>
+                {
+                    Html.RenderPartial("OfferDetails");
+                });
+            });
+            ViewContext.Writer.Write("</td></tr></table>");
+        }).GetHtml();
+    });
+
+    tab_settings.TabPages.Add(Resources.NewItems).SetContent(() =>
+    {
+        ViewContext.Writer.Write("<table width='100%'><tr><td valign='top'>");
+        Html.RenderPartial("NewItemsFilters");
+        ViewContext.Writer.Write("</td></tr><tr><td  valign='top'>");
+        Html.RenderPartial("NewItems");
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+
+}).GetHtml()

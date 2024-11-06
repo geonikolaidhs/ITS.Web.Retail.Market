@@ -1,0 +1,14 @@
+﻿@Html.DevExpress().CallbackPanel(settings => {
+    settings.Name = "WizardCallbackPanel";
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "WizardCallbackPanel" };
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.SetContent(() =>
+    {
+        WizardArguments wizardOptions = ViewData["WizardArguments"] as WizardArguments;
+        if (wizardOptions != null && wizardOptions.RenderWizard)
+        {
+            Html.RenderAction("WizardPopup", (string)ViewBag.ControllerName, new { Arguments = wizardOptions.Arguments });
+        }
+    });
+    
+}).GetHtml()

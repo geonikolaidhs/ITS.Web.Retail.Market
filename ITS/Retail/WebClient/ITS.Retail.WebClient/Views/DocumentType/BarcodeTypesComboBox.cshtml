@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.WebClient.Controllers;
+@model DocumentTypeBarcodeType
+
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Enabled = true;
+    combosettings.Name = "BarcodeType";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.CallbackRouteValues = new { Controller = "DocumentType", Action = "BarcodeTypesComboBox" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Description";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.DropDownButton.Visible = true;
+    combosettings.Properties.Columns.Add("Description", Resources.Description, 100);
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 1;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png");
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+}).BindList(DocumentTypeController.BarcodeTypeRequestedByFilterCondition, DocumentTypeController.ObjectRequestedByValue<BarcodeType>).BindList(DocumentTypeController.GetObjectByValue<BarcodeType>(DataBinder.Eval(Model, "BarcodeType!Key"))).Bind(DataBinder.Eval(Model, "BarcodeType!Key")).GetHtml()

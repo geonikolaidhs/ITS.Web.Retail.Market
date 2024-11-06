@@ -1,0 +1,452 @@
+﻿@model ITS.Retail.Common.ViewModel.MassivelyCreateCouponsViewModel
+@using ITS.Retail.Platform.Enumerations
+
+@{
+    ViewBag.Title = Resources.MassivelyCreateCoupons;
+    Layout = "~/Views/Shared/_CouponsLayout.cshtml";
+   
+}
+
+
+@section HeaderScriptsAndStyles {
+
+    <script src="@Url.Content("~/Scripts/scripts/Coupon.js")"></script>
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/bootstrap.css")" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/Coupon.css")" />
+
+}
+
+@using (Ajax.BeginForm("CreateCoupons", new { Controller = "Coupon" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+    }))
+{
+   
+    ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.HeaderText = ViewBag.Title;
+    headerOptions.SaveButton.Name = "btnCreate";
+    headerOptions.SaveButton.Text = Resources.MassivelyCreateCoupons;
+    headerOptions.SaveButton.OnClick = "Coupon.MassivelyCreateCoupons";
+    headerOptions.CancelButton.Name = "btnCancel";
+    headerOptions.CancelButton.OnClick = "Coupon.CancelMassivelyCreateCoupons";
+    
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    ViewContext.Writer.Write("<div class=\"interWrapper\">");
+    ViewContext.Writer.Write("<div class=\"container-fluid headerTable validateForm margin-0-auto-20 grey-border-with-bg padding-bottom-20-important col\">");
+
+    ViewContext.Writer.Write("<div class=\"row col\">");
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Amount + ":";
+    }).Render();
+
+    Html.DevExpress().SpinEdit(edtSettings =>
+    {
+        edtSettings.Name = "Amount";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.MinValue = 0;
+        edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+        edtSettings.Properties.DecimalPlaces = 2;
+        edtSettings.Number = 0;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    }).Bind(DataBinder.Eval(Model, "Amount")).Render();
+
+    ViewContext.Writer.Write("</div>");
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Prefix;
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Prefix";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "Prefix")).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.FromCode + ":";
+    }).Render();
+
+    Html.DevExpress().SpinEdit(edtSettings =>
+    {
+        edtSettings.Name = "StartingNumber";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.MinValue = 0;
+        edtSettings.Properties.MaxValue = Int32.MaxValue;
+        edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+        edtSettings.Properties.DecimalPlaces = 2;
+        edtSettings.Number = 0;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "StartingNumber")).Render();
+
+    ViewContext.Writer.Write("</div>");
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.ToCode + ":";
+    }).Render();
+
+    Html.DevExpress().SpinEdit(edtSettings =>
+    {
+        edtSettings.Name = "EndingNumber";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.MinValue = 0;
+        edtSettings.Properties.MaxValue = Int32.MaxValue;
+        edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+        edtSettings.Properties.DecimalPlaces = 2;
+        edtSettings.Number = 0;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "EndingNumber")).Render();
+
+    ViewContext.Writer.Write("</div>");
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Suffix;
+    }).Render();
+    
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Suffix";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "Suffix")).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Name = "UsePadding";
+        edtSettings.Properties.ClientSideEvents.ValueChanged = "Coupon.UsePaddingOnValueChanged";
+        edtSettings.Properties.ClientSideEvents.Init = "Coupon.UsePaddingOnValueChanged";
+        edtSettings.Text = Resources.Padding;
+        edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "UsePadding")).Render();
+
+    ViewContext.Writer.Write("</div>");
+    
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col padding-related-fields\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Length + ":";
+    }).Render();
+
+    Html.DevExpress().SpinEdit(edtSettings =>
+    {
+        edtSettings.Name = "PaddingLength";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.MinValue = 0;
+        //edtSettings.Properties.MaxValue = 99999;
+        edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+        edtSettings.Number = 0;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "PaddingLength")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col padding-related-fields\">");
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.PaddingDirection + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "PaddingDirection";
+        cmb_settings.Properties.ValueType = typeof(PaddingDirection);
+        cmb_settings.Properties.ValueField = "Key";
+        cmb_settings.Properties.TextField = "Value";
+        cmb_settings.ShowModelErrors = true;
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).BindList(Enum<PaddingDirection>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "PaddingDirection")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col padding-related-fields\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.PaddingCharacter;
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "PaddingCharacter";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "PaddingCharacter")).GetHtml();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.IsActiveFromDate + ":"; 
+    }).Render();
+
+    Html.DevExpress().DateEdit(dt_settings =>
+    {
+        dt_settings.Name = "IsActiveFromDate";
+        dt_settings.Properties.EditFormat = EditFormat.DateTime;
+        dt_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        dt_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        dt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        dt_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        dt_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "IsActiveFromDate")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.IsActiveUntilDate + ":";
+    }).Render();
+
+    Html.DevExpress().DateEdit(dt_settings =>
+    {
+        dt_settings.Name = "IsActiveUntilDate";
+        dt_settings.Properties.EditFormat = EditFormat.DateTime;
+        dt_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        dt_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        dt_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        dt_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;        
+        dt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    }).Bind(DataBinder.Eval(Model, "IsActiveUntilDate")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Name = "IsUnique";
+        edtSettings.Text = Resources.IsUnique;
+        edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).Bind(DataBinder.Eval(Model, "IsUnique")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+    
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.CouponAmountIsAppliedAs + ":";
+    }).Render();
+    //
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "CouponAmountIsAppliedAs";
+        cmb_settings.Properties.ValueType = typeof(CouponAmountIsAppliedAs);
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ClientSideEvents.ValueChanged = "Coupon.HandleChangeCouponAmountIsAppliedAs";
+        cmb_settings.Properties.ClientSideEvents.Init = "Coupon.HandleChangeCouponAmountIsAppliedAs";
+        cmb_settings.Properties.ValueField = "Key";
+        cmb_settings.Properties.TextField = "Value";
+        cmb_settings.ShowModelErrors = true;
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    }).BindList(Enum<CouponAmountIsAppliedAs>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CouponAmountIsAppliedAs")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div id=\"DiscountType-Container\" class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.DiscountType + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "DiscountType";
+        cmb_settings.SelectedIndex = 0;
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).BindList(ViewBag.DiscountTypes).Bind(DataBinder.Eval(Model, "DiscountType")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div id=\"PaymentMethod-Container\" class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.PaymentMethod + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "PaymentMethod";
+        cmb_settings.SelectedIndex = 0;
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).BindList(ViewBag.PaymentMethods).Bind(DataBinder.Eval(Model, "PaymentMethod")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Category + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "CouponCategory";
+        cmb_settings.SelectedIndex = 0;
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).BindList(ViewBag.CouponCategories).Bind(DataBinder.Eval(Model, "CouponCategory")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.CouponAppliesOn + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "CouponAppliesOn";
+        cmb_settings.Properties.ValueType = typeof(CouponAppliesOn);
+        cmb_settings.Properties.ValueField = "Key";
+        cmb_settings.Properties.TextField = "Value";
+        cmb_settings.ShowModelErrors = true;
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).BindList(Enum<CouponAppliesOn>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CouponAppliesOn")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 input-height col\">");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.CouponAmountType + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "CouponAmountType";
+        cmb_settings.Properties.ValueType = typeof(CouponAmountType);
+        cmb_settings.Properties.ValueField = "Key";
+        cmb_settings.Properties.TextField = "Value";
+        cmb_settings.ShowModelErrors = true;
+        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        cmb_settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        cmb_settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    }).BindList(Enum<CouponAmountType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CouponAmountType")).Render();
+
+    ViewContext.Writer.Write("</div>"); //end col-xs-3
+
+    ViewContext.Writer.Write("</div>"); //end row
+
+    ViewContext.Writer.Write("</div>");
+    ViewContext.Writer.Write("</div>");
+}

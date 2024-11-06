@@ -1,0 +1,78 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    Html.DevExpress().Splitter(set =>
+    {
+        set.Name = "SplitterPriceCatalogs";
+        set.Orientation = System.Web.UI.WebControls.Orientation.Horizontal;
+        set.Height = 1800;
+        set.Panes.Add(pane =>
+        {
+            pane.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+            pane.ShowCollapseBackwardButton = DefaultBoolean.True;
+            pane.AutoWidth = false;
+            pane.AllowResize = DefaultBoolean.False;
+            pane.Size = System.Web.UI.WebControls.Unit.Percentage(20);
+            pane.SetContent(() =>
+            {
+                if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+                {
+                    @Html.DevExpress().Image(btnSettings =>
+                    {
+                        btnSettings.Name = "btninsert";
+                        btnSettings.ImageUrl = "~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"];
+                        btnSettings.ControlStyle.CssClass = "Upbutton";
+                        btnSettings.ToolTip = Resources.AddPriceCatalog;
+                        btnSettings.Properties.ClientSideEvents.Click = "newButtonClick";
+                        btnSettings.Enabled = (bool)ViewData["TableCanInsert"];
+                        btnSettings.ClientVisible = (bool)ViewData["TableCanInsert"];
+                    }).GetHtml();
+                }
+
+                @Html.DevExpress().Image(btnSettings =>
+                {
+                    btnSettings.Name = "btnedit";
+                    btnSettings.ImageUrl = "~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"];
+                    btnSettings.ControlStyle.CssClass = "Upbutton";
+                    btnSettings.ToolTip = Resources.EditPriceCatalog;
+                    btnSettings.Properties.ClientSideEvents.Click = "editButtonClick";
+                    btnSettings.Enabled = (bool)ViewData["TableCanUpdate"];
+                    btnSettings.ClientVisible = (bool)ViewData["TableCanUpdate"];
+                }).GetHtml();
+
+                if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+                {
+                    @Html.DevExpress().Image(btnSettings =>
+                    {
+                        btnSettings.Name = "btndelete";
+                        btnSettings.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+                        btnSettings.ControlStyle.CssClass = "Upbutton";
+                        btnSettings.ToolTip = Resources.Delete;
+                        btnSettings.Properties.ClientSideEvents.Click = "deleteButtonClick";
+                        btnSettings.Enabled = (bool)ViewData["TableCanDelete"];
+                        btnSettings.ClientVisible = (bool)ViewData["TableCanDelete"];
+                    }).GetHtml();
+                }
+                Html.RenderAction("TreeViewCallbackPanel");
+            });
+        });
+
+        set.Panes.Add(pane =>
+        {
+            pane.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+            pane.AutoWidth = false;
+            pane.SetContent(() =>
+            {
+                @Html.DevExpress().RoundPanel(settings =>
+                {
+                    settings.HeaderText = Resources.PriceCatalogInfo;
+                    settings.Name = "PriceCatalogInfo";
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("PriceCatalogInfoCallbackPanel", ViewData["TabPage"] = "Supplier");
+                    });
+                }).GetHtml();
+            });
+        });
+
+    }).GetHtml();
+}

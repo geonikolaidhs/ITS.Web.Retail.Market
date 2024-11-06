@@ -1,0 +1,16 @@
+.wrapper .container {
+  margin: 0 auto !important;
+  width: auto !important;
+}
+
+.wrapper .fast_menu_options {
+  display: none !important;
+}
+
+.pull-left {
+  float: left;
+}
+
+.dark-grey {
+  color: #444;
+}

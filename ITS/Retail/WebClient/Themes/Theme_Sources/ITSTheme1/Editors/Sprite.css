@@ -1,0 +1,645 @@
+.dxEditors_edtError_ITSTheme1,
+.dxEditors_edtCalendarPrevYear_ITSTheme1,
+.dxEditors_edtCalendarPrevYearDisabled_ITSTheme1,
+.dxEditors_edtCalendarPrevMonth_ITSTheme1,
+.dxEditors_edtCalendarPrevMonthDisabled_ITSTheme1,
+.dxEditors_edtCalendarNextMonth_ITSTheme1,
+.dxEditors_edtCalendarNextMonthDisabled_ITSTheme1,
+.dxEditors_edtCalendarNextYear_ITSTheme1,
+.dxEditors_edtCalendarNextYearDisabled_ITSTheme1,
+.dxEditors_edtCalendarFNPrevYear_ITSTheme1,
+.dxEditors_edtCalendarFNNextYear_ITSTheme1,
+.dxEditors_edtRadioButtonChecked_ITSTheme1,
+.dxEditors_edtRadioButtonUnchecked_ITSTheme1,
+.dxEditors_edtRadioButtonCheckedDisabled_ITSTheme1,
+.dxEditors_edtRadioButtonUncheckedDisabled_ITSTheme1,
+.dxEditors_edtEllipsis_ITSTheme1,
+.dxEditors_edtEllipsisDisabled_ITSTheme1,
+.dxEditors_edtDropDown_ITSTheme1,
+.dxEditors_edtDropDownDisabled_ITSTheme1,
+.dxEditors_edtDETSClockFace_ITSTheme1,
+.dxEditors_edtDETSHourHand_ITSTheme1,
+.dxEditors_edtDETSMinuteHand_ITSTheme1,
+.dxEditors_edtDETSSecondHand_ITSTheme1,
+.dxEditors_edtSpinEditIncrementImage_ITSTheme1,
+.dxEditors_edtSpinEditIncrementImageDisabled_ITSTheme1,
+.dxEditors_edtSpinEditDecrementImage_ITSTheme1,
+.dxEditors_edtSpinEditDecrementImageDisabled_ITSTheme1,
+.dxEditors_edtSpinEditLargeIncImage_ITSTheme1,
+.dxEditors_edtSpinEditLargeIncImageDisabled_ITSTheme1,
+.dxEditors_edtSpinEditLargeDecImage_ITSTheme1,
+.dxEditors_edtSpinEditLargeDecImageDisabled_ITSTheme1,
+.dxEditors_fcadd_ITSTheme1,
+.dxEditors_fcaddhot_ITSTheme1,
+.dxEditors_fcremove_ITSTheme1,
+.dxEditors_fcremovehot_ITSTheme1,
+.dxEditors_fcgroupaddcondition_ITSTheme1,
+.dxEditors_fcgroupaddgroup_ITSTheme1,
+.dxEditors_fcgroupremove_ITSTheme1,
+.dxEditors_fcopany_ITSTheme1,
+.dxEditors_fcopbegin_ITSTheme1,
+.dxEditors_fcopbetween_ITSTheme1,
+.dxEditors_fcopcontain_ITSTheme1,
+.dxEditors_fcopnotcontain_ITSTheme1,
+.dxEditors_fcopnotequal_ITSTheme1,
+.dxEditors_fcopend_ITSTheme1,
+.dxEditors_fcopequal_ITSTheme1,
+.dxEditors_fcopgreater_ITSTheme1,
+.dxEditors_fcopgreaterorequal_ITSTheme1,
+.dxEditors_fcopnotblank_ITSTheme1,
+.dxEditors_fcopblank_ITSTheme1,
+.dxEditors_fcopless_ITSTheme1,
+.dxEditors_fcoplessorequal_ITSTheme1,
+.dxEditors_fcoplike_ITSTheme1,
+.dxEditors_fcopnotany_ITSTheme1,
+.dxEditors_fcopnotbetween_ITSTheme1,
+.dxEditors_fcopnotlike_ITSTheme1,
+.dxEditors_fcgroupand_ITSTheme1,
+.dxEditors_fcgroupor_ITSTheme1,
+.dxEditors_fcgroupnotand_ITSTheme1,
+.dxEditors_fcgroupnotor_ITSTheme1,
+.dxEditors_caRefresh_ITSTheme1,
+.dxEditors_edtTBDecBtn_ITSTheme1,
+.dxEditors_edtTBIncBtn_ITSTheme1,
+.dxEditors_edtTBMainDH_ITSTheme1,
+.dxEditors_edtTBSecondaryDH_ITSTheme1,
+.dxEditors_edtTBIncBtnDisabled_ITSTheme1,
+.dxEditors_edtTBDecBtnDisabled_ITSTheme1,
+.dxEditors_edtTBMainDHDisabled_ITSTheme1,
+.dxEditors_edtTBSecondaryDHDisabled_ITSTheme1
+{
+	background: transparent url('sprite.png') no-repeat;
+	-background-image: url('sprite.gif');
+}
+
+/* TrackBar */
+.dxEditors_edtTBDecBtn_ITSTheme1, .dxEditors_edtTBIncBtn_ITSTheme1,
+.dxEditors_edtTBDecBtnHover_ITSTheme1, .dxEditors_edtTBIncBtnHover_ITSTheme1,
+.dxEditors_edtTBDecBtnPressed_ITSTheme1, .dxEditors_edtTBIncBtnPressed_ITSTheme1,
+.dxEditors_edtTBDecBtnDisabled_ITSTheme1, .dxEditors_edtTBIncBtnDisabled_ITSTheme1
+{
+	width: 20px;
+	height: 20px;
+}
+
+.dxeTBHSys .dxEditors_edtTBMainDH_ITSTheme1, .dxeTBHSys .dxEditors_edtTBSecondaryDH_ITSTheme1,
+.dxeTBHSys .dxEditors_edtTBMainDHHover_ITSTheme1, .dxeTBHSys .dxEditors_edtTBSecondaryDHHover_ITSTheme1,
+.dxeTBHSys .dxEditors_edtTBMainDHPressed_ITSTheme1, .dxeTBHSys .dxEditors_edtTBSecondaryDHPressed_ITSTheme1,
+.dxeTBHSys .dxEditors_edtTBMainDHDisabled_ITSTheme1, .dxeTBHSys .dxEditors_edtTBSecondaryDHDisabled_ITSTheme1
+{
+	width:7px;
+	height:12px;
+}
+.dxeTBVSys .dxEditors_edtTBMainDH_ITSTheme1, .dxeTBVSys .dxEditors_edtTBSecondaryDH_ITSTheme1,
+.dxeTBVSys .dxEditors_edtTBMainDHHover_ITSTheme1, .dxeTBVSys .dxEditors_edtTBSecondaryDHHover_ITSTheme1,
+.dxeTBVSys .dxEditors_edtTBMainDHPressed_ITSTheme1, .dxeTBVSys .dxEditors_edtTBSecondaryDHPressed_ITSTheme1,
+.dxeTBVSys .dxEditors_edtTBMainDHDisabled_ITSTheme1, .dxeTBVSys .dxEditors_edtTBSecondaryDHDisabled_ITSTheme1
+{
+	width:12px;
+	height:7px;
+}
+
+.dxEditors_edtTBDecBtn_ITSTheme1 
+{
+	background-position: 0px -148px;
+}
+.dxEditors_edtTBDecBtnHover_ITSTheme1
+{
+	background-position: -44px -148px;
+}
+.dxEditors_edtTBDecBtnPressed_ITSTheme1
+{
+	background-position: -87px -148px;
+}
+.dxEditors_edtTBDecBtnDisabled_ITSTheme1
+{
+	background-position: -131px -148px;
+}
+
+.dxEditors_edtTBIncBtn_ITSTheme1
+{
+	background-position: -21px -148px;
+}
+.dxEditors_edtTBIncBtnHover_ITSTheme1
+{
+	background-position: -65px -148px;
+}
+.dxEditors_edtTBIncBtnPressed_ITSTheme1
+{ 
+	background-position: -109px -148px;
+}
+.dxEditors_edtTBIncBtnDisabled_ITSTheme1
+{ 
+	background-position: -153px -148px;
+}
+
+.dxeTBHSys .dxEditors_edtTBMainDH_ITSTheme1, 
+.dxeTBHSys .dxEditors_edtTBSecondaryDH_ITSTheme1
+{
+	background-position: -19px -128px;
+}
+.dxeTBHSys .dxEditors_edtTBMainDHHover_ITSTheme1,
+.dxeTBHSys .dxEditors_edtTBSecondaryDHHover_ITSTheme1
+{
+	background-position: -32px -128px;
+}
+
+.dxeTBHSys .dxEditors_edtTBMainDHDisabled_ITSTheme1,
+.dxeTBHSys .dxEditors_edtTBSecondaryDHDisabled_ITSTheme1
+{
+	background-position: -58px -128px;
+}
+.dxeTBVSys .dxEditors_edtTBMainDH_ITSTheme1,
+.dxeTBVSys .dxEditors_edtTBSecondaryDH_ITSTheme1
+{
+	background-position: -116px -127px;
+}
+
+.dxeTBVSys .dxEditors_edtTBMainDHHover_ITSTheme1,
+.dxeTBVSys .dxEditors_edtTBSecondaryDHHover_ITSTheme1
+{
+	background-position: -116px -140px;
+}
+
+.dxeTBVSys .dxEditors_edtTBMainDHPressed_ITSTheme1,
+.dxeTBVSys .dxEditors_edtTBSecondaryDHPressed_ITSTheme1
+{
+	background-position: -136px -127px;
+	z-index: 7;
+}
+.dxeTBHSys .dxEditors_edtTBMainDHPressed_ITSTheme1,
+.dxeTBHSys .dxEditors_edtTBSecondaryDHPressed_ITSTheme1
+{
+	background-position: -45px -128px;
+	z-index: 7;
+}
+.dxeTBVSys .dxEditors_edtTBMainDHDisabled_ITSTheme1, 
+.dxeTBVSys .dxEditors_edtTBSecondaryDHDisabled_ITSTheme1
+{
+	background-position: -136px -140px;
+}
+
+.dxeFocused_ITSTheme1 .dxeTBVSys .dxeFocusedMDHSys .dxEditors_edtTBMainDH_ITSTheme1, 
+.dxeFocused_ITSTheme1 .dxeTBVSys .dxeFocusedSDHSys .dxEditors_edtTBSecondaryDH_ITSTheme1
+{
+	background-position: -156px -127px;
+}
+.dxeFocused_ITSTheme1 .dxeTBVSys .dxeFocusedMDHSys .dxEditors_edtTBMainDHHover_ITSTheme1,
+.dxeFocused_ITSTheme1 .dxeTBVSys .dxeFocusedSDHSys .dxEditors_edtTBSecondaryDHHover_ITSTheme1
+{
+	background-position: -156px -140px;
+}
+.dxeFocused_ITSTheme1 .dxeTBVSys .dxeFocusedMDHSys .dxEditors_edtTBMainDHPressed_ITSTheme1,
+.dxeFocused_ITSTheme1 .dxeTBVSys .dxeFocusedSDHSys .dxEditors_edtTBSecondaryDHPressed_ITSTheme1
+{
+	background-position: -177px -127px;
+}
+.dxeFocused_ITSTheme1 .dxeTBHSys .dxeFocusedMDHSys .dxEditors_edtTBMainDH_ITSTheme1,
+.dxeFocused_ITSTheme1 .dxeTBHSys .dxeFocusedSDHSys .dxEditors_edtTBSecondaryDH_ITSTheme1
+{
+	background-position: -71px -128px;
+}
+.dxeFocused_ITSTheme1 .dxeTBHSys .dxeFocusedMDHSys .dxEditors_edtTBMainDHHover_ITSTheme1,
+.dxeFocused_ITSTheme1 .dxeTBHSys .dxeFocusedSDHSys .dxEditors_edtTBSecondaryDHHover_ITSTheme1
+{
+	background-position: -85px -128px;
+}
+.dxeFocused_ITSTheme1 .dxeTBHSys .dxeFocusedMDHSys .dxEditors_edtTBMainDHPressed_ITSTheme1,
+.dxeFocused_ITSTheme1 .dxeTBHSys .dxeFocusedSDHSys .dxEditors_edtTBSecondaryDHPressed_ITSTheme1
+{
+	background-position: -100px -128px;
+}
+
+/* RadioButton */
+.dxEditors_edtRadioButtonChecked_ITSTheme1,
+.dxEditors_edtRadioButtonUnchecked_ITSTheme1,
+.dxEditors_edtRadioButtonCheckedDisabled_ITSTheme1,
+.dxEditors_edtRadioButtonUncheckedDisabled_ITSTheme1 {
+	width: 16px;
+	height: 16px;
+}
+.dxEditors_edtRadioButtonUnchecked_ITSTheme1 {
+    background-position: 0px -40px;
+}
+.dxEditors_edtRadioButtonChecked_ITSTheme1 {
+    background-position: -16px -40px;
+}
+.dxEditors_edtRadioButtonUncheckedDisabled_ITSTheme1 {
+    background-position: -33px -40px;
+}
+.dxEditors_edtRadioButtonCheckedDisabled_ITSTheme1 {
+    background-position: -49px -40px;
+}
+
+.dxEditors_edtError_ITSTheme1,
+.dxEditors_edtCalendarPrevYear_ITSTheme1,
+.dxEditors_edtCalendarPrevYearDisabled_ITSTheme1,
+.dxEditors_edtCalendarPrevMonth_ITSTheme1,
+.dxEditors_edtCalendarPrevMonthDisabled_ITSTheme1,
+.dxEditors_edtCalendarNextMonth_ITSTheme1,
+.dxEditors_edtCalendarNextMonthDisabled_ITSTheme1,
+.dxEditors_edtCalendarNextYear_ITSTheme1,
+.dxEditors_edtCalendarNextYearDisabled_ITSTheme1,
+.dxEditors_edtCalendarFNPrevYear_ITSTheme1,
+.dxEditors_edtCalendarFNNextYear_ITSTheme1,
+.dxEditors_edtEllipsis_ITSTheme1,
+.dxEditors_edtEllipsisDisabled_ITSTheme1,
+.dxEditors_edtDropDown_ITSTheme1,
+.dxEditors_edtDropDownDisabled_ITSTheme1,
+.dxEditors_edtSpinEditIncrementImage_ITSTheme1,
+.dxEditors_edtSpinEditIncrementImageDisabled_ITSTheme1,
+.dxEditors_edtSpinEditDecrementImage_ITSTheme1,
+.dxEditors_edtSpinEditDecrementImageDisabled_ITSTheme1,
+.dxEditors_edtSpinEditLargeIncImage_ITSTheme1,
+.dxEditors_edtSpinEditLargeIncImageDisabled_ITSTheme1,
+.dxEditors_edtSpinEditLargeDecImage_ITSTheme1,
+.dxEditors_edtSpinEditLargeDecImageDisabled_ITSTheme1
+{
+	display:block;
+	margin:auto;
+}
+
+.dxEditors_edtError_ITSTheme1 {
+    background-position: -170px 0px;
+    width: 14px;
+    height: 14px;
+}
+
+.dxEditors_edtCalendarPrevYear_ITSTheme1 {
+    background-position: -2px -170px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarPrevYearDisabled_ITSTheme1 {
+    background-position: -2px -196px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarPrevMonth_ITSTheme1 {
+    background-position: -28px -170px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarPrevMonthDisabled_ITSTheme1 {
+    background-position: -28px -196px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarNextMonth_ITSTheme1 {
+    background-position: -54px -170px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarNextMonthDisabled_ITSTheme1 {
+    background-position: -54px -196px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarNextYear_ITSTheme1 {
+    background-position: -80px -170px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarNextYearDisabled_ITSTheme1 {
+    background-position: -80px -196px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarFNPrevYear_ITSTheme1 {
+    background-position: -28px -170px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtCalendarFNNextYear_ITSTheme1 {
+    background-position: -54px -170px;
+    width: 24px;
+    height: 24px;
+}
+
+.dxEditors_edtEllipsis_ITSTheme1 {
+    background-position: 0px 0px;
+    width: 11px;
+    height: 14px;
+}
+
+.dxEditors_edtEllipsisDisabled_ITSTheme1 {
+    background-position: 0px -22px;
+    width: 11px;
+    height: 14px;
+}
+
+.dxeButtonEditButtonHover_ITSTheme1 .dxEditors_edtEllipsis_ITSTheme1,
+.dxeButtonEditButtonPressed_ITSTheme1 .dxEditors_edtEllipsis_ITSTheme1 {
+    background-position: -12px 0px;
+    width: 11px;
+    height: 14px;
+}
+
+.dxEditors_edtDropDown_ITSTheme1 {
+    background-position: -25px 0px;
+    width: 10px;
+    height: 14px;
+}
+
+.dxeButtonEditButtonHover_ITSTheme1 .dxEditors_edtDropDown_ITSTheme1,
+.dxeButtonEditButtonPressed_ITSTheme1 .dxEditors_edtDropDown_ITSTheme1 {
+    background-position: -13px -22px;
+    width: 10px;
+    height: 14px;
+}
+
+.dxEditors_edtDropDownDisabled_ITSTheme1 {
+    background-position: -25px -22px;
+    width: 10px;
+    height: 14px;
+}
+
+.dxEditors_edtSpinEditIncrementImage_ITSTheme1 {
+    background-position: -150px 0px;
+    width: 10px;
+    height: 5px;
+}
+
+.dxeSpinIncButtonHover_ITSTheme1 .dxEditors_edtSpinEditIncrementImage_ITSTheme1,
+.dxeSpinIncButtonPressed_ITSTheme1 .dxEditors_edtSpinEditIncrementImage_ITSTheme1
+{
+    background-position: -114px -13px;
+}
+
+.dxEditors_edtSpinEditIncrementImageDisabled_ITSTheme1 {
+    background-position: -150px -13px;
+    width: 10px;
+    height: 5px;
+}
+
+
+.dxEditors_edtSpinEditDecrementImage_ITSTheme1 {
+    background-position: -132px 0px;
+    width: 10px;
+    height: 5px;
+}
+
+.dxeSpinDecButtonHover_ITSTheme1 .dxEditors_edtSpinEditDecrementImage_ITSTheme1,
+.dxeSpinDecButtonPressed_ITSTheme1 .dxEditors_edtSpinEditDecrementImage_ITSTheme1
+{
+    background-position: -114px 0px;
+}
+
+.dxEditors_edtSpinEditDecrementImageDisabled_ITSTheme1 {
+    background-position: -132px -13px;
+    width: 10px;
+    height: 5px;
+}
+
+.dxEditors_edtSpinEditLargeIncImage_ITSTheme1 {
+    background-position: -146px -26px;
+    width: 4px;
+    height: 7px;
+}
+
+.dxeSpinLargeIncButtonHover_ITSTheme1 .dxEditors_edtSpinEditLargeIncImage_ITSTheme1,
+.dxeSpinLargeIncButtonPressed_ITSTheme1 .dxEditors_edtSpinEditLargeIncImage_ITSTheme1
+{
+    background-position: -118px -26px;
+}
+
+.dxEditors_edtSpinEditLargeIncImageDisabled_ITSTheme1 {
+    background-position: -171px -26px;
+    width: 4px;
+    height: 7px;
+}
+
+.dxEditors_edtSpinEditLargeDecImage_ITSTheme1 {
+    background-position: -132px -26px;
+    width: 4px;
+    height: 7px;
+}
+
+.dxeSpinLargeDecButtonHover_ITSTheme1 .dxEditors_edtSpinEditLargeDecImage_ITSTheme1,
+.dxeSpinLargeDecButtonPressed_ITSTheme1 .dxEditors_edtSpinEditLargeDecImage_ITSTheme1
+{
+    background-position: -104px -26px;
+}
+
+.dxEditors_edtSpinEditLargeDecImageDisabled_ITSTheme1 {
+    background-position: -158px -26px;
+    width: 4px;
+    height: 7px;
+}
+
+.dxEditors_fcadd_ITSTheme1 {
+    background-position: 0px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcaddhot_ITSTheme1 {
+    background-position: -21px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcremove_ITSTheme1 {
+    background-position: -42px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcremovehot_ITSTheme1 {
+    background-position: -63px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupaddcondition_ITSTheme1 {
+    background-position: -168px -46px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupaddgroup_ITSTheme1 {
+    background-position: -147px -46px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupremove_ITSTheme1 {
+    background-position: -126px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopany_ITSTheme1 {
+    background-position: 0px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopbegin_ITSTheme1 {
+    background-position: -42px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopbetween_ITSTheme1 {
+    background-position: -84px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopcontain_ITSTheme1 {
+    background-position: -105px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopnotcontain_ITSTheme1 {
+    background-position: -147px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopnotequal_ITSTheme1 {
+    background-position: -168px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopend_ITSTheme1 {
+    background-position: -63px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopequal_ITSTheme1 {
+    background-position: 0px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopgreater_ITSTheme1 {
+    background-position: -21px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopgreaterorequal_ITSTheme1 {
+    background-position: -42px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopnotblank_ITSTheme1 {
+    background-position: -105px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopblank_ITSTheme1 {
+    background-position: -126px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopless_ITSTheme1 {
+    background-position: -63px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcoplessorequal_ITSTheme1 {
+    background-position: -84px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcoplike_ITSTheme1 {
+    background-position: -126px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopnotany_ITSTheme1 {
+    background-position: -21px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopnotbetween_ITSTheme1 {
+    background-position: -147px -88px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcopnotlike_ITSTheme1 {
+    background-position: -168px -109px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupand_ITSTheme1 {
+    background-position: -84px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupor_ITSTheme1 {
+    background-position: -168px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupnotand_ITSTheme1 {
+    background-position: -105px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_fcgroupnotor_ITSTheme1 {
+    background-position: -147px -67px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxEditors_caRefresh_ITSTheme1 {	
+	background-position: -106px -170px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxEditors_edtDETSClockFace_ITSTheme1
+{
+    background-position: -2px -224px;
+    width: 107px;
+    height: 107px;
+}
+
+.dxEditors_edtDETSHourHand_ITSTheme1
+{
+    background-position: -123px -224px;
+    width: 7px;
+    height: 64px;
+}
+
+.dxEditors_edtDETSMinuteHand_ITSTheme1
+{
+    background-position: -116px -224px;
+    width: 7px;
+    height: 64px;
+}
+
+.dxEditors_edtDETSSecondHand_ITSTheme1
+{
+    background-position: -111px -224px;
+    width: 5px;
+    height: 72px;
+}

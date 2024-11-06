@@ -1,0 +1,248 @@
+﻿@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using System.Web.Optimization;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Mobile.AuxilliaryClasses;
+@using ITS.Retail.Model;
+@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.WebClient.Helpers;
+
+@{
+    ITS.Retail.WebClient.Helpers.ToolbarOptions toolbarOptions = ViewData["ToolbarOptions"] as ITS.Retail.WebClient.Helpers.ToolbarOptions;
+    ITS.Retail.WebClient.AuxillaryClasses.CustomJSProperties customJSProperties = ViewData["CustomJSProperies"] as ITS.Retail.WebClient.AuxillaryClasses.CustomJSProperties;
+}
+
+<!DOCTYPE HTML>
+<!--[if IE]>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<![endif]-->
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @Html.Action("StylesAndStaticScripts", "Base", new
+    {
+        HtmlEditor = ViewBag.EnableDevexpressHtmlEditor != null && ViewBag.EnableDevexpressHtmlEditor == true,
+        Chart = ViewBag.EnableDevexpressChart != null && ViewBag.EnableDevexpressChart == true,
+        Report = ViewBag.EnableDevexpressReports != null && ViewBag.EnableDevexpressReports == true,
+        PivotGrid = ViewBag.EnableDevexpressPivotGrid != null && ViewBag.EnableDevexpressPivotGrid == true,
+        Culture = ViewData["CurrentCulture"]
+    })
+
+    @RenderSection("HeaderScriptsAndStylesBeforeDevExpress", required: false)
+
+    @Html.Action("DevExpressScripts", "Base", new { 
+        HtmlEditor = ViewBag.EnableDevexpressHtmlEditor != null && ViewBag.EnableDevexpressHtmlEditor == true,
+        Chart = ViewBag.EnableDevexpressChart != null && ViewBag.EnableDevexpressChart == true,
+        Report = ViewBag.EnableDevexpressReports != null && ViewBag.EnableDevexpressReports == true,
+        DockingPanels = ViewBag.EnableDevexpressDockingPanels != null && ViewBag.EnableDevexpressDockingPanels == true,
+        PivotGrid = ViewBag.EnableDevexpressPivotGrid != null && ViewBag.EnableDevexpressPivotGrid == true
+    })
+
+    @if (ViewBag.ExtraCSSfiles != null && ViewBag.ExtraCSSfiles.Count > 0)
+    {
+        foreach (String cssfile in ViewBag.ExtraCSSfiles)
+        {
+            <link href="@cssfile" rel="stylesheet" type="text/css"/>
+        }
+    }
+
+    @Styles.Render("~/Content/bundles/mainpage.css")
+
+    @if (ViewBag.ExtraJSfiles != null && ViewBag.ExtraJSfiles.Count > 0)
+    {
+        foreach (String jsfile in ViewBag.ExtraJSfiles)
+        {
+            <script src="@jsfile" type="text/javascript"></script>
+        }
+    }
+
+    @RenderSection("HeaderScriptsAndStyles", required: false)
+        
+    <link rel="shortcut icon" media="all" type="image/x-icon" href="@Url.Content("~/Content/favicon.ico")" />
+    @if (ViewBag.ShowNavigation != null && (bool)ViewBag.ShowNavigation==false)//Boolean.Parse(ViewBag.ShowNavigation.ToString()) == false)
+    {
+        <base target="_self" />
+    }
+    @*
+        Toolbar event binding begin
+    *@
+    <script type="text/javascript">
+
+            @if (customJSProperties != null)
+            {
+                ViewContext.Writer.Write(customJSProperties.ToJavascript());
+            }
+
+        $(document).ready(function () {
+            @if (toolbarOptions != null && toolbarOptions.Visible)
+            {
+                if (toolbarOptions.PrintButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.PrintButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .print', " + toolbarOptions.PrintButton.OnClick  + ");");
+                }
+
+                if (toolbarOptions.ViewButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ViewButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .view', " + toolbarOptions.ViewButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.EditButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.EditButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .edit', " + toolbarOptions.EditButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.DeleteButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.DeleteButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .delete', " + toolbarOptions.DeleteButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.GridFilterButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.GridFilterButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .grid_filters', " + toolbarOptions.GridFilterButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.NewButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.NewButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .add', " + toolbarOptions.NewButton.OnClick + @");
+                                              var insertItemJSFunction ='" + toolbarOptions.NewButton.OnClick + "';");
+                }
+
+                if (toolbarOptions.TransformButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.TransformButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .transform', " + toolbarOptions.TransformButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.CopyButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.CopyButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .copy', " + toolbarOptions.CopyButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.ExportButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ExportButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .export', " + toolbarOptions.ExportButton.OnClick + ");");
+                }
+                if (toolbarOptions.ImportButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ImportButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .import', " + toolbarOptions.ImportButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.UndoButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.UndoButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .undo', " + toolbarOptions.UndoButton.OnClick + ");");
+                    //$('.wrapper .fast_menu_options ul li.export_button .dxm-content').click(function () { alert("Test"); })
+                }
+
+                if (toolbarOptions.ExportToButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ExportToButton.OnClick))
+                {
+                    //$('.wrapper .fast_menu_options ul li.export_button .dxm-content').click(function () { alert("Test"); })
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .export_button', " + toolbarOptions.ExportToButton.OnClick + ");");
+                }
+                if (toolbarOptions.CustomButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.CustomButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options ." + toolbarOptions.CustomButton.CCSClass + "', " + toolbarOptions.CustomButton.OnClick + ");");
+                    //ViewContext.Writer.Write("$('.wrapper .fast_menu_options ." + toolbarOptions.CustomButton.CCSClass + "').live('click'," + toolbarOptions.CustomButton.OnClick + ");");
+                }
+                if (toolbarOptions.PrintLabelButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.PrintLabelButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options ." + toolbarOptions.PrintLabelButton.CCSClass + "', " + toolbarOptions.PrintLabelButton.OnClick + ");");
+                    //ViewContext.Writer.Write("$('.wrapper .fast_menu_options ." + toolbarOptions.CustomButton.CCSClass + "').live('click'," + toolbarOptions.CustomButton.OnClick + ");");
+                }
+            }
+        });
+
+    </script>
+    @*
+        Toolbar event binding end
+    *@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    @{
+        Html.EnableClientValidation();
+        Html.EnableUnobtrusiveJavaScript();
+    }
+    <input type="hidden" value="@Url.Content("~")" id="HOME" />
+    <!--<input type="hidden" value="ViewBag.ControllerName" id="controller" />
+    <input type="hidden" value="ViewBag.ActionName" id="action" />
+    -->
+    <div class="hide_all hidden menu_hide"></div>
+    <div class="wrapper">
+        @if (ViewBag.ShowNavigation == null || ViewBag.ShowNavigation == true)
+        {
+            @*@Html.Action("Menu", "Base", new { user = ViewBag.CurrentUser.UserName, showCheckBoxes = ViewBag.ShowCheckBoxes != null && ViewBag.ShowCheckBoxes == true })*@
+            if (ViewBag.ShowCheckBoxes == null) { ViewBag.ShowCheckBoxes = false; }
+        }
+
+        <div class="container">
+            @if (!String.IsNullOrWhiteSpace(ViewBag.HeaderMessage))
+            {
+                ViewContext.Writer.Write("<div id=\"headerMessagePanel\">" + ViewBag.HeaderMessage + "</div>");
+            }
+            @{
+                string classID = "";
+                if (ViewBag.ShowSettings == true)
+                {
+                    Html.RenderPartial("SettingsMenu");
+                    classID = ViewBag.ControllerName + " " + ViewBag.ActionName + " settingsPage";
+                }
+                else
+                {
+                    classID = ViewBag.ControllerName + " " + ViewBag.ActionName + " " + ViewBag.ControllerName + "_" + ViewBag.ActionName;
+                }
+            }
+
+            @*RenderSection("FullScreen", required: false)*@
+
+
+            <div class="@classID invheight">
+
+                @Html.Partial("../Notification/NotifyUser")
+
+                @Html.Partial("PopUpGenericEditCallbackPanel")
+                @RenderSection("DialogCallbackPanelSection", false)
+
+                @Html.Partial("GenericViewPopupCallbackPanel")
+                @Html.Partial("WizardCallbackPanel")
+
+                @RenderBody()
+
+                @section DialogCallbackPanelSection {
+                    @Html.Partial("DialogCallbackPanel")
+                }
+                @{
+                    //Only For Customer
+                
+                    if(UserHelper.IsCustomer(ViewBag.CurrentUser)){    
+        
+                        @Html.Partial("../Document/OrderItemsPopUp")
+                    }   
+                }
+
+                @Html.Partial("../Document/MarkUpPopUp")
+                <div id="crash"></div>
+            </div>
+        </div>
+        <div class="push"></div>
+    </div>
+
+    @if (ViewBag.ShowNavigation == null || Boolean.Parse(ViewBag.ShowNavigation.ToString()) == true)
+    {
+        if (!String.IsNullOrWhiteSpace(ViewBag.FooterMessage))
+        {
+            ViewContext.Writer.Write("<div id=\"footerMessagePanel\">" + ViewBag.FooterMessage + "</div>");
+        }
+
+    }
+
+
+    <div id="jquery-dialog-form" title=""></div>
+
+    @if (Request.IsLocal)
+    { @StackExchange.Profiling.MiniProfiler.RenderIncludes();
+    }
+
+</body>
+
+</html>

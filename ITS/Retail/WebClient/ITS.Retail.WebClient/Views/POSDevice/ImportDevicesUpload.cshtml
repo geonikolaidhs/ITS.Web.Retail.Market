@@ -1,0 +1,18 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("POSDevicesUploadForm", "POSDevice", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{
+    ViewContext.Writer.Write("<div class='UploadImageForm'>");
+    Html.DevExpress().UploadControl(settings =>
+    {
+        settings.UploadMode = UploadControlUploadMode.Standard;
+        settings.Name = "UploadControl";
+        settings.CallbackRouteValues = new { Controller = "POSDevice", Action = "UploadControl" };
+        settings.ShowProgressPanel = true;
+        settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.POSKeysLayoutController.UploadControlValidationSettings);
+        settings.ClientSideEvents.FileUploadComplete = "onFileUploadComplete_UploadControl";
+    }).Render();
+  
+    ViewContext.Writer.Write("</div>");
+
+}

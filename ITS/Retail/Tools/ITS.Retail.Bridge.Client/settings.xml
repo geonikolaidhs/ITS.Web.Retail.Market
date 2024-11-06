@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<settings>
+  <WebService>http://localhost/ITS.Retail.WebClient/retailbridgeservice.asmx</WebService>
+  <Directory>C:\RetailBridge</Directory>
+  <DeviceID>AA9EE024-C066-4793-B278-ABB85DC5C451</DeviceID>
+  <Encoding>65001</Encoding>
+  <Locale>el-GR</Locale>
+  <DeleteFileAfterUpload>true</DeleteFileAfterUpload>
+  <CreateUsersForCustomers>false</CreateUsersForCustomers>
+  <CreateUsersForStores>false</CreateUsersForStores>
+  <CustomerUserRoleDescription>Customer</CustomerUserRoleDescription>
+  <StoreUserRoleDescription>Store Manager</StoreUserRoleDescription>
+  <OwnerTaxCode>998136378</OwnerTaxCode><!-- 998198461 -->
+  <MultipleItemCategoryTrees>False</MultipleItemCategoryTrees>
+  <RootItemCategoryCode>00</RootItemCategoryCode>
+  <MakeZeroPricesUserDefinable>false</MakeZeroPricesUserDefinable>
+  <ValidImageFiles>jpg,jpeg,jpe,png,bmp</ValidImageFiles>
+  <ValidTextFiles>txt,csv</ValidTextFiles>
+  <OneStorePerCustomer>true</OneStorePerCustomer>
+	<EmailSettings>
+		<!--<SMTPHost>smtp.office365.com</SMTPHost>
+		<Port>587</Port>
+		<From>akm@itservices.gr</From>
+    <To>nst@itservices.gr</To>
+		<Username>akm@itservices.gr</Username>
+		<Password></Password>
+		<Domain>itservices.gr</Domain>
+		<EnableSSL>true</EnableSSL>
+    <SendEmailsForImagesOnlyOnError>true</SendEmailsForImagesOnlyOnError>-->
+	</EmailSettings>
+</settings>

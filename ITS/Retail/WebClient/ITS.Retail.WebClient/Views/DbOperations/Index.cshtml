@@ -1,0 +1,168 @@
+﻿@using ITS.Retail.ResourcesLib
+@using ITS.Retail.WebClient.Extensions;
+@{
+    ViewBag.Title = Resources.DatabaseOperations;
+}
+
+@section HeaderScriptsAndStyles
+{
+    <script src="@Url.Content("~/Scripts/scripts/DbOperations.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+}
+
+@using (Html.BeginForm("Operation", "DbOperations", FormMethod.Post, new { @class = "grey-bg-form" }))
+{
+    <span class="big-span">Please Select an Operation</span>
+    ViewContext.Writer.Write("<div class=\"container-fluid\">");
+    <div class="row col">
+
+        <div class="col-sm-3 col-md-2 col">
+            @{
+                int selectedIndex = 0;
+                if (ViewData["Operation"] != null)
+                {
+                    eOperation operation;
+                    Enum.TryParse(ViewData["Operation"].ToString(), out operation);
+                    if (operation == eOperation.SELECT)
+                    {
+                        selectedIndex = 1;
+                    }
+                }
+            }
+            @Html.DevExpress().RadioButtonList(settings =>
+                {
+                    settings.Name = "OperationCheckbox";
+                    settings.Properties.Items.Add("Update", 0);
+                    settings.Properties.Items.Add("Select", 1);
+                    settings.Properties.RepeatLayout = System.Web.UI.WebControls.RepeatLayout.Table;
+                    settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                    settings.Properties.ClientSideEvents.ValueChanged = "OperationCheckboxValueChanged";
+                    settings.SelectedIndex = selectedIndex;
+                    settings.ShowModelErrors = true;
+                    settings.ControlStyle.CssClass = "radioButtonList";
+                    //settings.Width = 400;
+                }).GetHtml()
+        </div>
+    </div>
+
+    ViewContext.Writer.Write("<div class=\"row col\">");
+    ViewContext.Writer.Write("<div class=\"col-sm-push-4 col-sm-6 col-md-4 col-md-push-4 col\">");
+    Html.RenderPartial("TableComboPartialCallbackPanel");
+    ViewContext.Writer.Write("</div>");
+    ViewContext.Writer.Write("</div>");
+    <div class="row col">
+        <div class="col-md-4 col-md-offset-2" id="select-area">
+            @Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = "Select";
+                }).GetHtml()
+
+            @Html.DevExpress().Memo(deSettings =>
+                {
+                    deSettings.Height = 200;
+                    deSettings.Name = "Select";
+                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }).Bind(ViewData["Select"]).GetHtml()
+        </div>
+
+        <div class="col-md-4 col-md-offset-2" id="update-set-area">
+            @Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = "Set";
+                }).GetHtml()
+
+            @Html.DevExpress().Memo(deSettings =>
+                {
+                    deSettings.Height = 200;
+                    deSettings.Name = "Set";
+                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }).Bind(ViewData["SetQuery"]).GetHtml()
+
+        </div>
+        <div class="col-md-4" id="update-set-area">
+            @Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = "Where";
+                }).GetHtml()
+
+            @Html.DevExpress().Memo(deSettings =>
+                {
+                    deSettings.Height = 200;
+                    deSettings.Name = "Where";
+                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }).Bind(ViewData["Where"]).GetHtml()
+        </div>
+    </div>
+    <center class="margin-top-10">
+        @Html.DevExpress().CheckBox(
+        settings =>
+        {
+            settings.Name = "UpdatedOnTick";
+            settings.Properties.Caption = "Updated On Tick";
+            settings.Properties.ClientSideEvents.CheckedChanged = "";
+        }).Bind(ViewData["UpdatedOnTick"]).GetHtml()
+    </center>
+
+    ViewContext.Writer.Write("</div>");
+    <div class="IndexView_button_container">
+
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "Preview";
+            settings.Text = "Preview";
+            settings.UseSubmitBehavior = true;
+            settings.ControlStyle.CssClass = "button";
+
+        }).GetHtml()
+
+        @Html.DevExpress().Button(settings =>
+        {
+            settings.Name = "Execute";
+            settings.Text = "Execute";
+            settings.UseSubmitBehavior = true;
+            settings.ControlStyle.CssClass = "button";
+
+        }).GetHtml()
+    </div>
+    <div class="container-fluid">
+        <div class="row col">
+            <div class="col-md-10 col-md-offset-1">
+                @Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = "Result";
+                }).GetHtml()
+
+                @Html.DevExpress().Memo(deSettings =>
+                {
+                    deSettings.Height = 200;
+                    deSettings.Name = "Result";
+                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }).Bind(ViewData["PreviewQuery"]).GetHtml()
+
+            </div>
+            <div class="col-md-10 col-md-offset-1">
+                @Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = "Rows Affected";
+                }).GetHtml()
+
+                @Html.DevExpress().TextBox(deSettings =>
+                {
+                    deSettings.Name = "RowsAffected";
+                    deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    deSettings.ClientEnabled = false;
+                }).Bind(ViewData["RowsAffected"]).GetHtml()
+
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("ResultGrid")
+
+

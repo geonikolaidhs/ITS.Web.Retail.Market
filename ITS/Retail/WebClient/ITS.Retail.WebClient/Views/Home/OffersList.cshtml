@@ -1,0 +1,54 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@model IEnumerable<Offer>
+
+@if (((IEnumerable<Offer>)Model).Count() > 0)
+{
+<div class="lists offers container">
+    <h3>@ITS.Retail.ResourcesLib.Resources.Offers</h3>
+    <div class="container_js">
+
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "OffersListCallbackPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Home", Action = "OffersList" };
+    cpbseriessettings.SettingsLoadingPanel.Enabled = true;
+    cpbseriessettings.SetContent(() =>
+    {
+        var counter = 0;
+        ViewContext.Writer.Write("<table cellpadding=\"0\" cellspacing=\"0\">");
+        ViewContext.Writer.Write("<tr class=\"headerList\">");
+        ViewContext.Writer.Write("<td class=\"number\">" + Resources.SerialNumber + "</td>");
+        ViewContext.Writer.Write("<td>" + Resources.Description + "</td>");
+        ViewContext.Writer.Write("<td class=\"align_style\">" + Resources.EndDate + "</td>");
+        ViewContext.Writer.Write("</tr></table>");
+        ViewContext.Writer.Write("<div class=\"container_table\">");
+        ViewContext.Writer.Write("<table cellpadding=\"0\" cellspacing=\"0\">");
+        foreach (Offer offer in Model)
+        {
+            if (counter % 2 != 0)
+            {
+                ViewContext.Writer.Write("<tr class=\"light\">");
+            }
+            else
+            {
+                ViewContext.Writer.Write("<tr>");
+            }
+            ViewContext.Writer.Write("<td class=\"number\">");
+            ViewContext.Writer.Write(++counter);
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td>");
+            ViewContext.Writer.Write(offer.Description);
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td class=\"align_style\">");
+            ViewContext.Writer.Write(offer.EndDate.ToString("dd/MM/yyyy"));
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("</tr>");
+        }
+        ViewContext.Writer.Write("</table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}).GetHtml()
+    </div>
+</div>
+}

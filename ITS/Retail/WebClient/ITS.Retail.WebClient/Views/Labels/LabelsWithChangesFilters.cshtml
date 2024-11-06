@@ -1,0 +1,227 @@
+﻿
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "labelsWithValueChangesFilters";
+    settings.CallbackRouteValues = new { Controller = "Labels", Action = "LabelsWithChangesFilters" };
+    settings.SettingsLoadingPanel.Enabled = false;//settings.ShowLoadingPanel = false;    
+
+    settings.SetContent(() => {
+
+        Html.RenderPartial("FilterButtons");
+        
+        ViewContext.Writer.Write("<ul class='simpleForm validateForm labels-filters-container changed-on'><li>");
+
+        ViewContext.Writer.Write("<label for=\"fnewPricesFrom_I\" class=\"required_field\">" + Resources.From + ":" + "</label>");
+        Html.DevExpress().DateEdit(textsettings =>
+        {
+            textsettings.Name = "fnewPricesFrom";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = true;
+            textsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            textsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.UseMaskBehavior = true;
+            textsettings.Properties.EditFormat = EditFormat.Date;
+            textsettings.Date = DateTime.Now.Date;
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"TimeValueFromDate_I\" class=\"required_field\">" + Resources.TimeValue + " " + Resources.From + ":" + "</label>");
+        Html.DevExpress().DateEdit(textsettings =>
+        {
+            textsettings.Name = "TimeValueFromDate";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = true;
+            textsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            textsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.UseMaskBehavior = true;
+            textsettings.Properties.EditFormat = EditFormat.Date;
+            textsettings.Date = DateTime.Now.Date.AddDays(-1);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"fFromCode_I\">" + Resources.From + " " + Resources.Code + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fFromCode";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = false;
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"fnewPricesFromTime_I\" class=\"required_field\">" + Resources.Time + " " + Resources.From + ":" + "</label>");
+        
+        @Html.DevExpress().TimeEdit(datesettings =>
+        {
+            datesettings.Name = "fnewPricesFromTime";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Time;
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            datesettings.ShowModelErrors = true;
+            datesettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            datesettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            datesettings.Properties.EditFormatString =
+            datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+        }).Bind(RetailHelper.GetTimeFromDayStart(DateTime.Now.Date)).GetHtml();
+
+
+        ViewContext.Writer.Write("<label for=\"TimeValueFromTime_I\" class=\"required_field\">" + Resources.TimeValue + " " + Resources.Time + " " + Resources.From + ":" + "</label>");
+
+        @Html.DevExpress().TimeEdit(datesettings =>
+        {
+            datesettings.Name = "TimeValueFromTime";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Time;
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            datesettings.ShowModelErrors = true;
+            datesettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            datesettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            datesettings.Properties.EditFormatString =
+            datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+        }).Bind(RetailHelper.GetTimeFromDayStart(DateTime.Now.Date)).GetHtml();       
+
+        ViewContext.Writer.Write("<label for=\"fToCode_I\">" + Resources.To + " " + Resources.Code + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fToCode";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ShowModelErrors = false;
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"fnewPricesTo_I\" class=\"required_field\">" + Resources.To + ":" + "</label>");
+
+        @Html.DevExpress().DateEdit(textsettings =>
+        {
+            textsettings.Name = "fnewPricesTo";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = true;
+            textsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            textsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.UseMaskBehavior = true;
+            textsettings.Properties.EditFormat = EditFormat.Date;
+            textsettings.Date = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"TimeValueToDate_I\" class=\"required_field\">" + Resources.TimeValue + " " + Resources.To + ":" + "</label>");
+
+        @Html.DevExpress().DateEdit(textsettings =>
+        {
+            textsettings.Name = "TimeValueToDate";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = true;
+            textsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            textsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.UseMaskBehavior = true;
+            textsettings.Properties.EditFormat = EditFormat.Date;
+            textsettings.Date = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"fDescription_I\">" + Resources.Description + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fDescription";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = false;
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"fnewPricesToTime_I\" class=\"required_field\">" + Resources.Time + " " + Resources.To + ":" + "</label>");
+
+        @Html.DevExpress().TimeEdit(datesettings =>
+        {
+            datesettings.Name = "fnewPricesToTime";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Time;
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            datesettings.ShowModelErrors = true;
+            datesettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            datesettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            datesettings.Properties.EditFormatString =
+            datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+        }).Bind(RetailHelper.GetTimeToDayEnd(DateTime.Now.Date)).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"TimeValueToTime_I\" class=\"required_field\">" + Resources.TimeValue + " " + Resources.Time + " " + Resources.To + ":" + "</label>");
+
+        @Html.DevExpress().TimeEdit(datesettings =>
+        {
+            datesettings.Name = "TimeValueToTime";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Time;
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            datesettings.ShowModelErrors = true;
+            datesettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            datesettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            datesettings.Properties.EditFormatString =
+            datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+        }).Bind(RetailHelper.GetTimeToDayEnd(DateTime.Now.Date)).GetHtml();
+
+
+
+        @Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "fValueChanged";
+            edtSettings.Text = Resources.WithValueChange;
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.ControlStyle.CssClass = "search_filter editor padding-top-25";
+            edtSettings.Checked = true;
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label> </label>");
+        @Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "WithTimeValueFilter";
+            edtSettings.Text = Resources.TimeValue;
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.ControlStyle.CssClass = "search_filter editor padding-top-25";
+            edtSettings.Properties.ClientSideEvents.ValueChanged = "Label.TimeValueFilterValueChanged";
+            edtSettings.Checked = true;
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"Barcode\">" + Resources.Barcode + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Barcode";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Label.WithValueOnKeyPressFilters";
+            textsettings.ShowModelErrors = false;
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+        
+        ViewContext.Writer.Write("</li></ul>");       
+        
+        
+        @Html.DevExpress().Button(settings2 =>
+        {
+            settings2.Name = "btnSearchLabelsWithValueChangesFilters";
+            settings2.Text = Resources.Search;
+            settings2.UseSubmitBehavior = true;
+            settings2.ClientSideEvents.Click = "Search";
+        }).GetHtml();
+    });
+    
+}).GetHtml()
+
+
+

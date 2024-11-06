@@ -1,0 +1,372 @@
+.Document #documentEditPageControl .dxtc-content span, .Document #documentEditPageControl .dxtc-content label {
+    display: block;
+    font-weight: bold;
+    min-width: 0;
+}
+
+#grdMergedDocumentDetail_DXFooterRow {
+    background: #7f7f7f !important;
+    color: whitesmoke !important;
+}
+
+#grdMergedDocumentDetail_DXTitle {
+    height: 30px !important;
+}
+
+.DocumentEdit {
+    min-width: 750px;
+}
+
+@media (max-width: 1100px) {
+    .DocumentEdit .wrapper .container .Document_Edit #documentEditPageControl .dxtc-content #right div .floated {
+        float: none;
+        margin: 0 0 !important;
+        width: 100% !important;
+    }
+
+    .DocumentEdit .wrapper .container .Document_Edit #documentEditPageControl .dxtc-content div.item_info_name, .DocumentEdit .wrapper .container .Document_Edit #documentEditPageControl .dxtc-content .custom_price {
+        /*width: 100% !important;*/
+    }
+
+    .DocumentEdit .wrapper .container .Document_Edit #information td {
+        width: 80px !important;
+    }
+}
+
+.DocumentEdit .dxtcLite_ITSTheme1 {
+    overflow: visible !important;
+}
+
+.DocumentEdit .dxgvInlineEditCell_ITSTheme1 .dxeTextBox_ITSTheme1 {
+    width: 100%;
+}
+
+#btnSelectDelivery {
+    cursor: pointer;
+    width: 24px;
+}
+
+#documentEditPageControl {
+    width: 100%;
+}
+
+.Document .isInviewMode {
+    width: 100% !important;
+}
+
+    .Document .isInviewMode .dxeDisabled_ITSTheme1, .Document .isInviewMode .label span {
+        color: #333333 !important;
+    }
+
+.Document .headerTable .dxeButtonEditSys, .Document .headerTable .dxeTextBoxSys, .Document .headerTable .dxeValidStEditorTable {
+    width: 100%;
+}
+
+.Document #documentEditPageControl .dxtc-content {
+    position: relative;
+    overflow: visible !important;
+}
+
+    .Document #documentEditPageControl .dxtc-content .total {
+        float: right;
+        width: auto;
+        text-align: right !important;
+    }
+
+        .Document #documentEditPageControl .dxtc-content .total #final_sum {
+            color: #06a7ff !important;
+            font-size: 16px !important;
+            font-weight: bold;
+            margin: 0;
+            text-align: right;
+        }
+
+        .Document #documentEditPageControl .dxtc-content .total label {
+            color: #06a7ff !important;
+            font-size: 16px !important;
+        }
+
+    .Document #documentEditPageControl .dxtc-content span.changeMode {
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        background: #cdcdcd;
+        cursor: pointer;
+        display: inline-block !important;
+        font-size: 13px;
+        height: 28px;
+        line-height: 25px;
+        margin: 0 0 -5px 5px !important;
+        text-align: center;
+        width: 30px;
+    }
+
+        .Document #documentEditPageControl .dxtc-content span.changeMode:hover {
+            background-color: #06a7ff;
+            color: white;
+        }
+
+    .Document #documentEditPageControl .dxtc-content span.changeModeinfo {
+        color: #57c4ff;
+        display: inline-block !important;
+        font-size: 13px;
+        font-weight: normal !important;
+        margin: 0 0 0 15px !important;
+    }
+
+    .Document #documentEditPageControl .dxtc-content #left {
+        background: #f0f0f0;
+        border-right: 5px solid #06a7ff;
+        height: 95%;
+        left: 0;
+        overflow: hidden;
+        padding: 10px;
+        position: absolute;
+        top: 0;
+        width: 460px;
+    }
+
+        .Document #documentEditPageControl .dxtc-content #left ul {
+            height: 100%;
+            width: 450px;
+            overflow: auto;
+        }
+
+    .Document #documentEditPageControl .dxtc-content .editable {
+        clear: none;
+        float: left;
+        margin: -3px 20px 20px 0;
+        width: auto;
+    }
+
+    .Document #documentEditPageControl .dxtc-content div .floated {
+        clear: none;
+        float: left;
+        margin: 5px 1% 1%;
+        overflow: visible;
+        width: 23%;
+        /*.label{
+      margin-bottom:0px !important;
+  }*/
+    }
+
+    .Document #documentEditPageControl .dxtc-content div .full_width {
+        width: 100%;
+    }
+
+    .Document #documentEditPageControl .dxtc-content div.item_info_name {
+        width: 48%;
+    }
+
+    .Document #documentEditPageControl .dxtc-content .custom_price {
+        width: 48%;
+    }
+
+.Document #documentEditPageControl .search {
+    float: left;
+    width: 63%;
+    margin: 20px 1% 0;
+}
+
+    .Document #documentEditPageControl .search input {
+        font-size: 16px;
+        height: 20px;
+        padding: 5px;
+    }
+
+    .Document #documentEditPageControl .search.dxeDisabled_ITSTheme1 {
+        opacity: .2;
+    }
+
+.Document .documentDetailForm {
+    position: relative;
+    min-width: 700px;
+}
+
+    .Document .documentDetailForm .upinfo {
+        background: #f0f0f0;
+        margin: 0 1%;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+    .Document .documentDetailForm .total p {
+        margin: 5px 0 0;
+    }
+
+.Document .totals {
+    float: left;
+    margin-right: 20px;
+}
+
+    .Document .totals .row {
+        clear: both;
+        float: left;
+    }
+
+.Document #DocumentDetails {
+    height: 100%;
+    margin: 0 -10px;
+    overflow: hidden;
+}
+
+.Document .style_table {
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    vertical-align: top;
+}
+
+    .Document .style_table h2 {
+        color: #4c4c4c;
+        float: left;
+        font-weight: normal;
+        margin: 5px 10px 10px 0;
+        text-align: left;
+    }
+
+    .Document .style_table .button {
+        float: left;
+        padding: 3px;
+    }
+
+    .Document .style_table .infoLabels {
+        background: #f0f0f0;
+        color: black;
+        font-weight: normal;
+        padding: 7px;
+    }
+
+        .Document .style_table .infoLabels td {
+            background: #f0f0f0;
+            color: black;
+            font-weight: normal;
+            padding: 7px;
+            vertical-align: top;
+        }
+
+    .Document .style_table .dxeButtonEdit_ITSTheme1 {
+        width: 150px;
+    }
+
+    .Document .style_table td input {
+        color: #333333 !important;
+        text-align: right;
+    }
+
+.Document .documentDetail:hover .total p span {
+    color: #666666 !important;
+}
+
+.Document .docNumber .dxeTextBoxSys {
+    width: 100px;
+}
+
+@media (max-width: 1100px) {
+    .Document .docNumber .dxeTextBoxSys {
+        width: 68% !important;
+    }
+}
+
+#grdDocumentPayments .label {
+    min-width: 100px;
+}
+
+#grdDocumentPayments #documentSummaryPanel {
+    margin-top: 10px;
+}
+
+#supplierInfoPanel {
+    padding-top: 15px;
+}
+
+#addressPopUp {
+    background: #ececec;
+    border: 1px solid #cdcdcd;
+    margin: 20px 0;
+    width: 100%;
+}
+
+    #addressPopUp td {
+        background: #cdcdcd;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    #addressPopUp tr#header td {
+        cursor: default;
+    }
+
+    #addressPopUp tr#header:hover td {
+        background: #cdcdcd;
+    }
+
+    #addressPopUp tr:hover td {
+        background: #f3f3f3;
+    }
+
+.color-bold-blue {
+    color: #57c4ff !important;
+    font-weight: bold !important;
+}
+
+.padding-left-10 {
+    padding-left: 10px;
+}
+
+#documentSummaryPanel #comments {
+    padding: 0;
+}
+
+.Document_Edit .textOnly {
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+
+    .Document_Edit .textOnly .dxeEditArea_ITSTheme1 {
+        background-color: #f0f0f0;
+        color: #333333 !important;
+    }
+
+    .Document_Edit .textOnly .dxeDisabled_ITSTheme1 {
+        background-color: #f0f0f0;
+        color: #333333 !important;
+    }
+
+    .Document_Edit .textOnly td.dxic {
+        background-color: #f0f0f0;
+        border-color: #f0f0f0;
+    }
+
+@media (max-width: 1100px) {
+    .Document_Edit .headerTable .dxeButtonEditSys, .Document_Edit .headerTable .dxeTextBoxSys, .Document_Edit .headerTable .dxeValidStEditorTable {
+        width: 90% !important;
+    }
+}
+
+.dxeDisabled_ITSTheme1 td.dxe {
+    background-color: #f0f0f0;
+    color: #333333 !important;
+}
+
+#grdDocument td.inactiveRow {
+    color: #dd3737;
+}
+
+#grdDocument .dxgvSelectedRow_ITSTheme1.dxgvDataRowHover_ITSTheme1 td.inactiveRow {
+    color: #dd3737;
+}
+
+.dxeOutOfRWarnRight_ITSTheme1 {
+    display: none !important;
+}
+
+.center-payment-button {
+    clear: both;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.width-230 {
+    width: 230px;
+}

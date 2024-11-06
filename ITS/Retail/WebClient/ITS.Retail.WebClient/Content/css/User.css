@@ -1,0 +1,81 @@
+.container .User .Password-Form {
+  max-width: 50%;
+}
+.container .User .Password-Form .profile-Header.dxrpControl_ITSTheme1 .dxrpHeader_ITSTheme1 {
+  left: -20px;
+}
+.container .User .Password-Form .profile-Header.dxrpControl_ITSTheme1 .dxrpHeader_ITSTheme1:before {
+  border-color: transparent;
+  border-width: 0;
+}
+.container .User .Password-Form .dxbButton_ITSTheme1 {
+  clear: both;
+  float: left;
+  margin: 20px 0;
+}
+.container .User .Password-Form .label {
+  margin-top: 10px;
+}
+.container .User .Password-Form input {
+  height: 20px;
+  width: 300px;
+}
+.container .User .passwords_not_much {
+  color: #dd3737;
+  font-weight: bold;
+}
+.container .Register_Profile .passwords_not_much {
+  color: #dd3737;
+  font-weight: bold;
+}
+
+.wrapper .container .User_TermsAndConditions {
+  margin: 50px 0;
+}
+.wrapper .container .User_TermsAndConditions .terms {
+  border: 1px solid #cdcdcd;
+  margin: 10px;
+  padding: 10px;
+}
+.wrapper .container .User_TermsAndConditions .terms a {
+  color: #06a7ff;
+  font-size: 13px;
+  text-decoration: none;
+}
+.wrapper .container .User_TermsAndConditions table {
+  float: left;
+  margin-left: 30px;
+}
+.wrapper .container .User_TermsAndConditions .button_container {
+  background: none;
+}
+.wrapper .container .User_Index #btn {
+  clear: both;
+  float: right;
+  margin-top: -50px;
+  position: relative;
+}
+.wrapper .container .User_Index table.users_info {
+  float: left;
+  margin-right: 30px;
+}
+.wrapper .container .User_Index table.users_info tr {
+  background: white;
+}
+.wrapper .container .User_Index table.users_info th {
+  background: none;
+  min-width: 170px;
+  padding: 5px;
+}
+.wrapper .container .User_Index table.users_info td {
+  padding: 2px 5px;
+}
+.wrapper .container .User_EditView #Message {
+  color: #cdcdcd;
+  float: left;
+  font-size: 22px;
+  margin-top: 20px;
+}
+.wrapper .container .User_EditView #UserStoreAccessGridDiv {
+  clear: both;
+}

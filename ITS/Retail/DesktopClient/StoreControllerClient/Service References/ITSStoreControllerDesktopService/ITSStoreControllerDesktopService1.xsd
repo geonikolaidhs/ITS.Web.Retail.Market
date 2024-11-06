@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/POSCommandsLibrary" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/POSCommandsLibrary" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" />
+  <xs:complexType name="ArrayOfPOSCommandDescription">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="POSCommandDescription" nillable="true" type="tns:POSCommandDescription" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPOSCommandDescription" nillable="true" type="tns:ArrayOfPOSCommandDescription" />
+  <xs:complexType name="POSCommandDescription">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POSCommandSet" type="tns:POSCommandSet" />
+      <xs:element minOccurs="0" name="POSOid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="POSCommandDescription" nillable="true" type="tns:POSCommandDescription" />
+  <xs:complexType name="POSCommandSet">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Commands" nillable="true" type="tns:ArrayOfSerializableTupleOfePosCommandAndstring" />
+      <xs:element minOccurs="0" name="Expire" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="POSCommandSet" nillable="true" type="tns:POSCommandSet" />
+  <xs:complexType name="ArrayOfSerializableTupleOfePosCommandAndstring">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SerializableTupleOfePosCommandAndstring" type="tns:SerializableTupleOfePosCommandAndstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSerializableTupleOfePosCommandAndstring" nillable="true" type="tns:ArrayOfSerializableTupleOfePosCommandAndstring" />
+  <xs:complexType name="SerializableTupleOfePosCommandAndstring">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="SerializableTupleOf{0}And{1}" Namespace="http://schemas.datacontract.org/2004/07/POSCommandsLibrary" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ePosCommand" Namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" />
+          <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" minOccurs="0" name="Item1" type="q1:ePosCommand" />
+      <xs:element minOccurs="0" name="Item2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SerializableTupleOfePosCommandAndstring" nillable="true" type="tns:SerializableTupleOfePosCommandAndstring" />
+</xs:schema>

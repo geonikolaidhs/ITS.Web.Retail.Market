@@ -1,0 +1,27 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@Html.DevExpress().ComboBox(cmb_setttings=>{
+    cmb_setttings.Name = "DocumentSupplierFilter";
+    cmb_setttings.SelectedIndex = 0;
+    cmb_setttings.Properties.CallbackPageSize = 15;
+    cmb_setttings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_setttings.CallbackRouteValues = new { Controller = "Document", Action = "DocumentSupplierFilter" };
+    cmb_setttings.Properties.TextField = "Description";
+    cmb_setttings.Properties.ValueField = "Oid";
+    cmb_setttings.Properties.ValueType = typeof(Guid);
+    cmb_setttings.Properties.Columns.Add("Description", Resources.Description, 200);
+    cmb_setttings.Properties.Columns.Add("Code", Resources.Code, 90);
+    cmb_setttings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode, 90);
+    cmb_setttings.ControlStyle.CssClass = "search_filter";
+    cmb_setttings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+    cmb_setttings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_setttings.Properties.FilterMinLength = 2;
+    cmb_setttings.Properties.NullText = Resources.ComboBoxNote;
+    cmb_setttings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    cmb_setttings.Properties.Buttons.Add(button);
+}).BindList(ITS.Retail.WebClient.Controllers.DocumentController.TraderRequestedByFilterCondition<SupplierNew>,ITS.Retail.WebClient.Controllers.BaseController.GetObjectByValue <SupplierNew>).GetHtml()

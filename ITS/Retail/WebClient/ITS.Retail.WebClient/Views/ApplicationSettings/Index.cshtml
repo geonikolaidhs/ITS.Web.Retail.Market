@@ -1,0 +1,50 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ApplicationSettings.js")" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.ApplicationSettings;//"Ρυθμίσεις Εφαρμογής";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "ApplicationSettings", FormMethod.Post))
+{
+    @Html.DevExpress().PageControl(tab_settings =>
+    {
+        tab_settings.AccessibilityCompliant = false;
+        tab_settings.Name = "settings_tabs";
+        tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        tab_settings.TabPages.Add(Resources.MenuApplicationSettings).SetContent(() =>
+        {
+            ViewContext.Writer.Write("<table><tr><td>");
+
+            Html.DevExpress().ComboBox(cmb_settings =>
+            {
+                cmb_settings.Properties.Caption = Resources.LogLevel;
+                cmb_settings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+                cmb_settings.Name = "loglevel";
+                cmb_settings.ReadOnly = (ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER);
+                cmb_settings.Enabled = !cmb_settings.ReadOnly;
+            }).BindList(Enum.GetValues(typeof(LogLevel))).Bind(AppiSettings.LoggingLevel).GetHtml();
+
+            ViewContext.Writer.Write("</td></tr></table>");
+            if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+            {
+                ViewContext.Writer.Write("<div class='IndexView_button_container button_container'>");
+                @Html.DevExpress().Button(btn_settings =>
+                {
+                    btn_settings.Name = "BtnSave";
+                    btn_settings.Text = Resources.Save;
+                    btn_settings.ControlStyle.CssClass = "button";
+                    btn_settings.UseSubmitBehavior = true;
+                }).Render();
+                ViewContext.Writer.Write("</div>");
+            }
+        });
+    }).GetHtml();
+}

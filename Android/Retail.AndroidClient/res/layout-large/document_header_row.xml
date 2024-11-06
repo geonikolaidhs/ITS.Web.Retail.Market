@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget34253"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/row_height"
+    android:layout_toRightOf="@android:id/icon"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/row_height"
+        android:layout_margin="10dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal" >
+        
+        <TextView
+            android:id="@+id/docHead_documentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:ellipsize="none"
+            android:gravity="center_vertical"
+            android:scrollHorizontally="false"
+            android:text="@string/txtFinalizeDate"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_small" />
+        
+        <TextView
+            android:id="@+id/docHead_totalNetAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:ellipsize="none"
+            android:gravity="center_vertical"
+            android:scrollHorizontally="false"
+            android:text="@string/total_after_discount"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/docHead_totalDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:ellipsize="none"
+            android:gravity="center_vertical"
+            android:scrollHorizontally="false"
+            android:text="@string/total_discount"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/text_small" />
+        
+		<TextView
+		    android:id="@+id/docHead_totalAmount"
+		    android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="0.1"
+		    android:ellipsize="none"
+		    android:gravity="center_vertical|center"
+		    android:scrollHorizontally="false"
+		    android:text="@string/total"
+		    android:textColor="@android:color/holo_blue_light"
+		    android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+</LinearLayout>

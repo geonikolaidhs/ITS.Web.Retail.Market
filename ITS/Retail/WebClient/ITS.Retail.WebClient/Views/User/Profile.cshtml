@@ -1,0 +1,143 @@
+﻿@model User
+@using ITS.Retail.ResourcesLib;
+@{    
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Register.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+    ViewBag.Title = Resources.MyProfile;
+}
+@if (ViewBag.Message != null)
+{
+    ViewContext.Writer.Write(ViewBag.Message);  
+}
+
+<div class="col-sm-6 col-md-4 col">
+    @using (Html.BeginForm("Profile", "User", FormMethod.Post, new { id = "ChangePasswordForm",@class="Password-Form" }))
+{
+    @Html.Hidden("ID", "1");
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "ChangePasswordrdp";
+        settings.HeaderText = Resources.ChangePassword;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.ControlStyle.CssClass = "profile-Header";
+
+        settings.SetContent(() =>
+        {
+            Html.DevExpress().TextBox(text =>
+            {
+                text.Properties.Caption = Resources.CurrentPassword + ":";
+                text.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                text.Name = "OldPassword";
+                text.Properties.Password = true;
+                text.ControlStyle.CssClass = "label";
+            }).GetHtml();
+
+            Html.DevExpress().TextBox(text =>
+            {
+                text.Properties.Caption = Resources.NewPassword + ":";
+                text.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                text.Name = "Password";
+                text.Properties.Password = true;
+                text.Properties.ClientSideEvents.TextChanged = "ClearMessages";
+                text.Properties.ClientSideEvents.LostFocus = "MatchingPasswords";
+                text.Properties.ClientSideEvents.KeyPress = "CharFilter";
+                text.ControlStyle.CssClass = "label";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("<div id='password_message' class='passwords_not_much'>" + Resources.PasswordsDoNotMatch + "</div>");
+
+            Html.DevExpress().TextBox(text =>
+            {
+                text.Properties.Caption = Resources.ConfirmNewPassword + ":";
+                text.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                text.Name = "PasswordConfirm";
+                text.Properties.Password = true;
+                text.Properties.ClientSideEvents.LostFocus = "MatchingPasswords";
+                text.Properties.ClientSideEvents.TextChanged = "ClearMessages";
+                text.Properties.ClientSideEvents.KeyPress = "CharFilter";
+                text.ControlStyle.CssClass = "label";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("<div id='password_confirm_message' class='passwords_not_much'>" + Resources.PasswordsDoNotMatch + "</div>");
+
+            Html.DevExpress().Button(btn_set =>
+            {
+                btn_set.Name = "Register";
+                btn_set.UseSubmitBehavior = true;
+                btn_set.Text = Resources.ChangePassword;
+
+            }).GetHtml();
+        });
+
+    }).GetHtml();   
+}
+</div>
+<div class="col-sm-6 col-md-4 col">
+    @if (ViewBag.ShowPOSPwd != null && (bool)ViewBag.ShowPOSPwd)
+{
+        using (Html.BeginForm("ProfilePOS", "User", FormMethod.Post, new { @class = "Password-Form" }))
+    {
+        @Html.DevExpress().RoundPanel(settings =>
+        {
+            settings.Name = "ChangePOSPasswordrdp";
+            settings.HeaderText = Resources.ChangePOSPassword;
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings.ControlStyle.CssClass = "profile-Header";
+
+            settings.SetContent(() =>
+            {
+
+                    Html.DevExpress().TextBox(text =>
+                    {
+                        text.Properties.Caption = Resources.CurrentPOSPassword + ":";
+                        text.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        text.Name = "OldPOSPassword";
+                        text.Properties.Password = true;
+                        text.ControlStyle.CssClass = "label";
+                    }).GetHtml();
+
+                    Html.DevExpress().TextBox(text =>
+                    {
+                        text.Properties.Caption = Resources.NewPOSPassword + ":";
+                        text.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        text.Name = "POSPassword";
+                        text.Properties.Password = true;
+                        text.Properties.ClientSideEvents.TextChanged = "ClearPOSMessages";
+                        text.Properties.ClientSideEvents.LostFocus = "MatchingPOSPasswords";
+                        text.Properties.ClientSideEvents.KeyPress = "CharFilter";
+                        text.ControlStyle.CssClass = "label";
+                    }).GetHtml();
+
+                    ViewContext.Writer.Write("<div id='pos_password_message' class='passwords_not_much'>" + Resources.POSPasswordsDoNotMatch + "</div>");
+
+                    Html.DevExpress().TextBox(text =>
+                    {
+                        text.Properties.Caption = Resources.ConfirmNewPOSPassword + ":";
+                        text.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        text.Name = "POSPasswordConfirm";
+                        text.Properties.Password = true;
+                        text.Properties.ClientSideEvents.LostFocus = "MatchingPOSPasswords";
+                        text.Properties.ClientSideEvents.TextChanged = "ClearPOSMessages";
+                        text.Properties.ClientSideEvents.KeyPress = "CharFilter";
+                        text.ControlStyle.CssClass = "label";
+                    }).GetHtml();
+
+                    ViewContext.Writer.Write("<div id='pos_password_confirm_message' class='passwords_not_much'>" + Resources.POSPasswordsDoNotMatch + "</div>");
+            
+
+                Html.DevExpress().Button(btn_set =>
+                {
+                    btn_set.Name = "POSRegister";
+                    btn_set.UseSubmitBehavior = true;
+                    btn_set.Text = Resources.ChangePOSPassword;
+                }).GetHtml();
+            });
+
+        }).GetHtml();
+    }
+}
+</div>

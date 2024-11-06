@@ -1,0 +1,35 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    eDocumentTypeView ViewForm = ViewBag.DocumentViewForm != null
+                                 ? (eDocumentTypeView)ViewBag.DocumentViewForm
+                                 : DocumentHelper.CurrentUserDocumentView(BaseController.CurrentUserStatic, ((DocumentHeader)(Session["currentDocument"])).DocumentType);
+}
+
+@Html.DevExpress().TextBox(combosettings =>
+{
+    combosettings.Name = "barcode_search";
+
+    if (ViewForm == eDocumentTypeView.CompositionDecomposition)
+    {
+        combosettings.Properties.ClientSideEvents.KeyUp = "CompositionDecomposition.SearchByBarcodeCompositionDecomposition";
+    }
+    else
+    {
+        combosettings.Properties.ClientSideEvents.KeyUp = "SearchByBarcode";
+    }
+
+    combosettings.Properties.NullText = Resources.SearchByBarcode;
+    if(ViewForm == eDocumentTypeView.Advanced)
+    {
+        combosettings.ControlStyle.CssClass = "search advanced-document-search-field";
+        combosettings.Enabled = ViewBag.DocumentDetailFormMode == "Add" || ViewBag.DocumentDetailFormMode == "StartAdd";
+        combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(33);
+    }
+    else if (ViewForm == eDocumentTypeView.Simple || ViewForm == eDocumentTypeView.CompositionDecomposition)
+    {
+        combosettings.ControlStyle.CssClass = "font-weight-bold";
+        combosettings.Enabled = true;
+        combosettings.Width = 150;
+    }
+}).GetHtml()

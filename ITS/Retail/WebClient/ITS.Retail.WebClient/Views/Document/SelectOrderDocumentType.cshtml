@@ -1,0 +1,13 @@
+﻿@using ITS.Retail.Model;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = "OrderDocumentType";
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.TextField = "Description";
+    combosettings.ControlStyle.CssClass = "margin-0-auto";
+}).BindList(ViewBag.StoreDocumentSeriesTypesComboBox).GetHtml()
+
+
+

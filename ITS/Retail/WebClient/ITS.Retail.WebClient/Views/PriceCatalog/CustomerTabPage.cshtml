@@ -1,0 +1,237 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().PageControl(pcSettings =>
+{
+    pcSettings.AccessibilityCompliant = false;
+    pcSettings.Name = "pcFeatures";// +ViewData["TabPage"];
+    pcSettings.ActivateTabPageAction = ActivateTabPageAction.Click;
+    pcSettings.TabAlign = TabAlign.Left;
+    pcSettings.TabPosition = TabPosition.Top;
+    pcSettings.ClientSideEvents.ActiveTabChanged = "OnTabChangedPcFeatures";
+    pcSettings.TabPages.Add(Resources.ItemsOfPriceCatalog).SetContent(() =>
+    {
+        //-------------------------------------------ItemFilters-------------------------------------------------
+
+        @Html.DevExpress().RoundPanel(FilterPanelsettings =>
+        {
+            FilterPanelsettings.Name = "FilterPanel";
+            FilterPanelsettings.ControlStyle.CssClass = "FilterPanel";
+            FilterPanelsettings.HeaderText = Resources.SearchFilters;
+            FilterPanelsettings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<table><tr><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.Code + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "Fcode";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.ItemName + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "Fname";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.Barcode + ":";
+                }).GetHtml();
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "FitemSupplier";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.InsertedDateFilter + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().DateEdit(deSettings =>
+                {
+                    deSettings.Properties.EditFormat = EditFormat.Date;
+                    deSettings.Name = "FcreatedOn";// +ViewData["TabPage"];
+                    deSettings.ControlStyle.CssClass = "search_filter";
+                    deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td></tr><tr><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.UpdatedOnFilter + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().DateEdit(deSettings =>
+                {
+                    deSettings.Properties.EditFormat = EditFormat.DateTime;
+                    deSettings.Name = "FupdatedOn";// +ViewData["TabPage"];
+                    deSettings.ControlStyle.CssClass = "search_filter";
+                    deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.Seasonality + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "Fseasonality";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.IsActive + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().ComboBox(combosettings =>
+                {
+                    combosettings.Name = "Factive";// +ViewData["TabPage"];
+                    combosettings.Properties.Items.Add("", -1);
+                    combosettings.Properties.Items.Add(Resources.Yes, 1);
+                    combosettings.Properties.Items.Add(Resources.No, 0);
+                    combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                    combosettings.ControlStyle.CssClass = "search_filter";
+
+                    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                    EditButton button = new EditButton(" ");
+                    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                    button.Image.AlternateText = Resources.Clear;
+                    combosettings.Properties.Buttons.Add(button);
+
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.Buyer + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "Fbuyer";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td></tr><tr><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.MotherCode + ":";
+                }).GetHtml();
+
+
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "Fmothercode";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Text = Resources.ItemSupplier + ":";
+                }).GetHtml();
+
+                @Html.DevExpress().TextBox(textsettings =>
+                {
+                    textsettings.Name = "Fbarcode";// +ViewData["TabPage"];
+                    textsettings.Text = "";
+                    textsettings.ControlStyle.CssClass = "search_filter";
+                    textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Button(settings2 =>
+                {
+                    settings2.Name = "btnCategories";//+ViewData["TabPage"];
+                    settings2.ControlStyle.CssClass = "btnCategoriesPriceCatalog";
+                    settings2.Text = Resources.Category;
+                    settings2.ClientSideEvents.Click = "function(s,e){ pcCategoriesPopup.Show() }";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Name = "categoryfilterid";
+                    labelsetings.ClientVisible = false;
+                    labelsetings.Text = "";
+                }).GetHtml();
+
+                @Html.DevExpress().Label(labelsetings =>
+                {
+                    labelsetings.Name = "categoryfiltertext";
+                    labelsetings.ControlStyle.CssClass = "categoryfiltertextPriceCatalog";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+
+                ViewContext.Writer.Write("<img class='clearbtn' id='btnClearCategories' src='" + Url.Content("~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt='" + Resources.Clear + "' title='" + @Resources.Clear + "' onclick='clearCategory()' style='display:none'/>");
+
+                ViewContext.Writer.Write("</td></tr></table>");
+
+                Html.RenderPartial("FilterButtons");
+
+                @Html.DevExpress().Button(settings2 =>
+                {
+                    settings2.Name = "btnSearch"; //+ ViewData["TabPage"];
+                    settings2.Text = Resources.Search;
+                    settings2.ControlStyle.CssClass = "button";
+                    settings2.UseSubmitBehavior = true;
+                    settings2.ClientSideEvents.Click = "function (s , e) { grdPriceCatalogDetails.PerformCallback(\"SEARCH\"); toolbarHideFiltersOnly();}";
+                }).GetHtml();
+            });
+        }).GetHtml();
+
+        Html.RenderAction("PriceCatalogDetailGrid", "PriceCatalog", new { PriceCatalogID = ViewData["PriceCatalogID"], editMode = false, TabPage = ViewData["TabPage"] });
+
+        //---------------------------------------------------------------------
+
+    });
+    if (ViewData["TabPage"] != "Customer")
+    {
+        pcSettings.TabPages.Add(Resources.PriceCatalogStores).SetContent(() =>
+        {
+            Html.RenderAction("StorePriceListGrid", "PriceCatalog", new { PriceCatalogID = ViewData["PriceCatalogID"], editMode = false, TabPage = ViewData["TabPage"] });
+        });
+    }
+}).GetHtml()

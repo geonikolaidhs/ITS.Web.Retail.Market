@@ -1,0 +1,146 @@
+/* line 11, contact.scss */
+.contact #info_its {
+  text-align: center;
+  overflow: hidden;
+  margin-top: 30px; }
+/* line 16, contact.scss */
+.contact #bgn_its {
+  text-align: center;
+  background: url("../img/poster.jpg");
+  background-size: 100% 100%;
+  float: right;
+  width: 390px;
+  margin: 0 15px 30px 0;
+  height: 675px; }
+/* line 25, contact.scss */
+.contact ul {
+  font-size: 14px;
+  float: left; }
+  /* line 28, contact.scss */
+  .contact ul li {
+    text-align: left; }
+    /* line 30, contact.scss */
+    .contact ul li a {
+      text-align: left;
+      color: #ff8500;
+      font-weight: bold;
+      opacity: 0.6;
+      -moz-transition: opacity, 0.5s, ease;
+      -o-transition: opacity, 0.5s, ease;
+      -webkit-transition: opacity, 0.5s, ease;
+      transition: opacity, 0.5s, ease; }
+      /* line 36, contact.scss */
+      .contact ul li a:hover {
+        opacity: 1; }
+    /* line 40, contact.scss */
+    .contact ul li p {
+      margin-left: 125px; }
+    /* line 43, contact.scss */
+    .contact ul li span {
+      float: left;
+      color: white;
+      text-align: center;
+      background: black;
+      padding: 3px 15px;
+      width: 80px;
+      display: block; }
+/* line 54, contact.scss */
+.contact #tweeter {
+  background-position: 2px -35px; }
+  /* line 56, contact.scss */
+  .contact #tweeter:hover {
+    background-position: 2px 2px; }
+/* line 60, contact.scss */
+.contact #in {
+  background-position: -77px -36px; }
+  /* line 62, contact.scss */
+  .contact #in:hover {
+    background-position: -77px 1px; }
+/* line 66, contact.scss */
+.contact #map_canvas {
+  height: 500px;
+  margin: 30px 0 0;
+  float: none;
+  position: relative;
+  width: 100%; }
+  /* line 72, contact.scss */
+  .contact #map_canvas p a {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    text-decoration: none;
+    font-size: 16px;
+    color: #333333; }
+    /* line 79, contact.scss */
+    .contact #map_canvas p a:hover {
+      color: #06A7FF; }
+/* line 84, contact.scss */
+.contact form {
+  margin: 20px 0 0;
+  position: relative;
+  float: left;
+  font-size: 14px;
+  width: 520px;
+  color: #09C;
+  text-decoration: none; }
+  /* line 92, contact.scss */
+  .contact form input[type="text"] {
+    width: 70%; }
+  /* line 95, contact.scss */
+  .contact form span {
+    display: block;
+    float: left;
+    width: 115px;
+    text-align: left;
+    color: #333333;
+    margin-right: 10px;
+    font-size: 16px; }
+  /* line 104, contact.scss */
+  .contact form textarea#feedback {
+    width: 70%;
+    height: 120px;
+    float: left; }
+/* line 110, contact.scss */
+.contact h1#small_logo {
+  width: 160px;
+  height: 70px;
+  margin: 20px auto 40px auto;
+  background: url(../img/small_logo.png);
+  background-position: 0 0;
+  background-size: 100%;
+  background-repeat: no-repeat; }
+/* line 119, contact.scss */
+.contact a.social {
+  background: url(../img/icons/social_icons.png);
+  background-position: -40px -36px;
+  background-size: 150px;
+  background-repeat: no-repeat;
+  -moz-transition: background-position-y, 0.5s, ease;
+  -o-transition: background-position-y, 0.5s, ease;
+  -webkit-transition: background-position-y, 0.5s, ease;
+  transition: background-position-y, 0.5s, ease;
+  display: block;
+  width: 34px;
+  height: 33px;
+  opacity: 1;
+  float: left;
+  margin-left: 20px; }
+/* line 132, contact.scss */
+.contact .social:hover {
+  background-position: -40px 1px; }
+
+@media (max-width: 915px) {
+  /* line 138, contact.scss */
+  .contact #bgn_its {
+    float: none;
+    margin: 0 auto 30px auto; }
+  /* line 142, contact.scss */
+  .contact form {
+    width: 98%; }
+    /* line 144, contact.scss */
+    .contact form input[type="text"] {
+      width: 98%; }
+    /* line 147, contact.scss */
+    .contact form textarea#feedback {
+      width: 98%;
+      padding: 7px 4px; } }

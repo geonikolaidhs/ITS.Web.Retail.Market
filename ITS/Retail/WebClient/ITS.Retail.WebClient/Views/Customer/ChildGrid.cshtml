@@ -1,0 +1,160 @@
+﻿@model IEnumerable<CustomerChild>
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Caption = Resources.ChildInfo;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsCookies.StoreFiltering = false;      
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == "grdCustomerChild");
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, "grdCustomerChild", evt.LayoutData);
+            }
+        }
+    };    
+    
+    
+    if (ViewData["displayCommands"] != null && bool.Parse(ViewData["displayCommands"].ToString()) == true)
+    {
+        //settings.SettingsCookies.CookiesID = "grdCustomerChild";
+        settings.Name = "grdCustomerChild" + ViewData["CustomerID"].ToString().Replace('-', '_');
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>" +
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+                );
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"if(ValidateModalFormSingle()) " + settings.Name + ".AddNewRow();\" title='" + Resources.New + "'><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.New + "\" /></a>"
+                );
+                ViewContext.Writer.Write(Html.Hidden("CustomerID", ViewData["CustomerID"]));
+            });
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+        });
+    }
+    else
+    {
+
+        //settings.SettingsCookies.CookiesID = "grdCustomerChild";
+        settings.Name = "grdCustomerStorePriceList" + ViewData["CustomerID"].ToString().Replace('-', '_');
+    }
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ChildSex";
+        col.Caption = Resources.Sex;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eSex)DataBinder.Eval(c.DataItem, "ChildSex")).ToLocalizedString());
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ChildBirthDate";
+        col.Caption = Resources.BirthDate;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsText.PopupEditFormCaption = Resources.CustomerPriceCatalogs;
+    settings.CallbackRouteValues = new { Controller = "Customer", Action = "ChildGrid", displayCommands = ViewData["displayCommands"] , CustomerID = ViewData["CustomerID"] };
+
+    
+    
+    
+    if ((bool)ViewData["displayCommands"])
+    {
+
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+        settings.SettingsPopup.EditForm.Modal = true;
+        settings.SettingsPopup.EditForm.ShowHeader = true;
+        settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SettingsPopup.EditForm.Width = 450;
+        settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.BottomSides;
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Customer", Action = "ChildGridAdd" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Customer", Action = "ChildGridUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Customer", Action = "ChildGridDelete" };
+
+        settings.SetEditFormTemplateContent(editContent =>
+        {
+            var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.Name = "btnChildUpdate";
+            headerOptions.SaveButton.OnClick = @"function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+            headerOptions.CancelButton.Name = "btnAdrCancel";
+            headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+            headerOptions.ViewType = eViewType.PopUp;
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+            /*End of header banner*/
+
+            Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "ChildSex";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.TextField = "Value";
+                edtSettings.Properties.ValueField = "Key";
+                edtSettings.Properties.ValueType = typeof(eSex);
+                edtSettings.Properties.Caption = Resources.Sex;
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(Enum<eSex>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "ChildSex")).Render();
+
+
+            Html.DevExpress().DateEdit(
+                edtSettings =>
+                {
+                    edtSettings.Name = "ChildBirthDate";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Properties.Caption = Resources.BirthDate;
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                    edtSettings.Properties.EditFormat = EditFormat.Date;
+                    edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                }
+            )
+            .Bind(DataBinder.Eval(item, "ChildBirthDate")).Render();
+        });
+    }
+
+}).Bind(Model).GetHtml()

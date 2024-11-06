@@ -1,0 +1,16 @@
+﻿@{ Response.StatusCode = 404; }
+
+@{
+    ViewBag.Title = "Error404";
+    Layout = "~/Views/Shared/ErrorLayout.cshtml";  
+}
+
+ <div class="wrapper_error">
+     <div class="error">
+    </div>
+    <div class="container">
+        <p>The page you are looking for has not been found.</p><p> We recommend you go back or visit the home page... </p>
+       <a href='@Url.Content("~/Home/Index")'>Home Page</a>
+       <a href="javascript: history.go(-1)">Go back</a>
+    </div>  
+</div>

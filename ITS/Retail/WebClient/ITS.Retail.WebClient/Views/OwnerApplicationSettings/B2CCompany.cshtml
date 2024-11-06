@@ -1,0 +1,10 @@
+﻿@model ITS.Retail.Model.OwnerApplicationSettings
+
+@Html.DevExpress().HtmlEditor(settings =>
+{
+    settings.Name = "B2CCompany";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.EncodeHtml = true;
+    settings.Enabled = (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER);
+    settings.CallbackRouteValues = new { Controller = "OwnerApplicationSettings", Action = "B2CCompany" };
+}).Bind(Model == null ? "" : Model.B2CCompany).GetHtml()

@@ -1,0 +1,230 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using System.Linq;
+
+@{
+    ViewContext.Writer.Write("<table class=\"headerTable margin-0-auto\"><tr><td class=\"title\">" + Resources.Add + "</td></tr><tr>");
+
+    ViewContext.Writer.Write("<td colspan='6' id='message'></td></tr><tr><td>");
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Text = Resources.Code + ":";
+        edtSettings.ControlStyle.CssClass = "label required_field";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Code";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(DataBinder.Eval(Model, "Code")).Render();
+
+    ViewContext.Writer.Write("</td><td colspan='3'>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Text = Resources.Description + ":";
+        edtSettings.ControlStyle.CssClass = "label";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Description";
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).Bind(DataBinder.Eval(Model, "Description")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+	Html.DevExpress().Label(edtSettings =>
+	{
+		edtSettings.Text = Resources.EntryMode + ":";
+        edtSettings.ControlStyle.CssClass = "label";
+	}).Render();
+
+	Html.DevExpress().RadioButtonList(edtSettings =>
+	{
+		edtSettings.Name = "EntryMode";
+		edtSettings.SelectedIndex = 0;
+		edtSettings.Properties.ClientSideEvents.ValueChanged = "OnValueChangedEntryModeRadioList";
+	}).BindList(Enum.GetValues(typeof(ITS.Retail.WebClient.eEntryMode))).GetHtml();
+
+    ViewContext.Writer.Write("</td></tr><tr id='keysEntryMode'><td>");
+
+	Html.DevExpress().Label(edtSettings =>
+	{
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.KeyCode + ":";        
+	}).Render();
+		
+	Html.DevExpress().ComboBox(cmb_settings =>
+	{
+		cmb_settings.Name = "KeyCode";
+        cmb_settings.SelectedIndex = 0;
+        cmb_settings.ShowModelErrors = true;
+        cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+	}).BindList(ViewBag.KeyCodes).GetHtml();
+
+	ViewContext.Writer.Write("</td><td>");
+
+	Html.DevExpress().CheckBox(edtSettings =>
+	{
+		edtSettings.Text = "Ctrl";
+		edtSettings.Name = "CtrlCheckBox";
+		edtSettings.Properties.ValueChecked = true;
+		edtSettings.Properties.ValueGrayed = false;
+		edtSettings.Properties.ValueUnchecked = false;
+		edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ControlStyle.CssClass = "padding-top-25";
+	}).Bind(ViewData["IsCtrlChecked"]).GetHtml();
+
+	ViewContext.Writer.Write("</td><td>");
+
+	Html.DevExpress().CheckBox(edtSettings =>
+	{
+		edtSettings.Text = "Shift";
+		edtSettings.Name = "ShiftCheckBox";
+		edtSettings.Properties.ValueChecked = true;
+		edtSettings.Properties.ValueGrayed = false;
+		edtSettings.Properties.ValueUnchecked = false;
+		edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ControlStyle.CssClass = "padding-top-25";
+	}).Bind(ViewData["IsShiftChecked"]).GetHtml();
+
+	ViewContext.Writer.Write("</td><td>");
+
+	Html.DevExpress().CheckBox(edtSettings =>
+	{
+		edtSettings.Text = "Alt";
+		edtSettings.Name = "AltCheckBox";
+		edtSettings.Properties.ValueChecked = true;
+		edtSettings.Properties.ValueGrayed = false;
+		edtSettings.Properties.ValueUnchecked = false;
+		edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ControlStyle.CssClass = "padding-top-25";
+	}).Bind(ViewData["IsAltChecked"]).GetHtml();
+
+    ViewContext.Writer.Write("</td></tr><tr id='keydataEntryMode' style='display:none;'><td>");
+
+		
+	Html.DevExpress().Label(edtSettings =>
+	{
+		edtSettings.Text = Resources.KeyData + ":";
+        edtSettings.ControlStyle.CssClass = "label required_field";
+	}).Render();
+
+
+	Html.DevExpress().TextBox(edtSettings =>
+	{
+		edtSettings.Name = "KeyData";
+        edtSettings.Properties.ClientSideEvents.KeyPress = "KeyDataTextBox_OnKeyPress";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+	}).Render();
+		
+	ViewContext.Writer.Write("</td></tr>");
+
+    ViewContext.Writer.Write("<tr><td>");
+
+	Html.DevExpress().Label(edtSettings =>
+	{
+		edtSettings.Text = Resources.ActionCode + ":";
+        edtSettings.ControlStyle.CssClass = "label";
+	}).Render();
+
+	Html.DevExpress().ComboBox(cmb_settings =>
+	{
+		cmb_settings.Name = "ActionCode";
+		cmb_settings.SelectedIndex = 0;
+        cmb_settings.Properties.ValueType = typeof(eActions);
+        cmb_settings.Properties.ValueField = "Key";
+        cmb_settings.Properties.TextField = "Value";			
+		cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+		cmb_settings.Properties.ClientSideEvents.ValueChanged = "ActionCodeComboBoxOnValueChanged";
+	}).BindList(ViewBag.ExternalActions).GetHtml(); 
+
+    ViewContext.Writer.Write("</td></tr><tr id='redirectKeysEntryMode'><td>");
+	Html.DevExpress().Label(edtSettings =>
+    {
+	    edtSettings.Text = Resources.RedirectTo + ":";
+    }).Render();		
+		
+	Html.DevExpress().ComboBox(cmb_settings =>
+	{
+		cmb_settings.Name = "RedirectKeyCode";
+        cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+	}).BindList(ViewBag.KeyCodes).GetHtml(); 
+
+	ViewContext.Writer.Write("</td><td>");
+
+	Html.DevExpress().CheckBox(edtSettings =>
+	{
+		edtSettings.Text = "Ctrl";
+		edtSettings.Name = "RedirectCtrlCheckBox";
+		edtSettings.Properties.ValueChecked = true;
+		edtSettings.Properties.ValueGrayed = false;
+		edtSettings.Properties.ValueUnchecked = false;
+		edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ControlStyle.CssClass = "padding-top-25";
+	}).Bind(ViewData["IsRedirectCtrlChecked"]).GetHtml();
+
+	ViewContext.Writer.Write("</td><td>");
+
+	Html.DevExpress().CheckBox(edtSettings =>
+	{
+		edtSettings.Text = "Shift";
+		edtSettings.Name = "RedirectShiftCheckBox";
+		edtSettings.Properties.ValueChecked = true;
+		edtSettings.Properties.ValueGrayed = false;
+		edtSettings.Properties.ValueUnchecked = false;
+		edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ControlStyle.CssClass = "padding-top-25";
+	}).Bind(ViewData["IsRedirectShiftChecked"]).GetHtml();
+
+	ViewContext.Writer.Write("</td><td>");
+
+	Html.DevExpress().CheckBox(edtSettings =>
+	{
+		edtSettings.Text = "Alt";
+		edtSettings.Name = "RedirectAltCheckBox";
+		edtSettings.Properties.ValueChecked = true;
+		edtSettings.Properties.ValueGrayed = false;
+		edtSettings.Properties.ValueUnchecked = false;
+		edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.ControlStyle.CssClass = "padding-top-25";
+	}).Bind(ViewData["IsRedirectAltChecked"]).GetHtml();
+
+	ViewContext.Writer.Write("</td></tr>");
+
+    ViewContext.Writer.Write("<tr id='redirectKeydataEntryMode' style='display: none;'><td>");
+
+	Html.DevExpress().Label(edtSettings =>
+	{
+		edtSettings.Text = Resources.RedirectTo + ":";
+        edtSettings.ControlStyle.CssClass = "label";
+	}).Render();
+
+	Html.DevExpress().TextBox(edtSettings =>
+	{
+		edtSettings.Name = "RedirectKeyData";
+	}).Bind(ViewData["RedirectKeyData"]).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        
+    Html.RenderPartial("ActionParametersCallbackPanel");
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+	Html.DevExpress().Button(btnSettings =>
+	{
+		btnSettings.Name = "btnInsertKeyMapping";
+		btnSettings.ControlStyle.CssClass = "button";
+		btnSettings.Text = Resources.Add;
+        btnSettings.ClientSideEvents.Click = "AddKeyMapping";
+	}).GetHtml();
+		
+	ViewContext.Writer.Write("</td></tr></table>");
+}

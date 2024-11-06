@@ -1,0 +1,26 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+
+@Html.DevExpress().ComboBox(cmb_setttings=>{
+    cmb_setttings.Name = "itemSuppliers"+ViewData["Tab"];
+    cmb_setttings.Width = 280;
+    cmb_setttings.SelectedIndex = 0;
+    cmb_setttings.Properties.CallbackPageSize = 15;
+    cmb_setttings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_setttings.CallbackRouteValues = new { Controller = "Document", Action = "SelectItemSuppliers" , tab = cmb_setttings.Name};
+    cmb_setttings.Properties.TextField = "CompanyName";
+    cmb_setttings.Properties.ValueField = "Oid";
+    cmb_setttings.Properties.ValueType = typeof(Guid);
+    cmb_setttings.Properties.ClientSideEvents.ValueChanged = "itemSupplierValueChanged";
+    cmb_setttings.Properties.ClientSideEvents.GotFocus = "itemSupplierGotFocus";
+    cmb_setttings.Properties.ClientSideEvents.LostFocus = "itemSupplierLostFocus";
+    cmb_setttings.Properties.ClientSideEvents.Init = "itemSupplierInit";
+    
+    cmb_setttings.Properties.Columns.Add("CompanyName", Resources.CompanyName, 90);
+    cmb_setttings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode, 90);
+
+    cmb_setttings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_setttings.Properties.FilterMinLength = 2;
+    cmb_setttings.Properties.NullText = Resources.ComboBoxNote;
+    
+}).BindList(ITS.Retail.WebClient.Controllers.DocumentController.SupplierItemAllRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.DocumentController.SupplierItemRequestedByValue).GetHtml()

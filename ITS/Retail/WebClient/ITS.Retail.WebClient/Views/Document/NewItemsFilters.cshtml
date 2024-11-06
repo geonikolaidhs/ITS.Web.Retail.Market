@@ -1,0 +1,46 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().HyperLink(btnsettings =>
+{
+    btnsettings.Name = "AddFreshItems";
+    btnsettings.Properties.Text = Resources.Add;
+    btnsettings.ControlStyle.CssClass = "add_button";
+    btnsettings.Properties.ClientSideEvents.Click = "OrderFreshItems";
+    btnsettings.NavigateUrl = "#";
+}).GetHtml()
+
+<table class="filters">
+    <tr><td><h3>@Resources.SearchFilters</h3></td></tr>
+   <tr><td>
+       @Html.DevExpress().RadioButtonList(radio_settings =>
+        {
+            radio_settings.Name = "rdBLNewItems";
+
+            radio_settings.Properties.Items.Add(Resources.Today, ITS.Retail.WebClient.NewItemOptions.TimeOptions.Today);
+            radio_settings.Properties.Items.Add(Resources.LastWeek, ITS.Retail.WebClient.NewItemOptions.TimeOptions.LastWeek);
+            radio_settings.Properties.Items.Add(Resources.LastMonth, ITS.Retail.WebClient.NewItemOptions.TimeOptions.LastMonth);
+            radio_settings.Properties.Items.Add(Resources.NewItems + " " + Resources.From, ITS.Retail.WebClient.NewItemOptions.TimeOptions.TimePeriod);
+            radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+
+            radio_settings.SelectedIndex = 0;
+            radio_settings.Properties.ClientSideEvents.SelectedIndexChanged = "rdBLNewItems_SelectedIndexChanged";
+            radio_settings.Properties.ClientSideEvents.Init = "function(){inserted_after.SetEnabled(false);}";
+        }).GetHtml()
+   </td>
+  <td>
+      @Html.DevExpress().DateEdit(date_settings =>
+        {
+            date_settings.Name = "inserted_after";
+            date_settings.ClientEnabled = false;
+        }).GetHtml()
+   </td>           
+    <td>
+    @Html.DevExpress().Button(btn_settings =>
+    {
+        btn_settings.Name = "search_new_items";
+        btn_settings.Text = Resources.Search;
+        btn_settings.UseSubmitBehavior = true;
+        btn_settings.ClientSideEvents.Click = "SearchNewItems";
+    }).GetHtml()
+   </td></tr>  
+</table>          

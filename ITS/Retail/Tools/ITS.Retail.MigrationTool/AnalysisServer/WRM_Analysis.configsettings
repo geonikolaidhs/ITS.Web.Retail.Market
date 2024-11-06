@@ -1,0 +1,162 @@
+﻿<ConfigurationSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Database>
+    <DataSources>
+      <DataSource>
+        <ID>WRM</ID>		
+        <ConnectionString>{0}</ConnectionString>
+        <ManagedProvider>System.Data.SqlClient</ManagedProvider>
+        <ImpersonationInfo>
+          <ImpersonationMode xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">ImpersonateServiceAccount</ImpersonationMode>
+          <ImpersonationInfoSecurity xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">Unchanged</ImpersonationInfoSecurity>
+        </ImpersonationInfo>
+      </DataSource>
+    </DataSources>
+    <Dimensions>
+      <Dimension>
+        <ID>Document Header</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Document Detail</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Item</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Customer</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Supplier New</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Trader</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Store</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Document Status</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Document Type</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Document Payment</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Customer Category</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Customer Analytic Tree</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Document Series</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Item Category</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Item Analytic Tree</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Item Barcode</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Hour Time</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Time</ID>
+      </Dimension>
+    </Dimensions>
+    <Cubes>
+      <Cube>
+        <ID>WRM</ID>
+        <MeasureGroups>
+          <MeasureGroup>
+            <ID>Document Header</ID>
+            <Partitions>
+              <Partition>
+                <ID>Document Header</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Document Detail</ID>
+            <Partitions>
+              <Partition>
+                <ID>Document Detail</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Customer</ID>
+            <Partitions>
+              <Partition>
+                <ID>Customer</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Item</ID>
+            <Partitions>
+              <Partition>
+                <ID>Item</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Supplier New</ID>
+            <Partitions>
+              <Partition>
+                <ID>Supplier New</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Document Payment</ID>
+            <Partitions>
+              <Partition>
+                <ID>Document Payment</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Customer Analytic Tree</ID>
+            <Partitions>
+              <Partition>
+                <ID>Customer Analytic Tree</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Customer Category</ID>
+            <Partitions>
+              <Partition>
+                <ID>Customer Category</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Item Category</ID>
+            <Partitions>
+              <Partition>
+                <ID>Item Category</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Item Barcode</ID>
+            <Partitions>
+              <Partition>
+                <ID>Item Barcode</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+        </MeasureGroups>
+      </Cube>
+    </Cubes>
+    <DataSourceImpersonationInfo>
+      <ImpersonationMode xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">Default</ImpersonationMode>
+      <ImpersonationInfoSecurity xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">Unchanged</ImpersonationInfoSecurity>
+    </DataSourceImpersonationInfo>
+  </Database>
+</ConfigurationSettings>

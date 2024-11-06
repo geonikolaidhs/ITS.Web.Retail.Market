@@ -1,0 +1,43 @@
+﻿@model PromotionWizardModel
+@{
+    var wiz = ViewData["Wizard"];
+    Wizard wizard = null;
+    if (wiz != null && wiz is Wizard)
+    {
+        wizard = (Wizard)wiz;
+    }
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    ViewContext.Writer.Write(Html.Hidden("PriceCatalogsString_initial", Model.PriceCatalogsString));
+    ViewContext.Writer.Write(Html.Hidden("PriceCatalogsString_selected", Model.PriceCatalogsString));
+    var list = DataBinder.Eval(Model, "PriceCatalogPromotions");
+    if(list is IEnumerable<PriceCatalogPromotionWizardModel>)
+    {
+        list = ((IEnumerable<PriceCatalogPromotionWizardModel>)list).Where(x => x.IsDeleted == false);
+    }
+}
+
+<table class="wizard-grid">
+    <tr>
+        <td width="75%" valign="top">
+            @Html.Partial("PriceCatalogsTreeList")
+        </td>
+        <td valign="top" class="selected-pricecatalog-listbox">
+           @Html.DevExpress().ListBox(settings =>
+           {
+               settings.Name = "PriceCatalogsList";
+               settings.Properties.EnableClientSideAPI = true;
+               settings.Enabled = true;
+               settings.ClientEnabled = false;
+               settings.Properties.ValueField = "PriceCatalogDescription";
+               settings.Properties.TextField = "PriceCatalogDescription";
+               settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+               settings.Height = 326;
+               settings.Properties.Caption = Resources.SelectedPriceCatalogs;
+               settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+               settings.ControlStyle.CssClass = "selected-pricecatalog-listbox-container";
+               
+           }).BindList(list).GetHtml()
+        </td>
+    </tr>
+</table>

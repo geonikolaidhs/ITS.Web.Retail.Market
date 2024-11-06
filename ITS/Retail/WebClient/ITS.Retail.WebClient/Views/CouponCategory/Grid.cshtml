@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ITS.Retail.Model.CouponCategory>
+@using ITS.Retail.ResourcesLib;
+@{
+    GridViewSettings settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext,
+                                                        typeof(CouponCategory), typeof(CouponCategoryController), "grdCouponCategories",
+                                                        showAddIcon: false, generateColumns: false);
+
+    settings.SettingsText.Title = Resources.CouponCategories;
+    
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Code";
+        set.Caption = Resources.Code;
+    });
+
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Description";
+        set.Caption = Resources.Description;
+    });
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.Edit + " " + Resources.CouponCategory;
+    
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CouponCategory", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CouponCategory", Action = "UpdatePartial" };
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnUpdateCouponCategory";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnCancelCouponCategory";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Code")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td></tr>");
+
+        ViewContext.Writer.Write("</table>");
+
+        ViewContext.Writer.Write("</div>");
+    });
+
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

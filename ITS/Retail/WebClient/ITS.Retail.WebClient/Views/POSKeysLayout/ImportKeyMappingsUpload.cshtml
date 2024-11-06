@@ -1,0 +1,15 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using (Html.BeginForm("KeyMappingsUploadForm", "POSKeysLayout", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{
+    ViewContext.Writer.Write("<div class='UploadImageForm'>");
+    Html.DevExpress().UploadControl(settings =>
+    {
+        settings.UploadMode = UploadControlUploadMode.Standard;
+        settings.Name = "UploadControl";
+        settings.CallbackRouteValues = new { Controller = "POSKeysLayout", Action = "UploadControl" };
+        settings.ShowProgressPanel = true;
+        settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.POSKeysLayoutController.UploadControlValidationSettings);
+        settings.ClientSideEvents.FileUploadComplete = "onFileUploadComplete_UploadControl";
+    }).Render();
+    ViewContext.Writer.Write("</div>");
+}

@@ -1,0 +1,280 @@
+﻿@model ITS.Retail.Model.CompanyNew
+@using ITS.Retail.ResourcesLib;
+
+
+@section HeaderScriptsAndStyles {
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/css/GeneralEdit.css")" ></link>
+    <script src="@Url.Content("~/Scripts/scripts/Company.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Profile.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/OwnerApplicationSettings.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditCompany.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/NewCompany.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditSupplier.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = Resources.EditCompany;
+    ViewBag.EnableDevexpressHtmlEditor = true;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    bool enabled = !(bool)ViewData["OwnEdit"];
+}
+
+@using (Html.BeginForm("Save", "Company", FormMethod.Post, new { id = "EditingForm" }))
+{
+@Html.DevExpress().RoundPanel(rsettings =>
+{
+    rsettings.Name = "editForm";
+    rsettings.ShowHeader = false;
+    rsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    rsettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("Supplier_ID", ViewData["CompanyID"]==null ? "" : ViewData["CompanyID"].ToString()));
+        ViewContext.Writer.Write(Html.Hidden("TraderID", ViewData["TraderID"].ToString()));
+        ViewContext.Writer.Write(Html.Hidden("isOwnerEdit", ViewData["OwnEdit"].ToString()));
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+        
+        ViewContext.Writer.Write("<a href="+Url.Action("CancelEdit", "Company") + " class=\"pull-left\"><i class=\"fa fa-arrow-circle-o-left fa-5x dark-grey\"></i></a>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitExternalForm";
+        headerOptions.CancelButton.Visible = false;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable validateForm'><tr><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+            edtSettings.AssociatedControlName = "Code";
+        }).GetHtml();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+        }).Bind(Model.Code).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TaxCode + ":";
+            edtSettings.AssociatedControlName = "TaxCode";
+        }).GetHtml();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "TaxCode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+            if ((bool)Session["IsNewSupplier"])
+            {
+                edtSettings.Properties.ClientSideEvents.LostFocus = "UpdateNewSupplierDetails";
+            }
+        }).Bind(Model.Trader.TaxCode).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.CompanyName + ":";
+            edtSettings.AssociatedControlName = "CompanyName";
+        }).GetHtml();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "CompanyName";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+        }).Bind(Model.CompanyName).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Profession;
+            edtSettings.AssociatedControlName = "Profession";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Profession";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }
+        ).Bind(Model.Profession).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "B2C URL";
+            edtSettings.AssociatedControlName = "B2CURL";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "B2CURL";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.B2CURL).GetHtml();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TaxOffice + ":";
+            edtSettings.AssociatedControlName = "TaxOffice";
+        }).GetHtml();
+        
+        Html.RenderPartial("SelectTaxOffice");
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.DefaultAddress;
+            edtSettings.AssociatedControlName = "DefaultAddress";
+        }).GetHtml();
+
+        Html.RenderAction("UpdateAddressComboBox","Company",new { TraderID = ViewData["TraderID"].ToString() });
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Name;
+            edtSettings.AssociatedControlName = "FirstName";
+        }).GetHtml();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "FirstName";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.Trader.FirstName).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Surname;
+            edtSettings.AssociatedControlName = "LastName";
+        }).GetHtml();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "LastName";
+            edtSettings.ControlStyle.CssClass = "editor";
+        }).Bind(Model.Trader.LastName).GetHtml();
+        
+        ViewContext.Writer.Write("</td><td>");
+        if (!(bool)ViewData["OwnEdit"])
+        {
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Text = Resources.Active;
+                edtSettings.Name = "IsActive";
+                edtSettings.ControlStyle.CssClass = "editor padding-top-25";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.ShowModelErrors = true;
+            }).Bind(Model.IsActive).GetHtml();
+        }
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        
+        ViewContext.Writer.Write("</div>");
+
+        @Html.DevExpress().PageControl(tab_settings =>
+        {
+            tab_settings.AccessibilityCompliant = false;
+            tab_settings.Name = "settings_tabs";
+            tab_settings.EnableClientSideAPI = true;
+            
+            tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+            tab_settings.TabPages.Add(Resources.MenuApplicationSettings).SetContent(() =>
+            {
+                Html.RenderPartial("MenuApplicationSettings", Model==null?null:Model.OwnerApplicationSettings);
+              
+            });
+
+            tab_settings.TabPages.Add(Resources.TermsAndConditions).SetContent(() =>
+            {
+                if (Model.OwnerApplicationSettings != null)
+                {
+                    Html.RenderPartial("../OwnerApplicationSettings/TermsEditor", Model.OwnerApplicationSettings);
+                }
+            });
+
+            tab_settings.TabPages.Add(Resources.ProductsShipping).SetContent(() =>
+            {
+                if (Model.OwnerApplicationSettings != null)
+                {
+                    Html.RenderPartial("../OwnerApplicationSettings/B2CProductsShipping", Model.OwnerApplicationSettings);
+                }
+            });
+
+            tab_settings.TabPages.Add(Resources.TransactionsSafety).SetContent(() =>
+            {
+                if (Model.OwnerApplicationSettings != null)
+                {
+                    Html.RenderPartial("../OwnerApplicationSettings/B2CTransactionsSafety", Model.OwnerApplicationSettings);
+                }
+            });
+
+            tab_settings.TabPages.Add(Resources.Company).SetContent(() =>
+            {
+                if (Model.OwnerApplicationSettings != null)
+                {
+                    Html.RenderPartial("../OwnerApplicationSettings/B2CCompany", Model.OwnerApplicationSettings);
+                }
+            });
+
+            tab_settings.TabPages.Add(Resources.UsefullInfo).SetContent(() =>
+            {
+                if (Model.OwnerApplicationSettings != null)
+                {
+                    Html.RenderPartial("../OwnerApplicationSettings/B2CUsefullInfo", Model.OwnerApplicationSettings);
+                }
+            });
+
+            tab_settings.TabPages.Add(Resources.FAQ).SetContent(() =>
+            {
+                if (Model.OwnerApplicationSettings != null)
+                {
+                    Html.RenderPartial("../OwnerApplicationSettings/B2CFAQ", Model.OwnerApplicationSettings);
+                }
+            });
+
+            tab_settings.TabPages.Add(Resources.Addresses).SetContent(() =>
+            {
+                Html.RenderAction("AddressGrid", "Address", new { strTraderID = Model.Trader.Oid, displayCommands = true });
+            });
+        }).GetHtml();
+    });
+
+}
+    ).GetHtml()
+}

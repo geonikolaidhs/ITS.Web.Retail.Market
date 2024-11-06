@@ -1,0 +1,124 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+@model ITS.Retail.Model.POSDevice
+@{
+
+    ViewContext.Writer.Write("<table  class=\"headerTable\"><tr><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.ParentDeviceName + ":";
+}).Render();
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "ParentDeviceName";
+        }
+    ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "ParentDeviceName")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.OpenCommandString + ":";
+}).Render();
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "OpenCommandString";
+            object value = DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "OpenCommandString");
+            edtSettings.Text = (value != null ? POSDeviceController.SpecialCharacterReplacement(value.ToString(), true) : "");
+        }
+    ).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.KeyPosition0CommandString + ":";
+}).Render();
+
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "KeyPosition0CommandString";
+            object value = DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "KeyPosition0CommandString");
+            edtSettings.Text = (value != null ? POSDeviceController.SpecialCharacterReplacement(value.ToString(), true) : "");
+        }
+    ).Render();
+    ViewContext.Writer.Write("</td><td>");
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.KeyPosition1CommandString + ":";
+}).Render();
+
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "KeyPosition1CommandString";
+            object value = DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "KeyPosition1CommandString");
+            edtSettings.Text = (value != null ? POSDeviceController.SpecialCharacterReplacement(value.ToString(), true) : "");
+        }
+    ).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+    
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.KeyPosition2CommandString + ":";
+}).Render();
+
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "KeyPosition2CommandString";
+            object value = DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "KeyPosition2CommandString");
+            edtSettings.Text = (value != null ? POSDeviceController.SpecialCharacterReplacement(value.ToString(), true) : "");
+        }
+    ).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.KeyPosition3CommandString + ":";
+}).Render();
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "KeyPosition3CommandString";
+            object value = DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "KeyPosition3CommandString");
+            edtSettings.Text = (value != null ? POSDeviceController.SpecialCharacterReplacement(value.ToString(), true) : "");
+        }
+    ).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+edtSettings =>
+{
+    edtSettings.Text = Resources.KeyPosition4CommandString + ":";
+}).Render();
+
+    Html.DevExpress().TextBox(
+        edtSettings =>
+        {
+            edtSettings.Name = "KeyPosition4CommandString";
+            object value = DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.IndirectDeviceSettings, "KeyPosition4CommandString");
+            edtSettings.Text = (value != null ? POSDeviceController.SpecialCharacterReplacement(value.ToString(), true) : "");
+        }
+    ).Render();
+
+    ViewContext.Writer.Write("</td></tr></table>");
+}

@@ -1,0 +1,77 @@
+﻿@using ITS.Retail.WebClient.Extensions
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+}
+
+@if (!ViewBag.InViewMode && !freezeEdit)
+{
+    /*Header banner*/
+
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnUpdate";
+        headerOptions.SaveButton.Text = Resources.Save;
+        headerOptions.SaveButton.OnClick = "UpdateDocumentHeader";
+
+        headerOptions.SaveAndPrintButton.Visible = true;
+        headerOptions.SaveAndPrintButton.Name = "btnUpdateandPrint";
+        headerOptions.SaveAndPrintButton.Text = Resources.SaveOrderAndPrint;
+        headerOptions.SaveAndPrintButton.OnClick = "UpdateDocumentHeaderAndPrint";
+
+        headerOptions.CancelButton.Name = "btnCancel";
+        headerOptions.CancelButton.CCSClass = "button cancel";
+        headerOptions.CancelButton.Text = Resources.Close;
+        headerOptions.CancelButton.OnClick = "CancelOrder";
+
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+
+    /*End of header banner*/
+}
+<div class="margin-0-auto-20 simple-form-instance-width">
+
+    
+    @Html.Partial("DocumentSummaryPartial")
+
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Name = "AccountantDepartmentForm";
+    settings.ControlStyle.CssClass = "custom-form-instance";
+    settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+    settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+    settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+    settings.ShowItemCaptionColon = false;
+    settings.EncodeHtml = false;
+
+    DateTime executionDate = new DateTime();
+    DateTime now = DateTime.Now;
+    executionDate = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0).AddMilliseconds(1);
+
+    var group = settings.Items.AddGroupItem(Resources.Document);
+    group.ColCount = 1;
+    if (!ViewBag.InViewMode && !freezeEdit)
+    {
+        group.Items.Add(itemSettings => { itemSettings.Caption = Resources.BillingAddress; })
+        .SetNestedContent(() =>
+        {
+            @Html.RenderPartial("BillingAddressCombobox");
+        });
+
+        group.Items.Add(FormInstances.ComboBoxItem(Html: Html, Model: DataBinder.Eval(document.Status, "Oid"), enabled: !ViewBag.InViewMode, dataSource: ViewBag.DocumentStatusComboBox,
+      textField: "Description", valueType: typeof(Guid), OnValueChangedJs: "DocumentStatusChanged", name: "Status", validation: false, captionPosition: LayoutItemCaptionLocation.Top)).Caption = Resources.DocumentStatus;
+        group.Items.Add(model => document.ExecutionDate, FormInstances.DateItem(enabled: true, name: "ExecutionDate", required: false, shortFormat: true, timeVisible: false)).Caption = Resources.ExecutionDate;
+
+    }
+    else
+    {
+
+        group.Items.Add(FormInstances.TextBoxItem(enabled: ViewBag.InViewMode, Value: document.BillingAddress != null ? document.BillingAddress.Description : " ", name: "BillingAddress", caption: Resources.BillingAddress));
+        group.Items.Add(FormInstances.TextBoxItem(enabled: ViewBag.InViewMode, Value: document.Status.Description != null ? document.Status.Description : " ", name: "Status", caption: Resources.Status));
+        group.Items.Add(model => document.ExecutionDate, FormInstances.DateItem(enabled: false, name: "ExecutionDate", required: false, shortFormat: true, timeVisible: false)).Caption = Resources.ExecutionDate;
+    }
+
+
+}).GetHtml()
+    
+</div>
+

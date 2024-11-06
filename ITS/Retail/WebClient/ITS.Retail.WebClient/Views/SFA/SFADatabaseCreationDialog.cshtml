@@ -1,0 +1,10 @@
+﻿<div class="POSCreateDdLoading">
+    @Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.Name = "lblProgress";
+            edtSettings.Properties.EnableClientSideAPI = true;
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.ProcessingPleaseWait;
+        }).GetHtml()
+    <img id="processingImage" src="~/Content/img/downloading.gif?ver=@ViewData["ApplicationVersionNumber"]" alt="Processsing Image" />
+</div>   

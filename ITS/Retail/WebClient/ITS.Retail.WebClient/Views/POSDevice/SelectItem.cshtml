@@ -1,0 +1,35 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using DevExpress.Data.Filtering;
+
+@{
+    MapVatFactor mvf = DataBinder.Eval(ViewData["Item"], "this") as MapVatFactor;
+}
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Enabled = true;
+    combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    combosettings.Name = "ItemCombobox";
+    combosettings.Properties.DropDownWidth = 350;
+    combosettings.CallbackRouteValues = new { Controller = "POSDevice", Action = "SelectItem" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Name";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.ShowModelErrors = true;
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+    combosettings.Properties.Columns.Add("Name", Resources.ItemName, 130);
+
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+}).BindList(POSDeviceController.ItemRequestedByFilterCondition, PriceCatalogController.ObjectRequestedByValue<Item>).BindList(PriceCatalogController.GetObjectByValue<Item>(DataBinder.Eval(mvf, "Item!Key"))).Bind(DataBinder.Eval(mvf, "Item!Key")).GetHtml()

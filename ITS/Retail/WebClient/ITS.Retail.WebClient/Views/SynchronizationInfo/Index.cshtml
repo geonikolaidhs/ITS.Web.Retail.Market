@@ -1,0 +1,62 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.SynchronizationInfo;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.EnableDevexpressPivotGrid = true;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/SynchronizationInfo.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/css/SynchronizationInfo.css?v=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css" />
+
+}
+
+<div class="IndexView_button_container button_container">
+
+    @Html.DevExpress().Button(btnSettings =>
+    {
+        btnSettings.Name = "RefreshButton";
+        btnSettings.ControlStyle.CssClass = "button border";
+        btnSettings.Text = "<i class=\"fa fa-refresh\"></i> " + Resources.Refresh;
+        btnSettings.ClientSideEvents.Click = "SynchronizationInfo.RefreshButton_OnClick";
+        btnSettings.EncodeHtml = false;
+    }).GetHtml()
+
+</div>
+
+
+@{ 
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        @Html.DevExpress().PageControl(page_control_settings =>
+        {
+            page_control_settings.AccessibilityCompliant = false;
+            page_control_settings.Name = "pcFeatures2";
+            page_control_settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            page_control_settings.TabAlign = TabAlign.Justify;
+            page_control_settings.TabPosition = TabPosition.Top;
+            page_control_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            page_control_settings.EnableTabScrolling = true;
+            page_control_settings.EnableHotTrack = true;
+            page_control_settings.Styles.Content.BorderTop.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+
+            page_control_settings.TabPages.Add(Resources.SynchronizationInfo).SetContent(() =>
+            {
+                @Html.RenderPartial("PivotGrid");
+            });
+            if (bool.Parse(ViewData["IsAdministrator"].ToString())==true)
+            {
+                page_control_settings.TabPages.Add(Resources.UpdaterThreads).SetContent(() =>
+                {
+                    @Html.RenderAction("UpdaterThreadsGrid", new List<UpdaterThreadsViewModel>());
+                });
+            }
+        }).Render();
+    });
+}).GetHtml();
+}

@@ -1,0 +1,46 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+
+    foreach (RelativeDocument refedDoc in document.ReferencedDocuments)
+    {       
+    <div class="panel panel-primary panel-custom">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                @Resources.Document
+            </h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="float-left">
+                <p>
+                    <span>@Resources.Date: </span>
+
+                    @refedDoc.InitialDocument.FinalizedDate.ToShortDateString()
+                </p>
+
+                <p>
+                    <span>@Resources.DocumentSeries:</span>
+
+                    @refedDoc.InitialDocument.DocumentSeries
+                </p>
+
+                <p>
+                    <span>@Resources.DocumentNumber:</span>
+
+                    @refedDoc.InitialDocument.DocumentNumber
+                </p>
+
+                <p>
+                    <span>@Resources.DocumentType:</span>
+
+                    @refedDoc.InitialDocument.DocumentType.Description
+                </p>
+            </div>
+        </div>
+    </div>
+    }
+}
+

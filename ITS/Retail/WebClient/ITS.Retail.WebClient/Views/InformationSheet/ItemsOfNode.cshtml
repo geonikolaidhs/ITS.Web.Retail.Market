@@ -1,0 +1,119 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+        
+    settings.Name = "grdMembersOfNode";
+
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+    settings.CommandColumn.ShowSelectCheckbox = true;
+
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+
+    settings.CommandColumn.Width = 25;
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Object.Code";
+        col.Caption = Resources.Code;
+        col.Width = 200;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Object.Name";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.ItemName;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+   
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Object.ExtraFilename";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.FileName;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            var ItemAnalyticTreeOid = DataBinder.Eval(c.DataItem, "Oid");
+            var ItemAnalyticTree = ((ItemAnalyticTree)DataBinder.Eval(c.DataItem, "this")).Session.GetObjectByKey<ITS.Retail.Model.ItemAnalyticTree>(ItemAnalyticTreeOid);
+            ViewContext.Writer.Write("<a href='" + Url.Action("DownloadExtraFile", "InformationSheet", new { Oids = ItemAnalyticTreeOid }) + "'>" + ItemAnalyticTree.Object.ExtraFilename + "</a>");
+        });
+    });
+
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = " oid";
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "ItemsOfNode" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Width = 25;
+    settings.SettingsPager.PageSize = 15;
+    string suffix = ViewData["categoryName"] == null || string.IsNullOrEmpty(ViewData["categoryName"].ToString()) ? string.Empty : ViewData["categoryName"].ToString();
+    settings.SettingsText.Title = Resources.ItemsOfCategory + " " + suffix;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == "grdInformationSheetMembersOfNode");
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, "grdInformationSheetMembersOfNode", evt.LayoutData);
+            }
+        }
+    };
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallBackMembersOfNodeGrid";
+    settings.ClientSideEvents.FocusedRowChanged = "OnRowChangedMembersOfNodeGrid";
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+
+    }).Bind(ViewData["ItemAnalyticTree"]).GetHtml()

@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@model DocumentHeader
+
+@{
+    if (ViewData["ID"] != null)
+    {
+        string title = Resources.View;
+        DocumentHeader documentHeader = ViewData["DocumentHeader"] as DocumentHeader;
+        PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("LoadViewPopup");
+        popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";
+        popUpSettings.CallbackRouteValues = new { Controller = "Document", Action = "LoadViewPopup", ID = ViewData["ID"] };
+        popUpSettings.HeaderText = title;
+        
+        popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+        popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+        popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+        popUpSettings.AllowResize = false;
+        popUpSettings.AllowDragging = false;
+        popUpSettings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class='Document'>");
+            @Html.RenderAction("Edit", "Document", new { Oid = ViewData["ID"], Mode = documentHeader.Division, LoadFromSession = false, DocType = "", HasReturnedFromOrderItemsForm = false, InViewMode = true });
+            ViewContext.Writer.Write("</div>");
+        });
+        Html.DevExpress().PopupControl(popUpSettings).GetHtml();
+    }
+}

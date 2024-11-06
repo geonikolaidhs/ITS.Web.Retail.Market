@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <sqlserver>localhost\sqlexpress2012</sqlserver>
+  <username>sa</username>
+  <pass>123456</pass>
+  <MasterDatabase>Retail</MasterDatabase>
+  <StoreControllerDatabase></StoreControllerDatabase>
+  <DualDatabase></DualDatabase>
+  <MasterDatabaseInstallBat>C:\tests\restore_test_master_db.bat</MasterDatabaseInstallBat>
+  <StoreControllerDatabaseInstallBat></StoreControllerDatabaseInstallBat>
+  <DualDatabaseInstallBat></DualDatabaseInstallBat>
+</settings>

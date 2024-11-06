@@ -1,0 +1,23 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ePOSDocumentTypes documentType = (ePOSDocumentTypes)ViewData["ePOSDocumentType"];
+}
+@Html.DevExpress().ComboBox(edtSettings =>
+{
+    edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    edtSettings.Properties.Buttons.Add(button);
+    edtSettings.Name = documentType + "DocumentType";
+    edtSettings.Properties.TextField = "Description";
+    edtSettings.Properties.ValueField = "Oid";
+    edtSettings.Properties.ValueType = typeof(Guid);
+    edtSettings.ShowModelErrors = true;
+    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = documentType != ePOSDocumentTypes.SpecialProforma;
+    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    edtSettings.Properties.ClientSideEvents.ValueChanged = @"function (s,e)  { var selectedDocumentType = s.GetValue();"
+                                                                               + documentType + "DocumentSeriesCBP.PerformCallback(selectedDocumentType);}";
+    
+
+}).BindList(ViewBag.DocumentTypes).Bind(DataBinder.Eval(Model, documentType + "DocumentType!Key")).GetHtml()

@@ -1,0 +1,136 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+
+@{    
+    Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@{string controller = ViewBag.ControllerName.ToString();}
+
+@section HeaderScriptsAndStyles {
+
+
+
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+    <script src="@Url.Content("~/Content/B2C/js/libraries/gmaps.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/B2C/js/Contact.js?v=" + ViewData["ApplicationVersionNumber"])"></script>
+
+    <script type="text/javascript">
+        $(window).bind("load", function () {
+            Contact.Init();
+        });
+    </script>
+
+
+
+}
+<div class="jumbotron jumbotron-sm">
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <h1 class="h1">
+                @Resources.ContactUs
+            </h1>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="well well-sm">
+            @using (Ajax.BeginForm("AjaxContactForm", "Contact",
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnBegin = "loadingPanel.Show();",
+                OnComplete = "loadingPanel.Hide();Layout.notifyUser();",
+                UpdateTargetId = "content-ajax-form",
+                InsertionMode = InsertionMode.Replace,
+                
+            },
+            new
+            {
+                id = "validationContactForm",
+                //@class = "edit_form",               
+            }))
+            
+            {
+                <div id="content-ajax-form">
+                    @Html.Partial("AjaxContactFormPartial")
+                </div>
+            }
+
+            @Html.DevExpress().LoadingPanel(
+            settingsLoadingPanel =>
+            {
+                settingsLoadingPanel.Name = "loadingPanel";
+                settingsLoadingPanel.Modal = true;
+                settingsLoadingPanel.ContainerElementID = "validationContactForm";               
+            }).GetHtml()
+
+
+        </div>
+    </div>
+    <div class="col-md-4">
+
+        <form autocomplete="off">
+            <legend><span class="glyphicon glyphicon-globe"></span> @Resources.OurAddress</legend>
+            <address>
+                @if (!String.IsNullOrWhiteSpace(ViewBag.Company.CompanyName))
+                {
+                    <strong>@ViewBag.Company.CompanyName</strong><br>
+                }
+                @if (ViewBag.Company.DefaultAddress!=null && !String.IsNullOrWhiteSpace(ViewBag.Company.DefaultAddress.Street))
+                {
+                    @ViewBag.Company.DefaultAddress.Street<br />
+                }
+                @if (ViewBag.Company.DefaultAddress!=null && !String.IsNullOrWhiteSpace(ViewBag.Company.DefaultAddress.PostCode))
+                {
+                    @ViewBag.Company.DefaultAddress.PostCode
+                    ViewContext.Writer.Write(", ");
+                    @ViewBag.Company.DefaultAddress.City<br />
+                }
+
+                @if (!String.IsNullOrWhiteSpace(ViewBag.Company.OwnerApplicationSettings.Phone))
+                {
+                    <abbr title="@Resources.Phone">
+                        T:
+                    </abbr>
+                    @ViewBag.Company.OwnerApplicationSettings.Phone
+                }
+                @if (!String.IsNullOrWhiteSpace(ViewBag.Company.OwnerApplicationSettings.FAX))
+                {
+                    <abbr title="Fax">
+                        F:
+                    </abbr>
+                    @ViewBag.Company.OwnerApplicationSettings.FAX
+                }
+
+            </address>
+            <address>
+                @if (!String.IsNullOrWhiteSpace(ViewBag.Company.OwnerApplicationSettings.eMail))
+                {
+                    <abbr title="Email">
+                        Email:
+                    </abbr>
+                    <a href="mailto: @ViewBag.Company.OwnerApplicationSettings.eMail">@ViewBag.Company.OwnerApplicationSettings.eMail</a>
+                }
+            </address>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="map-canvas">
+
+        </div>
+    </div>
+</div>
+

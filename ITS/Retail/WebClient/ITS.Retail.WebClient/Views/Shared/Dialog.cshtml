@@ -1,0 +1,97 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    DialogOptions options = ViewData["DialogOptions"] as DialogOptions;
+}
+
+@if(options !=null)
+{
+    Html.DevExpress().PopupControl(popUpSettings =>
+    {
+        popUpSettings.AccessibilityCompliant = true;
+        popUpSettings.LoadContentViaCallback = LoadContentViaCallback.None;
+        popUpSettings.Name = options.Name != null ? options.Name : "Dialog";
+        popUpSettings.SettingsLoadingPanel.Enabled = false;
+
+        if (options.AdjustSizeOnInit)
+        {
+            popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); " + popUpSettings.Name + ".UpdatePosition();}";
+        }
+        else
+        {
+            popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); " + popUpSettings.Name + ".UpdatePosition(); }";
+        }
+
+        if (!String.IsNullOrWhiteSpace(options.CloseUpEvent))
+        {
+            popUpSettings.ClientSideEvents.CloseUp = options.CloseUpEvent;
+        }
+        if (!String.IsNullOrWhiteSpace(options.OnShownEvent))
+        {
+            popUpSettings.ClientSideEvents.Shown = options.OnShownEvent;
+        }
+
+        popUpSettings.Width = options.Width;
+        popUpSettings.Height = options.Height;
+        popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+        popUpSettings.AllowDragging = true;
+        popUpSettings.CloseAction = CloseAction.CloseButton;
+        popUpSettings.PopupAnimationType = AnimationType.Auto;
+        popUpSettings.HeaderText = options.HeaderText == null ? "" : options.HeaderText;
+        popUpSettings.Modal = true;
+        popUpSettings.AllowResize = true;
+        popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        popUpSettings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+
+        popUpSettings.SetContent(() =>
+        {
+            if (!String.IsNullOrWhiteSpace(options.BodyPartialView))
+            {
+                if (!String.IsNullOrWhiteSpace(options.HeaderExtraHtml))
+                {
+                    ViewContext.Writer.Write(options.HeaderExtraHtml);
+                }
+
+                Html.RenderPartial(options.BodyPartialView);
+
+                ViewContext.Writer.Write("<div class='PopUpView'><div class='button_container'>");
+
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = options.OKButton.Name;
+                    btnSettings.ControlStyle.CssClass = "button";
+                    btnSettings.Text = String.IsNullOrWhiteSpace(options.OKButton.Text) ? Resources.Continue : options.OKButton.Text;
+                    btnSettings.ClientVisible = options.OKButton.Visible;
+                    if (!String.IsNullOrWhiteSpace(options.OKButton.OnClick))
+                    {
+                        btnSettings.ClientSideEvents.Click = options.OKButton.OnClick;
+                    }
+                    else
+                    {
+                        btnSettings.ClientSideEvents.Click = options.CancelButton.OnClick;
+                    }
+                }).Render();
+
+                Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = options.CancelButton.Name;
+                    btnSettings.ControlStyle.CssClass = "button cancel";
+                    btnSettings.Text = String.IsNullOrWhiteSpace(options.CancelButton.Text) ? Resources.Close : options.CancelButton.Text;
+                    btnSettings.ClientVisible = options.CancelButton.Visible;
+                    if (!String.IsNullOrWhiteSpace(options.CancelButton.OnClick))
+                    {
+                        btnSettings.ClientSideEvents.Click = options.CancelButton.OnClick;
+                    }
+                    else
+                    {
+                        btnSettings.ClientSideEvents.Click = "function (s,e) { " + popUpSettings.Name + ".Hide()}";
+                    }
+                }).Render();
+
+                ViewContext.Writer.Write("</div></div>");
+            }
+        });
+
+        popUpSettings.AutoUpdatePosition = true;
+    }).GetHtml();
+}

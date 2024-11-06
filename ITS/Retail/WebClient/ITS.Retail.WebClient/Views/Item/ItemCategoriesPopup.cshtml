@@ -1,0 +1,15 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    string title = Resources.DoubleClickToSelectItemCategory;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("pcCategoriesPopup");
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "Item", Action = "ItemCategoriesPopup" };
+    popUpSettings.HeaderText = title;
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.SetContent(() =>
+    {
+        Html.RenderPartial("../ItemCategory/TreeView", Session["ItemAnalyticTree_Item"]);
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()

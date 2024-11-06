@@ -1,0 +1,2312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.Retail.Model.ActionType" Collapsed="true">
+    <Position X="31.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAKAAAAgAIAAAAAAgAAAABAABgCEAAAAAQAACEA=</HashCode>
+      <FileName>ActionType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ActionTypeDocStatus" Collapsed="true">
+    <Position X="61" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAIAAAAAABAIAAAAAAAAQAAAACAAAAABAAAAAAAAA=</HashCode>
+      <FileName>ActionTypeDocStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ActionTypeEntity" Collapsed="true">
+    <Position X="72.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAAAAKQAAEAAIQAAABEgAAAQBAEEgCEJAAAAQAAAoA=</HashCode>
+      <FileName>ActionTypeEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Address" Collapsed="true">
+    <Position X="225.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEQQAAgEQgEpAoEACIAKAAgAEoEkKEAAIgoUyABAA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.AddressType" Collapsed="true">
+    <Position X="97" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAEAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>AddressType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ApplicationLog" Collapsed="true">
+    <Position X="250" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAQIYAAAAAAgEQAAAAAIAAIAAAIAAACAgY=</HashCode>
+      <FileName>ApplicationLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ApplicationSettings" Collapsed="true">
+    <Position X="286" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCEAEAAAACCBAICAIAAAAAAghAACDABAAAAAQAgAEAM=</HashCode>
+      <FileName>ApplicationSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.GridAttribute" Collapsed="true">
+    <Position X="532.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\GridAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DisplayOrderAttribute" Collapsed="true">
+    <Position X="520.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\LocalizedDisplayNameAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PhysicalDeleteAttribute" Collapsed="true">
+    <Position X="527.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\PhysicalDeleteAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UniqueFieldsAttribute" Collapsed="true">
+    <Position X="527.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\UniqueFieldsAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UpdaterAttribute" Collapsed="true">
+    <Position X="530.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\UpdaterAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UpdaterIgnoreFieldAttribute" Collapsed="true">
+    <Position X="532.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\UpdaterAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.vGreaterThanDate" Collapsed="true">
+    <Position X="522" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAgAAAgAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Attributes\vGreaterThanDate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.vRequiredAttribute" Collapsed="true">
+    <Position X="523.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAgAAAgAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Attributes\vRequiredAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Barcode" Collapsed="true">
+    <Position X="466" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAEAAAAAAIAAAACgAAAAAAAAAAiAAQAACAAAAAA=</HashCode>
+      <FileName>Barcode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.BarcodeType" Collapsed="true">
+    <Position X="151" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAAAgAAIAgAgAIAIBCQCACAACAAAGAAQQQAIA=</HashCode>
+      <FileName>BarcodeType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.Buyer" Collapsed="true">
+    <Position X="157.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACIAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Buyer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CardlinkBatchTotal" Collapsed="true">
+    <Position X="34" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgCEAAAAIoKAgoAAAEAAAEUMIAAQDgkAAQAADUAAQII=</HashCode>
+      <FileName>CardlinkBatchTotal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CardlinkBatchTransaction" Collapsed="true">
+    <Position X="63.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAQAACAAIAAIAAAAAABCAAAIAAAwAAAAIAAAAAAAg=</HashCode>
+      <FileName>CardlinkBatchTransaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CashierRegisterItem" Collapsed="true">
+    <Position X="25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAACAIAAAAAAAAAAEgAAAACAAAQAAAAAAAAA=</HashCode>
+      <FileName>CashierRegisterItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CashRegister" Collapsed="true">
+    <Position X="169" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CashRegister.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CashRegisterDevice" Collapsed="true">
+    <Position X="391.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAACBAACAAAAAEAQAAAAAAAAAgEAA=</HashCode>
+      <FileName>CashRegisterDevice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CategoryNode" Collapsed="true">
+    <Position X="207.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEEAAAAAQAAAIAAAAAAQQgBACAMBQiAACQAAAAAAAA=</HashCode>
+      <FileName>CategoryNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.COMDeviceSettings" Collapsed="true">
+    <Position X="308.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIBAAAAAAAgCAJAACEQAAAgAAIAAACAAAAAEAAAUAAA=</HashCode>
+      <FileName>COMDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CompaniesGroup" Collapsed="true">
+    <Position X="106" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>CompaniesGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CompanyNew" Collapsed="true">
+    <Position X="342.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAQAAAgAIAQAIgxAAAAQAAEBAqAAgEiAQCIBEA=</HashCode>
+      <FileName>CompanyNew.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.COMScaleSettings" Collapsed="true">
+    <Position X="308.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAEAAAAABAAAAAAEAAACAA=</HashCode>
+      <FileName>COMScaleSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ControllerMessage" Collapsed="true">
+    <Position X="180.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAgAAAAAAAAAAAAAAGAAAAAAA=</HashCode>
+      <FileName>ControllerMessage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.Country" Collapsed="true">
+    <Position X="187" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Country.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Coupon" Collapsed="true">
+    <Position X="479.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAUBAAAIAAAAAgABCAAAAUAAiAABAAEAAAAAA=</HashCode>
+      <FileName>Coupon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CouponCategory" Collapsed="true">
+    <Position X="142" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAEAIAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>CouponCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CouponMask" Collapsed="true">
+    <Position X="481.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAAAAEAIAAAAAAABACAAAQAACBAACAEABAAAA=</HashCode>
+      <FileName>CouponMask.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomActionCode" Collapsed="true">
+    <Position X="468.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAggAAAAAAAAAgAAAAAAAAAAAQ=</HashCode>
+      <FileName>CustomActionCode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomDataView" Collapsed="true">
+    <Position X="484" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAiAAAAoAIAAAAAAgAAAAhAABAiEAIBAAAAACAA=</HashCode>
+      <FileName>CustomDataView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomDataViewCategory" Collapsed="true">
+    <Position X="160" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAIAABAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>CustomDataViewCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomDataViewParameter" Collapsed="true">
+    <Position X="36.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAABBgAJAAAAAAoAQAAAAAIACEAAAgAAAgAAA=</HashCode>
+      <FileName>CustomDataViewParameter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomDataViewRecord" Collapsed="true">
+    <Position X="522" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQCAAQCIAAAAAAAAAAAACAAAAAAAAAAIAAgAAA=</HashCode>
+      <FileName>CustomDataViewRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomDataViewShowSettings" Collapsed="true">
+    <Position X="74.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQCAAAAgBIAAAAAAgAAAwAAAIACEAAAAQAAgAIA=</HashCode>
+      <FileName>CustomDataViewShowSettings.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomEnumerationDefinition" Collapsed="true">
+    <Position X="90.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>CustomEnumerationDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomEnumerationValue" Collapsed="true">
+    <Position X="236.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAEAAAAAAwCAAAAAAAAAAAAAAAAACEAAAAAAAAAAA=</HashCode>
+      <FileName>CustomEnumerationValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Customer" Collapsed="true">
+    <Position X="252.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABB0BuSBSQozIE0GN04hKVgAhUhAiqJwwgoBVjABeA=</HashCode>
+      <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerAnalyticTree" Collapsed="true">
+    <Position X="403" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAACACAAAgAAAAAA=</HashCode>
+      <FileName>CustomerAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerCategory" Collapsed="true">
+    <Position X="205" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEACAAAIAAAAAAAAQAACAAAACAgABAAAABAAA=</HashCode>
+      <FileName>CustomerCategory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerCategoryDiscount" Collapsed="true">
+    <Position X="344.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAMAAACEAAAAAAAAEAQAAAgAAAAAAAAA=</HashCode>
+      <FileName>CustomerCategoryDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerChild" Collapsed="true">
+    <Position X="355.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAwAAAAAAAALAAEAAAAAAAAAAAAACAAAAAAAAAgAA=</HashCode>
+      <FileName>CustomerChild.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerPopoularItems" Collapsed="true">
+    <Position X="367" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAABBQAYAAgBAEABAEAAIAAAwIAAABAAAAgAA=</HashCode>
+      <FileName>CustomerPopoularItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerStorePriceList" Collapsed="true">
+    <Position X="382.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEAAQCAAAAoAIAAAAAAAIAAgAAAAACAAAAAAAAAgQA=</HashCode>
+      <FileName>CustomerStorePriceList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomReport" Collapsed="true">
+    <Position X="189.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAACAAAABAMAAAAAggAAgAIAiAAyAgYQAgAFAAEA=</HashCode>
+      <FileName>CustomReport.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DailyTotals" Collapsed="true">
+    <Position X="436.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JwQGAACQQACkAIAgAAAQAAAAAAAgAkAAABgkQQBAAAQ=</HashCode>
+      <FileName>DailyTotals.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DailyTotalsDetail" Collapsed="true">
+    <Position X="326.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAIAQAIAAAAAAAAAAAAAAAAAJAAAQAAA=</HashCode>
+      <FileName>DailyTotalsDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DataFileReceived" Collapsed="true">
+    <Position X="517.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgBDgACEwQIgICAAAgAAIkIFAGBZIAgAMAEECAEA=</HashCode>
+      <FileName>DataFileReceived.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DataFileRecordDetail" Collapsed="true">
+    <Position X="306.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataFileRecordDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DataFileRecordHeader" Collapsed="true">
+    <Position X="340" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAACCAAAgAIAAAAACgAEAADAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>DataFileRecordHeader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DataView" Collapsed="true">
+    <Position X="38.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAoAIAAAAAAgAAAAAAABAgEAAAAAAAACAA=</HashCode>
+      <FileName>DataView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DataViewCategory" Collapsed="true">
+    <Position X="81.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataViewCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DecodedRawData" Collapsed="true">
+    <Position X="27.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>qYoUwRqEqHUqk/E5+hW8k1csJ4yRHxgnopQuNVnBFMc=</HashCode>
+      <FileName>DecodedRawData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DeficiencySettings" Collapsed="true">
+    <Position X="92.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAABAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>DeficiencySettings.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DeficiencySettingsDetail" Collapsed="true">
+    <Position X="238.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>DeficiencySettingsDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DeletedObject" Collapsed="true">
+    <Position X="254.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAIAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DeletedObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DeliveryType" Collapsed="true">
+    <Position X="178" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAgAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>DeliveryType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DeviceSettings" Collapsed="true">
+    <Position X="313" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIEBAQAAKCAAANAAAAAAAAQAAQACAAAAAGACAAAAASA=</HashCode>
+      <FileName>DeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DiscountType" Collapsed="true">
+    <Position X="110.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAICQAAABAEgQAAAAAAAAAAgACAAQAAAAAAIAA=</HashCode>
+      <FileName>DiscountType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DiscountTypeField" Collapsed="true">
+    <Position X="513.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAQAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>DiscountTypeField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Division" Collapsed="true">
+    <Position X="182.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAAAAAIAAAAA=</HashCode>
+      <FileName>Division.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocTypeCustomerCategory" Collapsed="true">
+    <Position X="385" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAAMAAAAAAIAAAAAAAAQCAEAAAAAAAAAA=</HashCode>
+      <FileName>DocTypeCustomerCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentDetail" Collapsed="true">
+    <Position X="396.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>c6GWcdCtIb/MrvsYwcneL9RuwJiMJUw45o8edcUMqTQ=</HashCode>
+      <FileName>DocumentDetail.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentDetailDiscount" Collapsed="true">
+    <Position X="504.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAACQgAATIgABAEAQAEAAIASCgAgAAMARAgEAAARgA=</HashCode>
+      <FileName>DocumentDetailDiscount.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentHeader" Collapsed="true">
+    <Position X="459.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>2/1Xhuff3/2/N/S9Ce3v79La39/9f/Ft7fnZ/0D/3/c=</HashCode>
+      <FileName>DocumentHeader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentPayment" Collapsed="true">
+    <Position X="506.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAAQAAAAIBAAACAAIKgAAAAAAAARBAEAAAAAAA=</HashCode>
+      <FileName>DocumentPayment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentPaymentCardlink" Collapsed="true">
+    <Position X="486.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FEJgBAAAYYAAAIAAIEAAAICMMBhQTAFAQAAkFEADAII=</HashCode>
+      <FileName>DocumentPaymentCardlink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentPaymentEdps" Collapsed="true">
+    <Position X="499.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEGkogKAUACCQIQIkAA4RBSg0FgBQAAAQaCEQJChRAQ=</HashCode>
+      <FileName>DocumentPaymentEdps.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentPromotion" Collapsed="true">
+    <Position X="40.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAiAAAAABAQAIkABAAAAIkAAAAAAgAAVBBGAgQAAAA=</HashCode>
+      <FileName>DocumentPromotion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentSequence" Collapsed="true">
+    <Position X="79" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAEAAAIAAAAEAAIAAAAQAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>DocumentSequence.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentSeries" Collapsed="true">
+    <Position X="85.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ApAEAgAABcCAAKAAQACSAAUAAAChAgCAAQAAAQAAAAA=</HashCode>
+      <FileName>DocumentSeries.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentStatus" Collapsed="true">
+    <Position X="94.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAAQAAAIAAAAAAAAAAAAAAAACAYAAIAAAAAAA=</HashCode>
+      <FileName>DocumentStatus.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentType" Collapsed="true">
+    <Position X="99.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>5ofFSjOikUhBo5EhRQ1DWECSLjn9tFOgCQB6GQAAnGI=</HashCode>
+      <FileName>DocumentType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentTypeBarcodeType" Collapsed="true">
+    <Position X="256.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAAIAAAABAAAAAAAAAAACAAAAAAAAgAAA=</HashCode>
+      <FileName>DocumentTypeBarcodeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentTypeCustomReport" Collapsed="true">
+    <Position X="288.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIEABAAgAIAAAAQAAAEAAAAACACAAAAAAAAABAA=</HashCode>
+      <FileName>DocumentTypeCustomReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentTypeItemCategory" Collapsed="true">
+    <Position X="319.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAAIAAACAAAAAAAAAEAACAAAAAAAAAAAA=</HashCode>
+      <FileName>DocumentTypeItemCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentTypeMapping" Collapsed="true">
+    <Position X="346.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAA=</HashCode>
+      <FileName>DocumentTypeMapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentTypeRole" Collapsed="true">
+    <Position X="358" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEAAABAAAAAAAEAAAAAAAAQAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>DocumentTypeRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.EdpsBatchTotal" Collapsed="true">
+    <Position X="369.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgCEAAAABgCkgICABAAAQACAQACAYgAEAABEiQAhQAQ=</HashCode>
+      <FileName>EdpsBatchTotal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.EdpsBatchTransaction" Collapsed="true">
+    <Position X="387.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEGAIECAQAIIAImAEQByRQCIkBAAAAEAADAAAAAISAA=</HashCode>
+      <FileName>EdpsBatchTransaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ElectronicJournalFilePackage" Collapsed="true">
+    <Position X="398.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAACAAACgAIAAAAAAAAAAAAAAAgABBAAAAQAEAgA=</HashCode>
+      <FileName>ElectronicJournalFilePackage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.EntityAccessPermision" Collapsed="true">
+    <Position X="45.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAQACAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>EntityAccessPermision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.EntityFieldAccessPermission" Collapsed="true">
+    <Position X="47.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAIAAAAAABAAAAAAIAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>EntityFieldAccessPermission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.EthernetDeviceSettings" Collapsed="true">
+    <Position X="317.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAACAAAAAAIAAAAAAACCAA=</HashCode>
+      <FileName>EthernetDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.FieldPermission" Collapsed="true">
+    <Position X="49.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAEAAAAAAAAAICAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>FieldPermission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.FiscalDeviceDocumentSeries" Collapsed="true">
+    <Position X="502" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAIAQAAEAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>FiscalDeviceDocumentSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ForgotPasswordToken" Collapsed="true">
+    <Position X="495.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ForgotPasswordToken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.FormMessage" Collapsed="true">
+    <Position X="349" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAACAEgAgAIAABAAAgAAAAAAAAAAAAAAAAIgAAQA=</HashCode>
+      <FileName>FormMessage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.FormMessageDetail" Collapsed="true">
+    <Position X="232" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAQAAAAAAAAAAAAAAGAAAAAAA=</HashCode>
+      <FileName>FormMessageDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.GDPRProtocolNumbers" Collapsed="true">
+    <Position X="227.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAABAAAAAAAIAAAAAACIAAAAAAAAAA=</HashCode>
+      <FileName>GDPRProtocolNumbers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.GeneratedCoupon" Collapsed="true">
+    <Position X="241" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACEABAggoAAAAAggAAAAAAEAAgMAAAAAAAAAAA=</HashCode>
+      <FileName>GeneratedCoupon.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.GridSettings" Collapsed="true">
+    <Position X="259" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAIBAAAAAAAAAAAAAggAAAAAAAAAAgAA=</HashCode>
+      <FileName>GridSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.IndirectDeviceSettings" Collapsed="true">
+    <Position X="310.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAACBAAKoEAAACQAAAUAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IndirectDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Item" Collapsed="true">
+    <Position X="322" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YDAWA3GhoYYioOAIoBA2sQ4oadCCSoi4hZQNGXCLUDU=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemAnalyticTree" Collapsed="true">
+    <Position X="405.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAYAgAAAEAAAAAAAAAACACAAAgAAAAAA=</HashCode>
+      <FileName>ItemAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemBarcode" Collapsed="true">
+    <Position X="360.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAKEABEgAIAACACAgIAEBBAAAACAAQACIAAABAA=</HashCode>
+      <FileName>ItemBarcode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemCategory" Collapsed="true">
+    <Position X="207.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgIAAAAAAEgQIADIAAACAgAAAAAABAAA=</HashCode>
+      <FileName>ItemCategory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemDeviceIndex" Collapsed="true">
+    <Position X="389.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAgIIAAACBAAAAEAAAEAQAAAAAAAAIgAAA=</HashCode>
+      <FileName>ItemDeviceIndex.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemExtraInfo" Collapsed="true">
+    <Position X="400.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQCAAFAoAIAAAAAAACEEAAwAAgCFIAAAAQgAAAA=</HashCode>
+      <FileName>ItemExtraInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemImage" Collapsed="true">
+    <Position X="191.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgABMAAAAAAAACIAAAAAhSAAAAAAEAAAgA=</HashCode>
+      <FileName>ItemImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemSpecification" Collapsed="true">
+    <Position X="461.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAhAAAIAAAAAAAAAEAAIAAACEAAAAAAAAAAA=</HashCode>
+      <FileName>ItemSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemStock" Collapsed="true">
+    <Position X="470.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAAABACAIBAAAAMAAIEgAAAAgCAAAAAAQAAAAA=</HashCode>
+      <FileName>ItemStock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemStore" Collapsed="true">
+    <Position X="488.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAIAAAAAAAAAEAAAAAgCAAAAAAQAAAAA=</HashCode>
+      <FileName>ItemStore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Label" Collapsed="true">
+    <Position X="162.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEQgAGAQAAIACAAAAAAAAAAACBACAgAAAMAAAAAA=</HashCode>
+      <FileName>Label.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LabelPrintServiceSettings" Collapsed="true">
+    <Position X="432.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAEAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LabelPrintServiceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Leaflet" Collapsed="true">
+    <Position X="83.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAMAAAAAAAAAgIAEjIBCAAAAACUAAABQ=</HashCode>
+      <FileName>Leaflet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.LeafletDetail" Collapsed="true">
+    <Position X="76.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACEAABEAAJAAAAAAAAAEAAAAAACAAAAiAAACAAA=</HashCode>
+      <FileName>LeafletDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LeafletStore" Collapsed="true">
+    <Position X="229.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAAAAAAAAAAAAAAgCAAAAAAQACAAA=</HashCode>
+      <FileName>LeafletStore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LicenseUserDistribution" Collapsed="true">
+    <Position X="243.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAACgAAAgAoQAAEAAAAAoAAAEBACEAAhAEkIAAAA=</HashCode>
+      <FileName>LicenseUserDistribution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LinkedItem" Collapsed="true">
+    <Position X="261.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAIAAAACAAAAEAAQCAACAAAAAAAAAAQA=</HashCode>
+      <FileName>LinkedItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LPTDeviceSettings" Collapsed="true">
+    <Position X="313" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LPTDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MapVatFactor" Collapsed="true">
+    <Position X="29.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAEQIAQAAAAAAAEAAAQQAAAAAAIAAAAAAA=</HashCode>
+      <FileName>MapVatFactor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MeasurementUnit" Collapsed="true">
+    <Position X="112.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAACIAAAQAAAAAAAAgAAACEAAAAAQAAAAA=</HashCode>
+      <FileName>MeasurementUnit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.MemberType" Collapsed="true">
+    <Position X="119.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAI=</HashCode>
+      <FileName>MemberType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MinistryDocumentType" Collapsed="true">
+    <Position X="184.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAEAAAAMAAAAAhAAAAAKAAAAgAAAAAAAAAgBA=</HashCode>
+      <FileName>MinistryDocumentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MobileTerminal" Collapsed="true">
+    <Position X="173.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MobileTerminal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.absAnalyticTree&lt;T&gt;" Collapsed="true">
+    <Position X="405.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAEAAAAgqAAUAEAAJECAAAUAAAAAAAAAAEAAgA=</HashCode>
+      <FileName>NonPersistant\absAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.AjaxContactFormValidationData" Collapsed="true">
+    <Position X="523.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAIAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>NonPersistant\AjaxContactFormValidationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.BaseObj" Collapsed="true">
+    <Position X="273.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\BaseObj.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.BasicObj" Collapsed="true">
+    <Position X="271.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CsAkEAJFMbiAIIBE0RAABoUAAAQGDCW4IgEAARIIQgM=</HashCode>
+      <FileName>NonPersistant\BasicObj.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.Category" Collapsed="true">
+    <Position X="207.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAACAAAAAAIAAAAAggAAAAAAAAAgAAAAABAAAAAA=</HashCode>
+      <FileName>NonPersistant\Category.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomFieldStorage" Collapsed="true">
+    <Position X="505.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQAACASAACIIAAJAJAAAAgAAAgMAgEAPlgHoAQAQ6AE=</HashCode>
+      <FileName>NonPersistant\CustomFieldStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemCategoryImportData" Collapsed="true">
+    <Position X="207.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\ItemCategoryImportData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Lookup2Fields" Collapsed="true">
+    <Position X="121.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAACAAAAAAIAAAAAggAAAAAAAAAgAAAAABAAAAAA=</HashCode>
+      <FileName>NonPersistant\Lookup2Fields.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.LookupField" Collapsed="true">
+    <Position X="146.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAgAIAAAAAAAIAAgAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\LookupField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MLString&lt;T&gt;" Collapsed="true">
+    <Position X="232" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAARAAAAAgAIAAAAAAQIAAgABAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\MLString.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceSearchTraceStep" Collapsed="true">
+    <Position X="520.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>NonPersistant\PriceSearchTraceStep.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Terminal" Collapsed="true">
+    <Position X="171.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAgKAAAAAAIAQAAAAAAgAIAAAAAQAGAAA=</HashCode>
+      <FileName>NonPersistant\Terminal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TerminalDeviceAssociation" Collapsed="true">
+    <Position X="290.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAABAAAAABoAEAQAAAAAAAAAAAAAAgAAAAAACAAA=</HashCode>
+      <FileName>NonPersistant\TerminalDeviceAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TotalDetail" Collapsed="true">
+    <Position X="325.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAARACDAIAAAABAAACAAAAAAQAAAAAAAAQAAAA=</HashCode>
+      <FileName>NonPersistant\TotalDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Translation&lt;T&gt;" Collapsed="true">
+    <Position X="349" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAEAAAAIAAAAACAAAAgAAAAAAAAAQA=</HashCode>
+      <FileName>NonPersistant\Translation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Offer" Collapsed="true">
+    <Position X="121.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAABCAgAIAAAAAAAIAgAAAAIQCAAAABAECAEAA=</HashCode>
+      <FileName>Offer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OfferDetail" Collapsed="true">
+    <Position X="371.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAQAIAAAAAAAIAEAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>OfferDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OPOSDeviceSettings" Collapsed="true">
+    <Position X="315.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OPOSDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OPOSPrinterSettings" Collapsed="true">
+    <Position X="315.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAQJQAgAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>OPOSPrinterSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OwnerApplicationSettings" Collapsed="true">
+    <Position X="439" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>O5fD8FryX5etwPj8/j50icHqOEPaDFDuooHTKgHeDm8=</HashCode>
+      <FileName>OwnerApplicationSettings.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.OwnerCategories" Collapsed="true">
+    <Position X="193.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAgAAAAAABAAAAABAAAAAAAAA=</HashCode>
+      <FileName>OwnerCategories.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OwnerImage" Collapsed="true">
+    <Position X="200.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAABMAAAACAAAAIAAAAAhQAAAAAAEAAAgA=</HashCode>
+      <FileName>OwnerImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PaymentMethod" Collapsed="true">
+    <Position X="153.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>mgABACMIACgAA4QAAAAxGACIgAhBAASQACBABAADkQA=</HashCode>
+      <FileName>PaymentMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PaymentMethodField" Collapsed="true">
+    <Position X="515.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAgAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>PaymentMethodField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Permission" Collapsed="true">
+    <Position X="46.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAUAAAABAJAAAAAGAAAAAAAAAAAIAAABAAAAAAA=</HashCode>
+      <FileName>Permission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Phone" Collapsed="true">
+    <Position X="65.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACAAAAgAIAAAEAEhEAAAAAAAACCAAAAAAAAAAA=</HashCode>
+      <FileName>Phone.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PhoneType" Collapsed="true">
+    <Position X="88" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAACAAAAAIAAAAAA=</HashCode>
+      <FileName>PhoneType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POS" Collapsed="true">
+    <Position X="171.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LSIqzSJOFjiARIAaqQAFjIAUDAxyEASkQQCx9yxFBgA=</HashCode>
+      <FileName>POS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSActionLevel" Collapsed="true">
+    <Position X="245.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAgAAIAAgAAAAAAQAAAAAAAAAAAAACAAgAA=</HashCode>
+      <FileName>POSActionLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSActionLevelsSet" Collapsed="true">
+    <Position X="103.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>POSActionLevelsSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSCommand" Collapsed="true">
+    <Position X="529" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEEABEAGCAAIAIQAAABJAAAAAACAcABAEAAAAAAAE=</HashCode>
+      <FileName>POSCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PosCommandResult" Collapsed="true">
+    <Position X="328.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICAABAAEAEAAICAAAAADBAAAAAAABIAAAAAAAAQAAA=</HashCode>
+      <FileName>PosCommandResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSDevice" Collapsed="true">
+    <Position X="394" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAABIAAABCABAMAAACFAACQgAgAEEQIAAAgAAABoEAA=</HashCode>
+      <FileName>POSDevice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSDocumentSeries" Collapsed="true">
+    <Position X="362.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAACAAIAAAAAAAAAAAAABAACABAAAAAAAAAA=</HashCode>
+      <FileName>POSDocumentSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSKeyMapping" Collapsed="true">
+    <Position X="373.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAEARgAAIAAAAIAAAAABAAAAAGAAAAAECAQgAA=</HashCode>
+      <FileName>POSKeyMapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSKeysLayout" Collapsed="true">
+    <Position X="133" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAIAAAAAAAAAAAAAAAACBAAAAAAAAAAA=</HashCode>
+      <FileName>POSKeysLayout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSLayout" Collapsed="true">
+    <Position X="139.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABEACAAAEACIAABAAAIgAACAAAAggACABAgAQAAAA=</HashCode>
+      <FileName>POSLayout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PosOposReportSettings" Collapsed="true">
+    <Position X="441.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CgAEAQAAAACAAIAAAAAAAAAAAAAAAACAAEAwAAAAAAA=</HashCode>
+      <FileName>PosOposReportSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSPrintFormat" Collapsed="true">
+    <Position X="196" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAAIAAAAAAAIAAAEgAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>POSPrintFormat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PosReport" Collapsed="true">
+    <Position X="472.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAgAAAAAEgAAAiEAAAABAAAAAA=</HashCode>
+      <FileName>PosReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSReportSetting" Collapsed="true">
+    <Position X="211.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GgAEAQAABACAAIAAAAQAAAAAAAAAAAAAAEAAAAAABAA=</HashCode>
+      <FileName>POSReportSetting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSStatus" Collapsed="true">
+    <Position X="214" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAIAkAAABAAAAAAAAAoCAAAABAAiAAAA=</HashCode>
+      <FileName>POSStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSUpdaterManualVersion" Collapsed="true">
+    <Position X="52" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAwCAAAAAAAAAAAAAAAAAAAABAAAAEAAAAAA=</HashCode>
+      <FileName>POSUpdaterManualVersion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalog" Collapsed="true">
+    <Position X="164.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIBABQCAFQAQCYAiAgSggMggAAGIIgmBAQQAAECJBAA=</HashCode>
+      <FileName>PriceCatalog.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogDetail" Collapsed="true">
+    <Position X="216.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEVAhikAATMEAIAAQAUAkAAHIVIUGQWFEgUzKBAABqA=</HashCode>
+      <FileName>PriceCatalogDetail.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogDetailTimeValue" Collapsed="true">
+    <Position X="234.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GEBAAAgAAQAAAIAAQAYAEAAAIAAQEAQBEAAACAAAAAA=</HashCode>
+      <FileName>PriceCatalogDetailTimeValue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogPolicy" Collapsed="true">
+    <Position X="101.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAQgAAAABAAAGAAACBwAAAAAAAAAA=</HashCode>
+      <FileName>PriceCatalogPolicy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogPolicyDetail" Collapsed="true">
+    <Position X="263.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAgAIAAAAAQAAAAgAAAAQCAAAAMAAAEAAA=</HashCode>
+      <FileName>PriceCatalogPolicyDetail.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogPolicyPromotion" Collapsed="true">
+    <Position X="292.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAABAgAIAAAAAAAAAAAAAAAACAABAIAAAAAAA=</HashCode>
+      <FileName>PriceCatalogPolicyPromotion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogPromotion" Collapsed="true">
+    <Position X="331" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAADAAAIAAAAAAAAAAAAAAAQCAABAAAAAAAAA=</HashCode>
+      <FileName>PriceCatalogPromotion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PrintLabelSettings" Collapsed="true">
+    <Position X="376" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAAQAAEAygAIEAAAAgAAAAgAQQBgiEAAAAAQAAAAA=</HashCode>
+      <FileName>PrintLabelSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Promotion" Collapsed="true">
+    <Position X="135.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAgQAAKoQgACAAAAAgIAkkIADBAEBCAEgAUAA=</HashCode>
+      <FileName>Promotion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionApplicationRule" Collapsed="true">
+    <Position X="416.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAgAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PromotionApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionApplicationRuleDetail" Collapsed="true">
+    <Position X="444.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAACAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>PromotionApplicationRuleDetail.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionApplicationRuleDetailCustomDataViewCondition" Collapsed="true">
+    <Position X="443.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PromotionApplicationRuleDetailCustomDataViewCondition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionApplicationRuleDetailCustomDataViewParameter" Collapsed="true">
+    <Position X="445.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgABAAAAAAIAQAAAAAAAAEAQAgAAAABAA=</HashCode>
+      <FileName>PromotionApplicationRuleDetailCustomDataViewParameter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionApplicationRuleGroup" Collapsed="true">
+    <Position X="490.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FBgAAAQAABAgAIAAMAAAAAIAAAAAgICAAABAAAAAYAA=</HashCode>
+      <FileName>PromotionApplicationRuleGroup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionCustomDataViewApplicationRule" Collapsed="true">
+    <Position X="423.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAgAIAAAAAAAAAAAAAAIACAAAAAAAAgAAA=</HashCode>
+      <FileName>PromotionCustomDataViewApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionCustomerApplicationRule" Collapsed="true">
+    <Position X="409.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAIAAAgAIAAAAAAAAAAAAAAAACAAAAAAAAAgAA=</HashCode>
+      <FileName>PromotionCustomerApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionCustomerCategoryApplicationRule" Collapsed="true">
+    <Position X="412" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAMAAAAAAAAAAgAAAAQCAAAAAAAAAAAA=</HashCode>
+      <FileName>PromotionCustomerCategoryApplicationRule .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionDisplayResult" Collapsed="true">
+    <Position X="448" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAAAAABAAAACAAAAAIAAAAAA=</HashCode>
+      <FileName>PromotionDisplayResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionDocumentApplicationRule" Collapsed="true">
+    <Position X="414.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAgAJAgAAAAAAAAAAAAAACAAAAgAAAAAAA=</HashCode>
+      <FileName>PromotionDocumentApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionDocumentExecution" Collapsed="true">
+    <Position X="265.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggIAIAAAAAAAAAAAAAACAkAAAAAAAAAA=</HashCode>
+      <FileName>PromotionDocumentExecution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionExecution" Collapsed="true">
+    <Position X="269.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAQAAABAgAJAAAAAAAIEAQAgAAAAAAAAgEAAAAAA=</HashCode>
+      <FileName>PromotionExecution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionItemApplicationRule" Collapsed="true">
+    <Position X="416.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABggAJAAAAAAAAAEAAAAAACAAAAggAAAAAE=</HashCode>
+      <FileName>PromotionItemApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionItemCategoryApplicationRule" Collapsed="true">
+    <Position X="418.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAJAAACAAAAAAAAAEAACAAAAggAAAAAE=</HashCode>
+      <FileName>PromotionItemCategoryApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionItemCategoryExecution" Collapsed="true">
+    <Position X="268" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAgAIAAACAAAAAAAAAEAACAAAgAgAEIiAE=</HashCode>
+      <FileName>PromotionItemCategoryExecution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionItemExecution" Collapsed="true">
+    <Position X="270.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQBggAIAAAAAAAAAEAAAAAACAAAgAgAEIiAE=</HashCode>
+      <FileName>PromotionItemExecution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionPriceCatalogApplicationRule" Collapsed="true">
+    <Position X="421" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAAAAAAAAAACABAAAAAAIAAA=</HashCode>
+      <FileName>PromotionPriceCatalogApplicationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionPriceCatalogExecution" Collapsed="true">
+    <Position X="272.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAgAIAAAAAAAAAAAAAAAACABAgAAAEICAA=</HashCode>
+      <FileName>PromotionPriceCatalogExecution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionPrintResult" Collapsed="true">
+    <Position X="450.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAIAAAAAAAAAAABAAAACAAAAAIAAAAAA=</HashCode>
+      <FileName>PromotionPrintResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PromotionResult" Collapsed="true">
+    <Position X="449.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAABAgAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>PromotionResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.RawDataNumericAttribute" Collapsed="true">
+    <Position X="523.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>RawDataNumericAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Reason" Collapsed="true">
+    <Position X="148.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAAAAACAA=</HashCode>
+      <FileName>Reason.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ReasonCategory" Collapsed="true">
+    <Position X="155.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAABAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ReasonCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.RelativeDocument" Collapsed="true">
+    <Position X="508.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAQAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAIIAAAAAA=</HashCode>
+      <FileName>RelativeDocument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.RelativeDocumentDetail" Collapsed="true">
+    <Position X="54.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAggAAAAAAAEAAAgAAgAAAAQQAAAAQAAAAAAA=</HashCode>
+      <FileName>RelativeDocumentDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ReportCategory" Collapsed="true">
+    <Position X="166.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAgAAAAAAAAACAAAAAABAAAAA=</HashCode>
+      <FileName>ReportCategory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.ReportRole" Collapsed="true">
+    <Position X="218.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAEAQAAAAAAQAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ReportRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.RequiredFieldAttribute" Collapsed="true">
+    <Position X="527.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RequiredField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ResendObjectRequest" Collapsed="true">
+    <Position X="529" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABAQAABAAIAAQAAIAAAAAQAAAAEBAAAEEAAAAgA=</HashCode>
+      <FileName>ResendObjectRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Role" Collapsed="true">
+    <Position X="175.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQCCAAAAAEIAAAAAAgAAAAACAAACAARAAAQAgBAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.RoleEntityAccessPermision" Collapsed="true">
+    <Position X="295" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAAAAAAIAAEAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoleEntityAccessPermision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Scale" Collapsed="true">
+    <Position X="108.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgCKAAgAoAAAAAAAAAIgAACIAAAAAAAIAgAAAA=</HashCode>
+      <FileName>Scale.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ScannedDocumentHeader" Collapsed="true">
+    <Position X="351.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIADKAAEAoAIAAggAQgABAAAQCAAAIAAAAMJAAAAA=</HashCode>
+      <FileName>ScannedDocumentHeader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.Seasonality" Collapsed="true">
+    <Position X="124" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACIAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Seasonality.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.SFA" Collapsed="true">
+    <Position X="378.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgIAAAAAAIAQAAAAAAAAAQAAAAAAEAAA=</HashCode>
+      <FileName>SFA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SpecialItem" Collapsed="true">
+    <Position X="137.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>SpecialItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.SpreadSheet" Collapsed="true">
+    <Position X="425.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAMAEAAAgAAAAAIAAAAwAAAAAAQBAAAA=</HashCode>
+      <FileName>SpreadSheet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Store" Collapsed="true">
+    <Position X="452.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAEAACCAAAAlDIAAAAAgoMQAAUEEAAjDZAABQAAoEgA=</HashCode>
+      <FileName>Store.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreAnalyticTree" Collapsed="true">
+    <Position X="407.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StoreAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreBarcodeType" Collapsed="true">
+    <Position X="475" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAABAgAAAAAAAAgCAAAAAAQAgAAA=</HashCode>
+      <FileName>StoreBarcodeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreCategory" Collapsed="true">
+    <Position X="209.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAEgAIABIAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StoreCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreControllerCommand" Collapsed="true">
+    <Position X="522" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEABEACAAAIAIQAAABJAAAAAACAUAJAEAAAAAAAE=</HashCode>
+      <FileName>StoreControllerCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreControllerSettings" Collapsed="true">
+    <Position X="56.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIECLBAECBhICCCgAEkAAACACQEgShgQABhQAEAAA=</HashCode>
+      <FileName>StoreControllerSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreControllerTerminalDeviceAssociation" Collapsed="true">
+    <Position X="67.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYAAAADAAAAhAoAEAQAAiAAAAAAAAAAAgAAAAQAAEAA=</HashCode>
+      <FileName>StoreControllerTerminaDeviceAssociation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDailyReport" Collapsed="true">
+    <Position X="220.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RiARESGgAABKAoAAEBgoiIY2AACAQgwCYEQHASQIAgA=</HashCode>
+      <FileName>StoreDailyReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDailyReportDailyTotal" Collapsed="true">
+    <Position X="274.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAJAAAAAACAAAAAAAAAAAAAAgAAAQAAE=</HashCode>
+      <FileName>StoreDailyReportDailyTotal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDailyReportDocumentHeader" Collapsed="true">
+    <Position X="277" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAIAAAAAAAAAAAAAAAAAAQAAEAAAAAAE=</HashCode>
+      <FileName>StoreDailyReportDocumentHeader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDailyReportLine" Collapsed="true">
+    <Position X="277" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAIgAAAgAIAAAAAIAAAAAAAAAAAEAQAAAAACFAA=</HashCode>
+      <FileName>StoreDailyReportLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDailyReportPayment" Collapsed="true">
+    <Position X="279.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIEAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StoreDailyReportPayment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDocumentSeriesType" Collapsed="true">
+    <Position X="333.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAIAYEABAAiBICAAAGQFAEAACACCACAAAAAMACAEBA=</HashCode>
+      <FileName>StoreDocumentSeriesType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDocumentSeriesTypePrintServiceSettings" Collapsed="true">
+    <Position X="434.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAABAAAABAAAAAAAAAA=</HashCode>
+      <FileName>StoreDocumentSeriesTypePrintServiceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StorePriceCatalogPolicy" Collapsed="true">
+    <Position X="364.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAEAgAIAABAAAAAAAgAAAAgCAAAAIAQAAAAA=</HashCode>
+      <FileName>StorePriceCatalogPolicy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.StorePriceList" Collapsed="true">
+    <Position X="380.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAIAEAAAAAAAAAAAAAgCAAAAAAQBAAAA=</HashCode>
+      <FileName>StorePriceList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupplierImportFileRecordField" Collapsed="true">
+    <Position X="304" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAIAAAAAAAIAAABAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupplierImportFileRecordField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupplierImportFileRecordHeader" Collapsed="true">
+    <Position X="337.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAARAIgAAAAAIARAAAEAAAAEAAAAAAiAAAQ=</HashCode>
+      <FileName>SupplierImportFileRecordHeader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupplierImportFilesSet" Collapsed="true">
+    <Position X="144.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAAABAAAAAMAAAAAAAgAAAAAA=</HashCode>
+      <FileName>SupplierImportFilesSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.SupplierImportMappingDetail" Collapsed="true">
+    <Position X="463.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAIIAAAAAAAAAAABAQAAAAAAAAAIAQAAA=</HashCode>
+      <FileName>SupplierImportMappingDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupplierImportMappingHeader" Collapsed="true">
+    <Position X="202.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAEAAAAg=</HashCode>
+      <FileName>SupplierImportMappingHeader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupplierNew" Collapsed="true">
+    <Position X="493" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABBQAGAAAQgSIAAAFAwgIAAAAQgAAqJwQAoABCABGA=</HashCode>
+      <FileName>SupplierNew.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.AbstractLinqQuery" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="520.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQBABiBEARCAAAgAAIAAgQJAgAIBAcACcAACQAQ=</HashCode>
+      <FileName>SupportingClasses\AbstractLinqQuery.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.Retail.Model.DeviceCommand" Collapsed="true">
+    <Position X="532.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\DeviceCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.GlobalSettings" Collapsed="true">
+    <Position X="530.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAYAAAAAAAAAAABEIAgAAAAAAAQAAAAA=</HashCode>
+      <FileName>SupportingClasses\GlobalSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SynchronizationInfo" Collapsed="true">
+    <Position X="297.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIIAAAACAAMAAAEAAAAAQAAAAIAgFAAAIEAEAEUI=</HashCode>
+      <FileName>SynchronizationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TablePermission" Collapsed="true">
+    <Position X="43" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAgAAAAIAAAAAAAAAAAIAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>TablePermission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TableVersion" Collapsed="true">
+    <Position X="353.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIACAEAEAAAAAAAAAIABAAAAEAAAAAA=</HashCode>
+      <FileName>TableVersion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TaxOffice" Collapsed="true">
+    <Position X="126.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAACAAAAAAAACAAAIAgAEAAAA=</HashCode>
+      <FileName>TaxOffice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TemporaryObject" Collapsed="true">
+    <Position X="523.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAUABUACABAIARQAAAAAAAQAACCAEAIAAAAAAAAoE=</HashCode>
+      <FileName>TemporaryObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TerminalDevice" Collapsed="true">
+    <Position X="393" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAIgAAAAAIAQIAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TerminalDevice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Trader" Collapsed="true">
+    <Position X="427.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AANQAFBBEAsAAIAAEAEgAAAAAACgAAiAAEAoAABIEAg=</HashCode>
+      <FileName>Trader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.TransactionCoupon" Collapsed="true">
+    <Position X="454.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgQBAAABgAAIIAAAAAAAAAAAAESAAAYAAEAAAAAQA=</HashCode>
+      <FileName>TransactionCoupon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TransferPurpose" Collapsed="true">
+    <Position X="146.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>TransferPurpose.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TransformationRule" Collapsed="true">
+    <Position X="477.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAwHAAAAgAoQACAAAgMAAgAAAAACAAAAAAAAAACA=</HashCode>
+      <FileName>TransformationRule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.UnreferencedDocumentDetail" Collapsed="true">
+    <Position X="529" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAgAAAAAAAAAAAAAAgAAgAAIAAA=</HashCode>
+      <FileName>UnreferencedDocumentDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UpdaterMode" Collapsed="true">
+    <Position X="511" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAABAAAAEAAAAIA=</HashCode>
+      <FileName>UpdaterMode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.User" Collapsed="true">
+    <Position X="58.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AzIEgCIWAigYTM4CkEIAAEsQQ0uGEkjCBQkZAIRgAUA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.UserDailyTotals" Collapsed="true">
+    <Position X="70" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>qwQFAAASAACAAIAgAAIAAIBAAAEgAkAAARAlCQBQAAA=</HashCode>
+      <FileName>UserDailyTotals.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UserDailyTotalsCashCountDetail" Collapsed="true">
+    <Position X="223" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAAAAARgCDAIAAAIIAAJCAAAAAAAAAAAAAAAQAQAA=</HashCode>
+      <FileName>UserDailyTotalsCashCountDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UserDailyTotalsDetail" Collapsed="true">
+    <Position X="324.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAgAAAIAQAIAAAAAAAAAAAAAAAAAIAAAAQAA=</HashCode>
+      <FileName>UserDailyTotalsDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UserTypeAccess" Collapsed="true">
+    <Position X="247.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAQAAAAAIAAAAAAAAAAQAAAAACAAAAAAAAAAoA=</HashCode>
+      <FileName>UserTypeAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Variable" Collapsed="true">
+    <Position X="281.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SEAAAwCAAwQgAJAEAEAAggSQQECABACUCCBAgABQCEA=</HashCode>
+      <FileName>Variable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.VariableActionType" Collapsed="true">
+    <Position X="299.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEAABABAAAIAAAAEAAAAAAAAAEAAAAAQAAAAAEAA=</HashCode>
+      <FileName>VariableActionType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VariableValues" Collapsed="true">
+    <Position X="335.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CJMICJewEAMoAMI2iOA+jgD9R3AGw4Dc9pHcMwB46/8=</HashCode>
+      <FileName>VariableValues.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.VatCategory" Collapsed="true">
+    <Position X="115" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQACIAQAAAQAAAAAAAAAgCAAAAAAAAAAAA=</HashCode>
+      <FileName>VatCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VatFactor" Collapsed="true">
+    <Position X="128.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQAAAABAAAQEAIAAAAAUAYAAAAAgAACAAAAgAAAAAAA=</HashCode>
+      <FileName>VatFactor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VatLevel" Collapsed="true">
+    <Position X="130.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAIAQBAAAAEAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>VatLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VerifyEmailToken" Collapsed="true">
+    <Position X="497.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VerifyEmailToken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.WidgetManager" Collapsed="true">
+    <Position X="430" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACEAEICAAAQAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WidgetManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.WRMApplicationSettings" Collapsed="true">
+    <Position X="457" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAQABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WRMApplicationSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ZReportSequence" Collapsed="true">
+    <Position X="198.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAACAAACAAIAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>ZReportSequence.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.Attributes.DataViewParameterAttribute" Collapsed="true">
+    <Position X="529" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\DataViewParameterAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Attributes.DescriptionFieldAttribute" Collapsed="true">
+    <Position X="530.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\DescriptionFieldAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Attributes.GDPRAttribute" Collapsed="true">
+    <Position X="529" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\GDPRAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Attributes.ImportEntityAttribute" Collapsed="true">
+    <Position X="520.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\ImportEntityAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Attributes.IsDefaultUniqueFieldsAttribute" Collapsed="true">
+    <Position X="522" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\IsDefaultUniqueAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Attributes.TriggerActionTypeAttribute" Collapsed="true">
+    <Position X="525.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\TriggerActionTypeAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Exceptions.PriceNotExistException" Collapsed="true">
+    <Position X="532.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\PriceNotExistException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Exceptions.SignatureFailureException" Collapsed="true">
+    <Position X="520.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\SignatureFailureException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MobileInventory.ItemCheck" Collapsed="true">
+    <Position X="283.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAIAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MobileInventory\ItemCheck.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MobileInventory.MobileInventoryEntry" Collapsed="true">
+    <Position X="301.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAIAAAAAAAgAEgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MobileInventory\MobileInventoryEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MobileInventory.MobileInventoryEslEntry" Collapsed="true">
+    <Position X="301.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MobileInventory\MobileInventoryEslEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.AbstractPromotion" Collapsed="true">
+    <Position X="117.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgACAAAAAIAEAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\AbstractPromotion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ActionTypeTriggerInfo" Collapsed="true">
+    <Position X="522" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAIAAAAAAAQAAAAgAAAAAAAAAAAFA=</HashCode>
+      <FileName>NonPersistant\ActionTypeTriggerInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.CashierShift" Collapsed="true">
+    <Position X="527.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAQAAAgAAAgAAQAAAAAAEQAAACAAAQAAAAQAAAAA=</HashCode>
+      <FileName>NonPersistant\CashierShift.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.CashierShiftReportLine" Collapsed="true">
+    <Position X="529" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABALgQAYBBAgQgIAQIAAEBAEIAAAAAAAAAAABYABAAA=</HashCode>
+      <FileName>NonPersistant\CashierShiftReportLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ContactFormEmailTemplate" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAIAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>NonPersistant\ContactFormEmailTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.CouponBase" Collapsed="true">
+    <Position X="480.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICBAwSADAAgAKAAwACBgABgQAAAAgAEAAAAAABAAAA=</HashCode>
+      <FileName>NonPersistant\CouponBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.CustomerUser" Collapsed="true">
+    <Position X="523.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEAAgCAAABAIAAgAAAAAAAAAAAACAAIAoAAAIAg=</HashCode>
+      <FileName>NonPersistant\CustomerUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.CustomField" Collapsed="true">
+    <Position X="514.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAEAAAAAAEAAAAAAAAAACAAAAAAAAEAEAAAAA=</HashCode>
+      <FileName>NonPersistant\CustomField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.DailyCashierShift" Collapsed="true">
+    <Position X="525.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAQQAAAAAAAAAQAAAAAAAAAAQAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>NonPersistant\DailyCashierShift.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.EffectivePriceCatalogPolicy" Collapsed="true">
+    <Position X="523.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAIAAAAAAAAgAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\EffectivePriceCatalogPolicy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.EffectivePriceCatalogPolicyDetail" Collapsed="true">
+    <Position X="525.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\EffectivePriceCatalogPolicyDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.EmailTemplate" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\EmailTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ForgotPasswordEmailTemplate" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\ForgotPasswordEmailTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.GeneratePasswordEmailTemplate" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\GeneratePasswordEmailTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ImportFileRecordField" Collapsed="true">
+    <Position X="305.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKQAAAQBAAAAgIAgAABAhABAEABQAAAQAgIAAABAAGA=</HashCode>
+      <FileName>NonPersistant\ImportFileRecordField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ImportFileRecordHeader" Collapsed="true">
+    <Position X="339" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQBAAAAgIAgAAAAgAJCAAAAAAAFAAIAEAAAgAA=</HashCode>
+      <FileName>NonPersistant\ImportFileRecordHeader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.MemberValuesDifference" Collapsed="true">
+    <Position X="525.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>NonPersistant\MemberValuesDifference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.OrderEmailTemplate" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\OrderEmailTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.PriceCatalogPriority" Collapsed="true">
+    <Position X="530.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAEACAQAIAAQAAgAAACAAAAAQEAAAAAAgAAAAA=</HashCode>
+      <FileName>NonPersistant\PriceCatalogPriority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.PrintedCustomer" Collapsed="true">
+    <Position X="522" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQFAIAAAAAAAIIAIgAAAAIAAAAAABAEIgIABAAAg=</HashCode>
+      <FileName>NonPersistant\PrintedCustomer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.PrintServiceSettings" Collapsed="true">
+    <Position X="433.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAIAAAAAAAAAAAIAEAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>NonPersistant\PrintServiceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ReflectionModelDescription" Collapsed="true">
+    <Position X="525.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAACAAAAAAAAAAAAAAAAAUAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\ReflectionModelDescription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.ServerLicenseInfo" Collapsed="true">
+    <Position X="530.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAgAAAEAAAAAgAAAEAAAAAAAAAEIAAAA=</HashCode>
+      <FileName>NonPersistant\ServerLicenseInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.SignUpEmailTemplate" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\SignUpEmailTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.Token" Collapsed="true">
+    <Position X="496.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABEAACAAAAAIAAAAgAAAAAAAAAQAAgACAAAAEAAAA=</HashCode>
+      <FileName>NonPersistant\Token.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.NonPersistant.VariableDependency" Collapsed="true">
+    <Position X="520.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAQhCAAAAAAAAAAAAIAAAAAAAQAUAAAAA=</HashCode>
+      <FileName>NonPersistant\VariableDependency.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Properties.Settings" Collapsed="true">
+    <Position X="532.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.CashDeviceItem" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAggAABABAgAAAAgAAAICAAIAAAAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\CashDeviceItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.CashierDepartment" Collapsed="true">
+    <Position X="525.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAghAAAAAgABAAAAAQAAAAAgAAAAAAgBAABAQAAAA=</HashCode>
+      <FileName>SupportingClasses\CashierDepartment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.CashierVatRates" Collapsed="true">
+    <Position X="530.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQCABAAAAABAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\CashierVatRates.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.CashRegisterItemUpdate" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="532.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEgKAAAAAAAAAkAAAACAIAAYgAAAIIEIEAgIIACgAQY=</HashCode>
+      <FileName>SupportingClasses\CashRegisterItemUpdate.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.CashRegisterPaymentMethods" Collapsed="true">
+    <Position X="520.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAgAAAAAAQgAAAAABAAgAAAAAAAAACBAAA=</HashCode>
+      <FileName>SupportingClasses\CashRegisterPaymentMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.DailyTotal" Collapsed="true">
+    <Position X="527.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAABAAAAAARAEAAAAIAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\DailyTotal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.DocumentDetailAssociation" Collapsed="true">
+    <Position X="522" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAABAAEAAACAACAAAAAAABQAgAAAAAgAAAAAA=</HashCode>
+      <FileName>SupportingClasses\DocumentDetailAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.ItemCashRegister" Collapsed="true">
+    <Position X="523.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAABAAAAAgAIAAQQAAAAAAEAIEIAAwAAIAIABAAAAQ=</HashCode>
+      <FileName>SupportingClasses\ItemCashRegister.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.SupportingClasses.ItemSales" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAABAgAAAAgAAAQEAAAAAAAAAAAAAAIAAACAgI=</HashCode>
+      <FileName>SupportingClasses\ItemSales.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExpandoJSONConverter" Collapsed="true">
+    <Position X="527.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\ExpandoJSONConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ITS.Retail.Model.FiveIQueryables" Collapsed="true">
+    <Position X="520.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAA=</HashCode>
+      <FileName>SupportingClasses\AbstractLinqQuery.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="ITS.Retail.Model.IAnalyticTree&lt;T, U&gt;" Collapsed="true">
+    <Position X="520.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\IAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.Retail.Model.IOwner" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\IOwner.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.Retail.Model.IRequiredOwner" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SupportingClasses\IOwner.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ITS.Retail.Model.PrinterLogoLocation" Collapsed="true">
+    <Position X="522" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrinterLogoLocation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.Retail.Model.PrinterStation" Collapsed="true">
+    <Position X="523.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAgAAAAAGAAAAEhAAA=</HashCode>
+      <FileName>PrinterStation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.Retail.Model.NonPersistant.eCashierLineType" Collapsed="true">
+    <Position X="520.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\CashierShift.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.Retail.Model.NonPersistant.ShiftType" Collapsed="true">
+    <Position X="525.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>NonPersistant\CashierShift.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

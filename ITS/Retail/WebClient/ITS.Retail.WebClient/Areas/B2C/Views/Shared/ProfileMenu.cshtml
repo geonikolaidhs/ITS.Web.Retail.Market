@@ -1,0 +1,33 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<div class="col-sm-3 col-xs-hidden">
+    <ul class="list-group">
+
+        <li class="list-group-item @(ViewBag.ControllerName == "Membership" && ViewBag.ActionName == "Profile" ? "active" : "")">
+
+            <a href="@Url.Content("~/B2C/Membership/Profile")">
+                <i class="fa fa-user fa-2x"></i> @Resources.Profile
+            </a>
+        </li>
+        <li class="list-group-item @(ViewBag.ControllerName == "User" && ViewBag.ActionName == "ResetPassword" ? "active" : "")">
+            <a href="@Url.Content("~/B2C/User/ResetPassword")">
+                <i class=" fa fa-key fa-2x"></i> @Resources.UpdatePassword
+            </a>
+        </li>
+        <li class="list-group-item @(ViewBag.ControllerName == "Membership" && ViewBag.ActionName == "Address" ? "active" : "")">
+            <a href="@Url.Content("~/B2C/Membership/Address")">
+                <i class="fa fa-map-marker fa-2x"></i> @Resources.Addresses
+            </a>
+        </li>
+        <li class="list-group-item @(ViewBag.ControllerName == "User" && ViewBag.ActionName == "OrderHistory" ? "active" : "")">
+            <a href="@Url.Content("~/B2C/User/OrderHistory")">
+                <i class="fa fa-institution fa-2x"></i> @Resources.OrderHistory
+            </a>
+        </li>
+        <li class="list-group-item @(ViewBag.ControllerName == "WishList" && ViewBag.ActionName == "Index" ? "active" : "")">
+            <a href="@Url.Content("~/B2C/WishList")">
+                <i class="fa fa-heart-o fa-2x"></i> @Resources.WishList
+            </a>
+        </li>
+    </ul>
+</div>

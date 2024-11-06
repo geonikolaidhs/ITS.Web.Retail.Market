@@ -1,0 +1,268 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Model.SupportingClasses;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+    {
+        if (ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings != null && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.PadItemCodes
+            && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Item.Code")
+            {
+
+                string s = e.Value as string;
+                if (s == null) return;
+                e.DisplayText = s.TrimStart(ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+        }
+    };
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentHeaderInfo";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Document;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "documentDetail.DocumentHeader.FinalizedDate";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Date;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "documentDetail.Item.Name";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Item;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Quantity";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Quantity;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "documentDetail.Item.IsGeneralItem";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.IsGeneralItem;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "documentDetail.GrossTotal";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.GrossTotal;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+    
+    
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "Qty";
+        col_settings.FieldName = "RetrievedQuantity";
+        col_settings.ColumnType = MVCxGridViewColumnType.SpinEdit;
+        col_settings.Caption = Resources.Quantity;
+        col_settings.ReadOnly = false;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<table><tr><td>");
+
+            //
+            bool qsc = (bool)DataBinder.Eval(c.DataItem, "SupportsDecimal");
+            ViewContext.Writer.Write(Html.Hidden("qty_support_decimal", qsc ? 1 : 0));
+            //
+
+            Html.DevExpress().TextBox(set =>
+            {
+                set.Name = "qty_spin_edit";
+                set.Text = c.Text;
+                set.Width = System.Web.UI.WebControls.Unit.Percentage(75);
+                set.Properties.ClientSideEvents.KeyPress = "qty_spin_editLostFocusKeyPress";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td><td class=\"inserted_btn\">");
+            ViewContext.Writer.Write("</td></tr></table>");
+        });
+    });
+
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.KeyFieldName = "UniqueKey";
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "TransformationDetailsGrid" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Document", Action = "UpdateTransformationDetailsQty" };
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Name = "grdTransformationDetailGrid";
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallBackTransformationDetailsGrid";
+    settings.ClientSideEvents.EndCallback = "OnEndCallbackBackTransformationDetailsGrid";
+    settings.ClientSideEvents.RowClick = "OnRowClickedTransformationDetailsGrid";
+    settings.ClientSideEvents.SelectionChanged = "OnSelectionChangedTransformationDetailsGrid";
+    settings.ControlStyle.CssClass = "transformation-grid";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.CustomJSProperties = (object sender, DevExpress.Web.ASPxGridViewClientJSPropertiesEventArgs args) =>
+    {
+        List<String> selectedItems = new List<String>();
+        if (Session["transformationDetails"] != null)
+        {
+            selectedItems = (Session["transformationDetails"] as List<DocumentDetailAssociation>).Where(docdetAssoc => docdetAssoc.IsSelected).Select(docdetAssoc => docdetAssoc.UniqueKey.ToString()).ToList<String>();
+        }
+        args.Properties.Add("cp_selectedTransformationItemsArray", selectedItems);
+    };
+
+    settings.PreRender = (sender, e) =>
+    {
+        if (Session["transformationDetails"] != null)
+        {
+            MVCxGridView grid = sender as MVCxGridView;
+            List<Guid> selectedItems = (Session["transformationDetails"] as List<DocumentDetailAssociation>).Where(docdetAssoc => docdetAssoc.IsSelected).Select(docdetAssoc => docdetAssoc.UniqueKey).ToList();
+            if (selectedItems.Count > 0)
+            {
+                foreach (Guid key in selectedItems)
+                {
+                    grid.Selection.SelectRowByKey(key);
+                }
+            }
+        }
+    };
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        if (Session["transformationDetails"] != null)
+        {
+            MVCxGridView grid = sender as MVCxGridView;
+            List<Guid> selectedItems = (Session["transformationDetails"] as List<DocumentDetailAssociation>).Where(docdetAssoc => docdetAssoc.IsSelected).Select(docdetAssoc => docdetAssoc.UniqueKey).ToList();
+            List<Guid> deselectedItems = (Session["transformationDetails"] as List<DocumentDetailAssociation>).Where(docdetAssoc => docdetAssoc.IsSelected == false).Select(docdetAssoc => docdetAssoc.UniqueKey).ToList();
+            if (selectedItems.Count > 0)
+            {
+                foreach (Guid key in selectedItems)
+                {
+                    grid.Selection.SelectRowByKey(key);
+                }
+            }
+            if (deselectedItems.Count > 0)
+            {
+                foreach (Guid key in deselectedItems)
+                {
+                    grid.Selection.UnselectRowByKey(key);
+                }
+            }
+        }
+    };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.Width = 60;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsPager.AlwaysShowPager = true;
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = false;
+    settings.SettingsText.Title = Resources.DocumentLines;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    
+}).Bind(Session["transformationDetails"]).GetHtml()
+

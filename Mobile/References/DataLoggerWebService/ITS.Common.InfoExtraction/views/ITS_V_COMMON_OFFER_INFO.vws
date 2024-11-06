@@ -1,0 +1,77 @@
+CREATE OR REPLACE VIEW its_v_common_offer_info (
+operationid,
+operationdescription,
+offerid,
+offerdescription,
+customertype,
+productid,
+productdescription,
+compcode)
+AS
+select distinct 
+		itemtrigger.operid operationid,
+		v2operation.opername operationdescription,
+		v2offer.offerid offerid,
+		v2offer.offerdesc offerdescription,
+		custtrigger.grouptype customertype,
+		itmms.intcode productid,
+		itmms.descr productdescription,
+		opersite.storecode
+    from
+		v2trigger itemtrigger,
+		v2offer,
+		v2operation,
+		v2trigger custtrigger,
+		v2custgroup_ms,
+		item_ms itmms,
+		v2site opersite 
+    where
+     v2offer.offerid=itemtrigger.offerid 
+     and 
+     v2offer.operid=itemtrigger.operid 
+     and
+     v2operation.operid=itemtrigger.operid 
+     and 
+     v2operation.operid = opersite.operid 
+     and 
+     itemtrigger.triggertype<>8 
+     and
+     custtrigger.triggertype=8 
+     and 
+     (custtrigger.offerid=itemtrigger.offerid and custtrigger.operid=itemtrigger.operid) 
+     and
+     v2custgroup_ms.groupid(+)=custtrigger.groupid
+     and
+     (
+      (itemtrigger.triggertype=5 and itemtrigger.grouptype=4 and itemtrigger.code=itmms.intcode) 
+      or
+      (itemtrigger.grouptype=10 and itemtrigger.groupid in
+       (
+        select v2itemgroup.groupid
+        from v2itemgroup, item_ad
+        where
+        v2itemgroup.isdeleted='F' and
+        item_ad.intcode=itmms.intcode and
+        (
+         (v2itemgroup.codetype=5 and v2itemgroup.code=itmms.intcode)
+         or
+         (v2itemgroup.codetype=4 and v2itemgroup.code=itmms.dept1)
+         or
+         (v2itemgroup.codetype=12 and v2itemgroup.code=itmms.dept1||itmms.dept2)
+         or
+         (v2itemgroup.codetype=13 and v2itemgroup.code=itmms.dept1||itmms.dept2||itmms.dept3)
+         or
+         (v2itemgroup.codetype=14 and v2itemgroup.code=itmms.dept1||itmms.dept2||itmms.dept3||itmms.dept4)
+         or
+         (v2itemgroup.codetype=11 and v2itemgroup.code=item_ad.brandcode)
+        )
+       )
+      )
+     )
+     and itmms.isdeleted='F'
+     and v2operation.isdeleted='F'
+     and itemtrigger.isdeleted='F'
+     and custtrigger.isdeleted='F'
+     and itemtrigger.rule != 2
+     and opersite.isdeleted = 'F' 
+     and sysdate between v2operation.startdatetime and v2operation.enddatetime

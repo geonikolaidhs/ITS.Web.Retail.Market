@@ -1,0 +1,444 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+@model IEnumerable<DocumentHeader>
+@using System.Web.Optimization;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    eDivision modeDivision = ViewBag.Division;
+}
+
+@Scripts.Render("~/bundles/editdocumentextras.js")
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/DocumentRC.js")" type="text/javascript"></script>
+}
+
+
+@using (Ajax.BeginForm(actionName: "Grid", controllerName: "Document", ajaxOptions: new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "DocumentGridDiv",
+    OnBegin = "UpdateDocumentGridForm",
+    OnSuccess = "Document.grdOnEndCallback"
+}))
+{
+
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "FilterPanel";
+        settings.ControlStyle.CssClass = "FilterPanel";
+        settings.HeaderText = Resources.SearchFilters;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("FilterButtons");
+            ViewContext.Writer.Write("<table class=\"filter_panel\">");
+
+            //Start of new line
+            ViewContext.Writer.Write("<tr>");
+
+            @Html.RenderPartial("SelectStore");
+
+            if (Request["Proforma"] == null)
+            {
+                ViewContext.Writer.Write("<td>");
+
+                ViewContext.Writer.Write("<label for=\"typecombo_I\" >" + Resources.DocumentType + "</label>");
+
+                @Html.DevExpress().ComboBox(combosettings =>
+                {
+                    combosettings.Name = "typecombo";
+                    combosettings.Properties.TextField = "Description";
+                    combosettings.Properties.ValueField = "Oid";
+                    combosettings.Properties.ValueType = typeof(Guid);
+                    combosettings.ControlStyle.CssClass = "search_filter";
+                    combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                    EditButton button = new EditButton(" ");
+                    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                    button.Image.AlternateText = Resources.Clear;
+                    combosettings.Properties.Buttons.Add(button);
+                }).BindList(ViewBag.DocumentTypesFilterComboBox).GetHtml();
+
+                ViewContext.Writer.Write("</td>");
+            }
+
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"seriescombo_I\" >" + Resources.DocumentSeries + "</label>");
+
+
+            @Html.DevExpress().ComboBox(combosettings =>
+            {
+                combosettings.Name = "seriescombo";
+                combosettings.Properties.TextField = "Description";
+                combosettings.Properties.ValueField = "Oid";
+                combosettings.Properties.ValueType = typeof(Guid);
+                combosettings.ControlStyle.CssClass = "search_filter";
+                combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                EditButton button = new EditButton(" ");
+                button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                button.Image.AlternateText = Resources.Clear;
+                combosettings.Properties.Buttons.Add(button);
+            }).BindList(ViewBag.DocumentSeriesComboBox).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"txtnumber_I\" >" + Resources.FromDocumentNumber + "</label>");
+
+
+            @Html.DevExpress().SpinEdit(txtnumbersettings =>
+            {
+                txtnumbersettings.Name = "txtnumberFrom";
+                txtnumbersettings.ControlStyle.CssClass = "search_filter";
+                txtnumbersettings.Properties.SpinButtons.Visible = false;
+                txtnumbersettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                txtnumbersettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                txtnumbersettings.Properties.NumberFormat = SpinEditNumberFormat.Number;
+                txtnumbersettings.Properties.NumberType = SpinEditNumberType.Integer;
+                txtnumbersettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"txtnumber_I\" >" + Resources.ToDocumentNumber + "</label>");
+
+
+            @Html.DevExpress().SpinEdit(txtnumbersettings =>
+            {
+                txtnumbersettings.Name = "txtnumberTo";
+                txtnumbersettings.ControlStyle.CssClass = "search_filter";
+                txtnumbersettings.Properties.SpinButtons.Visible = false;
+                txtnumbersettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                txtnumbersettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                txtnumbersettings.Properties.NumberFormat = SpinEditNumberFormat.Number;
+                txtnumbersettings.Properties.NumberType = SpinEditNumberType.Integer;
+                txtnumbersettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("</tr>");
+            //End if new Line
+
+            //New Line tr
+            ViewContext.Writer.Write("<tr>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"Fromdate_I\" >" + Resources.Date + " " + Resources.From + "</label>");
+
+            DateTime from = new DateTime();
+            DateTime to = new DateTime();
+            DateTime now = DateTime.Now;
+            from = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0).AddMilliseconds(1);
+            to = from.AddDays(1).AddMilliseconds(-1);
+            to = to.AddMilliseconds(-1);
+
+            @Html.DevExpress().DateEdit(datesettings =>
+            {
+                datesettings.Name = "Fromdate";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Date;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            }).Bind(from.Date).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"FromDateTime_I\" >" + Resources.TimePeriod + " " + Resources.From + "</label>");
+
+            @Html.DevExpress().TimeEdit(datesettings =>
+            {
+                datesettings.Name = "FromDateTime";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Time;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                datesettings.Properties.EditFormatString =
+                datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            }).Bind(from).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"todate_I\" >" + Resources.Date + " " + Resources.To + "</label>");
+
+            @Html.DevExpress().DateEdit(datesettings =>
+            {
+                datesettings.Name = "todate";
+                datesettings.ControlStyle.CssClass = "editor search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Date;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            }).Bind(to.Date).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"TodateTime_I\" >" + Resources.TimePeriod + " " + Resources.To + "</label>");
+
+            @Html.DevExpress().TimeEdit(datesettings =>
+            {
+                datesettings.Name = "ToDateTime";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Time;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                datesettings.Properties.EditFormatString =
+                datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            }).Bind(to).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"TransformationStatus_I\" >" + Resources.HasBeenTransformed + "</label>");
+
+            @Html.DevExpress().ComboBox(csettings =>
+            {
+                csettings.Name = "TransformationStatus";
+                csettings.ControlStyle.CssClass = "search_filter";
+                csettings.Properties.ValueType = typeof(ITS.Retail.Platform.Enumerations.eTransformationStatus);
+                csettings.Properties.ValueField = "Key";
+                csettings.Properties.TextField = "Value";
+                csettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+
+                csettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                EditButton button = new EditButton(" ");
+                button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                button.Image.AlternateText = Resources.Clear;
+                csettings.Properties.Buttons.Add(button);
+                if(Request["Proforma"]!=null)
+                {
+                    csettings.SelectedIndex = 1;
+                }
+            }).BindList(ITS.Retail.Platform.Enumerations.ExtensionMethods.ToDictionary<ITS.Retail.Platform.Enumerations.eTransformationStatus>()).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("</tr>");
+
+            ViewContext.Writer.Write("<tr>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"Fromdate_I\" >" + Resources.FiscalDate + " " + Resources.From + "</label>");
+
+            DateTime exec_from = new DateTime();
+            DateTime exec_to = new DateTime();
+            DateTime exec_now = DateTime.Now;
+            exec_from = new DateTime(exec_now.Year, exec_now.Month, exec_now.Day, 0, 0, 0).AddMilliseconds(1);
+            exec_to = exec_from.AddDays(1).AddMilliseconds(-1);
+
+            @Html.DevExpress().DateEdit(datesettings =>
+            {
+                datesettings.Name = "FromFiscaldate";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Date;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"FromFiscaldateTime_I\" >" + Resources.TimePeriod + " " + Resources.From + "</label>");
+
+            @Html.DevExpress().TimeEdit(datesettings =>
+            {
+                datesettings.Name = "FromFiscalDateTime";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Time;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                datesettings.Properties.EditFormatString =
+                datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            }).Bind(from).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"todate_I\" >" + Resources.FiscalDate + " " + Resources.To + "</label>");
+
+            @Html.DevExpress().DateEdit(datesettings =>
+            {
+                datesettings.Name = "toFiscaldate";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Date;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"ToFiscaldateTime_I\" >" + Resources.TimePeriod + " " + Resources.To + "</label>");
+
+            @Html.DevExpress().TimeEdit(datesettings =>
+            {
+                datesettings.Name = "ToFiscalDateTime";
+                datesettings.ControlStyle.CssClass = "search_filter";
+                datesettings.Properties.EditFormat = EditFormat.Time;
+                datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                datesettings.Properties.EditFormatString =
+                datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            }).Bind(to).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("</tr>");
+
+            //End of new line
+
+
+            //Start of new line
+            ViewContext.Writer.Write("<tr>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"statuscombo_I\" >" + Resources.DocumentStatus + "</label>");
+
+            @Html.DevExpress().ComboBox(combosettings =>
+            {
+                combosettings.Name = "statuscombo";
+                combosettings.Properties.TextField = "Description";
+                combosettings.Properties.ValueField = "Oid";
+                combosettings.Properties.ValueType = typeof(Guid);
+                combosettings.ControlStyle.CssClass = "search_filter";
+                combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                EditButton button = new EditButton(" ");
+                button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                button.Image.AlternateText = Resources.Clear;
+                combosettings.Properties.Buttons.Add(button);
+            }).BindList(ViewBag.DocumentStatusComboBox).GetHtml();
+
+            ViewContext.Writer.Write("</td>");
+
+            ViewContext.Writer.Write("<td>");
+
+            ViewContext.Writer.Write("<label for=\"Users_I\" >" + Resources.CreatedBy + "</label>");
+
+
+            @Html.RenderPartial("Users");
+
+            ViewContext.Writer.Write("</td>");
+
+            if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance !=ITS.Retail.Platform.Enumerations.eApplicationInstance.RETAIL)
+            {
+                ViewContext.Writer.Write("<td>");
+
+                ViewContext.Writer.Write("<label for=\"createdByDevice_VI\" >" + Resources.CreatedByDevice + "</label>");
+
+
+                @Html.DevExpress().DropDownEdit(dropDownEditSettings =>
+                {
+                    dropDownEditSettings.Name = "checkComboBox";
+
+                    dropDownEditSettings.SetDropDownWindowTemplateContent(c =>
+                    {
+                        @Html.DevExpress().ListBox(listBoxSettings =>
+                        {
+                            listBoxSettings.Name = "createdByDevice";
+                            listBoxSettings.Properties.TextField = "Name";
+                            listBoxSettings.Properties.ValueField = "Oid";
+                            listBoxSettings.Properties.ValueType = typeof(Guid);
+                            listBoxSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            listBoxSettings.ControlStyle.CssClass = "search_filter";
+
+                            listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+
+                            XPCollection<POS> poss = ViewBag.Devices as XPCollection<POS>;
+
+                            listBoxSettings.Properties.Items.Add("(Select all)", Guid.Empty);
+
+                            foreach (POS pos in poss)
+                            {
+                                listBoxSettings.Properties.Items.Add(pos.Name, pos.Oid);
+                            }
+                            listBoxSettings.Properties.ClientSideEvents.SelectedIndexChanged = "DocumentOnListBoxSelectionChanged";
+                        }).Render();
+
+                    });
+                    dropDownEditSettings.Properties.AnimationType = AnimationType.None;
+                    dropDownEditSettings.Properties.ClientSideEvents.TextChanged = "SynchronizeListBoxValues";
+                    dropDownEditSettings.Properties.ClientSideEvents.DropDown = "SynchronizeListBoxValues";
+                    dropDownEditSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td>");
+            }
+
+
+            if (modeDivision == eDivision.Sales)
+            {
+                ViewContext.Writer.Write("<td>");
+                ViewContext.Writer.Write("<label for=\"DocumentCustomerFilter_I\" >" + Resources.Customer + "</label>");
+                @Html.RenderPartial("DocumentCustomerFilter");
+                ViewContext.Writer.Write("</td>");
+            }
+            else if (modeDivision == ITS.Retail.Platform.Enumerations.eDivision.Purchase)
+            {
+                ViewContext.Writer.Write("<td>");
+                ViewContext.Writer.Write("<label for=\"DocumentSupplierFilter_I\" >" + Resources.Supplier + "</label>");
+                @Html.RenderPartial("DocumentSupplierFilter");
+                ViewContext.Writer.Write("</td>");
+            }
+
+            ViewContext.Writer.Write("</tr></table>");
+            @Html.DevExpress().Button(btnsettings =>
+            {
+                btnsettings.Name = "btnSearch";
+                btnsettings.Text = Resources.Search;
+                btnsettings.ClientEnabled = true;
+                btnsettings.UseSubmitBehavior = true;
+            }).GetHtml();
+        });
+    }).GetHtml()
+    @Html.Hidden("Mode", Request["Mode"])
+    @Html.Hidden("Proforma", Request["Proforma"])
+}
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    @Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdDocument)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+<div id="DocumentGridDiv">
+    @Html.Partial("Grid", Model)
+</div>
+
+@Html.Partial("DialogCallbackPanelSecondary")
+
+@Html.Partial("../Document/TransformationPopup")
+
+@Html.Partial("../Shared/PopupViewCallbackPanel")
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("../VariableValuesDisplay/VariableValuesPopUp")
+

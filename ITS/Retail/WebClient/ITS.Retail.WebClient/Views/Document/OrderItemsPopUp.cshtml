@@ -1,0 +1,29 @@
+﻿
+@{
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("OrderItemsPopUp",Width: 50, Height:50);
+    popUpSettings.CallbackRouteValues = new { Controller = "Document", Action = "OrderItemsPopUp" };
+    popUpSettings.AutoUpdatePosition = true;
+    popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+    popUpSettings.PopupVerticalAlign = PopupVerticalAlign.Above;
+    popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+    popUpSettings.ClientSideEvents.Shown = "function(s,e) {" + popUpSettings.Name + ".SetHeight(window.innerHeight);" + popUpSettings.Name + ".SetWidth(window.innerWidth);  }";
+
+    popUpSettings.ClientSideEvents.BeginCallback = "OnBeginCallbackOrderItemsPopUp";
+    popUpSettings.ClientSideEvents.EndCallback = "OnEndCallbackOrderItemsPopUp";
+    popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+    popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow; 
+    popUpSettings.ShowHeader = false;
+    popUpSettings.AllowResize = false;
+    popUpSettings.AllowDragging = false;
+    popUpSettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class='Document_OrderItems'>");
+        @Html.RenderAction("OrderItems", "Document");
+        ViewContext.Writer.Write("</div>");       
+    });
+    Html.DevExpress().PopupControl(popUpSettings).GetHtml();   
+}
+
+
+

@@ -1,0 +1,21 @@
+﻿@Html.DevExpress().ComboBox(edtSettings =>
+{
+    edtSettings.Name = "StoreDocumentSeriesTypess";
+    edtSettings.ControlStyle.CssClass = "editor";
+    edtSettings.ShowModelErrors = true;
+    edtSettings.Properties.ValueType = typeof(Guid);
+    edtSettings.Properties.ValueField = "Oid";
+    edtSettings.Properties.TextField = "Description";
+    edtSettings.Properties.DropDownWidth = 150;
+    edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    edtSettings.Properties.CallbackPageSize = 15;
+    edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    edtSettings.CallbackRouteValues = new { Controller = "StoreDocumentSeriesTypePrintServiceSettings", Action = "StoreDocumentSeriesTypes" };
+    edtSettings.Properties.NullText = Resources.PleaseTypeToSearch;
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    edtSettings.Properties.Buttons.Add(button);
+    edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    edtSettings.Properties.Columns.Add("Description", Resources.Description, 350);
+}).BindList(ViewBag.StoreDocumentSeriesTypes).Bind(DataBinder.Eval(Session["PrintServiceSettings"], "StoreDocumentSeriesType!Key")).GetHtml()

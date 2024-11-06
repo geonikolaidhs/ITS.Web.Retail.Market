@@ -1,0 +1,197 @@
+﻿@model IEnumerable<ITS.Retail.Model.DocumentTypeRole>
+@using ITS.Retail.ResourcesLib;
+@{
+    GridViewSettings settings = new GridViewSettings();
+
+    settings.AccessibilityCompliant = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "DELETESELECTED" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+        {
+            grid.Selection.UnselectAll();
+        }
+    };
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data) {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowSelectCheckbox = false;
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.Columns.Add(column =>
+    {
+        column.SetDataItemTemplateContent(c =>
+        {
+            if ((bool)ViewData["TableCanUpdate"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+            }
+            if ((bool)ViewData["TableCanDelete"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+            }
+
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            if ((bool)ViewData["TableCanInsert"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+            }
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 70;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Role.Description";
+        column.Caption = Resources.Role;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = 200;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DocumentView";
+        column.Caption = Resources.ViewForm;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eDocumentTypeView)DataBinder.Eval(c.DataItem, "DocumentView")).ToLocalizedString());
+        });
+        column.Width = 200;
+    });
+
+    settings.Name = "grdDocumentTypeRole";
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowAsPopup;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowPreview = true;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "DocumentTypeRole", Action = "Grid" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "DocumentTypeRole", Action = "Insert" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DocumentTypeRole", Action = "Update" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "DocumentTypeRole", Action = "Delete" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsText.Title = Resources.DocumentType + "-" + Resources.Role;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.SettingsText.PopupEditFormCaption = Resources.Roles;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "DocumentTypeRoleBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "DocumentTypeRoleBtnCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+        
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Role + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "RoleKey";
+            cmb_settings.Properties.TextField = "Description";
+            cmb_settings.Properties.ValueField="Oid";
+            cmb_settings.Properties.ValueType = typeof(Guid);
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.Roles).Bind(DataBinder.Eval(item, "Role!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.ViewForm + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "DocumentView";
+            cmb_settings.Properties.ValueType = typeof(eDocumentTypeView);
+            cmb_settings.Properties.ValueField = "Key";
+            cmb_settings.Properties.TextField = "Value";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum<eDocumentTypeView>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "DocumentView")).Render();
+        
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

@@ -1,0 +1,79 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    string title = Resources.ChargeToUser;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("UserValidatePopUp");
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.Name = "UserValidatePopUp";
+    popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+    popUpSettings.AllowDragging = true;
+    popUpSettings.CloseAction = CloseAction.CloseButton;
+    popUpSettings.PopupAnimationType = AnimationType.Auto;
+    popUpSettings.ShowShadow = true;
+    popUpSettings.CloseAnimationType = AnimationType.Auto;
+    popUpSettings.ResizingMode = ResizingMode.Live;
+    popUpSettings.ShowHeader = true;
+    popUpSettings.Modal = true;
+    popUpSettings.AllowResize = true;
+    popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    popUpSettings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+    popUpSettings.ClientSideEvents.Shown = "function (s,e) { " + popUpSettings.Name + ".SetWidth($('#UserValidatePop').width()+100);" + popUpSettings.Name + ".SetHeight($('#UserValidatePop').height()+100);" + popUpSettings.Name + ".UpdatePosition(); }";
+    
+    popUpSettings.CallbackRouteValues = new { Controller = "Document", Action = "UserValidatePopUp" };
+    popUpSettings.HeaderText = Resources.Validate;
+    popUpSettings.SetContent(() =>
+    {
+        using (Html.BeginForm("UserValidatePopUp", "Document", FormMethod.Post, new { id = "UserValidatePop"}))
+        {
+
+            ViewContext.Writer.Write("<table><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.UserName + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "txtUserName";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(ViewData["UserName"]).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Password + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "txtPassword";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.Password = true;
+            }).Bind(ViewData["Password"]).Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td colspan=2>");
+
+            ViewContext.Writer.Write("<div class='UploadImageForm'>");
+
+            @Html.DevExpress().Button(settings =>
+            {
+                settings.Name = "Validate";
+                settings.ControlStyle.CssClass = "login_btn_size";
+                settings.UseSubmitBehavior = true;
+                //settings.ClientSideEvents.Click = "CheckConnectedUsers";
+                settings.Text = Resources.Validate;
+
+            }).Render();
+
+            ViewContext.Writer.Write("</div>");
+        }
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()

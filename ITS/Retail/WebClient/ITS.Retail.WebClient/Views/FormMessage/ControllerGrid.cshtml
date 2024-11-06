@@ -1,0 +1,153 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+	settings.SettingsBehavior.EnableCustomizationWindow = true;
+	settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+	settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+	{
+		if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+	};
+
+	settings.Name = "grdController";
+	settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+	settings.SettingsBehavior.EnableRowHotTrack = true;
+	
+	settings.Columns.Add(column =>
+	{
+		column.Caption = "#";
+		column.SetDataItemTemplateContent(c =>
+		{
+			if ((bool)ViewData["TableCanUpdate"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+            }
+			if ((bool)ViewData["TableCanDelete"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+            }
+		});
+		column.SetHeaderTemplateContent(c =>
+		{
+			if ((bool)ViewData["TableCanInsert"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\" title=\"" + Resources.New + "\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+            }
+		});
+
+		column.Settings.AllowDragDrop = DefaultBoolean.False;
+		column.Settings.AllowSort = DefaultBoolean.False;
+		column.Width = 70;
+	});
+
+	settings.Columns.Add(col =>
+	{
+		col.FieldName = "Description";
+        col.Caption = Resources.FormToShow;
+		col.Width = 250;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+	settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+	settings.Settings.ShowFilterRow = false;
+	settings.Settings.ShowFilterRowMenu = true;
+	settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+	settings.Settings.ShowFooter = true;
+	settings.Settings.ShowGroupPanel = false;
+	settings.Settings.ShowHeaderFilterButton = true;
+	settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "FormMessage", Action = "ControllerGrid", FormMessageID = ViewData["FormMessage_ID"] };
+	settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+	settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+	settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+
+	settings.SettingsPopup.EditForm.Modal = true;
+	settings.SettingsPopup.EditForm.Width = 550;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "FormMessage", Action = "ControllerInlineEditingAddNewPartial", FormMessageID = ViewData["FormMessage_ID"] };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "FormMessage", Action = "ControllerInlineEditingUpdatePartial", FormMessageID = ViewData["FormMessage_ID"] };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "FormMessage", Action = "ControllerInlineEditingDeletePartial", FormMessageID = ViewData["FormMessage_ID"] };
+	settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+	settings.SettingsPager.PageSize = 30;
+	settings.SettingsCookies.Enabled = false;
+	//settings.SettingsCookies.CookiesID = "grdController";
+	settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+	settings.SettingsCookies.StoreColumnsWidth = true;
+	settings.SettingsCookies.StoreFiltering = false;
+	settings.SettingsCookies.StorePaging = true;
+	settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.FormToShow;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.SettingsText.PopupEditFormCaption = Resources.EditFormMessages;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+	settings.SetEditFormTemplateContent(editContent =>
+	{
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnFormMessageDetailUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnFormMessageDetailCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+		var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ITS.Retail.Model.ControllerMessage cmessage = DataBinder.Eval(item, "This") as ITS.Retail.Model.ControllerMessage;
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.FormToShow;
+            edtSettings.AssociatedControlName = "Description";
+        }).Render();
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Name = "Description";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.ControllerList).Bind(cmessage != null ? cmessage.Description : "").Render();
+        
+		ViewContext.Writer.Write("</td></tr></table>");
+        
+        ViewContext.Writer.Write("</div>");
+	});
+}).Bind(Model).GetHtml()

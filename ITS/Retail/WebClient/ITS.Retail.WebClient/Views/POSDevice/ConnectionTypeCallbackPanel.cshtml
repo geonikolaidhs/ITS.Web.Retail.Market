@@ -1,0 +1,29 @@
+﻿@using ITS.Retail.WebClient;
+@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().CallbackPanel(set =>
+{
+
+    set.Name = "ConnectionTypeCBP";
+    set.CallbackRouteValues = new { Controller = "POSDevice", Action = "ConnectionTypeCallbackPanel" };
+    set.SetContent(() =>
+        {
+
+            ComboBoxExtension combo = Html.DevExpress().ComboBox(cmb_settings =>
+            {
+                cmb_settings.Name = "ConnectionType";
+                cmb_settings.Properties.ClientSideEvents.ValueChanged = "onValueChangedConnectionTypeComboBox";
+                cmb_settings.Properties.ValueType = typeof(ITS.Retail.Platform.Enumerations.ConnectionType);
+                cmb_settings.ShowModelErrors = true;
+                cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+            });
+            
+            if (ViewData["ConnectionTypes"] != null)
+            {
+                combo.BindList(ViewData["ConnectionTypes"]);
+               
+            }
+            combo.Bind(DataBinder.Eval(Model, "ConnectionType")).Render();
+            
+        });
+}).GetHtml()

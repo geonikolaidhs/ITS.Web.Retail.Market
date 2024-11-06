@@ -1,0 +1,149 @@
+﻿@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+.its-pop-up-style {
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+
+    div {
+        &#bgn-its {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        &#info-its {
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+
+    #bgn-its {
+        @include box-shadow(0, 0, 12px, $color_star_dust_approx);
+        width: 40%;
+    }
+
+    #info-its {
+        margin-left: 5%;
+        width: 50%;
+    }
+
+    a {
+        &#itslink {
+            opacity: .8;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            text-decoration: none;
+            top: 0;
+            width: 150px;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            img {
+                width: 80px;
+            }
+
+            h2 {
+                color: $color_mine_shaft_approx;
+                font-size: 12px;
+            }
+        }
+
+        &.social {
+            @include transition(background-position-y .5s ease);
+            background: $social-icons;
+            background-position: 0 -44px;
+            background-repeat: no-repeat;
+            background-size: 170px;
+            display: block;
+            float: left;
+            height: 40px;
+            margin: 0 0 0 20px;
+            width: 40px;
+
+            &:hover {
+                background-position: 0 0;
+            }
+        }
+    }
+
+    #tweeter {
+        background-position: -45px -44px;
+
+        &:hover {
+            background-position: -45px 0;
+        }
+    }
+
+    #in {
+        background-position: -95px -44px;
+
+        &:hover {
+            background-position: -95px 0;
+        }
+    }
+
+    ul li {
+        display: block;
+        font-size: 14px;
+        margin-top: 10px;
+        overflow: hidden;
+        text-align: left;
+
+        a {
+            color: $color_dodger_blue_approx;
+            display: block;
+            font-size: 14px;
+            margin-top: 10px;
+            overflow: hidden;
+            text-align: left;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        p {
+            margin-left: 160px;
+            margin-top: 0;
+        }
+
+        span {
+            background: $color_astral_approx;
+            color: $white;
+            display: block;
+            float: left;
+            padding: 10px;
+            width: 114px;
+        }
+    }
+}
+
+#map-canvas {
+    height: 500px;
+    margin: 30px 0 0;
+    position: relative;
+    width: 100%;
+
+    iframe {
+        height: 500px;
+        width: 100%;
+    }
+}
+
+.wrapper .container {
+    max-width: 1300px;
+}
+
+.company-pop-up-style img.logo {
+    display: block;
+    margin: 20px auto;
+    position: relative;
+    width: 250px;
+}

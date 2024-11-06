@@ -1,0 +1,33 @@
+﻿/** 
+    Droid Sans
+*/
+
+@font-face{ 
+	font-family: 'Droid Sans';
+    font-style: normal;
+    font-weight: 400;
+	src: url('../../fonts/Droid-Sans/regular/DroidSans-webfont.eot');
+	src: url('../../fonts/Droid-Sans/regular/DroidSans-webfont.eot?iefix') format('eot'),
+	     url('../../fonts/Droid-Sans/regular/DroidSans-webfont.woff') format('woff'),
+	     url('../../fonts/Droid-Sans/regular/DroidSans-webfont.ttf') format('truetype'),
+	     url('../../fonts/Droid-Sans/regular/DroidSans-webfont.svg#webfont') format('svg');
+}
+
+@font-face{ 
+	font-family: 'Droid Sans';
+    font-style: normal;
+    font-weight: 700;
+	src: url('../../fonts/Droid-Sans/bold/DroidSans-Bold-webfont.eot');
+	src: url('../../fonts/Droid-Sans/bold/DroidSans-Bold-webfont.eot?iefix') format('eot'),
+	     url('../../fonts/Droid-Sans/bold/DroidSans-Bold-webfont.woff') format('woff'),
+	     url('../../fonts/Droid-Sans/bold/DroidSans-Bold-webfont.ttf') format('truetype'),
+	     url('../../fonts/Droid-Sans/bold/DroidSans-Bold-webfont.svg#webfont') format('svg');
+}
+
+body{
+    font-family: 'Droid Sans', sans-serif;
+}
+
+/**
+    End Droid Sans
+*/

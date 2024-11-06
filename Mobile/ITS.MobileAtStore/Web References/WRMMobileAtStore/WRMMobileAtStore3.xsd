@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ITS.Retail.Mobile.AuxilliaryClasses" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Mobile.AuxilliaryClasses" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="eDocumentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NONE" />
+      <xs:enumeration value="ORDER" />
+      <xs:enumeration value="EMPTY_2" />
+      <xs:enumeration value="INVOICE" />
+      <xs:enumeration value="EMPTY_4" />
+      <xs:enumeration value="RECEPTION" />
+      <xs:enumeration value="INVENTORY" />
+      <xs:enumeration value="MATCHING" />
+      <xs:enumeration value="PICKING" />
+      <xs:enumeration value="TRANSFER" />
+      <xs:enumeration value="TAG" />
+      <xs:enumeration value="PRICE_CHECK" />
+      <xs:enumeration value="COMPETITION" />
+      <xs:enumeration value="PACKING" />
+      <xs:enumeration value="PACKINGORPICKING" />
+      <xs:enumeration value="ESL_INV" />
+      <xs:enumeration value="INVOICE_SALES" />
+      <xs:enumeration value="DECOMPOSITION" />
+      <xs:enumeration value="COMPOSITION" />
+      <xs:enumeration value="QUEUE_QR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="eDocumentType" nillable="true" type="tns:eDocumentType" />
+</xs:schema>

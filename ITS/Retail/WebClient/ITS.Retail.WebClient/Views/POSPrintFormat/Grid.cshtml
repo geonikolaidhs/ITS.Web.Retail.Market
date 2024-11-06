@@ -1,0 +1,273 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using System.Linq;
+@using DevExpress.Xpo;
+@using DevExpress.Data.Filtering;
+@using System.Diagnostics;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdPOSPrintFormats";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.EncodeHtml = true;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "POSPrintFormat", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    if ((bool)ViewData["TableCanUpdate"])
+    {
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "POSPrintFormat", Action = "UpdatePartial" };
+    }
+    if ((bool)ViewData["TableCanInsert"])
+    {
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "POSPrintFormat", Action = "InsertPartial" };
+    }
+    if ((bool)ViewData["TableCanDelete"])
+    {
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "POSPrintFormat", Action = "DeletePartial" };
+    }
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.POSPrintFormats;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "FormatType";
+        col.Caption = Resources.Type;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eFormatType)DataBinder.Eval(c.DataItem, "FormatType")).ToLocalizedString());
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentType.Description";
+        col.Caption = Resources.DocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+
+    });
+
+    settings.SettingsText.PopupEditFormCaption = Resources.POSPrintFormats;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ITS.Retail.Model.POSPrintFormat posPrintFormat = DataBinder.Eval(item, "this");
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "POSPrintFormatsBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s,e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "POSPrintFormatsBtnCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.Text = Resources.Description + ":";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(posPrintFormat, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.Type + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "FormatType";
+            cmb_settings.Properties.ValueType = typeof(eFormatType);
+            cmb_settings.Properties.ValueField = "Key";
+            cmb_settings.Properties.TextField = "Value";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum<eFormatType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(posPrintFormat, "FormatType")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        ////
+        ///
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.DocumentType + ":";
+            edtSettings.ControlStyle.CssClass = "label";
+        }).Render();
+
+        Html.DevExpress().ComboBox(comboboxSettings =>
+        {
+            //comboboxSettings.Name = "DocumentType";
+            comboboxSettings.Name = "DocumentType!Key";
+            comboboxSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+            comboboxSettings.Properties.ValueType = typeof(Guid);
+            comboboxSettings.Properties.ValueField = "Oid";
+            comboboxSettings.Properties.TextField = "Description";
+        }).BindList(ViewBag.DocumentTypes).Bind(DataBinder.Eval(posPrintFormat, "DocumentType!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        ////
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.FormatFile + ":";
+            edtSettings.ControlStyle.CssClass = "label";
+        }).Render();
+
+
+
+        using (Html.BeginForm("UploadFormatFileControl", "POSPrintFormat", FormMethod.Post))
+        {
+            Html.DevExpress().UploadControl(upldsettings =>
+            {
+                upldsettings.UploadMode = UploadControlUploadMode.Auto;
+                upldsettings.Name = "UploadFormatFileControl";
+                upldsettings.ShowProgressPanel = true;
+                upldsettings.CallbackRouteValues = new { Controller = "POSPrintFormat", Action = "UploadFormatFileControl" };
+                upldsettings.ValidationSettings.Assign(POSPrintFormatController.UploadFormatFileControlValidationSettings);
+                upldsettings.ValidationSettings.ShowErrors = true;
+                upldsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                upldsettings.NullText = Resources.DropFileHereToUpload;
+                upldsettings.AdvancedModeSettings.EnableMultiSelect = false;
+                upldsettings.AdvancedModeSettings.EnableFileList = false;
+                upldsettings.AdvancedModeSettings.EnableDragAndDrop = true;
+                upldsettings.ControlStyle.CssClass = "zero-padding-top-important";
+
+            }).GetHtml();
+        }
+
+        ViewContext.Writer.Write("</td><td class='padding-top-18'>");
+
+        Html.DevExpress().Image(settings2 =>
+        {
+            settings2.Name = "btnUploadFormatFile";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn square-32";
+            settings2.Properties.ClientSideEvents.Click = "function(s,e){UploadFormatFileControl.Upload();}";
+        }).GetHtml();
+
+        if ((bool)ViewData["ViewMode"])
+        {
+            ViewContext.Writer.Write("</td></tr><tr><td colspan=\"3\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Text = Resources.Format + ":";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }).Render();
+            @Html.DevExpress().Memo(memo_settings =>
+            {
+                memo_settings.Name = "FormatText";
+                memo_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                memo_settings.Height = 300;
+                memo_settings.EncodeHtml = true;
+                memo_settings.ReadOnly = true;
+                memo_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                memo_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(DataBinder.Eval(item, "Format")).GetHtml();
+
+        }
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}).Bind(Model).GetHtml()

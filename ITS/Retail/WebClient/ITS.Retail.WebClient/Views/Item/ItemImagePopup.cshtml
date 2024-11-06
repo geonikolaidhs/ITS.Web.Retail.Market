@@ -1,0 +1,105 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    string title = Resources.EditImage;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("ItemImagePopup");
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnPageLoad;
+
+    popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+    popUpSettings.AllowDragging = true;
+    popUpSettings.CloseAction = CloseAction.CloseButton;
+    popUpSettings.PopupAnimationType = AnimationType.Auto;
+    popUpSettings.ShowShadow = true;
+    popUpSettings.CloseAnimationType = AnimationType.Auto;
+    popUpSettings.ResizingMode = ResizingMode.Live;
+    popUpSettings.ShowHeader = true;
+    popUpSettings.Modal = true;
+    popUpSettings.AllowResize = true;
+    popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    popUpSettings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+    popUpSettings.ClientSideEvents.Shown = "function (s,e) { " + popUpSettings.Name + ".SetWidth($('#UploadForm').width()+100);" + popUpSettings.Name + ".SetHeight($('#UploadForm').height()+100);" + popUpSettings.Name + ".UpdatePosition(); }";
+    
+    popUpSettings.CallbackRouteValues = new { Controller = "Item", Action = "ItemImagePopup" };
+    popUpSettings.HeaderText = Resources.Image;
+    popUpSettings.SetContent(() =>
+    {
+        using (Html.BeginForm("ImageUploadForm", "Item", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+        {
+
+            ViewContext.Writer.Write("<table><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Description + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "txtItemImageDescription";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(ViewData["ItemImageDescription"]).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Info + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "txtItemImageInfo";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }).Bind(ViewData["ItemImageInfo"]).Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td colspan=2>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.ChangeImage + ":";
+            }).Render();
+
+            ViewContext.Writer.Write("<div class='UploadImageForm'>");
+
+            @Html.DevExpress().UploadControl(settings =>
+            {
+                settings.UploadMode = UploadControlUploadMode.Standard;
+                settings.Name = "UploadControl";
+                settings.CallbackRouteValues = new { Controller = "Item", Action = "UploadControl" };
+                settings.ShowProgressPanel = true;
+                settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.ItemController.UploadControlValidationSettings);
+                settings.ClientSideEvents.FileUploadComplete = "OnFileUploadComplete";
+
+            }).Render();
+            
+            @Html.DevExpress().Image(settings2 =>
+            {
+                settings2.Name = "btnUpload";
+                settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+                settings2.ToolTip = Resources.Upload;
+                settings2.ControlStyle.CssClass = "uploadbtn square-32 margin-top-2";
+                settings2.Properties.ClientSideEvents.Click = "function (s,e) { UploadControl.Upload(); }";
+            }).GetHtml();
+         
+            @Html.DevExpress().Image(settings2 =>
+            {
+                settings2.Name = "btnDeleteItemImage";
+                settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+                settings2.ToolTip = Resources.Delete;
+                settings2.ControlStyle.CssClass = "deletebtn square-32 margin-top-2";
+                settings2.Properties.ClientSideEvents.Click = "btnDeleteItemImageClick";
+            }).GetHtml();       
+
+            ViewContext.Writer.Write("<br/><img  alt='' id='previewImage' class='max-width-180 clearfix' src='" + Url.Action("ShowImage", "Item") + "?dt=" + DateTime.Now.Ticks + "' />");
+
+            ViewContext.Writer.Write("</div>");
+        }
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()

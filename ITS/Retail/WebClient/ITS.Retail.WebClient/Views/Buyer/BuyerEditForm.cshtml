@@ -1,0 +1,58 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<table><tr><td>
+
+        @Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "required_field";
+            edtSettings.Text = Resources.Code+":";
+            edtSettings.AssociatedControlName = "Code";
+        }).GetHtml()
+</td><td>
+    @Html.DevExpress().Label(edtSettings =>
+       {
+           edtSettings.ControlStyle.CssClass = "required_field";
+           edtSettings.Text = Resources.Description + ":";
+       }).GetHtml()
+
+
+</td>
+<td>
+    @Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.ReferenceCode + ":";
+        }).GetHtml()
+
+</td></tr><tr><td>
+        @Html.DevExpress().TextBox(txtSettings =>
+       {
+           txtSettings.Name = "BuyerCode";
+           txtSettings.ControlStyle.CssClass = "editor";
+           txtSettings.ShowModelErrors = true;
+           txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+           txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+       }).Bind(DataBinder.Eval(ViewData["item"], "Code")).GetHtml()
+        
+
+
+</td><td>
+
+        @Html.DevExpress().TextBox(txtSettings =>
+        {
+            txtSettings.Name = "BuyerDescription";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.ShowModelErrors = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+        }).Bind(DataBinder.Eval(ViewData["item"], "Description")).GetHtml()
+</td>
+
+        <td>
+
+        @Html.DevExpress().TextBox(txtSettings =>
+        {
+            txtSettings.Name = "ReferenceCode";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(ViewData["item"], "ReferenceCode")).GetHtml()
+</td></tr></table>

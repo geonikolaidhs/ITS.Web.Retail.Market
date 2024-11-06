@@ -1,0 +1,21 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{    
+    Html.DevExpress().CallbackPanel(settings =>
+    {
+        settings.Name = "documentInfoPanel";
+        settings.CallbackRouteValues = new { Controller = "Document", Action = "DocumentInfoPanel" };
+        settings.SettingsLoadingPanel.Enabled = false;
+        settings.SetContent(() =>
+        {
+            DocumentHeader documentHeader = Session["currentDocument"] as DocumentHeader;
+            ViewContext.Writer.Write("<div class=\"basket  basket1\">");
+            ViewContext.Writer.Write(Resources.Items + "<br /> <span>" + documentHeader.DocumentDetails.Count + "</span>");
+            ViewContext.Writer.Write("</div><div class=\"basket basket2\">");
+            ViewContext.Writer.Write(Resources.TotalValue + "<br/> <span>" + BusinessLogic.RoundAndStringify(documentHeader.GrossTotal, documentHeader.Owner) + "</span>");
+            ViewContext.Writer.Write("</div>"); 
+        });
+    }).GetHtml();
+
+}

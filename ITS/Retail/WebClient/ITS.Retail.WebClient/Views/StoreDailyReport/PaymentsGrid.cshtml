@@ -1,0 +1,48 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.Model
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(StoreDailyReportPayment), typeof(StoreDailyReportController), "grdPayments", columnType: GridViewCommandColumnType.ICONS, generateColumns: false);
+    settings.CallbackRouteValues = new { Controller = "StoreDailyReport", Action = "PaymentsGrid", storeDailyreportOid = ViewData["StoreDailyReportOid"] };
+    settings.ClientSideEvents.EndCallback = "StoreDailyReport.paymentsGridEndCallback";
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "StoreDailyReport", Action = "PaymentsAddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "StoreDailyReport", Action = "PaymentsUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "StoreDailyReport", Action = "PaymentsDeletePartial" };
+    
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.SettingsPopup.EditForm.Width = 600;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "LineNumber";
+        column.Caption = Resources.LineNumber;
+        column.ReadOnly = true;
+    });
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Description";
+        column.Caption = Resources.Description;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "UserValue";
+        column.Caption = Resources.UserValue;
+        column.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    settings.InitNewRow = (s, e) =>
+    {
+        e.NewValues["LineNumber"] = ViewBag.PaymentsCount + 1;
+    };
+    
+    settings.Init = (s, e) =>
+    {
+        (s as ASPxGridView).ForceDataRowType(typeof(StoreDailyReportPayment));
+    };
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

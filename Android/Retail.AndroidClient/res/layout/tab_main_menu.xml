@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/main_tab"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" >
+
+                <GridLayout
+                    android:id="@+id/dummyId34453423543"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:columnCount="7" >
+
+                    <Button
+                        android:id="@+id/btnOrder"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="0"
+                        android:layout_gravity="bottom|right"
+                        android:layout_margin="2dp"
+                        android:layout_row="0"
+                        android:contentDescription="@string/Order"
+                        android:drawableTop="@raw/cashbox_64"
+                        android:text="@string/Order"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <Button
+                        android:id="@+id/btnAbout"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="0"
+                        android:layout_gravity="top|center_vertical|center_horizontal"
+                        android:layout_margin="2dp"
+                        android:layout_row="1"
+                        android:contentDescription="@string/about"
+                        android:drawableTop="@raw/inf_64"
+                        android:text="@string/about"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <Button
+                        android:id="@+id/btnCustomers"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="3"
+                        android:layout_gravity="top|left|center_vertical"
+                        android:layout_margin="2dp"
+                        android:layout_row="1"
+                        android:contentDescription="@string/History"
+                        android:drawableTop="@raw/group_64"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/customer"
+                        android:textSize="@dimen/text_tiny"
+                        android:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/btnExitMenu"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="4"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_margin="2dp"
+                        android:layout_row="1"
+                        android:contentDescription="@string/Exit"
+                        android:drawableTop="@raw/close_64"
+                        android:text="@string/Exit"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <Button
+                        android:id="@+id/btnSettings"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="4"
+                        android:layout_gravity="left|top"
+                        android:layout_margin="2dp"
+                        android:layout_row="0"
+                        android:drawableTop="@raw/tools_64"
+                        android:text="@string/settings"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <Button
+                        android:id="@+id/btnHistory"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="2"
+                        android:layout_gravity="right|top"
+                        android:layout_margin="2dp"
+                        android:layout_row="1"
+                        android:contentDescription="@string/History"
+                        android:drawableTop="@raw/bookback_64"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/items"
+                        android:textSize="@dimen/text_tiny"
+                        android:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/btnUploadAll"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="2"
+                        android:layout_gravity="left|top"
+                        android:layout_margin="2dp"
+                        android:layout_row="0"
+                        android:drawableTop="@raw/camup_64"
+                        android:height="150dp"
+                        android:text="@string/uploadAll"
+                        android:textSize="@dimen/text_tiny" />
+
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="120dp"
+                        android:layout_height="100dp"
+                        android:layout_column="3"
+                        android:layout_gravity="top|left"
+                        android:layout_margin="2dp"
+                        android:layout_row="0"
+                        android:contentDescription="@string/update"
+                        android:drawableTop="@raw/reload_64"
+                        android:text="@string/update"
+                        android:textSize="@dimen/text_tiny" />
+                </GridLayout>
+
+               </ScrollView>
+            </FrameLayout>

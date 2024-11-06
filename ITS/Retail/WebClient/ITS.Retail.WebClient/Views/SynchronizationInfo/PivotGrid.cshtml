@@ -1,0 +1,170 @@
+﻿@model IEnumerable<SynchronizationInfoViewModel>
+
+@using DevExpress.XtraPivotGrid;
+@using DevExpress.Web.ASPxPivotGrid;
+
+@Html.DevExpress().PivotGrid(settings =>
+{
+    settings.Name = "PivotGrid";
+    settings.CallbackRouteValues = new { Controller = "SynchronizationInfo", Action = "PivotGrid" };
+    
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.OptionsView.VerticalScrollingMode = PivotScrollingMode.Virtual;
+    settings.OptionsView.HorizontalScrollingMode = PivotScrollingMode.Virtual;
+    settings.OptionsView.VerticalScrollBarMode = ScrollBarMode.Auto;
+    settings.OptionsView.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.Fields.Add("EntityName", PivotArea.RowArea).Caption = Resources.EntityName;
+    settings.Fields.Add("DeviceName", PivotArea.ColumnArea).Caption = Resources.DeviceName;
+
+    settings.Fields.Add(field =>
+    {
+        field.FieldName = "DeviceEntityCount";
+        field.Caption = Resources.DeviceEntityCount;
+        field.Area = PivotArea.DataArea;
+        field.SummaryType = DevExpress.Data.PivotGrid.PivotSummaryType.Max;
+
+    });
+
+    settings.Fields.Add(field =>
+    {
+        field.FieldName = "ExpectedEntityCount";
+        field.Caption = Resources.ExpectedEntityCount;
+        field.Area = PivotArea.DataArea;
+        field.SummaryType = DevExpress.Data.PivotGrid.PivotSummaryType.Max;
+
+    });
+
+    settings.Fields.Add(field =>
+    {
+        field.FieldName = "DeviceVersion";
+        field.Caption = Resources.DeviceVersion;
+        field.Area = PivotArea.DataArea;
+        field.SummaryType = DevExpress.Data.PivotGrid.PivotSummaryType.Max;
+
+    });
+
+    settings.Fields.Add(field =>
+    {
+        field.FieldName = "ExpectedVersion";
+        field.Caption = Resources.ExpectedDeviceVersion;
+        field.Area = PivotArea.DataArea;
+        field.SummaryType = DevExpress.Data.PivotGrid.PivotSummaryType.Max;
+
+    });
+
+    settings.Fields.Add(field =>
+    {
+        field.FieldName = "SyncInfoEntityDirectionText";
+        field.Area = PivotArea.DataArea;
+        field.SummaryType = DevExpress.Data.PivotGrid.PivotSummaryType.Max;
+        field.Caption = Resources.EntityDirection;
+    });
+
+    settings.Fields.Add(field =>
+    {
+        field.FieldName = "LastUpdate";
+        field.Area = PivotArea.DataArea;
+        field.SummaryType = DevExpress.Data.PivotGrid.PivotSummaryType.Max;
+        field.Caption = Resources.LastUpdate;
+    });
+
+    settings.OptionsCustomization.AllowDrag = false;
+    settings.ClientSideEvents.CellClick = "SynchronizationInfo.PivotGrid_OnCellClick";
+
+    settings.OptionsView.ShowFilterHeaders = false;
+    settings.OptionsView.ShowDataHeaders = false;
+    settings.OptionsView.ShowGrandTotalsForSingleValues = false;
+    settings.OptionsView.ShowTotalsForSingleValues = false;
+    settings.OptionsView.ShowRowGrandTotalHeader = false;
+    settings.OptionsView.ShowRowGrandTotals = false;
+    settings.OptionsView.ShowRowTotals = false;
+    settings.OptionsView.ShowColumnTotals = false;
+    settings.OptionsView.ShowColumnGrandTotalHeader = false;
+    settings.OptionsView.ShowColumnGrandTotals = false;
+
+
+    settings.OptionsPager.RowsPerPage = 0;
+    settings.CustomCellDisplayText += (DevExpress.Web.ASPxPivotGrid.PivotCellDisplayTextEventHandler)delegate(object sender, DevExpress.Web.ASPxPivotGrid.PivotCellDisplayTextEventArgs e)
+    {
+        if (e.GetFieldValue((sender as ASPxPivotGrid).Fields[e.DataField.FieldName]) != null)
+        {
+            if (e.DataField.FieldName == "DeviceVersion" || e.DataField.FieldName == "ExpectedVersion")
+            {
+                long ticks = Convert.ToInt64(e.GetFieldValue((sender as ASPxPivotGrid).Fields[e.DataField.FieldName]));
+                DateTime date = DateTime.MinValue;
+                if (ticks >= date.Ticks && ticks <= DateTime.MaxValue.Ticks)
+                {
+                    try
+                    {
+                        date = new DateTime(ticks);
+                        e.DisplayText = ticks + " (" + date.ToString("dd/MM/yyyy HH:mm:ss") + ")";
+                    }
+                    catch (Exception exception)
+                    {
+                        e.DisplayText = string.Empty;
+                    }
+                }
+            }
+        }
+    };
+
+    settings.CustomCellStyle += (PivotCustomCellStyleEventHandler)delegate(object sender, PivotCustomCellStyleEventArgs e)
+    {
+        System.Drawing.Color errorColor = System.Drawing.Color.FromName("#FF0039");
+        System.Drawing.Color normalColor = System.Drawing.Color.FromName("#3FB618");
+        System.Drawing.Color transactionsErrorColor = System.Drawing.Color.FromName("#2780E3");
+        System.Drawing.Color warningColor = System.Drawing.Color.FromName("#FE6600");
+        System.Drawing.Color whiteColor = System.Drawing.Color.FromName("#FFFFFF");
+
+        if (e.GetFieldValue((sender as ASPxPivotGrid).Fields["DeviceEntityCount"]) != null)
+        {
+            if (e.DataField.FieldName == "DeviceEntityCount" || e.DataField.FieldName == "ExpectedEntityCount")
+            {
+                int deviceEntityCount = Convert.ToInt32(e.GetFieldValue((sender as ASPxPivotGrid).Fields["DeviceEntityCount"]));
+                int expectedEntityCount = Convert.ToInt32(e.GetFieldValue((sender as ASPxPivotGrid).Fields["ExpectedEntityCount"]));
+                string direction = e.GetFieldValue((sender as ASPxPivotGrid).Fields["SyncInfoEntityDirectionText"]).ToString();
+                if (deviceEntityCount > expectedEntityCount)
+                {
+                    e.CellStyle.BackColor = warningColor;
+                    e.CellStyle.ForeColor = whiteColor;
+                }
+                else
+                {
+                    if (direction == eSyncInfoEntityDirection.DOWN.ToString())
+                    {
+                        e.CellStyle.BackColor = expectedEntityCount != deviceEntityCount ? errorColor : normalColor;
+                        e.CellStyle.ForeColor = whiteColor;
+                    }
+                    else
+                    {
+                        e.CellStyle.BackColor = expectedEntityCount != deviceEntityCount ? transactionsErrorColor : normalColor;
+                        e.CellStyle.ForeColor = whiteColor;
+                    }
+                }
+            }
+            else if (e.DataField.FieldName == "DeviceVersion" || e.DataField.FieldName == "ExpectedVersion")
+            {
+                long deviceVersion = Convert.ToInt64(e.GetFieldValue((sender as ASPxPivotGrid).Fields["DeviceVersion"]));
+                long expectedVersion = Convert.ToInt64(e.GetFieldValue((sender as ASPxPivotGrid).Fields["ExpectedVersion"]));
+                e.CellStyle.BackColor = expectedVersion != deviceVersion ? errorColor : normalColor;
+                e.CellStyle.ForeColor = whiteColor;
+            }
+            else if (e.DataField.FieldName == "SyncInfoEntityDirectionText")
+            {
+                string direction = e.GetFieldValue((sender as ASPxPivotGrid).Fields["SyncInfoEntityDirectionText"]).ToString();
+                if (direction == eSyncInfoEntityDirection.DOWN.ToString())
+                {
+                    e.CellStyle.BackColor = normalColor;
+                    e.CellStyle.ForeColor = whiteColor;
+                }
+                else
+                {
+                    e.CellStyle.BackColor = transactionsErrorColor;
+                    e.CellStyle.ForeColor = whiteColor;
+                }
+            }
+        }
+    };
+
+}).Bind(Model).GetHtml()

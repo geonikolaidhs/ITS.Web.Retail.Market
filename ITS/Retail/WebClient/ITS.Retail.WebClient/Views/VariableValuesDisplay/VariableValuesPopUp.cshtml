@@ -1,0 +1,30 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@{
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("VariableValuesPopUp");
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "VariableValuesDisplay", Action = "ShowVariableValues", typeName = (string)Session["ControllerName"] + "Controller"
+        /*, mode = VariableDisplayValuesMode.GRID*/
+    };
+    popUpSettings.AllowResize = false;
+    popUpSettings.AllowDragging = false;
+    popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+    popUpSettings.PopupVerticalAlign = PopupVerticalAlign.Above;
+    popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+    popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+    popUpSettings.SetContent(() =>
+    {
+        HeaderOptions headerOptions = new HeaderOptions(Resources.VariableValues);
+        headerOptions.CancelButton.Name = "btnClose";
+        headerOptions.CancelButton.OnClick = "VariableValuesDisplay.VariableValuesPopUpClose";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        Html.RenderAction("ShowVariableValues", "VariableValuesDisplay", new { typeName = (string)Session["ControllerName"] + "Controller"
+            /*, mode = VariableDisplayValuesMode.GRID*/
+        });
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+
+

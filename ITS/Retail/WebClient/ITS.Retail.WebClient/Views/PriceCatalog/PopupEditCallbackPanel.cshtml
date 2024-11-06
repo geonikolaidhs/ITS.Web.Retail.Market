@@ -1,0 +1,16 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "PopupEditCallbackPanel";
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.CallbackRouteValues = new { Controller = (String)ViewBag.ControllerName, Action = "PopupEditCallbackPanel" };
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("LoadEditPopup", (String)ViewBag.ControllerName, new { ID = ViewData["ID"] });
+            
+    });
+
+    settings.ClientSideEvents.Expanded = "Component.InitializeFilterNonRelative";
+
+}).GetHtml()
+
+

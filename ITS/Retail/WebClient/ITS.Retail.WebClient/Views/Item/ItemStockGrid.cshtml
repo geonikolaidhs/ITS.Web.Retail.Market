@@ -1,0 +1,186 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    string gridName = "";
+    eApplicationInstance applicationInstance = ViewBag.ApplicationInstance;
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true && (applicationInstance!= eApplicationInstance.STORE_CONTROLER))
+    {
+        settings.Name = "grdItemStocks";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>"
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "ItemStockGrid" , ItemID = ViewData["ItemID"], editMode = true  };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Item", Action = "ItemStockUpdatePartial" };
+        //settings.ClientSideEvents.BeginCallback = "OnBeginCallbackItemStockGrid";
+        gridName = "grdItemStockEdit";
+    }
+    else
+    {
+        settings.Name = "grdItemStocks_" + ViewData["ItemID"];
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "ItemStockGrid", ItemID = ViewData["ItemID"], editMode = false };
+        gridName = "grdItemStockView";
+    }
+
+
+    settings.Columns.Add( col =>{
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Store.Name";
+        col.Caption = Resources.Store;
+        col.HeaderStyle.Wrap= DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Stock";
+        col.Caption = Resources.Stock;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "DesirableStock";
+        col.Caption = Resources.DesirableStock;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Pixel(400);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.ItemStockInfo;
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.ItemStock;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["Item"] = item;
+        ViewData["Tab"] = "ItemStock";
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnItemStockUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnItemStockCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        ViewContext.Writer.Write("<table><tr><td>");
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.DesirableStock + ":";
+        }
+        ).Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        Html.DevExpress().SpinEdit(
+             edtSettings =>
+             {
+                 edtSettings.Name = "DesirableStock";
+                 edtSettings.ControlStyle.CssClass = "editor";
+                 edtSettings.ShowModelErrors = true;
+                 edtSettings.Properties.MinValue = 0;
+                 edtSettings.Properties.MaxValue = 99999;
+                 edtSettings.Properties.MaxLength = 99999;
+                 edtSettings.Number = 0;
+                 edtSettings.ShowModelErrors = true;
+                 edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                 edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+             }
+         )
+         .Bind(DataBinder.Eval(item, "DesirableStock") ?? 0)
+         .Render();
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+
+}).Bind(Model).GetHtml()

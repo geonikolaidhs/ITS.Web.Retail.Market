@@ -1,0 +1,111 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+<table class="style_table">
+    <tr>
+        <td class='head' colspan="4"><h2>@Resources.SupplierDetails</h2></td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.Code/@Resources.CompanyName </td>
+        <td colspan="4">
+            @{if (document.Supplier != null)
+                {
+                    ViewContext.Writer.Write(document.Supplier.Code.TrimStart(("0").ToCharArray()));
+                }
+                if (document.Supplier != null)
+                {
+                    ViewContext.Writer.Write(" / " + document.Supplier.CompanyName);
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.Profession </td>
+        <td colspan="2">
+            @{
+                if (document.Supplier != null)
+                {
+                    ViewContext.Writer.Write(document.Supplier.Profession);
+                }
+            }
+        </td>
+    </tr>
+    @{
+        if ((bool)ViewData["GDPREnabled"] == true)
+        {
+            ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.DefaultPhone + " *</td><td colspan=\"2\">");
+            if (document.Supplier != null)
+            {
+                string phone = (document.Supplier.DefaultAddress != null && document.Supplier.DefaultAddress.DefaultPhone != null) ? document.Supplier.DefaultAddress.DefaultPhone.Number : "-";
+                ViewContext.Writer.Write(phone);
+            }
+            ViewContext.Writer.Write("</td></tr>");
+        }
+    }
+    <tr>
+        <td class='infoLabels bolder'>@Resources.TaxOffice</td>
+        <td class='bolder'>
+            @{
+                if (document.Supplier != null)
+                {
+                    if (document.Supplier.Trader != null)
+                    {
+                        ViewContext.Writer.Write(document.Supplier.Trader.TaxOfficeLookUp != null ? document.Supplier.Trader.TaxOfficeLookUp.Description : "-");
+                    }
+                }
+            }
+        </td>
+
+    </tr>
+    @if (document.Supplier != null)
+    {
+        <tr>
+            <td class='infoLabels required_field'>@Resources.DeliveryAddress </td>
+            <td colspan="5">
+                @Html.DevExpress().TextBox(tbx_settings =>
+                {
+                    tbx_settings.Name = "DeliveryAddress";
+                    tbx_settings.Text = document.DeliveryAddress;
+                    tbx_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    tbx_settings.Enabled = true;
+                    tbx_settings.ClientEnabled = false;
+                }).GetHtml()
+            </td>
+            <td>
+                <input type="hidden" id="DeliveryStreet" value="" />
+                <input type="hidden" id="DeliveryPOBox" value="" />
+                <input type="hidden" id="DeliveryPostCode" value="" />
+                <input type="hidden" id="DeliveryCity" value="" />
+                <input type="hidden" id="DeliveryProfession" value="" />
+                @if (!ViewBag.InViewMode)
+                {
+                    @Html.DevExpress().Image(btnSettings =>
+                    {
+                        btnSettings.Name = "btnSelectDelivery";
+                        btnSettings.ImageUrl = "~/Content/img/post.png?ver=" + ViewData["ApplicationVersionNumber"];
+                        btnSettings.ToolTip = Resources.SelectDelivery;
+                        btnSettings.Properties.ClientSideEvents.Click = "SelectDeliveryAddress";
+                    }).GetHtml()
+                }
+            </td>
+        </tr>
+        <tr>
+            <td class='infoLabels required_field'>@Resources.Profession </td>
+            <td colspan="5">
+                @Html.DevExpress().TextBox(tbx_settings =>
+            {
+                tbx_settings.Name = "DeliveryProfession";
+                tbx_settings.Text = document.DeliveryProfession;
+                tbx_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                tbx_settings.Enabled = true;
+                tbx_settings.ClientEnabled = false;
+            }).GetHtml()
+            </td>
+        </tr>
+    }
+</table>

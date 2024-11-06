@@ -1,0 +1,79 @@
+﻿@using ITS.Retail.Model
+
+@{
+    if (ViewData["ID"] != null)
+    {
+        DocumentHeader documentHeader = ViewData["DocumentHeader"] as DocumentHeader;
+        PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("LoadEditPopup",Width: 50, Height:50);
+        popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";
+        popUpSettings.CallbackRouteValues = new { Controller = "Document", Action = "LoadEditPopup", ID = ViewData["ID"], Recover = ViewData["Recover"], LoadFromSession = ViewData["LoadFromSession"], HasReturnedFromOrderItemsForm = ViewData["HasReturnedFromOrderItemsForm"], RestoreTemporary = ViewData["RestoreTemporary"]};
+        popUpSettings.HeaderText = ViewBag.Title;
+        popUpSettings.AllowResize = false;
+        popUpSettings.AllowDragging = false;
+        popUpSettings.AutoUpdatePosition = true;
+
+
+        popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+        popUpSettings.PopupVerticalAlign = PopupVerticalAlign.Above;
+        popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+        popUpSettings.ClientSideEvents.Shown = "function(s,e) {" + popUpSettings.Name + ".SetHeight(window.innerHeight);" + popUpSettings.Name + ".SetWidth(window.innerWidth);  }";
+
+        popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+        popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+        popUpSettings.ClientSideEvents.CloseUp = "RefreshGrid";   
+        popUpSettings.Styles.CloseButton.CssClass = "hidden-button";
+        
+        popUpSettings.ClientSideEvents.AfterResizing = "Component.PositionDocumentPartialAtHeader";
+        
+        
+        
+        popUpSettings.SetContent(() =>
+        {
+            bool? recover = null;
+            if (ViewData["Recover"] != null)
+            {
+                recover = Boolean.Parse(ViewData["Recover"].ToString());
+            }
+            
+            eDivision? division = null;
+            if (ViewData["Division"] != null)
+            {
+                division = (eDivision)Enum.Parse(typeof(eDivision), ViewData["Division"].ToString());    
+            }
+            else
+            {
+                division = documentHeader.Division;
+            }
+
+            bool? loadFromSession = null;
+            if (ViewData["LoadFromSession"] != null)
+            {
+                loadFromSession = Boolean.Parse(ViewData["LoadFromSession"].ToString());
+            }
+
+            bool? hasReturnedFromOrderItemsForm = null;
+            if (ViewData["HasReturnedFromOrderItemsForm"] != null)
+            {
+                hasReturnedFromOrderItemsForm = Boolean.Parse(ViewData["HasReturnedFromOrderItemsForm"].ToString());
+            }
+
+            Guid restoreTemporary = Guid.Empty;
+            if (ViewData["RestoreTemporary"] != null)
+            {                
+                restoreTemporary = Guid.Parse(ViewData["RestoreTemporary"].ToString());
+            }
+
+            string docType = "";
+            if (ViewData["DocType"] != null)
+            {
+                docType = ViewData["DocType"].ToString();
+            }
+            
+            ViewContext.Writer.Write("<div class='Document'>");
+
+            @Html.RenderAction("Edit", "Document", new { Oid = ViewData["ID"], Mode = division, Recover = recover, LoadFromSession = loadFromSession, HasReturnedFromOrderItemsForm = hasReturnedFromOrderItemsForm, RestoreTemporary = restoreTemporary, DocType = docType });
+            ViewContext.Writer.Write("</div>");
+        });
+        Html.DevExpress().PopupControl(popUpSettings).GetHtml();
+    }
+}

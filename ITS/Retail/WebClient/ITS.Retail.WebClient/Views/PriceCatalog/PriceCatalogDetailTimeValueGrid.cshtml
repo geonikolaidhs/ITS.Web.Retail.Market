@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ITS.Retail.Model.PriceCatalogDetailTimeValue>
+@{
+    bool EditMode = ViewData["EditMode"] is bool ? (bool)ViewData["EditMode"] : false;
+    Guid PriceCatalogDetailOid = ViewData["PriceCatalogDetailOid"] is Guid ? (Guid)ViewData["PriceCatalogDetailOid"] : Guid.Empty;
+}
+@Html.DevExpress().GridView(
+    settings =>
+    {
+
+        settings.Caption = Resources.TimeValue;
+        settings.Name = "gridViewPriceCatalogDetailTimeValueGrid" + PriceCatalogDetailOid.ToString().Replace("-","");
+        settings.KeyFieldName = "Oid";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.CallbackRouteValues = new {  Action = "PriceCatalogDetailTimeValueGrid", PriceCatalogDetailOid = PriceCatalogDetailOid, EditMode = EditMode };
+
+
+        if (EditMode && ITS.Retail.WebClient.MvcApplication.ApplicationInstanceAllowsPriceEdit )
+        {
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButtonInHeader = true;
+            settings.CommandColumn.ShowNewButton = false;
+            settings.CommandColumn.ShowEditButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.SettingsDataSecurity.AllowEdit = true;
+            settings.SettingsDataSecurity.AllowInsert = true;
+            settings.SettingsDataSecurity.AllowDelete = true;
+            settings.SettingsEditing.BatchUpdateRouteValues = new {  Action = "PriceCatalogDetailTimeValueBatchUpdateGrid", PriceCatalogDetailOid = PriceCatalogDetailOid };
+            settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+            settings.SettingsEditing.BatchEditSettings.EditMode = GridViewBatchEditMode.Row;
+            settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+            settings.ClientSideEvents.BatchEditStartEditing = "PriceCatalogDetailTimeValueStartEdit";
+            settings.SettingsCommandButton.NewButton.ButtonType = GridCommandButtonRenderMode.Image;
+            settings.SettingsCommandButton.DeleteButton.ButtonType = GridCommandButtonRenderMode.Image;
+            settings.SettingsCommandButton.EditButton.ButtonType = GridCommandButtonRenderMode.Image;
+            settings.SettingsCommandButton.NewButton.Image.Url = Url.Content("~/Content/img/plus.png");
+            settings.SettingsCommandButton.EditButton.Image.Url = Url.Content("~/Content/img/edit.png");
+            settings.SettingsCommandButton.DeleteButton.Image.Url = Url.Content("~/Content/img/del.png");
+
+            settings.SettingsEditing.NewItemRowPosition = GridViewNewItemRowPosition.Bottom;
+            settings.SetStatusBarTemplateContent(c =>
+            {
+                ViewContext.Writer.Write("<div style='text-align: right'>");
+                Html.DevExpress().Button(hlSettings =>
+                {
+                    hlSettings.Name = "hlSave";
+                    hlSettings.Text = Resources.Save;
+                    hlSettings.ClientSideEvents.Click = "function(s, e){ "+settings.Name+".UpdateEdit(); }";
+                }).Render();
+
+                ViewContext.Writer.Write("  ");
+                @Html.DevExpress().Button(hlSettings =>
+                {
+                    hlSettings.Name = "hlCancel";
+                    hlSettings.Text = Resources.Cancel;
+                    hlSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit();}";
+                }).Render();
+                ViewContext.Writer.Write("</div>");
+            });
+        }
+        else
+        {
+            settings.SettingsDataSecurity.AllowEdit = false;
+            settings.SettingsDataSecurity.AllowInsert = false;
+            settings.SettingsDataSecurity.AllowDelete = false;
+        }
+
+
+
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "TimeValueValidFromDate";
+            col.Caption = Resources.TimeValueValidFromDate;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+            col.ColumnType = MVCxGridViewColumnType.DateEdit;
+            DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+            dateEditProperties.TimeSectionProperties.Visible = true;
+            dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm:ss";
+            dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm:ss";
+            dateEditProperties.DisplayFormatInEditMode = true;
+
+        });
+
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "TimeValueValidUntilDate";
+            col.Caption = Resources.TimeValueValidUntilDate;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+            col.ColumnType = MVCxGridViewColumnType.DateEdit;
+            DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+            dateEditProperties.TimeSectionProperties.Visible = true;
+            dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm:ss";
+            dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm:ss";
+            dateEditProperties.DisplayFormatInEditMode = true;
+        });
+
+
+        settings.Columns.Add(col =>
+        {
+            col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+            col.FieldName = "TimeValue";
+            col.Caption = Resources.TimeValue;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            col.ColumnType = MVCxGridViewColumnType.SpinEdit;
+            SpinEditProperties spinEditProperties = col.PropertiesEdit as SpinEditProperties;
+            spinEditProperties.NumberType = SpinEditNumberType.Float;
+            spinEditProperties.SpinButtons.Visible = false;
+            spinEditProperties.DecimalPlaces = (int)BaseController.EffectiveOwner.OwnerApplicationSettings.DisplayValueDigits;
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "IsActive";
+            column.Caption = Resources.ActiveFemale;
+            column.HeaderStyle.Wrap = DefaultBoolean.True;
+            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            CheckBoxProperties checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+            checkBoxProperties.ValueChecked = true;
+            checkBoxProperties.ValueGrayed = false;
+            checkBoxProperties.ValueUnchecked = false;
+            checkBoxProperties.ValueType = typeof(bool);
+            column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        });
+
+        settings.KeyFieldName = "Oid";
+        settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+
+    }).Bind(Model).GetHtml()

@@ -1,0 +1,34 @@
+﻿@model PromotionPriceCatalogExecutionWizardModel
+@using DevExpress.Xpo
+@using DevExpress.Data.Filtering
+
+@{
+    Guid? discountTypeGuid = DataBinder.Eval(Model, "DiscountType") as Guid?;
+    XPCollection<DiscountType> discountTypesList = new XPCollection<DiscountType>(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork(),
+                                                                                  CriteriaOperator.And(new BinaryOperator("Owner.Oid", BaseController.EffectiveOwner.Oid),
+                                                                                                       new BinaryOperator("IsHeaderDiscount", false)
+                                                                                                      )
+                                                                                  );
+}
+<table class='promotionTable'>
+    <tr>
+        <td>
+        @{
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.DiscountType;
+                cmb.Name = "DiscountType";
+                cmb.Properties.ValueType = typeof(Guid?);
+                cmb.Properties.ValueField = "Oid";
+                cmb.Properties.TextField = "Description";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(discountTypesList).Bind(discountTypeGuid).Render();
+            }
+        </td>
+        <td>
+            @{
+                Html.RenderPartial("SelectValuePercentage", Model);
+            }
+        </td>
+    </tr>
+</table>

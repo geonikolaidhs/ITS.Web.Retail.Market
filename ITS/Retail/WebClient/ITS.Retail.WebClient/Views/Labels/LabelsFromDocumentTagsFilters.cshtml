@@ -1,0 +1,82 @@
+﻿
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "labelsFromDocumentTags";
+    settings.CallbackRouteValues = new { Controller = "Labels", Action = "LabelsFromDocumentTagsFilters" };
+    settings.SettingsLoadingPanel.Enabled = false;//settings.ShowLoadingPanel = false;
+    
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<ul class='simpleForm validateForm labels-filters-container terminals'><li>");
+        ViewContext.Writer.Write("<label for=\"Fromdate_I\" >" + Resources.Date + " " + Resources.From + "</label>");
+
+        DateTime from = new DateTime();
+        DateTime to = new DateTime();
+        DateTime now = DateTime.Now;
+        from = now.Date.AddMilliseconds(1);
+        to = now.Date.AddDays(1).AddMilliseconds(-1);
+
+        @Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "Fromdate";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Date;
+            datesettings.Properties.ClientSideEvents.KeyPress = "Label.FromDocumentTagsOnKeyPressFilters";
+        }).Bind(from.Date).GetHtml();
+        
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"FromDateTime_I\" >" + Resources.TimePeriod + " " + Resources.From + "</label>");
+        
+        @Html.DevExpress().TimeEdit(datesettings =>
+        {
+            datesettings.Name = "FromDateTime";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Time;
+            datesettings.Properties.EditFormatString = 
+            datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).Bind(RetailHelper.GetTimeFromDayStart(from.Date)).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"todate_I\" >" + Resources.Date + " " + Resources.To + "</label>");
+
+        @Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "todate";
+            datesettings.ControlStyle.CssClass = "editor search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Date;
+            datesettings.Properties.TimeSectionProperties.Visible = true;
+            datesettings.Properties.ClientSideEvents.KeyPress = "Label.FromDocumentTagsOnKeyPressFilters";
+        }).Bind(to.Date).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"ToDateTime_I\" >" + Resources.TimePeriod + " " + Resources.To + "</label>");
+
+        @Html.DevExpress().TimeEdit(datesettings =>
+        {
+            datesettings.Name = "ToDateTime";
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.EditFormat = EditFormat.Time;
+            datesettings.Properties.EditFormatString =
+            datesettings.Properties.DisplayFormatString = "HH:mm:ss";
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).Bind(RetailHelper.GetTimeToDayEnd(to.Date)).GetHtml();
+
+        ViewContext.Writer.Write("</li></ul>");
+        
+        @Html.DevExpress().Button(btnsettings =>
+        {
+            btnsettings.Name = "btnSearchLabelsFromDocumentTags";
+            btnsettings.Text = Resources.Search;
+            btnsettings.ClientEnabled = true;
+            btnsettings.ClientSideEvents.Click = "SearchDocument";
+        }).GetHtml();
+    });
+
+}).GetHtml()
+
+@Html.Partial("FilterButtonsSecond")

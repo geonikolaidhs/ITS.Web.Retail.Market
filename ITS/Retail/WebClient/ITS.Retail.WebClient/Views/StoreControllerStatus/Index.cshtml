@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ITS.Retail.Model.StoreControllerSettings>
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/StoreControllerStatus.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.json-2.4.min.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+<div class="pull-left">
+    @Html.Partial("StoreControllerListCheck")
+</div>
+<div class="pull-left"">
+    @Html.Partial("Grid", Model)
+</div>

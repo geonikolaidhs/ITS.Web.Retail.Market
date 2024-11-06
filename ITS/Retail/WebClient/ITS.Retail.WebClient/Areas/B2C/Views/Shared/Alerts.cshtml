@@ -1,0 +1,42 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        @if (Session["Success"]!=null) {
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Session["Success"]
+            </div>
+        }
+
+        @if (Session["Info"]!=null) {
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Session["Info"]
+            </div>
+        }
+
+        @if (Session["Warning"]!=null) {
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Session["Warning"]
+            </div>
+        }
+
+        @if (Session["Danger"]!=null) { 
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Session["Danger"]
+            </div>    
+        }    
+
+
+        <div class="alert" style="display:none;">  
+    
+        </div>   
+
+
+        @{
+            Session["Danger"] = Session["Warning"] = Session["Info"] = Session["Success"] = null;
+        }
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+.wrapper .container #SplitterPriceCatalogs #SplitterPriceCatalogs_0_CC {
+  background: #f0f0f0 !important;
+}
+.wrapper .container #SplitterPriceCatalogs #priceCatalogTreeView {
+  clear: both;
+}
+.wrapper .container #PriceCatalogInfo {
+  display: none;
+}
+.wrapper .container #PriceCatalogInfo .dxtc-content #pcFeaturesSupplier_C0 {
+  position: relative;
+}
+.wrapper .container #pcFeatures_C0 {
+  position: relative;
+}
+.wrapper .container #pcFeaturesCustomer_C0 {
+  position: relative;
+}
+.wrapper .container .ItemCategory_index #CategoryTreeView img.node_img {
+  background-color: #b4b4b4;
+  height: 24px;
+  margin-bottom: -3px;
+}
+
+@media screen and (max-width: 1040px) {
+  .header .header_container div.order_btn {
+    display: none;
+  }
+  .header .header_container div.order {
+    display: none;
+  }
+  .header .header_container a.logout_btn {
+    display: none;
+  }
+  .header .rightContainer .userInformation table {
+    display: none;
+  }
+}
+.IndexView_button_container {
+  left: 400px !important;
+}

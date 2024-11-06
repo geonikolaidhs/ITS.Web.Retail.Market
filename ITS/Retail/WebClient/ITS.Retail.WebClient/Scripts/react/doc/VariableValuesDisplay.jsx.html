@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>React Components Source: VariableValuesDisplay.jsx</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">React Components</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="DataViewSelect.html">DataViewSelect</a></li><li><a href="InputWithDatePicker.html">InputWithDatePicker</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="VariableValuesDisplay.html">VariableValuesDisplay</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: VariableValuesDisplay.jsx</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">import React, { Component } from 'react';
+
+import Select from 'react-select';
+
+import { Button, Input, Alert } from 'react-bootstrap';
+
+import InputWithDatePicker from './InputWithDatePicker.jsx';
+
+import Locale from '../extensions/dist/Locale';
+
+import InputItemsArray from '../extensions/dist/InputItemsArray';
+
+import moment from 'moment';
+
+import Griddle from 'griddle-react';
+
+import _ from 'underscore';
+
+//import NotificationSystem  from 'react-notification-system';
+
+/*
+dataTypes = {
+  "Decimal",
+  "String",
+  "DateTime",
+  "Boolean",
+
+  "SupplierNew", //
+  "Customer", //
+  "DocumentHeader", //
+  "Item", //
+  "ItemCategory", //
+  "Store" //
+}
+*/
+
+let inputItems = new InputItemsArray();
+/**
+ * Class Representing Variable Values Display Component
+ * @extends React.Component
+ */
+export default class VariableValuesDisplay extends React.Component{
+  /**
+   * Initialize this.state and props
+   * @param  {Object} props - Props
+   */
+  constructor(props){
+    super(props);
+    this.state = {
+      value: props.initialValue,
+      loadSelect: false,
+      options: props.initialData,
+      language: props.language,
+      alertText: null
+    };
+  }
+
+  /**
+   * Onchange Variable Values Display Select
+   * Executes Ajax Post to GetDataView Method and updates Component state
+   * @param  {string} value - Selected value
+   */
+  onChange(value) {
+    console.log(value);
+    const xhr = new XMLHttpRequest(),
+          formData = new FormData();
+    this.setState({ value });
+
+    xhr.open('POST', this.props.urlGetDataView, true);
+    formData.append('categoryOid',value);
+    xhr.send(formData);
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4 ) {
+        if ( xhr.status == 200) {
+          const result = JSON.parse(xhr.responseText).result,
+                dataViewArray = Array.isArray(result) ? result : [],
+                error = JSON.parse(xhr.responseText).error;114
+
+          if(dataViewArray.length == 0 ){
+            this.setState({
+              loadSelect: false,
+              alertText: typeof error != 'undefined' ? error : Locale.getMessage(this.props.language,'noResultsFound')
+            })
+          }
+          else{
+            this.setState({
+              dataView: dataViewArray,
+              loadSelect: true
+            });
+          }
+        }
+        else{
+          this.setState({
+            alertText: Locale.getMessage(this.props.language,'serverError')
+          });
+        }
+      }
+    }
+  }
+
+  handleAlertDismiss() {
+    this.setState({alertText: null});
+  }
+
+  /**
+   * Render Component
+   * @return {Object} React View
+   */
+  render(){
+    return (
+      &lt;section>
+        { this.state.alertText ?
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;Alert bsStyle="danger" onDismiss={this.handleAlertDismiss.bind(this)} dismissAfter={5000}>
+              &lt;h4>{ this.state.alertText}&lt;/h4>
+            &lt;/Alert>
+          &lt;/React.addons.CSSTransitionGroup>
+          : null
+        }
+
+        &lt;div className="selectGroup">
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;h3 className="section-heading">{Locale.getMessage(this.props.language,'dataViewCategory')}&lt;/h3>
+            &lt;Select  className="section-select" ref="dataViewCategorySelect"
+              placeholder={ Locale.getMessage(this.props.language,'select') }
+              value= {this.state.value}
+              options={this.state.options}
+              onChange={this.onChange.bind(this)}
+              noResultsText= { Locale.getMessage(this.props.language,'noResultsFound') }
+              clearable= {false}
+            />
+          &lt;/React.addons.CSSTransitionGroup>
+        &lt;/div>
+
+        { this.state.loadSelect ?
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;DataViewSelect ref="dataViewSelect"
+              title={ Locale.getMessage(this.props.language,'viewParameters')}
+              placeholder={ Locale.getMessage(this.props.language,'select') }
+              value= {null}
+              noResultsText= { Locale.getMessage(this.props.language,'noResultsFound') }
+              options={this.state.dataView}
+              url={this.props.urlGetViewParameters}
+              urlGetVariableValues= {this.props.urlGetVariableValues}
+              language={this.props.language}
+            />
+          &lt;/React.addons.CSSTransitionGroup>
+        : null
+        }
+
+      &lt;/section>
+    );
+  }
+}
+/**
+ * Class representing Data View Select Component
+ * @extends React.Component
+ */
+class DataViewSelect extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      value: props.initialValue,
+      displayGrid: false,
+    }
+  }
+  onChange(value){
+    console.log(value);
+    const xhr = new XMLHttpRequest(),
+          formData = new FormData();
+    this.setState({ value });
+
+    xhr.open('POST',this.props.url,true);
+    formData.append('dataViewOid',value);
+    xhr.send(formData);
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4 ) {
+        if ( xhr.status == 200) {
+          const result = JSON.parse(xhr.responseText).result,
+                viewParametersArray = Array.isArray(result) ? result : [],
+                error = JSON.parse(xhr.responseText).error;
+          console.log(viewParametersArray);
+
+          if(typeof error != 'undefined' ){
+            this.setState({
+              displayInputLists: false,
+              displayGrid: false,
+              alertText: error
+            })
+          }
+          else{
+            this.setState({
+              inputData: viewParametersArray,
+              displayInputLists: true,
+              displayGrid: false
+            });
+          }
+        }
+        else{
+          this.setState({
+            alertText: Locale.getMessage(this.props.language,'serverError')
+          });
+        }
+      }
+    }
+  }
+  handleButtonClick(value){
+    console.log(this.state.hasParameters); //if false we have no params
+    console.log(inputItems);
+    const xhr = new XMLHttpRequest(),
+          formData = new FormData();
+    xhr.open('POST',this.props.urlGetVariableValues,true);
+    formData.append('customDataViewOid',this.state.value);
+    console.log(JSON.stringify(inputItems));
+
+    let emptyValueError = false;
+
+    _.each(inputItems, function(value, key){
+        if(value.value.length === 0){
+          emptyValueError = true;
+        }
+    });
+
+    if(emptyValueError){
+      this.setState({
+        displayGrid: false,
+        alertText: Locale.getMessage(this.props.language,'addNonEmptyValue')
+      });
+      return null;
+    }
+
+    formData.append('paramValues',JSON.stringify(inputItems));
+    xhr.send(formData);
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4 ) {
+        if ( xhr.status == 200) {
+            const result = JSON.parse(xhr.responseText).result,
+                gridArray = Array.isArray(result) ? result : [],
+                error = JSON.parse(xhr.responseText).error;
+
+          if(gridArray.length == 0 ){
+            this.setState({
+              displayGrid: false,
+              alertText: typeof error != 'undefined' ? error : Locale.getMessage(this.props.language,'noResultsFound')
+            })
+          }
+          else{
+            this.setState({
+              displayGrid: true,
+              gridData: gridArray
+            })
+          }
+        }
+        else{
+          this.setState({
+            alertText: Locale.getMessage(this.props.language,'noResultsFound')
+          });
+        }
+      }
+    }
+  }
+
+  handleAlertDismiss() {
+    this.setState({alertText: null});
+  }
+
+  render(){
+    let results = null,
+        buttonClass = null;
+    if(typeof this.state.displayInputLists != 'undefined' &amp;&amp; this.state.displayInputLists){
+      if(this.state.inputData.length>0){
+        this.state.hasParameters = true;
+        results = this.state.inputData.map(function (input, index) {
+            input.name = input.name.replace(/\{|\}/gi,'');
+            return(
+              &lt;InputItem className="u-inputWidth" key={index} id={index} name={input.name} type={input.type} description={input.description} language={this.props.language}/>
+            )
+        }, this);
+        buttonClass = 'u-sm-margin-top';
+      }
+      else{
+        this.state.hasParameters = false;
+
+      }
+    }
+
+    return(
+      &lt;div>
+        &lt;div className="selectGroup">
+          &lt;h3 className="section-heading">{this.props.title}&lt;/h3>
+          &lt;Select className="section-select"
+            placeholder={ Locale.getMessage(this.props.language,'select') }
+            value= {this.state.value}
+            onChange={this.onChange.bind(this)}
+            noResultsText= { Locale.getMessage(this.props.language,'noResultsFound') }
+            options={this.props.options}
+            url={this.state.url}
+            display={this.props.display}
+            clearable= { false }
+          />
+        &lt;/div>
+
+        { this.state.displayInputLists ?
+            &lt;div className="inputGroup">
+                { results }
+                &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+                  &lt;Button className={buttonClass} bsStyle="primary" onClick={this.handleButtonClick.bind(this)} url={this.props.urlGetVariableValues} >{ Locale.getMessage(this.props.language,'show') }&lt;/Button>
+                &lt;/React.addons.CSSTransitionGroup>
+            &lt;/div>
+         : null}
+
+         {this.state.displayGrid ?
+           &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;Griddle results={this.state.gridData}
+              showFilter={true}
+              showSettings={true}
+              resultsPerPage={10}
+              settingsText= { Locale.getMessage(this.props.language,'settings') }
+              filterPlaceholderText= { Locale.getMessage(this.props.language,'filterPlaceholder')}
+              nextText= { Locale.getMessage(this.props.language,'next')}
+              previousText= { Locale.getMessage(this.props.language,'previous')}
+              maxRowsText= { Locale.getMessage(this.props.language,'rowsPerPage')}
+              sortAscendingComponent={&lt;span className="fa fa-sort-alpha-asc">&lt;/span>}
+              sortDescendingComponent={&lt;span className="fa fa-sort-alpha-desc">&lt;/span>}
+              settingsIconComponent = {&lt;span className="fa fa-cogs u-sm-padding-left">&lt;/span>}
+              previousIconComponent = {&lt;span className="fa fa-chevron-left u-sm-padding-right">&lt;/span>}
+              nextIconComponent = {&lt;span className="fa fa-chevron-right u-sm-padding-left">&lt;/span>}
+              />
+          &lt;/React.addons.CSSTransitionGroup>
+        : null}
+        { this.state.alertText ?
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;Alert bsStyle="danger" onDismiss={this.handleAlertDismiss.bind(this)} dismissAfter={5000}>
+              &lt;h4>{ this.state.alertText }&lt;/h4>
+            &lt;/Alert>
+          &lt;/React.addons.CSSTransitionGroup>
+          : null
+        }
+      &lt;/div>
+    )
+  }
+}
+
+class InputItem extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+    let defaultValue = null;
+    switch (this.props.type) {
+      case 'DateTime':
+        defaultValue = moment().format('L');
+        break;
+      case 'Boolean':
+        defaultValue = false;
+        break;
+      case 'Decimal':
+        defaultValue = 0;
+        break;
+      default:
+        defaultValue = '';
+    }
+
+    this.state = {
+      value: defaultValue,
+      loadHelpText: false,
+      helpText: '',
+      isVisible: false
+    }
+  }
+
+  componentWillMount(){
+    InputItemsArray.addItem({name: this.props.name,value: this.state.value},inputItems);
+  }
+
+  handleChange(type,event) {
+
+    console.log(this.refs);
+    // This could also be done using ReactLink:
+    // http://facebook.github.io/react/docs/two-way-binding-helpers.html
+    //
+    this.setState({
+      value: event.target.value,
+      loadHelpText: false,
+      helpText: ''
+    });
+    if(type == 'String'){
+      this.validateString(event);
+    }
+    else{
+      this.validateDecimal(event);
+    }
+
+
+  }
+  handleChangeCheckbox(event){
+    console.log(event.target.checked);
+    this.setState({
+      checked:event.target.checked
+    })
+    InputItemsArray.addItem({name: this.props.name,value: event.target.checked},inputItems);
+  }
+
+  onBlurDecimal(event){
+    console.log('blur' + this);
+    this.validateDecimal(event);
+  }
+
+
+  onBlurString(event){
+    console.log('blur' + this);
+    this.validateString(event);
+  }
+
+  validateDecimal(event){
+    console.log(event);
+
+    if(event.target.value.length === 0 || isNaN(parseInt(event.target.value))){
+      this.setState({
+        loadHelpText: true,
+        helpText: Locale.getMessage(this.props.language,'addValidNumericValue')
+      })
+    }
+    else{
+      InputItemsArray.addItem({name: this.props.name,value: this.state.value},inputItems);
+    }
+  }
+
+  validateString(event){
+    console.log(event);
+    //InputItemsArray.addItem({name: this.props.name,value: this.state.value},inputItems);
+    if(event.target.value.length === 0 ){
+      this.setState({
+        loadHelpText: true,
+        helpText: Locale.getMessage(this.props.language,'addValidValue')
+      })
+    }
+    else{
+      InputItemsArray.addItem({name: this.props.name,value: this.state.value},inputItems);
+    }
+  }
+
+  onDayChange(value){
+    console.log(value);
+    InputItemsArray.addItem({
+      name: this.props.name,
+      value: value
+    },inputItems);
+  }
+
+
+  render() {
+    let inputClass = 'InputItem-Input InputItem-Input--glow';
+    if (this.state.loadHelpText) inputClass += ' is-Empty';
+    switch (this.props.type) {
+      case 'DateTime':
+        return(
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;InputWithDatePicker
+              language={this.props.language}
+              onDayChange={this.onDayChange.bind(this)}
+              ref={ this.props.name }
+              name = {this.props.name}
+              description = {this.props.description}
+            />
+          &lt;/React.addons.CSSTransitionGroup>
+        )
+        break;
+      case 'Boolean':
+          return(
+            &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+              &lt;div className="InputItem is-Checkbox">
+                &lt;input ref={ this.props.name }
+                  checked={this.state.checked}
+                  className="InputItem-Input InputItem-Input--checkbox"
+                  type="checkbox"
+                  onChange={this.handleChangeCheckbox.bind(this)}
+                  />
+                &lt;label>{this.props.description} - {this.props.name}&lt;/label>
+              &lt;/div>
+            &lt;/React.addons.CSSTransitionGroup>
+          )
+          break;
+      case 'Decimal':
+        return(
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;div className="InputItem">
+              &lt;h3>{this.props.description} - {this.props.name}&lt;/h3>
+              &lt;input ref={ this.props.name }
+                value={this.state.value}
+                className={inputClass}
+                type="text"
+                defaultValue={this.state.defaultValue}
+                onChange={this.handleChange.bind(this,'Decimal')}
+                onBlur={this.onBlurDecimal.bind(this)}
+                />
+              { this.state.loadHelpText ?
+                &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+                  &lt;p className="InputItem-Warning" >
+                    &lt;span className="InputItem-Warning-Text" >{this.state.helpText}&lt;/span>
+                  &lt;/p>
+                &lt;/React.addons.CSSTransitionGroup>
+              : null }
+            &lt;/div>
+          &lt;/React.addons.CSSTransitionGroup>
+        )
+        break;
+      case 'String':
+        return(
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;div className="InputItem">
+              &lt;h3>{this.props.description} - {this.props.name}&lt;/h3>
+              &lt;input ref={ this.props.name }
+                value={this.state.value}
+                className={inputClass}
+                type="text"
+                defaultValue={this.state.defaultValue}
+                onChange={this.handleChange.bind(this,'String')}
+                onBlur={this.onBlurString.bind(this)}
+                />
+              { this.state.loadHelpText ?
+                &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+                  &lt;p className="InputItem-Warning" >
+                    &lt;span className="InputItem-Warning-Text" >{this.state.helpText}&lt;/span>
+                  &lt;/p>
+                &lt;/React.addons.CSSTransitionGroup>
+              : null }
+            &lt;/div>
+          &lt;/React.addons.CSSTransitionGroup>
+        )
+      default:
+        return(
+          &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+            &lt;div className="InputItem">
+              &lt;h3>{this.props.description} - {this.props.name}&lt;/h3>
+              &lt;input ref={ this.props.name }
+                value={this.state.value}
+                className={inputClass}
+                type="text"
+                defaultValue={this.state.defaultValue}
+                onChange={this.handleChange.bind(this,'String')}
+                onBlur={this.onBlurString.bind(this)}
+                />
+              { this.state.loadHelpText ?
+                &lt;React.addons.CSSTransitionGroup transitionName="opacityEaseInOutExpo" transitionAppear={true} transitionAppearTimeout={200} transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+                  &lt;p className="InputItem-Warning" >
+                    &lt;span className="InputItem-Warning-Text" >{this.state.helpText}&lt;/span>
+                  &lt;/p>
+                &lt;/React.addons.CSSTransitionGroup>
+              : null }
+            &lt;/div>
+          &lt;/React.addons.CSSTransitionGroup>
+        )
+    }
+  }
+}
+
+DataViewSelect.propTypes = {
+  value: React.PropTypes.string,
+  label: React.PropTypes.string,
+  placeholder: React.PropTypes.string,
+  noResultsText: React.PropTypes.string,
+  options: React.PropTypes.array,
+  onChange: React.PropTypes.func,
+  url: React.PropTypes.string,
+  urlGetVariableValues:  React.PropTypes.string
+};
+
+DataViewSelect.defaultProps = {
+  initialValue: null
+};
+
+VariableValuesDisplay.propTypes = {
+  value: React.PropTypes.string,
+  label: React.PropTypes.string,
+  placeholder: React.PropTypes.string,
+  noResultsText: React.PropTypes.string,
+  options: React.PropTypes.array,
+  onChange: React.PropTypes.func,
+  titleDataView: React.PropTypes.string
+};
+
+VariableValuesDisplay.defaultProps = {
+  initialValue: null
+};
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	ITS S.A. Copyright © 2015
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	on Tuesday, December 29th 2015, 1:50:28 pm using the <a
+	href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+                navbarOffset: 10,
+		smoothScrolling: true
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+  $( "table" ).each( function () {
+    var $this = $( this );
+    $this.addClass('table');
+  } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+<script>
+	$( function () {
+		$( '#main' ).localScroll( {
+			offset : { top : 60 } //offset by the height of your header (give or take a few px, see what works for you)
+		} );
+		$( "dt.name" ).each( function () {
+			var $this = $( this ).find("h4");
+			var icon = $( "<i/>" ).addClass( "icon-plus-sign" ).addClass( "pull-right" ).addClass( "icon-white" );
+			var dt = $(this);
+			var children = dt.next( "dd" );
+
+			dt.prepend( icon ).css( {cursor : "pointer"} );
+			dt.addClass( "member-collapsed" ).addClass( "member" );
+
+
+			children.hide();
+
+			dt.children().on( "click", function () {
+				children = dt.next( "dd" );
+				children.slideToggle( "fast", function () {
+
+					if ( children.is( ":visible" ) ) {
+						icon.addClass( "icon-minus-sign" ).removeClass( "icon-plus-sign" ).removeClass( "icon-white" );
+						dt.addClass( "member-open" ).animate( "member-collapsed" );
+					} else {
+						icon.addClass( "icon-plus-sign" ).removeClass( "icon-minus-sign" ).addClass( "icon-white" );
+						dt.addClass( "member-collapsed" ).removeClass( "member-open" );
+					}
+				} );
+			} );
+
+		} );
+	} );
+</script>
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>

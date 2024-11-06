@@ -1,0 +1,19 @@
+;!@Install@!UTF-8!
+Title="ITS Report Designer Installation"
+BeginPrompt="WRM Report Designer Installation\nThis setup tool will install the WRM Report Designer Tool"
+; Installation folder
+InstallPath="%ProgramFiles%\\ITS\\WRM Report Designer"
+SetEnvironment="PathInstall=%ProgramFiles%\\ITS\\WRM Report Designer"
+SetEnvironment="Var1=%PathInstall%\\"
+SetEnvironment="Var2=\"%PathInstall%\""
+GUIMode="0"
+GUIFlags="8+32+64+256+4096"
+ExtractDialogText="Installing..."
+ExtractPathText="WRM Report Designer Installation Path"
+ExtractPathTitle="Select path"
+ExtractTitle="Extracting files..."
+Shortcut="P,{%%T\\ITS.Retail.ReportDesigner.EXE},{},{ITS WRM Tools},{ITS WRM Report Designer},{ITS WRM Report Designer}"
+FinishMessage="ITS Report Designer has been installed.\n\nClick the icon on the start menu to launch the program."
+ExtractPathWidth="400"
+MiscFlags="4"
+;!@InstallEnd@!

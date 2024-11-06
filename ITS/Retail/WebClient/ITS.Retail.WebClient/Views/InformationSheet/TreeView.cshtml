@@ -1,0 +1,25 @@
+﻿@using ITS.Retail.WebClient.Controllers;
+@using System.Reflection;
+@using DevExpress.Web.Mvc;
+
+@Html.DevExpress().TreeView(settings =>
+{
+    settings.CallbackRouteValues = new { Controller = "ItemCategory", Action = "TreeView" };
+    settings.Name = "CategoryTreeView";
+    settings.AllowCheckNodes = false;
+    settings.AllowSelectNode = true;
+    settings.CheckNodesRecursive = true;
+    settings.EnableAnimation = true;
+    settings.EnableHotTrack = true;
+    settings.Width = 500;
+    settings.ShowTreeLines = true;
+    settings.ShowExpandButtons = true;
+    settings.ClientSideEvents.NodeClick = "TreeViewGetData";
+    settings.ClientSideEvents.ExpandedChanged = "CategoryTreeViewExpanded";
+    settings.ClientSideEvents.EndCallback = "CategoryTreeViewExpanded";
+    settings.SaveStateToCookiesID = "aaa";
+    settings.SetNodeTextTemplateContent(c =>
+    {
+        ViewContext.Writer.Write("<div id='" + c.Node.Name + "'><span class='dxtv-ndTxt'>" + c.Node.Text + "</span><img class='hidden node_img' alt='" + c.Node.Text + "' src='" + Url.Content("~/Content/img/View.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' /></div>");
+    });
+}).BindToVirtualData(TreeHelper.VirtualModeCreateChildren<ItemCategory>(ViewBag.Owner)).GetHtml()

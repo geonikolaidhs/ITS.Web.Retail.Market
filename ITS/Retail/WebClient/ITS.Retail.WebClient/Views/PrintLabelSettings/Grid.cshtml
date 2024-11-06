@@ -1,0 +1,307 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.Name = "grdPrintLabelSettings";
+    if ((bool)ViewData["TableCanUpdate"] || (bool)ViewData["TableCanDelete"] || (bool)ViewData["TableCanInsert"])
+    {
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>" +
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+                );
+
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+                );
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 90;
+        });
+    }
+    settings.CallbackRouteValues = new { Controller = "PrintLabelSettings", Action = "Grid" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "PrintLabelSettings", Action = "PrintLabelSetInlineEditingAddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "PrintLabelSettings", Action = "PrintLabelSetInlineEditingUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "PrintLabelSettings", Action = "PrintLabelSetInlineEditingDeletePartial" };
+    //settings.ClientSideEvents.BeginCallback = "OnBeginCallbackPrintLblSetGrid";
+    //settings.ClientSideEvents.EndCallback = "OnEndCallbackPrintLblSetGrid";
+    //settings.SettingsCookies.CookiesID = "grdPrintLblSetEdit";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Copies";
+        col.Caption = Resources.Copies;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PrintingType";
+        col.Caption = Resources.PrintingType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Label.Description";
+        col.Caption = Resources.Label;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsDefault";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Caption = Resources.IsDefault;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = 250;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.Label;
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Labels;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.SettingsText.PopupEditFormCaption = Resources.Labels;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ITS.Retail.Model.PrintLabelSettings printlblsets = DataBinder.Eval(item, "this");
+        ViewContext.Writer.Write("<div class=\"ValidationContainer\">");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnPrintLblSettingsUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnPrintLblSettingsCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.ControlStyle.CssClass = "label";
+            labelsetings.Text = Resources.Code + ":";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Code";
+            textsettings.ShowModelErrors = false;
+            textsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            textsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(printlblsets == null ? "" : DataBinder.Eval(printlblsets, "Code")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.ControlStyle.CssClass = "label";
+            labelsetings.Text = Resources.Description + ":";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Description";
+            textsettings.ShowModelErrors = false;
+        }).Bind(printlblsets == null ? "" : DataBinder.Eval(printlblsets, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><tr><td class=\"vertical-align-td-top\">");
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.ControlStyle.CssClass = "label";
+            labelsetings.Text = Resources.PrintingType + ":";
+        }).GetHtml();
+
+        Html.DevExpress().RadioButtonList(radio_settings =>
+        {
+            radio_settings.Name = "PrintingType";
+            radio_settings.Properties.ValueType = typeof(String);
+            radio_settings.Properties.Items.Add("COM", "com");
+            radio_settings.Properties.Items.Add(Resources.WindowsDriver, "windowsdriver");
+            radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+            radio_settings.Properties.ClientSideEvents.SelectedIndexChanged = "OnValueChangedPrintingTypeRadioList";
+            radio_settings.Properties.ClientSideEvents.Init = "OnValueChangedPrintingTypeRadioList";
+        }).Bind(printlblsets == null ? "com" : DataBinder.Eval(printlblsets, "PrintingType")).Render();
+
+        ViewContext.Writer.Write("</td><td id='comSettings'>");
+
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.Name = "lblPortName";
+            labelsetings.ControlStyle.CssClass = "label";
+            labelsetings.Text = Resources.PortName + ":";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "PortName";
+            textsettings.ShowModelErrors = false;
+            textsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            textsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(printlblsets == null ? "" : DataBinder.Eval(printlblsets, "PortName")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.Text = Resources.Copies + ":";
+            labelsetings.ControlStyle.CssClass = "label";
+        }).GetHtml();
+
+        Html.DevExpress().SpinEdit(sets =>
+        {
+            sets.Name = "Copies";
+            sets.Properties.AllowNull = false;
+            sets.Properties.MinValue = 1;
+            sets.Properties.MaxValue = 200;
+            sets.Properties.NumberType = SpinEditNumberType.Integer;
+            sets.Number = 1;
+        }).Bind(printlblsets == null ? 0 : DataBinder.Eval(printlblsets, "Copies")).Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.Text = Resources.Labels + ":";
+            labelsetings.ControlStyle.CssClass = "label";
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(sets =>
+        {
+            sets.Name = "Label!Key";
+            sets.ControlStyle.CssClass = "editor";
+            sets.Properties.TextField = "Description";
+            sets.Properties.ValueField = "Oid";
+            sets.Properties.ValueType = typeof(Guid);
+            sets.ShowModelErrors = true;
+            sets.SelectedIndex = 0;
+            sets.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            sets.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.Labels).Bind(DataBinder.Eval(printlblsets, "Label!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(sets =>
+        {
+            sets.Text = Resources.IsDefault;
+            sets.Name = "IsDefault";
+            sets.ControlStyle.CssClass = "editor";
+            sets.Properties.ValueType = typeof(bool);
+            sets.ShowModelErrors = true;
+        }).Bind(printlblsets == null ? false : DataBinder.Eval(printlblsets, "IsDefault")).Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.Text = Resources.CodePage + ":";
+            labelsetings.ControlStyle.CssClass = "label";
+        }).GetHtml();
+
+
+        Html.DevExpress().SpinEdit(sets =>
+        {
+            sets.Name = "PrinterEncoding";
+            sets.Properties.AllowNull = false;
+            sets.Properties.NumberType = SpinEditNumberType.Integer;
+        }).Bind(DataBinder.Eval(printlblsets, "PrinterEncoding")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("</div>");
+
+    });
+}).Bind(Model).GetHtml()

@@ -1,0 +1,40 @@
+﻿@using ITS.Retail.WebClient.Extensions
+@model MobileTerminalViewModel
+
+@using (Html.BeginForm("Save", "MobileTerminal", FormMethod.Post))
+{
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+    headerOptions.CancelButton.OnClick = "MobileTerminal.CancelEdit";
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    
+    <input id="Oid" name="Oid" type="hidden" value="@Model.Oid"/>
+    
+    Html.DevExpress().FormLayout(settings =>
+    {
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Name = "MobileTerminalForm";
+        settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+        settings.RequiredMarkDisplayMode = DevExpress.Web.RequiredMarkMode.RequiredOnly;
+        settings.ShowItemCaptionColon = false;
+
+        MVCxFormLayoutGroup<MobileTerminalViewModel> group = settings.Items.AddGroupItem(groupSettings =>
+        {
+            groupSettings.Caption = Resources.MobileTerminal;
+            groupSettings.ColCount = 4;
+        });
+
+        group.Items.Add(mobile => mobile.Name, sets => {
+            sets.Caption = Resources.Name;
+        });
+        group.Items.Add(mobile => mobile.ID);
+        group.Items.Add(mobile => mobile.IPAddress);
+
+        group.Items.Add(mobile => mobile.Remarks, FormInstances.MemoItem(true, captionLocation: LayoutItemCaptionLocation.Top, caption: Resources.Remarks));
+        group.Items.Add(mobile => mobile.IsActive, sets => {
+            sets.Caption = Resources.IsActive;
+        });
+    }).GetHtml();
+}

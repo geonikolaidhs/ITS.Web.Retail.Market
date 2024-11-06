@@ -1,0 +1,84 @@
+﻿@mixin container-margin-padding() {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@mixin before-after-bootstrap-workaround() {
+    &:before, &:after {
+        content: " ";
+        display: table;
+    }
+}
+
+@mixin after-clearfix() {
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin box-sizing($box-sizing) {
+    -webkit-box-sizing: $box-sizing;
+    -moz-box-sizing: $box-sizing;
+    box-sizing: $box-sizing;
+}
+
+@mixin transition($transition-name) {
+    -webkit-transition: $transition-name;
+    -o-transition: $transition-name;
+    -moz-transition: $transition-name;
+    transition: $transition-name;
+}
+
+
+
+@mixin float($position) {
+    float: $position;
+}
+
+
+
+$breakpoints: ( 'tiny': ( max-width: 767px ), 'small': ( min-width: 768px ), 'medium': ( min-width: 992px ), 'large': ( min-width: 1200px ), 'custom': ( min-height: 40em ), '1300-max': (max-width: 1300px), '1200-max': (max-width: 1200px),'1100-max': (max-width: 1100px)  );
+
+@mixin breakpoint($name) {
+    @if map-has-key($breakpoints, $name) {
+        @media #{inspect(map-get($breakpoints, $name))} {
+            @content;
+        }
+    }
+    @else {
+        @warn "Couldn't find a breakpoint named `#{$name}`.";
+    }
+}
+
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+        -moz-box-shadow: inset $top $left $blur $color;
+        -webkit-box-shadow: inset $top $left $blur $color;
+        box-shadow: inset $top $left $blur $color;
+    }
+    @else {
+        -moz-box-shadow: $top $left $blur $color;
+        -webkit-box-shadow: $top $left $blur $color;
+        box-shadow: $top $left $blur $color;
+    }
+}
+
+@mixin linear-gradient($fromColor, $toColor) {
+    background-color: $toColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor));
+    background-image: -webkit-linear-gradient(top, $fromColor, $toColor);
+    background-image: -moz-linear-gradient(top, $fromColor, $toColor);
+    background-image: -ms-linear-gradient(top, $fromColor, $toColor);
+    background-image: -o-linear-gradient(top, $fromColor, $toColor);
+    background-image: linear-gradient(top, $fromColor, $toColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
+}
+
+@mixin text-decoration($value) {
+    -moz-text-decoration-line: $value;
+    text-decoration-line: $value;
+    text-decoration: $value;
+}

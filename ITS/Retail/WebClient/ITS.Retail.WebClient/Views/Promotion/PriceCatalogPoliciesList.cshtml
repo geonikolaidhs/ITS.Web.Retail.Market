@@ -1,0 +1,29 @@
+﻿@model PromotionWizardModel
+
+@{
+    var wiz = ViewData["Wizard"];
+    Wizard wizard = null;
+    if (wiz != null && wiz is Wizard)
+    {
+        wizard = (Wizard)wiz;
+    }
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    //var pcs = PromotionController.GetPriceCatalogsPolices();
+}
+
+@Html.DevExpress().ListBox(settings =>
+{
+    settings.Name = "PriceCatalogPoliciesList";
+    settings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+    settings.CallbackRouteValues = new { Controller = "Promotion", Action = "PriceCatalogPoliciesList", WizardID = wizard.ID };
+    settings.Properties.ValueField = "Oid";
+    settings.Properties.TextField = "Description";
+    settings.Properties.ValueType = typeof(Guid);
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Height = 326;
+    settings.Properties.Caption = Resources.SelectedPriceCatalogPolicies;
+    settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    settings.ControlStyle.CssClass = "selected-pricecatalog-listbox-container";
+    settings.Properties.ClientSideEvents.Init = "FillInPriceCatalogPoliciesList";
+}).BindList(ViewBag.PriceCatalogPolicies).GetHtml()

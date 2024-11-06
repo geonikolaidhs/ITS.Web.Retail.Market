@@ -1,0 +1,20 @@
+﻿@{
+    ITS.Retail.Model.ApplicationLog logEntity = ViewData["entry"] as ITS.Retail.Model.ApplicationLog;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("ApplicationLogPopUp_" + ViewData["view_column"].ToString().ToUpper() + logEntity.Oid.ToString().Replace('-', '_'));    
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "ApplicationLog", Action = "LoadViewPopup", LogID = logEntity.Oid.ToString(), view_column = ViewData["view_column"] };
+    popUpSettings.SetContent(() =>
+    {
+        if (ViewData["view_column"].ToString()=="RESULT")
+        {
+            ViewContext.Writer.Write("<p>"+logEntity.Result+"</p>");
+        }
+        else if (ViewData["view_column"].ToString() == "ERROR")
+        {
+            ViewContext.Writer.Write(logEntity.Error);
+        }
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+

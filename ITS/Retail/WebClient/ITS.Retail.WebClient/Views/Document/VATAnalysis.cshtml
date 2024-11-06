@@ -1,0 +1,148 @@
+﻿@using ITS.Retail.WebClient.Helpers.AuxilliaryClasses;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Helpers;
+
+@{
+    DocumentHeader documentHeader = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+
+    if(documentHeader != null)
+    { 
+    
+        @Html.DevExpress().CallbackPanel(settings =>
+        {
+            settings.Name = (ViewBag.InViewMode != null && ViewBag.InViewMode == true) ? "ViewvatAnalysisInfoPanel" : "vatAnalysisInfoPanel";
+            settings.CallbackRouteValues = new { Controller = "Document", Action = "VatAnalysis" };
+            ViewBag.InViewMode = ViewData["currentDocument"] != null;
+            if (ViewBag.InViewMode)
+            {
+                settings.Enabled = false;
+            }
+            else
+            {
+                settings.ClientSideEvents.BeginCallback = "vatAnalysisInfoPanelBeginCallback";
+            }
+    
+            settings.SetContent(() =>
+            {
+                IEnumerable<DocumentVatInfo> vatAnalysis  = ViewBag.VatAnalysis as IEnumerable<DocumentVatInfo>;       
+        
+                if(vatAnalysis==null && documentHeader.DocumentDetails.Count > 0)
+                {
+                    vatAnalysis = DocumentHelper.GetDocumentVatAnalysis(documentHeader);
+                }
+
+                ViewContext.Writer.Write("<table class='style_table'><tr><td colspan='5' class='head'><h2>" + Resources.VATFactorsAnalysis + "</h2>");
+
+
+                ViewContext.Writer.Write("</td></tr><tr class='infoLabels'><td>"
+                                        + Resources.VatCategories + "</td><td>"
+                                        + Resources.Quantity + "</td><td>"
+                                        + Resources.TotalAfterDiscount + @" (€)</td><td>"
+                                        + Resources.TotalVATAmount + " (€)</td><td>"
+                                        + Resources.GrossTotal + @" (€)</td></tr>");
+
+                decimal sumNetTotal = 0;
+                decimal sumVatAmounts = 0;
+                decimal sumGrossTotal = 0;                   
+                    
+                if (vatAnalysis != null)
+                {
+                    
+                    foreach (DocumentVatInfo documentVatInfo in vatAnalysis)
+                    {
+                        ViewContext.Writer.Write("<tr><td>" + documentVatInfo.VatFactor.ToString("N2") + "% </td><td>" + documentVatInfo.ItemsQuantity.ToString("N2") + "</td><td>");
+
+                        Html.DevExpress().SpinEdit(edtSettings =>
+                        {
+                            edtSettings.Name = "netTotal"+documentVatInfo.VatFactorOid.ToString();
+                            edtSettings.ControlStyle.CssClass = "netTotalInput";
+                            edtSettings.Properties.MinValue = 0;
+                            
+                            edtSettings.Properties.MaxLength = 999;
+                            edtSettings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+                            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                            edtSettings.Number = 0;
+                            edtSettings.Properties.SpinButtons.Visible = false;
+                            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+
+                            edtSettings.ReadOnly = documentHeader.DocumentType.Division.Section == eDivision.Sales || documentHeader.DocumentType.Division.Section == eDivision.Store;
+
+                            edtSettings.Enabled = documentHeader.DocumentType.Division.Section == eDivision.Store ? false : !(bool)ViewBag.InViewMode;
+
+                        }).Bind(documentVatInfo.NetTotal).Render();
+
+                        sumNetTotal += documentVatInfo.NetTotal;
+                
+                        ViewContext.Writer.Write("</td><td>");
+                
+                        Html.DevExpress().SpinEdit(edtSettings =>
+                        {
+                            edtSettings.Name = "vatFactor" + documentVatInfo.VatFactorOid.ToString();
+                            edtSettings.ControlStyle.CssClass = "vatFactorInput";
+                            edtSettings.Properties.MinValue = 0;
+                            edtSettings.Enabled = !(bool)ViewBag.InViewMode;                            
+                            edtSettings.Properties.MaxLength = 999;
+                            edtSettings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+                            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                            edtSettings.Number = 0;
+                            edtSettings.Properties.SpinButtons.Visible = false;
+                            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                            edtSettings.ReadOnly = documentHeader.DocumentType.Division.Section == eDivision.Sales || documentHeader.DocumentType.Division.Section == eDivision.Store;
+
+                            edtSettings.Enabled = documentHeader.DocumentType.Division.Section == eDivision.Store ? false : !(bool)ViewBag.InViewMode;
+
+                        }).Bind(documentVatInfo.TotalVatAmount).Render();
+
+                        sumVatAmounts += documentVatInfo.TotalVatAmount;
+
+
+                        ViewContext.Writer.Write("</td><td>" + documentVatInfo.GrossTotal.ToString("N2") + "</td></tr>");
+
+                        sumGrossTotal += documentVatInfo.GrossTotal;
+                    }
+
+                }
+
+                if (vatAnalysis == null || vatAnalysis.Count() == 0 )
+                {
+                    ViewContext.Writer.Write("<tr><td>0%</td><td>0</td><td>0€</td><td>0€</td><td>0€</td></tr>");
+                }
+
+                ViewContext.Writer.Write("<tr><td colspan='2' class='infoLabels'>" + Resources.Totals +
+                                        " (€)</td><td class='infoLabels'>" + sumNetTotal.ToString("N2") + 
+                                        "</td><td class='infoLabels'>" + sumVatAmounts.ToString("N2") + 
+                                        "</td><td class='infoLabels'>" + sumGrossTotal.ToString("N2") + "</td>");
+
+                ViewContext.Writer.Write("</tr>");
+
+                ViewContext.Writer.Write("<tr>");
+
+                ViewContext.Writer.Write("<td colspan='4'</td>");
+                
+                ViewContext.Writer.Write("<td colspan='5'");
+                
+                if (!(bool)ViewBag.InViewMode)
+                {
+                    if(documentHeader.DocumentType!= null)
+                    {
+                        if (documentHeader.DocumentType.Division.Section == eDivision.Purchase)
+                        {
+                            @Html.DevExpress().Button(btnSettings =>
+                            {
+                                btnSettings.Name = "FixVatFactorDeviations";
+                                btnSettings.Text = Resources.Recalculate;
+                                btnSettings.ClientEnabled = (vatAnalysis != null && vatAnalysis.Count() > 0);
+                                btnSettings.ControlStyle.CssClass = "button";
+                                btnSettings.ClientSideEvents.Click = "RecalculateVatFactorDeviations";
+                            }).GetHtml();
+                        }
+                    }                 
+                }
+                ViewContext.Writer.Write("</td></tr>");
+                ViewContext.Writer.Write("</table>");                   
+            });
+        }).GetHtml()
+    }
+}
+

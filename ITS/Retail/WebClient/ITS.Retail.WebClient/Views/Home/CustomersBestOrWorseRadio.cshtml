@@ -1,0 +1,15 @@
+﻿@Html.DevExpress().RadioButtonList(
+settings =>
+{
+    settings.Name = "CustomersBestOrWorseFilter";
+    //settings.Properties.ValueField = "ID";
+    //settings.Properties.TextField = "Name";
+    settings.Properties.RepeatLayout =  System.Web.UI.WebControls.RepeatLayout.Table;
+    settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Vertical;
+    settings.Properties.RepeatColumns = 1;
+    settings.Properties.Items.Add(ITS.Retail.ResourcesLib.Resources.Best, "best");
+    settings.Properties.Items.Add(ITS.Retail.ResourcesLib.Resources.Worst, "worst");
+    settings.SelectedIndex = 0;
+    settings.Properties.EnableClientSideAPI = true;
+    settings.Properties.ClientSideEvents.ValueChanged = "onCustomersFilterChange";
+}).GetHtml()

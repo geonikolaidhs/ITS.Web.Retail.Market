@@ -1,0 +1,1727 @@
+/* -- ValidationSummary -- */
+
+.dxvsValidationSummary_ITSTheme1
+{
+	font: 12px arial;
+	color: Red;
+}
+.dxvsValidationSummary_ITSTheme1 td.dxvsRC_ITSTheme1
+{
+	vertical-align: top;
+	padding: 2px 5px 4px 6px;
+}
+.dxvsValidationSummary_ITSTheme1 .dxvsE_ITSTheme1
+{
+}
+.dxvsValidationSummary_ITSTheme1 table.dxvsHT_ITSTheme1
+{
+	width: 100%;
+}
+.dxvsValidationSummary_ITSTheme1 td.dxvsH_ITSTheme1
+{
+	padding: 2px 0;
+}
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL_ITSTheme1,
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL_ITSTheme1:visited
+{
+	color: red;
+}
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL_ITSTheme1
+{
+	text-decoration: none;
+	border-bottom: 1px dashed #f70;
+}
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL_ITSTheme1:hover
+{
+	color: #f70;
+}
+.dxvsValidationSummary_ITSTheme1 table.dxvsT_ITSTheme1
+{
+}
+.dxvsValidationSummary_ITSTheme1 tr.dxvsE_ITSTheme1
+{
+}
+.dxvsValidationSummary_ITSTheme1 td.dxvsETC_ITSTheme1
+{
+	padding: 2px 0;
+}
+.dxvsValidationSummary_ITSTheme1 ul.dxvsL_ITSTheme1
+{
+}
+.dxvsValidationSummary_ITSTheme1 ol.dxvsL_ITSTheme1
+{
+}
+.dxvsValidationSummary_ITSTheme1 li.dxvsE_ITSTheme1
+{
+	padding: 2px 0;
+}
+
+/* TrackBar */
+.dxeTrackBar_ITSTheme1
+{
+	user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	visibility: hidden;
+	border:1px solid transparent;
+}
+
+.dxeDisabled_ITSTheme1 .dxeTBHSys a,
+.dxeDisabled_ITSTheme1 .dxeTBVSys a
+{
+    cursor: default;
+}
+
+.dxeTBBarHighlight_ITSTheme1
+{
+	font-size: 0;
+}
+
+.dxeTBScale_ITSTheme1, .dxeTBTrack_ITSTheme1, dxeTBBarHighlight
+{
+	cursor: pointer;
+}
+
+.dxeTBScale_ITSTheme1 
+{
+	z-index: 1;
+	font: 12px arial;
+}
+.dxeTBSecondaryDH_ITSTheme1, .dxeTBMainDH_ITSTheme1
+{
+	z-index: 4;
+}
+
+.dxeTBHSys
+{
+	width: 170px;
+	height: 41px;
+}
+.dxeTBVSys
+{
+	height: 170px;
+	width: 41px;
+}
+.dxeTrackBar_ITSTheme1.dxeTBBScaleSys.dxeTBVSys
+{
+	width: 59px;
+}
+.dxeTrackBar_ITSTheme1.dxeTBBScaleSys.dxeTBHSys
+{	
+	height: 59px;
+}
+
+.dxeTBTrack_ITSTheme1 
+{
+	z-index: 2;
+	position: absolute;
+}
+
+.dxeTBHSys .dxeTBTrack_ITSTheme1
+{
+	background: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarTrackH.gif")%>');
+}
+.dxeTBVSys .dxeTBTrack_ITSTheme1
+{
+	background-image:  url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarTrackV.gif")%>');
+}
+
+.dxeTBHSys .dxeTBTrack_ITSTheme1, .dxeTBHSys .dxeTBBarHighlight_ITSTheme1
+{
+	height: 10px;
+}
+.dxeTBVSys .dxeTBTrack_ITSTheme1, .dxeTBVSys .dxeTBBarHighlight_ITSTheme1
+{
+	width: 10px;
+}
+
+.dxeTBHSys .dxeTBMainDH_ITSTheme1, .dxeTBHSys .dxeTBSecondaryDH_ITSTheme1
+{	
+	top: -1px;
+	width:7px;
+	height:12px;
+}
+.dxeTBVSys .dxeTBMainDH_ITSTheme1, .dxeTBVSys .dxeTBSecondaryDH_ITSTheme1
+{
+	left: -1px;
+	width: 12px;
+	height: 7px;
+}
+.dxeBase
+.dxeTBVSys .dxeTBRBScaleSys .dxeTBTrack_ITSTheme1, .dxeTBVSys .dxeTBTrack_ITSTheme1
+{
+	left: 6px;
+}
+.dxeTBVSys .dxeTBLTScaleSys .dxeTBTrack_ITSTheme1
+{
+	right: 6px;
+	left: auto;
+}
+.dxeTBHSys .dxeTBLTScaleSys .dxeTBTrack_ITSTheme1
+{
+	bottom: 6px;
+	top: auto;
+}
+.dxeTBHSys .dxeTBRBScaleSys .dxeTBTrack_ITSTheme1, .dxeTBHSys .dxeTBTrack_ITSTheme1
+{
+	top: 6px;
+}
+
+.dxeTBBarHighlight_ITSTheme1
+{
+	left: 0px;
+	top: 0px;
+	position:absolute;
+	z-index: 3;
+}
+
+.dxeTBHSys .dxeTBBarHighlight_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarBarHighlightH.gif")%>');
+}
+.dxeTBVSys .dxeTBBarHighlight_ITSTheme1
+{
+	background-image:  url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarBarHighlightV.gif")%>');
+}
+
+.dxeTBRBLabel_ITSTheme1, .dxeTBLTLabel_ITSTheme1
+{
+	text-align: center;
+	color: #999999;
+	cursor: default;
+}
+.dxeTBSmallTickSys .dxeTBRBLabel_ITSTheme1, .dxeTBSmallTickSys .dxeTBLTLabel_ITSTheme1,
+.dxeTBLargeTickSys .dxeTBRBLabel_ITSTheme1, .dxeTBLargeTickSys .dxeTBLTLabel_ITSTheme1 
+{	
+	position: absolute;
+}
+
+.dxeTBHSys .dxeTBRBLabel_ITSTheme1,.dxeTBHSys .dxeTBLTLabel_ITSTheme1
+{
+	width: 100%;
+}
+
+.dxeTBIncBtn_ITSTheme1, .dxeTBDecBtn_ITSTheme1
+{
+	padding: 2px;
+	width: 17px;
+	height: 17px;
+}
+
+.dxeTBVSys .dxeTBRBLabel_ITSTheme1, 
+.dxeTBVSys .dxeTBLTLabel_ITSTheme1
+{
+	padding-top: 2px;
+}
+.dxeTBHSys .dxeTBBScaleSys .dxeTBRBLabel_ITSTheme1
+{
+	margin-left: -4px;
+}
+.dxeTBVSys .dxeTBRBScaleSys .dxeTBRBLabel_ITSTheme1, 
+.dxeTBVSys .dxeTBBScaleSys .dxeTBLTLabel_ITSTheme1
+{
+	right: 0px;
+}
+.dxeTBVSys .dxeTBLTScaleSys .dxeTBLTLabel_ITSTheme1, 
+.dxeTBVSys .dxeTBBScaleSys .dxeTBRBLabel_ITSTheme1
+{
+	left: 0px;
+}
+.dxeTBHSys .dxeTBRBScaleSys .dxeTBRBLabel_ITSTheme1, 
+.dxeTBHSys .dxeTBBScaleSys .dxeTBLTLabel_ITSTheme1
+{
+	bottom: 0px;
+}
+.dxeTBHSys .dxeTBLTScaleSys .dxeTBLTLabel_ITSTheme1, 
+.dxeTBHSys .dxeTBBScaleSys .dxeTBRBLabel_ITSTheme1
+{
+	top: 0px;
+}
+.dxeTBItem_ITSTheme1
+{
+	color: #8c8c8c;
+}
+
+.dxeTBHSys .dxeTBItem_ITSTheme1 .dxeTBRBLabel_ITSTheme1, 
+.dxeTBHSys .dxeTBItem_ITSTheme1 .dxeTBLTLabel_ITSTheme1 
+{
+	display: inline-block;
+	margin-left: 0px!important;
+}
+.dxeTBHSys .dxeTBRBScaleSys 
+.dxeTBItem_ITSTheme1 .dxeTBRBLabel_ITSTheme1 
+{
+	padding-top: 12px;
+}
+.dxeTBHSys .dxeTBLTScaleSys 
+.dxeTBItem_ITSTheme1 .dxeTBLTLabel_ITSTheme1 
+{
+	margin-top: 8px;
+}
+.dxeTBVSys .dxeTBRBScaleSys .dxeTBItem_ITSTheme1 .dxeTBRBLabel_ITSTheme1 
+{
+	margin-left: 5px;
+}
+
+.dxeTBSelectedItem_ITSTheme1 .dxeTBRBLabel_ITSTheme1,
+.dxeTBSelectedItem_ITSTheme1 .dxeTBLTLabel_ITSTheme1,
+.dxeTBSelectedTick_ITSTheme1 .dxeTBRBLabel_ITSTheme1, 
+.dxeTBSelectedTick_ITSTheme1 .dxeTBLTLabel_ITSTheme1
+{
+	color: #06A7FF;
+}
+
+.dxeTBVSys .dxeTBLTScaleSys .dxeTBItem_ITSTheme1
+{
+	text-align: left;
+}
+
+.dxeTBVSys .dxeTBRBScaleSys .dxeTBItem_ITSTheme1
+{
+	text-align: right;
+}
+
+.dxeTBVSys .dxeTBBScaleSys .dxeTBItem_ITSTheme1
+{
+	text-align: center;
+}
+
+.dxeTBHSys .dxeTBItem_ITSTheme1
+{
+	background-image:  url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarLargeTickH.gif")%>');
+}
+.dxeTBHSys .dxeTBBScaleSys .dxeTBItem_ITSTheme1
+{
+	background-image:  url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarDoubleSmallTickH.gif")%>');
+}
+.dxeTBVSys .dxeTBItem_ITSTheme1 
+{
+	background-image:  url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarLargeTickV.gif")%>');
+}
+.dxeTBVSys .dxeTBBScaleSys .dxeTBItem_ITSTheme1
+{
+	background-image:  url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarDoubleSmallTickV.gif")%>');
+}
+
+.dxeTBHSys .dxeTBLargeTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarLargeTickH.gif")%>');
+}
+.dxeTBVSys .dxeTBLargeTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarLargeTickV.gif")%>');
+}
+.dxeTBHSys .dxeTBSmallTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarSmallTickH.gif")%>');
+}
+.dxeTBVSys .dxeTBSmallTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarSmallTickV.gif")%>');
+}
+.dxeTBHSys .dxeTBBScaleSys .dxeTBLargeTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarDoubleLargeTickH.gif")%>');
+}
+.dxeTBVSys .dxeTBBScaleSys .dxeTBLargeTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarDoubleLargeTickV.gif")%>');
+}
+.dxeTBHSys .dxeTBBScaleSys .dxeTBSmallTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarDoubleSmallTickH.gif")%>');
+}
+.dxeTBVSys .dxeTBBScaleSys .dxeTBSmallTick_ITSTheme1
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Editors.edtTrackBarDoubleSmallTickV.gif")%>');
+}
+
+.dxeTBVSys .dxeTBIncBtn_ITSTheme1, .dxeTBVSys .dxeReversedDirectionSys .dxeTBDecBtn_ITSTheme1
+{
+	bottom: 0px;
+	top: auto;
+}
+.dxeTBVSys .dxeTBDecBtn_ITSTheme1, .dxeTBVSys .dxeReversedDirectionSys .dxeTBIncBtn_ITSTheme1
+{
+	top: 0px;
+	bottom: auto;
+}
+.dxeTBHSys .dxeTBDecBtn_ITSTheme1, .dxeTBHSys .dxeReversedDirectionSys .dxeTBIncBtn_ITSTheme1
+{
+	left: 0px;
+	right: auto;
+}
+.dxeTBHSys .dxeTBIncBtn_ITSTheme1, .dxeTBHSys .dxeReversedDirectionSys .dxeTBDecBtn_ITSTheme1
+{
+	right: 0px;
+	left: auto;
+}
+.dxeTBVSys .dxeTBBScaleSys .dxeTBDecBtn_ITSTheme1, 
+.dxeTBVSys .dxeTBBScaleSys .dxeTBIncBtn_ITSTheme1
+{
+	margin-left: -10px;
+	left: 50%;
+}
+.dxeTBHSys .dxeTBBScaleSys .dxeTBDecBtn_ITSTheme1,
+.dxeTBHSys .dxeTBBScaleSys .dxeTBIncBtn_ITSTheme1
+{
+	margin-top: -10px;
+	top: 50%;
+}
+.dxeTBVSys .dxeTBBScaleSys .dxeTBTrack_ITSTheme1
+{ 
+	margin-left: -4px;
+	left: 50%;
+}
+.dxeTBHSys .dxeTBBScaleSys .dxeTBTrack_ITSTheme1
+{ 
+	margin-top: -5px;
+	top: 50%;
+}
+
+.dxeTBVSys .dxeTBLTScaleSys .dxeTBDecBtn_ITSTheme1, 
+.dxeTBVSys .dxeTBLTScaleSys .dxeTBIncBtn_ITSTheme1
+{
+	right: 0px;
+}
+.dxeTBHSys .dxeTBLTScaleSys .dxeTBDecBtn_ITSTheme1, 
+.dxeTBHSys .dxeTBLTScaleSys .dxeTBIncBtn_ITSTheme1
+{
+	bottom: 0px;
+}
+
+div.dxeHelpText_ITSTheme1,
+.dxeTBValueToolTip_ITSTheme1
+{
+	padding: 3px 8px 4px 8px;
+    display: inline;
+    position:absolute;
+    background: white;
+    z-index: 41998;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c0c0c0;
+    font: 12px arial;
+}
+td.dxeHelpText_ITSTheme1 {
+    visibility: visible;
+    color: #9F9F9F;
+    font: 12px arial;
+}
+td.dxeHelpText_ITSTheme1.dxeHHelpTextSys {
+    padding: 0 6px;
+}
+td.dxeHelpText_ITSTheme1.dxeVHelpTextSys {
+    padding: 2px 0;
+}
+
+/* Loading */
+.dxeLoadingDiv_ITSTheme1
+{
+	background: White none;
+	opacity: 0.85;
+	filter: alpha(opacity=85);
+}
+.dxeLoadingDivWithContent_ITSTheme1
+{
+	background: White none;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+
+.dxeLoadingPanel_ITSTheme1
+{
+	font: 14px arial;
+	color: #333333;
+}
+.dxeLoadingPanelWithContent_ITSTheme1
+{
+	font: 12px arial;
+	color: #303030;
+	background: #FFFFFF none;
+	border: 1px solid #D6D6D6;
+}
+
+.dxeLoadingPanel_ITSTheme1 td.dx, 
+.dxeLoadingPanelWithContent_ITSTheme1 td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 10px 14px;
+}
+
+.dxeReadOnly_ITSTheme1
+{
+}
+.dxeBase
+{
+	font: 12px arial;
+}
+.dxeBase_ITSTheme1
+{
+	/*font: 12px arial;
+	padding-bottom: 5px;
+	display: block;
+	text-align: left;
+	color: #333;
+	margin-right: 5px;*/
+	
+
+    display: block;
+    color: #4C4C4C !important;
+    text-align: left;
+    margin-bottom: 7px !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+td.dxic
+{
+	padding: 3px;
+	font-size: 12px;
+}
+/* InternalCheckBox */
+.dxeIRBFocused_ITSTheme1
+{
+	/*border: 1px dotted #ffb100;*/
+	margin: 0px!important;
+}
+.dxeIRadioButton_ITSTheme1
+{
+	margin: 0px;
+	display: inline-block;
+	vertical-align: middle;
+}
+/* -- ErrorFrame -- */
+.dxeErrorCell_ITSTheme1,
+.dxeErrorCell_ITSTheme1 td
+{
+	font: 12px arial;
+	color: Red;
+}
+.dxeErrorCell_ITSTheme1
+{
+	padding-left: 4px;
+	padding-right: 0px;
+}
+.dxeErrorFrameWithoutError_ITSTheme1
+{
+	border: 1px solid Red;
+}
+.dxeErrorFrameWithoutError_ITSTheme1 .dxeControlsCell_ITSTheme1,
+.dxeErrorFrameWithoutError_ITSTheme1.dxeControlsCell_ITSTheme1
+{
+	padding: 2px;
+}
+
+.dxeEditArea_ITSTheme1
+{
+	font: 12px 'Segoe', Arial, arial, Helvetica, 'Droid Sans', Tahoma, Geneva;
+	color: #333333;
+}
+/* -- ValidationSummary -- */
+
+.dxvsValidationSummary_ITSTheme1
+{
+	font: 12px arial;
+	color: Red;
+}
+.dxvsValidationSummary_ITSTheme1 td.dxvsRC
+{
+	vertical-align: top;
+	padding: 2px 5px 4px 6px;
+}
+.dxvsValidationSummary_ITSTheme1 .dxvsE
+{
+}
+
+/* ValidationSummary - Header */
+
+.dxvsValidationSummary_ITSTheme1 table.dxvsHT
+{
+	width: 100%;
+}
+.dxvsValidationSummary_ITSTheme1 td.dxvsH
+{
+	padding: 2px 0;
+}
+
+/* ValidationSummary - Hyperlink */
+
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL,
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL:visited
+{
+	color: red;
+}
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL
+{
+	text-decoration: none;
+	border-bottom: 1px dashed #f70;
+}
+.dxvsValidationSummary_ITSTheme1 a.dxvsHL:hover
+{
+	color: #f70;
+}
+
+/* ValidationSummary - Table Layout */
+
+.dxvsValidationSummary_ITSTheme1 table.dxvsT
+{
+}
+.dxvsValidationSummary_ITSTheme1 tr.dxvsE
+{
+}
+.dxvsValidationSummary_ITSTheme1 td.dxvsETC
+{
+	padding: 2px 0;
+}
+
+/* ValidationSummary - List Layout */
+
+.dxvsValidationSummary_ITSTheme1 ul.dxvsL
+{
+}
+.dxvsValidationSummary_ITSTheme1 ol.dxvsL
+{
+}
+.dxvsValidationSummary_ITSTheme1 li.dxvsE
+{
+	padding: 2px 0;
+}
+
+/* -- Buttons -- */
+.dxeButtonEditButton_ITSTheme1,
+.dxeCalendarButton_ITSTheme1,
+.dxeSpinIncButton_ITSTheme1,
+.dxeSpinDecButton_ITSTheme1,
+.dxeSpinLargeIncButton_ITSTheme1,
+.dxeSpinLargeDecButton_ITSTheme1
+{
+	vertical-align: middle;
+	cursor: pointer;
+} 
+.dxeButtonEditButton_ITSTheme1,
+.dxeCalendarButton_ITSTheme1,
+.dxeButtonEditButton_ITSTheme1 td.dx,
+.dxeCalendarButton_ITSTheme1 td.dx,
+.dxeSpinIncButton_ITSTheme1,
+.dxeSpinDecButton_ITSTheme1,
+.dxeSpinLargeIncButton_ITSTheme1,
+.dxeSpinLargeDecButton_ITSTheme1,
+.dxeSpinIncButton_ITSTheme1 td.dx,
+.dxeSpinDecButton_ITSTheme1 td.dx,
+.dxeSpinLargeIncButton_ITSTheme1 td.dx,
+.dxeSpinLargeDecButton_ITSTheme1 td.dx
+{
+	text-align: center;
+	white-space: nowrap;
+	font: normal 12px arial;
+} 
+.dxeButtonEditButton_ITSTheme1,
+.dxeSpinIncButton_ITSTheme1,
+.dxeSpinDecButton_ITSTheme1,
+.dxeSpinLargeIncButton_ITSTheme1,
+.dxeSpinLargeDecButton_ITSTheme1
+{
+	padding: 0px 2px 0px 3px;
+	background-color: white;
+}
+.dxeSpinLargeDecButton_ITSTheme1
+{
+	padding: 0px 3px 0px 2px;
+}
+.dxeSpinIncButton_ITSTheme1,.dxeSpinDecButton_ITSTheme1
+{
+	padding: 3px 5px 2px 5px;}
+
+.dxeButtonEditButton_ITSTheme1 table.dxbebt,
+.dxeSpinIncButton_ITSTheme1 table.dxbebt,
+.dxeSpinDecButton_ITSTheme1 table.dxbebt, 
+.dxeSpinLargeIncButton_ITSTheme1 table.dxbebt,
+.dxeSpinLargeDecButton_ITSTheme1 table.dxbebt
+{
+	width: 10px;
+}
+.dxeCalendarButton_ITSTheme1
+{
+	border: 1px solid #c0c0c0;
+	padding: 3px 11px 4px;
+	width: 32px;
+}
+.dxeCalendarButton_ITSTheme1 td.dx
+{
+	text-align: center;
+	white-space: nowrap;
+	font: 12px arial;
+}
+.dxeCalendarButton_ITSTheme1.dxeButtonDisabled_ITSTheme1 td.dx
+{
+	color: #bdbdbd;
+}
+
+.dxeCalendarButton_ITSTheme1 table.dxbebt
+{
+	width: 100%;
+}
+
+/* -- Pressed -- */
+.dxeCalendarButtonPressed_ITSTheme1,
+.dxeButtonEditButtonPressed_ITSTheme1,
+.dxeSpinIncButtonPressed_ITSTheme1,
+.dxeSpinDecButtonPressed_ITSTheme1,
+.dxeSpinLargeIncButtonPressed_ITSTheme1, 
+.dxeSpinLargeDecButtonPressed_ITSTheme1
+{
+	background-color: #c0c0c0;
+	color: white;
+}
+/* -- Hover -- */
+.dxeCalendarButtonHover_ITSTheme1,
+.dxeButtonEditButtonHover_ITSTheme1,
+.dxeSpinIncButtonHover_ITSTheme1,
+.dxeSpinDecButtonHover_ITSTheme1,
+.dxeSpinLargeIncButtonHover_ITSTheme1,
+.dxeSpinLargeDecButtonHover_ITSTheme1
+{
+	background-color: #06A7FF;
+color: white;
+}
+.dxeCalendarButtonHover_ITSTheme1
+{
+	border-color: #06A7FF;
+}
+
+.dxeButtonEdit_ITSTheme1
+{
+	border: 1px solid #c0c0c0;
+	width: 207px;
+	padding: 0px;
+	height: 10px;
+	border-spacing: 0;
+}
+.dxeButtonEdit_ITSTheme1 .dxeEditArea_ITSTheme1
+{
+	background-color: white;
+}
+.dxeButtonEdit_ITSTheme1 .dxeEditArea_ITSTheme1,
+.dxeButtonEdit_ITSTheme1 td.dxic
+{
+	width: 100%;
+}
+.dxeButtonEdit_ITSTheme1 .dxeIIC img
+{
+	padding-left: 3px;
+}
+.dxeTextBox_ITSTheme1,
+.dxeMemo_ITSTheme1
+{
+	background-color: white;
+	border: 1px Solid #c0c0c0;
+	width:207px;
+}
+.dxeTextBox_ITSTheme1 td.dxic
+{
+}
+.dxeTextBox_ITSTheme1 .dxeEditArea_ITSTheme1
+{
+	background-color: transparent;
+}
+.dxeRadioButtonList_ITSTheme1, .dxeCheckBoxList_ITSTheme1
+{
+	border: 1px Solid #c0c0c0;
+}
+
+.dxeCheckBoxList_ITSTheme1 .dxe > table,
+.dxeRadioButtonList_ITSTheme1 .dxe > table 
+{
+    width: 100%;
+}
+
+.dxeRadioButtonList_ITSTheme1,
+.dxeRadioButtonList_ITSTheme1 table,
+.dxeCheckBoxList_ITSTheme1,
+.dxeCheckBoxList_ITSTheme1 table
+{
+	font: 12px arial;
+}
+.dxeRadioButtonList_ITSTheme1 td.dxe,
+.dxeCheckBoxList_ITSTheme1 td.dxe
+{
+	padding: 0px 3px 0px 3px;
+}
+.dxeRadioButtonList_ITSTheme1 label,
+.dxeCheckBoxList_ITSTheme1 label
+{
+	margin-right: 6px;
+}
+
+.dxeRadioButtonList_ITSTheme1 img,
+.dxeCheckBoxList_ITSTheme1 img
+{
+	margin-bottom: -4px;
+    padding-right: 5px;
+}
+
+/* -- Memo -- */
+.dxeMemo_ITSTheme1
+{
+}
+.dxeMemoEditArea_ITSTheme1
+{
+	background-color: white;
+	font: 12px arial;
+	outline: none;
+}
+
+/* -- Hyperlink -- */
+.dxeHyperlink_ITSTheme1
+{
+	font: normal 12px arial;
+	color: #06A7FF;
+}
+
+/* -- ListBox -- */
+.dxeListBox_ITSTheme1
+{
+	background-color: white;
+	width: 70px;
+	height: 109px;
+	font: 12px arial;
+	color: #333333;
+	border: 1px solid #c0c0c0;
+}
+.dxeListBox_ITSTheme1 div.dxlbd
+{
+	padding-top: 1px;
+	padding-bottom: 1px;
+	height: 200px;
+}
+.dxeListBoxItemRow_ITSTheme1
+{
+	cursor: default;
+}
+.dxeListBoxItem_ITSTheme1
+{
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+	padding: 5px 2px 4px 3px;
+	white-space: nowrap;
+	text-align: left;
+	color: #333333;
+	font: normal 12px arial;
+}
+.dxeListBoxItem_ITSTheme1 em
+{
+	background: #CFCFCF none repeat 0 0;
+	color: #333333;
+	font-weight: bold;
+	font-style: normal;
+}
+.dxeListBoxItemRow_ITSTheme1:last-child > .dxeListBoxItem_ITSTheme1
+{
+	border-bottom-width: 0;
+}
+
+.dxeListBox_ITSTheme1 td.dxeI,
+.dxeListBox_ITSTheme1 td.dxeIM,
+.dxeListBox_ITSTheme1 .dxeHIC, 
+.dxeListBox_ITSTheme1 td.dxeFTM,
+.dxeListBox_ITSTheme1 td.dxeTM,
+.dxeListBox_ITSTheme1 td.dxeC,
+.dxeListBox_ITSTheme1 td.dxeCM,
+.dxeListBox_ITSTheme1 td.dxeHCC,
+.dxeListBox_ITSTheme1 td.dxeMI,
+.dxeListBox_ITSTheme1 td.dxeMIM
+{
+	border-right-width: 0!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeIR,
+.dxeListBox_ITSTheme1 td.dxeIMR,
+.dxeListBox_ITSTheme1 .dxeHICR, 
+.dxeListBox_ITSTheme1 td.dxeFTMR,
+.dxeListBox_ITSTheme1 td.dxeTMR,
+.dxeListBox_ITSTheme1 td.dxeCR,
+.dxeListBox_ITSTheme1 td.dxeCMR,
+.dxeListBox_ITSTheme1 td.dxeHCCR,
+.dxeListBox_ITSTheme1 td.dxeMIR,
+.dxeListBox_ITSTheme1 td.dxeMIMR
+{
+	border-left-width: 0!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeCM,
+.dxeListBox_ITSTheme1 td.dxeHCC,
+.dxeListBox_ITSTheme1 td.dxeCMR,
+.dxeListBox_ITSTheme1 td.dxeHCCR
+{
+	width: 29px;
+    *width: 23px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.dxeListBox_ITSTheme1 td.dxeIM,
+.dxeListBox_ITSTheme1 td.dxeIMR
+{
+	width: 0;
+}
+.dxeListBox_ITSTheme1 td.dxeC > span,
+.dxeListBox_ITSTheme1 td.dxeCM > span
+{
+    margin: 2px 2px 2px 3px;
+}
+.dxeListBox_ITSTheme1 td.dxeCR > span,
+.dxeListBox_ITSTheme1 td.dxeCMR > span
+{
+    margin: 2px 3px 2px 2px;
+}
+.dxeListBox_ITSTheme1 td.dxeC
+{
+	padding-right: 3px!important;
+}
+.dxeListBox_ITSTheme1 td.dxeCR
+{
+	padding-left: 3px!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeT
+{
+	width: 100%;
+	padding-left: 0!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeTR
+{
+	width: 100%;
+	padding-right: 0!important;
+}
+
+
+.dxeListBox_ITSTheme1 td.dxeT,
+.dxeListBox_ITSTheme1 td.dxeMI
+{
+	border-left-width: 0!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeTR,
+.dxeListBox_ITSTheme1 td.dxeMIR
+{
+	border-right-width: 0!important;
+}
+
+
+.dxeListBox_ITSTheme1 td.dxeFTM,
+.dxeListBox_ITSTheme1 td.dxeTM,
+.dxeListBox_ITSTheme1 td.dxeLTM, 
+.dxeListBox_ITSTheme1 .dxeHFC,
+.dxeListBox_ITSTheme1 .dxeHC,
+.dxeListBox_ITSTheme1 .dxeHLC,
+.dxeListBox_ITSTheme1 td.dxeFTMR,
+.dxeListBox_ITSTheme1 td.dxeTMR,
+.dxeListBox_ITSTheme1 td.dxeLTMR, 
+.dxeListBox_ITSTheme1 .dxeHFCR,
+.dxeListBox_ITSTheme1 .dxeHCR,
+.dxeListBox_ITSTheme1 .dxeHLCR
+{
+	overflow: hidden;
+}
+
+.dxeListBox_ITSTheme1 td.dxeFTM,
+.dxeListBox_ITSTheme1 td.dxeTM, 
+.dxeListBox_ITSTheme1 .dxeHFC,
+.dxeListBox_ITSTheme1 .dxeHC
+{
+	padding-right: 6px!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeFTMR,
+.dxeListBox_ITSTheme1 td.dxeTMR, 
+.dxeListBox_ITSTheme1 .dxeHFCR,
+.dxeListBox_ITSTheme1 .dxeHCR
+{
+	padding-left: 6px!important;
+}
+
+
+.dxeListBox_ITSTheme1 td.dxeLTM,
+.dxeListBox_ITSTheme1 td.dxeTM, 
+.dxeListBox_ITSTheme1 .dxeHC,
+.dxeListBox_ITSTheme1 .dxeHLC
+{
+	padding-left: 6px!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeLTMR,
+.dxeListBox_ITSTheme1 td.dxeTMR, 
+.dxeListBox_ITSTheme1 .dxeHCR,
+.dxeListBox_ITSTheme1 .dxeHLCR
+{
+	padding-right: 6px!important;
+}
+
+/*Grid lines*/
+
+.dxeListBox_ITSTheme1 td.dxeLTM,
+.dxeListBox_ITSTheme1 td.dxeTM,
+.dxeListBox_ITSTheme1 td.dxeMIM
+{
+	border-left: 1px solid #cfcfcf!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeLTMR,
+.dxeListBox_ITSTheme1 td.dxeTMR,
+.dxeListBox_ITSTheme1 td.dxeMIMR
+{
+	border-right: 1px solid #cfcfcf!important;
+}
+
+.dxeListBox_ITSTheme1 td.dxeIM,
+.dxeListBox_ITSTheme1 td.dxeFTM,
+.dxeListBox_ITSTheme1 td.dxeTM,
+.dxeListBox_ITSTheme1 td.dxeLTM,
+.dxeListBox_ITSTheme1 td.dxeCM,
+.dxeListBox_ITSTheme1 td.dxeMIM,
+.dxeListBox_ITSTheme1 td.dxeIMR,
+.dxeListBox_ITSTheme1 td.dxeFTMR,
+.dxeListBox_ITSTheme1 td.dxeTMR,
+.dxeListBox_ITSTheme1 td.dxeLTMR,
+.dxeListBox_ITSTheme1 td.dxeCMR,
+.dxeListBox_ITSTheme1 td.dxeMIMR
+{
+	border-bottom: 1px solid #cfcfcf;
+}
+
+.dxeListBoxItemSelected_ITSTheme1     /* inherits dxeListBoxItem */
+{
+	color: White;
+	background-color: #06A7FF;
+}
+.dxeDisabled_ITSTheme1.dxeListBox_ITSTheme1 .dxeListBoxItemSelected_ITSTheme1 
+{
+	background-color: #f0f0f0;
+}
+.dxeListBoxItemHover_ITSTheme1        /* inherits dxeListBoxItem */
+{
+	background-color: #e0e0e0;
+	color: #333333;
+}
+.dxeListBoxItemHover_ITSTheme1 em,
+.dxeListBoxItemSelected_ITSTheme1 em
+{
+	background-image: none;
+}
+
+/*Header*/
+
+.dxeListBox_ITSTheme1 .dxeHD
+{
+	border-bottom: 1px solid #c0c0c0;
+}
+
+.dxeListBox_ITSTheme1 .dxeHC,
+.dxeListBox_ITSTheme1 .dxeHLC,
+.dxeListBox_ITSTheme1 td.dxeHMIC
+{
+	border-left: 1px solid #c0c0c0;
+}
+
+.dxeListBox_ITSTheme1 .dxeHCR,
+.dxeListBox_ITSTheme1 .dxeHLCR,
+.dxeListBox_ITSTheme1 td.dxeHMICR
+{
+	border-right: 1px solid #A0A0A0;
+	text-align: right;
+}
+
+.dxeListBox_ITSTheme1 .dxeHCC
+{
+	border-left: 1px solid #c0c0c0;
+}
+
+.dxeListBox_ITSTheme1 .dxeHICR,
+.dxeListBox_ITSTheme1 .dxeHFCR,
+.dxeListBox_ITSTheme1 .dxeHCCR
+{
+	border-right: 1px solid #dcdcdc;
+	text-align: right;
+}
+
+.dxeListBox_ITSTheme1 .dxeHFC,
+.dxeListBox_ITSTheme1 .dxeHC,
+.dxeListBox_ITSTheme1 .dxeHMIC
+{
+	border-right-width: 0;
+}
+
+.dxeListBox_ITSTheme1 .dxeHFCR,
+.dxeListBox_ITSTheme1 .dxeHCR,
+.dxeListBox_ITSTheme1 .dxeHMICR
+{
+	border-left-width: 0;
+	text-align: right;
+}
+
+.dxeListBox_ITSTheme1 .dxeHLC
+{
+	border-right: 1px solid #dcdcdc;
+}
+
+.dxeListBox_ITSTheme1 .dxeHLCR
+{
+	border-left: 1px solid #dcdcdc;
+	text-align: right;
+}
+
+/* -- Calendar -- */
+.dxeCalendar_ITSTheme1
+{
+	background-color: White;
+	color: #333333;
+	font-weight: normal;
+	cursor: default;
+}
+.dxeCalendar_ITSTheme1.dxeFocused_ITSTheme1
+{
+	border: none;
+}
+.dxeCalendar_ITSTheme1 td.dxMonthGrid_ITSTheme1
+{
+	padding: 8px 20px;
+}
+.dxeCalendar_ITSTheme1 td.dxMonthGridWithWeekNumbers,
+.dxeCalendar_ITSTheme1 td.dxMonthGridWithWeekNumbersRtl
+{
+	min-width: 200px;
+	padding: 20px 20px 5px;
+}
+.dxeCalendarDayHeader_ITSTheme1
+{
+	padding: 2px 4px 5px;
+	font-family: arial;
+	text-transform:uppercase;
+}
+.dxeCalendarWeekNumber_ITSTheme1
+{
+	font: 9px arial;
+	text-align: right;
+	padding: 6px 8px 6px 4px;
+	color: #bfbfbf;
+}
+.dxeCalendarDay_ITSTheme1
+{
+	padding: 4px 6px;
+	text-align: center;
+	font: 12px arial;
+}
+.dxeCalendarWeekend_ITSTheme1        /* inherits dxeCalendarDay */
+{
+	color: #FF3300;
+}
+.dxeCalendarOtherMonth_ITSTheme1     /* inherits dxeCalendarDay */
+{
+	opacity: 0.15;
+}
+.dxeCalendarOutOfRange_ITSTheme1     /* inherits dxeCalendarDay */
+{
+	color: #d0d0d0;
+}
+.dxeCalendarSelected_ITSTheme1       /* inherits dxeCalendarDay */
+{
+	color: White;
+	background-color: #06A7FF;
+}
+.dxeCalendarSelected_ITSTheme1.dxeDisabled_ITSTheme1       /* inherits dxeCalendarDay */
+{
+	background-color: #ffd5a6;
+}
+
+.dxeCalendarToday_ITSTheme1         /* inherits dxeCalendarDay */
+{
+	padding: 3px 3px 2px;
+	border: 1px solid #06A7FF;
+}
+.dxeCalendarToday_ITSTheme1.dxeDisabled_ITSTheme1         /* inherits dxeCalendarDay */
+{
+	border: 1px solid #06A7FF;
+}
+
+.dxeCalendarHeader_ITSTheme1
+{
+	color: #06A7FF;
+	padding: 4px 7px;
+	font: 18px arial Light;
+	padding: 4px 17px;
+}
+.dxeCalendarHeader_ITSTheme1 td.dxe
+{
+	text-align: center;
+	cursor: pointer;
+	font: 18px Arial;
+}
+.dxeCalendarHeader_ITSTheme1 span
+{
+	padding: 0 16px;
+	white-space: nowrap!important;
+}
+.dxeCalendarFooter_ITSTheme1
+{
+	padding: 8px 0px;
+	border-bottom: 2px solid #c0c0c0;
+}
+.dxeCalendar_ITSTheme1.dxeFocused_ITSTheme1 .dxeCalendarFooter_ITSTheme1
+{
+	border-color: #06A7FF;
+}
+.dxeCalendarFastNav_ITSTheme1
+{
+	color: Black;
+	background: White none;
+	border-top: 1px solid #c0c0c0;
+	border-right: 1px solid #c0c0c0;
+	border-left: 1px solid #c0c0c0;
+	padding: 12px 8px;
+}
+.dxeCalendarFastNav_ITSTheme1
+{
+}
+.dxeCalendarFastNavMonthArea_ITSTheme1
+{
+	padding: 0px 9px;
+}
+.dxeCalendarFastNavYearArea_ITSTheme1
+{
+}
+.dxeCalendarFastNavFooter_ITSTheme1
+{
+	color: Black;
+	padding: 8px 0px;
+	border-right: 1px solid #c0c0c0;
+	border-bottom: 1px solid #c0c0c0;
+	border-left: 1px solid #c0c0c0;
+	background-color: white;
+}
+.dxeCalendarFastNavMonth_ITSTheme1,
+.dxeCalendarFastNavYear_ITSTheme1
+{
+	font: 12px arial;
+	color: #333333;
+	padding: 3px 5px;
+	text-align: center;
+	cursor: pointer;
+}
+.dxeCalendarFastNavMonth_ITSTheme1
+{
+	padding: 6px;
+}
+.dxeCalendarFastNavMonthSelected_ITSTheme1,
+.dxeCalendarFastNavYearSelected_ITSTheme1
+{
+	color: White;
+	background-color: #06A7FF;
+}
+.dxeCalendarFastNavMonthHover_ITSTheme1,
+.dxeCalendarFastNavYearHover_ITSTheme1
+{
+	color: Black;
+	background: #e5e5e5 none;
+	padding: 2px 4px;
+	border: 1px solid #d6d6d6;
+}
+.dxeCalendarFastNavMonthHover_ITSTheme1
+{
+	padding: 5px;
+}
+.dxeDateEditTimeEditCell_ITSTheme1
+{
+    padding: 13px 41px 15px ;
+}
+.dxeDateEditClockCell_ITSTheme1
+{
+    padding: 37px 31px 0;
+}
+.dxeCalendarFooter_ITSTheme1.dxeDETSF
+{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.dxeCalendarHeader_ITSTheme1.dxeDETSH
+{
+    display: none;
+}
+/* Disabled */
+.dxeDisabled_ITSTheme1,
+.dxeDisabled_ITSTheme1 td.dxe
+{
+	color: #c0c0c0;
+	cursor: default;
+}
+a.dxeDisabled_ITSTheme1:hover
+{
+	color: #acacac;
+}
+.dxeButtonDisabled_ITSTheme1,
+.dxeButtonDisabled_ITSTheme1 td.dxe
+{
+	border-color: #e9e9e9;
+	color: #808080;
+	cursor: default;
+}
+/* -- Button -- */
+.dxbButton_ITSTheme1
+{
+     display: inline-block;
+	 padding: 9px 14px;	 
+	 line-height: 20px;
+	 text-align: center;
+	 cursor: pointer;
+	 border: none;
+	 text-shadow: none;
+	 box-shadow: none;
+	 transition: all 0.12s linear 0s !important;
+	 font: 14px/20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	 color: #ffffff;
+	 background-color: #06A7FF;
+}
+.dxbButton_ITSTheme1.dxbDisabled_ITSTheme1
+{
+	color: #b8b8b8;
+	cursor: default;
+    background-color: #eee;
+
+}
+.dxbButtonHover_ITSTheme1
+{
+	color: white;
+	background: #0092E2;
+}
+.dxbButtonChecked_ITSTheme1
+{
+	color: white;
+}
+.dxbButtonPressed_ITSTheme1
+{
+	color: white;
+}
+.dxbButton_ITSTheme1 div.dxb
+{
+	border-width: 0px;
+}
+/*.dxbButton_ITSTheme1 div.dxbf
+{
+	padding: 2px 7px 3px;
+	border: 1px dotted #333333;
+}
+*/.dxbButton_ITSTheme1 div.dxb td.dxb
+{
+	background: transparent url('')!important;
+	border-width: 1px!important;
+	padding: 0px!important;
+}
+/* Disabled */
+.dxbDisabled_ITSTheme1
+{
+	color: #808080;
+	cursor: default;
+background-color: #eee;
+
+}
+.dxbDisabled_ITSTheme1 td.dxb
+{
+	color: #808080;
+}
+/* -- FilterControl -- */
+.dxfcTable_ITSTheme1
+{
+	border-collapse: separate!important;
+}
+.dxfcTable_ITSTheme1 td.dxfc
+{
+	padding: 0px 0px 0px 3px;
+	vertical-align: middle;
+	font: 12px arial;
+	color: Black;
+}
+a.dxfcPropertyName_ITSTheme1
+{
+	white-space: nowrap!important;
+	color: #1086d4!important;
+}
+a.dxfcGroupType_ITSTheme1
+{
+	white-space: nowrap!important;
+	padding: 0px 3px!important;
+	color: #db3412!important;
+}
+a.dxfcOperation_ITSTheme1
+{
+	white-space: nowrap!important;
+	color: #6fb111!important;
+}
+a.dxfcValue_ITSTheme1
+{
+	white-space: nowrap!important;
+	color: Gray!important;
+}
+
+.dxfcLoadingDiv_ITSTheme1
+{
+	background: white none;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+.dxfcLoadingPanel_ITSTheme1
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px arial;
+	color: #333333;
+}
+.dxfcLoadingPanel_ITSTheme1 td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 10px 14px;
+}
+
+.dxeMaskHint_ITSTheme1
+{
+	background: #ffffe1 none;
+	border: 1px solid black;
+	padding: 2px 5px 3px;
+	color: Black;
+	font: 12px arial;
+}
+
+/* -- ProgressBar -- */
+.dxeProgressBar_ITSTheme1
+{
+	background-color: #e0e0e0;
+}
+.dxeProgressBar_ITSTheme1,
+.dxeProgressBar_ITSTheme1 td.dxe
+{
+	color: #333333;
+	font: 12px arial;
+}
+.dxeProgressBar_ITSTheme1 .dxePBMainCell_ITSTheme1,
+.dxeProgressBar_ITSTheme1 td.dxe
+{
+	padding: 0;
+}
+.dxeProgressBarIndicator_ITSTheme1
+{
+	background-color: #06A7FF;
+}
+
+/* -- DropDownWindow -- */
+.dxeDropDownWindow_ITSTheme1
+{
+	background-color: white;
+	//border: 1px solid #c0c0c0;
+}
+
+/*----------------- ColorTable -----------------*/
+.dxeColorIndicator_ITSTheme1
+{
+	width: 13px;
+	height: 13px;
+	cursor: pointer;
+	margin-left: 3px;
+}
+.dxeColorTable_ITSTheme1,
+.dxeItemPicker_ITSTheme1
+{
+	background-color: #ffffff;
+	border: 1px solid #c0c0c0;
+}
+.dxeColorTable_ITSTheme1 td.dx,
+.dxeItemPicker_ITSTheme1 td.dx
+{
+	padding: 4px;
+}
+.dxeColorTableCell_ITSTheme1,
+.dxeItemPickerCell_ITSTheme1
+{
+	padding: 3px;
+	cursor: pointer;
+}
+.dxeColorTableCellDiv_ITSTheme1
+{
+	border: 1px solid #c0c0c0;
+	width: 12px;
+	height: 12px;
+	font-size: 0px;
+}
+.dxeColorTableCellSelected_ITSTheme1
+{
+	padding: 0px!important;
+	background-color: #CBCBCB;
+	border: 3px solid #06A7FF;
+}
+.dxeColorTableCellSelected_ITSTheme1 .dxeColorTableCellDiv_ITSTheme1
+{
+	border: 1px solid white;
+}
+.dxeColorTableCellHover_ITSTheme1,
+.dxeItemPickerCellHover_ITSTheme1
+{
+	padding: 0px!important;
+	background-color: #F2F2F2;
+	border: 3px solid #E0E0E0;
+}
+
+/* -- Invalid Style -- */
+.dxeInvalid_ITSTheme1
+{
+}
+.dxeInvalid_ITSTheme1 .dxeEditArea_ITSTheme1,
+.dxeInvalid_ITSTheme1 .dxeMemoEditArea_ITSTheme1
+{
+}
+
+/* -- Focused Style -- */
+.dxeFocused_ITSTheme1
+{
+	
+	border:1px solid #06A7FF;
+}
+.dxeFocused_ITSTheme1.dxeTrackBar_ITSTheme1
+{
+	border:1px solid #06A7FF;
+}
+
+/* -- Null Text Style -- */
+.dxeNullText_ITSTheme1 .dxeEditArea_ITSTheme1,
+.dxeNullText_ITSTheme1 .dxeMemoEditArea_ITSTheme1
+{
+	color: #818181;
+}
+
+/* -- Captcha -- */
+.dxcaControl_ITSTheme1 
+{
+}
+
+.dxcaRefreshButton_ITSTheme1
+{
+	font: 13px arial;
+	text-decoration: none;
+	color: #1e3695;
+}
+
+.dxcaDisabledRefreshButton_ITSTheme1
+{
+	color: #acacac;
+}
+
+.dxcaRefreshButtonCell_ITSTheme1
+{
+	padding-left: 4px;
+	border-bottom: 2px solid #e0e0e0;
+}
+
+.dxcaRefreshButtonText_ITSTheme1
+{
+}
+
+.dxcaDisabledRefreshButtonText_ITSTheme1
+{
+}
+
+.dxcaTextBoxCell_ITSTheme1
+{
+	font: 12px arial;
+}
+
+.dxcaTextBoxCell_ITSTheme1,
+.dxcaTextBoxCellNoIndent_ITSTheme1
+{
+	font: 12px arial;
+}
+
+.dxcaTextBoxCell_ITSTheme1 .dxeErrorCell_ITSTheme1
+{
+}
+
+.dxcaTextBoxCellNoIndent_ITSTheme1 .dxeErrorCell_ITSTheme1
+{
+	padding-left: 0px;
+	padding-top: 4px;
+	color: Red;
+}
+
+.dxcaTextBoxLabel_ITSTheme1
+{
+	padding-bottom: 4px;
+	display: block;
+}
+
+.dxcaLoadingPanel_ITSTheme1
+{
+	background-color: white;
+	font: 14px arial;
+	color: #333333;
+}
+
+.dxcaLoadingPanel_ITSTheme1 td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 2px;
+}
+
+.dxpcControl_ITSTheme1 .dxHFBPS,
+.dxpcLite_ITSTheme1 .dxHFBPS
+{
+    width: 6px;
+}
+
+.dxeTextBox_ITSTheme1,
+.dxeButtonEdit_ITSTheme1,
+.dxeIRadioButton_ITSTheme1,
+.dxeRadioButtonList_ITSTheme1,
+.dxeCheckBoxList_ITSTheme1
+{
+    cursor: default;
+}
+
+:root .dxeTextBox_ITSTheme1 td.dxic, 
+:root .dxeButtonEdit_ITSTheme1 td.dxic {
+	background: white;
+}
+.dxeTextBox_ITSTheme1 td.dxic,
+.dxeButtonEdit_ITSTheme1 td.dxic {
+    padding-top: 2px;
+    *padding-top: 1px;
+}
+.dxeButtonEdit_ITSTheme1 td.dxic {
+    *padding-bottom: 1px;
+    padding: 2px 3px 2px 3px !important;
+}
+:root .dxeTextBox_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1,
+:root .dxeButtonEdit_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1 {
+   outline: 0;
+}
+.dxeTextBox_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1,
+.dxeButtonEdit_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1 {
+    font: inherit;
+    line-height: normal;
+    outline: 0;
+    display: block;
+    padding: 6px 0px;
+    line-height: 1.42857143;
+    color: #555;    
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.dxeEditArea_ITSTheme1{
+	background-color: transparent;	
+	height: 20px;
+}
+
+.dxeButtonEdit_ITSTheme1 td.dxic 
+{
+    *padding-left: 2px;
+}
+*[dir="rtl"].dxeTextBox_ITSTheme1 td.dxic
+{
+    *padding-right: 2px;
+}
+
+/* Removes flicking in iOS Safari*/
+.dxeTrackBar_ITSTheme1, 
+.dxeIRadioButton_ITSTheme1, 
+.dxeButtonEdit_ITSTheme1, 
+.dxeTextBox_ITSTheme1, 
+.dxeRadioButtonList_ITSTheme1, 
+.dxeCheckBoxList_ITSTheme1, 
+.dxeMemo_ITSTheme1, 
+.dxeListBox_ITSTheme1, 
+.dxeCalendar_ITSTheme1, 
+.dxeColorTable_ITSTheme1
+{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* Layout Control */
+.dxeLayoutConrtol_ITSTheme1 
+{
+    display: table;
+}
+.dxeLyGroupCell_ITSTheme1 
+{
+    padding: 5px;
+}
+.dxeLyItem_ITSTheme1 
+{
+}
+.dxeLyCaptionCell_ITSTheme1
+{
+    padding:6px;
+}
+.dxeLyEditorCell_ITSTheme1 
+{   
+    padding:5px;
+}
+
+.dxeLyCaptionCell_ITSTheme1 
+{
+    color: #004184;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.dxeLyEditorCell_ITSTheme1 
+{
+    width: 0;
+}
+.dxeLyGroupBox_ITSTheme1 
+{
+    border: 1px Solid #9F9F9F;
+    border-radius: 4px;
+    padding: 10px;
+}
+.dxeLyGroupBoxCaption_ITSTheme1 > span 
+{
+    background-color: White;
+    padding-left: 5px;
+    padding-right: 5px;   
+}
+.dxeLyGroupBoxCaption_ITSTheme1 
+{
+    position:relative;
+    margin-top: -21px;
+}
+.dxeLyGroup_ITSTheme1 
+{
+    width: 100%;
+}
+
+.dxeLyVATSys > label 
+{
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.dxeLyEditorCell_ITSTheme1 > .dxeMemoSys 
+{
+    margin-top: 3px;
+}
+
+.dxeLyEditorCell_ITSTheme1 > label.dxeBase_ITSTheme1 
+{
+    display: block;
+    white-space: nowrap;
+}
+
+.dxeLyEditorCell_ITSTheme1 > .dxeTextBoxSys,
+.dxeLyEditorCell_ITSTheme1 > .dxeButtonEdit_ITSTheme1
+{
+}
+
+

@@ -1,0 +1,154 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{
+    DocumentHeader shoppingCart = ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.ShoppingCart;
+}
+
+@Html.DevExpress().CallbackPanel(
+    settings => {
+        settings.Name = "callbackList";
+        settings.CallbackRouteValues = new { Controller = "Products", Action = "ListPartial" };
+
+        settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write(
+                "<div class=\"row\">"+
+                    "<div class=\"col-xs-12\">");
+                
+                        if (shoppingCart != null && shoppingCart.DocumentDetails.Count() > 0)
+                        {
+                            int counter = 0;
+                            ViewContext.Writer.Write(
+                            "<div class=\"box-table\">"+
+                                "<div class=\"table-responsive\">"+
+                                    "<table class=\"table table-hover table-wishlist\">"+
+                                        "<tbody>"+
+                                            "<tr class=\"header\">"+
+                                                "<th>&nbsp;</th>"+
+                                                "<th>"+Resources.Item+"</th>"+
+                                                "<th>"+Resources.UnitPrice+"</th>"+
+                                                "<th>"+Resources.Quantity+"</th>"+
+                                                "<th>&nbsp;</th>"+
+                                                "<th>"+Resources.TotalB2C+"</th>"+
+                                                "<th>&nbsp;</th>"+
+                                            "</tr>");
+
+                                            foreach (DocumentDetail detail in shoppingCart.DocumentDetails)
+                                            {
+                                                counter++;
+                                       
+                                                ViewContext.Writer.Write(
+                                                "<tr class=\"item first\">"+
+                                                    "<td class=\"thumb\">"+
+                                                        "<img class=\"img-responsive\" src="+
+                                                        Url.Action("ShowImageId", "Static", new { Id = detail.Item.Oid, ticks = DateTime.Now.Date.Ticks, imageSize = 0 })
+                                                        + " data-src=" + Url.Action("ShowImageId", "Static", new { Id = detail.Item.Oid, ticks = detail.Item.UpdatedOnTicks, imageSize = 1 }) + " alt=\"\" />" +
+                                                    "</td>"+
+                                                    "<td class=\"name\">"+detail.Item.Name+"</td>"+
+                                                    "<td class=\"price\">"+detail.FinalUnitPrice.ToString("n2")+" &euro;</td>"+
+                                                    "<td>");
+                                                        
+                                                    string componentName = detail.Oid.ToString() + "_Quantity_Cart_List";
+                                                        
+                                                    Html.DevExpress().SpinEdit(deSettings =>
+                                                    {
+                                                        deSettings.Name = componentName;
+                                                        deSettings.Number = detail.Qty;
+                                                        deSettings.Properties.MinValue = 1;
+                                                        deSettings.Properties.MaxValue = 9999;
+                                                        deSettings.Properties.SpinButtons.ShowIncrementButtons = true;
+                                                        deSettings.ControlStyle.CssClass = "spinnerEdit margin-bottom-0";
+                                                        deSettings.Properties.ClientSideEvents.KeyPress = "Products.ItemSpinEditShoppingCart_OnKeyPress";
+                                                        deSettings.Height = 40;
+                                                        deSettings.Width = 60;
+                                                        deSettings.RightToLeft = DefaultBoolean.False;
+                                                        deSettings.Properties.ButtonStyle.CssClass = "spinnerButton";
+
+                                                    }).GetHtml();
+                                                                                                       
+                                                    
+                                                    
+                                                    
+                                                    ViewContext.Writer.Write("<td>");
+                                                        Html.DevExpress().Button(deSettings =>
+                                                        {
+                                                            deSettings.Name = componentName + "2";
+                                                            deSettings.ControlStyle.CssClass = "ProductaddBtn";
+                                                            deSettings.Text = "<i class=\"fa fa-pencil\"></i>&nbsp;" + Resources.Change;
+                                                            deSettings.Height = 40;
+                                                            deSettings.ClientSideEvents.Click = "Products.ItemSpinEditShoppingCart_OnKeyPress";
+                                                            deSettings.EncodeHtml = false;
+                                                        }).GetHtml();
+                            
+                                                    ViewContext.Writer.Write("</td>");
+                                                    ViewContext.Writer.Write("<td class=\"price\">"+detail.GrossTotal.ToString("n2")+" &euro;</td>");
+                                                    ViewContext.Writer.Write("</td><td class=\"delete\">");
+                                                            Html.DevExpress().Button(deSettings =>
+                                                            {                                                                
+                                                                deSettings.Name = componentName +"_delete_" + detail.Oid;
+                                                                deSettings.EncodeHtml = false;
+                                                                deSettings.Text = "<i class=\"fa fa-trash-o\"></i>";
+                                                                deSettings.ClientSideEvents.Click = "Products.CartItemDelete_Click";
+                                                                deSettings.ToolTip = Resources.Delete;
+                                                            }).GetHtml();
+                                                    ViewContext.Writer.Write("</td>");
+                                            }
+                                        ViewContext.Writer.Write(
+                                        "</tbody>");
+
+                                        if (shoppingCart.CalcTotalQty() != 0)
+                                        {
+                                            ViewContext.Writer.Write(
+                                            "<tfoot>"+
+                                                "<tr class=\"footer-table\">"+
+                                                    "<th colspan=\"5\">"+Resources.TotalB2C+"</th>"+
+                                                    "<th colspan=\"2\">"+shoppingCart.GrossTotal.ToString("n2")+"  &euro;</th>"+
+                                                "</tr>"+
+                                            "</tfoot>"
+                                            );
+                                        }
+
+                                    ViewContext.Writer.Write(
+                                    "</table>"+
+                                "</div>"+
+                                "<div class=\"row box-footer\">"+
+                                    "<div class=\"pull-left\">"+                        
+                                        "<a href="+Url.Content("~/B2C/Home")+" class=\"btn btn-default\"><i class=\"fa fa-chevron-left\"></i>"+Resources.ContinueShopping+"</a>"+
+                                    "</div>");
+                                    if(ViewBag.IsUserLoggedIn){
+                                        ViewContext.Writer.Write(
+                                        "<div class=\"pull-right\">"+
+                                            "<a href="+Url.Content("~/B2C/Checkout")+" class=\"btn btn-primary\">"+Resources.ProceedToCheckout+"<i class=\"fa fa-chevron-right\"></i></a>"+
+                                        "</div>");
+                                    }
+                                    else
+                                    {
+                                        ViewContext.Writer.Write(
+                                        "<div class=\"pull-right\">" +
+                                            "<a href=" + Url.Content("~/B2C/User/Login") + " class=\"btn btn-primary\">" + Resources.PleaseLoginBeforeBuy + "<i class=\"fa fa-chevron-right\"></i></a>" +
+                                        "</div>");
+                                    }
+                                ViewContext.Writer.Write(
+                                "</div>"+
+                            "</div>");
+                        }
+                        else
+                        {
+                             ViewContext.Writer.Write(
+                                "<div class=\"box-table\">" +
+                                    "<h3 class=\"text-center\">" +Resources.CartIsEmpty+"</h3>"+
+                                    "<div class=\"row box-footer\">"+
+                                        "<div class=\"text-center\">"+                        
+                                            "<a href="+Url.Content("~/B2C/Home")+" class=\"btn btn-primary\">"+Resources.ContinueShopping+"</a>"+
+                                        "</div>"+
+                                    "</div>" +
+                                "</div>");
+                        }
+                    ViewContext.Writer.Write(
+                    "</div>" +
+                "</div>");
+
+            });
+    }
+).GetHtml()

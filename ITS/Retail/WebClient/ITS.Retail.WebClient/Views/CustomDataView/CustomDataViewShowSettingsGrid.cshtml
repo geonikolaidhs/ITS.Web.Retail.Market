@@ -1,0 +1,90 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using System.Reflection
+@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib
+@using ITS.Retail.Platform.Enumerations
+
+@model IEnumerable<CustomDataViewShowSettings>
+
+    @{
+        List<string> includedFields = new List<string>() { "EntityType", /*"DisplayValuesMode",*/ "IsDefault" };
+        GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(CustomDataViewShowSettings), typeof(CustomDataViewController), "grdCustomDataViewShowSettings", columnType: GridViewCommandColumnType.ICONS, includedFields: includedFields);
+        settings.CallbackRouteValues = new { Controller = "CustomDataView", Action = "CustomDataViewShowSettingsGrid" };
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+        settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+        settings.Name = "CustomDataViewSettings";
+        settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "CustomDataView", Action = "DataViewShowSettingsDeletePartial" };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CustomDataView", Action = "DataViewShowSettingsUpdatePartial" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CustomDataView", Action = "DataViewShowSettingsUpdatePartial" };
+        settings.SettingsText.PopupEditFormCaption = Resources.Edit;
+
+        settings.SetEditFormTemplateContent(editContent =>
+        {
+            var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.Name = "btnDataVewShowSettingUpdate";
+            headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+            headerOptions.CancelButton.Name = "btnDataVewShowSettingCancel";
+            headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+            headerOptions.ViewType = eViewType.Modal;
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+            /*End of header banner*/
+
+            ViewContext.Writer.Write("<table><tr><td>");
+
+            Html.DevExpress().ComboBox(combosettings =>
+            {
+                combosettings.Name = "EntityType";
+                combosettings.Properties.Caption = Resources.EntityType;
+                combosettings.Properties.CaptionStyle.CssClass = "label";
+                combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+                combosettings.ControlStyle.CssClass = "editor";
+                combosettings.Properties.ValueType = typeof(string);
+                combosettings.ShowModelErrors = true;
+                combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).BindList(ViewBag.ControllerTypes).Bind(DataBinder.Eval(item, "EntityType")).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            //Html.DevExpress().ComboBox(combosettings =>
+            //{
+            //    combosettings.Name = "DisplayValuesMode";
+            //    combosettings.Properties.Caption = Resources.DisplayValuesMode;
+            //    combosettings.Properties.CaptionStyle.CssClass = "editor";
+            //    combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            //    combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            //    combosettings.ControlStyle.CssClass = "editor";
+            //    combosettings.Properties.ValueType = typeof(VariableDisplayValuesMode);
+            //    combosettings.ShowModelErrors = true;
+            //    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            //    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            //}).BindList(Enum<VariableDisplayValuesMode>.GetValues()).Bind(DataBinder.Eval(item, "DisplayValuesMode")).Render();
+
+            //ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsDefault";
+                edtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                edtSettings.Properties.Caption = Resources.IsDefault;
+                edtSettings.Properties.CaptionStyle.CssClass = "editor";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+            }).Bind(DataBinder.Eval(item, "IsDefault") ?? false).Render();
+
+            ViewContext.Writer.Write("</td></tr></table>");
+        });
+    }
+
+
+
+    @Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

@@ -1,0 +1,94 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model ITS.Retail.Model.CustomEnumerationDefinition
+@{
+    ViewBag.Title = Resources.CustomEnumeration;
+    ViewBag.ShowNavigation = false;
+}
+
+@using (Html.BeginForm("Save", "CustomEnumeration", FormMethod.Post))
+{
+    <div class='ValidationContainer background-light-grey'>
+        @{
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+    headerOptions.CancelButton.OnClick = "btnCancelClickV2";    
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+        }
+        <table class='headerTable validateForm' style='min-height:0'>
+            <tr>
+                <td>
+                    @{
+    Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+            edtSettings.AssociatedControlName = "Code";
+        }
+    ).Render();
+                    }
+                </td>
+                <td>
+                    @{Html.DevExpress().TextBox(
+                    edtSettings =>
+                    {
+                        edtSettings.Name = "Code";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = true;
+                        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                    }
+                ).Bind(Model.Code).Render();
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @{ Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label required_field";
+                    edtSettings.Text = Resources.Description + ":";
+                    edtSettings.AssociatedControlName = "CustomEnumerationDescription";
+                }
+            ).Render();
+                    }
+                </td>
+                <td>
+                    @{
+    Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "CustomEnumerationDescription";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }
+).Bind(Model.Description).Render();
+                    }
+                </td>
+                <td>
+                    @{Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Text = Resources.Default;
+                edtSettings.Name = "IsDefaultCheckbox";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+            }
+            ).Bind(Model.IsDefault).Render();
+                    }
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    Html.RenderPartial("ValueGrid", Model.CustomEnumerationValues);
+
+}

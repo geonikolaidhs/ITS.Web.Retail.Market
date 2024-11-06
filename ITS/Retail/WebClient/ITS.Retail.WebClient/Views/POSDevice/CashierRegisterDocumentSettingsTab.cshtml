@@ -1,0 +1,85 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model ITS.Retail.Model.POSDevice
+@{
+
+    ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td>");
+
+    Html.DevExpress().Label(
+    edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.DocumentType + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "DocumentType";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+
+    }).BindList(Session["CashRegisterDocumentType"]).Bind(DataBinder.Eval(Model, "DocumentType!Key")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.DocumentSeries + ":";
+        }).Render();
+
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "DocumentSeries";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+    }).BindList(Session["CashRegisterDocumentSeries"]).Bind(DataBinder.Eval(Model, "DocumentSeries!Key")).GetHtml();
+
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+       edtSettings =>
+       {
+           edtSettings.ControlStyle.CssClass = "label";
+           edtSettings.Text = Resources.DocumentStatus + ":";
+       }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "DocumentStatus";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+    }).BindList(Session["CashRegisterDocumentStatus"]).Bind(DataBinder.Eval(Model, "DocumentStatus!Key")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+       edtSettings =>
+       {
+           edtSettings.ControlStyle.CssClass = "label";
+           edtSettings.Text = Resources.ΒalancePaymentMethod + ":";
+       }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "PaymentMethod";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+    }).BindList(Session["CashRegisterPaymentMethod"]).Bind(DataBinder.Eval(Model, "PaymentMethod!Key")).GetHtml();
+
+    ViewContext.Writer.Write("</td></tr></table>");
+}

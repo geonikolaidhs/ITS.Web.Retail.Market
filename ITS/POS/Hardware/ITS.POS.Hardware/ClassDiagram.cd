@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.POS.Hardware.Device">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="ITS.POS.Hardware.ConnectionType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Device.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQgAAAEBAAAEAAIABEAAUAACAEAgAgIAAAIAAA=</HashCode>
+      <FileName>Device.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.ScannerErrorEventArgs">
+    <Position X="1.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScannerErrorEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.EthernetDeviceSettings">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>EthernetDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.LPTDeviceSettings">
+    <Position X="15.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAAAAACAAAgAAAgAgAAAAAAAAAAAAEAAAAAAQ=</HashCode>
+      <FileName>LPTDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.OPOSDeviceSettings">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OPOSDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.OPOSPrinterSettings">
+    <Position X="17.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAQBAAgAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>OPOSPrinterSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.Printer">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEAABBgDEBQBAgAQAAAAIAEAAAIAIgAQAAIAEAAA=</HashCode>
+      <FileName>Printer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.ScannerReadEventArgs">
+    <Position X="1.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScannerReadEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.Scanner">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAEAAAAgAAAIQIACAgAAgIAFAAQCIA=</HashCode>
+      <FileName>Scanner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.DataSignESD">
+    <Position X="4" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="ITS.POS.Hardware.DataSignESD.DataSignResult" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataSignESD.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>DataSignESD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.PoleDisplay">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAgAAABAAAIAAAIACAAQAAAAAIARACAIAAAAAAAIA=</HashCode>
+      <FileName>PoleDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.Settings">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AYAAAgQgCAEAAAAAAAAAAAQABAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.COMDeviceSettings">
+    <Position X="13.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAABAAAEAAAAgAAAAAAAAAAAAEAAAUAAA=</HashCode>
+      <FileName>COMDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.KeyLock">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QoAAAAIAAAIAIAABgAgAAABAAEBAABAgAQAAEDEAAIA=</HashCode>
+      <FileName>KeyLock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Hardware.Drawer">
+    <Position X="12.75" Y="7" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="ITS.POS.Hardware.Drawer.OnStatucChangeEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Drawer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAIAQAAJABAAEAAACAAGAAACAAEAAgAAABAAA=</HashCode>
+      <FileName>Drawer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

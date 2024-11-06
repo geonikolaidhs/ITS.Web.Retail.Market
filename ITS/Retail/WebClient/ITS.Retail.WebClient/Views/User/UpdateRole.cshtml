@@ -1,0 +1,32 @@
+﻿@model User
+@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.CustomJSProperties = (object sender, CustomJSPropertiesEventArgs e) =>
+    {
+        e.Properties.Add("cp_IsForPOS", ViewData["IsPOS"]);
+    };
+
+    settings.Name = "RoleCbPanel";
+    settings.CallbackRouteValues = new { Controller = "User", Action = "UpdateRole" };
+    settings.ClientSideEvents.BeginCallback = "RoleCbBeginCallback";
+    settings.ClientSideEvents.EndCallback = "RoleCbEndCallback";
+    
+    settings.SetContent(() =>
+    {
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Role";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ClientSideEvents.ValueChanged = "OnRoleChanged";
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.RoleComboBox).Bind(DataBinder.Eval(Model,"Role!Key")).Render();
+    });
+
+}).GetHtml()

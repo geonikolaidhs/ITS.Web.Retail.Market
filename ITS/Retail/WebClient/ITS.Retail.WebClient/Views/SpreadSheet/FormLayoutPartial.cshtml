@@ -1,0 +1,101 @@
+﻿@using ITS.Retail.ResourcesLib
+@model ITS.Retail.Model.SpreadSheet
+
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "spreadSheetDetailFormLayout";
+    settings.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+    settings.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 800;
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+    settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+
+    settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = "";
+        groupSettings.ColCount = 3;
+        groupSettings.UseDefaultPaddings = false;
+        groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;       
+        
+
+        groupSettings.Items.Add(m => m.Code, itemSettins =>
+        {
+            itemSettins.Caption = Resources.Code;
+            itemSettins.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettins.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            itemSettins.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettins.CssClass = "form-group";
+            itemSettins.CaptionStyle.CssClass = "control-label";
+            TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettins.NestedExtensionSettings;
+            textBoxSettings.Name = "Code";
+            textBoxSettings.ShowModelErrors = true;
+            textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+            textBoxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            textBoxSettings.ControlStyle.CssClass = "form-control";
+            
+        });
+        groupSettings.Items.Add(m => m.Title, itemSettins =>
+        {
+            itemSettins.Caption = Resources.Title;
+            itemSettins.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettins.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            itemSettins.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettins.CssClass = "form-group";
+            TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettins.NestedExtensionSettings;
+            textBoxSettings.Name = "Title";
+            textBoxSettings.ShowModelErrors = true;
+            textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+            textBoxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            textBoxSettings.ControlStyle.CssClass = "form-control";
+
+        });
+
+        groupSettings.Items.Add(m => m.FileName, itemSettins =>
+        {
+            itemSettins.Caption = Resources.FileName;
+            itemSettins.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettins.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            itemSettins.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettins.CssClass = "form-group";
+            TextBoxSettings textBoxSettings = (TextBoxSettings)itemSettins.NestedExtensionSettings;
+            textBoxSettings.Name = "FileName";
+            textBoxSettings.ShowModelErrors = true;
+            textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+            textBoxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            textBoxSettings.ControlStyle.CssClass = "form-control";
+
+        });
+
+        //MVCxFormLayoutItem item = groupSettings.Items.Add(itemSettins =>
+        //{
+        //    itemSettins.ShowCaption = DefaultBoolean.False;
+        //    //itemSettins.Width = Unit.Percentage(100);
+        //    itemSettins.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        //});
+        //item.SetNestedContent(() =>
+        //{
+        //    ViewContext.Writer.Write("<table><tr><td style=\"padding-right:10px;\">");
+
+        //    Html.DevExpress().Button(s =>
+        //    {
+        //        s.Name = "Submit";
+        //        //s.Width = Unit.Pixel(100);
+        //        s.Text = "Submit";
+        //        s.UseSubmitBehavior = true;
+        //    }).Render();
+
+        //    ViewContext.Writer.Write("</td><td>");
+
+        //    Html.DevExpress().HyperLink(s =>
+        //    {
+        //        s.Name = "Cancel";
+        //        s.Properties.Text = "Cancel";
+        //        s.NavigateUrl = Url.Content("ResponsiveLayoutPage");
+        //    }).Render();
+
+        //    ViewContext.Writer.Write("</td></tr></table>");
+        //});
+    });
+}).GetHtml()
+    

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3e9639f8-23ce-4a06-b9df-708cec38ea21" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/ITS.Retail.WebClient/ScalesService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ScalesService.wsdl" MetadataType="Wsdl" ID="49a3b239-b9b5-47df-9339-e7553a1cd5bf" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ScalesService.svc?wsdl" />
+    <MetadataFile FileName="ScalesService.xsd" MetadataType="Schema" ID="07748e75-aea1-4a12-b864-e8f66df0e419" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ScalesService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ScalesService.disco" MetadataType="Disco" ID="a09705f5-1f16-4104-b8c9-9671ce7b3d41" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ScalesService.svc?disco" />
+    <MetadataFile FileName="ScalesService1.xsd" MetadataType="Schema" ID="7e248527-2f5d-43bc-b5a2-74c855006e7c" SourceId="1" SourceUrl="http://localhost/ITS.Retail.WebClient/ScalesService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,360 @@
+﻿@model IEnumerable<ITS.Retail.Model.PriceCatalogDetail>
+@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+
+@if (Model.Count() == 0)
+{
+    ViewContext.Writer.Write("false");
+}
+else
+{
+
+    		<!-- panel -->
+    <div class="jplist-panel box panel-top">
+
+        <!-- views -->
+        <div class="jplist-views"
+             data-control-type="views"
+             data-control-name="views"
+             data-control-action="views"
+             data-default="jplist-grid-view">
+
+            <button type="button" class="jplist-view jplist-list-view" data-type="jplist-list-view"></button>
+            <button type="button" class="jplist-view jplist-grid-view" data-type="jplist-grid-view"></button>
+            <button type="button" class="jplist-view jplist-thumbs-view" data-type="jplist-thumbs-view"></button>
+        </div>
+    </div>
+
+    <!-- data -->
+    <div class="list box text-shadow">
+
+        @foreach (PriceCatalogDetail priceCatalogDetail in Model)
+        {
+            bool inWishList;
+            if (ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.WishList == null)
+            {
+                inWishList = false;
+            }
+            else
+            {
+                inWishList = ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.WishList.DocumentDetails.FirstOrDefault(x => x.Item.Oid == priceCatalogDetail.Item.Oid) != null;
+            }
+            <div class="list-item box item" id="@priceCatalogDetail.Item.Oid">
+
+                <!-- img -->
+                <div class="img">
+                    @if (priceCatalogDetail.RetailValueWithoutDiscount != priceCatalogDetail.RetailValue)
+                    {
+                        <span class="onsale">@Resources.Offer</span>
+                    }
+                    <div class="mega-hover" style="cursor: pointer;">
+                        <a class="popup popup-image" href="#itemId-@priceCatalogDetail.Item.Oid">
+                            <i class="fa fa-info-circle fa-stack-1x"></i>
+                        </a>
+                    </div>
+                    <img src="@Url.Action("ShowImageId", "Static", new { Id = priceCatalogDetail.Item.Oid, imageSize = 2, ticks = priceCatalogDetail.Item.UpdatedOnTicks })" alt="" />
+                </div>
+                <div id="itemId-@priceCatalogDetail.Item.Oid" class="white-popup mfp-hide">
+                    <div class="border-top-blue"></div>
+                    <div class="container max-width-100">
+                        <div class="row margin-30-0">
+
+                            <div class="col-md-4 col-sm-6">
+                                <img class="img-thumbnail img-responsive center-block" src="@Url.Action("ShowImageId", "Static", new { Id = priceCatalogDetail.Item.Oid, imageSize = 2, ticks = priceCatalogDetail.Item.UpdatedOnTicks })" alt="" />
+                            </div>
+                            <div class="col-md-8 col-sm-6">
+                                <h3 class="title text-primary text-center">@priceCatalogDetail.Item.Description</h3>
+                                <h4 class="category text-center">
+
+                                    @if (priceCatalogDetail.Item.ItemAnalyticTrees.Count() > 0)
+                                    {
+                                        <span class="name">
+                                            @Resources.Category:
+                                            <a href="~/B2C/Products?CategoryID=@priceCatalogDetail.Item.ItemAnalyticTrees.First().Node.Oid">
+                                                @priceCatalogDetail.Item.ItemAnalyticTrees.First().Node.Description
+                                            </a>
+                                        </span>
+                                    }
+
+                                </h4>
+
+                                <p class="price text-center">
+                                    <span class="text-price">@Resources.Price: </span>
+                                    @if (priceCatalogDetail.RetailValueWithoutDiscount == priceCatalogDetail.RetailValue)
+                                    {
+                                        <span class="discount">@priceCatalogDetail.RetailValueWithoutDiscount.ToString("n2") &euro;</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="normal">@priceCatalogDetail.RetailValueWithoutDiscount.ToString("n2") &euro;</span>
+                                        <span class="discount">@priceCatalogDetail.RetailValue.ToString("n2") &euro;</span>
+                                    }
+
+                                </p>
+                                <div class="row additional">
+                                    <div class="col-md-6">
+                                        <p class="code text-center">@Resources.Code: @priceCatalogDetail.Item.Code</p>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="points text-center">@Resources.Points: @priceCatalogDetail.Item.Points</p>
+                                    </div>
+                                </div>
+                                @if (!String.IsNullOrEmpty(priceCatalogDetail.Item.ExtraFilename))
+                                {
+                                    <div class="row additional">
+                                        <div class="col-md-12">
+                                            <h4 class="text-center text-info">@Resources.DownloadInformationSheet</h4>
+                                            <a type="button" class="btn btn-primary center-block" href="@Url.Action("DownloadExtraFile", "Home", new { Oid = priceCatalogDetail.Item.Oid })">
+                                                @priceCatalogDetail.Item.ExtraFilename
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block">
+
+
+                    @if (ViewBag.CategoriesExist == true)
+                    {
+
+                        if (priceCatalogDetail.Item.ItemAnalyticTrees.Count() > 0)
+                        {
+                            <p class="category">
+                                <span class="name">
+                                    @Resources.Category: <a href="~/B2C/Products?CategoryID=@priceCatalogDetail.Item.ItemAnalyticTrees.First().Node.Oid">
+                                        @priceCatalogDetail.Item.ItemAnalyticTrees.First().Node.Description
+                                    </a>
+                                </span>
+                            </p>
+                        }
+                    }
+                    <p class="title">@priceCatalogDetail.Item.Name</p>
+
+
+                    <p class="price">
+
+                        @if (priceCatalogDetail.RetailValueWithoutDiscount == priceCatalogDetail.RetailValue)
+                        {
+                            <span class="discount">@priceCatalogDetail.RetailValueWithoutDiscount.ToString("n2") &euro;</span>
+                        }
+                        else
+                        {
+                            <span class="normal">@priceCatalogDetail.RetailValueWithoutDiscount.ToString("n2") &euro;</span>
+                            <span class="discount">@priceCatalogDetail.RetailValue.ToString("n2") &euro;</span>
+                        }
+
+                    </p>
+
+                    <div class='botton_side'>
+                        <div class="margin-bottom-15">
+                            @{
+            string componentName = priceCatalogDetail.Oid.ToString() + "_Quantity";
+                            }
+
+
+                            @Html.DevExpress().SpinEdit(deSettings =>
+                        {
+                            deSettings.Name = componentName;
+                            deSettings.Number = 1;
+                            deSettings.Properties.MinValue = 1;
+                            deSettings.Properties.MaxValue = 9999;
+                            deSettings.Properties.SpinButtons.ShowIncrementButtons = true;
+                            deSettings.ControlStyle.CssClass = "spinnerEdit margin-bottom-0";
+                            deSettings.Properties.ClientSideEvents.KeyPress = "Products.ItemSpinEdit_OnKeyPress";
+                            deSettings.Width = 80;
+                            deSettings.Height = 40;
+                            deSettings.RightToLeft = DefaultBoolean.False;
+                            deSettings.Properties.ButtonStyle.CssClass = "spinnerButton";
+                        }).GetHtml()
+
+                        </div>
+                        <div class="margin-bottom-15 last">
+                            @Html.DevExpress().Button(deSettings =>
+                        {
+                            deSettings.Name = componentName + "3";
+                            deSettings.ClientEnabled = !inWishList;
+                            deSettings.ControlStyle.CssClass = inWishList ? "ProductaddBtn wishlist-red-button" : "ProductaddBtn wishlist-button";
+                            deSettings.Text = "<i class=\"fa  fa-heart\"></i>";
+                            deSettings.Height = 40;
+                            deSettings.ClientSideEvents.Click = "Products.WishListButtonPressed";
+                            deSettings.EncodeHtml = false;
+                            deSettings.ToolTip = inWishList ? Resources.AddedItemToWishList : Resources.AddItemToWishList;
+                        }).GetHtml()
+                            @Html.DevExpress().Button(deSettings =>
+                        {
+                            deSettings.Name = componentName + "2";
+                            deSettings.ControlStyle.CssClass = "ProductaddBtn ";
+                            deSettings.Text = "<i class=\"fa  fa-shopping-cart\"></i><span class=\"hide-mobile-custom\">&nbsp;" + @Resources.Add + "</span>";
+                            deSettings.Height = 40;
+                            deSettings.ClientSideEvents.Click = "Products.ItemSpinEdit_OnKeyPress";
+                            deSettings.EncodeHtml = false;
+                        }).GetHtml()
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+
+    if (ViewBag.TotalPages > 1)
+    {
+        <div class="text-right">
+            @ViewBag.ShowingItemsOnPage
+        </div>
+
+        <nav class="text-center">
+            <ul class="pagination pagination-lg">
+                @{
+        int count = 0;
+        int range = 6;
+        bool endOfPagination = false;
+        string controller/*, action = "Index"*/, CategoryID = null;
+        controller = (ViewBag.Title == ITS.Retail.ResourcesLib.Resources.LatestProducts) ? "Home" : "Products";
+        if (!String.IsNullOrWhiteSpace(Request["CategoryID"]))
+        {
+            CategoryID = Request["CategoryID"];
+        }
+
+        if (ViewBag.CurrentPage == 1)
+        {
+            endOfPagination = true;
+            <li class="disabled">
+                <span>
+                    <span aria-hidden="true">&laquo;</span>
+                </span>
+            </li>
+        }
+        else if (ViewBag.TotalPages >= ViewBag.CurrentPage + 5)
+        {
+            endOfPagination = true;
+            <li>
+                <a href="javascript:;" onclick="Products.SwitchToPage(@(ViewBag.CurrentPage - 1))">&laquo;</a>
+            </li>
+        }
+
+        if (ViewBag.CurrentPage + 5 > ViewBag.TotalPages)
+        {
+            for (int pageNum = ViewBag.CurrentPage - 5; pageNum <= ViewBag.TotalPages; pageNum++)
+            {
+                if (pageNum > 0)
+                {
+                    if (!endOfPagination)
+                    {
+                        <li>
+                            <a href="javascript:;" onclick="Products.SwitchToPage(@(pageNum-1))">&laquo;</a>
+                        </li>
+                        endOfPagination = true;
+                    }
+
+                    range--;
+
+                    if (pageNum == ViewBag.CurrentPage)
+                    {
+                        <li class="active">
+                            <span>@pageNum <span class="sr-only">(current)</span></span>
+                        </li>
+                    }
+                    else if (range >= 0)
+                    {
+                        <li>
+                            <a href="javascript:;" onclick="Products.SwitchToPage(@pageNum)">@pageNum</a>
+                        </li>
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+            }
+        }
+        if (ViewBag.TotalPages >= ViewBag.CurrentPage + 5)
+        {
+            for (int pageNum = ViewBag.CurrentPage; pageNum <= ViewBag.TotalPages; pageNum++)
+            {
+                count++;
+
+                if (pageNum == ViewBag.CurrentPage || pageNum == 1)
+                {
+
+                    <li class="active">
+                        <span>@pageNum <span class="sr-only">(current)</span></span>
+                    </li>
+                }
+                else if (range >= 0)
+                {
+                    <li>
+                        <a href="javascript:;" onclick="Products.SwitchToPage(@pageNum)">@pageNum</a>
+                    </li>
+
+                }
+
+
+                if (count > 5)
+                {
+                    break;
+                }
+                range--;
+
+            }
+        }
+
+
+
+        if (ViewBag.CurrentPage == ViewBag.TotalPages)
+        {
+            <li class="disabled">
+                <span>
+                    <span aria-hidden="true">&raquo;</span>
+                </span>
+            </li>
+        }
+        else if (ViewBag.CurrentPage + 5 >= ViewBag.TotalPages && count == 0)
+        {
+            <li>
+                <a href="javascript:;" onclick="Products.SwitchToPage(@(ViewBag.CurrentPage + 1))">&raquo;</a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="javascript:;" onclick="Products.SwitchToPage(@(ViewBag.CurrentPage + count))">&raquo;</a>
+
+            </li>
+        }
+                }
+            </ul>
+        </nav>
+    }
+
+
+
+}
+
+@using (
+    Ajax.BeginForm("Search", new { Controller = "Products" },
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnComplete = "Products.ProductListing",
+        UpdateTargetId = "maincontent",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "Layout.ShowLoadingPanel",
+        OnSuccess = "Layout.HideLoadingPanel"
+    },
+    new { @class = "filters nav navbar-form nav navbar-form navbar-right form-wrapper collapse-mobile", @id = "pagination-form" }
+
+    ))
+{
+    @Html.Hidden("Page")
+}

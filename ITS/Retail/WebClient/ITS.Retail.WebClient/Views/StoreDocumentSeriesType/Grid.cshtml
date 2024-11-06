@@ -1,0 +1,405 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    settings.Name = "grdStoreDocumentSeriesType";
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+            if ((bool)ViewData["TableCanUpdate"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + ITS.Retail.ResourcesLib.Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + ITS.Retail.ResourcesLib.Resources.Edit + "\" /></a>");
+            }
+            if ((bool)ViewData["TableCanDelete"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + ITS.Retail.ResourcesLib.Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + ITS.Retail.ResourcesLib.Resources.Delete + "\" /></a>");
+            }
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            if ((bool)ViewData["TableCanInsert"])
+            {
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + ITS.Retail.ResourcesLib.Resources.Add + "\" /></a>");
+            }
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 70;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentSeries.Store.Name";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.Store;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentSeries.Description";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.Series;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultDiscountPercentage";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.Discount;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((decimal)DataBinder.Eval(c.DataItem, "DefaultDiscountPercentage")) * 100);
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultCustomer.CompanyName";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.DefaultCustomer;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultSupplier.CompanyName";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.DefaultSupplier;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultCustomReport.Description";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.DefaultCustomReport;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UserType";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.UserType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((UserType)DataBinder.Eval(c.DataItem, "UserType")).ToLocalizedString());
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Duplicates";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.Duplicates;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MenuDescription";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.MenuDescription;
+    });
+
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "StoreDocumentType";
+        col.Caption = ITS.Retail.ResourcesLib.Resources.DocumentType;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eStoreDocumentType)DataBinder.Eval(c.DataItem, "StoreDocumentType")).ToLocalizedString());
+        });
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "RemotePrinterService.Name";
+        col.Caption = Resources.RemotePrinterService;
+    });
+
+//settings.Columns.Add(col =>
+//{
+//    col.FieldName = "PrinterNickName";
+//    col.Caption = Resources.Printer;
+//});
+
+settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "StoreDocumentSeriesType", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "StoreDocumentSeriesType", Action = "Update" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "StoreDocumentSeriesType", Action = "Update" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "StoreDocumentSeriesType", Action = "Delete" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = (bool)ViewData["TableCanInsert"];
+    settings.CommandColumn.ShowUpdateButton = (bool)ViewData["TableCanUpdate"]; ;
+    settings.CommandColumn.ShowDeleteButton = (bool)ViewData["TableCanDelete"]; ;
+    settings.CommandColumn.ShowEditButton = (bool)ViewData["TableCanUpdate"]; ;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = ITS.Retail.ResourcesLib.Resources.Actions;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+
+//settings.ClientSideEvents.BeginCallback = "OnBeginCallbackStoreDocumentSeriesTypeGrid";
+
+settings.SettingsText.Title = ITS.Retail.ResourcesLib.Resources.MenuDocumentSettigsStoreDocumentSeriesTypes;
+
+    settings.SettingsCommandButton.UpdateButton.Text = ITS.Retail.ResourcesLib.Resources.Save;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsText.PopupEditFormCaption = ITS.Retail.ResourcesLib.Resources.Series + " - " + ITS.Retail.ResourcesLib.Resources.Type;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["Item"] = item;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+/*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnStoreDocumentSeriesTypeUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnStoreDocumentSeriesTypeCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+/*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.Series + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DocumentSeriess";//DevExpress 15.1 stupid bug https://community.devexpress.com/blogs/aspnet/archive/2015/06/09/asp-net-mvc-other-enhancements-in-v15-1.aspx
+edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = ITS.Retail.ResourcesLib.Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.Properties.DropDownWidth = 550;
+            edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            edtSettings.Properties.CallbackPageSize = 15;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = ITS.Retail.ResourcesLib.Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            edtSettings.Properties.Columns.Add("Code", ITS.Retail.ResourcesLib.Resources.Code, 130);
+            edtSettings.Properties.Columns.Add("Description", ITS.Retail.ResourcesLib.Resources.Store, 130);
+            edtSettings.Properties.Columns.Add("Store.Description", ITS.Retail.ResourcesLib.Resources.Store, 130);
+        }).BindList(ViewBag.StoreDocumentSeriesComboBox).Bind(DataBinder.Eval(item, "DocumentSeries!Key")).Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.Discount + " % :";
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Pixel(120);
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultDiscountPercentage";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Height = System.Web.UI.WebControls.Unit.Pixel(25);
+       
+        }).Bind(DataBinder.Eval(item, "DefaultDiscountPercentage") * 100).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.DefaultCustomer + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.RenderPartial("SelectDefaultCustomer", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.MenuDescription + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Memo(txtSettings =>
+        {
+            txtSettings.Name = "MenuDescription";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.Height = System.Web.UI.WebControls.Unit.Pixel(40);
+        }).Bind(DataBinder.Eval(item, "MenuDescription")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.DefaultSupplier + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.RenderPartial("SelectDefaultSupplier", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.DocumentType + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "StoreDocumentType";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(eStoreDocumentType);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = ITS.Retail.ResourcesLib.Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum<eStoreDocumentType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "StoreDocumentType") ?? eStoreDocumentType.NONE).GetHtml();
+
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+
+        ViewContext.Writer.Write("<div class=\"background-grey\">");
+
+        ViewContext.Writer.Write("<h2 class=\"title-blue\">" + ITS.Retail.ResourcesLib.Resources.ReportSettings + "</h2>");
+
+
+        ViewContext.Writer.Write("<table><tr><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.DefaultCustomReport + ":";
+        }).Render();
+
+        Html.RenderPartial("SelectDefaultCustomReport", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.UserType + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "UserType";
+            cmb_settings.Properties.ValueType = typeof(UserType);
+            cmb_settings.Properties.ValueField = "Key";
+            cmb_settings.Properties.TextField = "Value";
+        }).BindList(ViewBag.UserTypes).Bind(DataBinder.Eval(item, "UserType") ?? UserType.NONE).Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = ITS.Retail.ResourcesLib.Resources.Duplicates + ":";
+        }).Render();
+
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "Duplicates";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 1;
+            edtSettings.Properties.MaxValue = 100;
+            edtSettings.Properties.MaxLength = 100;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+            edtSettings.Number = 1;
+        }).Bind(DataBinder.Eval(item, "Duplicates") ?? 1).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("</div>");
+    });
+}).Bind(Model).GetHtml()

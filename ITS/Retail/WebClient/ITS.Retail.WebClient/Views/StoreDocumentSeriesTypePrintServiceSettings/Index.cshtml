@@ -1,0 +1,12 @@
+﻿@model IEnumerable<StoreDocumentSeriesTypePrintServiceSettings>
+
+@{
+    ViewBag.Title = Resources.StoreDocumentSeriesTypePrintServiceSettings;    
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/PrintServiceSettings.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@Html.Partial("Grid", Model)
+

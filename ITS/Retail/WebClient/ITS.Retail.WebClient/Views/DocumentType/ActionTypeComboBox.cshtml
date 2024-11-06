@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.WebClient.Controllers;
+@model ActionTypeEntity
+
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Enabled = true;
+    combosettings.Name = "ActionType";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.CallbackRouteValues = new { Controller = "DocumentType", Action = "ActionTypeComboBox" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Description";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.DropDownButton.Visible = true;
+    combosettings.Properties.Columns.Add("Description", Resources.Description, 100);
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+}).BindList(DocumentTypeController.ActionTypeRequestedByFilterCondition,DocumentTypeController.ObjectRequestedByValue<ITS.Retail.Model.ActionType>).BindList(DocumentTypeController.GetObjectByValue<ITS.Retail.Model.ActionType>(DataBinder.Eval(Model, "ActionType!Key"))).Bind(DataBinder.Eval(Model, "ActionType!Key")).GetHtml()

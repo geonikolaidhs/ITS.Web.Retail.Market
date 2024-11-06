@@ -1,0 +1,87 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(gridSettings =>
+{
+    gridSettings.SettingsPager.PageSizeItemSettings.Visible = true;
+    gridSettings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    gridSettings.AccessibilityCompliant = true;
+    gridSettings.SettingsBehavior.EnableCustomizationWindow = true;
+    gridSettings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    gridSettings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    gridSettings.Enabled = false;
+    
+    gridSettings.Name = "grdItemsOfManufacturer";
+    gridSettings.KeyFieldName = "Oid";
+    gridSettings.Settings.ShowFilterRow = true;
+    gridSettings.Settings.ShowFilterRowMenu = true;
+    gridSettings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    gridSettings.Settings.ShowGroupPanel = true;
+    gridSettings.Settings.ShowFooter = true;
+    gridSettings.Settings.ShowHeaderFilterButton = true;
+    gridSettings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    gridSettings.SettingsBehavior.EnableRowHotTrack = true;
+    gridSettings.CallbackRouteValues = new { Controller = "Item", Action = "ItemsOfManufacturerGrid" };
+    gridSettings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    gridSettings.KeyboardSupport = false;
+    gridSettings.SettingsPager.PageSize = 20;
+    gridSettings.SettingsCookies.Enabled = false;
+    //gridSettings.SettingsCookies.CookiesID = "grdItemsOfManufacturer";
+    gridSettings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    gridSettings.SettingsCookies.StoreColumnsWidth = true;
+    gridSettings.SettingsCookies.StoreFiltering = false;
+    gridSettings.SettingsCookies.StorePaging = true;
+    gridSettings.Settings.ShowTitlePanel = true;
+    gridSettings.SettingsText.Title = Resources.Items;
+    gridSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    gridSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+    gridSettings.SettingsPager.AlwaysShowPager = false;
+
+    gridSettings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    gridSettings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    gridSettings.SettingsPager.EnableAdaptivity = true;
+    gridSettings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    //gridSettings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    gridSettings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridSettings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridSettings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    gridSettings.CommandColumn.Visible = false;
+
+    gridSettings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+    //gridSettings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+
+    gridSettings.Columns.Add(col =>
+    {
+        col.FieldName = "BasicItem.Name";
+        col.Caption = Resources.ItemName;
+        col.Width = 250;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    
+}).Bind(Model).GetHtml()

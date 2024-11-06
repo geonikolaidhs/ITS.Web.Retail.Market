@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Enabled = true;
+    combosettings.Name = "TraderTypeCombobox";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.CallbackRouteValues = new { Controller = "DocumentType", Action = "TraderTypeCombobox" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Value";
+    combosettings.Properties.ValueField = "Key";
+    combosettings.Properties.ValueType = typeof(eDocumentTraderType?);
+    combosettings.Properties.DropDownButton.Visible = true;
+    combosettings.Properties.Caption = Resources.Trader;
+    combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 0;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+}).BindList(ViewBag.AvailableTraderTypes).Bind(DataBinder.Eval(Model, "TraderType")).GetHtml()

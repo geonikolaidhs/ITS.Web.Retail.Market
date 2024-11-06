@@ -1,0 +1,168 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu"); 
+        }           
+    };
+
+    if (ViewBag.EditMode != null && ViewBag.EditMode == true)
+    {
+        settings.Name = "grdCustomerAnalyticTree";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+                );
+
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+                );
+            });
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+        settings.CallbackRouteValues = new { Controller = "Customer", Action = "CustomerAnalyticTreeGrid", editMode = true };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Customer", Action = "CustomerAnalyticTreeAddNewPartial" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Customer", Action = "CustomerAnalyticTreeDeletePartial" };
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallbackCustomerAnalyticTreeGrid";
+    }
+    else
+    {
+        settings.Name = "grdCustomerAnalyticTreeRow" + ViewData["CustomerID"];
+        settings.CallbackRouteValues = new { Controller = "Customer", Action = "CustomerAnalyticTreeGrid", CustomerID = ViewData["CustomerID"], editMode = false };
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Root.Description";
+        col.Caption = Resources.CategoryRoot;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CategoryPath";
+        col.Caption = Resources.CategoryPath;
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Node.Description";
+        col.Caption = Resources.CategoryNode;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalOffset = -250;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.NewCategory;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Categories;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    string gridName = "";
+    
+    if (ViewBag.EditMode != null && ViewBag.EditMode == true)
+    {
+        gridName = "grdCustomerAnalyticTree";
+    }
+    else
+    {
+        gridName = "grdCustomerAnalyticTreeRow";
+    }
+    
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        Html.RenderPartial("../CustomerCategory/TreeView");
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["Customer"] = item;
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnCustomerAnalyticTreeUpdate";
+        headerOptions.SaveButton.OnClick = "OnSaveBtnClickCustomerAnalyticTree";
+        headerOptions.CancelButton.Name = "btnCustomerAnalyticTreeCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+    });
+
+}).Bind(Model).GetHtml()

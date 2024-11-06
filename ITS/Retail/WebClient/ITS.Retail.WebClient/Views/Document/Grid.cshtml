@@ -1,0 +1,377 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@using System.Web.UI.WebControls;
+@using System.Linq;
+
+@{    
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(DocumentHeader), typeof(DocumentController), "grdDocument", generateColumns: false);
+
+    eDivision modeDivision = ViewBag.Division;
+
+
+    settings.SettingsText.Title = ViewBag.Title;
+
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Document", Action = "DeleteDocument" };
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    settings.ClientSideEvents.BeginCallback = "grdDocumentOnBeginCalback";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "GrossTotal").DisplayFormat = "c";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, "Quantity");
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Average, "CalculatedTotalQty");
+
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.Settings.ShowHeaderFilterButton = true;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    Session["DocumentHeaderGridSettings"] = settings;
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "DELETESELECTED" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+        {
+            grid.Selection.UnselectAll();
+        }
+    };
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+    settings.HtmlDataCellPrepared = (object sender, ASPxGridViewTableDataCellEventArgs e) =>
+    {
+        MVCxGridView View = sender as MVCxGridView;
+        if (e.VisibleIndex >= 0)
+        {
+            object tempObjectExists = View.GetRowValues(e.VisibleIndex, "TempObjExists");
+            if ((bool)tempObjectExists)
+            {
+                e.Cell.ControlStyle.CssClass += " inactiveRow";
+            }
+        }
+    };
+
+    ///COLLUMNS OF GRID
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "FinalizedDate";
+        column.Caption = Resources.Date;
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.PropertiesEdit.DisplayFormatString = "dd-MMM-yyyy";
+        column.Width = 120;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "InvoicingDate";
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Caption = Resources.InvoicingDate;
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.Visible = false;
+        column.Width = 120;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Status.Description";
+        column.Caption = Resources.DocumentStatus;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Width = 120;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DocumentType.Description";
+        column.Caption = Resources.DocumentType;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = 120;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DocumentSeries.Description";
+        column.Caption = Resources.DocumentSeries;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentNumber";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.DocumentNumber;
+        col.Width = 120;
+    });
+
+    if (modeDivision == eDivision.Purchase
+     || modeDivision == eDivision.Financial
+       )
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Supplier.CompanyName";
+            col.Caption = Resources.Supplier;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Visible = false;
+            col.Width = 120;
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Store.Name";
+        col.Caption = Resources.Store;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    if (UserHelper.IsAdmin(ViewBag.CurrentUser))
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Owner.CompanyName";
+            col.Caption = Resources.Company;
+            col.Width = 120;
+        });
+    }
+
+    if (modeDivision == eDivision.Sales
+     || modeDivision == eDivision.Financial
+       )
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Customer.CompanyName";
+            col.Caption = Resources.Customer;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Width = 120;
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "GrossTotal";
+        col.Caption = Resources.Total;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CreatedOn";
+        col.Caption = Resources.DocumentCreatedOn;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UpdatedOn";
+        col.Caption = Resources.DocumentUpdatedOn;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsCanceled";
+        col.Caption = Resources.IsCanceled;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        CheckBoxProperties checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    bool isCustomer = UserHelper.IsCustomer(ViewBag.CurrentUser);
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CreatedByDeviceName";
+        col.Caption = Resources.CreatedByDevice;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = !isCustomer;
+        col.Width = 120;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UpdatedByDeviceName";
+        col.Caption = Resources.UpdatedByDevice;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = !isCustomer;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "HasBeenChecked";
+        col.Caption = Resources.HasBeenChecked;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "HasBeenExecuted";
+        col.Caption = Resources.HasBeenExecuted;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        CheckBoxProperties checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CalculatedTotalQty";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Quantity;
+        col.PropertiesEdit.DisplayFormatString = "n2";
+        col.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+        col.Width = 120;
+
+    });
+
+    if((eDivision?)ViewBag.Division == eDivision.Sales)
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "TotalPoints";
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Caption = Resources.Points;
+            col.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            col.Width = 120;
+        });
+
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "ConsumedPointsForDiscount";
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Caption = Resources.PointsConsumed;
+            col.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+            col.Width = 120;
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CreatedBy.UserName";
+        col.Caption = Resources.CreatedBy;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+        col.Visible = !isCustomer;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UpdatedBy.UserName";
+        col.Caption = Resources.UpdatedBy;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+        col.Visible = !isCustomer;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DerivedFrom";
+        col.Caption = Resources.DerivedFrom;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TransformedTo";
+        col.Caption = Resources.TransformedTo;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TransformationStatus";
+        col.Caption = Resources.Transform;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+        col.Visible = !isCustomer;
+        col.SetDataItemTemplateContent(c =>
+        {
+            eTransformationStatus status = Enum<eTransformationStatus>.Parse(DataBinder.Eval(c.DataItem, "TransformationStatus").ToString());
+            ViewContext.Writer.Write(Enum<eTransformationStatus>.ToLocalizedString(status));
+        });
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ExecutionDate";
+        column.Caption = Resources.ExecutionDate;
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.PropertiesEdit.DisplayFormatString = "dd-MMM-yyyy";
+        column.Width = 120;
+    });
+
+    if (modeDivision == eDivision.Store
+     || modeDivision == eDivision.Financial
+       )
+    {
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "SecondaryStore.Name";
+            column.Caption = Resources.SecondaryStore;
+            column.Width = 120;
+        });
+    }
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+
+

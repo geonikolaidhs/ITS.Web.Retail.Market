@@ -1,0 +1,29 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "AddressCbPanel";
+
+    settings.CallbackRouteValues = new { Controller = "Address", Action = "UpdatePhoneCombobox" };
+    settings.SetContent(() =>
+    {
+        var toBind = Model == Guid.Empty ? null : Model;
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.Caption = Resources.DefaultPhone;
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Name = "DefaultPhoneCb";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Number";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.DefaultPhoneComboBox).Bind(toBind).Render();
+    });
+
+    settings.ClientSideEvents.BeginCallback = "AddressCbPanelBegin";
+    settings.ClientSideEvents.EndCallback = "AddressCbPanelEnd";
+
+
+}).GetHtml()

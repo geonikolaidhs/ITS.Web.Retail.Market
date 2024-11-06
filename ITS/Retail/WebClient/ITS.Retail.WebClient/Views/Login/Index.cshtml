@@ -1,0 +1,190 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.Login;
+    Layout = /*(ViewBag.IsMobileDevice!=null && ViewBag.IsMobileDevice) ? "~/Views/Shared/_MobileLayout.cshtml" :*/ "~/Views/Shared/_LayoutInit.cshtml";    
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/responsiveslides.min.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/css/Login.css?ver=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/scripts/Login.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+    string path = "~/Content/InitialSlider/mas";
+    List<string> sliderImages = ITS.Retail.WebClient.Helpers.SliderHelper.GetSliderImagesNames(Server.MapPath(path));
+}
+
+<div class="info_banner">
+    <div class="login-logo-container">
+        <img id="logo" src="@Url.Content("~/Content/left.jpg?ver=" + ViewData["ApplicationVersionNumber"])">   
+        <span class="overlay"></span>  
+        <h1>
+            <img id="wrm" src="@Url.Content("~/Content/wrm-big.png?ver=" + ViewData["ApplicationVersionNumber"])">
+            @*<span>@Resources.WRMLoginDescription</span>*@
+        </h1>
+    </div>
+</div>
+@*@if (sliderImages.Count > 0){//The right command is sliderImages.Count>0..Thid is just for testing
+    int imageCounter = 0; 
+    <div class="info_banner">
+        <ul id="slider">
+            @foreach (string imageName in sliderImages)
+            {
+                imageCounter++;
+                <li>  
+                    <img src="@Url.Content(path+imageName + "?ver=" + ViewData["ApplicationVersionNumber"])" />
+                </li>
+            }
+        </ul> 
+        <div class="its-container">
+            <img class="its-logo" src="@Url.Content("~/Content/its-big-logo.png?ver=" + ViewData["ApplicationVersionNumber"])" />
+        </div>  
+    </div>
+
+}
+else
+{
+     <div class="info_banner">
+         <div class="login-logo-container">
+             <img id="logo" src="@Url.Content("~/Content/images/pres.gif?ver=" + ViewData["ApplicationVersionNumber"])">
+             @*<img id="logo" src="/Content/wrm.jpg?ver=" + ViewData["ApplicationVersionNumber"]>*@
+         @*</div>
+         <div class="its-container">
+             <img class="its-logo" src="@Url.Content("~/Content/its-big-logo.png?ver=" + ViewData["ApplicationVersionNumber"])" />
+         </div>
+    </div>
+}*@
+
+@using (Html.BeginForm("Index", "Login", new { ReturnUrl = Model }, FormMethod.Post, new { onSubmit = "return login_submit()" }))
+{
+    /*if (ViewBag.IsMobileDevice != null && ViewBag.IsMobileDevice == true)
+    {
+        <label>@Resources.Username</label><input type="text" id="UserName" name="UserName" /> <br />
+        <label>@Resources.Password</label><input type="password" id="Password" name="Password" /> <br />        
+        <input type="checkbox" id="RememberMe" name="RememberMe" /> @Resources.Remarks<br />
+        <input type="submit" name="Login" id = "Login" value = "@Resources.Login" onclick=""/>  
+    }
+    else*/
+    {
+    <div class="login">
+        <div class="login-container">
+            <h2>@ViewBag.Title</h2>
+            @Html.DevExpress().Label(labelsetings =>
+           {
+               labelsetings.Text = Resources.UserName;
+
+           }).GetHtml()
+
+            <input type="text" value="" name="UserName" id="UserName" />
+
+            @Html.DevExpress().Label(labelsetings =>
+           {
+               labelsetings.Text = Resources.Password;
+           }).GetHtml()
+
+            <input type="password" value="" name="Password" id="Password" />
+
+            @Html.DevExpress().Button(settings =>
+            {
+                settings.Name = "Login";
+                settings.ControlStyle.CssClass = "login_btn_size";
+                settings.UseSubmitBehavior = true;
+                //settings.ClientSideEvents.Click = "CheckConnectedUsers";
+                settings.Text = Resources.Login;
+
+            }).GetHtml()
+            @if (ViewBag.ShowNavigation == null || Boolean.Parse(ViewBag.ShowNavigation.ToString()) == true)
+            {
+                <div class="languagePick">
+                    @Html.DevExpress().Menu(sets =>
+               {
+                   sets.Name = "languagePicker";
+                   sets.AllowSelectItem = true;
+                   sets.EnableHotTrack = true;
+                   sets.EnableAnimation = true;
+                   sets.Items.Add(grps =>
+                   {
+                       if (ViewData["CurrentCulture"] == null)
+                       {
+                           grps.Text = "Language";
+                       }
+                       else
+                       {
+                           if (ViewData["CurrentCulture"].ToString() == "en")
+                           {
+                               grps.Text = "English";
+                           }
+                           else if (ViewData["CurrentCulture"].ToString() == "el")
+                           {
+                               grps.Text = "Ελληνικά";
+                           }
+                           else if (ViewData["CurrentCulture"].ToString() == "de")
+                           {
+                               grps.Text = "Deutsch";
+                           }
+                           else if (ViewData["CurrentCulture"].ToString() == "no")
+                           {
+                               grps.Text = "Norsk";
+                           }
+                           else
+                           {
+                               grps.Text = "Language";
+                           }
+                       }
+                       grps.Items.Add(eng =>
+                       {
+                           eng.Text = "English";
+                           eng.Name = "mitLanguageEnglish";
+                           eng.NavigateUrl = "javascript:chooseLanguage('en')";
+                       });
+                       grps.Items.Add(gr =>
+                       {
+                           gr.Text = "Ελληνικά";
+                           gr.Name = "mitLanguageGreek";
+                           gr.NavigateUrl = "javascript:chooseLanguage('el')";
+                       });
+                       grps.Items.Add(de =>
+                       {
+                           de.Text = "Deutsch";
+                           de.Name = "mitLanguageGerman";
+                           de.NavigateUrl = "javascript:chooseLanguage('de')";
+                       });
+                       grps.Items.Add(de =>
+                       {
+                           de.Text = "Norsk";
+                           de.Name = "mitLanguageNorwegian";
+                           de.NavigateUrl = "javascript:chooseLanguage('no')";
+                       });
+                   });
+               }).GetHtml()
+                </div>
+            }
+            <div class="its-container">
+                <a href='http://www.its.net.gr/' target="_blank">
+                    @*<span class="developed">@Resources.DesignedDevelopedBy</span>*@
+                    <img class="its-logo" src="@Url.Content("~/Content/ITS.png?ver=" + ViewData["ApplicationVersionNumber"])" />
+                </a>
+                <div class="versions">
+                    <span id="connectedUsers">
+                        @{ string version = @System.Reflection.Assembly.GetAssembly(typeof(ITS.Retail.WebClient.MvcApplication)).GetName().Version.ToString(); }
+                    </span>
+                    <span>
+                        Ver. @version&nbsp;
+                        @{
+                            string patchFile = Server.MapPath("~/patch.txt");
+                            if (File.Exists(patchFile))
+                            {
+                                string patchVersion;
+                                using (StreamReader reader = new StreamReader(patchFile))
+                                {
+                                    patchVersion = reader.ReadToEnd();
+                                }
+                                @patchVersion
+                            }
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>   
+    }
+}

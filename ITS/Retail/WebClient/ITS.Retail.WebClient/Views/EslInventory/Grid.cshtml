@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ITS.Retail.Model.MobileInventory.MobileInventoryEslEntry>
+
+@{
+    var settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext,
+        typeof(ITS.Retail.Model.MobileInventory.MobileInventoryEslEntry),
+        typeof(EslInventoryController), "grdMobileInventoryEsl", generateColumns:false);
+
+    settings.Columns.Add("InventoryNumber", Resources.Number);
+    settings.Columns.Add("Item.Code", Resources.Code);
+    settings.Columns.Add("Item.Name", Resources.Name);
+    settings.Columns.Add("Qty", Resources.Quantity);
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

@@ -1,0 +1,182 @@
+﻿@using ITS.Retail.WebClient.Helpers.AuxilliaryClasses;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Extensions;
+
+@model GenericViewModelMaster
+
+@{
+    PopupControlSettings popUpSettings = PopUpControlExtension.GetDefaultSettings("GenericViewPopup");
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.None;
+    popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";    
+    
+    var popUpTitle = Model.Object.GetType().Name;
+    popUpTitle = Resources.ResourceManager.GetString(popUpTitle);
+    if (string.IsNullOrWhiteSpace(popUpTitle))
+    {
+        popUpTitle = Model.Object.GetType().Name;
+    }
+
+    popUpSettings.HeaderText = popUpTitle;
+
+    popUpSettings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    
+    if (Model.Details.Count == 0)
+    {
+        popUpSettings.ClientSideEvents.Shown = "GenericViewPopWithoutDetailsShown";
+      
+    }
+    else
+    {
+        popUpSettings.ClientSideEvents.Shown = "GenericViewPopWithDetails";
+        popUpSettings.ClientSideEvents.AfterResizing = "function (s,e) { genericViewDetails.AdjustSize();}";
+    }
+    
+    popUpSettings.SetContent(() =>
+    {
+        int loops = 0;
+        ViewContext.Writer.Write("<table id='genericViewTable'><tr>");
+
+        foreach (string property in Model.PropertiesToShow)
+        {
+            object propValue = Model.Object.GetType().GetProperty(property).GetValue(Model.Object, null);
+            string componentName = String.Format("view_{0}", property);
+
+            string propLabel = null;
+            try
+            {
+                propLabel = Resources.ResourceManager.GetString(property, Resources.Culture);
+                if (propLabel == null)
+                {
+                    propLabel = property;
+                }
+            }
+            catch (Exception)
+            {
+                propLabel = property;
+            }
+
+            ViewContext.Writer.Write("<td>");
+                        
+            if (propValue is bool)
+            {
+                Html.DevExpress().CheckBox(edtSettings =>
+                {
+                    edtSettings.Name = componentName;
+                    edtSettings.ReadOnly = true;
+                    edtSettings.ControlStyle.CssClass = "readOnlyInputElement padding-top-25";
+                    edtSettings.Properties.ValueChecked = true;
+                    edtSettings.Properties.ValueGrayed = true;
+                    edtSettings.Properties.ValueUnchecked = false;
+                    edtSettings.Text = propLabel;
+                    edtSettings.Properties.ValueType = typeof(bool);
+
+                }).Bind(propValue).Render();
+            }
+            else if (property == "ValueFactor" || property == "QuantityFactor")
+            {
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = propLabel + ":";
+                }).Render();
+                
+                @Html.DevExpress().RadioButtonList(radio_settings =>
+                {
+                    radio_settings.Name = componentName;
+                    radio_settings.Properties.Items.Add("-1", -1);
+                    radio_settings.Properties.Items.Add("0", 0);
+                    radio_settings.Properties.Items.Add("+1", 1);
+                    radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                    radio_settings.SelectedIndex = (int)propValue;
+                    radio_settings.ShowModelErrors = true;
+                    
+                    radio_settings.ReadOnly = true;
+                }).GetHtml();
+            }       
+            else
+            {
+                if (property == "Order")
+                {
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = Resources.ImportOrder + ":";
+                    }).Render();
+                }
+                else
+                {
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = propLabel + ":";
+                    }).Render();
+                }                
+                
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                    edtSettings.Name = componentName;
+                  
+                    edtSettings.ReadOnly = true;
+                    if (propValue != null)
+                    {
+                        edtSettings.Text = (propValue is Enum) ? ((Enum)propValue).ToLocalizedString() : propValue.ToString();
+                    }                    
+                }).Render();
+            }
+
+            ViewContext.Writer.Write("</td>");
+
+            loops++;
+
+            if (loops % Model.Ruleset.NumberOfColumns == 0)
+            {
+                ViewContext.Writer.Write("</tr><tr>");
+            }
+        }
+
+        ViewContext.Writer.Write("</tr></table>");
+
+        if (Model.Details.Count > 0)
+        {
+            Html.DevExpress().PageControl(settings =>
+            {
+                settings.AccessibilityCompliant = false;
+                settings.Name = "genericViewDetails";
+                settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+                settings.TabAlign = TabAlign.Left;
+                settings.TabPosition = TabPosition.Top;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        
+                foreach (GenericViewModelDetail detail in Model.Details)
+                {
+                    string title = detail.PropertyName;
+                    title = Resources.ResourceManager.GetString(title);
+                    if (string.IsNullOrWhiteSpace(title))
+                    {
+                        title = detail.PropertyName;
+                    }
+                    settings.TabPages.Add(title).SetContent(() =>
+                    {
+                        @Html.RenderAction("GenericViewGridPartial", (string)ViewBag.ControllerName, new { DetailPropertyName = detail.PropertyName, MasterObjKey = detail.Master.Object.Oid, MasterObjType = detail.Master.Object.GetType().Name });
+                    });
+                }
+                        
+                foreach (GenericViewModelDetailedProperty detailedProperty in Model.DetailedProperties)
+                {
+                    string title = Resources.ResourceManager.GetString(detailedProperty.Object.GetType().Name, Resources.Culture);
+                    if (string.IsNullOrWhiteSpace(title))
+                    {
+                        title = detailedProperty.Object.GetType().Name;
+                    }
+                    settings.TabPages.Add(title).SetContent(() =>
+                    {
+                        @Html.RenderAction("GenericViewTabPartial", (string)ViewBag.ControllerName, new { DetailedPropertyName = detailedProperty.PropertyName, MasterObjKey = detailedProperty.Master.Object.Oid, MasterObjType = detailedProperty.Master.Object.GetType().Name });
+                    });
+                }                        
+            }).Render();
+        }
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()

@@ -1,0 +1,16 @@
+﻿@model ITS.Retail.Common.XtraReportBaseExtension
+
+@Html.DevExpress().ReportViewer(settings =>
+{
+    // The following settings are necessary for a Report Viewer. 
+    settings.Name = "CustomReportViewer";
+    settings.Report = Model;
+    // Callback and export route values specify corresponding controllers and their actions. 
+    // These settings are necessary as well. 
+    settings.CallbackRouteValues = new { Controller = "Reports", Action = "CustomReportViewer" };
+    settings.ExportRouteValues = new { Controller = "Reports", Action = "CustomExportReportViewer" };
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallback_CustomReportViewer";
+    settings.ClientSideEvents.EndCallback = "OnEndCallback_CustomReportViewer";
+    settings.ClientSideEvents.BeforeExportRequest = "OnBeforeExportRequest_CustomReportViewer";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+}).GetHtml()

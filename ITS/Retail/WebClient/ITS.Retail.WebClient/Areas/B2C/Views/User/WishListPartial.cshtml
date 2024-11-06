@@ -1,0 +1,91 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+
+@{
+    DocumentHeader wishList = ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.WishList;
+}
+
+@Html.DevExpress().CallbackPanel(
+    settings => {
+        settings.Name = "callbackWishList";
+        settings.CallbackRouteValues = new { Controller = "WishList", Action = "WishListPartial" };
+
+        settings.SetContent(() =>
+        {
+            if (wishList !=null && wishList.DocumentDetails.Count()>0)
+            {
+                int counter = 0;
+                ViewContext.Writer.Write(
+                    "<table class=\"table table-hover table-wishlist\">"+
+                        "<tbody>"+                        
+                            "<tr class=\"header\">"+
+                                "<th>&nbsp;</th>"+
+                                "<th>"+Resources.Item+"</th>"+
+                                "<th>"+Resources.Price+"</th>"+
+                                "<th>&nbsp;</th>"+
+                            "</tr>"
+                );
+
+                        foreach (DocumentDetail detail in wishList.DocumentDetails)
+                        {
+                            counter++;
+                           
+                            ViewContext.Writer.Write(
+                                "<tr class=\"item first\">"+
+                                    "<td class=\"thumb\">"+
+                                        "<img class=\"img-responsive\" src="
+                                        + Url.Action("ShowImageId", "Static", new { Id = detail.Item.Oid, imageSize = 0, ticks = DateTime.Now.Date.Ticks }) +
+                                        " data-src=" + Url.Action("ShowImageId", "Static", new { Id = detail.Item.Oid, imageSize = 1, ticks = detail.Item.UpdatedOnTicks }) +
+                                        "  />"+
+                                    "</td>"+
+                                    "<td class=\"name\">"+detail.Item.Name+"</td>"+
+                                    "<td class=\"price\">"+detail.FinalUnitPrice.ToString("n2")+"&nbsp;&euro;</td>"
+                            );
+
+                            ViewContext.Writer.Write("<td>");
+                                Html.DevExpress().Button(deSettings =>
+                                {
+                                    deSettings.Name = "deleteAdd_" + detail.Oid;
+                                    deSettings.ControlStyle.CssClass = "ProductaddBtn";
+                                    deSettings.Text = "<i class=\"fa  fa-shopping-cart\"></i>&nbsp;" + Resources.Add;
+                                    deSettings.Height = 40;
+                                    deSettings.ClientSideEvents.Click = "WishList.WishListDeleteFromWishListAddToCart_Click";
+                                    deSettings.EncodeHtml = false;
+                                }).GetHtml();
+                            
+                            ViewContext.Writer.Write("</td><td class=\"delete\">");
+                                    Html.DevExpress().Button(deSettings =>
+                                    {
+                                        deSettings.Name = "delete_" + detail.Oid;
+                                        deSettings.EncodeHtml = false;
+                                        deSettings.Text = "<i class=\"fa fa-trash-o\"></i>";
+                                        deSettings.ClientSideEvents.Click = "WishList.WishListItemDelete_Click";
+                                        deSettings.ToolTip = Resources.Delete;
+                                    }).GetHtml();
+                            ViewContext.Writer.Write(
+                                    "</td>"+
+                                "</tr>"
+                            );
+                        }
+                ViewContext.Writer.Write(
+                    "</tbody>"+
+                "</table>"
+                );
+            }
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<h3 class=\"text-center\">"+
+                    Resources.WishListIsEmpty+
+                    "</h3>"
+                    );
+                    
+            }
+
+        });
+
+        //settings.ClientSideEvents.BeginCallback = "function(s,e){ "+ settings.Name+".PerformCallback();}";
+        //settings.ClientSideEvents.EndCallback = "function(s,e){ " + settings.Name + ".PerformCallback();}";
+    }
+).GetHtml()

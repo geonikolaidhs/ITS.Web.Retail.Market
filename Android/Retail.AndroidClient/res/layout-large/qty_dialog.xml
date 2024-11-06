@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lblQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/qty"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/text_small" />
+
+    <EditText
+        android:id="@+id/txtQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/text_small" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/lblDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discount"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/text_small" />
+
+    <EditText
+        android:id="@+id/txtDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:textSize="@dimen/text_small" />
+
+    <GridLayout
+        android:layout_width="482dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:columnCount="1" >
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="left|top"
+            android:layout_row="0"
+            android:text="@string/ok"
+            android:textSize="@dimen/text_small" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="right|top"
+            android:layout_row="0"
+            android:text="@string/cancel"
+            android:textSize="@dimen/text_small" />
+
+    </GridLayout>
+
+</LinearLayout>

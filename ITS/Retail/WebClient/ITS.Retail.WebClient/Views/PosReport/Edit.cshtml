@@ -1,0 +1,208 @@
+﻿@model ITS.Retail.Model.PosReport
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+
+
+@{
+    ViewBag.Title = @ViewBag.HeaderTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section HeaderScriptsAndStyles {
+    @*<script src="@Url.Content("~/Scripts/scripts/LabelsPrintingCommon.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/scripts/codemirror.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/CodeMirrrorJavaScript.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/scripts/CodeMirrorAddons.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>*@
+
+
+
+}
+
+<style>
+    .MainContainer {
+        width: 100%;
+        height: 100%;
+    }
+
+    .headerRow {
+        background-color: #3875a5;
+        text-align: center;
+        vertical-align: middle !important;
+        height: 45px;
+    }
+
+        .headerRow label {
+            /*margin-top: 15px !important;*/
+            padding-top: 15px !important;
+            color: whitesmoke !important;
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            margin: auto;
+        }
+
+    #Format {
+        width: 100%;
+    }
+
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: auto;
+    }
+
+    .CodeMirror-line {
+        font-size: 12px !important;
+    }
+</style>
+
+<div class="MainContainer">
+    <div class="row headerRow">
+        <label>@ViewBag.HeaderTitle</label>
+    </div>
+    <br><br>
+
+
+
+    @{
+
+        Html.EnableClientValidation();
+
+
+
+        using (Html.BeginForm("Save", "PosReport", FormMethod.Post, new { id = "PosReportForm" }))
+        {
+            ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey margin-bottom-20'>");
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            //headerOptions.SaveButton.OnClick = "ValidateAndSubmitForm";
+            //headerOptions.CancelButton.OnClick = "ReturnToIndex";
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+            /*End of header banner*/
+
+            ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray margin-auto'><tr><td>");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Code + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.Attributes.Add("id", "Code");
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(Model.Code).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Oid";
+                edtSettings.ControlStyle.CssClass = "hidden";
+                edtSettings.ShowModelErrors = false;
+            }).Bind(Model.Oid).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Description + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Description";
+                edtSettings.Attributes.Add("id", "Description");
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(Model.Description).Render();
+
+            ViewContext.Writer.Write("<td></td></tr></table>");
+
+            ViewContext.Writer.Write("</div>");
+
+
+            <br><br>
+            ViewContext.Writer.Write("<table  style='width:80%'; height:900px!important; class='headerTable margin-0-border-light-gray margin-auto'><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Format + ":";
+            }).Render();
+
+
+            <textarea id="Format" name="Format"></textarea>
+            ViewContext.Writer.Write("<td></td></tr></table>");
+
+            ViewContext.Writer.Write("</div>");
+            <br><br>
+        }
+    }
+</div>
+
+
+<script>
+
+    var myCodeMirror = null;
+    function SetTextAreaText()
+    {
+        var str = "@Model.Format.ToString()";
+        var res = str.replace(/&#39;/gi, "'");
+        var rep = res.replace(/&quot;/gi, '"');
+        var rap = rep.replace(/&lt;/gi, '<');
+        var rip = rap.replace(/&gt;/gi, '>');
+
+        $("#Format").text(rip);
+        myCodeMirror = CodeMirror.fromTextArea(document.getElementById("Format"));
+        myCodeMirror.setOption("theme", "base16-dark");
+        myCodeMirror.autoClearEmptyLines = true;
+        myCodeMirror.lineNumbers = true;
+        myCodeMirror.viewportMargin = Infinity;
+    }
+
+    $(document).ready(function () {
+
+        $("#btnUpdate").click(function (e) {
+            e.preventDefault();
+            //console.log($("#Format").text());
+            //var s1 = $("#Format").text();
+            //var s2 = s1.replace(/</gi,'**');
+            //var s3 = s2.replace(/>/gi, '***');
+            //$("#Format").text(s3)
+            //myCodeMirror.getDoc().setValue(s3);
+
+            //myCodeMirror.setValue(s3);
+
+
+
+
+
+            if ($("#Code").val() == "" || $("#Description").val() == "") {
+                return false;
+            }
+
+
+            $("#PosReportForm").submit();
+        });
+
+        $("#btnCancel").click(function (e) {
+            e.preventDefault();
+            var path = $('#HOME').val() + 'PosReport/Index';
+            window.location.href = path;
+
+        });
+
+        SetTextAreaText();
+
+    });
+</script>
+
+
+

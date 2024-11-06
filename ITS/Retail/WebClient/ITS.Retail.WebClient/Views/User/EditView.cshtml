@@ -1,0 +1,198 @@
+﻿@model ITS.Retail.Model.User
+
+@using (Html.BeginForm("Save", "User", FormMethod.Post))
+{
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "editForm";
+        settings.ShowHeader = false;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write(Html.Hidden("UserID", ViewData["UserID"].ToString()));
+            ViewContext.Writer.Write(Html.Hidden("selectedStores", ""));
+
+            ViewContext.Writer.Write("<div class='validateForm'>");
+
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+            headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+            /*End of header banner*/
+
+            ViewContext.Writer.Write("<table class=\"margin-0-auto\"><tr><td><table style='height:270px' class=\"validateForm headerTable\"><tr><td class=\"title\">" + Resources.UserInfo + "</td></tr><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.FullName + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "FullName";
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(DataBinder.Eval(Model, "FullName")).Render();
+        ViewContext.Writer.Write("</td><td colspan=\"2\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Customer + ":";
+            }).Render();
+
+            Html.RenderPartial("CustomersComboBoxPartial", ViewData["UserCustomer"]);
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.POSUserName + ":";
+                edtSettings.AssociatedControlName = "POSUserName";
+            }).Render();
+
+            Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "POSUserName";
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.Properties.ClientSideEvents.KeyDown = "NumericTextBoxOnKeyDown";
+                if (this.Model.Role != null && this.Model.Role.Type == eRoleType.Customer)
+                {
+                    txtSettings.ClientEnabled = false;
+                }
+            })
+            .Bind(DataBinder.Eval(Model, "POSUserName")).Render();
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.POSPassword + ":";
+
+            }).Render();
+
+            Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "POSPassword";
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.Properties.ClientSideEvents.KeyDown = "NumericTextBoxOnKeyDown";
+                if (this.Model.Role != null && this.Model.Role.Type == eRoleType.Customer)
+                {
+                    txtSettings.ClientEnabled = false;
+                }
+            }).Bind(DataBinder.Eval(Model, "POSPassword")).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.Text = Resources.POSUserLevel + ":";
+                }).Render();
+
+            Html.DevExpress().ComboBox(cmb_settings =>
+            {
+                cmb_settings.Name = "POSUserLevel";
+                if (this.Model.Role != null && this.Model.Role.Type == eRoleType.Customer)
+                {
+                    cmb_settings.ClientEnabled = false;
+                }
+            }).BindList(Enum.GetValues(typeof(ITS.Retail.Platform.Enumerations.ePOSUserLevel))).Bind(DataBinder.Eval(Model, "POSUserLevel")).GetHtml();
+
+
+            ViewContext.Writer.Write("</td></tr></table></td><td><table style='height:270px' class=\"headerTable\"><tr><td class=\"title\">" + Resources.AccountInfo + "</td></tr><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Role + ":";
+            }).Render();
+
+            Html.RenderPartial("UpdateRole");
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsCentralStore";
+                edtSettings.Text = Resources.IsCentralStore;
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "OnValueChangedIsCentralStore";
+            }).Bind(DataBinder.Eval(Model, "IsCentralStore")).Render();
+        ViewContext.Writer.Write("</td></tr><tr>");
+
+        //Html.RenderAction("GenerateUserKey", new { UserID = Request["ID"].ToString() });
+        ViewContext.Writer.Write("<td>");
+            Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsActive";
+                edtSettings.Text = Resources.IsActive;
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+            }).Bind(DataBinder.Eval(Model, "IsActive")).Render();
+        ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().CheckBox(txtSettings =>
+            {
+                txtSettings.Name = "IsApproved";
+                txtSettings.Text = Resources.IsApproved;
+
+            }).Bind(DataBinder.Eval(Model, "IsApproved")).Render();
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.UserName + ":";
+                edtSettings.AssociatedControlName = "UserName";
+            }).Render();
+
+            Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "UserName";
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(DataBinder.Eval(Model, "UserName")).Render();
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Password + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "Password";
+                txtSettings.Properties.Password = true;
+                txtSettings.ControlStyle.CssClass = "editor";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ClientSideEvents.Init = "OnInit";
+            //txtSettings.CustomJSProperties = (object sender, CustomJSPropertiesEventArgs e) =>
+            //{
+            //    e.Properties.Add("cp_Password", DataBinder.Eval(Model, "Password"));
+            //};
+            }).Render();
+
+
+            ViewContext.Writer.Write("</td></tr></table></td></tr></table>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div id='UserStoreAccessGridDiv'>");
+            Html.RenderPartial("UserStores");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div id='Message'></div>");
+        });
+    }).GetHtml();
+}

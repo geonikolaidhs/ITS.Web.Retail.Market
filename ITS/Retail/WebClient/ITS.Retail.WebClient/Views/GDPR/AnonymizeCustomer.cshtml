@@ -1,0 +1,11 @@
+﻿
+@model IEnumerable<ITS.Retail.Model.SupplierNew>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.ShowSettings = true;
+    ViewBag.Title = Resources.GDPRAnonymizeSupplier;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("../VariableValuesDisplay/VariableValuesPopUp")
+@ITS.Retail.ResourcesLib.Resources.GDPRAnonymizationCompleted
+

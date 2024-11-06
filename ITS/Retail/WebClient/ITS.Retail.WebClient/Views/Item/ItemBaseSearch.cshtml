@@ -1,0 +1,189 @@
+﻿@model ITS.Retail.Model.Item
+@using ITS.Retail.ResourcesLib;
+
+    @section HeaderScriptsAndStyles {
+        <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/scripts/ItemBaseSearch.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    }
+
+@{
+    ViewBag.KeepNotificationSpace = true;
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = Resources.ItemBaseSearch;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@Html.Partial("../Notification/NotifyUser")*@
+@using (Html.BeginForm("NewItemBase", "Item", FormMethod.Post, new { id = "ItemBaseSearchForm" }))
+{
+    ViewContext.Writer.Write("<table style='width:100%;'><tr><td style='width:40%;' class=\"vertical-align-td-top\">");
+      
+    @Html.DevExpress().RoundPanel(panelSettings =>
+{
+    panelSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    panelSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+    panelSettings.Name = "rpItemBaseBarcodeSearch";
+    panelSettings.HeaderText = Resources.SearchByBarcode;
+    panelSettings.SetContent(() =>
+    {
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Barcode;
+        }).Render();
+        
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "BarcodeSearchBox";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ClientSideEvents.KeyPress = "OnKeyPressBarcodeSearchBox";
+        }).Render();
+
+    });
+}).GetHtml()
+    
+    @Html.DevExpress().RoundPanel(panelSettings =>
+{
+    panelSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    panelSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+    panelSettings.Name = "rpItemBaseSearch";
+    panelSettings.HeaderText = Resources.SearchByManufacturer+"(NYI)";
+    panelSettings.SetContent(() =>
+    {
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Manufacturer;
+        }).Render();
+
+        Html.RenderPartial("ManufacturerComboBox");
+
+        ViewContext.Writer.Write("<span style='width:100%;display:inline-block;'><div style='float:left;width:45%;'>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Code;
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Name = "Code";
+            edtSettings.ReadOnly = true;
+			edtSettings.ControlStyle.CssClass = "editor";
+        })/*.Bind(itemCodeString)*/.Render();
+        ViewContext.Writer.Write("</div><div style='float:right;width:45%;'>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Country;
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Name = "Country";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        })/*.Bind(itemCodeString)*/.Render();
+
+        ViewContext.Writer.Write("</div></span>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Description;
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Name = "ItemNameSearchBox";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        })/*.Bind(itemCodeString)*/.Render();
+
+        ViewContext.Writer.Write("</br>");
+
+        Html.RenderPartial("ItemsOfManufacturerGrid");
+
+
+    });
+
+}).GetHtml()
+  
+    
+    ViewContext.Writer.Write("</td><td style='width:10%;' class=\"vertical-align-td-top\">");
+    //dummy cell
+    ViewContext.Writer.Write("</td><td style='width:40%;' class=\"vertical-align-td-top\">");
+
+        
+    @Html.DevExpress().RoundPanel(panelSettings =>
+{
+    panelSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    panelSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+    panelSettings.Name = "rpItemBaseInfo";
+    panelSettings.HeaderText = Resources.BaseItemInfo;
+    panelSettings.SetContent(() =>
+    {
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ItemName;
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Name = "ItemName";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Render();
+
+        ViewContext.Writer.Write("</br>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Barcodes;
+        }).Render();
+        
+
+        Html.RenderPartial("BarcodesListBox");
+
+    });
+}).GetHtml()
+
+    ViewContext.Writer.Write("</br>");
+    
+    ViewContext.Writer.Write("<table><tr><td>");
+    Html.DevExpress().Button(btnSettings =>
+    {
+        btnSettings.Name = "NextButton";
+        btnSettings.Text = Resources.Next;
+        btnSettings.ClientEnabled = false;
+        btnSettings.ClientSideEvents.Click = "OnClickNewItemFromExistingBaseItem";
+    }).Render();
+    ViewContext.Writer.Write("</td><td style='width:15px;'>");
+    
+    ViewContext.Writer.Write("</td><td>");
+    Html.DevExpress().Button(btnSettings =>
+    {
+        btnSettings.Name = "NewItem";
+        btnSettings.Text = Resources.NewItemBase;
+        btnSettings.ClientSideEvents.Click = "OnClickNewItemButton";
+    }).Render();
+    ViewContext.Writer.Write("</td</tr></table>");
+    
+    ViewContext.Writer.Write("</td></tr></table>");
+ 
+}

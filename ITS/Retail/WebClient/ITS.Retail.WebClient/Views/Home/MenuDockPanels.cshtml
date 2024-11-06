@@ -1,0 +1,105 @@
+﻿@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.ResourcesLib;
+@using System.Linq;
+@using ITS.Retail.Model;
+
+@{
+    Dictionary<String, int> selectedMenuDockPanels = ViewBag.SelectedMenuDockPanels as Dictionary<String, int>;
+}
+@Html.DevExpress().CallbackPanel(cpb_settings =>
+{
+    cpb_settings.Name = "MenuDockPanels";
+    cpb_settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "MenuDockPanels" };
+    cpb_settings.ClientSideEvents.BeginCallback = "MenuDockPanelsBeginCallback";
+    cpb_settings.ClientSideEvents.EndCallback = "InitializeOrderShortcut";
+    cpb_settings.SettingsLoadingPanel.Enabled= false;
+    cpb_settings.SetContent(() =>
+    {
+        String OwnerImage = "";
+        CompanyNew owner = ViewBag.Owner as CompanyNew;
+        if (owner != null && owner.OwnerApplicationSettings != null)
+        {
+            OwnerImage = (String)owner.Oid.ToString();
+        }
+        if (selectedMenuDockPanels.Count > 0)
+        {
+            MenuInfo menu = (Session["Menu"] as MenuInfo);
+            MenuNode megamenu = menu.Menu;
+            IEnumerable<MenuNode> selectedMenuNodes = new List<MenuNode>();
+            if (megamenu != null)
+            {
+                selectedMenuNodes = megamenu.Children.SelectMany(children => children.Children).Where(node => selectedMenuDockPanels.ContainsKey(node.CheckBoxID));
+            }
+
+            foreach (MenuNode dockMenu in selectedMenuNodes)
+            {
+                Html.DevExpress().DockPanel(settings =>
+                {
+                    settings.Name = dockMenu.DockPanelID;
+                    settings.PanelUID = dockMenu.DockPanelID;
+                    settings.HeaderText = "";
+                    settings.VisibleIndex = 0;
+                    settings.ShowPinButton = true;
+                    settings.ClientSideEvents.CloseButtonClick = "CloseDockPanelDockChange";
+                    settings.ClientSideEvents.AfterDock = "DockPanelDockChange";
+                    settings.ClientSideEvents.Init =  "function() {DockPanelDockUpdate('"+dockMenu.CheckBoxID+"',"+ selectedMenuDockPanels[dockMenu.CheckBoxID]+")}";
+                    settings.AllowedDockState = DevExpress.Web.AllowedDockState.DockedOnly;
+                    settings.AllowResize = false;
+                    settings.ResizingMode = ResizingMode.Live;
+                    settings.OwnerZoneUID = "Zone" + selectedMenuDockPanels[dockMenu.CheckBoxID];
+                    settings.MaxHeight = 500;
+                    settings.MinHeight = 400;
+
+                    settings.SetContent(() =>
+                    {
+                        ViewContext.Writer.Write("<div class='dockContainer " + dockMenu.DockPanelHtmlPropertiesString + "'>");
+                        ViewContext.Writer.Write(dockMenu.HtmlLinkString);
+                        ViewContext.Writer.Write("</div>");
+                    });
+                }).GetHtml();
+
+            }
+
+            ViewContext.Writer.Write(" <div class='dockZone' img='"+ OwnerImage + "'>");
+
+            if (ITS.Retail.WebClient.MvcApplication.LicenseStatusViewModel.InGreyZone)
+            {
+                ViewContext.Writer.Write("<div id='message'>" + ITS.Retail.WebClient.MvcApplication.LicenseStatusViewModel.GreyZoneMessage + "</div>");
+            }
+
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "SaveMenuDockPanels";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = Resources.SaveChanges;
+                btnSettings.ClientSideEvents.Click = "function(){MenuDockPanels.PerformCallback();}";
+            }).Render();
+            for (int i = 1; i < 8; i++)
+            {
+                Html.DevExpress().DockZone(
+                    settings =>
+                    {
+                        settings.Name = "Zone" + i;
+                        settings.ControlStyle.CssClass = "zone";
+                        settings.ZoneUID = "Zone" + i;
+                        settings.PanelSpacing = 6;
+                        settings.Width = 150;
+                    }
+                ).GetHtml();
+            }
+            ViewContext.Writer.Write(" </div>");
+        }
+        else {
+            ViewContext.Writer.Write("<div class='dockZone' img='" + OwnerImage + "'>");
+
+            string message = Resources.PleaseSelectShortcutsFromMenuPanel;
+
+            if (ITS.Retail.WebClient.MvcApplication.LicenseStatusViewModel.InGreyZone)
+            {
+                message = ITS.Retail.WebClient.MvcApplication.LicenseStatusViewModel.GreyZoneMessage;
+            }
+
+            ViewContext.Writer.Write("<div id='message'>" + message + "</div></div>");
+        }
+    });
+}).GetHtml()

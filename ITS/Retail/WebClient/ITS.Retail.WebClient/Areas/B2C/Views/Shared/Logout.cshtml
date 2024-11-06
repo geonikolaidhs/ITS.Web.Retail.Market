@@ -1,0 +1,15 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<h4>@Resources.WelcomeB2C <span class="current-user-name">@ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.CurrentUser.FullName!</span></h4> 
+<div class="text-center">
+    @Html.DevExpress().Button(deSettings =>
+    {
+        deSettings.Name = "logOut";
+        deSettings.Text = Resources.Logout+" <i class=\"fa fa-sign-out\"></i>";
+        deSettings.ControlStyle.CssClass = "medium-blue-button";
+        deSettings.EncodeHtml = false;
+        deSettings.Height = 40;
+        deSettings.RouteValues = new { Controller = "Membership", Action = "Logout" };
+
+    }).GetHtml()
+</div>

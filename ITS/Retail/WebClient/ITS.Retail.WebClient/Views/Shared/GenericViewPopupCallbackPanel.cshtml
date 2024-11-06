@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "GenericViewCallbackPanel";
+    settings.CallbackRouteValues = new { Controller = "Base", Action = "GenericViewPopupCallbackPanel" };    
+    settings.SetContent(() =>
+    {
+        if (ViewData["RenderView"] != null && (bool)ViewData["RenderView"] == true)
+        {
+            Html.RenderAction("GenericViewPartial", (string)ViewBag.ControllerName, new { entityOid = ViewData["EntityOid"], entityType = ViewData["EntityType"] });
+        }
+    });
+
+}).GetHtml()

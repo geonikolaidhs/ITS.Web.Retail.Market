@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/order_by_new_items"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/lla1"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/lla2"
+            android:layout_width="fill_parent"
+            android:layout_height="120dp" >
+
+            <LinearLayout
+                android:id="@+id/llb11"
+                android:layout_width="588dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/holo_blue_bright"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/newitemsfrom"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_tiny" />
+
+                <Spinner
+                    android:id="@+id/cmbNewItemsFrom"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll00998"
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/btnFilterNewItems"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:src="@raw/zoom_32" />
+
+                <Button
+                    android:id="@+id/btnShowNewItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnShowNewItems"
+                    android:textSize="@dimen/text_tiny" />
+
+            </LinearLayout>
+
+            <DatePicker
+                android:id="@+id/dtNewItemsFrom"
+                android:layout_width="331dp"
+                android:layout_height="match_parent"
+                android:calendarViewShown="false"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lla3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <ListView
+                android:id="@+id/lstNewItems"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" >
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

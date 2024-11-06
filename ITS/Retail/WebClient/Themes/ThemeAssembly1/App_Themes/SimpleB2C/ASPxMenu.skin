@@ -1,0 +1,23 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxMenu runat="server" AutoSeparators="RootOnly" ItemSpacing="0px" SeparatorHeight="100%" ShowSubMenuShadow="False" SpriteCssFilePath="{0}/sprite.css" CssPostfix="SimpleB2C" CssFilePath="{0}/styles.css">
+    <HorizontalPopOutImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mHorizontalPopOutHover_SimpleB2C" />
+    </HorizontalPopOutImage>
+    <VerticalPopOutImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mVerticalPopOutHover_SimpleB2C" />
+    </VerticalPopOutImage>
+    <VerticalPopOutRtlImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mVerticalPopOutHoverRtl_SimpleB2C" />
+    </VerticalPopOutRtlImage>
+    <ScrollUpButtonImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mScrollUpHover_SimpleB2C" />
+    </ScrollUpButtonImage>
+    <ScrollDownButtonImage>
+        <SpriteProperties HottrackedCssClass="dxWeb_mScrollDownHover_SimpleB2C" />
+    </ScrollDownButtonImage>
+    <LoadingPanelImage Url="Web/Loading.gif" />
+    <SubMenuStyle GutterWidth="0px" />
+</dx:ASPxMenu>
+

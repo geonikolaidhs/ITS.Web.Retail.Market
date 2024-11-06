@@ -1,0 +1,453 @@
+﻿@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using System.Web.Optimization;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Mobile.AuxilliaryClasses;
+@using ITS.Retail.Model;
+@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.WebClient.Helpers;
+@{
+    ITS.Retail.WebClient.Helpers.ToolbarOptions toolbarOptions = ViewData["ToolbarOptions"] as ITS.Retail.WebClient.Helpers.ToolbarOptions;
+    ITS.Retail.WebClient.AuxillaryClasses.CustomJSProperties customJSProperties = ViewData["CustomJSProperies"] as ITS.Retail.WebClient.AuxillaryClasses.CustomJSProperties;
+}
+<!DOCTYPE HTML>
+<!--[if IE]>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<![endif]-->
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @Html.Action("StylesAndStaticScripts", "Base", new
+    {
+        HtmlEditor = ViewBag.EnableDevexpressHtmlEditor != null && ViewBag.EnableDevexpressHtmlEditor == true,
+        Chart = ViewBag.EnableDevexpressChart != null && ViewBag.EnableDevexpressChart == true,
+        Report = ViewBag.EnableDevexpressReports != null && ViewBag.EnableDevexpressReports == true,
+        PivotGrid = ViewBag.EnableDevexpressPivotGrid != null && ViewBag.EnableDevexpressPivotGrid == true,
+        Culture = ViewData["CurrentCulture"]
+    })
+    @RenderSection("HeaderScriptsAndStylesBeforeDevExpress", required: false)
+    @Html.Action("DevExpressScripts", "Base", new {
+        HtmlEditor = ViewBag.EnableDevexpressHtmlEditor != null && ViewBag.EnableDevexpressHtmlEditor == true,
+        Chart = ViewBag.EnableDevexpressChart != null && ViewBag.EnableDevexpressChart == true,
+        Report = ViewBag.EnableDevexpressReports != null && ViewBag.EnableDevexpressReports == true,
+        DockingPanels = ViewBag.EnableDevexpressDockingPanels != null && ViewBag.EnableDevexpressDockingPanels == true,
+        PivotGrid = ViewBag.EnableDevexpressPivotGrid != null && ViewBag.EnableDevexpressPivotGrid == true
+    })
+    @if (ViewBag.ExtraCSSfiles != null && ViewBag.ExtraCSSfiles.Count > 0)
+    {
+        foreach (String cssfile in ViewBag.ExtraCSSfiles)
+        {
+            <link href="@cssfile" rel="stylesheet" type="text/css" />
+        }
+    }
+    @Styles.Render("~/Content/bundles/mainpage.css")
+    @Scripts.Render("~/bundles/SignalR.js")
+    @Scripts.Render("~/signalr/hubs")
+    @if (ViewBag.ExtraJSfiles != null && ViewBag.ExtraJSfiles.Count > 0)
+    {
+        foreach (String jsfile in ViewBag.ExtraJSfiles)
+        {
+            <script src="@jsfile" type="text/javascript"></script>
+        }
+    }
+    @RenderSection("HeaderScriptsAndStyles", required: false)
+    <link rel="shortcut icon" media="all" type="image/x-icon" href="@Url.Content("~/Content/favicon.ico")" />
+    @if (ViewBag.ShowNavigation != null && (bool)ViewBag.ShowNavigation == false)//Boolean.Parse(ViewBag.ShowNavigation.ToString()) == false)
+    {
+        <base target="_self" />
+    }
+    @*
+        Toolbar event binding begin
+    *@
+    <script type="text/javascript">
+
+            @if (customJSProperties != null)
+            {
+                ViewContext.Writer.Write(customJSProperties.ToJavascript());
+            }
+
+        $(document).ready(function () {
+            @if (toolbarOptions != null && toolbarOptions.Visible)
+            {
+                if (toolbarOptions.PrintButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.PrintButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .print', " + toolbarOptions.PrintButton.OnClick  + ");");
+                }
+
+                if (toolbarOptions.ViewButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ViewButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .view', " + toolbarOptions.ViewButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.EditButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.EditButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .edit', " + toolbarOptions.EditButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.DeleteButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.DeleteButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .delete', " + toolbarOptions.DeleteButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.GridFilterButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.GridFilterButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .grid_filters', " + toolbarOptions.GridFilterButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.NewButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.NewButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .add', " + toolbarOptions.NewButton.OnClick + @");
+                                              var insertItemJSFunction ='" + toolbarOptions.NewButton.OnClick + "';");
+                }
+
+                if (toolbarOptions.TransformButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.TransformButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .transform', " + toolbarOptions.TransformButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.SendPaymentMethodsButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.SendPaymentMethodsButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .send', " + toolbarOptions.SendPaymentMethodsButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.SendItemsButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.SendItemsButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .sendItems', " + toolbarOptions.SendItemsButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.IssueZ.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.IssueZ.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .ZIssue', " + toolbarOptions.IssueZ.OnClick + ");");
+                }
+
+                if (toolbarOptions.DailySales.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.DailySales.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .DailyTotal', " + toolbarOptions.DailySales.OnClick + ");");
+                }
+
+                if (toolbarOptions.DailyItemsSales.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.DailyItemsSales.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .DailyTotalItems', " + toolbarOptions.DailyItemsSales.OnClick + ");");
+                }
+
+                if (toolbarOptions.IssueX.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.IssueX.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .XIssue', " + toolbarOptions.IssueX.OnClick + ");");
+                }
+
+                if (toolbarOptions.ClearAllItems.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ClearAllItems.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .ClearAll', " + toolbarOptions.ClearAllItems.OnClick + ");");
+                }
+
+                if (toolbarOptions.CopyButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.CopyButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .copy', " + toolbarOptions.CopyButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.ExportButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ExportButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .export', " + toolbarOptions.ExportButton.OnClick + ");");
+                }
+                if (toolbarOptions.ImportButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ImportButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .import', " + toolbarOptions.ImportButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.UndoButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.UndoButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .undo', " + toolbarOptions.UndoButton.OnClick + ");");
+                }
+
+                if (toolbarOptions.ExportToButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.ExportToButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .export_button', " + toolbarOptions.ExportToButton.OnClick + ");");
+                }
+                if (toolbarOptions.CustomButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.CustomButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options ." + toolbarOptions.CustomButton.CCSClass + "', " + toolbarOptions.CustomButton.OnClick + ");");
+                }
+                if (toolbarOptions.PrintLabelButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.PrintLabelButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options ." + toolbarOptions.PrintLabelButton.CCSClass + "', " + toolbarOptions.PrintLabelButton.OnClick + ");");
+                }
+                if (toolbarOptions.MergeDocumentsButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.MergeDocumentsButton.OnClick))
+                {
+                    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options ." + toolbarOptions.MergeDocumentsButton.CCSClass + "', " + toolbarOptions.MergeDocumentsButton.OnClick + ");");
+                }
+
+                //if (toolbarOptions.VariableValuesButton.Visible && !String.IsNullOrWhiteSpace(toolbarOptions.VariableValuesButton.OnClick))
+                //{
+                //    ViewContext.Writer.Write("$(document.body).on('click', '.fast_menu_options .showVar', " + toolbarOptions.VariableValuesButton.OnClick + ");");
+                //}
+            }
+        });
+
+    </script>
+    @*
+        Toolbar event binding end
+    *@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    @{
+        Html.EnableClientValidation();
+        Html.EnableUnobtrusiveJavaScript();
+    }
+    <!-- Render the component server-side, passing initial props -->
+    @*@Html.React("Components.CommentsBox", new { initialComments = Model.Comments })*@
+    <input type="hidden" value="@Url.Content("~")" id="HOME" />
+    <!--<input type="hidden" value="ViewBag.ControllerName" id="controller" />
+    <input type="hidden" value="ViewBag.ActionName" id="action" />
+    -->
+    <div class="hide_all hidden menu_hide"></div>
+    <div class="wrapper">
+        @if (ViewBag.ShowNavigation == null || ViewBag.ShowNavigation == true)
+        {
+            @*@Html.Action("Menu", "Base", new { user = ViewBag.CurrentUser.UserName, showCheckBoxes = ViewBag.ShowCheckBoxes != null && ViewBag.ShowCheckBoxes == true })*@
+            if (ViewBag.ShowCheckBoxes == null) { ViewBag.ShowCheckBoxes = false; }
+            @Html.Partial("Menu")
+        }
+        <div class="container" id="mainContainer">
+            @if (!String.IsNullOrWhiteSpace(ViewBag.HeaderMessage))
+            {
+                ViewContext.Writer.Write("<div id=\"headerMessagePanel\">" + ViewBag.HeaderMessage + "</div>");
+            }
+            @{
+                string classID = "";
+                if (ViewBag.ShowSettings == true)
+                {
+                    Html.RenderPartial("SettingsMenu");
+                    classID = ViewBag.ControllerName + " " + ViewBag.ActionName + " settingsPage col-lg-4-5";
+                }
+                else
+                {
+                    classID = ViewBag.ControllerName + " " + ViewBag.ActionName + " " + ViewBag.ControllerName + "_" + ViewBag.ActionName;
+                }
+            }
+            @*RenderSection("FullScreen", required: false)*@
+            <div class="@classID invheight">
+                @Html.Partial("../Notification/NotifyUser")
+                @if (toolbarOptions != null && toolbarOptions.Visible)
+                {
+                    <div class="fast_menu_options hidden">
+                        @if (toolbarOptions.ViewButton.Visible)
+                        {
+                            <div class="btn view" title="@Resources.View">@Resources.View</div>
+                        }
+                        @if (toolbarOptions.EditButton.Visible)
+                        {
+                            <div class="btn edit" title="@Resources.Edit">@Resources.Edit</div>
+                        }
+                        @if (toolbarOptions.DeleteButton.Visible)
+                        {
+                            <div class="btn delete" title="@Resources.Delete">@Resources.Delete</div>
+                        }
+                        @if (toolbarOptions.NewButton.Visible)
+                        {
+                            <div class="btn add" title="@Resources.Add">@Resources.Add</div>
+                        }
+                        @if (toolbarOptions.OptionsButton.Visible)
+                        {
+                            <div class="btn options">
+                                @Resources.Options
+                                <div class="moreMenu hidden">
+                                    @if (toolbarOptions.ShowHideMenu.Visible)
+                                    {
+                                        <div class="btn gear hidden" id="gear" title="@Resources.ShowHideTreeSettings">@Resources.ShowHideTreeSettings</div>
+                                    }
+                                    @if (toolbarOptions.PrintButton.Visible)
+                                    {
+                                        <div class="btn print" title="@Resources.Print">@Resources.Print</div>
+                                    }
+                                    @if (toolbarOptions.GridFilterButton.Visible)
+                                    {
+                                        <div class="btn grid_filters" title="@Resources.Filters">@Resources.Filters</div>
+                                    }
+                                    @if (toolbarOptions.TransformButton.Visible)
+                                    {
+                                        <div class="btn transform" title="@Resources.Transform">@Resources.Transform</div>
+                                    }
+                                    @if (toolbarOptions.SendPaymentMethodsButton.Visible)
+                                    {
+                                        <div class="btn send" title="@Resources.InserAllPaymentTypes">@Resources.InserAllPaymentTypes</div>
+                                    }
+                                    @if (toolbarOptions.SendItemsButton.Visible)
+                                    {
+                                        <div class="btn sendItems" title="@Resources.SendItemsToDevice">@Resources.SendItemsToDevice</div>
+                                    }
+                                    @if (toolbarOptions.IssueZ.Visible)
+                                    {
+                                        <div class="btn ZIssue" title="@Resources.ISSUE_Z">@Resources.ISSUE_Z</div>
+                                    }
+                                    @if (toolbarOptions.IssueX.Visible)
+                                    {
+                                        <div class="btn XIssue" title="@Resources.ISSUE_X">@Resources.ISSUE_X</div>
+                                    }
+                                    @if (toolbarOptions.ClearAllItems.Visible)
+                                    {
+                                        <div class="btn ClearAll" title="@Resources.SendItemsToDevice">@Resources.DeleteAllItems</div>
+                                    }
+                                    @if (toolbarOptions.CopyButton.Visible)
+                                    {
+                                        <div class="btn copy" title="@Resources.Copy">@Resources.Copy</div>
+                                    }
+                                    @if (toolbarOptions.ImportButton.Visible)
+                                    {
+                                        <div class="btn import" title="@Resources.Import">@Resources.Import</div>
+                                    }
+                                    @if (toolbarOptions.ExportButton.Visible)
+                                    {
+                                        <div class="btn export" title="@Resources.Export">@Resources.Export</div>
+                                    }
+                                    @if (toolbarOptions.DailySales.Visible)
+                                    {
+                                        <div class="btn DailyTotal" title="@Resources.DailySales">@Resources.DailySales</div>
+                                    }
+                                    @if (toolbarOptions.DailyItemsSales.Visible)
+                                    {
+                                        <div class="btn DailyTotalItems" title="@Resources.DailyItemSales">@Resources.DailyItemSales</div>
+                                    }
+                                    @if (toolbarOptions.UndoButton.Visible)
+                                    {
+                                        <div class="btn undo" title="@Resources.CancelDocument">@Resources.CancelDocument</div>
+                                    }
+                                    @if (toolbarOptions.CustomButton.Visible)
+                                    {
+                                        <div class="btn @toolbarOptions.CustomButton.CCSClass" title="@toolbarOptions.CustomButton.Title">@toolbarOptions.CustomButton.Title</div>
+                                    }
+                                    @if (toolbarOptions.PrintLabelButton.Visible)
+                                    {
+                                        <div class="btn @toolbarOptions.PrintLabelButton.CCSClass" title="@toolbarOptions.PrintLabelButton.Title">@toolbarOptions.PrintLabelButton.Title</div>
+                                    }
+                                    @if (toolbarOptions.MergeDocumentsButton.Visible)
+                                    {
+                                        <div class="btn @toolbarOptions.MergeDocumentsButton.CCSClass" title="@toolbarOptions.MergeDocumentsButton.Title">@toolbarOptions.MergeDocumentsButton.Title</div>
+                                    }
+                                    @if (toolbarOptions.ExportToButton.Visible)
+                                    {
+                                        <div class="btn export_button" id='CSV' title="Export">Export to CSV</div>
+                                        <div class="btn export_button" id='XLS' title="Export">Export to XLS</div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @if (toolbarOptions.VariableValuesButton.Visible)
+                        {
+                            <div class="btn showVar" title="@Resources.Info">
+                                @Resources.Info
+                            </div>
+                        }
+                    </div>
+
+                    if (toolbarOptions.VariableValuesButton.Visible)
+                    {
+                        <div class="modal fade" id="variableValuesButton" tabindex="-1" role="dialog" aria-labelledby="variableValuesModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="border-orange-color"></div>
+                                    <button type="button" class="modal-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="variableValuesModalLabel">@Resources.VariableValues</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        @{
+                                            Html.RenderAction("ShowVariableValues", "VariableValuesDisplay", new
+                                            {
+                                                typeName = (string)Session["ControllerName"] + "Controller"
+                                                /*, mode = VariableDisplayValuesMode.ALL*/
+                                            });
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">@Resources.Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                }
+                @Html.Partial("PopUpGenericEditCallbackPanel")
+                @RenderSection("DialogCallbackPanelSection", false)
+                @Html.Partial("GenericViewPopupCallbackPanel")
+                @Html.Partial("WizardCallbackPanel")
+                @RenderBody()
+                @section DialogCallbackPanelSection {
+                    @Html.Partial("DialogCallbackPanel")
+                }
+                @{
+                    //Only For Customer
+
+                    if (UserHelper.IsCustomer(ViewBag.CurrentUser))
+                    {
+
+                        @Html.Partial("../Document/OrderItemsPopUp")
+                    }
+                }
+                @Html.Partial("../Document/MarkUpPopUp")
+                <div id="crash"></div>
+            </div>
+        </div>
+        <div class="push"></div>
+    </div>
+    @if (ViewBag.ShowNavigation == null || Boolean.Parse(ViewBag.ShowNavigation.ToString()) == true)
+    {
+        if (!String.IsNullOrWhiteSpace(ViewBag.FooterMessage))
+        {
+            ViewContext.Writer.Write("<div id=\"footerMessagePanel\">" + ViewBag.FooterMessage + "</div>");
+        }
+        <div class="footer">
+            @if (MvcApplication.Status == ApplicationStatus.OFFLINE_VIA_COMMAND)
+            {
+                <span style="color: orange">@Resources.Offline</span>
+            }
+            else if (MvcApplication.Status == ApplicationStatus.OFFLINE_VIA_ERROR)
+            {
+                <span style="color: red">@Resources.OfflineError</span>
+            }
+            else if (MvcApplication.Status == ApplicationStatus.ONLINE && MvcApplication.ApplicationInstance != eApplicationInstance.DUAL_MODE)
+            {
+                <span style="color: cornflowerblue">@Resources.Online</span>
+            }
+            @if (MvcApplication.LicenseStatusViewModel.InGreyZone)
+            {
+                <a href=@Url.Action("ItsSA","About") target="_blank">
+                    <span style="color: red">@MvcApplication.LicenseStatusViewModel.GreyZoneMessage</span>
+                </a>
+            }
+            <span>@MvcApplication.LicenseInfo</span>
+            <a href='http://www.its.net.gr/'>@Resources.DesignedDevelopedBy <img src="@Url.Content("~/Content/ITS.png")" /></a>
+            <span id='connectedUsers'></span>
+            @{ string version = @System.Reflection.Assembly.GetAssembly(typeof(ITS.Retail.WebClient.MvcApplication)).GetName().Version.ToString(); }
+            <span>
+                Ver. @version&nbsp;
+                @{
+                    string patchFile = Server.MapPath("~/patch.txt");
+                    if (File.Exists(patchFile))
+                    {
+                        string patchVersion;
+                        using (StreamReader reader = new StreamReader(patchFile))
+                        {
+                            patchVersion = reader.ReadToEnd();
+                        }
+                        @patchVersion
+                    }
+                }
+            </span>
+            @if (ViewBag.DebugFooterInfo != null)
+            {
+                <span style="color: red">@ViewBag.DebugFooterInfo</span>
+            }
+        </div>
+    }
+    <div id="jquery-dialog-form" title=""></div>
+    @if (Request.IsLocal)
+    {@StackExchange.Profiling.MiniProfiler.RenderIncludes();
+}
+    @Html.ReactInitJavaScript()
+</body>
+</html>

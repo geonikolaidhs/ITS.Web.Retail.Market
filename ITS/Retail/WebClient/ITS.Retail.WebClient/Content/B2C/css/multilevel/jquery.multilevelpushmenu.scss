@@ -1,0 +1,117 @@
+﻿//colors
+@import "compass/css3";
+
+
+$medium_jungle_green:  #2E6196;
+
+$white: rgba(255, 255, 255, 1);
+
+$color_azure_approx: rgba(51, 108, 166, 1);
+$color_cello_approx: rgba(31, 65, 100, 1);
+$color_st_tropaz_approx: rgba(46, 97, 150, 1);
+$color_chambray_approx: rgba(41, 86, 133, 1);
+$white: rgba(255, 255, 255, 1);
+$color_ivory_approx: rgba(255, 255, 238, 1);
+
+@mixin ie-box-shadow ($color, $direction, $strength) {
+      filter: progid:DXImageTransform.Microsoft.shadow(color='#{$color}', Direction=#{$direction}, Strength=#{$strength});
+      -ms-filter: "progid:DXImageTransform.Microsoft.shadow(color='#{$color}', Direction=#{$direction}, Strength=#{$strength})";
+}
+
+.multilevelpushmenu_wrapper {
+	position: absolute;
+	overflow: hidden;
+	min-width: 100%;
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
+	.levelHolderClass {
+		position: absolute;
+		overflow: hidden;
+		top: 0;
+		background: $color_azure_approx;
+		width: auto;
+		min-height: 100%;
+		font-size: 1em;
+		zoom: 1;
+        cursor:auto;
+	}
+	.ltr {
+		margin-left: -100%;
+		left: 0;
+        @include box-shadow($color_cello_approx 5px 0 5px -5px);
+        @include ie-box-shadow($color_cello_approx,90,2);
+	}
+	.rtl {
+		margin-right: -100%;
+		right: 0;
+        @include box-shadow($color_cello_approx 5px 0 5px -5px);
+        @include ie-box-shadow($color_cello_approx,90,2);
+	}
+	.multilevelpushmenu_inactive {
+		background: $color_st_tropaz_approx;
+	}
+    h2 {
+        font-size: 1.5em;
+        line-height: 1em;
+        font-weight: bold;		
+		color: $white;
+		padding: 1.1em 0.4em;
+        margin: 0;            		
+        background-color:darken($color_azure_approx,10%);
+        cursor:pointer;
+    }
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		cursor: pointer;
+        border-top: 1px solid $color_chambray_approx;
+		padding: .4em .4em .4em .4em;
+		&:last-child {
+			border-bottom: 1px solid $color_chambray_approx;
+		}
+		&:hover {
+			background-color: darken($color_chambray_approx,10%);
+		}
+	}
+	a {
+		display: block;
+		outline: none;
+		overflow: hidden;
+		font-size: 1em;
+		line-height: 1em;
+		padding: .2em .2em;
+		text-decoration: none;
+		color: $white;
+		&:hover {
+			color: $color_ivory_approx;
+		}
+	}
+	.backItemClass {
+		display: block;
+		padding: .4em .4em .4em .4em;
+		background: $color_st_tropaz_approx;
+		border-top: 1px solid $color_chambray_approx;
+        .floatRight{
+            font-size:2em;
+        }
+	}
+	.floatRight {
+		float: right;
+	}
+	.floatLeft {
+		float: left;
+	}
+	.cursorPointer {
+		cursor: pointer;
+	}
+	.iconSpacing_ltr {
+		padding: 0 .4em 0 0;
+	}
+	.iconSpacing_rtl {
+		padding: 0 0 0 .4em;
+	}
+}

@@ -1,0 +1,34 @@
+﻿@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "DocumentSeriesCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "SeriesComboBoxPartial" };
+    cpbseriessettings.SetContent(() =>
+    {
+        if (ViewBag.DocumentSeries == null)
+        {
+            DocumentSeries documentSeries = DataBinder.Eval(ViewData["item"], "This") as DocumentSeries;
+            if(documentSeries!=null && documentSeries.Store!=null)
+            {
+                ViewBag.DocumentSeries = documentSeries.Store.DocumentSeries.Where(series=>series.IsCancelingSeries);
+            }
+        }
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "DocumentSeriesComboBox";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.Properties.TextField = "Description";
+            combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Delete;
+            combosettings.Properties.Buttons.Add(button);
+        }).BindList(ViewBag.DocumentSeries).Bind(DataBinder.Eval(ViewData["item"], "IsCanceledBy!Key")).Render();
+    });
+    cpbseriessettings.ClientSideEvents.BeginCallback = "DocumentSeriesCbPanelOnBeginCallback";
+    cpbseriessettings.ClientSideEvents.EndCallback = "DocumentSeriesCbPanelOnEndCallback";
+}).GetHtml()

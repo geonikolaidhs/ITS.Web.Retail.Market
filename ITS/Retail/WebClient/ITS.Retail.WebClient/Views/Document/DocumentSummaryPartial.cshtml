@@ -1,0 +1,102 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+
+
+@Html.DevExpress().CallbackPanel( settings =>
+{
+    settings.Name = "documentSummaryPanelPartial";
+    settings.SettingsLoadingPanel.Enabled = false;
+    settings.ClientSideEvents.EndCallback = "Component.PositionDocumentPartialAtHeader";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "DocumentSummaryPartial" };
+
+    DocumentHeader docHead = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+
+    if ((bool)ViewBag.InViewMode)
+    {
+        settings.Enabled = false;
+    }
+    else
+    {
+        settings.ClientSideEvents.EndCallback = "ResetFocus";
+    }
+
+    settings.SetContent(() =>
+    {
+        
+        ViewContext.Writer.Write("<table class='style_table partial'><tr><td colspan='2' class='head'><h2 class=\"group-header-blue\">" + Resources.TotalSort + "</h2></td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.NetTotal + ":</td><td>");
+        Html.DevExpress().TextBox(total_settings =>
+        {
+            total_settings.Name = "totalSec";
+            total_settings.Enabled = false;
+            total_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+            total_settings.ReadOnly = true;
+            total_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(docHead == null ? 0 : docHead.NetTotalBeforeDiscount).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.TotalDiscount + ":</td><td>");
+        Html.DevExpress().TextBox(final_discount_settings =>
+        {
+            final_discount_settings.Name = "final_discountSec";           
+            final_discount_settings.Enabled = false;
+            final_discount_settings.ReadOnly = true;
+            final_discount_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            final_discount_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        }).Bind(docHead == null ? 0 : docHead.TotalDiscountAmount).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.TotalAfterDiscount + ":</td><td>");
+        Html.DevExpress().TextBox(total_with_discount_settings =>
+        {
+            total_with_discount_settings.Name = "total_with_discountSec";
+            total_with_discount_settings.Enabled = false;
+            total_with_discount_settings.ReadOnly = true;
+            total_with_discount_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            total_with_discount_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        }).Bind(docHead == null ? 0 : docHead.NetTotal).GetHtml();
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.TotalVATAmount + ":</td><td>");
+
+        Html.DevExpress().TextBox(total_fpa_settings =>
+        {
+            total_fpa_settings.Name = "total_fpaSec";
+            total_fpa_settings.Enabled = false;
+            total_fpa_settings.ReadOnly = true;
+            total_fpa_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            total_fpa_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        }).Bind(docHead == null ? 0 : docHead.TotalVatAmount).GetHtml();
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.Total + ":</td><td>");
+
+        Html.DevExpress().TextBox(final_amount_settings =>
+        {
+            final_amount_settings.Name = "final_amountSec";
+            final_amount_settings.Enabled = false;
+            final_amount_settings.ReadOnly = true;
+            final_amount_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            final_amount_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        }).Bind(docHead == null ? 0 : docHead.GrossTotal).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+
+        if (docHead != null)
+        {
+            if (docHead.Division == eDivision.Sales)
+            {
+                ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.Points + ":</td><td>");
+                Html.DevExpress().TextBox(total_points =>
+                {
+                    total_points.Name = "total_points";                    
+                    total_points.Enabled = false;
+                    total_points.ReadOnly = true;
+                    total_points.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                    total_points.Properties.DisplayFormatString = "N" + BaseController.OwnerApplicationSettings.DisplayDigits;
+                }).Bind(docHead == null ? 0 : docHead.TotalPoints).GetHtml();
+                ViewContext.Writer.Write("</td></tr></table>");
+            }
+        }
+        ViewContext.Writer.Write("</table>");
+    });
+}).GetHtml()

@@ -1,0 +1,42 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@model DevExpress.Xpo.XPCollection<DocumentHeader>
+
+@{
+    Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+
+
+    <script src="@Url.Content("~/Scripts/scripts/GridContextMenu.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+
+    <script src="@Url.Content("~/Content/B2C/js/OrderHistory.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+
+}
+
+
+
+
+<div class="row page padding-bottom-25">
+
+    <div class="page-header title col-md-12 text-center">
+        <h1>@Resources.OrderHistory</h1>
+    </div>
+    @Html.Partial("ProfileMenu")
+
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.Partial("Grid", Model)
+            </div>                
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                @{
+                    Html.RenderPartial("OrderDetailsCallbackPanel");
+                }
+            </div> 
+        </div>       
+    </div>
+</div>

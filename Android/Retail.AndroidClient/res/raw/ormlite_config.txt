@@ -1,0 +1,997 @@
+#
+# generated on 2014/06/13 04:16:11
+#
+# --table-start--
+dataClass=gr.net.its.retail.data.Address
+tableName=address
+# --table-fields-start--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=customer
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=Address
+# --field-end--
+# --field-start--
+fieldName=customerRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.ApplicationSettings
+tableName=applicationsettings
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=serviceUrl
+# --field-end--
+# --field-start--
+fieldName=barcodePadding
+# --field-end--
+# --field-start--
+fieldName=codePadding
+# --field-end--
+# --field-start--
+fieldName=barcodePadChar
+# --field-end--
+# --field-start--
+fieldName=codePadChar
+# --field-end--
+# --field-start--
+fieldName=barcodePadLength
+# --field-end--
+# --field-start--
+fieldName=codePadLength
+# --field-end--
+# --field-start--
+fieldName=computeDigits
+# --field-end--
+# --field-start--
+fieldName=computeValueDigits
+# --field-end--
+# --field-start--
+fieldName=displayDigits
+# --field-end--
+# --field-start--
+fieldName=displayValueDigits
+# --field-end--
+# --field-start--
+fieldName=bluetoothDeviceName
+# --field-end--
+# --field-start--
+fieldName=discountPermited
+# --field-end--
+# --field-start--
+fieldName=defaultAllowMultiLines
+# --field-end--
+# --field-start--
+fieldName=pathToXSL
+# --field-end--
+# --field-start--
+fieldName=defaultDocumentStatus
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=defaultPriceCatalog
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=defaultStore
+foreign=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.Barcode
+tableName=barcode
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=Code
+indexName=barcode_Code_idx
+# --field-end--
+# --field-start--
+fieldName=MeasurementUnit
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=measurementUnitRemoteGuid
+indexName=barcode_measurementUnitRemoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=item
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=itemRemoteGuid
+indexName=barcode_itemRemoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=barcode_UpdatedOn_idx
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=barcode_remoteGuid_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.Customer
+tableName=customer
+# --table-fields-start--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=CompanyName
+# --field-end--
+# --field-start--
+fieldName=lowerCompanyName
+# --field-end--
+# --field-start--
+fieldName=TaxCode
+# --field-end--
+# --field-start--
+fieldName=DefaultAddress
+# --field-end--
+# --field-start--
+fieldName=DefaultPhone
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=customer_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=pc
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=vl
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=store
+foreign=true
+indexName=customer_store_idx
+# --field-end--
+# --field-start--
+fieldName=Code
+# --field-end--
+# --field-start--
+fieldName=pcRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=storeRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=vatLevelRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=headers
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=Addresses
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.DocumentDetail
+tableName=documentdetail
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=item
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=EditOffline
+# --field-end--
+# --field-start--
+fieldName=barcode
+# --field-end--
+# --field-start--
+fieldName=Qty
+# --field-end--
+# --field-start--
+fieldName=ItemPrice
+# --field-end--
+# --field-start--
+fieldName=FinalUnitPrice
+# --field-end--
+# --field-start--
+fieldName=GrossTotal
+# --field-end--
+# --field-start--
+fieldName=NetTotal
+# --field-end--
+# --field-start--
+fieldName=NetTotalAfterDiscount
+# --field-end--
+# --field-start--
+fieldName=FirstDiscount
+# --field-end--
+# --field-start--
+fieldName=SecondDiscount
+# --field-end--
+# --field-start--
+fieldName=TotalDiscount
+# --field-end--
+# --field-start--
+fieldName=TotalVatAmount
+# --field-end--
+# --field-start--
+fieldName=UnitPriceAfterDiscount
+# --field-end--
+# --field-start--
+fieldName=VatAmount
+# --field-end--
+# --field-start--
+fieldName=VatFactor
+# --field-end--
+# --field-start--
+fieldName=header
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=linkedLine
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=RemoteDeviceDocumentDetailGuid
+# --field-end--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ReferenceDocumentDetails
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.DocumentHeader
+tableName=documentheader
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=customer
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=DocumentDate
+# --field-end--
+# --field-start--
+fieldName=DeliveryAddress
+# --field-end--
+# --field-start--
+fieldName=DocumentDiscount
+# --field-end--
+# --field-start--
+fieldName=GrossTotal
+# --field-end--
+# --field-start--
+fieldName=VatAmount1
+# --field-end--
+# --field-start--
+fieldName=VatFactor1
+# --field-end--
+# --field-start--
+fieldName=VatAmount2
+# --field-end--
+# --field-start--
+fieldName=VatFactor2
+# --field-end--
+# --field-start--
+fieldName=VatAmount3
+# --field-end--
+# --field-start--
+fieldName=VatFactor3
+# --field-end--
+# --field-start--
+fieldName=VatAmount4
+# --field-end--
+# --field-start--
+fieldName=VatFactor4
+# --field-end--
+# --field-start--
+fieldName=TotalVatAmount
+# --field-end--
+# --field-start--
+fieldName=TotalDiscountAmount
+# --field-end--
+# --field-start--
+fieldName=NetTotal
+# --field-end--
+# --field-start--
+fieldName=CreatedBy
+# --field-end--
+# --field-start--
+fieldName=AllowMultipleLines
+# --field-end--
+# --field-start--
+fieldName=Comments
+# --field-end--
+# --field-start--
+fieldName=NetTotalAfterDiscount
+# --field-end--
+# --field-start--
+fieldName=RemoteDeviceDocumentHeaderGuid
+# --field-end--
+# --field-start--
+fieldName=Details
+foreignCollection=true
+foreignCollectionEager=true
+# --field-end--
+# --field-start--
+fieldName=documentStatus
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.DocumentStatus
+tableName=documentstatus
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=IsDefault
+# --field-end--
+# --field-start--
+fieldName=Description
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=documentstatus_remoteGuid_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.DocumentType
+tableName=documenttype
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=IsDefault
+# --field-end--
+# --field-start--
+fieldName=Description
+# --field-end--
+# --field-start--
+fieldName=Code
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=documenttype_remoteGuid_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.Item
+tableName=Item
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=Item_UpdatedOn_idx
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=Code
+# --field-end--
+# --field-start--
+fieldName=Name
+indexName=Item_Name_idx
+# --field-end--
+# --field-start--
+fieldName=loweCaseName
+# --field-end--
+# --field-start--
+fieldName=barcodes
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=Item_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=imageOid
+# --field-end--
+# --field-start--
+fieldName=defaultBarcode
+# --field-end--
+# --field-start--
+fieldName=defaultBarcodeRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=isactive
+# --field-end--
+# --field-start--
+fieldName=defaultBarcodeObject
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=vatCategory
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=vatCategoryRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=VatIncluded
+# --field-end--
+# --field-start--
+fieldName=InsertedOn
+# --field-end--
+# --field-start--
+fieldName=packingQty
+# --field-end--
+# --field-start--
+fieldName=maxOrderQty
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.ItemAnalyticTree
+tableName=itemanalytictree
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=itemanalytictree_UpdatedOn_idx
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=itemanalytictree_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=itemCategory
+foreign=true
+indexName=itemanalytictree_itemCategory_idx
+# --field-end--
+# --field-start--
+fieldName=item
+foreign=true
+indexName=itemanalytictree_item_idx
+# --field-end--
+# --field-start--
+fieldName=itemRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=itemCategoryRemoteGuid
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.ItemCategory
+tableName=itemcategory
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=Code
+# --field-end--
+# --field-start--
+fieldName=Name
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=itemcategory_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=remoteParentGuid
+indexName=itemcategory_remoteParentGuid_idx
+# --field-end--
+# --field-start--
+fieldName=parent
+foreign=true
+indexName=itemcategory_parent_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.LinkedItem
+tableName=linkeditem
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=linkeditem_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=itemGuid
+indexName=linkeditem_itemGuid_idx
+# --field-end--
+# --field-start--
+fieldName=subItemGuid
+indexName=linkeditem_subItemGuid_idx
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=linkeditem_UpdatedOn_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.MeasurementUnit
+tableName=measurementunit
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=measurementunit_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=measurementunit_UpdatedOn_idx
+# --field-end--
+# --field-start--
+fieldName=Description
+# --field-end--
+# --field-start--
+fieldName=supportDecimals
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.Offer
+tableName=Offer
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+# --field-end--
+# --field-start--
+fieldName=Description
+# --field-end--
+# --field-start--
+fieldName=Description2
+# --field-end--
+# --field-start--
+fieldName=StartDate
+# --field-end--
+# --field-start--
+fieldName=EndDate
+# --field-end--
+# --field-start--
+fieldName=PriceCatalog
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=PriceCatalogRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=Active
+# --field-end--
+# --field-start--
+fieldName=OfferDetails
+foreignCollection=true
+foreignCollectionEager=true
+foreignCollectionMaxEagerLevel=3
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.OfferDetail
+tableName=OfferDetail
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+# --field-end--
+# --field-start--
+fieldName=Item
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=ItemRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=Offer
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=OfferRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=Active
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.PriceCatalog
+tableName=pricecatalog
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=Code
+# --field-end--
+# --field-start--
+fieldName=Name
+# --field-end--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=parent
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=pricecatalog_UpdatedOn_idx
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=pricecatalog_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=remoteParentGuid
+indexName=pricecatalog_remoteParentGuid_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.PriceCatalogDetail
+tableName=pricecatalogdetail
+# --table-fields-start--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=Code
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=pricecatalogdetail_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+indexName=pricecatalogdetail_UpdatedOn_idx
+# --field-end--
+# --field-start--
+fieldName=barcodeRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=itemRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=pcRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=pc
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=bc
+foreign=true
+indexName=pricecatalogdetail_bc_idx
+# --field-end--
+# --field-start--
+fieldName=item
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=price
+# --field-end--
+# --field-start--
+fieldName=discount
+# --field-end--
+# --field-start--
+fieldName=VATIncluded
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.Store
+tableName=Store
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=Store_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=code
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=isCentralStore
+# --field-end--
+# --field-start--
+fieldName=customers
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=userStoreAccess
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.User
+tableName=User
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=User_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=username
+# --field-end--
+# --field-start--
+fieldName=password
+# --field-end--
+# --field-start--
+fieldName=usertype
+# --field-end--
+# --field-start--
+fieldName=userStoreAccess
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.UserStoreAccess
+tableName=UserStoreAccess
+# --table-fields-start--
+# --field-start--
+fieldName=CreatedOn
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=ID
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=UserStoreAccess_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=user
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=store
+foreign=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.VATCategory
+tableName=vatcategory
+# --table-fields-start--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=vatcategory_remoteGuid_idx
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.VATFactor
+tableName=vatfactor
+# --table-fields-start--
+# --field-start--
+fieldName=VatLevel
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=VatCategory
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=vatfactor_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=vatLevelRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=vatCategoryRemoteGuid
+# --field-end--
+# --field-start--
+fieldName=vatFactor
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=gr.net.its.retail.data.VATLevel
+tableName=vatlevel
+# --table-fields-start--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=UpdatedOn
+# --field-end--
+# --field-start--
+fieldName=remoteGuid
+indexName=vatlevel_remoteGuid_idx
+# --field-end--
+# --field-start--
+fieldName=Default
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

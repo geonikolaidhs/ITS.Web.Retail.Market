@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.Retail.Model.TerminalDevice">
+    <Position X="9.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAEAAAAIAAAAAAIEQIAAAACAAAAAAAAAAACAA=</HashCode>
+      <FileName>TerminalDevice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Terminal">
+    <Position X="7.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAEIAAgKAAAAAAIAQAAAAAAgAIAAAAAQAGAAA=</HashCode>
+      <FileName>Terminal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.COMDeviceSettings">
+    <Position X="5.25" Y="4.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIBAAAAAAAgCAJAACEQAAAgAAIAAACAAAAAEAAAUAAA=</HashCode>
+      <FileName>COMDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POSDevice">
+    <Position X="9.25" Y="3.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAEAAAAIAAAAAAICAAAgAAAAAAAAAAAAAIEAA=</HashCode>
+      <FileName>POSDevice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DeviceSettings">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IIAAAQAACAAAAMAAAAAAAAQAAAAAAAAAACACAAAAASA=</HashCode>
+      <FileName>DeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OPOSPrinterSettings">
+    <Position X="0.75" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAQJQAgAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>OPOSPrinterSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OPOSDeviceSettings">
+    <Position X="0.75" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OPOSDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.POS">
+    <Position X="7.25" Y="4" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BQIKyABEEjAARIAYAEAACIAECAQCEAAgQQAR0wABAAA=</HashCode>
+      <FileName>POS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TerminalDeviceAssociation">
+    <Position X="11.25" Y="2.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQAAAABAAAAABoAAAAAAAAAAAAAAAAAAgAAAAAACAAA=</HashCode>
+      <FileName>TerminalDeviceAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.EthernetDeviceSettings">
+    <Position X="3" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAIAAAAAAACAAA=</HashCode>
+      <FileName>EthernetDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LPTDeviceSettings">
+    <Position X="3" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAgAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LPTDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.IndirectDeviceSettings">
+    <Position X="3" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAABAAAIEAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IndirectDeviceSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ITS.Retail.Model.DeviceType">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAABAAAAAAAAAAACCAAACAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>DeviceType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,108 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{
+    Html.DevExpress().CallbackPanel(settings =>
+    {
+        settings.Name = "itemImagePanel";
+        settings.CallbackRouteValues = new { Controller = "Document", Action = "ItemImage" };
+        settings.ClientSideEvents.EndCallback = "itemImageEndCallback";
+        settings.SettingsLoadingPanel.Enabled = false;
+
+        settings.SetContent(() =>
+        {
+            ITS.Retail.Model.DocumentHeader document = ViewData["currentDocument"] != null ? (ITS.Retail.Model.DocumentHeader)ViewData["currentDocument"] : (ITS.Retail.Model.DocumentHeader)Session["currentDocument"];
+            ITS.Retail.Model.DocumentDetail docdet = Session["currentDocumentDetail"] as ITS.Retail.Model.DocumentDetail;
+            int qty_support_decimal = 0;
+            if (docdet != null && docdet.PackingMeasurementUnit != null)
+            {
+                qty_support_decimal = docdet.PackingMeasurementUnit.SupportDecimal ? 1 : 0;
+            }
+
+            ViewContext.Writer.Write("<input type='hidden' value='" + qty_support_decimal + "' id='qty_support_decimal' />");
+            ViewContext.Writer.Write("<div class=\"left\">");
+            ViewContext.Writer.Write("<img alt='" + Resources.ClickToAdd + "' id='itemImage' src='" + Url.Action("ShowImageId", "Item", new { Id = ((docdet != null && docdet.Item != null) ? docdet.Item.Oid : Guid.Empty), imageSize=1 }) + "' />");
+            ViewContext.Writer.Write("<div id=\"quality\">");
+            Html.DevExpress().Image(btn_settings =>
+            {
+                btn_settings.Name = "qty_minus";
+                btn_settings.ImageUrl = "~/Content/img/minus.png?ver=" + ViewData["ApplicationVersionNumber"];
+                btn_settings.ControlStyle.CssClass = "plus";
+                btn_settings.ClientEnabled = !(docdet == null || docdet.Item == null);
+                btn_settings.Properties.ClientSideEvents.Click = "decreaseQty";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("<div class=\"spinlineqty-container\">");
+            Html.DevExpress().Label(lbl_settings =>
+            {
+                lbl_settings.Text = Resources.Quantity;
+            }).GetHtml();
+            
+            bool DecimalEnabled = false;
+            if (docdet != null && docdet.MeasurementUnit != null)
+            {
+                DecimalEnabled = docdet.MeasurementUnit.SupportDecimal;
+            }
+            
+            Html.DevExpress().SpinEdit(spinsettings =>
+            {
+                spinsettings.Name = "spinlineqty";
+                spinsettings.Width = 105;
+                spinsettings.Properties.ClientSideEvents.KeyPress = "GetItemInfoOnEnterPressedSimple";
+
+                spinsettings.ClientEnabled = !(docdet == null || docdet.Item == null);
+                
+                spinsettings.Properties.SpinButtons.Visible = false;
+                spinsettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                spinsettings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                if (DecimalEnabled)
+                {
+                    spinsettings.Properties.NumberType = SpinEditNumberType.Float;
+                }
+                else
+                {
+                    spinsettings.Properties.NumberType = SpinEditNumberType.Integer;
+                }
+            }).Bind(docdet == null ? "1" : docdet.PackingQuantity.ToString().Replace(",", ".")).GetHtml();
+            
+            ViewContext.Writer.Write("</div>");
+            
+            Html.DevExpress().Image(btn_settings =>
+            {
+                btn_settings.Name = "qty_plus";
+                btn_settings.ImageUrl = "~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"];
+                btn_settings.ControlStyle.CssClass = "plus";
+                btn_settings.ClientEnabled = !(docdet == null || docdet.Item == null);
+                btn_settings.Properties.ClientSideEvents.Click = "increaseQty";
+            }).GetHtml();
+            
+            ViewContext.Writer.Write("</div>");
+            
+            ViewContext.Writer.Write("<div class=\"tag-list float-none-imp width-auto-imp margin-bottom-25 \">");
+            
+                if (docdet != null && document.UsesPackingQuantities)
+                {
+                    string quantitiesString = "";
+                    if (docdet != null && docdet.PackingMeasurementUnit != null)
+                    {
+                        quantitiesString += docdet.PackingMeasurementUnit.Description;
+                    }
+                    ViewContext.Writer.Write("<div class=\"tag\">");    
+                    
+                    ViewContext.Writer.Write("<span class=\"huge display-block-important\">" + quantitiesString);
+                    
+
+                    ViewContext.Writer.Write("</span>");
+                    ViewContext.Writer.Write("</div>");
+                }
+                else
+                {
+                    ViewContext.Writer.Write("<div class=\"tag no-bg height-19\"></div>");  
+                }
+               
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("</div>");
+        });
+    }).GetHtml();
+}

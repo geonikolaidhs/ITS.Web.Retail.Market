@@ -1,0 +1,36 @@
+﻿/** 
+    Caviar Dreams
+*/
+
+@font-face{ 
+	font-family: 'Caviar Dreams';
+    font-style: normal;
+    font-weight: 400;
+	src: url('../../fonts/Caviar-Dreams/regular/CaviarDreams-webfont.eot');
+	src: url('../../fonts/Caviar-Dreams/regular/CaviarDreams-webfont.eot?iefix') format('eot'),
+	     url('../../fonts/Caviar-Dreams/regular/CaviarDreams-webfont.woff') format('woff'),
+	     url('../../fonts/Caviar-Dreams/regular/CaviarDreams-webfont.ttf') format('truetype'),
+	     url('../../fonts/Caviar-Dreams/regular/CaviarDreams-webfont.svg#webfont') format('svg');
+}
+
+
+@font-face{ 
+	font-family: 'Caviar Dreams';
+    font-style: normal;
+    font-weight: 700;
+	src: url('../../fonts/Caviar-Dreams/bold/CaviarDreams-webfont.eot');
+	src: url('../../fonts/Caviar-Dreams/bold/CaviarDreams_Bold-webfont.eot?iefix') format('eot'),
+	     url('../../fonts/Caviar-Dreams/bold/CaviarDreams_Bold-webfont.woff') format('woff'),
+	     url('../../fonts/Caviar-Dreams/bold/CaviarDreams_Bold-webfont.ttf') format('truetype'),
+	     url('../../fonts/Caviar-Dreams/bold/CaviarDreams_Bold-webfont.svg#webfont') format('svg');
+}
+
+
+
+body{
+    font-family: 'Caviar Dreams', sans-serif;
+}
+
+/**
+    End Caviar Dreams
+*/

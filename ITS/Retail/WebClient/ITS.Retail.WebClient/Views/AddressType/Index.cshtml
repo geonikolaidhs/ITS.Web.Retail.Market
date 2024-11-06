@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ITS.Retail.Model.AddressType>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.AddressTypes;    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

@@ -1,0 +1,192 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@using System.Web.UI.WebControls;
+@using System.Linq;
+@model IEnumerable<ITS.Retail.Common.ViewModel.MergedDocumentDetail>
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(ITS.Retail.Common.ViewModel.MergedDocumentDetail), typeof(DocumentController), "grdMergedDocumentDetail", generateColumns: false, columnType: GridViewCommandColumnType.NONE);
+    List<Guid> Oids = new List<Guid>();
+    Oids = Model.Select(x => x.DocumentHeaderOid).ToList();
+    string param = string.Empty;
+    foreach (Guid oid in Oids)
+    {
+        if (!param.Contains(oid.ToString()))
+        {
+            param = param + oid.ToString() + ":";
+        }
+    }
+
+
+    settings.SettingsText.Title = ViewBag.Title;
+
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    settings.ClientSideEvents.BeginCallback = "grdMergedDocumentDetailOnBeginCalback";
+    settings.ClientSideEvents.EndCallback = "grdMergedDocumentDetailOnBeginCalbackOnEndCalback";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "MergedDocumentGridPopup", Param = param };
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Qty").DisplayFormat = "n2";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, "ItemCode");
+
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Qty").DisplayFormat = "n2";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "ItemCode");
+    settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+
+    //settings.SettingsExport.c
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.EnableCallbackAnimation = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsPager.AlwaysShowPager = true;
+
+
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.Settings.ShowHeaderFilterButton = false;
+
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+
+
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+
+
+    ///COLLUMNS OF GRID
+
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = 200;
+        col.FieldName = "ItemCode";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+
+        col.Width = 200;
+        col.FieldName = "BarcodeCode";
+        col.Caption = Resources.Barcode;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Width = 400;
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = 150;
+        col.FieldName = "Qty";
+        col.Caption = Resources.SummedQty;
+        col.PropertiesEdit.DisplayFormatString = "N2";
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = 200;
+        col.FieldName = "VatFactor";
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.PropertiesEdit.DisplayFormatString = "p";
+        col.Caption = Resources.VatFactor;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.Width = 200;
+        column.FieldName = "IsLinkedLine";
+        column.Caption = Resources.LinkedItem;
+        column.HeaderStyle.Wrap = DefaultBoolean.False;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = 300;
+        col.FieldName = "Remarks";
+        col.Caption = Resources.Remarks;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+
+    Session["MergeDoccumentGridSettings"] = settings;
+    ViewBag.MergeDoccumentGridSettings = settings;
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

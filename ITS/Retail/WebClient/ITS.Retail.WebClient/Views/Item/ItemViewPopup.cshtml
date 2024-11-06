@@ -1,0 +1,533 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@{
+    var code = ViewData["Code"]; // DataBinder.Eval(c.DataItem, "FirstName");
+    var name = ViewData["Name"];// DataBinder.Eval(c.DataItem, "LastName");
+    string title = Resources.ItemInfo;
+    if (code != null || name != null) { title += " - "; }
+    if (code != null) { title += Resources.Code + " : " + code.ToString() + " | "; }
+    if (name != null){ title += Resources.ItemName + " : " + name.ToString();}
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("ItemPopup_" + ViewData["ObjectID"].ToString().Replace('-', '_'));
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "Item", Action = "LoadViewPopup", ObjectID = ViewData["ObjectID"], Type = ViewData["Type"] };
+    popUpSettings.ControlStyle.CssClass = "isInviewMode";
+    popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+    popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+    popUpSettings.HeaderText = title;
+    popUpSettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        ViewContext.Writer.Write("<div class=\"container-fluid headerTable validateForm margin-0-auto-20 grey-border-with-bg padding-bottom-20-important col\">");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col-md-2 col\">");
+        ViewContext.Writer.Write("<img  class=\"img-responsive max-height-225 center-block\" alt='' id='imgViewItemImage" + ViewData["ItemID"].ToString().Replace('-', '_') + "' src='" + Url.Action("ShowImageId", "Item", new { Id = ViewData["ItemID"], stamp = ViewData["UpdatedOnTicks"] }) + "'  />");
+        ViewContext.Writer.Write("<div class=\"item-center-div col\">");
+        Html.DevExpress().CheckBox(
+             edtSettings =>
+             {
+                 edtSettings.Name = "IsActive";
+                 edtSettings.Text = Resources.IsActive;
+                 edtSettings.ControlStyle.CssClass = "editor";
+                 edtSettings.Properties.ValueChecked = true;
+                 edtSettings.Properties.ValueGrayed = false;
+                 edtSettings.Properties.ValueUnchecked = false;
+                 edtSettings.ReadOnly = true;
+                 edtSettings.Properties.ValueType = typeof(bool);
+             }
+         ).Bind(ViewData["IsActive"] ?? false).Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-9 col-md-10 col\">");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+            edtSettings.AssociatedControlName = "Code";
+        }
+        )
+        .Render();
+        string itemCodeString = ViewData["Code"] == null ? null : ViewData["Code"].ToString();
+        if (ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.PadItemCodes && itemCodeString != null)                                        //TrimStart sta fields pou theloume
+        {
+            itemCodeString = itemCodeString.TrimStart(ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+        }
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ReadOnly = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+        )
+        .Bind(itemCodeString ?? "")
+        .Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.MotherCode + ":";
+            edtSettings.AssociatedControlName = "MotherCode";
+        })
+        .Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "MotherCode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["MotherCode"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.ItemName + ":";
+                edtSettings.AssociatedControlName = "Name";
+            }
+            )
+            .Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Name";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["Name"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.DefaultBarcode + ":";
+                edtSettings.AssociatedControlName = "DefaultBarcode";
+            }
+        )
+        .Render();
+
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultBarcode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["DefaultBarcode"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.VatCategory + ":";
+                edtSettings.AssociatedControlName = "VatCategory";
+            }
+        )
+        .Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "VatCategory";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        }).Bind(ViewData["VatCategory"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+        Html.DevExpress().Label(lbl_settings =>
+        {
+            lbl_settings.ControlStyle.CssClass = "label";
+            lbl_settings.Text = Resources.InsertedDate + ":";
+        }).Render();
+
+
+        @Html.DevExpress().TextBox(deSettings =>
+        {
+            deSettings.Name = "FInsertedOn";
+            deSettings.ReadOnly = true;
+            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["InsertedOn"] ?? null).GetHtml();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-md-8 col-sm-7 col-xs-6 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Points + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Points";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                    edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }
+        )
+            .Bind(ViewData["Points"] ?? 0)
+        .Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-md-4 col-sm-5 col-xs-6 col\">");
+        Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.ControlStyle.CssClass = "label";
+            lblsettings.Text = Resources.ItemSupplier + ":";
+            lblsettings.AssociatedControlName = "ItemSupplier";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ItemSupplier";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["ItemSupplier"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div class=\"row col\">");
+
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.PackingMeasurementUnit + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "PackingMeasurementUnit";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ReadOnly = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+            )
+            .Bind(ViewData["PackingMeasurementUnit"] ?? 0)
+            .Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.PackingQty + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "PackingQty";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                    edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }
+            )
+            .Bind(ViewData["PackingQty"] ?? 0)
+            .Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.MinOrderQty + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "MinOrderQty";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ReadOnly = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+            )
+            .Bind(ViewData["MinOrderQty"] ?? 0)
+            .Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.MaxOrderQty + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "MaxOrderQty";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                    edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }
+            )
+            .Bind(ViewData["MaxOrderQty"] ?? 0)
+            .Render();
+
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "AcceptsCustomDescription";
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Text = Resources.AcceptsCustomDescription;
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ReadOnly = true;
+            }
+        ).Bind(ViewData["AcceptsCustomDescription"]).GetHtml();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Description + ":";
+            }
+            )
+            .Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ExtraDescription";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        }).Bind(ViewData["ExtraDescription"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Seasonality + ":";
+                edtSettings.AssociatedControlName = "Seasonality";
+            })
+            .Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Seasonality";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["Seasonality"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.ControlStyle.CssClass = "label";
+            lblsettings.Text = Resources.Buyer + ":";
+            lblsettings.AssociatedControlName = "Buyer";
+        }).Render();
+
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Buyer";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        }).Bind(ViewData["Buyer"] ?? "").Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ReferenceUnit;
+        }).Render();
+
+        Html.DevExpress().TextBox(
+             edtSettings =>
+             {
+                 edtSettings.Name = "ref_unit";
+                 edtSettings.ControlStyle.CssClass = "editor";
+                 edtSettings.ReadOnly = true;
+                 edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                 //edtSettings.Enabled = (bool)ViewData["ItemInitialized"];
+             }
+         ).Bind(ViewData["ref_unit"] ?? 0).Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ContentUnit;
+        }).Render();
+
+        Html.DevExpress().TextBox(
+             edtSettings =>
+             {
+                 edtSettings.Name = "content_unit";
+                 edtSettings.ControlStyle.CssClass = "editor";
+                 edtSettings.ReadOnly = true;
+                 edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                 //edtSettings.Enabled = (bool)ViewData["ItemInitialized"];
+             }
+         ).Bind(ViewData["content_unit"] ?? 0).Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.AcceptsCustomPrice + ":";
+
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(deSettings =>
+        {
+            deSettings.Name = "AcceptsCustomPrice";
+            deSettings.ReadOnly = true;
+            deSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).Bind(ViewData["CustomPriceOptions"] ?? null).GetHtml();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsCentralStored";
+                edtSettings.Text = Resources.IsCentralStored;
+                edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.ReadOnly = true;
+                edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }
+        ).Bind(ViewData["IsCentralStored"] ?? false).Render();
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("<div class=\"row col\">");
+
+        ViewContext.Writer.Write("<div class=\"col-xs-3 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.FileName;
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ExtraFilename";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.ReadOnly = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+        }).Bind(ViewData["ExtraFilename"] ?? "").Render();
+
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div class=\"col-xs-9 col\">");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Remarks + ":";
+        }).GetHtml();
+
+
+        Html.DevExpress().Memo(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Remarks";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                    edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    edtSettings.Height = 100;
+                }
+            )
+            .Bind(ViewData["Remarks"] ?? null)
+            .GetHtml();
+
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("</div>");
+
+
+        Html.DevExpress().PageControl(pcSettings =>
+        {
+            pcSettings.AccessibilityCompliant = false;
+            pcSettings.Name = "pcFeatures_" + ViewData["ObjectID"].ToString().Replace('-', '_');
+            pcSettings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            pcSettings.TabAlign = TabAlign.Left;
+            pcSettings.TabPosition = TabPosition.Top;
+            pcSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            //pcSettings.Height = System.Web.UI.WebControls.Unit.Percentage(90);
+            pcSettings.EnableTabScrolling = true;
+            pcSettings.EnableHotTrack = true;
+            pcSettings.TabPages.Add(Resources.Barcodes).SetContent(() =>
+            {
+                Html.RenderAction("BarcodeGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+
+            pcSettings.TabPages.Add(Resources.Prices).SetContent(() =>
+            {
+                Html.RenderAction("PriceCatalogDetailGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+
+            pcSettings.TabPages.Add(Resources.Categories).SetContent(() =>
+            {
+                Html.RenderAction("ItemAnalyticTreeGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+
+            pcSettings.TabPages.Add(Resources.ChildItems).SetContent(() =>
+            {
+                Html.RenderAction("ItemsOfMotherCodeGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+
+            pcSettings.TabPages.Add(Resources.LinkedSubItems).SetContent(() =>
+            {
+                Html.RenderAction("LinkedSubItemsGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+            pcSettings.TabPages.Add(Resources.ItemsLinkedTo).SetContent(() =>
+            {
+                Html.RenderAction("LinkedToItemsGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+            pcSettings.TabPages.Add(Resources.Storage).SetContent(() =>
+            {
+                Html.RenderAction("ItemStoreGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+            pcSettings.TabPages.Add(Resources.ItemStock).SetContent(() =>
+            {
+                Html.RenderAction("ItemStockGrid", "Item", new { ItemID = ViewData["ItemID"], editMode = false });
+            });
+
+        }).Render();
+
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()

@@ -1,0 +1,15 @@
+﻿@model OwnerApplicationSettings
+@using ITS.Retail.WebClient.Extensions;
+@{
+    string callbackRouteValuesController = "OwnerApplicationSettings";
+    string callbackRouteValuesAction = "B2CDocumentType";
+    string callbackRouteValuesArea = string.Empty;
+    string clientSideEventsSelectedIndexChanged = "function(s, e) { B2CDocumentSeries.PerformCallback(); }"; ;
+    string beginCallback = "B2CDocumentTypeBeginCallback";
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = OwnerApplicationSettingsController.DocumentTypesRequestedByFilterCondition;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = OwnerApplicationSettingsController.DocumentTypeRequestedByValue;
+
+    string name = ViewData["Name"] as string;
+    FormInstances.DropDownListNotSearchableComboBoxBody(Html: Html, enabled: true, callbackRouteValuesController: callbackRouteValuesController, callbackRouteValuesAction: callbackRouteValuesAction, callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, name: name, valueType: typeof(Guid), clientSideEventsValueChanged: "B2CDocumentTypeValueChanged", modelType: typeof(DocumentType), model: Model == null ? null : DataBinder.Eval(Model.B2CDocumentType, "Oid"), clientSideEventsSelectedIndexChanged: clientSideEventsSelectedIndexChanged, beginCallback: beginCallback).Render();
+}

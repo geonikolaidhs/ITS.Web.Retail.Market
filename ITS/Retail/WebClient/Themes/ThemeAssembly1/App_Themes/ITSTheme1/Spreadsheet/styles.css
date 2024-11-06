@@ -1,0 +1,117 @@
+.dxssControl_ITSTheme1 
+{
+	border-style: none;
+	font: 14px;
+}
+.dxssControl_ITSTheme1 .dxss-gl .dxss-v,
+.dxssControl_ITSTheme1 .dxss-gl .dxss-h 
+{
+	border-color: #c0c0c0;
+}
+.dxssControl_ITSTheme1 .dxss-rowHeader 
+{	
+	border-right: 1px solid #c0c0c0;
+	border-top: 1px solid #c0c0c0;
+}
+.dxssControl_ITSTheme1 .dxss-colHeader 
+{
+	border-bottom: 1px solid #c0c0c0;
+	border-left: 1px solid #c0c0c0;
+}
+.dxssControl_ITSTheme1 .dxss-crse 
+{
+	background-color: #FF8800; 
+	opacity: .20;
+}
+.dxssControl_ITSTheme1 .dxss-trbe 
+{
+	border-top-color: #FF8800;
+}
+.dxssControl_ITSTheme1 .dxss-rrbe 
+{
+	border-right-color: #FF8800;
+}
+.dxssControl_ITSTheme1 .dxss-brbe 
+{
+	border-bottom-color: #FF8800;
+}
+.dxssControl_ITSTheme1 .dxss-lrbe 
+{
+	border-left-color: #FF8800;
+}
+.dxssControl_ITSTheme1 .dxrControl_ITSTheme1 .dxtcLite_ITSTheme1.dxtc-top .dxtc-leftIndent
+{
+	width: 3px;
+}
+.dxssControl_ITSTheme1 .dxtcLite_ITSTheme1.dxtc-bottom .dxtc-leftIndent
+{
+	width: 8px;
+}
+
+.dxssControl_ITSTheme1 .dxss-hrg,
+.dxssControl_ITSTheme1 .dxss-vrg 
+{
+	background-color: #FF8800;
+}
+.dxssControl_ITSTheme1 .dxss-md 
+{
+	border-left: 1px solid #c0c0c0 !important;
+	border-right: 1px solid #c0c0c0 !important;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.dxssControl_ITSTheme1 .dxrControl_ITSTheme1 .dxr-minBtn
+{
+	padding-right: 7px;
+}
+.dxssControl_ITSTheme1 .dxss-tse 
+{
+	border-color: #FF8800;
+}
+.dxssControl_ITSTheme1 .dxss-tre
+{
+	background: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Spreadsheet.TouchResize.png")%>');
+}
+/* Loading panel */
+.dxssLoadingDiv_ITSTheme1
+{
+    background: white;
+    opacity: 0.85 !important;
+    filter: alpha(opacity=85);
+}
+.dxssLoadingPanel_ITSTheme1
+{
+	border: 1px solid #c0c0c0;
+	background-color: white;
+	font: 14px;
+	color: #333333;
+}
+.dxssLoadingPanel_ITSTheme1 td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+	padding: 10px 14px;
+}
+
+.dxheControl_ITSTheme1
+{
+    font: 14px;
+}
+.dxssLoadingPanel_ITSTheme1 .dxlp-loadingImage
+{
+	background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.Web.Loading.gif")%>');
+	height: 32px;
+	width: 32px;
+}
+/* --------------Dialogs----------------- */
+.dxpcLite_ITSTheme1 .dxssDlgFooter
+{
+	border-top: 1px #c0c0c0 solid;
+}
+.dxpcLite_ITSTheme1 .dxssDlgInsertImageForm .dxssDlgImagePreviewCell
+{
+    color: #878787;
+    border: dashed 1px #cac8c8;
+}

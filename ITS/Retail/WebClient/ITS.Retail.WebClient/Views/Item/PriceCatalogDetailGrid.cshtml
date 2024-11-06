@@ -1,0 +1,645 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+
+@{
+    IEnumerable<PriceCatalogDetail> bind = null;
+    if (Model is PriceCatalog)
+    {
+        bind = ((PriceCatalog)Model).PriceCatalogDetails;
+    }
+    else if (Model is IEnumerable<PriceCatalogDetail>)
+    {
+        bind = (IEnumerable<PriceCatalogDetail>)Model;
+    }
+    foreach (PriceCatalogDetail item in bind)
+    {
+        bool a = false;
+        bool b = false;
+        foreach (PriceCatalogDetailTimeValue itemtv in item.TimeValues.OrderBy(x => x.TimeValueValidFrom))
+        {
+            if (itemtv.TimeValueValidFromDate <= DateTime.Now && itemtv.TimeValueValidUntilDate >= DateTime.Now && itemtv.IsActive)
+            {
+                if (!a)
+                {
+                    item.FirstTimeValue = itemtv;
+                    a = true;
+                }
+                else if (!b)
+                {
+                    item.SecondTimeValue = itemtv;
+                    b = true;
+                    break;
+                }
+            }
+        }
+        if (!a || !b)
+        {
+            foreach (PriceCatalogDetailTimeValue itemtv in item.TimeValues)
+            {
+                if (itemtv.TimeValueValidFromDate >= DateTime.Now && itemtv.IsActive)
+                {
+                    if (!a)
+                    {
+                        item.FirstTimeValue = itemtv;
+                        a = true;
+                    }
+                    else if (!b)
+                    {
+                        item.SecondTimeValue = itemtv;
+                        b = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    bool editMode = false;
+}
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+    settings.SettingsDetail.ShowDetailRow = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+    string gridName = "";
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true && ITS.Retail.WebClient.MvcApplication.ApplicationInstanceAllowsPriceEdit)
+    {
+        editMode = true;
+        settings.Name = "grdPriceCatalogDetails";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                PriceCatalogDetail currentPriceCatalogDetail = DataBinder.Eval(c.DataItem, "This") as PriceCatalogDetail;
+                if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER
+                   || (ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER
+                        && currentPriceCatalogDetail.PriceCatalog.IsEditableAtStore != null
+                        && currentPriceCatalogDetail.PriceCatalog.IsEditableAtStore.Oid == StoreControllerAppiSettings.CurrentStoreOid
+                      )
+                )
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+                }
+
+                if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+                {
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+                }
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+                    );
+                }
+            });
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "PriceCatalogDetailGrid", editMode = true };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Item", Action = "PriceCatalogDetailAddNewPartial" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Item", Action = "PriceCatalogDetailUpdatePartial" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Item", Action = "PriceCatalogDetailDeletePartial" };
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallbackPriceCatalogDetailGrid";
+        gridName = "grdPriceCatalogDetailEdit";
+    }
+    else
+    {
+        settings.Name = "grdPriceCatalogDetails_" + ViewData["ItemID"];
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "PriceCatalogDetailGrid", ItemID = ViewData["ItemID"], editMode = false };
+        gridName = "grdPriceCatalogDetailView";
+    }
+    settings.Columns.Add(col =>
+    {
+        col.SortAscending();
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "PriceCatalog.Description";
+        col.Caption = Resources.PriceCatalog;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Barcode.Code";
+        col.Caption = Resources.ItemCodeBarcode;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CreatedOn";
+        col.Caption = Resources.Created;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+        dateEditProperties.TimeSectionProperties.Visible = true;
+        dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.DisplayFormatInEditMode = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UpdatedOn";
+        col.Caption = Resources.UpdatedOn;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+        dateEditProperties.TimeSectionProperties.Visible = true;
+        dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.DisplayFormatInEditMode = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "DatabaseValue";
+        col.Caption = Resources.StartingValue;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.PropertiesEdit.DisplayFormatString = ViewBag.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Discount";
+        col.Caption = Resources.Discount;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.PropertiesEdit.DisplayFormatString = "0.00%";
+    });
+    settings.Columns.Add(col =>
+    {
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "VATIncluded";
+        col.Caption = Resources.VatIncluded;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "MarkUp";
+        col.Caption = Resources.MarkUp;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        col.PropertiesEdit.DisplayFormatString = "0.00%";
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "FirstTimeValue.TimeValueValidFromDate";
+        col.Caption = Resources.TimeValueValidFromDate + " 1";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+        dateEditProperties.TimeSectionProperties.Visible = true;
+        dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.DisplayFormatInEditMode = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "FirstTimeValue.TimeValueValidUntilDate";
+        col.Caption = Resources.TimeValueValidUntilDate + " 1";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+        dateEditProperties.TimeSectionProperties.Visible = true;
+        dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.DisplayFormatInEditMode = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "FirstTimeValue.TimeValue";
+        col.Caption = Resources.TimeValue + " 1";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.ColumnType = MVCxGridViewColumnType.SpinEdit;
+        SpinEditProperties spinEditProperties = col.PropertiesEdit as SpinEditProperties;
+        spinEditProperties.NumberType = SpinEditNumberType.Float;
+        spinEditProperties.SpinButtons.Visible = false;
+        spinEditProperties.DecimalPlaces = (int)BaseController.EffectiveOwner.OwnerApplicationSettings.DisplayValueDigits;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "SecondTimeValue.TimeValueValidFromDate";
+        col.Caption = Resources.TimeValueValidFromDate + " 2";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+        dateEditProperties.TimeSectionProperties.Visible = true;
+        dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.DisplayFormatInEditMode = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "SecondTimeValue.TimeValueValidUntilDate";
+        col.Caption = Resources.TimeValueValidUntilDate + " 2";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+        DateEditProperties dateEditProperties = col.PropertiesEdit as DateEditProperties;
+        dateEditProperties.TimeSectionProperties.Visible = true;
+        dateEditProperties.DisplayFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.EditFormatString = "dd/MM/yyyy HH:mm";
+        dateEditProperties.DisplayFormatInEditMode = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "SecondTimeValue.TimeValue";
+        col.Caption = Resources.TimeValue + " 2";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.ColumnType = MVCxGridViewColumnType.SpinEdit;
+        SpinEditProperties spinEditProperties = col.PropertiesEdit as SpinEditProperties;
+        spinEditProperties.NumberType = SpinEditNumberType.Float;
+        spinEditProperties.SpinButtons.Visible = false;
+        spinEditProperties.DecimalPlaces = (int)BaseController.EffectiveOwner.OwnerApplicationSettings.DisplayValueDigits;
+    });
+    if (bool.Parse(ViewData["EditMode"].ToString()) == false)
+    {
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Value";
+            column.Caption = Resources.EstimatedPrice;
+            column.HeaderStyle.Wrap = DefaultBoolean.True;
+            column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            column.SetDataItemTemplateContent(c =>
+            {
+                try
+                {
+                    decimal value = (decimal)DataBinder.Eval(c.DataItem, "Value");
+                    decimal discount = (decimal)DataBinder.Eval(c.DataItem, "Discount");
+                    bool vatIncluded = (bool)DataBinder.Eval(c.DataItem, "VATIncluded");
+                    ITS.Retail.Model.Item item = null;
+                    ITS.Retail.Model.PriceCatalog pc = null;
+                    try
+                    {
+                        item = DataBinder.Eval(c.DataItem, "Item!") as ITS.Retail.Model.Item;
+                        pc = DataBinder.Eval(c.DataItem, "PriceCatalog!") as ITS.Retail.Model.PriceCatalog;
+                    }
+                    catch
+                    {
+                        item = DataBinder.Eval(c.DataItem, "Item") as ITS.Retail.Model.Item;
+                        pc = DataBinder.Eval(c.DataItem, "PriceCatalog") as ITS.Retail.Model.PriceCatalog;
+                    }
+
+                    decimal displayValue = 0;
+                    if (discount > 1)
+                    {
+                        discount /= 100;
+                    }
+
+                    if (vatIncluded)
+                    {
+                        displayValue = (1 - discount) * item.GetUnitPrice(pc);
+                    }
+                    else
+                    {
+                        displayValue = (1 - discount) * value;
+                    }
+                    ViewContext.Writer.Write(displayValue.ToString(ViewBag.OwnerApplicationSettings.formatCurrencyString));
+                }
+                catch (Exception e)
+                {
+                    ViewContext.Writer.Write(e.Message);
+                }
+            });
+        });
+
+    }
+
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "IsActive";
+    //    column.Caption = Resources.ActiveFemale;
+    //    column.HeaderStyle.Wrap = DefaultBoolean.True;
+    //    column.ColumnType = MVCxGridViewColumnType.CheckBox;
+    //    CheckBoxProperties checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+    //    checkBoxProperties.ValueChecked = true;
+    //    checkBoxProperties.ValueGrayed = false;
+    //    checkBoxProperties.ValueUnchecked = false;
+    //    checkBoxProperties.ValueType = typeof(bool);
+    //    column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    //    column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    //});
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(60);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.PriceInfo;
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Prices;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsCookies.Enabled = false;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.SetDetailRowTemplateContent(c =>
+    {
+        Html.RenderAction("PriceCatalogDetailTimeValueGrid", new { PriceCatalogDetailOid = DataBinder.Eval(c.DataItem, "Oid"), EditMode = editMode });
+    });
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewData["Item"] = item;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnPriceCatalogDetailUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnPriceCatalogDetailCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.PriceCatalog + ":";
+            edtSettings.AssociatedControlName = "PriceCatalog";
+        }
+        ).Render();
+
+        Html.RenderPartial("PriceCatalogsComboBoxPartial", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+          edtSettings =>
+          {
+              edtSettings.ControlStyle.CssClass = "label required_field";
+              edtSettings.Text = Resources.Value + ":";
+              edtSettings.AssociatedControlName = "Value";
+          }
+      ).Render();
+
+        Html.DevExpress().SpinEdit(
+             edtSettings =>
+             {
+                 edtSettings.Name = "DatabaseValue";
+                 edtSettings.ControlStyle.CssClass = "editor";
+                 edtSettings.Properties.MinValue = 0;
+                 edtSettings.Properties.MaxValue = 99999;
+                 edtSettings.Properties.MaxLength = 99999;
+                 edtSettings.Number = 0;
+                 edtSettings.Properties.DisplayFormatString = ViewBag.OwnerApplicationSettings.formatCurrencyString;
+                 edtSettings.ShowModelErrors = true;
+                 edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                 edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                 edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+             }
+         )
+         .Bind(DataBinder.Eval(item, "DatabaseValue") ?? 0)
+         .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Barcode + ":";
+                edtSettings.AssociatedControlName = "Item";
+            }
+        ).Render();
+
+        ViewData["Tab"] = "PriceCatalogDetail";
+        Html.RenderPartial("BarcodesComboBoxPartial", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Discount + ":";
+            edtSettings.AssociatedControlName = "Discount";
+        }
+        ).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Discount";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MaskSettings.Mask = "<0..999>.<0..999>%";
+            edtSettings.Properties.DisplayFormatInEditMode = true;
+            edtSettings.Properties.MaskSettings.IncludeLiterals = MaskIncludeLiteralsMode.DecimalSymbol;
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind((DataBinder.Eval(item, "Discount")) == null ? "" : (DataBinder.Eval(item, "Discount")) * 100)
+        .Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");
+
+        /*Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.TimeValue + ":";
+            edtSettings.AssociatedControlName = "TimeValue";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "TimeValue";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.MaxLength = 99999;
+            edtSettings.Number = 0;
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(item, "TimeValue") ?? 0).Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TimeValueValidFromDate + ":";
+            edtSettings.AssociatedControlName = "TimeValueValidFromDate";
+        }).Render();
+
+        object TimeValueValidFromDate = DataBinder.Eval(item, "TimeValueValidFromDate");
+        if (TimeValueValidFromDate == null)
+        {
+            TimeValueValidFromDate = DateTime.Now.AddDays(-1);
+        }
+
+        @Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "TimeValueValidFromDate";
+            datesettings.ControlStyle.CssClass = "size";
+            datesettings.Properties.DropDownButton.Visible = true;
+            datesettings.Properties.TimeSectionProperties.Visible = true;
+            datesettings.Properties.EditFormat = EditFormat.DateTime;
+        }).Bind(TimeValueValidFromDate).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.TimeValueValidUntilDate + ":";
+            edtSettings.AssociatedControlName = "TimeValueValidUntilDate";
+        }).Render();
+
+        object TimeValueValidUntilDate = DataBinder.Eval(item, "TimeValueValidUntilDate");
+        if(TimeValueValidUntilDate == null)
+        {
+            TimeValueValidUntilDate = DateTime.Now.AddDays(-1);
+        }
+
+        @Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "TimeValueValidUntilDate";
+            datesettings.ControlStyle.CssClass = "size";
+            datesettings.Properties.DropDownButton.Visible = true;
+            datesettings.Properties.TimeSectionProperties.Visible = true;
+            datesettings.Properties.EditFormat = EditFormat.DateTime;
+        }).Bind(TimeValueValidUntilDate).Render();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-top\">");        */
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "MarkUp";
+            edtSettings.Properties.Caption = Resources.MarkUp + "(%)";
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Percent;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Properties.DisplayFormatString = "0.00";
+            edtSettings.Properties.DisplayFormatInEditMode = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.ShowModelErrors = true;
+        }).Bind((DataBinder.Eval(item, "MarkUp")) == null ? 0 : (DataBinder.Eval(item, "MarkUp")) * 100)
+        .Render();
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "VatIncludedCheckbox";
+                edtSettings.Text = Resources.VatIncluded;
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Checked = true;
+            }
+        ).Bind(DataBinder.Eval(item, "VATIncluded") ?? true).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsActiveValue";
+                edtSettings.Checked = true;
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Text = Resources.ActiveFemale;
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+            }
+            ).Bind(DataBinder.Eval(item, "IsActive") ?? true).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+
+}).Bind(bind).GetHtml()

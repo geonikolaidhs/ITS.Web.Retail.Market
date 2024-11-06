@@ -1,0 +1,33 @@
+﻿@using ITS.Retail.ResourcesLib
+@{
+    ComboBoxExtension comboBox = Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Properties.Caption = Resources.POS;
+        combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        combosettings.Properties.CaptionStyle.CssClass = "label";
+        combosettings.Name = "POSComboBox";
+        combosettings.Properties.DropDownWidth = System.Web.UI.WebControls.Unit.Percentage(100);
+        combosettings.CallbackRouteValues = new { Controller = "DocumentSeries", Action = "POSComboBoxPartial" };
+        combosettings.Properties.CallbackPageSize = 15;
+        combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        combosettings.Properties.ValueField = "Oid";
+        combosettings.Properties.ValueType = typeof(Guid);
+        combosettings.Properties.Columns.Add("Name", Resources.Name, 90);
+        combosettings.Properties.Columns.Add("ID", Resources.Code, 90);
+        combosettings.Properties.TextFormatString = "{0} - {1}";
+        combosettings.Properties.TextField = "Name";
+        combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+        combosettings.Properties.FilterMinLength = 0;
+        combosettings.Properties.NullText = Resources.ComboBoxNote;
+        combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+        var button = new EditButton(" ");
+        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        button.Image.AlternateText = Resources.Clear;
+        combosettings.Properties.Buttons.Add(button);
+        combosettings.ClientEnabled = DataBinder.Eval(ViewData["item"], "this") != null && (eModule)DataBinder.Eval(ViewData["item"], "eModule") == eModule.POS;
+        combosettings.ShowModelErrors = true;
+    });
+    comboBox.BindList(ViewBag.POS).Bind(DataBinder.Eval(ViewData["item"], "POS!Key")).GetHtml();
+
+
+}

@@ -1,0 +1,25 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Areas.B2C.Controllers;
+
+
+@{
+    Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Content/B2C/js/Profile.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+
+}
+
+<div class="row page padding-bottom-25">
+    
+    <div class="page-header title col-md-12 text-center">
+        <h1>@Resources.UpdateProfile</h1>
+    </div>
+
+    @if (BaseController.CurrentUser != null) {
+
+        Html.RenderPartial("ProfileMenu");
+        Html.RenderPartial("ProfileCallbackPanel");
+    }
+</div>

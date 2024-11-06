@@ -1,0 +1,12 @@
+﻿<h2 class="text-left">@Resources.DataView</h2>
+
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "CustomDataView";
+    cmb_settings.Properties.TextField = "Description";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.CallbackRouteValues = new { Controller = "VariableValuesDisplay", Action = "CustomDataViewsComboBox", ViewName = "CustomDataViewsComboBox", IsPartial = true };
+}).BindList(ViewBag.DataViews).GetHtml()
+

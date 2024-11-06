@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Common.Keyboards.Compact</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Common.Keyboards.Compact.NumKeypad">
+            <summary>
+            Summary description for NumKeypad.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.NumKeypad.DEFAULT_MAXIMUM_DIGITS">
+            <summary>
+            The default maximum size of digits
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.NumKeypad.DEFAULT_MAXIMUM_DECIMAL_DIGITS">
+            <summary>
+            The default maximum size of decimal digits
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.#ctor(System.Globalization.CultureInfo)">
+            <summary>
+            It creates an instance of a NumKeyPad
+            </summary>
+            <param name="cultureInfo">The culture info to use</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.#ctor(System.Globalization.CultureInfo,System.Decimal)">
+            <summary>
+            It creates an instance of a NumKeyPad
+            </summary>
+            <param name="cultureInfo"></param>
+            <param name="input_value">The ini</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.#ctor(System.Globalization.CultureInfo,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            It creates an instance of a NumKeyPad
+            </summary>
+            <param name="cultureInfo">The culture info stored</param>
+            <param name="input_value">The initial value that will also have the stored value</param>
+            <param name="min_value">min value that will warn the user if lower</param>
+            <param name="max_value">max value that will warn the user if higher</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.#ctor(System.Globalization.CultureInfo,System.Decimal,System.Decimal,System.Decimal,System.Boolean)">
+            <summary>
+            It creates an instance of a NumKeyPad
+            </summary>
+            <param name="cultureInfo">The culture info stored</param>
+            <param name="input_value">The initial value that will also have the stored value</param>
+            <param name="min_value">min value that will warn the user if lower</param>
+            <param name="max_value">max value that will warn the user if higher</param>
+            <param name="inside_limits">If true it will not warn the user but prohibit him from entering a value more than min-max</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.#ctor(System.Globalization.CultureInfo,System.Decimal,System.Decimal,System.Decimal,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            It creates an instance of a NumKeyPad
+            </summary>
+            <param name="cultureInfo">The culture info stored</param>
+            <param name="input_value">The initial value that will also have the stored value</param>
+            <param name="min_value">min value that will warn the user if lower</param>
+            <param name="max_value">max value that will warn the user if higher</param>
+            <param name="inside_limits">If true it will not warn the user but prohibit him from entering a value more than min-max</param>
+            <param name="maximumDecimalDigits">The maximum decimal digits allowed</param>
+            <param name="maximumDigits">The maximum digits allowed(Tota)</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.#ctor(System.Globalization.CultureInfo,System.Decimal,System.Decimal,ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR,System.Decimal,System.Decimal,System.Boolean,System.Int32,System.Int32,System.String,System.Boolean)">
+            <summary>
+            It creates an instance of a NumKeyPad
+            </summary>
+            <param name="cultureInfo">The culture info stored</param>
+            <param name="input_value">The initial value that will also have the stored value</param>
+            <param name="startup_value">The value that we start(show and do operations on to determine if its valid)</param>
+            <param name="startup_operator">The starting operator (+ or -)</param>
+            <param name="min_value">min value that will warn the user if lower</param>
+            <param name="max_value">max value that will warn the user if higher</param>
+            <param name="inside_limits">If true it will not warn the user but prohibit him from entering a value more than min-max</param>
+            <param name="maximumDecimalDigits">The maximum decimal digits allowed</param>
+            <param name="message">The message that will be displayed above the numbers</param>
+            <param name="maximumDigits">The maximum digits allowed(Tota)</param>
+            <param name="displayTitle"></param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.Dispose(System.Boolean)">
+            <summary>
+            It disposes the form
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.Initialize(System.Globalization.CultureInfo,System.Decimal,System.Decimal,ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR,System.Decimal,System.Decimal,System.Boolean,System.Int32,System.Int32,System.String,System.Boolean)">
+            <summary>
+            Initializes the keyboard, this method is only needed only if you have already instantiated your keyboard with other arguments
+            and you would like to re-initialize it without re-instantiating it for performance issues.
+            </summary>
+            <param name="cultureInfo">The culture info stored</param>
+            <param name="input_value">The initial value that will also have the stored value</param>
+            <param name="startup_value">The value that we start(show and do operations on to determine if its valid)</param>
+            <param name="startup_operator">The starting operator (+ or -)</param>
+            <param name="min_value">min value that will warn the user if lower</param>
+            <param name="max_value">max value that will warn the user if higher</param>
+            <param name="inside_limits">If true it will not warn the user but prohibit him from entering a value more than min-max</param>
+            <param name="maximumDecimalDigits">The maximum decimal digits allowed</param>
+            <param name="maximumDigits">The maximum digits allowed(Tota)</param>
+            <param name="message">The message that will be displayed above the numbers</param>
+            <param name="displayTitle"></param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.ResetDisplay">
+            <summary>
+            Resets the value of the numeric keyboard
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.ValidateNumber(System.Decimal)">
+            <summary>
+            Checks the number given if its within the allowed boundaries of maxdigits and maxdecimal digits, as well as the min-max values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.NumKeypad.RestoreDefaultMaxValueContraintException">
+            <summary>
+            Restores the string to the general description
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.NumKeypad.LastValueText">
+            <summary>
+            Call this to change the default last value text that precedes the current value passed to the keyboard
+            which is shown in the title bar.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.NumKeypad.Result">
+            <summary>
+            The current value of the numeric keyboard
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.NumKeypad.MaxValueConstraintException">
+            <summary>
+            Allows retrieving/setting a string that describes what the quantity represents
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.NumKeypad.CultureInfo">
+            <summary>
+            Culture information that is used to display numbers
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.NumKeypad.InputString">
+            <summary>
+            Returns the number entered by the user as string.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR">
+            <summary>
+            Operator mode
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR.NO_OPERATOR">
+            <summary>
+            No operator
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR.ADDITION">
+            <summary>
+            Addition
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR.SUBSTRACTION">
+            <summary>
+            Subtraction
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR.FORBID_OPERATORS">
+            <summary>
+            Disables the operators
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Keyboards.Compact.KeyboardGateway">
+            <summary>
+            A Keyboard helper static class that provides some methods to make calling the alpanumeric and numeric keyboards an easier task.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.Initialize(System.Globalization.CultureInfo,System.Boolean)">
+            <summary>
+            Must run first in order to set the culture info for the numeric key pad. Run it 1 time in the beginning of your application.
+            </summary>
+            <param name="cultureInfo"></param>
+            <param name="displayTitleInNumeric"></param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.Initialize(System.Globalization.CultureInfo,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Must run first in order to set the culture info and maximum decimal and normal digits for the numeric key pad. Run it 1 time in the beginning of your application.
+            </summary>
+            <param name="cultureInfo"></param>
+            <param name="maximum_digits">The maximum digits allowed to  be typed</param>
+            <param name="maximum_decimal_digits">The maximum decimal digits allowed to be typed</param>
+            <param name="displayTitleInNumeric"></param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@,System.Decimal,System.Decimal,System.Boolean)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <param name="minValue">The minimum value that should be allowed</param>
+            <param name="maxValue">The maximim value that should be allowed</param>
+            <param name="insideLimits">If set to true it won't let the user store a value beyond min-max1 otherwise he would just warn him(if min and max are both 0 it won't work)</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <param name="control">If it is supplied, this control's Text property is assigned the return value</param>
+            <param name="focusControl">If true and the supplied control is not null, the control gets the focus when the keyboard closes.</param>
+            <param name="isCurrency">If the value is currency, the Text property of the control is formatted as a currency.</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@,System.Object,System.Boolean,System.Boolean,System.Decimal,System.Decimal,System.Boolean)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <param name="control">If it is supplied, this control's Text property is assigned the return value</param>
+            <param name="focusControl">If true and the supplied control is not null, the control gets the focus when the keyboard closes.</param>
+            <param name="isCurrency">If the value is currency, the Text property of the control is formatted as a currency.</param>
+            <param name="minValue">The minimum value that should be allowed</param>
+            <param name="maxValue">The maximim value that should be allowed</param>
+            <param name="insideLimits">If set to true it won't let the user store a value beyond min-max1 otherwise he would just warn him(if min and max are both 0 it won't work)</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@,System.Object,System.Boolean,System.Boolean,System.Decimal,System.Decimal,System.Boolean,System.Int32,System.Int32,ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <param name="control">If it is supplied, this control's Text property is assigned the return value</param>
+            <param name="focusControl">If true and the supplied control is not null, the control gets the focus when the keyboard closes.</param>
+            <param name="isCurrency">If the value is currency, the Text property of the control is formatted as a currency.</param>
+            <param name="startup_operator"></param>
+            <param name="minValue">The minimum value that should be allowed</param>
+            <param name="maxValue">The maximim value that should be allowed</param>
+            <param name="insideLimits">If set to true it won't let the user store a value beyond min-max1 otherwise he would just warn him(if min and max are both 0 it won't work)</param>
+            <param name="maximumDigits">The maximum number of digits allowed</param>
+            <param name="maximumDecimalDigits">The maximum number of decimal digits</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@,System.Object,System.Boolean,System.Boolean,System.Decimal,System.Decimal,System.Boolean,System.Int32,System.Int32,ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR,System.Decimal)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <param name="control">If it is supplied, this control's Text property is assigned the return value</param>
+            <param name="focusControl">If true and the supplied control is not null, the control gets the focus when the keyboard closes.</param>
+            <param name="isCurrency">If the value is currency, the Text property of the control is formatted as a currency.</param>
+            <param name="startup_operator"></param>
+            <param name="minValue">The minimum value that should be allowed</param>
+            <param name="maxValue">The maximim value that should be allowed</param>
+            <param name="insideLimits">If set to true it won't let the user store a value beyond min-max1 otherwise he would just warn him(if min and max are both 0 it won't work)</param>
+            <param name="maximumDigits">The maximum number of digits allowed</param>
+            <param name="maximumDecimalDigits">The maximum number of decimal digits</param>
+            <param name="startup_value">The initial value shown to the user</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenNumeric(System.Decimal@,System.Object,System.Boolean,System.Boolean,System.Decimal,System.Decimal,System.Boolean,System.Int32,System.Int32,ITS.Common.Keyboards.Compact.NumKeypad.OPERATOR,System.Decimal,System.String)">
+            <summary>
+            It opens the numeric keyboard if it hasn't already been opened by this method
+            </summary>
+            <param name="value">The value that should be displayed. It is passed by reference and holds the return value also.</param>
+            <param name="control">If it is supplied, this control's Text property is assigned the return value</param>
+            <param name="focusControl">If true and the supplied control is not null, the control gets the focus when the keyboard closes.</param>
+            <param name="isCurrency">If the value is currency, the Text property of the control is formatted as a currency.</param>
+            <param name="startup_operator"></param>
+            <param name="minValue">The minimum value that should be allowed</param>
+            <param name="maxValue">The maximim value that should be allowed</param>
+            <param name="insideLimits">If set to true it won't let the user store a value beyond min-max1 otherwise he would just warn him(if min and max are both 0 it won't work)</param>
+            <param name="maximumDigits">The maximum number of digits allowed</param>
+            <param name="maximumDecimalDigits">The maximum number of decimal digits</param>
+            <param name="startup_value">The initial value shown to the user</param>
+            <param name="message">The message that will be displayed above the numbers</param>
+            <returns>If true, the user wants the value to be used, else the user cancelled the dialog</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.KeyboardGateway.OpenAlpha(System.Object,System.String,System.Boolean)">
+            <summary>
+            It opens the alphanumeric keyboard only if it hasn't already been opened by this method.
+            </summary>
+            <param name="control">If it is supplied, its Text property is assigned the result</param>
+            <param name="input">The input string to be displayed</param>
+            <param name="multiline">If true the keyboard allows multiline input</param>
+            <returns>The string that the user entered</returns>
+        </member>
+        <member name="T:ITS.Common.Keyboards.Compact.Keyboard">
+            <summary>
+            Keyboard
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.instance">
+            <summary>
+            The one and only instance of the keyboard.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.buttons">
+            <summary>
+            Array that used for the buttons.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.grVals">
+            <summary>
+            The greek lower case letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.grCVals">
+            <summary>
+            The greek upper case letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.grValsTonos">
+            <summary>
+            The greek lower case accented letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.grCValsTonos">
+            <summary>
+            The greek upper case accented letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.enVals">
+            <summary>
+            The english lower case letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.enCVals">
+            <summary>
+            The english upper case letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.symbols">
+            <summary>
+            Symbols
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.numbers">
+            <summary>
+            Numbers
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.isCaps">
+            <summary>
+            Holds if the keyboard shows capital letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.isSymbol">
+            <summary>
+            Holds if the keyboard shows symbols
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.isGreek">
+            <summary>
+            Holds if the keyboard shows greek letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.isEnglish">
+            <summary>
+            Holds if the keyboard shows english letters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.isNumber">
+            <summary>
+            Shows if the keyboard shows numbers
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.isTonos">
+            <summary>
+            Shows if the keyboard shows accented characters
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.lines">
+            <summary>
+            An arraylist that holds the lines
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Keyboards.Compact.Keyboard.currentLine">
+            <summary>
+            The current line
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.GetAsString">
+            <summary>
+            Merges the lines if multiline is enabled into one string where
+            each line is seperated by a new line feed.
+            </summary>
+            <returns>A merged string of the lines</returns>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.Initialise">
+            <summary>
+            It initializes the keyboard
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.Initialise(System.String)">
+            <summary>
+            Initialises the component with the current
+            string value. If the string contains new line feeds, it is being split to multilines.
+            </summary>
+            <param name="value">A string representing the value that should be displayed</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.SetMultiLine(System.Boolean)">
+            <summary>
+            It turns on or off multiline behavior.
+            </summary>
+            <param name="value">True or false</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.updateLineView">
+            <summary>
+            Updates the line view
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.iniDefaults">
+            <summary>
+            Performs the default initialisation.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.iniLetters">
+            <summary>
+            Initialises the leters in the buttons
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.assignLetters(System.String[])">
+            <summary>
+            It assigns the letters found in the string array to the buttons
+            </summary>
+            <param name="vals">A string array with the letters to assign</param>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.iniButtons">
+            <summary>
+            It initializes the buttons
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.commitCurrentLine">
+            <summary>
+            It saves the current line to the lines arraylist
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Keyboards.Compact.Keyboard.ActivateKeyboard">
+            <summary>
+            Activates the current keyboard
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.Keyboard.Instance">
+            <summary>
+            It returns the same instance of Keyboard class.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.Keyboard.Line">
+            <summary>
+            The first editable line
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.Keyboard.Lines">
+            <summary>
+            An array that contains all the lines
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Keyboards.Compact.Keyboard.LinesAsString">
+            <summary>
+            Returns the lines as one string that is 
+            seperatated with the "\n" value.
+            </summary>
+        </member>
+    </members>
+</doc>

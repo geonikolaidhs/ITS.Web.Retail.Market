@@ -1,0 +1,20 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+
+    settings.Name = "OrderTabsCallbackPanel";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "OrderTabsCallbackPanel", DocumentHeaderOid = document.Oid };
+    settings.SettingsLoadingPanel.Enabled = false;
+    settings.ClientSideEvents.EndCallback = "OrderTabsCallbackPanelEndCallback";
+    settings.SetContent(() =>
+    {
+        if ( (eDocumentTypeView)ViewBag.DocumentViewForm == eDocumentTypeView.CompositionDecomposition)
+        {
+            Html.RenderPartial("CompositionDecompositionContent", document);
+        }
+        else
+        {
+            Html.RenderPartial("OrderTabsContent");
+        }
+    });
+}).GetHtml()

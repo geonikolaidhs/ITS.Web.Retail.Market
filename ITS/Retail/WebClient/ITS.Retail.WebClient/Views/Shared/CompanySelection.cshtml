@@ -1,0 +1,21 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "LayoutCompanySelection";
+    settings.SettingsLoadingPanel.Enabled = false;
+    settings.CallbackRouteValues = new { Controller = "Base", Action = "CompanySelection" };
+    settings.SetContent(() =>
+    {
+        IEnumerable<CompanyNew> companies = Session["Companies"] as IEnumerable<CompanyNew>;
+        if (companies != null)
+        {
+            string supplierName = Session["TraderCompanyName"] != null ? Session["TraderCompanyName"].ToString() : Resources.SelectCompany;
+            ViewContext.Writer.Write(supplierName+" <span>&#9662; </span><ul class='hidden'>");
+            foreach (CompanyNew company in companies.OrderBy(g => g.CompanyName))
+            {
+                ViewContext.Writer.Write("<li><a id=\"" + company.Oid + "\" href=\"#\" onclick=\"SetCurrentCompany('" + company.Oid + "');\">" + company.CompanyName + "</a></li>");
+            }
+            ViewContext.Writer.Write("</ul>");
+        }
+    });
+}).GetHtml()

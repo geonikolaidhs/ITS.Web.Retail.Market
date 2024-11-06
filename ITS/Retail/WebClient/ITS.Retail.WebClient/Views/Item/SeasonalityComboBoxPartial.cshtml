@@ -1,0 +1,35 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Common;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Enabled = true;
+    combosettings.Name = "Seasonality";
+    combosettings.CallbackRouteValues = new { Controller = "Item", Action = "SeasonalityComboBoxPartial" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Seasonality.Description";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ClientSideEvents.EndCallback = "SeasonalityEndCallback";
+
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+
+    button = new EditButton("");
+    button.Image.Url = Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Add;
+    combosettings.Properties.Buttons.Add(button);
+    combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+    combosettings.Properties.Columns.Add("Description", Resources.Description, 130);
+    combosettings.ShowModelErrors = true;
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.Enabled = (ViewBag.ApplicationInstance != eApplicationInstance.STORE_CONTROLER);
+}).BindList(ItemController.SeasonalityRequestedByFilterCondition, ItemController.SeasonalityRequestedByValue).BindList(ItemController.GetSeasonalityByValue(DataBinder.Eval(Model, "Seasonality!Key"))).Bind(DataBinder.Eval(Model, "Seasonality!Key")).GetHtml()

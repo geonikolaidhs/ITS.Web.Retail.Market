@@ -1,0 +1,120 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<nav class="navbar yamm navbar-default padding-10-0" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand b2c-brand" href="@Url.Content("~/B2C/home")">
+                <img class="img-responsive" src="@Url.Action("CompanyLogo", "Static")" alt="logo" />
+            </a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="mobile-dropdown-container visible-xs">
+                    <a href="#" class="category"><i class="fa fa-tags fa-2x"></i></a>
+                </li>
+
+                <li class="dropdown mobile-dropdown-container">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa-users fa-2x"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu remove-right mobile-dropdown">
+                        <li class="@(ViewBag.ControllerName == "Products" && ViewBag.ActionName == "List" ? "active" : "")">
+                            <a href="@Url.Content("~/B2C/Products/List")"><i class="fa fa-shopping-cart fa-2x"></i> @Resources.MyBasket</a>
+                        </li>    
+                        @if (ViewBag.IsUserLoggedIn)
+                        {
+                            <li class="divider"></li>
+                            <li class="@(ViewBag.ControllerName == "Membership" && ViewBag.ActionName == "Profile" ? "active" : "")">
+                                <a href="@Url.Content("~/B2C/Membership/Profile")"><i class="fa fa-user fa-2x"></i> @Resources.Profile</a>
+                            </li>
+                            <li class="@(ViewBag.ControllerName == "User" && ViewBag.ActionName == "ResetPassword" ? "active" : "")">
+                                <a href="@Url.Content("~/B2C/User/ResetPassword")"><i class="fa fa-key fa-2x"></i> @Resources.UpdatePassword</a>
+                            </li>
+                            <li class="@(ViewBag.ControllerName == "Membership" && ViewBag.ActionName == "Address" ? "active" : "")">
+                                <a href="@Url.Content("~/B2C/Membership/Address")"><i class="fa fa-map-marker fa-2x"></i> @Resources.Addresses</a>
+                            </li>
+                            <li class="@(ViewBag.ControllerName == "Membership" && ViewBag.ActionName == "Order" ? "active" : "")">
+                                <a href="@Url.Content("~/B2C/User/OrderHistory")"><i class="fa fa-institution fa-2x"></i> @Resources.OrderHistory</a>
+                            </li>
+                            <li class="@(ViewBag.ControllerName == "WishList" && ViewBag.ActionName == "Index" ? "active" : "")">
+                                <a href="@Url.Content("~/B2C/WishList")"><i class="fa fa-heart-o fa-2x"></i> @Resources.WishList</a>
+                            </li>
+                        }   
+                        <li class="divider"></li>
+                        <li class="@(ViewBag.ControllerName == "Pages" && ViewBag.ActionName == "Show" && ViewBag.ActivePage == "FAQ"  ? "active" : "")">
+                            <a href="@Url.Content("~/B2C/Pages/FAQ")"><i class="fa fa-info-circle fa-2x"></i> @Resources.FAQ</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+                @if( (  ViewBag.ControllerName == "User" && ViewBag.ActionName == "Login") ==false )
+                {
+                <li class="dropdown form-wrapper mobile-dropdown-container ">
+
+                    <a href="#" class="dropdown-toggle  padding-10 dropdown-lock" data-toggle="dropdown">
+                        <span class="fa @( ViewBag.IsUserLoggedIn ? "fa-lock" : "fa-unlock-alt" ) fa-2x"></span>
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu search-selector mobile-dropdown">
+                        <div class="yamm-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @{
+                                        if (!ViewBag.IsUserLoggedIn)
+                                        {
+                                            Html.RenderPartial("../Shared/Login");
+                                        }
+                                        else
+                                        {
+                                            Html.RenderPartial("../Shared/Logout");
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+
+                </li>
+                }
+                <li class="mobile-dropdown-container visible-xs">
+                    <a href="#" id="search-form-button"><i class="fa fa-search fa-2x"></i></a>
+                </li>
+                <li class="mobile-dropdown-container">
+                    <a href="#" class="cart"><i class="fa fa-shopping-cart fa-2x"></i><span class="badge cart-count">0</span></a>
+                </li>
+
+
+                <li class="dropdown mobile-dropdown-container">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="fa fa fa-language fa-2x"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul id="selectLanguage" class="dropdown-menu mobile-dropdown" >
+                        <li class="@(ViewData["currentculture"].ToString()=="en" ? "active" : "")">
+                            <a href="#" data-lang="en"><span class="lang-sm lang-lbl-full" lang="en"></span></a>
+                        </li>   
+                        <li class="divider"></li>
+                        <li class="@(ViewData["currentculture"].ToString()=="el" ? "active" : "")">
+                            <a href="#" data-lang="el"><span class="lang-sm lang-lbl-full" lang="el"></span></a>
+                        </li>   
+                        @*<li class="">
+                            <a href="#"><span class="lang-sm lang-lbl-full" lang="de"></span></a>
+                        </li>   
+                        <li class="">
+                            <a href="#"><span class="lang-sm lang-lbl-full" lang="no"></span></a>
+                        </li>*@   
+                    </ul>
+                </li>
+            </ul>
+
+
+            @{
+                ViewData["prefix"] = "header";
+                Html.RenderPartial("Filters");
+            }
+        </div>
+
+    </div>
+</nav>

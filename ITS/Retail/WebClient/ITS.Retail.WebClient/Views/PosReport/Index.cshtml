@@ -1,0 +1,69 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model IEnumerable<PosReport>
+
+@{
+    ViewBag.Title = Resources.POS_REPORTS;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)
+
+<script>
+
+    $(document).ready(function () {
+        $('body').on('click', '.edit', function () {
+
+            var grid = Component.GetName("grdPosReport");
+            var path = $('#HOME').val() + 'PosReport/Edit/';
+
+            if (grid !== null) {
+                if (selectedItemsArray.length === 0) {
+                    setJSNotification(pleaseSelectAnObjectToEdit);
+                }
+                else if (selectedItemsArray.length > 1) {
+                    setJSNotification(pleaseSelectOnlyOneObjectToEdit);
+                }
+                else if (selectedItemsArray.length === 1) {
+                    console.log(selectedItemsArray[0]);
+                    window.location.href = path + selectedItemsArray[0];
+                    grid.UnselectAllRowsOnPage();
+                }
+            }
+        });
+
+
+        $('body').on('click', '.delete', function () {
+
+            var grid = Component.GetName("grdPosReport");
+            var path = $('#HOME').val() + 'PosReport/Delete/';
+
+            if (grid !== null) {
+                if (selectedItemsArray.length === 0) {
+                    setJSNotification(pleaseSelectAnObjectToEdit);
+                }
+                else if (selectedItemsArray.length > 1) {
+                    setJSNotification(pleaseSelectOnlyOneObjectToEdit);
+                }
+                else if (selectedItemsArray.length === 1) {
+                    console.log(selectedItemsArray[0]);
+                    window.location.href = path + selectedItemsArray[0];
+                    grid.UnselectAllRowsOnPage();
+                }
+            }
+        });
+
+
+        $('body').on('click', '.add', function () {
+            var grid = Component.GetName("grdPosReport");
+            var path = $('#HOME').val() + 'PosReport/Edit';
+            window.location.href = path;
+            grid.UnselectAllRowsOnPage();
+
+        });
+
+
+
+    });
+
+
+</script>

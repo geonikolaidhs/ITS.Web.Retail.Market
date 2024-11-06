@@ -1,0 +1,401 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+
+//@extend-elements
+//original selectors
+//.Document #documentEditPageControl .dxtc-content label, .Document #documentEditPageControl .dxtc-content span
+%extend_1 {
+    display: block;
+    font-weight: bold;
+    min-width: 0;
+}
+
+
+.DocumentEdit {
+    @include breakpoint('1100-max') {
+        .wrapper .container .Document_Edit {
+            #documentEditPageControl .dxtc-content {
+                #right div .floated {
+                    float: none;
+                    margin: 0 0 !important;
+                    width: 100% !important;
+                }
+
+                div.item_info_name, .custom_price {
+                    /*width: 100% !important;*/
+                }
+            }
+
+            #information td {
+                width: 80px !important;
+            }
+        }
+    }
+    min-width: 750px;
+
+    .dxtcLite_ITSTheme1 {
+        overflow: visible !important;
+    }
+
+    .dxgvInlineEditCell_ITSTheme1 .dxeTextBox_ITSTheme1 {
+        width: 100%;
+    }
+
+
+}
+
+#btnSelectDelivery {
+    cursor: pointer;
+    width: 24px;
+}
+
+#documentEditPageControl {
+    width: 100%;
+}
+
+.Document {
+    .isInviewMode {
+        width: 100% !important;
+
+        .dxeDisabled_ITSTheme1, .label span {
+            color: $color_mine_shaft_approx !important;
+        }
+    }
+
+    .headerTable {
+        .dxeButtonEditSys, .dxeTextBoxSys, .dxeValidStEditorTable {
+            width: 100%;
+        }
+    }
+
+    #documentEditPageControl {
+        .dxtc-content {
+            position: relative;
+            overflow: visible !important;
+
+            .total {
+                float: right;
+                width: auto;
+                text-align: right !important;
+
+                #final_sum {
+                    color: $color_dodger_blue_approx !important;
+                    font-size: 16px !important;
+                    font-weight: bold;
+                    margin: 0;
+                    text-align: right;
+                }
+
+                label {
+                    color: $color_dodger_blue_approx !important;
+                    font-size: 16px !important;
+                }
+            }
+
+            span {
+                @extend %extend_1;
+
+                &.changeMode {
+                    @include border-radius(5px);
+                    background: $color_celeste_approx;
+                    cursor: pointer;
+                    display: inline-block !important;
+                    font-size: 13px;
+                    height: 28px;
+                    line-height: 25px;
+                    margin: 0 0 -5px 5px !important;
+                    text-align: center;
+                    width: 30px;
+
+                    &:hover {
+                        background-color: $color_dodger_blue_approx;
+                        color: $white;
+                    }
+                }
+
+                &.changeModeinfo {
+                    color: $color_picton_blue_approx;
+                    display: inline-block !important;
+                    font-size: 13px;
+                    font-weight: normal !important;
+                    margin: 0 0 0 15px !important;
+                }
+            }
+
+            #left {
+                background: $color_gallery_approx;
+                border-right: 5px solid $color_dodger_blue_approx;
+                height: 95%;
+                left: 0;
+                overflow: hidden;
+                padding: 10px;
+                position: absolute;
+                top: 0;
+                width: 460px;
+
+                ul {
+                    height: 100%;
+                    width: 450px;
+                    overflow: auto;
+                }
+            }
+
+            .editable {
+                clear: none;
+                float: left;
+                margin: -3px 20px 20px 0;
+                width: auto;
+            }
+
+            label {
+                @extend %extend_1;
+            }
+
+            div {
+                .floated {
+                    clear: none;
+                    float: left;
+                    margin: 5px 1% 1%;
+                    overflow: visible;
+                    width: 23%;
+                    /*.label{
+                        margin-bottom:0px !important;
+                    }*/
+                }
+
+                .full_width {
+                    width: 100%;
+                }
+
+                &.item_info_name {
+                    width: 48%;
+                }
+            }
+
+            .custom_price {
+                width: 48%;
+            }
+        }
+
+        .search {
+            float: left;
+            width: 63%;
+            margin: 20px 1% 0;
+
+            input {
+                font-size: 16px;
+                height: 20px;
+                padding: 5px;
+            }
+
+            &.dxeDisabled_ITSTheme1 {
+                opacity: .2;
+            }
+        }
+    }
+
+    .documentDetailForm {
+        position: relative;
+        min-width: 700px;
+
+        .upinfo {
+            background: $color_gallery_approx;
+            margin: 0 1%;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .total p {
+            margin: 5px 0 0;
+        }
+    }
+
+    .totals {
+        float: left;
+        margin-right: 20px;
+
+        .row {
+            clear: both;
+            float: left;
+        }
+    }
+
+    #DocumentDetails {
+        height: 100%;
+        margin: 0 -10px;
+        overflow: hidden;
+    }
+
+    .style_table {
+        float: left;
+        margin-right: 20px;
+        text-align: right;
+        vertical-align: top;
+
+        h2 {
+            color: $color_gravel_approx;
+            float: left;
+            font-weight: normal;
+            margin: 5px 10px 10px 0;
+            text-align: left;
+        }
+
+        .button {
+            float: left;
+            padding: 3px;
+        }
+
+        .infoLabels {
+            background: $color_gallery_approx;
+            color: $black;
+            font-weight: normal;
+            padding: 7px;
+
+            td {
+                background: $color_gallery_approx;
+                color: $black;
+                font-weight: normal;
+                padding: 7px;
+                vertical-align: top;
+            }
+        }
+
+        .dxeButtonEdit_ITSTheme1 {
+            width: 150px;
+        }
+
+        td input {
+            color: $color_mine_shaft_approx !important;
+            text-align: right;
+        }
+    }
+
+    .documentDetail:hover .total p span {
+        color: $color_storm_dust_approx !important;
+    }
+
+    .docNumber .dxeTextBoxSys {
+        width: 100px;
+        @include breakpoint('1100-max'){
+            width: 68% !important;
+        }
+    }
+
+}
+
+#grdDocumentPayments {
+    .label {
+        min-width: 100px;
+    }
+
+    #documentSummaryPanel {
+        margin-top: 10px;
+    }
+}
+
+#supplierInfoPanel {
+    padding-top: 15px;
+}
+
+#addressPopUp {
+    background: $color_cararra_approx;
+    border: 1px solid $color_celeste_approx;
+    margin: 20px 0;
+    width: 100%;
+
+    td {
+        background: $color_celeste_approx;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    tr {
+        &#header {
+            td {
+                cursor: default;
+            }
+
+            &:hover td {
+                background: $color_celeste_approx;
+            }
+        }
+
+        &:hover td {
+            background: $color_concrete_approx;
+        }
+    }
+}
+
+.color-bold-blue {
+    color: $color_picton_blue_approx !important;
+    font-weight: bold !important;
+}
+
+.padding-left-10 {
+    padding-left: 10px;
+}
+
+#documentSummaryPanel #comments {
+    padding: 0;
+}
+
+.Document_Edit {
+    .textOnly {
+        background-color: $color_gallery_approx;
+        border-color: $color_gallery_approx;
+
+        .dxeEditArea_ITSTheme1 {
+            background-color: $color_gallery_approx;
+            color: $color_mine_shaft_approx !important;
+        }
+
+        .dxeDisabled_ITSTheme1 {
+            background-color: $color_gallery_approx;
+            color: $color_mine_shaft_approx !important;
+        }
+
+        td.dxic {
+            background-color: $color_gallery_approx;
+            border-color: $color_gallery_approx;
+        }
+    }
+    @include breakpoint('1100-max'){
+        .headerTable {
+            .dxeButtonEditSys, .dxeTextBoxSys, .dxeValidStEditorTable {
+                width: 90% !important;
+            }
+        }
+    }
+}
+
+.dxeDisabled_ITSTheme1 td.dxe {
+    background-color: $color_gallery_approx;
+    color: $color_mine_shaft_approx !important;
+}
+    
+#grdDocument td.inactiveRow {
+    color: $color_punch_approx;
+}
+
+#grdDocument .dxgvSelectedRow_ITSTheme1.dxgvDataRowHover_ITSTheme1  td.inactiveRow{
+    color: $color_punch_approx;
+}
+
+
+.dxeOutOfRWarnRight_ITSTheme1{
+    display:none !important;
+}
+
+.center-payment-button{
+    clear: both;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.width-230 {
+  width: 230px;
+}

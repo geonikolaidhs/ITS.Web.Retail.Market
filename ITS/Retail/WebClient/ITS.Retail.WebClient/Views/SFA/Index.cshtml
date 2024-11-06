@@ -1,0 +1,83 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Platform.Enumerations;
+
+@{
+    ViewBag.Title = "S.F.A.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/SFA.js")" type="text/javascript"></script>
+}
+
+@section DialogCallbackPanelSection {
+    @Html.Partial("DialogCallbackPanel")
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+
+@{
+    ViewBag.Title = ITS.Retail.ResourcesLib.Resources.SFA;
+}
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = ITS.Retail.ResourcesLib.Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.RenderPartial("FilterButtons");
+        ViewContext.Writer.Write("<label for=\"fid_I\">ID:</label>");
+
+        @Html.DevExpress().SpinEdit(textsettings =>
+        {
+            textsettings.Properties.AllowNull = false;
+            textsettings.Properties.NumberType = SpinEditNumberType.Integer;
+            textsettings.Name = "fid";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"fname_I\">" + Resources.Description + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fname";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td></table>");
+        @Html.DevExpress().Button(settings2 =>
+        {
+            settings2.Name = "btnSearch";
+            settings2.Text = ITS.Retail.ResourcesLib.Resources.Search;
+            settings2.UseSubmitBehavior = true;
+            settings2.ClientSideEvents.Click = "SearchSFA";
+        }).GetHtml();
+
+        @Html.DevExpress().Button(settings2 =>
+        {
+            settings.Name = "lblProgress";
+            settings2.Name = "btnCreatePOSDatabase";
+            settings2.Text = ITS.Retail.ResourcesLib.Resources.CreateSFADatabase;
+            settings2.UseSubmitBehavior = true;
+            settings2.ClientSideEvents.Click = "SFA.CreateSFADatabase";
+        }).GetHtml();
+    });
+}).GetHtml()
+
+
+
+@Html.Partial("Grid")

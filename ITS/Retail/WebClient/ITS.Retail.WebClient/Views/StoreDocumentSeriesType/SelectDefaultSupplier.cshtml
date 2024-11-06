@@ -1,0 +1,22 @@
+﻿@using ITS.Retail.ResourcesLib
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "DefaultSupplierr";
+    cmb_settings.Properties.TextField = "CompanyName";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.Properties.Columns.Add("CompanyName", Resources.CompanyName);
+    cmb_settings.Properties.Columns.Add("Code", Resources.Code);
+    cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_settings.CallbackRouteValues = new { Controller = "StoreDocumentSeriesType", Action = "SelectDefaultSupplier" };
+    cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_settings.Properties.FilterMinLength = 2;
+    cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    cmb_settings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+}).BindList(StoreDocumentSeriesTypeController.TraderRequestedByFilterCondition<SupplierNew>,
+            StoreDocumentSeriesTypeController.ObjectRequestedByValue<SupplierNew>).BindList(ITS.Retail.WebClient.Controllers.StoreDocumentSeriesTypeController.GetTraderByValue<SupplierNew>(DataBinder.Eval(ViewData["Item"], "DefaultSupplier!Key"))).Bind(DataBinder.Eval(ViewData["Item"], "DefaultSupplier!Key")).GetHtml()

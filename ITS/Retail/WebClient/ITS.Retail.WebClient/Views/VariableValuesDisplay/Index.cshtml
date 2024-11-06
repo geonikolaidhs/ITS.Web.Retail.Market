@@ -1,0 +1,9 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+@{
+    ViewBag.Title = Resources.VariableValues;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Html.RenderAction("ShowVariableValues", "VariableValuesDisplay", new { typeName = (string)Session["ControllerName"] + "Controller"/*, mode = VariableDisplayValuesMode.ALL*/ });
+}

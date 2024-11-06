@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "PriceCatalogCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Customer", Action = "UpdatePriceCatalogComboBox" };
+    cpbseriessettings.SetContent(() =>
+    {
+
+    @Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Properties.Caption = Resources.PriceCatalog + ":";
+        combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        combosettings.Properties.CaptionStyle.CssClass = "label";
+        combosettings.Name = "PriceCatalogKey";
+        combosettings.ControlStyle.CssClass = "editor";
+        combosettings.Properties.TextField = "Description";
+        combosettings.Properties.ValueField = "Oid";
+        combosettings.Properties.ValueType = typeof(Guid);
+        combosettings.ShowModelErrors = true;
+        combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).BindList(ViewBag.PriceCatalogs).Bind(DataBinder.Eval(ViewData["StorePriceList"],"PriceList!Key")).Render();
+});
+
+    cpbseriessettings.ClientSideEvents.BeginCallback = "UpdatePriceCatalogComboBoxBeginCallback";
+    cpbseriessettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+}).GetHtml()

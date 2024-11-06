@@ -1,0 +1,111 @@
+﻿@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+@using ITS.Retail.Platform.Enumerations;
+
+
+@{
+    string urlPrefix = Url.Content("~/Reports/CustomReport?Oid=");
+    //double columns = 3.0;
+    //int partition = 1;
+    //if(ViewData["Categories"]!=null)
+    //{
+    //    partition=(int)Math.Ceiling( (ViewData["Categories"] as List<ReportCategory>).Count / columns );
+    //}
+    //int counter = 0;
+}
+
+@*<div id="settings" class="reports">
+    @if (ViewData["Categories"] != null) {
+        foreach(ReportCategory reportCategory in (ViewData["Categories"] as List<ReportCategory>) ){
+            counter++;
+            if(counter>partition){
+                counter = 1;
+            }
+            if(counter==1){
+                ViewContext.Writer.Write("<div>");
+                }
+                <ul class="options1">
+                    <li class="subtitle">
+                        <h4>@reportCategory.Description <span></span></h4>
+                    </li>
+                    @foreach(CustomReport customReport in reportCategory.CustomReports){
+                        string url = urlPrefix+customReport.Oid.ToString();
+                        <li class="options">
+                            <a href="@url" target="_blank">@customReport.Description</a>
+                        </li>
+                    }
+                </ul>
+           if(counter==partition){
+               ViewContext.Writer.Write("</div>");
+           }
+        }       
+   
+
+    if( ((ViewData["Categories"] as List<ReportCategory>).Count % columns)!=0 )
+    {
+        ViewContext.Writer.Write("</div>");
+    }
+ }*@
+
+<div id="settings" class="col-lg-1-5 settings-menu-bottom-spacing reports">
+
+    @if (ViewData["Category"] == null)
+    {
+        ViewContext.Writer.Write("<h4 class=\"title_settings\">");
+    }
+    else
+    {
+        ViewContext.Writer.Write("<h4 class=\"title_settings\">");
+    }
+        <span class="shown">
+            @Resources.AllReports
+        </span>
+    </h4>
+
+
+
+    <ul class="second">
+        <li class="first">
+            @if (ViewData["Categories"] != null)
+            {
+                foreach (ReportCategory reportCategory in (ViewData["Categories"] as List<ReportCategory>))
+                {
+                    <ul>
+                        <li class="subtitle">
+                            <h4 data-id="@reportCategory.Oid.ToString()">
+                                @reportCategory.Description
+                                @if (ViewData["Category"] != null && ViewData["Category"].ToString() == reportCategory.Oid.ToString())
+                                {
+                                    <span class="white"></span>
+                                }
+                                else
+                                {
+                                    <span></span>
+                                }
+                            </h4>
+                        </li>
+
+                        <li class="options">
+                            <ul>
+                                @foreach (ITS.Retail.Model.CustomReport customReport in reportCategory.CustomReports)
+                                {
+                                    string url = urlPrefix + customReport.Oid.ToString();
+                                    if (customReport.ReportFile == null || XtraReportBaseExtension.GetReportTypeFromFile(customReport.ReportFile) != typeof(XtraReportExtension))
+                                    {
+                                        continue;
+                                    }
+                                    <li>
+                                        <a href="@url" target="_blank">@customReport.Description (<span>@customReport.CultureInfo.GetDescription()</span>)</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            }
+        </li>
+    </ul>
+</div>

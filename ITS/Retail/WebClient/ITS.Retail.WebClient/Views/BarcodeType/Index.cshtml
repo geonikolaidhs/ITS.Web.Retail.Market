@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ITS.Retail.Model.BarcodeType>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.BarcodeTypes;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

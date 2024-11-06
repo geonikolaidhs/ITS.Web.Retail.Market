@@ -1,0 +1,430 @@
+.dxscControl_SimpleB2C
+{
+    	background: #c0c0c0;
+    	font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+}
+.dxscLoadingPanel_SimpleB2C
+{
+    	font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+    	background: white;
+    	border: solid 1px #c0c0c0;
+}
+.dxscLoadingPanel_SimpleB2C td.dx
+{
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxscLoadingDiv_SimpleB2C
+{
+    background-color: Gray;
+    opacity: 0.01;
+    filter:alpha(opacity=1);
+}
+
+/* Headers */
+.dxscDateHeader_SimpleB2C, 
+.dxscAlternateDateHeader_SimpleB2C,
+.dxscDayHeader_SimpleB2C,
+.dxscDateCellHeader_SimpleB2C,
+.dxscTodayCellHeader_SimpleB2C,
+.dxscTimelineDateHeader_SimpleB2C,
+.dxscHorizontalResourceHeader_SimpleB2C,
+.dxscVerticalResourceHeader_SimpleB2C
+{    
+    background: white;
+    border: solid 1px #c0c0c0;
+    border-width: 0 1px 1px 0;
+    padding: 4px;
+    text-align: center;
+    vertical-align: top;
+    
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dxscAlternateTimelineDateHeader_SimpleB2C,
+.dxscAlternateDateHeader_SimpleB2C
+{
+    background: #ffd554;
+}
+.dxscDayHeader_SimpleB2C
+{
+    border-width: 1px 1px 0 0;
+}
+.dxscDateCellHeader_SimpleB2C
+{
+    border-width: 1px;
+}
+.dxscTodayCellHeader_SimpleB2C
+{    
+    border-top-width: 1px;
+    background: #ffd554;
+}
+.dxscTimelineDateHeader_SimpleB2C
+{
+    border-width: 1px 1px 1px 0;
+}
+.dxscHorizontalResourceHeader_SimpleB2C
+{
+    border-width: 1px 1px 1px 0;
+    background: white;
+}
+.dxscVerticalResourceHeader_SimpleB2C
+{
+    border-width: 1px 1px 0 0;
+    background: white;
+    white-space: normal;
+}
+.dxscSelectionBar_SimpleB2C 
+{	
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    height: 30px;
+}
+
+/* Corners */
+.dxscLeftTopCorner_SimpleB2C, 
+.dxscRightTopCorner_SimpleB2C
+{
+    background: white;
+    width: 1px;
+    border-style: solid;
+    border-color: #c0c0c0;	
+    border-width: 0 0 1px;
+}
+.dxscLeftTopCorner_SimpleB2C
+{    
+    border-width: 1px 1px 1px 0;
+    font-size: 11px;
+    text-align: center;
+    padding: 2px;
+    overflow: hidden;
+}
+
+/* Separators */
+.dxscGroupSeparatorVertical_SimpleB2C, 
+.dxscGroupSeparatorHorizontal_SimpleB2C
+{
+    background: white;
+    border: solid 1px #c0c0c0;
+}
+
+.dxscGroupSeparatorVertical_SimpleB2C
+{
+    width: 1px; 
+    border-width: 0 1px;
+}
+.dxscGroupSeparatorHorizontal_SimpleB2C
+{
+    height: 1px;
+    border-width: 1px 0 0;
+    font-size: 1px;
+}
+
+/* Apts Area */
+.dxscAllDayArea_SimpleB2C
+{
+    background: white;
+    border: solid 1px #c0c0c0;
+    border-width: 0 1px 1px 0;
+}
+.dxscDateCellBody_SimpleB2C 
+{
+    	height: 100px;
+    	border: solid 1px;
+    	border-width: 0 1px 0 0;
+	border-color: #c0c0c0!important;
+}
+.dxscTimeCellBody_SimpleB2C
+{
+	border: 1px solid;
+	background-color: White;
+	border-color: #c0c0c0!important;
+}
+.dxscTimelineCellBody_SimpleB2C
+{
+    	height: 300px;
+    	border-style: solid;
+    	border-width: 1px 1px 0 0;
+	border-color: #c0c0c0!important;
+}
+
+.dxscAppointment_SimpleB2C
+{
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+    cursor: default;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;	
+}
+.dxscAppointmentInnerBorders_SimpleB2C
+{	
+    padding: 0px;
+}
+.dxscAppointmentHorizontalSeparator_SimpleB2C 
+{
+    height: 1px;
+    width: 100%;
+    overflow: hidden;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+}
+.dxscMoreButton_SimpleB2C
+{
+    font-size: 11px;
+    color: #ff8800;    
+    text-decoration: underline;	
+    padding: 0;
+}
+
+/* Rulers */
+.dxscTimeRulerHoursItem_SimpleB2C, .dxscTimeRulerMinuteItem_SimpleB2C
+{
+    color: #6f6f6f;
+    background: white;
+    border: solid 1px #c0c0c0;
+    border-width: 0px 1px 1px 0;
+    vertical-align: top;
+    white-space: nowrap;
+} 
+.dxscTimeRulerHoursItem_SimpleB2C
+{
+    border-right-width: 0;
+    border-left-color: #c0c0c0;
+    font-size: 17px;
+    text-align: right;
+    width: 45px;
+    padding: 2px 4px 0px;
+}
+.dxscTimeRulerMinuteItem_SimpleB2C
+{
+    border-left-width: 0px;
+    text-align: center;
+    width: 18px;
+    font-size: 11px;
+    padding: 4px 1px 4px 1px;
+}
+
+.dxscTimeRulerHeaderHourItem_SimpleB2C
+{
+    width: 55px;
+}	
+.dxscTimeRulerHeaderMinuteItem_SimpleB2C
+{
+    width: 16px;
+}
+.dxscScrollHeaderItem_SimpleB2C
+{
+    width: 16px;
+}
+
+
+/* Control elements */
+.dxscToolbarContainer_SimpleB2C
+{
+	padding: 8px 0;
+	border: 0px none;
+	background-color: White;
+}
+.dxscToolbar_SimpleB2C
+{
+    border: none;
+    padding: 4px 7px;    
+}
+.dxscResourceNavigator_SimpleB2C 
+{    
+    background: white;
+    padding: 7px;
+    border: solid 1px #c0c0c0;
+}
+.dxscViewVisibleInterval_SimpleB2C
+{    
+	white-space: nowrap;
+	font-size: 18px;
+	color: #FF8800;
+}
+.dxscInplaceEditor_SimpleB2C
+{
+    background: #fdfdfd;
+    border: solid 2px #303030;
+    padding: 0;
+    color: #303030;
+}
+.dxscControlAreaForm_SimpleB2C
+{
+    font-size: 16px;
+    background-color: #efefef;
+    border: none;
+    white-space: normal;
+    padding: 9px 12px;
+}
+.dxscErrorInfo_SimpleB2C
+{
+    background: #f1abab;
+    color: #853a3a;
+    padding: 10px;
+}
+
+/* Buttons */
+.dxscViewNavigatorButton_SimpleB2C,
+.dxscViewNavigatorGotoDateButton_SimpleB2C
+{    
+	cursor: pointer;
+	font-size: 14px;
+	padding: 2px 4px;
+}
+.dxscViewNavigatorGotoDateButton_SimpleB2C 
+{
+	padding: 2px 0px 2px 4px;
+}
+.dxscViewNavigatorButtonHover_SimpleB2C,
+.dxscViewNavigatorGotoDateButtonHover_SimpleB2C
+{
+}
+.dxscViewNavigatorButtonPressed_SimpleB2C,
+.dxscViewNavigatorGotoDateButtonPressed_SimpleB2C
+{
+}
+
+.dxscResourceNavigatorButton_SimpleB2C,
+.dxscNavigationButton_SimpleB2C,
+.dxscDVTopMoreButton_SimpleB2C,
+.dxscDVBottomMoreButton_SimpleB2C
+{
+	cursor: pointer;
+	padding: 2px;
+}
+
+.dxscResourceNavigator_SimpleB2C table td:nth-child(6) table  td.dxscResourceNavigatorButton_SimpleB2C
+{
+	padding: 2px 8px 2px 2px;
+}
+
+.dxscSmartTagButton_SimpleB2C 
+{
+    border: solid 1px black;
+    background: #ffffee;
+    padding: 4px 5px;
+    cursor: pointer;
+}
+
+.dxscViewSelectorButton_SimpleB2C 
+{
+	padding: 6px 18px;
+	cursor: pointer;
+	border: 1px solid White;
+}
+.dxscViewSelectorButtonHover_SimpleB2C
+{
+    	background-color: #ff8800;        
+    	color: White;
+}
+.dxscViewSelectorButtonPressed_SimpleB2C
+{
+	background-color: #C0C0C0;
+    	color: White;
+}
+.dxscViewSelectorButtonChecked_SimpleB2C
+{
+    	background: #ff8800;
+    	color: White;
+}
+
+.dxscNoBorderButton_SimpleB2C
+{
+    border: solid 1px #FDFDFD;
+    background: none;
+    cursor: pointer;
+}
+.dxscNoBorderButtonHover_SimpleB2C
+{
+    border: solid 1px #A8A8A8;
+}
+
+.dxscToolTipRoundedCornersTopBottomRow_SimpleB2C 
+{
+    font-size:1px;		
+}
+.dxscToolTipRoundedCornersTopSide_SimpleB2C 
+{
+    border-top: 1px black solid; 
+    vertical-align:bottom; 
+    height:1px;	
+    background-color:#fafad2;
+}
+.dxscToolTipRoundedCornersLeftSide_SimpleB2C 
+{
+    border-left: 1px black solid; 
+    vertical-align:bottom; 
+    background-color:#fafad2;
+}
+.dxscToolTipRoundedCornersRightSide_SimpleB2C 
+{
+    border-right: 1px black solid; 
+    vertical-align:bottom; 
+    background-color:#fafad2;
+}
+.dxscToolTipRoundedCornersBottomSide_SimpleB2C 
+{
+    border-bottom: 1px black solid; 
+    vertical-align:bottom; 
+    height:1px;	
+    background-color:#fafad2;
+}
+.dxscToolTipRoundedCornersContent_SimpleB2C 
+{
+    background-color:#fafad2;
+    padding:0;
+}
+.dxscToolTipSquaredCorners_SimpleB2C 
+{
+    background: #f9f9cd;
+    padding: 1px 1px;
+    font-size: 11px;
+    color: #303030;
+    white-space: nowrap;
+    border: solid 1px black;
+}
+.dxscTimeMarker_SimpleB2C 
+{
+    top:-4px;
+}
+.dxscTimeMarkerLine_SimpleB2C 
+{
+    top:-2px;
+    background-color:Red;
+    height:3px;
+    font-size:1px;
+    
+}
+.dxscTimeMarkerLineV_SimpleB2C 
+{
+    position:absolute;
+    
+    background-color:#4E4E4E;
+    width:1px;
+    font-size:1px;
+    border:solid 1px #FFC029;
+    border-top-width:0;
+    border-bottom-width:0;
+}
+.dxscTimeMarkerLineH_SimpleB2C
+{
+    position:absolute;
+    top:-2px;
+    background-color:#4E4E4E;
+    height:1px;
+    font-size:1px;
+    border:solid 1px #FFC029;
+    border-left-width:0;
+    border-right-width:0;
+}
+
+

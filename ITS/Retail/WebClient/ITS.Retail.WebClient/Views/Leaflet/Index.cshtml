@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ITS.Retail.Model.Leaflet>
+@using ITS.Retail.ResourcesLib;
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Leaflet.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.Leaflets;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("../Shared/PopupViewCallbackPanel")
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.RenderPartial("FilterButtons");
+
+        ViewContext.Writer.Write("<label for=\"fcode_I\">" + Resources.Code + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fcode";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"fdescription_I\">" + Resources.Description + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fdescription";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        ViewContext.Writer.Write("<label for=\"fstartDate_I\">" + Resources.IsActiveFromDate + ":" + "</label>");
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Name = "fstartDate";
+            deSettings.Properties.EditFormat = EditFormat.Date;
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"fendDate_I\">" + Resources.To + ":" + "</label>");
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Name = "fendDate";
+            deSettings.Properties.EditFormat = EditFormat.Date;
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            deSettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        @Html.DevExpress().Button(
+       settings2 =>
+       {
+           settings2.Name = "btnSearch";
+           settings2.Text = Resources.Search;
+           settings2.UseSubmitBehavior = true;
+           settings2.ClientSideEvents.Click = "SearchLeaflet";
+       }
+   ).GetHtml();
+
+    });
+}).GetHtml()
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdLeaflets)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+@Html.Partial("Grid", Model)
+

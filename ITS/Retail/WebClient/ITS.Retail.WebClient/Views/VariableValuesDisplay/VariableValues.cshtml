@@ -1,0 +1,46 @@
+﻿@using System.Collections.Generic;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.WebClient.AuxillaryClasses;
+@using ITS.Retail.Platform.Enumerations;
+@using DevExpress.Xpo;
+@using DevExpress.Xpo.DB;
+@using DevExpress.Data.Filtering;
+
+@using (Ajax.BeginForm("VariableValues", new { Controller = "VariableValuesDisplay" }, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "VariableValuesForm",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "Component.handleError"
+},
+    new { @id = "varvalues-form" }))
+{
+    string[,] Model = (string[,])ViewBag.result;
+    if (Model != null)
+    {
+        ViewContext.Writer.Write("<h2 class=\"text-left\">" + Resources.VariableValues + "</h2>");
+        ViewContext.Writer.Write("<table class='style_table'>");
+        for (int row = 0; row < Model.GetLength(0); row++)
+        {
+            if (row == 0)
+            {
+                ViewContext.Writer.Write("<tr class=\"infoLabels\">");
+            }
+            else
+            {
+                ViewContext.Writer.Write("<tr>");    
+            }            
+            
+            for (int column = 0; column < Model.GetLength(1); column++)
+            {
+                ViewContext.Writer.Write("<td class=\"text-left\">" + Model[row, column] + "</td>");
+            }
+            ViewContext.Writer.Write("</tr>");
+        }
+        ViewContext.Writer.Write("</table>");
+    }
+    ViewContext.Writer.Write(Html.Hidden("customDataViewOid"));
+    ViewContext.Writer.Write(Html.Hidden("entityOids"));
+}

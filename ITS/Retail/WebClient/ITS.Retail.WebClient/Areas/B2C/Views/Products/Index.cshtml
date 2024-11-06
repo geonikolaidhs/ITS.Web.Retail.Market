@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ITS.Retail.Model.PriceCatalogDetail>
+@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{
+    //ViewBag.Title = Resources.UserRoles;
+    if (ViewBag.IsPartial == null || ViewBag.IsPartial == false)
+    {
+        Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+    }
+}
+
+
+
+<div class="row page products">
+    <div class="col-md-12 title">
+        <div class="row">
+            @if (Model.Count() != 0)
+            {
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h1 class="margin-bottom-15 text-center">
+
+                            @if (ViewBag.searchResultTitle != null)
+                            {
+                                @Html.Raw(ViewBag.searchResultTitle)
+                            }
+                            else
+                            {
+                                @Resources.Item
+
+                                ViewContext.Writer.Write(": ");
+
+                                foreach (PriceCatalogDetail item in Model)
+                                {
+                                    <span>@item.Item.Description</span>
+                                }
+                            }
+
+                        </h1>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="page-header">
+                    <h1 class="margin-bottom-15 text-center">
+                        @Resources.NoProductsFound
+                    </h1>
+                </div>
+            }
+        </div>
+        <div class="row margin-bottom-15">
+            <div class="col-md-6 tag-list">
+                @if (Session["SearchCriteria"] != null)
+                {
+
+                    foreach (var terms in ((ITS.Retail.WebClient.Areas.B2C.ViewModel.ProductSearchCriteria)Session["SearchCriteria"]).StringSearchCriteria())
+                    {
+
+                        <div class="tag">
+                            <span class="small">@terms.Key:</span>
+                            <span class="big">@terms.Value</span>
+                        </div>
+                    }
+
+
+                }
+            </div>
+
+            <div class="col-md-6">
+                <div class="tag-list">
+                    <div class="tag alternative float-right">
+                        <span class="small">@Resources.TotalProductsNumber: </span><span class="small">@ViewBag.TotalProducts</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <div id="products-list" class="col-md-12 clearfix jplist">
+        @if (Model.Count() != 0)
+        {
+            Html.RenderPartial("../Shared/ItemsContent");
+        }
+    </div>
+</div>
+
+

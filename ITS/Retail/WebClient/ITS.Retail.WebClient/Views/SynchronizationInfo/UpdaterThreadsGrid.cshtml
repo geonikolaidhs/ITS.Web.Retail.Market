@@ -1,0 +1,48 @@
+﻿@model List<UpdaterThreadsViewModel>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Common;
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "UpdaterThreads";
+    settings.CallbackRouteValues = new { Controller = "SynchronizationInfo", Action = "UpdaterThreadsGrid" };
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ThreadName";
+        col.Caption = Resources.ThreadName;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ThreadState";
+        col.Caption = Resources.ThreadState;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Caption = "";
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<label class=\"switch\"><input type = \"checkbox\" name=\"checkBox[]\" onclick=\"SynchronizationInfo.clickedBox(this )\" id=\"" + c.ItemIndex + "\" "
+                );
+            var check = ViewData["isChecked"] as List<string>;
+            if (check[c.ItemIndex] == "checked")
+            {
+                ViewContext.Writer.Write("checked=\"checked\"");
+            }
+            ViewContext.Writer.Write("><span class=\"slider round\"></span></label>");
+        });
+    });
+    settings.HtmlRowPrepared = (object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e) =>
+    { if ((ViewData["ExceptionThrown"] as List<bool>)[e.VisibleIndex] == true) { e.Row.BackColor = System.Drawing.Color.Red; } };
+
+}).Bind(Model).GetHtml()

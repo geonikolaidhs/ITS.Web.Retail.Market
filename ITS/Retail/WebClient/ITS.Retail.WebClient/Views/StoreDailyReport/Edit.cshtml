@@ -1,0 +1,247 @@
+﻿@using ITS.Retail.WebClient.Extensions
+@using ITS.Retail.WebClient.Helpers
+@model ITS.Retail.Model.StoreDailyReport
+
+
+@{
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = ViewBag.Mode;
+}
+
+@{
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.ViewType = eViewType.Modal;
+    headerOptions.SaveButton.OnClick = "StoreDailyReport.saveStoreDailyReport";
+    headerOptions.CancelButton.OnClick = "StoreDailyReport.CloseReport";
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+
+}
+
+
+
+@using (Html.BeginForm("Save", "StoreDailyReport", FormMethod.Post, new { id = "StoreDailyReport", IsNew = (bool)ViewData["IsNew"] }))
+{
+    @Html.DevExpress().LoadingPanel(settings =>
+    {
+        settings.Name = "LoadingPanel";
+        settings.Modal = true;
+        settings.ContainerElementID = "StoreDailyReport";
+    }).GetHtml();
+    
+    @Html.DevExpress().FormLayout(settings =>
+    {
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Name = "StoreDailyReportForm1";
+        settings.ControlStyle.CssClass = "formInstances auto-zero-margin";//Every form layout must have the same class name
+        settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+        settings.ShowItemCaptionColon = false;
+        settings.EncodeHtml = false;
+
+
+
+        var group1 = settings.Items.AddGroupItem(groupSettings =>
+        {
+            groupSettings.ColCount = 5;
+            groupSettings.ShowCaption = DefaultBoolean.False;            
+        });
+        
+        
+        group1.Items.Add(model=> model.ReportDate,modelsettings =>
+        {
+            modelsettings.Caption = Resources.ReportDate;          
+            
+            modelsettings.NestedExtensionType = FormLayoutNestedExtensionItemType.DateEdit;
+            DateEditSettings dtsettings = (DateEditSettings)modelsettings.NestedExtensionSettings;            
+            dtsettings.Properties.EditFormat = EditFormat.Date;
+            dtsettings.ShowModelErrors = true;
+            dtsettings.ClientEnabled = (bool)ViewData["IsNew"];
+            
+        });
+        
+        group1.Items.Add(itemSettings =>
+        {
+            //itemSettings.ClientVisible = (bool)ViewData["IsNew"];
+            itemSettings.Caption = " ";
+            itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+            itemSettings.ColSpan = 1;
+            ButtonSettings btnSettings = (ButtonSettings)itemSettings.NestedExtensionSettings;
+            btnSettings.Name = "btnInitializeDay";
+            btnSettings.Text = (bool)ViewData["IsNew"] ? Resources.Open : Resources.Update;
+            btnSettings.ClientSideEvents.Click = "StoreDailyReport.initializeDay";
+            btnSettings.ControlStyle.CssClass = "margin-top-18";
+        });
+
+    }).GetHtml();
+
+
+    Html.DevExpress().PageControl(tab_settings =>
+    {
+        tab_settings.Name = "store_daily_report_tabs";
+        tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        tab_settings.TabPages.Add(Resources.DailyTotals).SetContent(() =>
+        {
+            Html.RenderPartial("DailyTotalsGrid", Model.DailyTotals);
+        });
+        tab_settings.TabPages.Add(Resources.Credits).SetContent(() =>
+        {
+            Html.RenderPartial("CreditsGrid", Model.Lines.Where(payment => payment.Type == eStoreDailyReportDocHeaderType.Credit));
+        });
+        tab_settings.TabPages.Add(Resources.AutoDeliveries).SetContent(() =>
+        {
+            Html.RenderPartial("AutoDeliveriesGrid", Model.DocumentHeaders.Where(doc => doc.Type == eStoreDailyReportDocHeaderType.AutoDelivery));
+        });
+        tab_settings.TabPages.Add(Resources.Payments).SetContent(() =>
+        {
+            Html.RenderPartial("PaymentsGrid", Model.Lines.Where(payment => payment.Type == eStoreDailyReportDocHeaderType.Payment));
+        });
+        tab_settings.TabPages.Add(Resources.Totals).SetContent(() =>
+        {
+            @Html.DevExpress().FormLayout(settings =>
+            {
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.Name = "StoreDailyReportForm2";
+                settings.ControlStyle.CssClass = "pull-left";//Every form layout must have the same class name
+                settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                settings.ShowItemCaptionColon = false;
+                settings.EncodeHtml = false;
+
+                var group2 = settings.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.ColCount = 1;
+                    groupSettings.ShowCaption = DefaultBoolean.True;
+                    groupSettings.Caption = "<strong>(Α)</strong> " + Resources.Collections;
+                });
+
+                group2.Items.Add(model => model.DailyTotalsTotal, FormInstances.SpinEditItem(enabled: false, caption: Resources.DailyTotalsTotal, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.DailyTotalsTotal;
+                group2.Items.Add(model => model.InvoicesTotalCash, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.InvoicesTotalCash;
+                group2.Items.Add(model => model.AutoDeliveriesTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.AutoDeliveriesTotal;
+                group2.Items.Add(model => model.CollectionComplementText, FormInstances.TextBoxItem(enabled: true, caption: Resources.CollectionComplementText, onValueChanged: "StoreDailyReport.OnFieldValueChanged"));
+                group2.Items.Add(model => model.CollectionComplement, FormInstances.SpinEditItem(enabled: true, allowMouseWheel: false, showIncrementButtons: false, NumberChanged: "StoreDailyReport.OnFieldValueChanged", displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.CollectionComplement;
+
+                group2.Items.Add(emptyItemSetting =>
+                {
+                    emptyItemSetting.Caption = "<hr/>";
+                });
+                group2.Items.Add(model => model.CollectionsTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.CollectionsTotal;
+                group2.Items.Add(model => model.InvoicesTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.InvoicesTotal;
+                
+            }).GetHtml();
+
+
+            @Html.DevExpress().FormLayout(settings =>
+            {
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.Name = "StoreDailyReportForm3";
+                settings.ControlStyle.CssClass = "pull-left";//Every form layout must have the same class name
+                settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                settings.ShowItemCaptionColon = false;
+                settings.EncodeHtml = false;
+
+                var group3 = settings.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.ColCount = 1;
+                    groupSettings.ShowCaption = DefaultBoolean.True;
+                    groupSettings.Caption = "<strong>(B)</strong> " + Resources.CreditsPaymentsWithDraws;
+                });
+
+                group3.Items.Add(model => model.MainPOSWithdraws, FormInstances.SpinEditItem(enabled: true, allowMouseWheel: false, showIncrementButtons: false, NumberChanged: "StoreDailyReport.OnFieldValueChanged", displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.MainPOSWithdraws;
+                group3.Items.Add(model => model.PaymentsTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.PaymentsTotal;
+                group3.Items.Add(model => model.CreditsGridTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.CreditsGridTotal;
+                group3.Items.Add(model => model.OtherExpansesText, FormInstances.TextBoxItem(enabled: true, caption: Resources.OtherExpansesText, onValueChanged: "StoreDailyReport.OnFieldValueChanged"));
+                group3.Items.Add(model => model.OtherExpanses, FormInstances.SpinEditItem(enabled: true, NumberChanged: "StoreDailyReport.OnFieldValueChanged", showIncrementButtons: false, allowMouseWheel: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.OtherExpanses;
+                group3.Items.Add(emptyItemSetting =>
+                {
+                    emptyItemSetting.Caption = "<hr/>";
+                });
+                group3.Items.Add(model => model.CreditsPaymentsWithDrawsTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.CreditsPaymentsWithDrawsTotal;
+
+            }).GetHtml();
+
+
+            @Html.DevExpress().FormLayout(settings =>
+            {
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.Name = "StoreDailyReportForm4";
+                settings.ControlStyle.CssClass = "pull-left height-full";//Every form layout must have the same class name
+                settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                settings.ShowItemCaptionColon = false;
+                settings.EncodeHtml = false;
+
+                var group4 = settings.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.ColCount = 1;
+                    groupSettings.ShowCaption = DefaultBoolean.True;
+                    groupSettings.Caption = "<strong>(C)</strong> " + Resources.CashDeliverySecondary;
+                });
+                group4.Items.Add(model => model.PaperMoney, FormInstances.SpinEditItem(enabled: true, NumberChanged: "StoreDailyReport.OnFieldValueChanged", showIncrementButtons: false, allowMouseWheel: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.PaperMoney;
+                group4.Items.Add(model => model.Coins, FormInstances.SpinEditItem(enabled: true, NumberChanged: "StoreDailyReport.OnFieldValueChanged", showIncrementButtons: false, allowMouseWheel: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.Coins;
+                group4.Items.Add(emptyItemSetting =>
+                {
+                    emptyItemSetting.Caption = "<hr>";
+                });
+                group4.Items.Add(model => model.CashDelivery, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.CashDelivery;
+
+            }).GetHtml();
+
+            @Html.DevExpress().FormLayout(settings =>
+            {
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.Name = "StoreDailyReportForm5";
+                settings.ControlStyle.CssClass = "pull-left height-half";//Every form layout must have the same class name
+                settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                settings.ShowItemCaptionColon = false;
+                settings.EncodeHtml = false;
+                var group5 = settings.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.ColCount = 1;
+                    groupSettings.ShowCaption = DefaultBoolean.True;
+                    groupSettings.Caption = "<strong>(D)</strong> " + Resources.ReportTotal;
+                });
+                group5.Items.Add(model => model.ReportTotal, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.ReportTotal;
+
+            }).GetHtml();
+
+            @Html.DevExpress().FormLayout(settings =>
+            {
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.Name = "StoreDailyReportForm6";
+                settings.ControlStyle.CssClass = "pull-left height-half";//Every form layout must have the same class name
+                settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                settings.ShowItemCaptionColon = false;
+                settings.EncodeHtml = false;
+
+                var group6 = settings.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.ColCount = 1;
+                    groupSettings.ShowCaption = DefaultBoolean.True;
+                    groupSettings.Caption = "<strong>(E)</strong> " + Resources.POSDifference;
+                });
+
+                group6.Items.Add(model => model.POSDifference, FormInstances.SpinEditItem(enabled: false, displayFormat: BaseController.OwnerApplicationSettings.formatCurrencyString)).Caption = Resources.POSDifference;
+
+            }).GetHtml();
+
+            ViewContext.Writer.Write("<div class='outer-center'><div class=\"float-left calculation-description\"><p>" + Resources.ExplanationTotals + "</p><hr/><p> B + C = D<br/>A - D = E</p></div></div>");
+        });
+        tab_settings.TabPages.Add(Resources.Statistics).SetContent(() =>
+        {
+            Html.RenderPartial("StatisticsGrid", Model.Lines.Where(payment => payment.Type == eStoreDailyReportDocHeaderType.Statistic).OrderBy(line => line.LineNumber)); 
+        });
+
+    }).GetHtml();
+}
+

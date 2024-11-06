@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ITS.Retail.Model.PriceCatalog>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.Print;
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+
+@Html.DevExpress().ReportToolbar(settings => {
+    // The following settings are necessary for a Report Toolbar. 
+    settings.Name = "ReportToolbar";
+    settings.ReportViewerName = "PriceCatalogDetailReportViewer";
+    //// The following code defines the list of export formats available for the Report Toolbar. 
+    ReportToolbarComboBox saveFormat = new ReportToolbarComboBox() { ItemKind = ReportToolbarItemKind.SaveFormat, Width = new System.Web.UI.WebControls.Unit(70, System.Web.UI.WebControls.UnitType.Pixel) };
+    saveFormat.Elements.AddRange(new ListElement[] {
+        new ListElement { Value = "pdf", Text = "Pdf"},
+        new ListElement { Value = "xls", Text = "Xls"},
+        new ListElement { Value = "xlsx", Text = "Xlsx" },
+        new ListElement { Value = "rtf", Text = "Rtf" },
+        new ListElement { Value = "mht", Text = "Mht" },
+        new ListElement { Value = "txt", Text = "Txt" },
+        new ListElement { Value = "csv", Text = "Csv" },
+        new ListElement { Value = "png", Text = "Image" }
+    });
+
+    // The following code defines the items that the Report Toolbar contains. 
+    settings.Items.AddRange(new ReportToolbarItem[] {
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.Search },
+        new ReportToolbarSeparator(),
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.PrintReport },
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.PrintPage },
+        new ReportToolbarSeparator(),
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.FirstPage },
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.PreviousPage },
+        new ReportToolbarLabel { ItemKind = ReportToolbarItemKind.PageLabel },
+        new ReportToolbarComboBox { ItemKind = ReportToolbarItemKind.PageNumber, 
+            Width = new System.Web.UI.WebControls.Unit(65, System.Web.UI.WebControls.UnitType.Pixel) },
+        new ReportToolbarLabel { ItemKind = ReportToolbarItemKind.OfLabel },
+        new ReportToolbarTextBox() { ItemKind = ReportToolbarItemKind.PageCount },
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.NextPage },
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.LastPage },
+        new ReportToolbarSeparator(),
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.SaveToDisk },
+        
+        //new ReportToolbarButton { ItemKind = ReportToolbarItemKind.SaveToWindow },
+            saveFormat, 
+        //new ReportToolbarButton { ItemKind = ReportToolbarItemKind.Custom, Text = Resources.ExportLines, Name="CustomButton"},
+        new ReportToolbarSeparator(),
+        new ReportToolbarButton { ItemKind = ReportToolbarItemKind.Custom, Text = Resources.Close, Name="btnClose"}
+    });
+    settings.ClientSideEvents.ItemClick = "function(s, e) { if(e.item.name =='btnClose' ){ self.close();} }";
+   // settings.ClientSideEvents.ItemClick = "ReportToolbarOnClick";
+    
+    }).GetHtml()
+
+   
+@Html.Partial("PriceCatalogDetailReportViewer", Model)

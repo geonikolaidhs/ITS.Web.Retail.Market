@@ -1,0 +1,197 @@
+﻿@{
+    ITS.Retail.WebClient.Helpers.Wizard wizard = ViewData["Wizard"] as ITS.Retail.WebClient.Helpers.Wizard;
+    ITS.Retail.WebClient.Helpers.WizardStep currentStep = wizard != null ? wizard.CurrentStep : null;
+    ITS.Retail.WebClient.Helpers.WizardActionEventArgs args = ViewData["WizardStepArgs"] as ITS.Retail.WebClient.Helpers.WizardActionEventArgs;
+    bool closeWindow = false;
+    if (args != null)
+    {
+        closeWindow = (args.WizardAction == eWizardAction.FINISH || args.WizardAction == eWizardAction.CANCEL) && args.CancelAction == false;
+    }
+}
+<div id="WizardStepFormContainer">
+    @using (Ajax.BeginForm("WizardStepForm", new { Controller = ViewBag.ControllerName, ID = wizard.ID },
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        //OnBegin = "Layout.ShowLoadingPanel",
+        //OnComplete = "MasoutisWorkflow.OfferActionDetailCompleted",
+        UpdateTargetId = "WizardStepFormContainer",
+        InsertionMode = InsertionMode.Replace
+    },
+    new
+    {
+        id = "WizardStepForm"
+    }))
+    {
+        int currentStepIndex;
+        currentStepIndex = wizard.CurrentStepIndex + 1;
+
+        if (!String.IsNullOrWhiteSpace(currentStep.Options.BodyPartialView))
+        {
+
+            Html.DevExpress().FormLayout(settings =>
+            {
+                settings.ClientSideEvents.Init = "function (s,e){ InitializeValidationRulesForForm('WizardStepForm'); }";
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Center;
+                settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                settings.AlignItemCaptionsInAllGroups = true;
+                settings.ShowItemCaptionColon = false;
+                settings.ControlStyle.CssClass = "wizard-steps-header";
+
+                settings.Name = "WizardStepsHeader";
+
+                var btnGroup = settings.Items.AddGroupItem(groupSettings =>
+                {
+                    groupSettings.Caption = Resources.Step + ": " + currentStepIndex + " - " + currentStep.Options.StepHeaderText;
+                    groupSettings.ColCount = 4;
+                    groupSettings.ShowCaption = DefaultBoolean.True;
+                    groupSettings.CssClass = "wizard-steps-header-group";
+
+                });
+                if (currentStep.Options.CancelButton.Visible)
+                {
+                    btnGroup.Items.Add(itemSettings =>
+                    {
+                        itemSettings.Caption = " ";
+                        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                        itemSettings.ColSpan = 1;
+                        ButtonSettings btnSettings = (ButtonSettings)itemSettings.NestedExtensionSettings;
+
+                        btnSettings.Name = currentStep.Options.CancelButton.Name;
+                        //btnSettings.ControlStyle.CssClass = "button wizard-button";
+                        btnSettings.Text = currentStep.Options.CancelButton.Text;
+                        btnSettings.ClientVisible = currentStep.Options.CancelButton.Visible;
+                        btnSettings.ClientSideEvents.Click = String.IsNullOrWhiteSpace(currentStep.Options.CancelButton.OnClick) ?
+                            "function (s,e) { WizardCommon.Cancel()}"
+                            : currentStep.Options.CancelButton.OnClick;
+
+                        btnSettings.UseSubmitBehavior = false;
+
+                        btnSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    });
+                }
+                if (currentStep.Options.PreviousButton.Visible)
+                {
+                    btnGroup.Items.Add(itemSettings =>
+                    {
+                        itemSettings.Caption = " ";
+                        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                        itemSettings.ColSpan = 1;
+                        ButtonSettings btnSettings = (ButtonSettings)itemSettings.NestedExtensionSettings;
+
+                        btnSettings.Name = currentStep.Options.PreviousButton.Name;
+                        btnSettings.Text = currentStep.Options.PreviousButton.Text;
+                        btnSettings.ClientVisible = currentStep.Options.PreviousButton.Visible;
+                        btnSettings.ClientSideEvents.Click = String.IsNullOrWhiteSpace(currentStep.Options.PreviousButton.OnClick) ?
+                            "function (s,e) { WizardCommon.GoBack()}"
+                            : currentStep.Options.PreviousButton.OnClick;
+
+                        btnSettings.UseSubmitBehavior = false;
+                        btnSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    });
+                }
+                if (currentStep.Options.NextButton.Visible)
+                {
+                    btnGroup.Items.Add(itemSettings =>
+                    {
+                        itemSettings.Caption = " ";
+                        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                        itemSettings.ColSpan = 1;
+                        ButtonSettings btnSettings = (ButtonSettings)itemSettings.NestedExtensionSettings;
+
+                        btnSettings.Name = currentStep.Options.NextButton.Name;
+                        btnSettings.Text = currentStep.Options.NextButton.Text;
+                        btnSettings.ClientVisible = currentStep.Options.NextButton.Visible;
+                        btnSettings.ClientSideEvents.Click = String.IsNullOrWhiteSpace(currentStep.Options.NextButton.OnClick) ?
+                            "function (s,e) { WizardCommon.MoveNext()}"
+                            : currentStep.Options.NextButton.OnClick;
+
+                        btnSettings.UseSubmitBehavior = false;
+                        btnSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    });
+                }
+                if (currentStep.Options.FinishButton.Visible)
+                {
+                    btnGroup.Items.Add(itemSettings =>
+                    {
+                        itemSettings.Caption = " ";
+                        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                        itemSettings.ColSpan = 1;
+                        ButtonSettings btnSettings = (ButtonSettings)itemSettings.NestedExtensionSettings;
+
+                        btnSettings.Name = currentStep.Options.FinishButton.Name;
+                        btnSettings.Text = currentStep.Options.FinishButton.Text;
+                        btnSettings.ClientVisible = currentStep.Options.FinishButton.Visible;
+                        btnSettings.ClientSideEvents.Click = String.IsNullOrWhiteSpace(currentStep.Options.FinishButton.OnClick) ?
+                            "function (s,e) { WizardCommon.Finish()}"
+                            : currentStep.Options.FinishButton.OnClick;
+
+                        btnSettings.UseSubmitBehavior = false;
+                        btnSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    });
+                }
+
+            }).GetHtml();
+
+
+            if (!String.IsNullOrWhiteSpace(currentStep.Options.HeaderExtraHtml))
+            {
+                ViewContext.Writer.Write(currentStep.Options.HeaderExtraHtml);
+            }
+
+            if (String.IsNullOrWhiteSpace(currentStep.Options.ErrorText) == false)
+            {
+                Html.DevExpress().PopupControl(settings =>
+                {
+                    settings.Name = "ErrorPanel";
+
+                    settings.SetContent(() => { ViewContext.Writer.Write("<span class=\"error-text\"><i class=\"fa fa-exclamation-circle\"></i> " + currentStep.Options.ErrorText + "</span>"); });
+
+                    //settings.SetContent(() => { ViewContext.Writer.Write(Resources.ABCDirectory); });
+
+
+                    settings.ControlStyle.CssClass = "wizard-error-panel";
+
+
+                    settings.ShowCloseButton = true;
+                    settings.Width = 100;
+                    settings.Height = 50;
+                    settings.LoadContentViaCallback = LoadContentViaCallback.None;
+                    settings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+                    settings.AllowDragging = true;
+                    settings.CloseAction = CloseAction.CloseButton;
+                    settings.PopupAnimationType = AnimationType.Auto;
+                    settings.HeaderText = wizard.HeaderText == null ? "" : wizard.HeaderText;
+                    settings.ShowShadow = true;
+                    settings.CloseAnimationType = AnimationType.Auto;
+                    settings.ResizingMode = ResizingMode.Live;
+                    settings.ShowHeader = true;
+                    settings.Modal = true;
+                    settings.AllowResize = false;
+                    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+                    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+                    settings.ClientSideEvents.Init = "InitErrorPanel";
+                    //settings.ClientSideEvents.Shown = "function (s,e) { " + settings.Name + ".SetWidth(100);" + settings.Name + ".SetHeight(50);" + settings.Name + ".UpdatePosition(); }";
+
+
+                }).GetHtml();
+            }
+            Html.RenderPartial(currentStep.Options.BodyPartialView, wizard.WizardModel);
+
+            Html.ViewContext.Writer.Write(Html.Hidden("StepCommand"));
+
+
+        }
+        @*});
+
+            }).GetHtml()*@
+    }
+</div>
+@if (closeWindow)
+{
+    <script>
+        WizardPopup.Hide();
+    </script>
+}

@@ -1,0 +1,140 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+
+@Html.DevExpress().GridView(
+settings =>
+{
+
+
+    String baseName =  typeof(SpreadSheetController).Name.Replace("Controller", "");
+    String baseType = typeof(SpreadSheet).Name;
+    var Url = new UrlHelper(HttpContext.Current.Request.RequestContext);
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StorePaging = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = baseName, Action = "Grid" };
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.CommandColumn.HeaderStyle.Wrap = DefaultBoolean.True;
+    settings.CommandColumn.MinWidth = 30;
+    settings.CommandColumn.AllowDragDrop = DefaultBoolean.False;
+    settings.ClientSideEvents.Init = "CustomizationWindow";
+
+
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = baseName, Action = "Delete" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.HtmlRowPrepared = (sender, e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.Name = "grdSpreadSheet";
+    settings.KeyFieldName = "Oid";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    //Grid title
+    settings.SettingsText.Title = Resources.SpreadSheets;
+    //Pager Adaptivity
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    //Save Grid Settings to db
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    /////Columns of the grid
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='"+ Url.Action("Edit", baseName, new { Oid = DataBinder.Eval(c.DataItem, "Oid") }) + "' >"+
+                Html.Image( Url.Content("~/Content/img/edit.png"), Resources.Edit, Resources.Edit) + "</a>"
+                + "&nbsp;" +
+                
+
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+            );
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='" + Url.Action("Create", baseName) + "' >" +
+                    Html.Image(Url.Content("~/Content/img/plus.png"), Resources.New, Resources.New) +
+                "</a>"
+
+            );
+        });
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 70;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.Caption = Resources.Code;
+
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Title";
+        column.Caption = Resources.Title;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "FileName";
+        column.Caption = Resources.FileName;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "User.UserName";
+        column.Caption = Resources.User;
+    });
+}).Bind(Model).GetHtml()
+

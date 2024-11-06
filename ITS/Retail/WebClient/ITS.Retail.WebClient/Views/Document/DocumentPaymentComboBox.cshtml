@@ -1,0 +1,12 @@
+﻿
+ @Html.DevExpress().ComboBox(cmbSettings =>
+{
+    cmbSettings.Name = "PaymentMethod!Key";
+    cmbSettings.Properties.TextField = "Description";
+    cmbSettings.Properties.ValueField = "Oid";
+    cmbSettings.Properties.ValueType = typeof(Guid);
+    cmbSettings.ShowModelErrors = true;
+    cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+    cmbSettings.Properties.ClientSideEvents.SelectedIndexChanged = "OnPaymentMethodChanged";
+}).BindList(ViewBag.PaymentMethods).Bind( DataBinder.Eval(Session["currentDocumentPayment"],"PaymentMethod!Key") ).GetHtml()

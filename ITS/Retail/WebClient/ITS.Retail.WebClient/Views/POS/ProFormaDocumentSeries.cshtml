@@ -1,0 +1,26 @@
+﻿@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+@{    
+   // ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Order.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "ProFormaDocumentSeriesCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "POS", Action = "ProformaDocumentSeries" };
+    cpbseriessettings.SetContent(() =>
+    {
+        @Html.DevExpress().ComboBox(
+           edtSettings =>
+           {
+               edtSettings.Name = "ProFormaInvoiceDocumentSeries";
+               edtSettings.Properties.TextField = "Description";
+               edtSettings.Properties.ValueField = "Oid";
+               edtSettings.Properties.ValueType = typeof(Guid);
+               edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+               edtSettings.ShowModelErrors = true;
+           }
+       )
+       .BindList(ViewBag.DocumentSeries)
+       .Bind(DataBinder.Eval(Model, "ProFormaInvoiceDocumentSeries!Key")).Render();
+    });
+}).GetHtml()

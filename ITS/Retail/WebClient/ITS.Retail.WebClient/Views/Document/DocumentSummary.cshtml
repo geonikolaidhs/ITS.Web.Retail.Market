@@ -1,0 +1,36 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+
+@Html.DevExpress().CallbackPanel( settings =>
+{
+    settings.Name = "documentSummaryPanel";
+    settings.SettingsLoadingPanel.Enabled = false;
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "DocumentSummary" };      
+                
+    DocumentHeader docHead = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+        
+    if (ViewBag.InViewMode)
+    {
+        settings.Enabled = false;
+    }
+    else
+    {
+        settings.ClientSideEvents.EndCallback = "ResetFocus";
+    }        
+        
+    settings.SetContent(() =>
+    {           
+        ViewContext.Writer.Write("<table class=\"style-table\"><tr><td colspan='2' class='head'><h2 class='comments-title'>" + Resources.Comments + "</h2></td></tr>");
+        ViewContext.Writer.Write("<tr><td colspan='2' id='comments'>");
+        Html.DevExpress().Memo(memo_settings =>
+        {
+            memo_settings.Name = "documentcomments";
+            memo_settings.Height =100;
+            memo_settings.Width = 300;
+            memo_settings.Enabled = !ViewBag.InViewMode;
+        }).Bind(docHead == null || docHead.Remarks == null || docHead.Remarks == "null" ? "" : docHead.Remarks).GetHtml();   
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+}).GetHtml()

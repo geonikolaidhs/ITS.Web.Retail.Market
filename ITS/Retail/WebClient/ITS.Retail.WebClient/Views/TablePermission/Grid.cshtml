@@ -1,0 +1,173 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsCustomizationWindow.Enabled = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    
+    settings.Name = "grdTablePermission";
+    
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "TableName";
+        column.Caption = "TableName";
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+        comboBoxProperties.DataSource = ViewBag.Tables;
+        comboBoxProperties.TextField = "TableName";
+        comboBoxProperties.ValueField = "TableName";
+        comboBoxProperties.ValueType = typeof(string);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Visible";
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReadOnly";
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CanInsert";
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CanUpdate";
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CanDelete";
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    
+    
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.Settings.ShowFilterRow = false; 
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "TablePermission", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "TablePermission", Action = "InlineEditingAddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "TablePermission", Action = "InlineEditingUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "TablePermission", Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = "TablePermission";
+    settings.ClientSideEvents.FocusedRowChanged = "MasterRowChanged";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+    
+    settings.CellEditorInitialize = (sender, e) =>
+    {
+        if ((sender as MVCxGridView).IsNewRowEditing)
+        {
+            if (e.Column.FieldName == "Visible")
+            {
+                (e.Editor as ASPxCheckBox).Checked = false;
+            }
+
+            if (e.Column.FieldName == "ReadOnly")
+            {
+                (e.Editor as ASPxCheckBox).Checked = false;
+            }
+
+            if (e.Column.FieldName == "CanInsert")
+            {
+                (e.Editor as ASPxCheckBox).Checked = false;
+            }
+
+            if (e.Column.FieldName == "CanUpdate")
+            {
+                (e.Editor as ASPxCheckBox).Checked = false;
+            }
+
+            if (e.Column.FieldName == "CanDelete")
+            {
+                (e.Editor as ASPxCheckBox).Checked = false;
+            }
+        }
+
+    };
+
+}).Bind(Model).GetHtml()

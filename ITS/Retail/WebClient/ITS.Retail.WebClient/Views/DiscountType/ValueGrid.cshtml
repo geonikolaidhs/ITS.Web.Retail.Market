@@ -1,0 +1,131 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@{
+    var settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(DiscountTypeField), typeof(DiscountTypeField), "grdDiscountTypeValues", GridViewCommandColumnType.ICONS);
+    settings.SettingsText.Title = Resources.DiscountTypeFields;
+    settings.CallbackRouteValues = new { Controller = "DiscountType", Action = "ValueGrid" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "DiscountType", Action = "InsertValue" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DiscountType", Action = "UpdateValue" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "DiscountType", Action = "DeleteValue" };
+    settings.KeyFieldName = "Oid";
+    settings.SettingsText.PopupEditFormCaption = Resources.DiscountTypeFields;
+    settings.SettingsPager.EnableAdaptivity = true;
+
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        //Description
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewData["item"] = item;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnDiscountTypeFieldUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnDiscountTypeFieldCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+            
+        ViewContext.Writer.Write("<table><tr><td>");
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Field + ":";
+            edtSettings.AssociatedControlName = "FieldName";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+            
+        Html.DevExpress().ComboBox(
+        combosettings =>
+        {
+            combosettings.Name = "FieldName";
+            combosettings.ControlStyle.CssClass = "size";
+            combosettings.Properties.ValueType = typeof(String);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.Properties.ClientSideEvents.SelectedIndexChanged = "FieldSelectedIndexChanged";
+        }).BindList(ViewBag.DiscountFields).Bind(DataBinder.Eval(item, "FieldName")).Render();     
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Label + ":";
+            edtSettings.AssociatedControlName = "Label";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Label";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Label")).Render();
+
+        ViewContext.Writer.Write("</td><tr><td>");
+
+        bool customEnumInitialVisibility = DataBinder.Eval(item, "CustomEnumeration!Key") != null;
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.CustomEnumeration + ":";
+            edtSettings.Name = "CustomEnumerationLabel";
+            edtSettings.Properties.EnableClientSideAPI = true;
+            edtSettings.ClientVisible = customEnumInitialVisibility;
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "CustomEnumerationComboBox";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.ClientEnabled = customEnumInitialVisibility;
+            edtSettings.ClientVisible = customEnumInitialVisibility;
+        }).BindList(ViewBag.CustomEnumerationDefinitions).Bind(DataBinder.Eval(item, "CustomEnumeration!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+            
+        ViewContext.Writer.Write("</div>");
+    });     
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

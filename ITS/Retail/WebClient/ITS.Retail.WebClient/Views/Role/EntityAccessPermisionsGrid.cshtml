@@ -1,0 +1,259 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    
+    settings.Name = "grdRolePermissions";
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>" +
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+                );
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\" title='" + Resources.New + "'><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+            );
+            ViewContext.Writer.Write(Html.Hidden("RoleID", ViewData["Role_ID"]));
+        });
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 90;
+        column.EditFormSettings.Visible = DefaultBoolean.False;
+    });
+    settings.Columns.Add(colset =>
+    {
+        colset.FieldName = "EnityAccessPermision.EntityType";
+        colset.Caption = Resources.EnityAccessPermisionEntityType;
+        colset.HeaderStyle.Wrap = DefaultBoolean.True;
+        colset.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        
+    });
+    settings.Columns.Add(colset =>
+    {
+        colset.FieldName = "EnityAccessPermision.Visible";
+        colset.Caption = Resources.Visible;
+        colset.ColumnType = MVCxGridViewColumnType.CheckBox;
+        colset.HeaderStyle.Wrap = DefaultBoolean.True;
+        colset.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(colset =>
+    {
+        colset.FieldName = "EnityAccessPermision.CanInsert";
+        colset.Caption = Resources.CanInsert;
+        colset.ColumnType = MVCxGridViewColumnType.CheckBox;
+        colset.HeaderStyle.Wrap = DefaultBoolean.True;
+        colset.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(colset =>
+    {
+        colset.FieldName = "EnityAccessPermision.CanUpdate";
+        colset.Caption = Resources.CanUpdate;
+        colset.ColumnType = MVCxGridViewColumnType.CheckBox;
+        colset.HeaderStyle.Wrap = DefaultBoolean.True;
+        colset.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(colset =>
+    {
+        colset.FieldName = "EnityAccessPermision.CanDelete";
+        colset.Caption = Resources.CanDelete;
+        colset.ColumnType = MVCxGridViewColumnType.CheckBox;
+        colset.HeaderStyle.Wrap = DefaultBoolean.True;
+        colset.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+	settings.Columns.Add(colset =>
+	{
+		colset.FieldName = "EnityAccessPermision.CanExport";
+		colset.Caption = Resources.CanExport;
+		colset.ColumnType = MVCxGridViewColumnType.CheckBox;
+		colset.HeaderStyle.Wrap = DefaultBoolean.True;
+		colset.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true; 
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Role", Action = "EntityAccessPermisionsGrid", RoleID = ViewData["Role_ID"] };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Role", Action = "InlineEntityAccessPermisionsGridUpdatePartial" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Role", Action = "InlineEntityAccessPermisionsGridAddNewPartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Role", Action = "InlineEntityAccessPermisionsGridDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;    
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    //settings.SettingsCookies.CookiesID = "grdRolePermissions";
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Permissions;
+
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.BottomSides;
+    settings.SettingsText.PopupEditFormCaption = Resources.Permissions;
+
+    
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsText.PopupEditFormCaption = Resources.Permissions;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ITS.Retail.Model.RoleEntityAccessPermision rolepermission = DataBinder.Eval(item, "This");
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "EnityAccessPermisionBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "EnityAccessPermisionBtnCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.EntityType;
+            edtSettings.AssociatedControlName = "EntityType";
+        }
+        ).Render();
+
+        ViewContext.Writer.Write("</td><td>");    
+        Html.DevExpress().ComboBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "EntityType";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;                    
+            }
+        )
+        .BindList(ViewBag.ControllerList)
+        .Bind(rolepermission!=null?rolepermission.EnityAccessPermision.EntityType:"")
+        .Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>");    
+  
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "View";
+                edtSettings.Text = Resources.Visible;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }
+        )
+        .Bind(rolepermission!=null?rolepermission.EnityAccessPermision.Visible:false)
+        .Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Insert";
+                edtSettings.Text = Resources.CanInsert;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }
+        )
+        .Bind(rolepermission!=null?rolepermission.EnityAccessPermision.CanInsert:false)
+        .Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+          
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Update";
+                edtSettings.Text = Resources.CanUpdate;
+                edtSettings.ControlStyle.CssClass = "editor";
+                
+            }
+        )
+        .Bind(rolepermission!=null?rolepermission.EnityAccessPermision.CanUpdate:false)
+        .Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>"); 
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Delete";
+                edtSettings.Text = Resources.CanDelete;
+                edtSettings.ControlStyle.CssClass = "editor";
+            }
+        )
+        .Bind(rolepermission!=null?rolepermission.EnityAccessPermision.CanDelete:false)
+        .Render();
+		ViewContext.Writer.Write("</td></tr><tr><td>");
+
+		Html.DevExpress().CheckBox(
+			edtSettings =>
+			{
+				edtSettings.Name = "Export";
+                edtSettings.Text = Resources.CanExport;
+                edtSettings.ControlStyle.CssClass = "editor";
+			}
+		)
+		.Bind(rolepermission != null ? rolepermission.EnityAccessPermision.CanExport : false)
+		.Render();
+        ViewContext.Writer.Write("</td></table>");
+        ViewContext.Writer.Write("</div>");
+    }
+    );
+
+}).Bind(Model).GetHtml()

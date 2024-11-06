@@ -1,0 +1,101 @@
+﻿@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using System.Web.Optimization;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(viewContext: ViewContext, objectType: typeof(Store), controllerType: typeof(BarcodeTypeController), gridName: "gridStoreBarcodeTypes", columnType: GridViewCommandColumnType.ICONS, generateColumns: false);
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "BarcodeType", Action = "InlineEditingAddNewStorePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "BarcodeType", Action = "InlineEditingDeleteStorePartial" };
+    settings.CallbackRouteValues = new { Controller = "BarcodeType", Action = "StoresPartialGrid"};
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Store.Code";
+        column.Caption = Resources.Code;
+        column.SortAscending();
+    });
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Store.Description";
+        column.Caption = Resources.Store;
+    });
+
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write(Html.Hidden("BarcodeTypeOid", (DataBinder.Eval(item, "This"))));
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnBarcodeTypeStoreUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnBarcodeTypeCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Store;
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Store";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Name";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.Properties.DropDownWidth = 550;
+            edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            edtSettings.Properties.CallbackPageSize = 15;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            edtSettings.Properties.Columns.Add("Code", Resources.Code, 130);
+            edtSettings.Properties.Columns.Add("Name", Resources.Store, 130);
+        }).BindList(ViewBag.StoresComboBox).Bind(DataBinder.Eval(item, "Store!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+
+
+    settings.DataBinding = (object sender, EventArgs e) =>
+    {
+        (sender as ASPxGridView).ForceDataRowType(typeof(StoreBarcodeType));
+    };
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

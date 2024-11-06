@@ -1,0 +1,118 @@
+﻿@model LicenseStatusViewModel
+
+@{
+    ViewBag.Title = Resources.LicenseInfo;
+    Layout = "~/Views/Shared/_LayoutInit.cshtml";
+}
+
+@if (String.IsNullOrWhiteSpace(Model.ErrorMessage) == false)
+{
+    Html.DisplayFor(model => model.ErrorMessage);
+}
+<table>
+    <tr>
+        <td colspan="2">
+            <img src="~/Content/its-big-logo.png"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.LicenseStatus):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.LicenseStatus)</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.LicenseType):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.LicenseType)</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.CurrentUsers):</h1>
+        </td>
+
+        <td>
+            <h2>@Html.DisplayFor(model => model.CurrentUsers)</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.MaxUsers):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.MaxUsers)</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.MaxPeripheralUsers):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.MaxPeripheralUsers)</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.MaxTabletSmartPhoneUsers):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.MaxTabletSmartPhoneUsers)</h2>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.StartDate):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.StartDate)</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.EndDate):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.EndDate)</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1>@Html.DisplayNameFor(model => model.GreyZoneDays):</h1>
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(model => model.GreyZoneDays)</h2>
+        </td>
+    </tr>
+
+    @if (String.IsNullOrWhiteSpace(Model.ErrorMessage) == false)
+    {
+        <tr>
+            <td>
+                <h1>@Html.DisplayNameFor(model => model.ErrorMessage):</h1>
+            </td>
+
+            <td>
+                <h2>@Html.DisplayFor(model => model.ErrorMessage)</h2>
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="2">
+                <button class="btn btn-default" type="button" onclick="window.location.href=@Url.Action("Index","Home")">@Resources.Continue</button>
+            </td>
+        </tr>
+    }
+</table>

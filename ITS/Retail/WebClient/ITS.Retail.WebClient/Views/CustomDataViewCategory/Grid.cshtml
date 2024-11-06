@@ -1,0 +1,86 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using System.Web.UI.WebControls
+@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib
+@using ITS.Retail.Platform.Enumerations
+
+@{
+    List<string> includedFields = new List<string>() { "Code", "Description", "IsDefault" };
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(CustomDataViewCategory), typeof(CustomDataViewCategoryController), "grdCustomDataViewCategories", columnType: GridViewCommandColumnType.CHECKBOX, includedFields: includedFields);
+    settings.CallbackRouteValues = new { Controller = "CustomDataViewCategory", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.DataViewCategories;
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "CustomDataViewCategory", Action = "DeletePartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CustomDataViewCategory", Action = "UpdatePartial" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CustomDataViewCategory", Action = "InsertPartial" };
+    settings.SettingsText.PopupEditFormCaption = Resources.DataViewCategory;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "CustomDataViewCategoryBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "CustomDataViewCategoryBtnCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class=\"item-center-div\"><tr><td>");
+
+        @Html.DevExpress().TextBox(txtSettings =>
+        {
+            txtSettings.Properties.Caption = Resources.Code + ":";
+            txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtSettings.Properties.CaptionStyle.CssClass = "label";
+            txtSettings.Name = "Code";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.ShowModelErrors = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        }).Bind(DataBinder.Eval(item, "Code") ?? String.Empty).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().TextBox(txtSettings =>
+        {
+            txtSettings.Properties.Caption = Resources.Description + ":";
+            txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtSettings.Properties.CaptionStyle.CssClass = "label";
+            txtSettings.Name = "Description";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.ShowModelErrors = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        }).Bind(DataBinder.Eval(item, "Description") ?? String.Empty).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "IsDefault";
+            edtSettings.ControlStyle.VerticalAlign = VerticalAlign.Middle;
+            edtSettings.Properties.Caption = Resources.IsDefault;
+            edtSettings.Properties.CaptionStyle.CssClass = "editor";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "IsDefault") ?? false).Render();
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

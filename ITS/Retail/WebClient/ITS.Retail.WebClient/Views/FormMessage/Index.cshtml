@@ -1,0 +1,29 @@
+﻿@model IEnumerable<FormMessage>
+@using ITS.Retail.ResourcesLib;
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/EditFormMessage.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.Messages;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdFormMessages)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+@Html.Partial("Grid", Model)

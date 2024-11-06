@@ -1,0 +1,1477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACTION_FORBIDDEN" xml:space="preserve">
+    <value>Action is forbidden</value>
+  </data>
+  <data name="ADD_ITEM" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="ADD_PAYMENT" xml:space="preserve">
+    <value>Add Payment</value>
+  </data>
+  <data name="AMOUNT" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="CANCEL" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CANCEL_LINE" xml:space="preserve">
+    <value>Cancel line</value>
+  </data>
+  <data name="CANCEL_RECEIPT" xml:space="preserve">
+    <value>Cancel Receipt</value>
+  </data>
+  <data name="CHANGE" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="CHECK_PRICE" xml:space="preserve">
+    <value>Check Price</value>
+  </data>
+  <data name="CHECKING" xml:space="preserve">
+    <value>Checking</value>
+  </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CODE" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="ConfigurationFileNotSetProperly" xml:space="preserve">
+    <value>"Configuration file not set properly. Tag &lt;Globals&gt; is missing."</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DESCRIPTIONS" xml:space="preserve">
+    <value>Descriptions</value>
+  </data>
+  <data name="DEVICE_INIT_FAILED" xml:space="preserve">
+    <value>Device Initialization failed.</value>
+  </data>
+  <data name="DEVICE_NOT_READY" xml:space="preserve">
+    <value>Device is not ready.</value>
+  </data>
+  <data name="DISCOUNT" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_CANCEL" xml:space="preserve">
+    <value>Do you want to cancel current receipt?</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_CANCEL_LINE" xml:space="preserve">
+    <value>Do you want to cancel current line?</value>
+  </data>
+  <data name="DOWNLOADING" xml:space="preserve">
+    <value>Downloading</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ERROR_DURING_RECEIPT" xml:space="preserve">
+    <value>An error occured while issuing the receipt {0}. Do you want to retry ?</value>
+  </data>
+  <data name="ERROR_LOADING_DOCUMENT" xml:space="preserve">
+    <value>Error loading document</value>
+  </data>
+  <data name="ERROR_OPEN_DRAWER" xml:space="preserve">
+    <value>Error Opening Drawer</value>
+  </data>
+  <data name="ERROR_PRINT_RECEIPT" xml:space="preserve">
+    <value>Error Printing Receipt</value>
+  </data>
+  <data name="ERROR_PRINT_X" xml:space="preserve">
+    <value>Error Printing X Report.</value>
+  </data>
+  <data name="ERROR_PRINT_Z" xml:space="preserve">
+    <value>Error Printing Z Report.</value>
+  </data>
+  <data name="FAIL_OPEN_SCANNER" xml:space="preserve">
+    <value>Fail to open Scanner</value>
+  </data>
+  <data name="FILE_0_IS_INVALID" xml:space="preserve">
+    <value>File {0} is invalid.</value>
+  </data>
+  <data name="FILE_0_NOT_FOUND" xml:space="preserve">
+    <value>File {0} not found.</value>
+  </data>
+  <data name="IDLE" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="INCORRECT_SETTINGS" xml:space="preserve">
+    <value>Incorrect settings or settings are still downloading</value>
+  </data>
+  <data name="INIT_ERROR" xml:space="preserve">
+    <value>Initialization Error</value>
+  </data>
+  <data name="INVALID_ACTION" xml:space="preserve">
+    <value>Invalid Action</value>
+  </data>
+  <data name="INVALID_FISCAL_DEVICE" xml:space="preserve">
+    <value>Invalid Fiscal Device</value>
+  </data>
+  <data name="INVALID_FISCAL_METHOD" xml:space="preserve">
+    <value>Invalid Fiscal Method</value>
+  </data>
+  <data name="INVALID_PROPERTY_DETECTED" xml:space="preserve">
+    <value>Invalid property detected</value>
+  </data>
+  <data name="INVALID_SCHEMA" xml:space="preserve">
+    <value>Invalid Schema</value>
+  </data>
+  <data name="INVALID_TERMINAL_OID" xml:space="preserve">
+    <value>Invalid Terminal Oid</value>
+  </data>
+  <data name="ISSUE_X" xml:space="preserve">
+    <value>Issue X</value>
+  </data>
+  <data name="ISSUE_Z" xml:space="preserve">
+    <value>Issue Z</value>
+  </data>
+  <data name="ITEM_NOT_FOUND" xml:space="preserve">
+    <value>Item not found</value>
+  </data>
+  <data name="ItemCodeOrBarcode" xml:space="preserve">
+    <value>Item Code Or Barcode</value>
+  </data>
+  <data name="LINE_TOTAL" xml:space="preserve">
+    <value>Line Total</value>
+  </data>
+  <data name="TOTAL_NOT_FULLY_PAID" xml:space="preserve">
+    <value>Total is not fully paid</value>
+  </data>
+  <data name="NO_ELECTRONIC_SIGNATURE_DEVICE_FOUND" xml:space="preserve">
+    <value>No electronic signature device found</value>
+  </data>
+  <data name="NO_OR_INVALID_CONNECTION" xml:space="preserve">
+    <value>No or Invalid connection type found.</value>
+  </data>
+  <data name="NO_PRIMARY_PRINTER_FOUND" xml:space="preserve">
+    <value>No Primary Printer was found.</value>
+  </data>
+  <data name="NOT_IN_SALE_MODE" xml:space="preserve">
+    <value>POS is not in sale mode</value>
+  </data>
+  <data name="OFFLINE" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="PAUSED" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="PAYMENT_METHOD" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="PAYMENT_METHOD_NOT_FOUND" xml:space="preserve">
+    <value>Payment method not found</value>
+  </data>
+  <data name="PRICE" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="PRINTER_NULL" xml:space="preserve">
+    <value>Printer is null.</value>
+  </data>
+  <data name="PROFORMA" xml:space="preserve">
+    <value>Proforma</value>
+  </data>
+  <data name="QTY" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="RECEIPT_SOURCE_INVALID" xml:space="preserve">
+    <value>Receipt Source is invalid. Receipt Source of type "{0}" does not contain "{1}". Expected "{2}"</value>
+  </data>
+  <data name="SAVE" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="SYSTEM_IO_UNAUTHORIZED_EXCEPTION" xml:space="preserve">
+    <value>System I/O: Unauthorized Exception</value>
+  </data>
+  <data name="TOTAL" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="UPLOADING" xml:space="preserve">
+    <value>Uploading</value>
+  </data>
+  <data name="USER_NO_ROLE" xml:space="preserve">
+    <value>User has no role</value>
+  </data>
+  <data name="VALUE" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="YOU_SHOULD_OPEN_FISCAL_DAY" xml:space="preserve">
+    <value>You should initialize the Fiscal day</value>
+  </data>
+  <data name="INVALID_SETTINGS" xml:space="preserve">
+    <value>Invalid Settings</value>
+  </data>
+  <data name="DEPOSIT" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+  <data name="WITHDRAW" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="YOU_SHOULD_START_SHIFT" xml:space="preserve">
+    <value>You should Start Shift</value>
+  </data>
+  <data name="YOU_SHOULD_ISSUE_Z" xml:space="preserve">
+    <value>You should Issue a Z report</value>
+  </data>
+  <data name="SUCCESSFUL_ISSUE_Z" xml:space="preserve">
+    <value>Z Report has been successfully issued </value>
+  </data>
+  <data name="START_DAY" xml:space="preserve">
+    <value>Start Day</value>
+  </data>
+  <data name="START_SHIFT" xml:space="preserve">
+    <value>Start Shift</value>
+  </data>
+  <data name="OUTPUT" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="PRESS_A_KEY" xml:space="preserve">
+    <value>Press a key</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="SHUT_DOWN" xml:space="preserve">
+    <value>Shut down</value>
+  </data>
+  <data name="ITEMS" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="SYSTEM" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="KEYBOARD" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="CONFIGURATION" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="SERVER" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="MAIN_MENU" xml:space="preserve">
+    <value>Main Menu</value>
+  </data>
+  <data name="KEYBOARD_MAPPING" xml:space="preserve">
+    <value>Keyboard Mapping</value>
+  </data>
+  <data name="MAIN_FORM" xml:space="preserve">
+    <value>Main Form</value>
+  </data>
+  <data name="CUSTOMER" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_SERIES" xml:space="preserve">
+    <value>Default Document Series</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_STATUS" xml:space="preserve">
+    <value>Default Document Status</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_TYPE" xml:space="preserve">
+    <value>Default Document Type</value>
+  </data>
+  <data name="DEFAULT_PAYMENT_METHOD" xml:space="preserve">
+    <value>Default Payment Method</value>
+  </data>
+  <data name="FISCAL_DATE" xml:space="preserve">
+    <value>Fiscal Date</value>
+  </data>
+  <data name="LOCALE" xml:space="preserve">
+    <value>Locale</value>
+  </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
+  <data name="ITEM" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="KEY_CODE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Key code already exists</value>
+  </data>
+  <data name="PASSWORD" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="USERNAME" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found</value>
+  </data>
+  <data name="PLEASE_SELECT_AN_ACTION" xml:space="preserve">
+    <value>Please select an action</value>
+  </data>
+  <data name="CASH_REGISTRY_CLOSED" xml:space="preserve">
+    <value>Cash registry closed</value>
+  </data>
+  <data name="CASH_REGISTRY_OPEN" xml:space="preserve">
+    <value>Cash registry open</value>
+  </data>
+  <data name="NEXT_CUSTOMER" xml:space="preserve">
+    <value>Next customer</value>
+  </data>
+  <data name="PLEASE_CLOSE_DRAWER" xml:space="preserve">
+    <value>Please close the drawer</value>
+  </data>
+  <data name="OPEN_DRAWER_FAIL" xml:space="preserve">
+    <value>Drawer failed to open</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ACTION_NOT_SUPPORTED" xml:space="preserve">
+    <value>Action is not supported</value>
+  </data>
+  <data name="CHARACTER_SET_NOT_SUPPORTED" xml:space="preserve">
+    <value>Character set is not supported</value>
+  </data>
+  <data name="CONNECTION_NOT_SUPPORTED" xml:space="preserve">
+    <value>Connection type is not supported</value>
+  </data>
+  <data name="COVER_OPEN" xml:space="preserve">
+    <value>Cover is open</value>
+  </data>
+  <data name="FAILURE" xml:space="preserve">
+    <value>Failure</value>
+  </data>
+  <data name="INVALID_PROPERTY" xml:space="preserve">
+    <value>Invalid property</value>
+  </data>
+  <data name="NO_EXIST" xml:space="preserve">
+    <value>Does not exist</value>
+  </data>
+  <data name="OUT_OF_PAPER" xml:space="preserve">
+    <value>Out of paper</value>
+  </data>
+  <data name="SHOULD_OPEN_FROM_PRINTER" xml:space="preserve">
+    <value>Should open from printer</value>
+  </data>
+  <data name="STATION_NOT_SUPPORTED" xml:space="preserve">
+    <value>Station is not supported</value>
+  </data>
+  <data name="TIMEOUT" xml:space="preserve">
+    <value>Timeout</value>
+  </data>
+  <data name="UNAUTHORIZED_ACCESS" xml:space="preserve">
+    <value>Unauthorized access</value>
+  </data>
+  <data name="FAIL_OPEN_DRAWER" xml:space="preserve">
+    <value>Failed to open drawer</value>
+  </data>
+  <data name="CUSTOMER_HAS_NO_PRICECATALOG" xml:space="preserve">
+    <value>Customer has no price catalog!</value>
+  </data>
+  <data name="CURRENT_LINE_SHORT" xml:space="preserve">
+    <value>Curr.Line</value>
+  </data>
+  <data name="PREVIOUS_LINE_SHORT" xml:space="preserve">
+    <value>Prev.Line</value>
+  </data>
+  <data name="TURN_KEY_TO_POSITION" xml:space="preserve">
+    <value>Turn Key to position</value>
+  </data>
+  <data name="ACTION_CANCELED" xml:space="preserve">
+    <value>Action canceled</value>
+  </data>
+  <data name="HIGHER_LEVEL_USER_IS_REQUIRED" xml:space="preserve">
+    <value>Permission from higher level user is required</value>
+  </data>
+  <data name="USER_NOT_ENOUGH_PRIVILEGES" xml:space="preserve">
+    <value>User does not have enough privileges</value>
+  </data>
+  <data name="INVALID_DISCOUNT" xml:space="preserve">
+    <value>Invalid Discount</value>
+  </data>
+  <data name="DATE" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DOCUMENT_NUMBER" xml:space="preserve">
+    <value>Document Number</value>
+  </data>
+  <data name="DOCUMENT_TYPE" xml:space="preserve">
+    <value>Document Type</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="TIME" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="NUMBER_SHORT" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="INVALID_SETTINGS_POS_IS_NULL" xml:space="preserve">
+    <value>Invalid Settings. POS configuration not found or not downloaded yet.</value>
+  </data>
+  <data name="INVALID_SETTINGS_STORE_IS_NULL" xml:space="preserve">
+    <value>Invalid Settings. Store not found or not downloaded yet.</value>
+  </data>
+  <data name="DOCUMENT_SEQUENCE_NOT_FOUND_FOR_SERIES" xml:space="preserve">
+    <value>Document Sequence not found for Series {0}</value>
+  </data>
+  <data name="DOCUMENT_SEQUENCE_DOES_NOT_MATCH_ERROR" xml:space="preserve">
+    <value>Fiscal Day cannot begin. Serious error between the sequences for Series '{0}'. Local Sequence: '{1}' - Remote Sequence: '{2}'</value>
+  </data>
+  <data name="DOCUMENT_SEQUENCE_DOES_NOT_MATCH_WARNING" xml:space="preserve">
+    <value>Mismatch between the sequences for Series '{0}'. Local Sequence: '{1}' - Remote Sequence: '{2}'</value>
+  </data>
+  <data name="PLEASE_FILL_ALL_REQUIRED_FIELDS" xml:space="preserve">
+    <value>Please fill all required fields</value>
+  </data>
+  <data name="RETURN" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="NEGATIVE_TOTAL_NOT_PERMITED" xml:space="preserve">
+    <value>Negative total is not permited</value>
+  </data>
+  <data name="ITEM_DOES_NOT_SUPPORT_PRICE_CHANGE" xml:space="preserve">
+    <value>Item does not support price changing</value>
+  </data>
+  <data name="ITEM_DOES_NOT_SUPPORT_DECIMAL_QUANTITY" xml:space="preserve">
+    <value>Item does not support decimal quantity</value>
+  </data>
+  <data name="NO_ITEMS_ADDED" xml:space="preserve">
+    <value>No items added</value>
+  </data>
+  <data name="RETRY" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="PAID_AMOUNT_CANNOT_EXCEED_TOTAL" xml:space="preserve">
+    <value>This payment method cannot exceed total</value>
+  </data>
+  <data name="INVALID_AMOUNT" xml:space="preserve">
+    <value>Invalid Amount</value>
+  </data>
+  <data name="INVALID_QUANTITY" xml:space="preserve">
+    <value>Invalid Quantity</value>
+  </data>
+  <data name="YOU_MUST_START_NEW_Z" xml:space="preserve">
+    <value>You must start new 'Z'</value>
+  </data>
+  <data name="INSERT_VALUES" xml:space="preserve">
+    <value>Insert Values</value>
+  </data>
+  <data name="ILLEGAL_RECEIPT" xml:space="preserve">
+    <value>ILLEGAL RECEIPT</value>
+  </data>
+  <data name="LEGAL_RECEIPT" xml:space="preserve">
+    <value>LEGAL RECEIPT</value>
+  </data>
+  <data name="NO_ITEM_CODE_DEFINED" xml:space="preserve">
+    <value>No item code defined</value>
+  </data>
+  <data name="SELECT_PAYMENT_METHOD" xml:space="preserve">
+    <value>Select payment method</value>
+  </data>
+  <data name="TOTAL_ALREADY_PAID" xml:space="preserve">
+    <value>The full amount is already paidoff</value>
+  </data>
+  <data name="PRICE_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Price does not exist</value>
+  </data>
+  <data name="PRICE_IS_ZERO" xml:space="preserve">
+    <value>Price is zero</value>
+  </data>
+  <data name="DOCUMENT_TYPE_DOES_NOT_ALLOW_ZERO_PRICES" xml:space="preserve">
+    <value>Document type does not allow zero prices</value>
+  </data>
+  <data name="ITEM_HAS_NO_VAT_CATEGORY" xml:space="preserve">
+    <value>Item has no Vat Category</value>
+  </data>
+  <data name="STORE_HAS_NO_VAT_LEVEL" xml:space="preserve">
+    <value>Store has no Vat Level</value>
+  </data>
+  <data name="VAT_FACTOR_NOT_FOUND" xml:space="preserve">
+    <value>Vat Factor not found</value>
+  </data>
+  <data name="VAT_CATEGORY" xml:space="preserve">
+    <value>Vat Category</value>
+  </data>
+  <data name="ACTIVE" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="NOT_FOUND" xml:space="preserve">
+    <value>Not found</value>
+  </data>
+  <data name="ITEM_IS_INACTIVE" xml:space="preserve">
+    <value>Item is inactive</value>
+  </data>
+  <data name="YOU_MUST_ISSUE_Z" xml:space="preserve">
+    <value>24 hours have passed since the start of the fiscal day. You must perform the issue of Z to continue. Day started at : {0}</value>
+  </data>
+  <data name="NEGATIVE_VALUES_NOT_PERMITTED" xml:space="preserve">
+    <value>Negative values are not permitted</value>
+  </data>
+  <data name="ISSUING_Z_PLEASE_WAIT" xml:space="preserve">
+    <value>Issuing Z Report - Transfering Electronic Journal Files. 
+Please Wait ...</value>
+  </data>
+  <data name="FISCAL_PRINTER_RECEIPTS_COUNT_MISSMATCH" xml:space="preserve">
+    <value>The number of receipts is different between the application and the fiscal printer. Application Receipts: {0}, Printer Receipts: {1}</value>
+  </data>
+  <data name="PRINTER_DOES_NOT_SUPPORT_SLIP_STATION" xml:space="preserve">
+    <value>Printer does not support slip station</value>
+  </data>
+  <data name="PLEASE_INSERT_DOCUMENT" xml:space="preserve">
+    <value>Please insert the document into the slip printer and press ΟΚ or Enter</value>
+  </data>
+  <data name="POS" xml:space="preserve">
+    <value>POS</value>
+  </data>
+  <data name="RATIFIED" xml:space="preserve">
+    <value>Ratified</value>
+  </data>
+  <data name="SIGNATURE" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="SLIP_PRINT_FAILED" xml:space="preserve">
+    <value>Slip print failed</value>
+  </data>
+  <data name="NEGATIVE_TOTAL_PER_VAT_CATEGORY_NOT_PERMITED" xml:space="preserve">
+    <value>There cannot be a negative total per vat category. Vat Category: {0} , Total: {1}</value>
+  </data>
+  <data name="FROM_DATE" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="FROM_Z" xml:space="preserve">
+    <value>From Z</value>
+  </data>
+  <data name="TO_DATE" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="TO_Z" xml:space="preserve">
+    <value>To Z</value>
+  </data>
+  <data name="INVALID_FILTER" xml:space="preserve">
+    <value>Invalid Filter</value>
+  </data>
+  <data name="REPRINT_Z_REPORTS" xml:space="preserve">
+    <value>Reprint Z Reports</value>
+  </data>
+  <data name="REPRINT_RECEIPTS" xml:space="preserve">
+    <value>Reprint Receipts</value>
+  </data>
+  <data name="FROM_RECEIPT" xml:space="preserve">
+    <value>From Receipt</value>
+  </data>
+  <data name="TO_RECEIPT" xml:space="preserve">
+    <value>To Receipt</value>
+  </data>
+  <data name="DAY_START" xml:space="preserve">
+    <value>Day Start</value>
+  </data>
+  <data name="SHIFT_STARTED" xml:space="preserve">
+    <value>Shift Started</value>
+  </data>
+  <data name="CASHIER_CONNECTED" xml:space="preserve">
+    <value>Cachier Connected</value>
+  </data>
+  <data name="FROM_BLOCK" xml:space="preserve">
+    <value>From Block</value>
+  </data>
+  <data name="PRINT_FISCAL_MEMORY_BLOCKS" xml:space="preserve">
+    <value>Print fiscal memory blocks</value>
+  </data>
+  <data name="TO_BLOCK" xml:space="preserve">
+    <value>To Block</value>
+  </data>
+  <data name="CARDS" xml:space="preserve">
+    <value>Cards</value>
+  </data>
+  <data name="CASH" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="CREDIT" xml:space="preserve">
+    <value>Credit</value>
+  </data>
+  <data name="FAILURE_READING_DEVICE_STATUS" xml:space="preserve">
+    <value>Failure reading device status</value>
+  </data>
+  <data name="FISCAL_PRINTER_ERROR" xml:space="preserve">
+    <value>Fiscal printer error. \r\nError Code: {0}. \r\nMessage: {1}</value>
+  </data>
+  <data name="CANNOT_OPEN_PORT_OR_PRINTER_IS_OFFLINE" xml:space="preserve">
+    <value>Cannot open port '{0}' or printer is offline</value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DO_NOT_PROCEED_IF_YOU_DONT_KNOW" xml:space="preserve">
+    <value>Do not proceed if you don't know what you are doing</value>
+  </data>
+  <data name="CANNOT_ADD_DISCOUNT_TO_RETURN" xml:space="preserve">
+    <value>Cannot add a discount to a return</value>
+  </data>
+  <data name="DAY_START_PLEASE_WAIT" xml:space="preserve">
+    <value>Day Start - Please Wait</value>
+  </data>
+  <data name="ZERO_AMOUNT_IS_NOT_ALLOWED" xml:space="preserve">
+    <value>Zero amount is not allowed</value>
+  </data>
+  <data name="PAYABLE" xml:space="preserve">
+    <value>Payable</value>
+  </data>
+  <data name="PAYOFF" xml:space="preserve">
+    <value>Payoff</value>
+  </data>
+  <data name="ANALYTIC" xml:space="preserve">
+    <value>Analytic</value>
+  </data>
+  <data name="BY_DATE" xml:space="preserve">
+    <value>By Date</value>
+  </data>
+  <data name="BY_Z_NUMBER" xml:space="preserve">
+    <value>By Z Number</value>
+  </data>
+  <data name="PER_BLOCK" xml:space="preserve">
+    <value>Per Block</value>
+  </data>
+  <data name="READ_FISCAL_MEMORY" xml:space="preserve">
+    <value>Read Fiscal Memory</value>
+  </data>
+  <data name="SIGNATURES" xml:space="preserve">
+    <value>Signatures</value>
+  </data>
+  <data name="SUMMARIZED" xml:space="preserve">
+    <value>Summarized</value>
+  </data>
+  <data name="FISCAL_PRINTER_COMMANDS" xml:space="preserve">
+    <value>Fiscal Printer Commands</value>
+  </data>
+  <data name="LINE_DISPLAY_ERROR" xml:space="preserve">
+    <value>Line Display Error</value>
+  </data>
+  <data name="NO_PRIMARY_SCALE_FOUND" xml:space="preserve">
+    <value>No Primary Scale was found.</value>
+  </data>
+  <data name="SELECT_DISCOUNT" xml:space="preserve">
+    <value>Select Discount</value>
+  </data>
+  <data name="CANNOT_ADD_DISCOUNT_TO_CANCELED_LINE" xml:space="preserve">
+    <value>Cannot add a discount to a canceled line</value>
+  </data>
+  <data name="SELECT_LINE" xml:space="preserve">
+    <value>Select Line</value>
+  </data>
+  <data name="DISCOUNT_TYPE_NOT_FOUND" xml:space="preserve">
+    <value>Discount Type not found</value>
+  </data>
+  <data name="INVALID_DISCOUNT_TYPE_CODE" xml:space="preserve">
+    <value>Invalid Discount Type Code</value>
+  </data>
+  <data name="MINISTY_CATEGORY_CODE_NOT_DEFINED_FOR_VAT_CATEGORY" xml:space="preserve">
+    <value>Ministry Category is not defined for Vat Category</value>
+  </data>
+  <data name="VAT_CATEGORY_NOT_FOUND" xml:space="preserve">
+    <value>Vat Category not found</value>
+  </data>
+  <data name="CODE_OR_BARCODE_OF_ITEM" xml:space="preserve">
+    <value>Code/Barcode of Item</value>
+  </data>
+  <data name="CUSTOMER_CODE" xml:space="preserve">
+    <value>Customer Code</value>
+  </data>
+  <data name="CUSTOMER_NOT_FOUND" xml:space="preserve">
+    <value>Customer not found</value>
+  </data>
+  <data name="APPLY_POINTS_DISCOUNT" xml:space="preserve">
+    <value>Do you want to redeem your loyalty points?</value>
+  </data>
+  <data name="LOYALTY_DISCOUNT_NOT_DEFINED" xml:space="preserve">
+    <value>Loyalty discount is not defined</value>
+  </data>
+  <data name="CONSUMED_POINTS" xml:space="preserve">
+    <value>Consumed Points</value>
+  </data>
+  <data name="CURRENT_TOTAL" xml:space="preserve">
+    <value>Current Total</value>
+  </data>
+  <data name="POINTS" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="PREVIOUS_TOTAL" xml:space="preserve">
+    <value>Previous Total</value>
+  </data>
+  <data name="POINT_ANALYSIS" xml:space="preserve">
+    <value>Point Analysis</value>
+  </data>
+  <data name="POINTS_OF_TRANSACTION" xml:space="preserve">
+    <value>Points of transaction</value>
+  </data>
+  <data name="PREVIOUS_TOTAL_POINTS" xml:space="preserve">
+    <value>Previous Total Points</value>
+  </data>
+  <data name="NEW_POINTS_AMOUNT" xml:space="preserve">
+    <value>New points amount</value>
+  </data>
+  <data name="CUSTOMER_DISCOUNT" xml:space="preserve">
+    <value>Customer Discount</value>
+  </data>
+  <data name="CUSTOM_DISCOUNT" xml:space="preserve">
+    <value>Custom Discount</value>
+  </data>
+  <data name="DOCUMENT_DISCOUNT" xml:space="preserve">
+    <value>Document Discount</value>
+  </data>
+  <data name="POINTS_DISCOUNT" xml:space="preserve">
+    <value>Points Discount</value>
+  </data>
+  <data name="PRICE_CATALOG_DISCOUNT" xml:space="preserve">
+    <value>Price catalog Discount</value>
+  </data>
+  <data name="DELETE_DISCOUNT_QUESTION" xml:space="preserve">
+    <value>Delete Discount?</value>
+  </data>
+  <data name="SET_FISCAL_ON_ERROR" xml:space="preserve">
+    <value>Set fiscal status "On Error"</value>
+  </data>
+  <data name="REMOVE_FISCAL_ON_ERROR" xml:space="preserve">
+    <value>Remove fiscal status "On Error"</value>
+  </data>
+  <data name="REMAINING_AMOUNT" xml:space="preserve">
+    <value>Remaining</value>
+  </data>
+  <data name="CASHIER" xml:space="preserve">
+    <value>Cashier</value>
+  </data>
+  <data name="PLEASE_WAIT" xml:space="preserve">
+    <value>Please Wait</value>
+  </data>
+  <data name="YOU_CANNOT_ISSUE_X_DOCUMENTS_ON_HOLD" xml:space="preserve">
+    <value>You cannot issue X. There are {0} documents on hold</value>
+  </data>
+  <data name="NOT_ENOUGH_CASH" xml:space="preserve">
+    <value>Not enough cash</value>
+  </data>
+  <data name="NO_DOCUMENTS_ON_HOLD" xml:space="preserve">
+    <value>There are no documents "on hold"</value>
+  </data>
+  <data name="NO_CASH_PAYMENT_METHOD_IS_DEFINED" xml:space="preserve">
+    <value>No payment method that increases drawer amount is defined</value>
+  </data>
+  <data name="VALUE_FACTOR_MUST_BE_NEGATIVE" xml:space="preserve">
+    <value>Document Type value factor must be negative</value>
+  </data>
+  <data name="VALUE_FACTOR_MUST_BE_POSITIVE" xml:space="preserve">
+    <value>Document Type value factor must be positive</value>
+  </data>
+  <data name="PROMOTIONS_EXECUTION_ERROR" xml:space="preserve">
+    <value>Promotion Execution Error</value>
+  </data>
+  <data name="PROMOTION_DISCOUNT" xml:space="preserve">
+    <value>Promotion Discount</value>
+  </data>
+  <data name="ERROR_EXECUTING_PROMOTIONS_RESULT" xml:space="preserve">
+    <value>Error executing promotions result</value>
+  </data>
+  <data name="ROOT_APPLICATION_RULE_GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Root application rule group was not found. Promotion : {0}</value>
+  </data>
+  <data name="PRINTER_FAILURE" xml:space="preserve">
+    <value>Printer Failure</value>
+  </data>
+  <data name="ONLY_VALUE_TYPE_DISCOUNTS_ARE_ALLOWED_IN_SET_PRICE_EXECUTION" xml:space="preserve">
+    <value>Only 'Value' Type Discounts are allowed in set price execution</value>
+  </data>
+  <data name="PROMOTION" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+  <data name="FAILURE_ISSUING_EAFDSS_Z" xml:space="preserve">
+    <value>Failure Issuing EAFDSS Z</value>
+  </data>
+  <data name="AMOUNT_EXCEED_LIMIT" xml:space="preserve">
+    <value>Amount exceed limit</value>
+  </data>
+  <data name="STARTING_AMOUNT" xml:space="preserve">
+    <value>Starting Amount</value>
+  </data>
+  <data name="DOCUMENT_DISCOUNTS" xml:space="preserve">
+    <value>Document Discounts</value>
+  </data>
+  <data name="LINE_DISCOUNTS" xml:space="preserve">
+    <value>Line Discounts</value>
+  </data>
+  <data name="WEIGH_ON_THE_SCALE_IS_NOT_STABLE" xml:space="preserve">
+    <value>The weight on the scale is not stable</value>
+  </data>
+  <data name="DEMO_MODE_ERROR" xml:space="preserve">
+    <value>Demo mode requires an EMULATED EAFDSS fiscal method and printer</value>
+  </data>
+  <data name="DRAWER_AMOUNT" xml:space="preserve">
+    <value>Drawer amount</value>
+  </data>
+  <data name="ERROR_DURING_FORCED_WITHDRAW" xml:space="preserve">
+    <value>Error during "Forced Withdraw"</value>
+  </data>
+  <data name="FORCED_WITHDRAW" xml:space="preserve">
+    <value>Forced Withdraw</value>
+  </data>
+  <data name="FORCED_WITHDRAW_TITLE" xml:space="preserve">
+    <value>Forced Withdraw
+(Exceeded &gt; {0:C})</value>
+  </data>
+  <data name="PRICECATALOG_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Price catalog was not found</value>
+  </data>
+  <data name="STORE_HAS_NO_DEFAULT_PRICECATALOG" xml:space="preserve">
+    <value>Store has no default price catalog defined</value>
+  </data>
+  <data name="GROSS_TOTAL_MISSMATCH" xml:space="preserve">
+    <value>Gross Total Missmatch: 
+Fiscal Printer Total {0}, Application Total {1}</value>
+  </data>
+  <data name="CANNOT_CANCEL_ALL_LINES" xml:space="preserve">
+    <value>Cannot cancel all lines</value>
+  </data>
+  <data name="DAY_WILL_BE_CLOSED" xml:space="preserve">
+    <value>Day will be closed</value>
+  </data>
+  <data name="FISCAL_PRINTER_AND_APPLICATION_DAY_WILL_BE_CLOSED" xml:space="preserve">
+    <value>Fiscal Day will be closed for both the Fiscal Printer and the Application</value>
+  </data>
+  <data name="VAT_CATEGORY_MULTIPLE_MINISTRY_CODES" xml:space="preserve">
+    <value>Vat Category "{0}" is defined more than once</value>
+  </data>
+  <data name="CURRENT_STORE_NOT_FOUND" xml:space="preserve">
+    <value>Current store not found</value>
+  </data>
+  <data name="STORE_HAS_NO_ADDRESS" xml:space="preserve">
+    <value>Store has no address</value>
+  </data>
+  <data name="FISCAL_VAT_FACTORS_ARE_INVALID" xml:space="preserve">
+    <value>Fiscal VAT Factors are invalid</value>
+  </data>
+  <data name="FISCAL_PRINTER_VAT_FACTORS" xml:space="preserve">
+    <value>Fiscal Printer VAT Factors</value>
+  </data>
+  <data name="APPLICATION_VAT_FACTORS" xml:space="preserve">
+    <value>Application VAT Factors</value>
+  </data>
+  <data name="STANDALONE_FISCAL_ON_ERROR_MESSAGE_IS_EMPTY" xml:space="preserve">
+    <value>Standalone fiscal on error message is empty</value>
+  </data>
+  <data name="EJ_DATA_PENDING" xml:space="preserve">
+    <value>EJ Data transfer pending</value>
+  </data>
+  <data name="FISCAL_PRINTER_DAY_NOT_OPEN" xml:space="preserve">
+    <value>Fiscal printer Day is not open</value>
+  </data>
+  <data name="ITEM_CODE_AS_BARCODE_IS_UNDEFINED" xml:space="preserve">
+    <value>Item-Code-based Barcode is undefined</value>
+  </data>
+  <data name="CURRENT_POS_IS_NOT_ACTIVE_START_DAY_NOT_ALLOWED" xml:space="preserve">
+    <value>Current POS is not active. "Start Day" is not allowed</value>
+  </data>
+  <data name="NO_PRIMARY_EDPS_FOUND" xml:space="preserve">
+    <value>No Primary EDPS found</value>
+  </data>
+  <data name="ACTION_FORBIDDEN_DUE_TO_EDPS" xml:space="preserve">
+    <value>Action is forbidden: EDPS Payment included</value>
+  </data>
+  <data name="ILLEGAL_RECEIPT_TRAINING_MODE_MESSAGE" xml:space="preserve">
+    <value>**ILLEGALRECEIPT - ONLY FOR TRAINING**</value>
+  </data>
+  <data name="IS_NOT_VALID_SALES_DOCUMENT_MESSAGE" xml:space="preserve">
+    <value>**IS NOT A VALID SALES DOCUMENT**</value>
+  </data>
+  <data name="PUNISHABLE_BY_LAW_MESSAGE" xml:space="preserve">
+    <value>**PUNISHABLE BY LAW**</value>
+  </data>
+  <data name="PACKET_CLOSE_FAILURE" xml:space="preserve">
+    <value>EDPS packet close failure</value>
+  </data>
+  <data name="PROCESS_PAYMENT_ON_DEVICE" xml:space="preserve">
+    <value>Please process payment on device</value>
+  </data>
+  <data name="EDPS_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>EDPS communication error</value>
+  </data>
+  <data name="CANCEL_DISCOUNT_SHORT" xml:space="preserve">
+    <value>Cancel Discount</value>
+  </data>
+  <data name="CANCEL_PAYMENT" xml:space="preserve">
+    <value>Cancel Payment</value>
+  </data>
+  <data name="CANCEL_RECEIPT_SHORT" xml:space="preserve">
+    <value>Cancel Receipt</value>
+  </data>
+  <data name="CASHIER_ACTIONS" xml:space="preserve">
+    <value>Cashier Actions</value>
+  </data>
+  <data name="CHANGE_PRICE" xml:space="preserve">
+    <value>Change Price</value>
+  </data>
+  <data name="CHANGE_WITH_COLON" xml:space="preserve">
+    <value>Change:</value>
+  </data>
+  <data name="CREDIT_CARD" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="DELETE_ITEM_SHORT" xml:space="preserve">
+    <value>Delete Item</value>
+  </data>
+  <data name="DEPOSIT_BUTTON_TEXT" xml:space="preserve">
+    <value>Deposit</value>
+  </data>
+  <data name="DISCOUNT_SHORT" xml:space="preserve">
+    <value>Disc</value>
+  </data>
+  <data name="EXIT" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="FISCAL_PRINTER_ACTIONS_SHORT" xml:space="preserve">
+    <value>Printer</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_BLOCKS" xml:space="preserve">
+    <value>Read Memory Blocks</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_DETAILED_PER_DATE" xml:space="preserve">
+    <value>Read Memory In Detail Per Date</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_DETAILED_PER_Z" xml:space="preserve">
+    <value>Read Memory In Detail Per Z</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_PER_DATE" xml:space="preserve">
+    <value>Read Memory Summarized Per Date</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_PER_Z" xml:space="preserve">
+    <value>Read Memory Summarized Per Z</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_SIGNATURES_PER_DATE" xml:space="preserve">
+    <value>Read Signatures Per Date</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_SIGNATURES_PER_Z" xml:space="preserve">
+    <value>Read Signatures Per Z</value>
+  </data>
+  <data name="HOLD_TAB_TITLE" xml:space="preserve">
+    <value>On Hold</value>
+  </data>
+  <data name="ITEM_DISCOUNT" xml:space="preserve">
+    <value>Item Discount</value>
+  </data>
+  <data name="ITEM_DISCOUNT_MULTILINE" xml:space="preserve">
+    <value>Item
+
+Discount</value>
+  </data>
+  <data name="ON_HOLD" xml:space="preserve">
+    <value>On Hold</value>
+  </data>
+  <data name="ON_HOLD_WITH_COLON" xml:space="preserve">
+    <value>On Hold:</value>
+  </data>
+  <data name="OTHER_PAYMENT" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="PAYMENTS" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="PREVIEW_X_SHORT" xml:space="preserve">
+    <value>Preview X</value>
+  </data>
+  <data name="QUANTITY_SHORT" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="REMAINING_AMOUNT_WITH_COLON" xml:space="preserve">
+    <value>Remaining Amount:</value>
+  </data>
+  <data name="RETURN_PRINTED" xml:space="preserve">
+    <value>RETURN</value>
+  </data>
+  <data name="SET_ON_HOLD_OR_GET_FROM_HELD_DOCUMENTS" xml:space="preserve">
+    <value>Set Document On Hold / Get From Held Documents</value>
+  </data>
+  <data name="TOTAL_DISCOUNT" xml:space="preserve">
+    <value>Total Discount</value>
+  </data>
+  <data name="TOTAL_DISCOUNT_MULTILINE" xml:space="preserve">
+    <value>Total
+
+Discount</value>
+  </data>
+  <data name="TOTAL_WITH_COLON" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="WITHDRAW_BUTTON_TEXT" xml:space="preserve">
+    <value>Withdraw</value>
+  </data>
+  <data name="FORCED_FISCAL_PRINTER_START_DAY" xml:space="preserve">
+    <value>Fiscal Printer Start Day</value>
+  </data>
+  <data name="FORCED_RECEIPT_CANCEL" xml:space="preserve">
+    <value>Force Receipt Cancel</value>
+  </data>
+  <data name="PAYMENT" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="SERVICE" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="CANCEL_EDPS_PAYMENTS_FIRST" xml:space="preserve">
+    <value>You must cancel all the credit card payments, before you can cancel the document</value>
+  </data>
+  <data name="LOADING_PLEASE_WAIT" xml:space="preserve">
+    <value>Loading, please wait ....</value>
+  </data>
+  <data name="FISCAL_PRINTER_STATUS_MISSMATCH" xml:space="preserve">
+    <value>Fiscal printer day status missmatch.
+Fiscal printer day open: {0}
+Application day open: {1}
+You must issue Z to continue.</value>
+  </data>
+  <data name="INSTALLMENTS" xml:space="preserve">
+    <value>Installments</value>
+  </data>
+  <data name="AUTHORIZATION_KEY" xml:space="preserve">
+    <value>Activation Key</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_TRY_OFFLINE" xml:space="preserve">
+    <value>Do you want to try offline ?</value>
+  </data>
+  <data name="ADD_COUPON" xml:space="preserve">
+    <value>Add Coupon</value>
+  </data>
+  <data name="EDPS_CHECK_COMMUNICATION" xml:space="preserve">
+    <value>Check communication with EDPS device</value>
+  </data>
+  <data name="FORCE_DELETE_PAYMENT" xml:space="preserve">
+    <value>Force delete payment</value>
+  </data>
+  <data name="CANNOT_CONNECT_TO_THE_SERVER" xml:space="preserve">
+    <value>Cannot connect to the server</value>
+  </data>
+  <data name="COUPON_HAS_ALREADY_BEEN_USED_TIMES" xml:space="preserve">
+    <value>Coupon has already been used {0} times</value>
+  </data>
+  <data name="COUPON_HAS_NOT_BEEN_FOUND" xml:space="preserve">
+    <value>Coupon has not been found</value>
+  </data>
+  <data name="COUPON_IS_ACTIVE_FROM_UNTIL" xml:space="preserve">
+    <value>Coupon is active from {0} Until {1}</value>
+  </data>
+  <data name="COUPON_IS_ACTIVE_FROM_UNTIL1" xml:space="preserve">
+    <value>Coupon is active from {0} Until {1}</value>
+  </data>
+  <data name="ISSUE_Z_EAFDSS" xml:space="preserve">
+    <value>Issue Z on EAFDSS</value>
+  </data>
+  <data name="PLEASE_DEFINE_HOW_COUPON_SHOULD_BE_APPLIED" xml:space="preserve">
+    <value>Please define how coupon should be applied</value>
+  </data>
+  <data name="USER_HAS_NO_STORE_ACCESS" xml:space="preserve">
+    <value>User has not access to this store</value>
+  </data>
+  <data name="MAX_COUNT_OF_DOC_LINES_EXCEEDED" xml:space="preserve">
+    <value>The maximum count of details of current document has exceeded</value>
+  </data>
+  <data name="MAX_COUNT_OF_LINES" xml:space="preserve">
+    <value>Maximum Count Of Document Details</value>
+  </data>
+  <data name="DOCUMENT_TYPE_NOT_USES_GENERAL_ITEMS" xml:space="preserve">
+    <value>Current document type doesn't use general items</value>
+  </data>
+  <data name="MULTIPLE_DOCUMENT_SERIES_DEFINED_FOR" xml:space="preserve">
+    <value>Multiple Series has been defined for</value>
+  </data>
+  <data name="NO_DOCUMENT_SERIES_DEFINED_FOR" xml:space="preserve">
+    <value>No Series has been defined for</value>
+  </data>
+  <data name="NO_PRIMARY_REMOTE_PRINTER_FOUND" xml:space="preserve">
+    <value>No Primary Remote Printer Found</value>
+  </data>
+  <data name="CUSTOMER_NOT_ALLOWED_TO_THIS_DOCUMENT_TYPE" xml:space="preserve">
+    <value>Customer is not allowed to this Document Type</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_USE_THE_FIELD_IN_COMMENTS" xml:space="preserve">
+    <value>Do you want to use the text in document comments?</value>
+  </data>
+  <data name="DOCUMENT_TYPE_DOES_NOT_USE_PAYMENT_METHODS_DO_YOU_WANT_TO_CLOSE_DOCUMENT" xml:space="preserve">
+    <value>Document type {0} does not use payment methods.Do you want to close the document</value>
+  </data>
+  <data name="NOT_ALL_ITEMS_CANCELLED" xml:space="preserve">
+    <value>Please cancel all details</value>
+  </data>
+  <data name="CUSTOMER_CHANGE_CANCELLED" xml:space="preserve">
+    <value>Customer change is cancelled</value>
+  </data>
+  <data name="GENERAL_SCALE_ERROR" xml:space="preserve">
+    <value>General Error on Scale</value>
+  </data>
+  <data name="PROTOCOL_OR_PARITY_ERROR" xml:space="preserve">
+    <value>Protocol error or parity error</value>
+  </data>
+  <data name="CREATE_CUSTOMER_FROM_SUPPLIER" xml:space="preserve">
+    <value>Do you want to create customers based on found suppliers;</value>
+  </data>
+  <data name="SUPPLIER_FOUND" xml:space="preserve">
+    <value>Supplier found</value>
+  </data>
+  <data name="ADDRESS_PROFESSION" xml:space="preserve">
+    <value>Address Profession</value>
+  </data>
+  <data name="CARD_ID" xml:space="preserve">
+    <value>Card ID</value>
+  </data>
+  <data name="CUSTOMER_ALREADY_EXISTS" xml:space="preserve">
+    <value>Customer associated with input values already exists  : {0}</value>
+  </data>
+  <data name="OPEN_FOUND_CUSTOMER" xml:space="preserve">
+    <value>Would you like to open found customer to edit?</value>
+  </data>
+  <data name="SYNC_FAILED" xml:space="preserve">
+    <value>Synchronization Failed.</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_RETRY" xml:space="preserve">
+    <value>Do you want to retry?</value>
+  </data>
+  <data name="TAX_OFFICE_MISSING" xml:space="preserve">
+    <value>Please insert a tax office</value>
+  </data>
+  <data name="COMMENTS" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="REASON" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="TAX_CODE" xml:space="preserve">
+    <value>Tax code</value>
+  </data>
+  <data name="TAX_CODE_OR_CODE" xml:space="preserve">
+    <value>Tax code/Code</value>
+  </data>
+  <data name="REASON_MISSING" xml:space="preserve">
+    <value>Reason can not be empty!</value>
+  </data>
+  <data name="NEXT_REASON" xml:space="preserve">
+    <value>Next Reason</value>
+  </data>
+  <data name="PREVIOUS_REASON" xml:space="preserve">
+    <value>Previous Reason</value>
+  </data>
+  <data name="INVALID_TOTAL" xml:space="preserve">
+    <value>Invalid Total</value>
+  </data>
+  <data name="NEXT" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="PREVIOUS" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="UP" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="ISSUE_Z_EAFDSS_ERROR_RETRY" xml:space="preserve">
+    <value>Error Issuing EAFDSS's Z Report. Do you want to retry ?</value>
+  </data>
+  <data name="USE_SPECIAL_PROFORMA" xml:space="preserve">
+    <value>Special Proforma</value>
+  </data>
+  <data name="PLEASE_REVISE_SPECIAL_PROFORMA_SETTINGS" xml:space="preserve">
+    <value>Please revise Special Proforma settings</value>
+  </data>
+  <data name="POS_OFFLINE_DO_YOU_WANT_TO_TRY_TO_CLOSE_OFFLINE" xml:space="preserve">
+    <value>POS is currently offline. Do you want to close the day in online mode? (WARNING! If you click OK, the process will timeout in about 1 hour)</value>
+  </data>
+  <data name="UNDEFINED_POLICY" xml:space="preserve">
+    <value>Policy Undefined</value>
+  </data>
+  <data name="COULD_NOT_EXECUTE_PROMOTION" xml:space="preserve">
+    <value>Could not execute Promotion {0}</value>
+  </data>
+  <data name="DOCUMENT_SUCCESFULLY_SAVED_AND_PRINTED" xml:space="preserve">
+    <value>Document has been succesfully saved and printed</value>
+  </data>
+  <data name="DOCUMENT_SUCCESFULLY_SAVED_BUT_NOT_PRINTED" xml:space="preserve">
+    <value>Document has been succesfully saved but has not been printed</value>
+  </data>
+  <data name="DOCUMENT_SUCCESFULLY_SAVED_PRINT_ON_BACK_OFFICE" xml:space="preserve">
+    <value>Document has been succesfully saved. You can print it on Web or Office Manager</value>
+  </data>
+  <data name="RESET_EAFDSS_DEVICES_ORDER" xml:space="preserve">
+    <value>Resetl EAFDSS devices order</value>
+  </data>
+  <data name="MODULE_ASSEMBLY_NOT_FOUND" xml:space="preserve">
+    <value>Module Assembly {0} not found</value>
+  </data>
+  <data name="DOCUMENT_SAVED_PRINT_FAIL" xml:space="preserve">
+    <value>Printer error occurred. The legal document with number {0} has been saved.</value>
+  </data>
+  <data name="REPRINT_RECEIPT" xml:space="preserve">
+    <value>Reprint document</value>
+  </data>
+  <data name="CONTINUE" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="PRESS_C_TO_CONTINUE" xml:space="preserve">
+    <value>Press C to Continue</value>
+  </data>
+  <data name="PRESS_ENTER_FOR_REPRINT" xml:space="preserve">
+    <value>Press Enter for reprint</value>
+  </data>
+  <data name="PROFORMA_SAVED_PRINT_FAIL" xml:space="preserve">
+    <value>Printer error occurred. The legal document with number {0} has been saved.</value>
+  </data>
+  <data name="REPRINT_FROM_RECEPTION" xml:space="preserve">
+    <value>You can reprint the document from reception</value>
+  </data>
+  <data name="ITEM_DESCRIPTION_SEARCH" xml:space="preserve">
+    <value>Search item by description</value>
+  </data>
+  <data name="SEARCH" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_CREATE_NEW_CUSTOMER" xml:space="preserve">
+    <value>Do you want to create new customer?</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_DISCOUNT" xml:space="preserve">
+    <value>Default Document Discount</value>
+  </data>
+  <data name="CUSTOMER_HAS_NOT_SIGN_THE_GDPR_CONTRACT" xml:space="preserve">
+    <value>    </value>
+  </data>
+  <data name="CHECK_LAST_FISCAL_REPORT" xml:space="preserve">
+    <value>Check Last Fiscal Report</value>
+  </data>
+  <data name="PLEASE_HANDLE_PRINTER_ACTIONS" xml:space="preserve">
+    <value>Please Handle Printer Actions</value>
+  </data>
+  <data name="USE_OPOS_REPORT" xml:space="preserve">
+    <value>Print report</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="YES" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="PRINT" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="PREVIEW" xml:space="preserve">
+    <value>PREVIEW</value>
+  </data>
+  <data name="NO_RESPONSE_FROM_DEVICE" xml:space="preserve">
+    <value>No Response from device</value>
+  </data>
+  <data name="NO_PRIMARY_CARDLINK_FOUND" xml:space="preserve">
+    <value>No primary Cardlink found</value>
+  </data>
+  <data name="CASH_CASH_BUTTON" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="CASH_COUPON_BUTTON" xml:space="preserve">
+    <value>Coupons</value>
+  </data>
+  <data name="CASH_CREDITCARD_BUTTTON" xml:space="preserve">
+    <value>Credit Cards</value>
+  </data>
+  <data name="CASH_DEPOSIT_BUTTON" xml:space="preserve">
+    <value>Deposits</value>
+  </data>
+  <data name="CASH_RETURN_BUTTON" xml:space="preserve">
+    <value>Returns</value>
+  </data>
+  <data name="CASH_WITHDRAW_BUTTON" xml:space="preserve">
+    <value>Withdraws</value>
+  </data>
+  <data name="CASH_WRONG_CASH_AMOUNT" xml:space="preserve">
+    <value>Τhe input  {0} is not a numeric value, it may only contain numbers and one * (multiplier)</value>
+  </data>
+  <data name="CASH_COUNT_COIN_ALLREADY_ADDED" xml:space="preserve">
+    <value>The currency value {0} is already added, the quantity of {1} will be added to the coin quantity.</value>
+  </data>
+  <data name="CASH_COUNT_COUNT_AND_AMOUNT" xml:space="preserve">
+    <value>Count: {0} Amount: {1}</value>
+  </data>
+  <data name="CASH_COUNT_COIN_VALUE_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Currency Value {0} is not valid</value>
+  </data>
+  <data name="CASH_COUNT_THERE_CAN_BE_ONLY_ONE_AMOUNT_WITHOUT_COIN_VALUE" xml:space="preserve">
+    <value>There can be only one amount without Coin Value</value>
+  </data>
+  <data name="CASH_INVOICE_BUTTON" xml:space="preserve">
+    <value>Invoices</value>
+  </data>
+  <data name="CONTINUE_AND_LOSE_DATA" xml:space="preserve">
+    <value>Do you want to continue and lose data?</value>
+  </data>
+  <data name="CASH_COUNT_CANCEL" xml:space="preserve">
+    <value>Cash Count Cancel Form</value>
+  </data>
+  <data name="CASH_COUNT_ENTER" xml:space="preserve">
+    <value>Cash Count Enter</value>
+  </data>
+  <data name="CASH_COUNT_MOVE_DOWN" xml:space="preserve">
+    <value>Cash Count Move Down</value>
+  </data>
+  <data name="CASH_COUNT_MOVE_UP" xml:space="preserve">
+    <value>Cash Count Move Up</value>
+  </data>
+  <data name="CASH_COUNT_MULTIPLY" xml:space="preserve">
+    <value>Cash Count Multiply</value>
+  </data>
+  <data name="CASH_COUNT_NEXT" xml:space="preserve">
+    <value>Cash Count Next</value>
+  </data>
+  <data name="CASH_COUNT_PREVIOUS" xml:space="preserve">
+    <value>Cash Count Previous</value>
+  </data>
+  <data name="CASH_COUNT_REMOVE_LINE" xml:space="preserve">
+    <value>Cash Count Remove Line</value>
+  </data>
+  <data name="CASH_COUNT_SUBMIT" xml:space="preserve">
+    <value>Cash Count Submit Form</value>
+  </data>
+  <data name="CASH_COUNT_NOT_SAVED_AMOUNTS_EXISTING" xml:space="preserve">
+    <value>There are incomplete amounts to be registered</value>
+  </data>
+  <data name="ACTION_FORBIDDEN_DUE_TO_CARDLINK" xml:space="preserve">
+    <value>ACTION FORBIDDEN DUE TO CARDLINK</value>
+  </data>
+  <data name="CARDLINK_COMMUNICATION_CHECK" xml:space="preserve">
+    <value>Check communication with CardLink device</value>
+  </data>
+  <data name="CARDLINK_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>Communication Error with CardLink Device</value>
+  </data>
+  <data name="CASH_COUNT_YOU_DID_NOT_ENTER_ANY_VALUE" xml:space="preserve">
+    <value>You did not enter any value</value>
+  </data>
+  <data name="CASH_COUNT_SUMMARY_TEXT" xml:space="preserve">
+    <value>You have Enter the Following amounts. Do you want to save Them?</value>
+  </data>
+  <data name="ERRORZUPLOAD" xml:space="preserve">
+    <value>Z File Failed To Upload</value>
+  </data>
+  <data name="THIRD_PART_NUM" xml:space="preserve">
+    <value>Third Part Number</value>
+  </data>
+  <data name="SCALE_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>Scale Communication Error</value>
+  </data>
+  <data name="WRONG_PAYMENT_VALUE" xml:space="preserve">
+    <value>Wrong payment value, Receipt ll be canceled</value>
+  </data>
+</root>

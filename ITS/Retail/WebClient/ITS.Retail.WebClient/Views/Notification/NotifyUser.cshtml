@@ -1,0 +1,19 @@
+﻿@if (Session["Error"] != null && !String.IsNullOrEmpty(Session["Error"].ToString()))
+{
+    string error = Session["Error"].ToString();
+    error = error.Replace(Environment.NewLine, "");
+    <script type="text/javascript">
+        setJSError("@error");
+    </script>
+    Session["Error"] = null;
+}
+
+@if (Session["Notice"] != null && !String.IsNullOrEmpty(Session["Notice"].ToString()))
+{
+    string notice = Session["Notice"].ToString();
+    notice = notice.Replace(Environment.NewLine, "");
+    <script type="text/javascript">
+        setJSNotification("@notice");
+    </script>
+    Session["Notice"] = null;
+}

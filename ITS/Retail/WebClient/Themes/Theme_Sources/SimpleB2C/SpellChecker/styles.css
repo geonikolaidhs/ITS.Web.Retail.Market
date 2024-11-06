@@ -1,0 +1,52 @@
+/* -- ASPxSpellChecker -- */
+.dxwscLoadingDiv_SimpleB2C
+{
+	background-color:Gray;	
+	opacity: 0.01;
+	filter:progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=1);
+}
+.dxwscCheckedTextContainer_SimpleB2C
+{
+	background-color: white;
+	font-size: 12px;
+	font-family: 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	border: solid 1px #c0c0c0;
+	vertical-align:top;
+	overflow:auto;
+	height: 110px;
+	width: 340px;
+	padding: 5px;
+}
+.dxwscErrorWord_SimpleB2C 
+{
+	background: url('scErrorUnderline.gif') bottom;
+	background-repeat:repeat-x;
+	padding-bottom: 3px;
+	color: #333333;
+	font-weight: bold;
+}
+
+.dxwscLoadingPanel_SimpleB2C
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+}
+.dxwscLoadingPanel_SimpleB2C td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+padding: 10px 14px;
+}
+.dxsc-main .dxrpControl_SimpleB2C .dxrpHeader_SimpleB2C,
+.dxsc-main .dxrpControl_SimpleB2C .dxrpHeader_SimpleB2C td.dxrp
+{
+	font-size: 22px;
+}
+#dxMainSpellCheckFormTable .buttonsCell,
+#dxMainSpellCheckOptionsFormTable .buttonsCell
+{
+	border-top: 1px solid #c0c0c0;
+}
+

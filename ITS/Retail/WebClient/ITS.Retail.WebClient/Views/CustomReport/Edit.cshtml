@@ -1,0 +1,126 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("Save", "CustomReport", FormMethod.Post, new { id = "EditForm" }))
+{
+    ViewContext.Writer.Write(Html.Hidden("CustomReportID", ViewData["CustomReportID"].ToString()));
+    if (Model.Owner != null)
+    {         
+        @Html.DevExpress().RoundPanel(settings =>
+        {
+            settings.Name = "editForm";
+            settings.ShowHeader = false;
+            settings.SetContent(() =>
+            {
+                /*Header banner*/
+                HeaderOptions headerOptions = new HeaderOptions("");
+                headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+                headerOptions.CancelButton.OnClick = "btnCancelClickV2"; 
+                HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+                /*End of header banner*/
+
+                ViewContext.Writer.Write("<table class='headerTable validateForm'><tr><td>");
+
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label required_field";
+                    edtSettings.Text = Resources.Code + ":";
+                    edtSettings.AssociatedControlName = "Code";
+                }).Render();
+
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                    edtSettings.Name = "Code";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+                }).Bind(DataBinder.Eval(Model, "Code")).Render();
+                ViewContext.Writer.Write("</td><td>");
+
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label required_field";
+                    edtSettings.Text = Resources.Title + ":";
+                    edtSettings.AssociatedControlName = "Title";
+                }).Render();
+
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                    edtSettings.Name = "Title";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+                }).Bind(DataBinder.Eval(Model, "Title")).Render();
+        
+                ViewContext.Writer.Write("</td></tr><tr><td>");
+
+                Html.RenderPartial("CustomReportUploadForm"); //!!!!!!!!!!!!!!!!!!!!!!!
+
+                ViewContext.Writer.Write("</td><td>");
+
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Language + ":";
+                }).Render();
+        
+                Html.DevExpress().ComboBox(cmb_settings =>
+                {
+                    cmb_settings.Name = "CultureInfo";
+                    cmb_settings.SelectedIndex = 0;
+                }).BindList(Enum.GetValues(typeof(ITS.Retail.Platform.Enumerations.eCultureInfo))).Bind(DataBinder.Eval(Model, "CultureInfo")).Render();
+
+                ViewContext.Writer.Write("</td></tr><tr><td>");
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label required_field";
+                    edtSettings.Text = Resources.Category + ":";
+                    edtSettings.AssociatedControlName = "Title";
+                }).Render();
+
+                Html.DevExpress().ComboBox(edtSettings =>
+                {
+                    edtSettings.Name = "ReportCategory";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Properties.TextField = "Description";
+                    edtSettings.Properties.ValueField = "Oid";
+                    edtSettings.Properties.ValueType = typeof(Guid);
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                    var button = new EditButton(" ");
+                    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                    button.Image.AlternateText = Resources.Clear;
+                    edtSettings.Properties.Buttons.Add(button);
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+                }).BindList(ViewBag.Categories).Bind(DataBinder.Eval(Model, "ReportCategory!Key")).Render();
+                ViewContext.Writer.Write("</td><td>");
+
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label required_field";
+                    edtSettings.Text = Resources.Description + ":";
+                    edtSettings.AssociatedControlName = "Description";
+                }).Render();
+
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                    edtSettings.Name = "Description";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+                }).Bind(DataBinder.Eval(Model, "Description")).Render();
+                ViewContext.Writer.Write("</td></tr></table>");
+            });
+        }).GetHtml();
+        Html.RenderPartial("ReportRoleGrid", (Model as ITS.Retail.Model.CustomReport).ReportRoles);
+    }
+    else
+    {
+        ViewContext.Writer.Write("Owner is null");
+    }
+}
+
+

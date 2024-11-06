@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW ITS_V_COMMON_CUSTOMER_INFO
+ (
+ CUSTOMERID, CUSTOMERCODE, CUSTOMERPOINTS, CUSTOMERNAME
+
+ )
+ AS 
+Select
+clc.CUSTCODE, clc.cardcode, cms.pointsbalance, cms.CUSTNAME
+
+from
+CUST_MS cms
+join CUST_LC clc on cms.custcode = clc.custcode
+/

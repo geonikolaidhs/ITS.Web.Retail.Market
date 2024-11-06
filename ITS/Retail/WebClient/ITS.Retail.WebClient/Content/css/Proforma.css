@@ -1,0 +1,57 @@
+.wrapper .container .relative .filter_search_container {
+  background: none;
+}
+.wrapper .container .relative span#filterinfo {
+  background: none;
+}
+.wrapper .container table.FilterPanel.relative {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.wrapper .container table.FilterPanel.relative #FilterPanel_RPC {
+  background: #e5e5e5;
+  border: 1px solid rgba(110, 110, 110, 0.4);
+  border-top: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+.wrapper .container table.FilterPanel.relative #btnSearch {
+  clear: none;
+  float: none;
+  margin: 16px 0 0;
+}
+.wrapper .container table.FilterPanel.relative td.dxrpHeader_ITSTheme1 {
+  background: #e5e5e5;
+  border: 1px solid rgba(110, 110, 110, 0.4);
+  border-bottom: 0;
+}
+.wrapper .container table.FilterPanel.relative td.dxrpHeader_ITSTheme1 span {
+  padding: 5px 9px 9px 6px;
+  background: none;
+  background-image: none;
+  background-position: center;
+  cursor: auto;
+  color: #0098ec;
+}
+.wrapper .container table.FilterPanel.relative td.dxrpHeader_ITSTheme1 span.up {
+  background-image: none;
+}
+
+.Proforma .buttonGridContainer {
+  position: absolute;
+  right: 60px;
+  top: 134px;
+}
+
+#documentEditPageControlContainer .buttonGridContainer {
+  top: 33px;
+}
+
+.buttonGridContainer .btnTransform {
+  margin-right: 6px;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 9px 20px;
+  background-color: #000;
+}

@@ -1,0 +1,10 @@
+﻿@*@{    
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+<table class="users_info" width="30%">
+    <th colspan="2">@ITS.Retail.ResourcesLib.Resources.LicencedUsers</th>
+@foreach (ITS.Licensing.ClientLibrary.ITSLicense.UserAccessType user_access_type in Enum.GetValues(typeof(ITS.Licensing.ClientLibrary.ITSLicense.UserAccessType)))
+{
+    ViewContext.Writer.Write("<tr><td>" + user_access_type.ToString() + "</td><td>" + (ViewData["active_users"] as Dictionary<ITS.Licensing.ClientLibrary.ITSLicense.UserAccessType, int>)[user_access_type] + "</td></tr>");
+}
+</table>*@

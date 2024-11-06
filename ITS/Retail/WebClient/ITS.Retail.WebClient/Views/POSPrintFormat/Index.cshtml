@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ITS.Retail.Model.POSPrintFormat>
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/POSPrintFormat.js")" type="text/javascript"></script>
+}
+@{
+    ViewBag.Title = ITS.Retail.ResourcesLib.Resources.POSPrintFormats;
+}
+
+@Html.Partial("Grid", Model)

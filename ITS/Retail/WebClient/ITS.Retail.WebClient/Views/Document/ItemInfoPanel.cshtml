@@ -1,0 +1,289 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{
+    Html.DevExpress().CallbackPanel(settings =>
+    {
+        settings.Name = "itemPanel";
+        settings.CallbackRouteValues = new { Controller = "Document", Action = "ItemInfoPanel" };
+        settings.ClientSideEvents.BeginCallback = "itemPanelBeginCallback";
+        settings.ClientSideEvents.EndCallback = "itemPanelEndCallback";
+        settings.SettingsLoadingPanel.Enabled = false;
+
+        settings.SetContent(() =>
+        {
+            PriceCatalogDetail priceCatalogDetail = Session["currentpriceCatalogDetail"] as PriceCatalogDetail;
+            DocumentDetail docdet = Session["currentDocumentDetail"] as DocumentDetail;
+            DocumentHeader documentHeader = Session["currentDocument"] as DocumentHeader;
+            string itemCode = docdet == null ? "" : docdet.Item.Code;
+            if (itemCode != null && priceCatalogDetail!=null && priceCatalogDetail.PriceCatalog.Owner.OwnerApplicationSettings.PadItemCodes)
+            {
+                itemCode = itemCode.TrimStart(priceCatalogDetail.PriceCatalog.Owner.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+            
+            ViewContext.Writer.Write("<div class=\"right\">");
+            ViewContext.Writer.Write("<div class=\"first\">");
+            ViewContext.Writer.Write("<div>");
+            ViewContext.Writer.Write("<label>" + Resources.Code + "</label>");
+
+            ViewContext.Writer.Write(Html.Hidden("hidden_quantity", docdet == null ? "" : docdet.PackingQuantity.ToString().Replace(",", ".")));
+            @Html.DevExpress().TextBox(txtbxsetings =>
+            {
+                txtbxsetings.Name = "item_info_code";
+                txtbxsetings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                txtbxsetings.ReadOnly = true;
+                txtbxsetings.ClientEnabled = false;
+                txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }).Bind(itemCode).GetHtml();
+
+            ViewContext.Writer.Write("<label>" + Resources.Barcode + "</label>");
+            @Html.DevExpress().TextBox(txtbxsetings =>
+            {
+                txtbxsetings.Name = "item_info_barcode";
+                txtbxsetings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                txtbxsetings.Enabled = true;
+                txtbxsetings.ReadOnly = true;
+                txtbxsetings.ClientEnabled = false;
+                txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }).Bind(docdet == null ? "" : docdet.Barcode.Code).GetHtml();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div>");
+            ViewContext.Writer.Write("<label>" + Resources.VAT + "(%): " + "</label>");
+
+            @Html.DevExpress().TextBox(fpasettings =>
+            {
+                fpasettings.Name = "fpa_factor";
+                fpasettings.Enabled = true;
+                fpasettings.ReadOnly = true;
+                fpasettings.ClientEnabled = false;
+                fpasettings.Properties.DisplayFormatString = "F2";
+                fpasettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                fpasettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : (docdet.VatFactor * 100).ToString()).GetHtml();
+
+            ViewContext.Writer.Write("<label>" + Resources.MeasurementUnit + "</label>");
+            String muBind = "";
+            if (docdet != null && docdet.Barcode != null)
+            {
+                MeasurementUnit mu = docdet.Barcode.MeasurementUnit(docdet.Item.Owner);
+                if (mu != null)
+                {
+                    muBind = mu.Description;
+                }
+            }
+            @Html.DevExpress().TextBox(measuresettings =>
+            {
+                measuresettings.Name = "measureunitsfield";
+                measuresettings.Enabled = true;
+                measuresettings.ReadOnly = true;
+                measuresettings.ClientEnabled = false;
+                measuresettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }).Bind(muBind).GetHtml();
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<label>" + Resources.Description + "</label>");
+
+            bool AcceptsCustomPrice = ITS.Retail.WebClient.Helpers.UserHelper.IsCustomer(ViewBag.CurrentUser) == false
+                                        && (docdet == null ? false : docdet.Item.AcceptsCustomPrice);
+            bool AcceptsCustomDescription = ITS.Retail.WebClient.Helpers.UserHelper.IsCustomer(ViewBag.CurrentUser) == false
+                                        && (docdet == null ? false : docdet.Item.AcceptsCustomDescription);
+            bool IsWholeSale = documentHeader.DocumentType ==null
+                                ? false
+                                : documentHeader.DocumentType.IsForWholesale;
+                
+            
+            @Html.DevExpress().TextBox(txtbxsetings =>
+            {
+                txtbxsetings.Name = "item_info_name";
+                txtbxsetings.Enabled = true;
+                txtbxsetings.ReadOnly = !AcceptsCustomDescription;
+                txtbxsetings.ClientEnabled = AcceptsCustomDescription;
+                if (AcceptsCustomDescription)
+                {
+                    txtbxsetings.Properties.ClientSideEvents.KeyPress = "CustomItemDescriptionOnKeyPressed";
+                }
+                txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }).Bind(docdet == null ? "" : docdet.CustomDescription).GetHtml();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div class=\"second\">");
+            ViewContext.Writer.Write("<div>");
+            
+            if (!AcceptsCustomPrice)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.PackingQty + "</label>");
+            }
+            @Html.DevExpress().TextBox(txtbxsetings =>
+            {
+                txtbxsetings.Name = "item_rf";
+                txtbxsetings.Enabled = true;
+                txtbxsetings.ReadOnly = true;
+                txtbxsetings.ClientEnabled = false;
+                txtbxsetings.ClientVisible = !AcceptsCustomPrice;
+                txtbxsetings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                txtbxsetings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : docdet.PackingMeasurementUnitRelationFactor.ToString()).GetHtml();
+
+            if (!AcceptsCustomPrice)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.UnitPrice + "</label>");
+            }
+            @Html.DevExpress().TextBox(pricesettings =>
+            {
+                pricesettings.Name = "unitprice";
+                if (Session["UnitPrice"] != null)
+                {
+                    pricesettings.Text = Session["UnitPrice"].ToString();
+                }
+                else
+                {
+                    pricesettings.Text = " ";
+                }
+                pricesettings.Enabled = true;
+                pricesettings.ReadOnly = true;
+                pricesettings.ClientEnabled = false;
+                pricesettings.ClientVisible = !AcceptsCustomPrice;
+                pricesettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                pricesettings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatItemValueString;
+                pricesettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : docdet.CustomUnitPrice.ToString()).GetHtml();
+
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div>");
+
+            if (!AcceptsCustomPrice)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.VAT + "(€):" + "</label>");
+            }
+            @Html.DevExpress().TextBox(final_fpa_sum_settings =>
+            {
+                final_fpa_sum_settings.Name = "final_fpa_sum";
+                final_fpa_sum_settings.Enabled = true;
+                final_fpa_sum_settings.ReadOnly = true;
+                final_fpa_sum_settings.ClientEnabled = false;
+                final_fpa_sum_settings.ClientVisible = !AcceptsCustomPrice;
+                final_fpa_sum_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                final_fpa_sum_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+                final_fpa_sum_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : docdet.TotalVatAmount.ToString()).GetHtml();
+            ViewContext.Writer.Write("<br style=\"clear:both;\"/>");
+            if (!AcceptsCustomPrice)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.Discount + "</label>");
+            }
+            
+            @Html.DevExpress().TextBox(totaldiscountsettings =>
+            {
+                totaldiscountsettings.Name = "total_discount";
+                totaldiscountsettings.Enabled = true;
+                totaldiscountsettings.ReadOnly = true;
+                totaldiscountsettings.ClientEnabled = false;
+                totaldiscountsettings.ClientVisible = !AcceptsCustomPrice;
+                totaldiscountsettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                totaldiscountsettings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+                totaldiscountsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : (IsWholeSale ? docdet.TotalDiscount : docdet.TotalDiscountIncludingVAT).ToString()).GetHtml();
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div>");
+
+            if (!AcceptsCustomPrice)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.NetTotal + "</label>");
+            }
+            
+            @Html.DevExpress().TextBox(totalcostsettings =>
+            {
+                totalcostsettings.Name = "total_cost";
+                totalcostsettings.Enabled = true;
+                totalcostsettings.ReadOnly = true;
+                totalcostsettings.ClientEnabled = false;
+                totalcostsettings.ClientVisible = !AcceptsCustomPrice;
+                totalcostsettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                totalcostsettings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+                totalcostsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : (IsWholeSale ? docdet.NetTotalBeforeDiscount : docdet.GrossTotalBeforeDiscount).ToString()).GetHtml();
+
+            if (!AcceptsCustomPrice)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.TotalAfterDiscount + "</label>");
+            }
+            
+            @Html.DevExpress().TextBox(total_after_discountsettings =>
+            {
+                total_after_discountsettings.Name = "total_after_discount";
+                total_after_discountsettings.Enabled = true;
+                total_after_discountsettings.ReadOnly = true;
+                total_after_discountsettings.ClientEnabled = false;
+                total_after_discountsettings.ClientVisible = !AcceptsCustomPrice;
+                total_after_discountsettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                total_after_discountsettings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+                total_after_discountsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : docdet.NetTotal.ToString()).GetHtml();
+            ViewContext.Writer.Write("</div>");
+
+            ViewContext.Writer.Write("<div>");
+
+            if (!AcceptsCustomPrice == false)
+            {
+                ViewContext.Writer.Write("<label>" + Resources.UnitPrice + "</label>");
+                string customPriceBind = "";
+                if (docdet != null)
+                {
+                    customPriceBind = IsWholeSale ? docdet.UnitPriceAfterDiscount.ToString() : docdet.FinalUnitPrice.ToString();
+                }
+                @Html.DevExpress().TextBox(txt_settings =>
+                {
+                    txt_settings.Name = "custom_price";
+                    txt_settings.Enabled = true;
+                    txt_settings.ReadOnly = false;
+                    txt_settings.ClientEnabled = true;
+                    txt_settings.ClientVisible = AcceptsCustomPrice;
+                    txt_settings.Properties.ClientSideEvents.KeyPress = "ValidateDecimalValuesChar";
+                    txt_settings.Properties.ClientSideEvents.LostFocus = "CustomPriceOnLostFocus";
+                    txt_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                    txt_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+                    txt_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                }).Bind(customPriceBind).GetHtml();
+            }
+
+            ViewContext.Writer.Write("</div>");
+
+            if (documentHeader.UsesPackingQuantities  && docdet != null && string.IsNullOrEmpty(docdet.MeasurementUnitsQuantities) == false)
+            {
+                ViewContext.Writer.Write("<div>");
+                Html.DevExpress().Label(lbl_settings =>
+                {
+                    lbl_settings.Text = docdet.MeasurementUnitsQuantities;
+                    lbl_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                    lbl_settings.ControlStyle.CssClass = "label-packing";
+                }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+            }
+            else
+            {
+                ViewContext.Writer.Write("<div class=\" label-packing height-31 clearfix display-block-important\" ></div>"); 
+            }
+            
+            ViewContext.Writer.Write("</div>");
+                      
+            ViewContext.Writer.Write("<div class=\"total\">");
+            ViewContext.Writer.Write("<label>" + Resources.GrossTotal + "</label>");
+
+            @Html.DevExpress().Label(final_sum_settings =>
+            {
+                final_sum_settings.Name = "final_sum";
+                final_sum_settings.Enabled = true;
+                final_sum_settings.ClientEnabled = false;
+                final_sum_settings.Properties.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+                final_sum_settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind(docdet == null ? "" : docdet.GrossTotal.ToString(BaseController.OwnerApplicationSettings.formatCurrencyString)).GetHtml();
+            ViewContext.Writer.Write("</div></div></div>");
+
+        });
+    }
+
+).GetHtml();
+
+
+}

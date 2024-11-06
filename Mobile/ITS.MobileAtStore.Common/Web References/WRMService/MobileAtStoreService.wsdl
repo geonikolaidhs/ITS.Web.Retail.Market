@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.its.net.gr/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.its.net.gr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.its.net.gr/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="ValidateOrderItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateOrderItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateOrderItemsResult" type="tns:ArrayOfInvalidItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInvalidItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InvalidItem" type="tns:InvalidItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InvalidItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemOid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Barcode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Reason" type="tns:InactiveItemReason" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="InactiveItemReason">
+        <s:restriction base="s:string">
+          <s:enumeration value="INACTIVE" />
+          <s:enumeration value="NOPRICE" />
+          <s:enumeration value="NOT_FOUND" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PostDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostDocumentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidateOrderItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateOrderItems" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateOrderItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:PostDocument" />
+  </wsdl:message>
+  <wsdl:message name="PostDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:PostDocumentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MobileAtStoreServiceSoap">
+    <wsdl:operation name="ValidateOrderItems">
+      <wsdl:input message="tns:ValidateOrderItemsSoapIn" />
+      <wsdl:output message="tns:ValidateOrderItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostDocument">
+      <wsdl:input message="tns:PostDocumentSoapIn" />
+      <wsdl:output message="tns:PostDocumentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MobileAtStoreServiceSoap" type="tns:MobileAtStoreServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidateOrderItems">
+      <soap:operation soapAction="http://www.its.net.gr/ValidateOrderItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostDocument">
+      <soap:operation soapAction="http://www.its.net.gr/PostDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MobileAtStoreServiceSoap12" type="tns:MobileAtStoreServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidateOrderItems">
+      <soap12:operation soapAction="http://www.its.net.gr/ValidateOrderItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostDocument">
+      <soap12:operation soapAction="http://www.its.net.gr/PostDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MobileAtStoreService">
+    <wsdl:port name="MobileAtStoreServiceSoap" binding="tns:MobileAtStoreServiceSoap">
+      <soap:address location="http://localhost/ITS.Retail.WebClient/MobileAtStoreService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MobileAtStoreServiceSoap12" binding="tns:MobileAtStoreServiceSoap12">
+      <soap12:address location="http://localhost/ITS.Retail.WebClient/MobileAtStoreService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

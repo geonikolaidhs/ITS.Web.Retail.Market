@@ -1,0 +1,25 @@
+﻿@model DocumentHeader
+@using System.Web.UI.WebControls
+
+@Html.DevExpress().Splitter(settings =>
+{
+    settings.Name = "compositionDecompositionOverview";
+    settings.Height = 500;
+    settings.Width = Unit.Percentage(100);
+    settings.Panes.Add(pane =>
+    {
+        pane.AutoWidth = true;
+        pane.SetContent(() =>
+        {
+            Html.RenderPartial("CompositionDecompositionMainLinesGrid", Model.MainLines);
+        });
+    });
+    settings.Panes.Add(pane =>
+    {
+        pane.AutoWidth = true;
+        pane.SetContent(() =>
+        {
+            Html.RenderPartial("CompositionDecompositionLinkedLinesGrid", new List<DocumentDetail>());
+        });
+    });
+}).GetHtml()

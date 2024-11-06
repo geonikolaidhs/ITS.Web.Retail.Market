@@ -1,0 +1,36 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Areas.B2C.Controllers;
+
+@if (ViewBag.DocumentHeader != null)
+{
+    <div class="box-table padding-left-0 padding-right-0 padding-bottom-0 margin-bottom-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-wishlist">
+                <tbody>
+                    <tr class="header">
+                        <th>&nbsp;</th>
+                        <th>@Resources.Item</th>
+                        <th>@Resources.UnitPrice</th>
+                        <th>@Resources.Quantity</th>
+                        <th>@Resources.TotalB2C</th>
+                    </tr>
+
+                    @foreach (DocumentDetail documentDetail in ViewBag.DocumentHeader.DocumentDetails)
+                    {
+                        <tr class="item first">
+                            <td class="thumb">
+                                <img class="img-responsive" src="@Url.Action("ShowImageId", "Static", new { Id = documentDetail.Item.Oid, imageSize = 0, ticks = documentDetail.Item.UpdatedOnTicks })" data-src="@Url.Action("ShowImageId", "Static", new { Id = documentDetail.Item.Oid, imageSize = 1, ticks = documentDetail.Item.UpdatedOnTicks }) + " alt="" />
+                            </td>
+                            <td class="name">@documentDetail.Item.Name</td>
+                            <td class="price">@documentDetail.FinalUnitPrice.ToString("n2") &euro;</td>
+                            <td class="name">@documentDetail.Qty.ToString("n0")</td>
+                            <td class="price">@documentDetail.GrossTotal.ToString("n2") &euro;</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}

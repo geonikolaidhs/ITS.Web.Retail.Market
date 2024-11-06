@@ -1,0 +1,91 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@using DevExpress.Xpo;
+@using System.Linq;
+
+@{
+   
+    string title = Resources.Transform;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("TransformationPopup", "OnShownTransformationPopup");
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.ControlStyle.CssClass = "TransformationDetailsGrid_PopUp";
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.ClientSideEvents.CloseButtonClick = "OnTransformationPopupCloseButtonClick";
+    popUpSettings.CallbackRouteValues = new { Controller = "Document", Action = "TransformationPopup" };
+    popUpSettings.AllowResize = false;
+    popUpSettings.AllowDragging = false;
+    popUpSettings.AutoUpdatePosition = true;
+    popUpSettings.Modal = true;
+    popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.OutsideLeft;
+    popUpSettings.PopupVerticalAlign = PopupVerticalAlign.Above;
+    popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;    
+    popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+    popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";    
+    popUpSettings.HeaderText = title;
+    popUpSettings.SetContent(() =>
+    {
+        List<TransformationRule> allowedTransformationRulesTypes = (List<TransformationRule>)ViewData["allowedTransformationRulesTypes"];
+        XPCollection<DocumentSeries> allowedDocumentSeries = (XPCollection<DocumentSeries>)ViewData["allowedDocumentSeries"];
+        List<DocumentHeader> selectedDocumentHeaders = ViewData["DCs"] as List<DocumentHeader>;
+        
+
+        if (allowedTransformationRulesTypes != null && selectedDocumentHeaders != null)
+        {
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.Text = Resources.Continue;
+            headerOptions.SaveButton.Name = "btnContinue";
+            headerOptions.SaveButton.OnClick = "TransformationPopupBtnContinue";
+            headerOptions.CancelButton.Name = "btnClose";
+            headerOptions.CancelButton.OnClick = "TransformationPopupBtnClose";
+            headerOptions.ViewType = eViewType.PopUp;
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+            /*End of header banner*/
+            ViewContext.Writer.Write("<table><tr><td>");
+
+            Html.DevExpress().Label(lbl_settings =>
+            {
+                lbl_settings.Name = "lblDocumentType";
+                lbl_settings.Text = Resources.DocumentType + ":";
+                lbl_settings.ControlStyle.CssClass = "color-bold-blue";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.RenderPartial("TransformationDocumentTypes", allowedTransformationRulesTypes);
+
+            ViewContext.Writer.Write("</td><td class=\"padding-left-10\">");
+
+            Html.DevExpress().Label(lbl_settings =>
+            {
+                lbl_settings.Name = "lblDocumentSeries";
+                lbl_settings.Text = Resources.DocumentSeries + ":";
+                lbl_settings.ControlStyle.CssClass = "color-bold-blue";
+            }).GetHtml();
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.RenderPartial("TransformationDocumentSeries", allowedDocumentSeries);
+            ViewContext.Writer.Write("</td></tr></table>");
+
+            if (selectedDocumentHeaders.Count == 1)
+            {
+                Html.ViewContext.Writer.Write("<input type=\"hidden\" id=\"DC\" name=\"DC\" value='" + selectedDocumentHeaders.First<DocumentHeader>().Oid.ToString() + "' />");
+            }
+            else
+            {
+                String DCs = "";
+                foreach (DocumentHeader dc in selectedDocumentHeaders)
+                {
+                    DCs += dc.Oid.ToString() + ",";
+                }
+                DCs = DCs.Substring(0, DCs.Length - 1);
+                Html.ViewContext.Writer.Write("<input type=\"hidden\" id=\"DCs\" name=\"DCs\" value='" + DCs + "' />");
+            }
+            Html.RenderAction("TransformationDetailsGrid", "Document");
+        }
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+
+

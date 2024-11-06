@@ -1,0 +1,14 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "PopupAssosiatedEditCallbackPanel";
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.CallbackRouteValues = new { Controller = (String)ViewBag.ControllerName, Action = "PopupAssosiatedEditCallbackPanel" };
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("LoadAssosiatedCustomerEditPopup", (String)ViewBag.ControllerName, new { TraderID = ViewData["TraderID"] });
+            
+    });
+
+}).GetHtml()
+
+

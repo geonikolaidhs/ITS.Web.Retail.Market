@@ -1,0 +1,59 @@
+﻿@model ITS.Retail.Model.Promotion
+
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Extensions;
+
+@using ITS.Retail.Platform.Enumerations;
+@section HeaderScriptsAndStyles {   
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = ViewBag.Mode;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Promotion", FormMethod.Post, new { id = "EditForm" }))
+{
+    Html.DevExpress().FormLayout(settings =>
+    {
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Name = "PromotionForm";
+        settings.ColCount = 3;
+        settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+        settings.RequiredMarkDisplayMode = DevExpress.Web.RequiredMarkMode.None;
+        settings.ShowItemCaptionColon = false;
+
+        settings.Items.Add(model => model.Code, FormInstances.TextBoxItem(enabled: true)).Caption = Resources.Code;
+        settings.Items.Add(model => model.Description, FormInstances.TextBoxItem(enabled: true)).Caption = Resources.Description;
+        settings.Items.Add(model => model.StartDate, FormInstances.DateItem(enabled: true)).Caption = Resources.StartDate;
+        settings.Items.Add(model => model.EndDate, FormInstances.DateItem(enabled: true)).Caption = Resources.EndDate;
+        settings.Items.Add(model => model.IsActive, FormInstances.CheckBoxItem(enabled: true)).Caption = Resources.IsActive;
+
+    }).Render();
+
+    Html.DevExpress().PageControl(settings2 =>
+    {
+        settings2.AccessibilityCompliant = false;
+        settings2.EnableClientSideAPI = true;
+        settings2.Name = "pcDetails";
+        settings2.ActivateTabPageAction = ActivateTabPageAction.Click;
+        settings2.TabAlign = TabAlign.Left;
+        settings2.TabPosition = TabPosition.Top;
+        settings2.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings2.TabPages.Add(Resources.PromotionApplicationRuleGroups, "PromotionApplicationRuleGroups").SetContent(() =>
+        {
+
+        });
+        settings2.TabPages.Add(Resources.PromotionExecutions, "PromotionExecutionsTab").SetContent(() =>
+        {
+
+        });
+        settings2.TabPages.Add(Resources.PromotionResults, "PromotionResultsTab").SetContent(() =>
+        {
+
+        });
+    }).Render();
+}

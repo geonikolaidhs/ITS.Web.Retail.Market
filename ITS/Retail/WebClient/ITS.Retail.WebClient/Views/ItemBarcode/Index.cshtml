@@ -1,0 +1,224 @@
+﻿@model IEnumerable<ITS.Retail.Model.ItemBarcode>       
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ItemBarcode.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    @if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.RETAIL)
+    {
+        <script src="@Url.Content("~/Scripts/scripts/LabelsPrintingCommon.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/ItemNonMaster.css")" />
+    }
+    
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditItem.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/Item.css")" />
+}
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.AlternativeCodes;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+        ViewContext.Writer.Write("<table><tr><td>");
+
+
+
+        ViewContext.Writer.Write("<label for=\"Fbarcode_I\">" + Resources.Barcode + ":" + "</label>");
+
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fbarcode";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fname_I\">" + Resources.ItemName + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fname";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fcode_I\">" + Resources.ItemCodeFull + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fcode";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"FitemSupplier_I\">" + Resources.ItemSupplier + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "FitemSupplier";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        ViewContext.Writer.Write("<label for=\"FcreatedOn_I\">" + Resources.InsertedDateFilter + ":" + "</label>");
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Properties.EditFormat = EditFormat.Date;
+            deSettings.Name = "FcreatedOn";
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"FupdatedOn_I\">" + Resources.UpdatedOnFilter + ":" + "</label>");
+
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Properties.EditFormat = EditFormat.DateTime;
+            deSettings.Name = "FupdatedOn";
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fseasonality_I\">" + Resources.Seasonality + ":" + "</label>");
+
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fseasonality";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fmothercode_I\">" + Resources.MotherCode + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fmothercode";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        ViewContext.Writer.Write("<label for=\"Factive_I\">" + Resources.IsActive + ":" + "</label>");
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "Factive";
+            combosettings.Properties.Items.Add("", -1);
+            combosettings.Properties.Items.Add(Resources.Yes, 1);
+            combosettings.Properties.Items.Add(Resources.No, 0);
+            combosettings.ControlStyle.CssClass = "search_filter";
+            combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fbuyer_I\">" + Resources.Buyer + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fbuyer";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().Button(btnsettings =>
+        {
+            btnsettings.Name = "btnCategories";
+            btnsettings.Text = Resources.Category;
+            btnsettings.ClientSideEvents.Click = "function(s,e){ pcCategoriesPopup.Show() }";
+        }).GetHtml();
+
+        @Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            labelsetings.Name = "categoryfilterid";
+            labelsetings.ClientVisible = false;
+            labelsetings.Text = "";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().Label(labelsetings =>
+        {
+            labelsetings.Name = "categoryfiltertext";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<img class='clearbtn' id='btnClearCategories' src='" + Url.Content("~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt='" + Resources.Clear + "' title='" + @Resources.Clear + "'/>");
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        @Html.DevExpress().Button(btnsettings =>
+        {
+            btnsettings.Name = "btnSearch";
+            btnsettings.Text = Resources.Search;
+            btnsettings.ClientSideEvents.Click = "SearchItemBarcode";
+        }).GetHtml();
+    });
+}).GetHtml()
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdItemBarcodes)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+
+@Html.Partial("../Shared/PopupViewCallbackPanel")
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid", Model)
+@Html.Partial("../Item/ItemCategoriesPopup")
+
+
+

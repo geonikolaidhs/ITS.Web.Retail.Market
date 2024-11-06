@@ -1,0 +1,75 @@
+﻿@model IEnumerable<StorePriceList>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.AuxillaryClasses;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+@{   
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(StorePriceList), typeof(StoreController), "grdStorePriceList", GridViewCommandColumnType.ICONS, true, true, false, excludeFields: new List<string>() {"Store"});
+
+    settings.CallbackRouteValues = new { Controller = "Store", Action = "StorePriceListGrid" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Store", Action = "StorePricelistDelete" };
+    settings.SettingsEditing.AddNewRowRouteValues = settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Store", Action = "StorePricelistUpdate" };
+    settings.SettingsText.Title = Resources.PriceCatalogs;
+
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.PriceCatalog;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = ViewBag.CurrentItem != null ? ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class=\"ValidationContainer\">");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnStorePriceListUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnStorePriceListCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.PriceCatalog + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "PriceCatalogCb";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.OwnersPriceCatalogs).Bind(DataBinder.Eval(item, "PriceList!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

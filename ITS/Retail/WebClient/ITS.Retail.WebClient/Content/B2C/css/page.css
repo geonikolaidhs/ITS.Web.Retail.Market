@@ -1,0 +1,215 @@
+﻿.page .ad, .page .ad_vertical {
+  display: block;
+  float: right;
+  margin: 0 0 1em 2em;
+  width: 15em;
+  border: 1px solid #cccccc;
+  padding: 50px 40px;
+  color: #cccccc; }
+
+.page {
+  background: white;
+  min-height: 776px; }
+  .page h1 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    vertical-align: text-top; }
+    .page h1 span {
+      font-size: 0.8em;
+      color: #999999; }
+  .page .list_icons {
+    vertical-align: text-top;
+    display: inline-block; }
+    .page .list_icons span {
+      display: inline-block;
+      padding: 15px;
+      margin: 5px 0 0 15px;
+      cursor: pointer;
+      float: left;
+      background-image: url("../img/icons/list.png");
+      background-size: 25px;
+      background-repeat: no-repeat;
+      background-position: center 4px; }
+      .page .list_icons span.grid {
+        background-position: 4px -30px;
+        background-size: 23px; }
+  .page h2 {
+    font-size: 1.5em;
+    text-align: left;
+    display: block;
+    font-weight: 800;
+    margin-bottom: 10px; }
+    .page h2 a:hover {
+      text-decoration: underline; }
+  .page .section {
+    clear: both;
+    padding: 0;
+    margin: 0; }
+  .page .col {
+    display: block;
+    float: left;
+    margin: 1% 0 1% 1.6%; }
+    .page .col:first-child {
+      margin-left: 0; }
+  .page .group:before {
+    content: "";
+    display: table; }
+  .page .group:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .page .right {
+    width: 76.1%; }
+    .page .right .postmetadata {
+      overflow: hidden;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #ff8500; }
+      .page .right .postmetadata li {
+        color: rgba(0, 0, 0, 0.3);
+        float: left;
+        font-size: 20px;
+        font-weight: bold; }
+        .page .right .postmetadata li.date {
+          padding-left: 5px; }
+        .page .right .postmetadata li a {
+          color: #ff8500;
+          font-weight: bold;
+          opacity: 0.6;
+          -moz-transition: opacity 0.5s ease;
+          -o-transition: opacity 0.5s ease;
+          -webkit-transition: opacity 0.5s ease;
+          -ms-transition: opacity 0.5s ease; }
+          .page .right .postmetadata li a:hover {
+            opacity: 1; }
+    .page .right p {
+      font-weight: bolder;
+      font-size: 1.3em; }
+    .page .right .small {
+      font-size: 1em;
+      font-weight: normal; }
+    .page .right .prettyprint {
+      border: 1px solid #cccccc;
+      margin-top: 20px; }
+  .page .left {
+    width: 22.2%; }
+    .page .left a:hover {
+      color: white;
+      background: #ff8500;
+      border-left: 0; }
+    .page .left a#all:hover {
+      text-decoration: underline; }
+    .page .left .also_see h2 {
+      font-size: 17px;
+      margin-top: 20px;
+      font-weight: bold;
+      line-height: 20px;
+      border-bottom: 1px solid #333333;
+      padding-top: 20px;
+      border-top: 1px dashed black; }
+      .page .left .also_see h2 span {
+        border-bottom: 3px solid #333333; }
+    .page .left .also_see a {
+      display: block;
+      line-height: 30px;
+      padding-left: 10px;
+      color: #ff8500; }
+    .page .left ul li a {
+      border: 0;
+      font-size: 18px;
+      padding: 10px;
+      border-left: 10px solid #333333;
+      text-transform: none;
+      display: block;
+      letter-spacing: 0;
+      -webkit-transition: color 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease; }
+  .page .ad_vertical {
+    float: none;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    height: 220px;
+    padding: 30px 0; }
+  .page #portfoliocont ul {
+    list-style-type: none;
+    margin: 0 0 25px 0; }
+    .page #portfoliocont ul li {
+      display: block;
+      margin: 0 0 10px 0; }
+      .page #portfoliocont ul li a {
+        position: relative;
+        float: left;
+        width: 23%;
+        margin: 0 1% 15px; }
+        .page #portfoliocont ul li a img {
+          width: 100%;
+          height: auto;
+          display: block; }
+  .page #portfoliocont a .overlay {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    top: 0;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    line-height: 110px;
+    width: 100%;
+    z-index: 40;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    background: url("../img/icons/overlay.png") repeat;
+    display: inline-block; }
+    .page #portfoliocont a .overlay:hover {
+      opacity: 1; }
+  .page a#all {
+    text-align: right;
+    display: block;
+    padding-top: 10px;
+    background: white;
+    color: #ff8500; }
+  .page #features h2 {
+    background: url("../img/icons/feature.png") no-repeat;
+    padding: 0 0 5px 45px;
+    margin: 50px 0 0;
+    color: #ff8500;
+    background-size: 30px;
+    background-position: 5px -9px;
+    border-top: 5px solid #333333; }
+
+@media screen and (max-width: 768px) {
+  .page .ad_vertical {
+    height: auto;
+    padding: 30px 0; }
+  .page .right {
+    width: 100%; }
+  .page .left {
+    width: 100%; }
+    .page .left .also_see a {
+      width: 200px; }
+  .page .col {
+    display: block;
+    float: none;
+    margin: 20px 0; }
+  .page #portfoliocont ul li a {
+    width: 31.3%;
+    margin-bottom: 10px; }
+ }
+
+@media only screen and (max-width: 480px) {
+  .page .col {
+    margin: 1% 0; }
+  .page .right {
+    width: 100%; }
+  .page .left {
+    width: 100%; }
+  .page #portfoliocont ul li a {
+    width: 48%;
+    margin-bottom: 6px; }
+ }

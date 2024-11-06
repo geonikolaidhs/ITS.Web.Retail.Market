@@ -1,0 +1,216 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.WebClient.AuxillaryClasses;
+@using ITS.Retail.Platform.Enumerations;
+
+@model DocumentHeader
+
+
+@{
+    bool freezeEdit = Model == null || Model.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    bool freezeEditMode = (ViewBag.InViewMode == null || !ViewBag.InViewMode) && !freezeEdit;
+    bool inEditMode = (ViewBag.InViewMode == null || !ViewBag.InViewMode);
+
+}
+
+@using (Ajax.BeginForm("UpdateHeader", new { Controller = "Document" }, new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "EditDocHeaderForm",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "OnDocHeaderUpdated"
+},
+           new { @id = "docheader-form" }))
+{
+    if (inEditMode)
+    {
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnUpdate";
+        headerOptions.SaveButton.Text = Resources.Save;
+        headerOptions.SaveButton.OnClick = "UpdateDocumentHeader";
+
+        headerOptions.SaveAndPrintButton.Visible = true;
+        headerOptions.SaveAndPrintButton.Name = "btnUpdateandPrint";
+        headerOptions.SaveAndPrintButton.Text = Resources.SaveOrderAndPrint;
+        headerOptions.SaveAndPrintButton.OnClick = "UpdateDocumentHeaderAndPrint";
+
+        headerOptions.CancelButton.Name = "btnCancel";
+        headerOptions.CancelButton.CCSClass = "button cancel";
+        headerOptions.CancelButton.Text = Resources.Close;
+        headerOptions.CancelButton.OnClick = "CancelOrder";
+        headerOptions.CancelButton.EncodeHtml = false;
+
+        if (Model.Division == eDivision.Purchase)
+        {
+            headerOptions.SaveAndRecalculateButton.Visible = Model.DisplayMarkUpForm;
+            headerOptions.SaveAndRecalculateButton.Name = "btnUpdateAndRecalculateCosts";
+            headerOptions.SaveAndRecalculateButton.CCSClass = "button";
+            headerOptions.SaveAndRecalculateButton.Text = Resources.SaveOrderAndRecalculateCosts;
+            headerOptions.SaveAndRecalculateButton.OnClick = "SaveOrderAndRecalculateCosts";
+            headerOptions.SaveAndRecalculateButton.ClientEnabled = true;
+        }
+
+        if (Model.Owner.OwnerApplicationSettings.RecomputePrices
+                && Model.ReferencedDocuments != null
+                && Model.ReferencedDocuments.Count > 0)
+        {
+            headerOptions.RecalculateButton.Visible = true;
+            headerOptions.RecalculateButton.Name = "btnRecalculate";
+            headerOptions.RecalculateButton.CCSClass = "button";
+            headerOptions.RecalculateButton.Text = Resources.Recalculate;
+            headerOptions.RecalculateButton.OnClick = "Recalculate";
+        }
+
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+    }
+
+    Html.DevExpress().FormLayout(settings =>
+    {
+        bool DocumentNumberIsEnabled = freezeEditMode && Model != null && Model.DocumentSeries != null && Model.DocumentSeries.HasAutomaticNumbering == false;
+        bool billingAddressDefined = Model.BillingAddress != null;
+        object model = ViewBag.model;
+        string name = ViewBag.name;
+        string caption = ViewBag.caption;
+        IEnumerable<Address> addresses = ViewBag.addresses;
+        string TraderEditForm = ViewBag.TraderEditForm;
+        List<SFA> sfaListDataSource = ViewBag.SfaListComboBox;
+
+
+        settings.Name = "FormDocHeaderAdvanced";
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.ControlStyle.CssClass = "document-header-form";
+        settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+        settings.RequiredMarkDisplayMode = RequiredMarkMode.RequiredOnly;
+        settings.ShowItemCaptionColon = true;
+        settings.ColCount = 4;
+        settings.Height = 314;
+        IEnumerable<DocumentType> documentTypesDataSource = (IEnumerable<DocumentType>)ViewBag.DocumentTypesComboBox;
+        if (Model != null && Model.ReferencedDocuments.Count > 0)
+        {
+            documentTypesDataSource = new List<DocumentType>() { Model.DocumentType };
+        }
+
+        settings.Items.Add(item => item.DocumentType, FormInstances.ComboBoxItem(Html: Html, Model: DataBinder.Eval(Model.DocumentType, "Oid"), enabled: freezeEditMode, dataSource: documentTypesDataSource, name: "DocumentType", valueType: typeof(Guid), OnValueChangedJs: "OnDocumentTypeChanged", OnGotFocus: "OnDocumentTypeGotFocus", caption: Resources.DocumentTypeSort, captionPosition: LayoutItemCaptionLocation.Top, isRequired: true, validationPositionRight: true)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        settings.Items.Add(item => item.DocumentSeries, FormInstances.ComboBoxItem(Html: Html, Model: DataBinder.Eval(Model.DocumentSeries, "Oid"), enabled: freezeEditMode, dataSource: (IEnumerable<DocumentSeries>)ViewBag.DocumentSeriesComboBox, name: "DocumentSeries", valueType: typeof(Guid), OnValueChangedJs: "OnDocumentSeriesChanged", OnGotFocus: "OnDocumentSeriesGotFocus", caption: Resources.DocumentSeries, captionPosition: LayoutItemCaptionLocation.Top, isRequired: true, validationPositionRight: true)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+        settings.Items.Add(item => item.DocumentNumber, FormInstances.TextBoxItem(enabled: DocumentNumberIsEnabled, name: "DocNumber", caption: Resources.Number, captionLocation: LayoutItemCaptionLocation.Top)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+        settings.Items.Add(item => item.AproximateDocumentNumber, FormInstances.TextBoxItem(enabled: false, name: "AproximateDocumentNumber", caption: Resources.ApproximateDocumentNumber, captionLocation: LayoutItemCaptionLocation.Top)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+
+        if (inEditMode)
+        {
+            bool displayTraderForm = String.IsNullOrWhiteSpace(TraderEditForm) == false;
+
+
+            settings.Items.Add(item => model, itemSettings =>
+            {
+                itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+                itemSettings.Caption = caption;
+                if (displayTraderForm)
+                {
+                    itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+                }
+            }).SetNestedContent(() =>
+            {
+                if (displayTraderForm)
+                {
+                    Html.RenderAction("ReturnView", "Document", new { ViewName = TraderEditForm, IsPartial = true });
+                }
+            });
+        }
+        else
+        {
+            if (Model.Division == eDivision.Store
+               || (Model.Division == eDivision.Financial
+                    && Model.DocumentType != null
+                    && Model.DocumentType.TraderType == eDocumentTraderType.STORE
+                 )
+               )
+            {
+                settings.Items.Add(item => Model.SecondaryStore,
+                    FormInstances.TextBoxItem(
+                        enabled: freezeEditMode,
+                        Value: Model.SecondaryStore == null ? "" : Model.SecondaryStore.ToString(),
+                        name: name,
+                        caption: Resources.Store,
+                        captionLocation: LayoutItemCaptionLocation.Top
+                    )
+                );
+            }
+            else if (model != null)
+            {
+                settings.Items.Add(item => model, FormInstances.TextBoxItem(enabled: freezeEditMode, Value: model.ToString(), name: name, caption: caption, captionLocation: LayoutItemCaptionLocation.Top));
+            }
+        }
+
+        settings.Items.Add(item => item.Status, FormInstances.ComboBoxItem(Html: Html, Model: DataBinder.Eval(Model.Status, "Oid"), enabled: inEditMode, dataSource: ViewBag.DocumentStatusComboBox as IEnumerable<DocumentStatus>, name: "Status", valueType: typeof(Guid), OnValueChangedJs: "UpdateDocHeader", caption: Resources.DocumentStatus, captionPosition: LayoutItemCaptionLocation.Top, isRequired: true, validationPositionRight: true)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+
+        settings.Items.Add(item => item.FinalizedDate, FormInstances.DateItem(enabled: freezeEditMode, name: "FinalizedDate", onValueChanged: "UpdateDocHeader", caption: Resources.DocumentRelease, captionLocation: LayoutItemCaptionLocation.Top, width: "size")).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+        if (Model.Division == eDivision.Sales || Model.Division == eDivision.Purchase)
+        {
+            settings.Items.Add(item => item.RefferenceDate, FormInstances.DateItem(enabled: freezeEditMode, name: "RefferenceDate", onValueChanged: "InvoicingDateValueChanged", caption: Resources.RefferenceDate, captionLocation: LayoutItemCaptionLocation.Top, width: "size")).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+            if (Model.Division == eDivision.Sales)
+            {
+                if (freezeEditMode)
+                {
+                    settings.Items.Add(item => model, itemSettings =>
+                    {
+                        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+                        itemSettings.Caption = Resources.PriceCatalogPolicy;
+                        itemSettings.RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+                    }).SetNestedContent(() =>
+                    {
+                        Html.RenderAction("ReturnView", "Document", new { ViewName = "PriceCatalogPolicyCombobox", IsPartial = true });
+                    });
+                }
+                else
+                {
+                    settings.Items.Add(item => item.PriceCatalogPolicy, FormInstances.TextBoxItem(false, Value: Model.PriceCatalogPolicy.Description, caption: Resources.PriceCatalogPolicy, captionLocation: LayoutItemCaptionLocation.Top, IsRequired: true)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+                }
+            }
+
+            settings.Items.Add(item => item.BillingAddress, FormInstances.ComboBoxItem(Html: Html, Model: DataBinder.Eval(Model.BillingAddress, "Oid"),
+                enabled: inEditMode, dataSource: addresses, name: "BillingAddress", valueType: typeof(Guid), OnValueChangedJs: "UpdateDocHeader",
+                caption: Resources.BillingAddress, captionPosition: LayoutItemCaptionLocation.Top));
+
+            settings.Items.Add(item => item.AddressProfession, FormInstances.TextBoxItem(enabled: freezeEditMode && billingAddressDefined, onValueChanged: "UpdateDocHeader", caption: Resources.AddressProfession, widthPercentage: 100)).ColSpan = Model.Division == eDivision.Sales ? 2 : 3;
+        }
+
+
+        if (Model.Division == eDivision.Sales || Model.Division == eDivision.Purchase)
+        {
+            settings.Items.Add(item => item.InvoicingDate, FormInstances.DateItem(enabled: (bool)(DataBinder.Eval(Model, "HasBeenExecuted")), name: "InvoicingDate", onValueChanged: "UpdateDocHeader", caption: Resources.InvoicingDate, captionLocation: LayoutItemCaptionLocation.Top, width: "size")).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+            settings.Items.Add(item => item.HasBeenExecuted, FormInstances.CheckBoxItem(enabled: freezeEditMode, cssClass: "editor padding-top-30-important", onChange: "UpdateDocHeader", caption: Resources.HasBeenExecuted)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+            settings.Items.Add(item => item.HasBeenChecked, FormInstances.CheckBoxItem(enabled: freezeEditMode, cssClass: "editor padding-top-30-important", onChange: "UpdateDocHeader", caption: Resources.HasBeenChecked)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+            settings.Items.Add(item => item.DefaultDocumentDiscount, FormInstances.SpinEditItem(enabled: true, minValue: 0, maxValue: 100, name: "DefaultDocumentDiscount", allowMouseWheel: false, caption: Resources.DefaultDocumentDiscount + " %", NumberChanged: "OnDefaultDocumentDiscountChanged")).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+        }
+
+        if (Model != null && Model.DocumentType != null && Model.DocumentType.ItemStockAffectionOptions == ItemStockAffectionOptions.INITIALISES)
+        {
+            settings.Items.Add(item => item.Tablet, FormInstances.ComboBoxItem(Html: Html, Model: DataBinder.Eval(Model.Tablet, "Oid"), enabled: true, dataSource: sfaListDataSource, OnValueChangedJs: "TabletValueChanged", OnGotFocus: "TabletGotFocus", textField: "Name", name: "Tablet", valueType: typeof(Guid), caption: Resources.SFA, captionPosition: LayoutItemCaptionLocation.Top, isRequired: false, validationPositionRight: true)).RequiredMarkDisplayMode = FieldRequiredMarkMode.Optional;
+        }
+
+
+
+    }).GetHtml();
+
+
+    if (Model != null && Model.Division != eDivision.Financial)
+    {
+        Html.RenderPartial("DocumentSummaryPartial");
+        Html.RenderPartial("UpdatedByInfoPanel", Model);
+    }
+
+    ViewContext.Writer.Write(Html.Hidden("field_name"));
+    ViewContext.Writer.Write(Html.Hidden("field_value"));
+}

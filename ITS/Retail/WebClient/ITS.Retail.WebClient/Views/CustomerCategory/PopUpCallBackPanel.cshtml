@@ -1,0 +1,123 @@
+﻿@model ITS.Retail.Model.CustomerCategory
+@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbp";
+    bool isRoot = false;
+    if(ViewData["IsRoot"]!=null)
+    {
+        isRoot=(bool)ViewData["IsRoot"] == true ? true : false;
+    }
+    else
+    {
+        isRoot = false;
+    }
+
+
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "PopUpCallBackPanel" };
+    settings.CustomJSProperties = (object sender, CustomJSPropertiesEventArgs args) =>
+    {
+        args.Properties.Add("cp_success", ViewData["Success"]);
+        args.Properties.Add("cp_unexpandable", ViewBag.Unexpandable);
+        args.Properties.Add("cp_parentunexpandable", ViewBag.ParentUnexpandable ?? false);
+    };
+    settings.ClientSideEvents.EndCallback = "popUpCallbackPanel_OnEndCallback";
+    settings.ClientSideEvents.BeginCallback = "popUpCallbackPanel_OnBeginCallback";
+
+    settings.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnsave";
+        headerOptions.SaveButton.OnClick = "EditTreeViewPopupValidation";
+        headerOptions.CancelButton.Name = "btncancel";
+        headerOptions.CancelButton.OnClick = "hidepopup";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='validateForm'><tr><td>");
+
+        @Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.ControlStyle.CssClass = "label required_field";
+            lblsettings.Text = Resources.Code + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().TextBox(txtsettings =>
+        {
+            //txtsettings.Properties.Caption = Resources.Code + ":";
+            //txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Left;
+            //txtsettings.Properties.CaptionSettings.VerticalAlign =  EditorCaptionVerticalAlign.Middle;
+            txtsettings.Name = "txtcode";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Code")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        @Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.Name = "lbldescr";
+            lblsettings.ControlStyle.CssClass = "label required_field";
+            lblsettings.Text = Resources.Description + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Name = "txtdescr";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Description")).Render();
+
+        ViewContext.Writer.Write("</td></tr>");
+
+
+
+
+        //-----------------------------
+        ViewContext.Writer.Write("<tr><td>");
+        @Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.Name = "lblIsLoyalty";
+            lblsettings.ControlStyle.CssClass = "label required_field";
+            lblsettings.Text = Resources.SupportLoyalty + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.SupportLoyalty;
+            edtSettings.Name = "IsLoyalty";
+            edtSettings.Enabled = isRoot;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "IsLoyalty")).Render();
+
+        ViewContext.Writer.Write("</td></tr>");
+        //----
+        ViewContext.Writer.Write("<tr><td>");
+        @Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Name = "HiddenParent";
+            txtsettings.ClientVisible = false;
+            txtsettings.Text = (ViewData["parent"] != null ? ViewData["parent"].ToString() : "");
+        }).Render();
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+    });
+
+}).GetHtml()

@@ -1,0 +1,20 @@
+﻿@model SupplierImportFilesSetViewModel
+@using ITS.Retail.WebClient.Extensions;
+@{
+    string callbackRouteValuesController = "SupplierImportFilesSet";
+    string callbackRouteValuesAction = "SupplierComboBox";
+    string callbackRouteValuesArea = string.Empty;
+     List<DropDownSearchColumn> supplierSearchColumns = new List<DropDownSearchColumn>() { new DropDownSearchColumn("Code",Resources.Code,100),
+                                                                                           new DropDownSearchColumn("CompanyName",Resources.Code,100)};
+   
+    DynamicComboBoxDataSourceBuilder<SupplierNew> supplierComboBoxDataSourceBuilder =
+       new DynamicComboBoxDataSourceBuilder<SupplierNew>(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork(),
+           ViewBag.Owner, supplierSearchColumns.Select(x => x.Field).ToArray());
+
+
+    FormInstances.DropDownListNotSearchableComboBoxBody(Html, true, callbackRouteValuesController,
+        callbackRouteValuesAction, callbackRouteValuesArea, supplierComboBoxDataSourceBuilder.DataSourceMethod,
+        supplierComboBoxDataSourceBuilder.RequestedByValueMethod, supplierSearchColumns,"SupplierComboBox",
+        valueType: typeof(Guid), model: Model.Supplier,modelType: typeof(SupplierNew),textField:"CompanyName").Render();
+}
+

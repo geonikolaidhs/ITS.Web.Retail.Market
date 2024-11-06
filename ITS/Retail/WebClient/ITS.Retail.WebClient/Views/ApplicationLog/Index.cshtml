@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ITS.Retail.Model.ApplicationLog>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.MenuAdministrationLogFiles;
+    //ViewBag.HideSpanSettings = false;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ApplicationLog.js")" type="text/javascript"></script>
+}
+
+  
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+
+      using (Html.BeginForm("Index", "ApplicationLog", FormMethod.Post))
+    {
+        ViewContext.Writer.Write("<table>");  
+         ViewContext.Writer.Write("<tr><td>");    
+     
+            Html.DevExpress().DateEdit(dt_settings =>
+            {
+                dt_settings.Properties.Caption = Resources.Created + ":";
+                dt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                dt_settings.Name = "created";
+                dt_settings.ControlStyle.CssClass = "search_filter";
+                dt_settings.Properties.EditFormat = EditFormat.DateTime;
+            }).Bind(ViewData["created"]).GetHtml();
+       ViewContext.Writer.Write("</td><td>"); 
+
+            Html.DevExpress().TextBox(txt_settings =>
+            {
+                txt_settings.Properties.Caption = Resources.Created + " " + Resources.From + ":";
+                txt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                txt_settings.Name = "user";
+                txt_settings.ControlStyle.CssClass = "search_filter";
+            }).Bind(ViewData["user"]).GetHtml();
+       ViewContext.Writer.Write("</td></tr><tr><td>"); 
+
+            Html.DevExpress().TextBox(txt_settings =>
+            {
+                txt_settings.Properties.Caption = "Controller :";
+                txt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                txt_settings.Name = "controller";
+                txt_settings.ControlStyle.CssClass = "search_filter";
+            }).Bind(ViewData["controller"]).GetHtml();
+        ViewContext.Writer.Write("</td><td>"); 
+
+        Html.DevExpress().TextBox(txt_settings =>
+        {
+                txt_settings.Properties.Caption = "IP :";
+                txt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txt_settings.Name = "ip";
+            txt_settings.ControlStyle.CssClass = "search_filter";
+        }).Bind(ViewData["IP"]).GetHtml();
+            
+        ViewContext.Writer.Write("</td></tr></table>");
+        /*Save/Delete banner*/
+        //HeaderOptions headerOptions = new HeaderOptions("");
+        //headerOptions.SaveButton.Name = "btnSearch";
+        //headerOptions.SaveButton.Text = Resources.Search;
+        //headerOptions.SaveButton.OnClick = "function (s,e){grdLogView.PerformCallback();}";
+        //headerOptions.CancelButton.Name = "clear_log";
+        //headerOptions.CancelButton.OnClick = "ApplicationLog.ClearLogOnClick";
+        //headerOptions.CancelButton.Text = Resources.DeleteAll;
+        //headerOptions.CancelButton.CCSClass = "button cancel margin-top-5";
+        //headerOptions.ViewType = eViewType.Simple;
+        //HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of Save/Delete banner*/
+        @Html.DevExpress().Button(
+            settings2 =>
+            {
+                settings2.Name = "btnSearch";
+                settings2.Text = Resources.Search;
+                settings2.ClientSideEvents.Click = "function (s,e){grdLogView.PerformCallback();}";
+            }
+        ).GetHtml();
+
+        @Html.DevExpress().Button(
+            settings2 =>
+            {
+                settings2.Name = "clear_log";
+                settings2.Text = Resources.DeleteAll;
+                settings2.ClientSideEvents.Click = "OnClickClearLog";
+                settings2.ControlStyle.CssClass = "delete-button";
+            }
+        ).GetHtml();
+        
+            }
+            });
+}).GetHtml()
+
+
+@Html.Partial("Grid", Model)

@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="LicenseServer.master.cs" Inherits="ITS.Licensing.Service.LicenseServer" %>
+
+<%@ Register assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web" tagprefix="dx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <h1> ITS License Manager System</h1>
+    
+    <form id="form1" runat="server">
+    <p> 
+        <dx:ASPxMenu ID="ASPxMenu1" runat="server" Theme="Aqua">
+            <Items>
+                <dx:MenuItem NavigateUrl="Applications.aspx" Text="Applications">
+                </dx:MenuItem>
+                <dx:MenuItem Name="itmAllLicenses" Text="All Licenses" NavigateUrl="AllLicenses.aspx">
+                </dx:MenuItem>
+                <dx:MenuItem Name="itmHelp" Text="Help" NavigateUrl="Help.aspx">
+                </dx:MenuItem>
+            </Items>
+        </dx:ASPxMenu>
+    </p>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

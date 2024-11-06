@@ -1,0 +1,187 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    string gridName = "";
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true)
+    {
+        settings.Name = "grdPriceCatalogChilds";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(
+                       "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+                    );
+
+                });
+                column.SetHeaderTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+                    );
+                });
+            }
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+        settings.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "PriceCatalogChildsGrid", editMode = true };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "PriceCatalog", Action = "PriceCatalogChildAddNewPartial" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "PriceCatalog", Action = "PriceCatalogChildUpdatePartial" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "PriceCatalog", Action = "PriceCatalogChildDeletePartial" };
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallbackPriceCatalogChildsGrid";
+        gridName = "grdPriceCatalogEdit";
+    }
+    else
+    {
+        settings.Name = "grdPriceCatalogChilds" + ViewData["PriceCatalogID"];
+        settings.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "PriceCatalogChildsGrid", PriceCatalogID = ViewData["PriceCatalogID"], editMode = false };
+        gridName = "grdPriceCatalogView";
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "StartDate";
+        col.Caption = Resources.StartDate;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "EndDate";
+        col.Caption = Resources.EndDate;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.SettingsText.PopupEditFormCaption = Resources.AddPriceCatalog;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton= true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.SubCatalogs;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.SubCatalogs;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnPriceCatalogChildsUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnPriceCatalogChildsCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        ViewContext.Writer.Write("<table class=\"validateForm\"><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.PriceCatalog+":";
+            edtSettings.AssociatedControlName = "Description";
+        }).Render();
+
+        ViewData["Item"] = item;
+        Html.RenderPartial("ChildPriceCatalogsComboBoxPartial", ViewData["Item"]);
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+
+        ViewContext.Writer.Write("</div>");
+
+
+    });
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+}).Bind(Model).GetHtml()

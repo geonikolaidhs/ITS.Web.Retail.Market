@@ -1,0 +1,32 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+
+    combosettings.Enabled = true;
+    combosettings.Name = "LinkedToItemsComboBox";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.CallbackRouteValues = new { Controller = "Item", Action = "LinkedToItemsComboBox" };
+    combosettings.Properties.EnableCallbackMode = true;
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Code";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.DropDownButton.Visible = false;
+    combosettings.ShowModelErrors = true;
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    combosettings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+    
+    combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+    combosettings.Properties.Columns.Add("Name", Resources.ItemName, 130);
+}).BindList(ITS.Retail.WebClient.Controllers.ItemController.ItemsRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.ItemController.ItemRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.ItemController.GetItemByValue(DataBinder.Eval(ViewData["Item"], "Item!Key"))).Bind(DataBinder.Eval(ViewData["Item"], "Item!Key")).GetHtml()

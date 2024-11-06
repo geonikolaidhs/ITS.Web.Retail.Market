@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabItemInfo"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    
+<ScrollView
+    android:id="@+id/dummyID3425656535454"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="10dp" >
+    
+    <TableLayout
+        android:id="@+id/ll111340"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TableRow
+            android:id="@+id/tableRow11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/Dummy415464654651313"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/itemInfoImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:src="@raw/no_image_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Dummy45646546546"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_span="3"
+                android:gravity="fill_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView32323223123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/description"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_tiny" />
+
+                <EditText
+                    android:id="@+id/txtInfoItemDescription"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_tiny" />
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView323231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/code"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemCode"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView323232231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/barcode"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemBarcode"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView32323211231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/qty"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemQuantity"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView32325545632231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/unitPrice"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemUnitPrice"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView32442132311231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/txtInfoVatCategory"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemVatCategory"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" />
+
+            <TextView
+                android:id="@+id/textView323255452323632231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/grossTotal"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemGrossTotal"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow13a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView324421323211231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/total_vat_amount"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemVat"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" />
+
+            <TextView
+                android:id="@+id/textView32444563534523211231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/measurementUnit"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemMeasurementUnit"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView324421334534523211231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/packingQty"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemPackingQty"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView32322328673632231"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="right|center_vertical"
+                android:text="@string/maxOrderQty"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemMaxOrderQty"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_tiny" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView3298965511231"
+                android:layout_width="fill_parent"
+                android:gravity="right|center_vertical"
+                android:text="@string/totalDiscount"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtInfoItemTotalDiscount"
+                android:layout_width="150dp"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="none"
+                android:textSize="@dimen/text_small" >
+
+            </EditText>
+        </TableRow>
+
+    </TableLayout>
+</ScrollView>
+</FrameLayout>

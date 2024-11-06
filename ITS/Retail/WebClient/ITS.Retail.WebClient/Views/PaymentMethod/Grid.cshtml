@@ -1,0 +1,188 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdPaymentMethod";
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "PaymentMethod", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Caption = Resources.Actions;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.PaymentMethods;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsText.PopupEditFormCaption = Resources.EditPaymentMethod;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "GiveChange";
+        col.Caption = Resources.GiveChange;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CanExceedTotal";
+        col.Caption = Resources.CanExceedTotal;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "OpensDrawer";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.OpensDrawer;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PaymentMethodType";
+        col.Caption = Resources.PaymentMethodType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((ePaymentMethodType)DataBinder.Eval(c.DataItem, "PaymentMethodType")).ToLocalizedString());
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IncreasesDrawerAmount";
+        col.Caption = Resources.IncreasesDrawerAmount;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "NeedsRatification";
+        col.Caption = Resources.NeedsRatification;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "AffectsCustomerBalance";
+        col.Caption = Resources.AffectsCustomerBalance;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+    });
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+}).Bind(Model).GetHtml()

@@ -1,0 +1,27 @@
+.POSCreateDdLoading {
+  text-align: center !important;
+}
+
+.headerTable .dxeRadioButtonList_ITSTheme1 {
+  border: 0;
+}
+.headerTable .dxbButton_ITSTheme1.button.dxbButtonSys.dxbTSys {
+  margin-top: 20px;
+}
+
+.wrapper .container .Labels .filter_search_container {
+  top: 110px;
+}
+.wrapper .container .Labels span#filterinfo {
+  top: 110px;
+}
+.wrapper .container .Store_Edit #storeTabControl {
+  width: 100%;
+}
+.wrapper .container .POS_Index #btnCreatePOSDatabase {
+  margin-left: 0;
+}
+
+.Labels .FilterPanel {
+  top: 110px;
+}

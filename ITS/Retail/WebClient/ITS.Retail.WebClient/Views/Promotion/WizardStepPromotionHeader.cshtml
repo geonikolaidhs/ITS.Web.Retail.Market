@@ -1,0 +1,89 @@
+﻿@model ITS.Retail.WebClient.ViewModel.PromotionWizardModel
+@using DevExpress.Xpo
+@using ITS.Retail.WebClient.Extensions;
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@Html.DevExpress().FormLayout(settings =>
+{
+    settings.ClientSideEvents.Init = "function (s,e){ InitializeValidationRulesForForm('WizardStepForm'); }";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+    settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+    settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.ShowItemCaptionColon = true;
+    settings.AlignItemCaptions = true;
+    //settings.SettingsItems.VerticalAlign = FormLayoutVerticalAlign.Middle;
+
+    settings.ControlStyle.CssClass = "wizard-first-step";
+    settings.Name = "Wizard1";
+
+    var group1 = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.Promotion;
+        groupSettings.ColCount = 4;
+        groupSettings.ShowCaption = DefaultBoolean.False;
+
+    });
+    group1.Items.Add(item => item.Code,
+        itemSettings =>
+        {
+            itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+            itemSettings.NestedExtensionSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            itemSettings.ColSpan = 1;
+            var txtSettings = itemSettings.NestedExtensionSettings as TextBoxSettings;
+            txtSettings.Properties.EnableClientSideAPI = true;
+            txtSettings.ShowModelErrors = true;
+            txtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Top;
+        });
+    group1.Items.Add(item => item.Description,
+     itemSettings =>
+     {         
+         itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+         itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+         itemSettings.NestedExtensionSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+         itemSettings.ColSpan = 3;
+         var txtSettings = itemSettings.NestedExtensionSettings as TextBoxSettings;
+         txtSettings.Properties.EnableClientSideAPI = true;
+         txtSettings.ShowModelErrors = true;
+         txtSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Top;
+
+     });
+
+    group1.Items.Add(x => x.ActiveDaysOfWeekArray,
+        ITS.Retail.WebClient.Extensions.FormInstances.ListEditItem(html: Html,viewContext: ViewContext,enabled: true,
+        datasource: Enum<DaysOfWeek>.GetLocalizedDictionary().Where(x => x.Key > 0).ToDictionary(x => (int)x.Key, x => x.Value),
+        model: Model.ActiveDaysOfWeekArray.Replace(" ", ""), height: 100, valueField: "Key", textField: "Value", valueType: typeof(DaysOfWeek), widthPixels: 287, layoutVerticalAlign: FormLayoutVerticalAlign.Top, cssClass: "padding-top-0-important", required: FieldRequiredMarkMode.Required
+    )).RowSpan = 2;
+    
+
+
+    group1.Items.Add(item => item.PrintedDescription,
+     itemSettings =>
+     {
+         itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+         itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+         itemSettings.NestedExtensionSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+         //itemSettings.CssClass = "padding-top-0-important";
+         TextBoxSettings txtSettings = itemSettings.NestedExtensionSettings as TextBoxSettings;
+         txtSettings.Properties.EnableClientSideAPI = true;
+         txtSettings.ShowModelErrors = true;
+     });
+       
+    group1.Items.Add(x => x.StartDate, FormInstances.DateItem(enabled: true, shortFormat: true, timeVisible: false)).VerticalAlign = FormLayoutVerticalAlign.Top;
+    group1.Items.Add(x => x.EndDate, FormInstances.DateItem(enabled: true, shortFormat: true, timeVisible: false)).VerticalAlign = FormLayoutVerticalAlign.Top;
+    group1.Items.Add(item => item.IsActive, FormInstances.CheckBoxItem(enabled: true,cssClass: "padding-top-30-important",caption: Resources.ActiveFemale, width: 102, horizontalAlign: FormLayoutHorizontalAlign.Center)).VerticalAlign = FormLayoutVerticalAlign.Middle;
+    group1.Items.Add(x => x.StartTime, FormInstances.TimeItem(enabled: true, showModelErrors : true)).VerticalAlign = FormLayoutVerticalAlign.Top;
+    group1.Items.Add(x => x.EndTime, FormInstances.TimeItem(enabled: true, showModelErrors: true)).VerticalAlign = FormLayoutVerticalAlign.Top;
+    group1.Items.Add(item => item.MaxExecutionsPerReceipt, FormInstances.SpinEditItem(enabled: true, type: SpinEditNumberType.Integer, widthPixels: 287, minValue: 1)).VerticalAlign = FormLayoutVerticalAlign.Top;
+    group1.Items.Add(x => x.TestMode, FormInstances.CheckBoxItem(enabled: true, cssClass: "padding-top-30-important", caption: Resources.TestMode, width: 102, horizontalAlign: FormLayoutHorizontalAlign.Center, required: FieldRequiredMarkMode.Hidden)).VerticalAlign = FormLayoutVerticalAlign.Middle;
+    
+    ////removed temporarily until it's implemented at pos
+    //group1.Items.Add(x => x.TestMode, ITS.Retail.WebClient.Extensions.FormInstances.CheckBoxItem(true, "padding-top-30-important", Resources.TestMode, width: 102, horizontalAlign: FormLayoutHorizontalAlign.Center)).VerticalAlign = FormLayoutVerticalAlign.Middle;
+     
+    
+}).GetHtml()

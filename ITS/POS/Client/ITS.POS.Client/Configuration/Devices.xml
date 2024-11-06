@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Devices>
+  <RBSElioFiscalPrinter>
+    <Name>RBS</Name>
+    <ConnectionType>COM</ConnectionType>
+    <IsPrimary>True</IsPrimary>
+    <Priority>1</Priority>
+    <PortName>COM4</PortName>
+    <BaudRate>115200</BaudRate>
+    <Parity>None</Parity>
+    <DataBits>8</DataBits>
+    <StopBits>One</StopBits>
+    <Handshake>None</Handshake>
+    <WriteTimeOut>-1</WriteTimeOut>
+    <CharacterSet>1253</CharacterSet>
+    <NewLine>\n</NewLine>
+    <LineChars>30</LineChars>
+    <NumberOfLines>0</NumberOfLines>
+    <ConvertCharset>False</ConvertCharset>
+    <ConvertCharsetFrom>0</ConvertCharsetFrom>
+    <ConvertCharsetTo>0</ConvertCharsetTo>
+    <CommandChars>0</CommandChars>
+  </RBSElioFiscalPrinter>
+  <Printer>
+    <Name>PRINTER EMULATOR</Name>
+    <ConnectionType>EMULATED</ConnectionType>
+    <IsPrimary>False</IsPrimary>
+    <Priority>1</Priority>
+    <CharacterSet>1253</CharacterSet>
+    <NewLine>\n</NewLine>
+    <LineChars>42</LineChars>
+    <NumberOfLines>0</NumberOfLines>
+    <ConvertCharset>False</ConvertCharset>
+    <ConvertCharsetFrom>0</ConvertCharsetFrom>
+    <ConvertCharsetTo>0</ConvertCharsetTo>
+    <CommandChars>0</CommandChars>
+  </Printer>
+</Devices>

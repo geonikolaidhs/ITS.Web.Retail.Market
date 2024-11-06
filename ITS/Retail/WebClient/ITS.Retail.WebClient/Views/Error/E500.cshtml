@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Error500";
+    Layout = "~/Views/Shared/Error.cshtml";  
+}
+
+ <div class="wrapper_error">
+     <div class="error error500">
+     </div>
+    <div class="container">
+        <p>Sorry it's not you...It's us!!</p><p> We recommend you go back or visit the home page... </p>
+       <a href='@Url.Content("~/Home/Index")'>Home Page</a>
+       <a href="javascript: history.go(-1)">Go back</a>
+    </div>  
+</div>

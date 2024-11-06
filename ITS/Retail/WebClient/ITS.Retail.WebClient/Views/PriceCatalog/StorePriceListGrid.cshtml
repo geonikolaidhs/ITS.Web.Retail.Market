@@ -1,0 +1,164 @@
+﻿@using ITS.Retail.ResourcesLib;
+    
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    string gridName = "";
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true)
+    {
+        settings.Name = "grdStorePriceLists";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+            {
+                column.SetDataItemTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+                });
+                column.SetHeaderTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+                });
+            }
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+
+        settings.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "StorePriceListGrid", editMode = true };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "PriceCatalog", Action = "StorePriceListInlineEditingAddNewPartial" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "PriceCatalog", Action = "StorePriceListInlineEditingDeletePartial" };
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallbackStorePriceListGrid";
+        gridName = "grdStorePriceListEdit";
+
+    }
+    else
+    {
+        settings.Name = "grdStorePriceLists" + ViewData["TabPage"];
+        settings.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "StorePriceListGrid", PriceCatalogID = ViewData["PriceCatalogID"], editMode = false, TabPage = ViewData["TabPage"] };
+
+        gridName = "grdStorePriceListView";
+    }
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+
+    settings.SettingsCustomizationWindow.Enabled = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.SettingsPager.AlwaysShowPager = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Store.Code";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Store.Name";
+        col.Caption = Resources.Name;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = 480;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.EditStore;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton= true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Stores;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.PriceCatalogStores;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnStorePriceListUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnStorePriceListCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        ViewContext.Writer.Write("<table class=\"validateForm\"><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Store+":";
+            edtSettings.AssociatedControlName = "Street";
+        }).Render();
+
+        ViewData["Item"] = item;
+        Html.RenderPartial("StoresComboBoxPartial", ViewData["Item"]);
+        ViewContext.Writer.Write("</td></tr></table></div>");
+        ViewContext.Writer.Write("</div>");
+    });
+}).Bind(Model).GetHtml()

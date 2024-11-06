@@ -1,0 +1,41 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@using System.Linq;
+
+@{
+    var settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(ElectronicJournalFilePackage), typeof(ElectronicJournalFilePackageController), "grdElectronicJournalFilePackage",
+        showAddIcon: false,
+        showEditIcon: false,
+        showDeleteIcon: false);
+
+    var col = settings.Columns.Cast<MVCxGridViewColumn>().Where(x => x.FieldName == "PackageData").FirstOrDefault();
+        settings.Columns.Remove(col);
+    settings.SettingsText.Title = Resources.ElectronicJournalFilePackages;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    }; 
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

@@ -1,0 +1,11 @@
+﻿@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+@{
+    ViewBag.Title = Resources.Reports;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ReportCategories.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@Html.Partial("../Reports/CategoriesMenu")

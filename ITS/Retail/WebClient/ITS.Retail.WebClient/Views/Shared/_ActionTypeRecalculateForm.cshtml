@@ -1,0 +1,72 @@
+﻿@model ActionRecalculateCriteria
+
+@using ITS.Retail.Common.ViewModel
+@using ITS.Retail.WebClient.Extensions
+
+@Html.DevExpress().PopupControl(popUpSettings =>
+{
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.None;
+    popUpSettings.Name = "ActionTypeRecalculateForm";
+    popUpSettings.SettingsLoadingPanel.Enabled = false;
+    popUpSettings.Modal = true;
+    popUpSettings.HeaderText = Resources.Recalculate;
+
+    popUpSettings.ClientSideEvents.BeginCallback = ViewBag.ControllerName+".ActionTypeRecalculateFormBeginCallback";
+    popUpSettings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "ActionTypeRecalculateForm" };
+
+    popUpSettings.SetContent(() =>
+    {
+        using (Html.BeginForm("RecalculateActionTypes", "ActionType", FormMethod.Post,
+            new
+            {
+                id = "RecalculateActionTypesForm"         
+            }))
+            
+            {
+                ViewContext.Writer.Write("<div id='content-ajax-form'>");
+                    @Html.DevExpress().FormLayout(settings =>
+                    {
+                        /*Header banner*/
+                        HeaderOptions headerOptions = new HeaderOptions("");
+                        headerOptions.SaveButton.Name = "buttonRecalculateActionType";
+                        headerOptions.SaveButton.OnClick = "RecalculateActionTypes.Recalculate";
+                        headerOptions.CancelButton.Name = "buttonCancelRecalculateActionType";
+                        headerOptions.CancelButton.OnClick = "RecalculateActionTypes.Cancel";
+                        headerOptions.ViewType = eViewType.PopUp;
+                        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+                        /*End of header banner*/
+
+                        settings.AlignItemCaptionsInAllGroups = true;
+                        settings.Name = "ActionTypeRecalculateFormLayout";
+                        settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+                        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+                        settings.RequiredMarkDisplayMode = DevExpress.Web.RequiredMarkMode.None;
+                        settings.ShowItemCaptionColon = false;
+
+                        MVCxFormLayoutGroup<ActionRecalculateCriteria> group = settings.Items.AddGroupItem(groupSettings =>
+                        {
+                            groupSettings.Caption = Resources.Search;
+                            groupSettings.ColCount = 3;
+                        });
+
+                        group.Items.Add(item => item.FromDate, FormInstances.DateItem(enabled: true, caption: Resources.FromDate));
+                        group.Items.Add(item => item.ToDate, FormInstances.DateItem(enabled: true, caption: Resources.ToDate));
+
+                        if (ViewBag.ActionTypes != null)
+                        {
+                            group.Items.Add(FormInstances.ListEditItem(html: Html, viewContext: ViewContext, enabled: true,
+                                datasource: ViewBag.ActionTypes, model: Model.ActionTypesString, Name: "ActionTypesString",
+                                height: 100, valueField: "Oid", textField: "Description",
+                                valueType: typeof(Guid), widthPixels: 287, layoutVerticalAlign: FormLayoutVerticalAlign.Top,
+                                cssClass: "padding-top-0-important", required: FieldRequiredMarkMode.Required));
+                        }
+
+                    }).Render();
+                ViewContext.Writer.Write("</div>");
+            }
+        
+       
+    });
+}).GetHtml()

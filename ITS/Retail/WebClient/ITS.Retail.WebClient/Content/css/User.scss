@@ -1,0 +1,117 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+//noinspection ALL
+.container {
+    //noinspection ALL
+    .User {
+        .Password-Form {
+
+            max-width: 50%;
+
+            .profile-Header.dxrpControl_ITSTheme1 .dxrpHeader_ITSTheme1{
+                left: -20px;
+                &:before{
+                    border-color: transparent;         
+                    border-width:0;
+                }
+            }
+
+            .dxbButton_ITSTheme1 {
+                clear: both;
+                float: left;
+                margin: 20px 0;
+            }
+
+            .label {
+                margin-top: 10px;
+            }
+
+            input {
+                height: 20px;
+                width: 300px;
+            }
+        }
+
+        .passwords_not_much {
+            color: $color_punch_approx;
+            font-weight: bold;
+        }
+    }
+
+    .Register_Profile .passwords_not_much {
+        color: $color_punch_approx;
+        font-weight: bold;
+    }
+}
+
+.wrapper .container {
+    .User_TermsAndConditions {
+        margin: 50px 0;
+
+        .terms {
+            border: 1px solid $color_celeste_approx;
+            margin: 10px;
+            padding: 10px;
+
+            a {
+                color: $color_dodger_blue_approx;
+                font-size: 13px;
+                text-decoration: none;
+            }
+        }
+
+        table {
+            float: left;
+            margin-left: 30px;
+        }
+
+        .button_container {
+            background: none;
+        }
+    }
+
+    .User_Index {
+        #btn {
+            clear: both;
+            float: right;
+            margin-top: -50px;
+            position: relative;
+        }
+
+        table.users_info {
+            float: left;
+            margin-right: 30px;
+
+            tr {
+                background: $white;
+            }
+
+            th {
+                background: none;
+                min-width: 170px;
+                padding: 5px;
+            }
+
+            td {
+                padding: 2px 5px;
+            }
+        }
+    }
+
+    .User_EditView {
+        #Message {
+            color: $color_celeste_approx;
+            float: left;
+            font-size: 22px;
+            margin-top: 20px;
+        }
+
+        #UserStoreAccessGridDiv {
+            clear: both;
+        }
+    }
+}

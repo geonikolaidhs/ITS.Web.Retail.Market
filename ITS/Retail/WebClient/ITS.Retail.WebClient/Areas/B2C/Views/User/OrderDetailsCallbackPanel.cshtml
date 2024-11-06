@@ -1,0 +1,11 @@
+﻿@Html.DevExpress().CallbackPanel(cpb_settings =>
+{
+    cpb_settings.Name = "OrderDetailsCallbackPanel";
+    cpb_settings.ClientSideEvents.BeginCallback = "OrderHistory.OrderHistoryBeginCallBack";
+    cpb_settings.ClientSideEvents.EndCallback = "OrderHistory.OrderHistoryEndCallBack";
+    cpb_settings.CallbackRouteValues = new { Controller = "User", Action = "OrderDetailsCallbackPanel" };   
+    cpb_settings.SetContent(() =>
+    {
+        Html.RenderPartial("OrderDetails");
+    });
+}).GetHtml()

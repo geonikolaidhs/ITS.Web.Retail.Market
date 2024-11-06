@@ -1,0 +1,418 @@
+﻿@using ITS.Retail.Common;
+@using ITS.Retail.WebClient;
+@using DevExpress.Xpo;
+@using ITS.Retail.Common.ViewModel;
+@{
+    string extraClass = string.Empty;
+
+    switch (MvcApplication.Status)
+    {
+        case ApplicationStatus.OFFLINE_VIA_COMMAND:
+            extraClass = "header-offline";
+            break;
+        case ApplicationStatus.OFFLINE_VIA_ERROR:
+            extraClass = "header-offline-error";
+            break;
+        case ApplicationStatus.ONLINE:
+            break;
+        default:
+            break;
+    }
+}
+<div class="@extraClass header">
+    <div class="header_container">
+        @{
+            List<string> forb = null;
+            if (ViewBag.CurrentUser != null)
+            {
+                forb = Session["LayoutForbidden"] as List<string>;
+                if (forb == null)
+                {
+                    forb = new List<string>();
+                }
+            }
+            else
+            {
+                forb = new List<string>();
+            }
+        }
+        <div class="logo-container" @if (MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER) { ViewContext.Writer.Write("id='logo_store_controller'"); }>
+            <a href="@Url.Content("~/Home/Index")">
+                @if (MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER)
+                {
+                    <img src="@Url.Content("~/Content/store-controller-new-reverse.png?ver=" + ViewData["ApplicationVersionNumber"])" alt="store controller" />
+                }
+                else
+                {
+                    <img class="logo" src="@Url.Action("ShowOwnerImage", "Base")" alt="home" />
+                }
+            </a>
+        </div>
+        @if (ViewBag.CurrentUser != null)
+        {
+            <div class="navmenu">
+                <span id="menuLabel"></span>
+                <div class="hidden menu" @if (MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER) { ViewContext.Writer.Write("id='menu_store_controller'"); }>
+                    <div class="close_btn">&#10006;</div>
+                    <ul class="fastmenu">
+                        <li>
+                            @{
+                                string activeFastMenu = "active";
+                            }
+                            <a class="@if (ViewBag.ControllerName == "Home" && ViewBag.ActionName== "Index" )  { @activeFastMenu }" href="@Url.Content("~/Home/Index")"><i class="fa fa-home fa-3dot5x"></i><br />@Resources.Home</a>
+                        </li>
+                        @if (!UserHelper.IsAdmin(ViewBag.CurrentUser))
+                        {
+                            <li id="first">
+                                <a class="@if ( (ViewBag.ControllerName == "Customer" && ViewBag.ActionName== "MyEdit") || (ViewBag.ControllerName == "Company" && ViewBag.ActionName=="MyEdit") ) { @activeFastMenu }" href="@Url.Content("~/User/Profile")">
+                                    <i class="fa fa-user fa-3dot5x"></i><br />@Resources.MenuAdministrationMyProfile
+                                </a>
+                            </li>
+                        }
+                        <li id="sec">
+                            <a class="@if (ViewBag.ControllerName == "User" && ViewBag.ActionName=="Profile")  { @activeFastMenu }" href="@Url.Content("~/User/Profile?ID=changepassword")">
+                                <i class="fa fa-lock fa-3dot5x"></i><br />@Resources.ChangePassword
+                            </a>
+                        </li>
+                        @*All settings if statement*@
+                        @{
+                            bool showSettings = false;
+                            List<string> settingsEntities = new List<string>()
+                                                                                                                            {
+                                            "FormMessage",
+                                            "ActionType",
+                                            "AddressType",
+                                            "PhoneType",
+                                            "PaymentMethod",
+                                            "MesurmentUnits",
+                                            "CustomDataView",
+                                            "CustomDataViewCategory",
+                                            "VariableValuesDisplay",
+                                            "Variable",
+                                            "BarcodeType",
+                                            "TaxOffice",
+                                            "VatLevel",
+                                            "CustomEnumeration",
+                                            "Store",
+                                            "SpecialItem",
+                                            "DocumentType",
+                                            "DocumentSeries",
+                                            "DocumentStatus",
+                                            "OwnerApplicationSettings",
+                                            "DataFileRecordHeader",
+                                            "Division",
+                                            "TransferPurpose",
+                                            "DiscountType",
+                                            "CustomReport",
+                                            "LabelDesign",
+                                            "SupplierImportFilesSet",
+                                            "Role",
+                                            "ApplicationLog",
+                                            "ApplicationSettings"
+                                        };
+                            List<string> onlyStoreControllerSettingsEntities = new List<string>()
+                                                                                                                            {
+                                            "FiscalDevices",
+                                            "POS",
+                                            "SFA",
+                                            "POSDevice",
+                                            "POSKeysLayout",
+                                            "POSLayout",
+                                            "POSPrintFormat",
+                                            "POSPrintReport",
+                                            "POSActionLevelsSet",
+                                            "Scale",
+                                            "UpdaterMode",
+                                            "CustomActionCode",
+                                            "PrintLabelSettings"
+                                        };
+                        }
+                        @foreach (string entity in settingsEntities)
+                        {
+                            if (!forb.Contains(entity))
+                            {
+                                showSettings = true;
+                                break;
+                            }
+                        }
+                        @if (!showSettings && (MvcApplication.ApplicationInstance != eApplicationInstance.RETAIL))
+                        {
+                            foreach (string entity in onlyStoreControllerSettingsEntities)
+                            {
+                                if (!forb.Contains(entity))
+                                {
+                                    showSettings = true;
+                                    break;
+                                }
+                            }
+                        }
+                        @if (showSettings)
+                        {
+                            <li id="menuSettings">
+                                <a class="@if (
+                                            (ViewBag.ControllerName == "Home" &&  ViewBag.ActionName == "Settings") ||
+                                            (ViewBag.ControllerName == "POS" && ViewBag.ActionName != "POSStatus") ||
+                                            settingsEntities.Contains(ViewBag.ControllerName) ||
+                                            onlyStoreControllerSettingsEntities.Contains(ViewBag.ControllerName)
+                                            )
+                            {@activeFastMenu }" href="@Url.Content("~/Home/Settings")"><i class="fa fa-gear fa-3dot5x"></i><br />@Resources.MenuSettings</a>
+                        </li>
+                    }
+                        <li id="third">
+                            @Html.DevExpress().HyperLink(settings =>
+                                    {
+                                        if (ViewBag.CurrentUser == null)
+                                        {
+                                            settings.Properties.Text = "<i class=\"fa fa-power-off fa-3dot5x\"></i><br />" + Resources.Login;
+                                        }
+                                        else
+                                        {
+                                            settings.Properties.Text = "<i class=\"fa fa-power-off fa-3dot5x\"></i><br />" + Resources.Logout;
+                                        }
+                                        settings.EncodeHtml = false;
+                                        settings.NavigateUrl = "~/Login";
+                                        settings.Name = "LoginLink";
+                                    }).GetHtml()
+                        </li>
+                    </ul>
+                    <ul class="megamenu">
+                        @{
+                            Dictionary<string, int> selectedMenuDockPanels = ViewBag.SelectedMenuDockPanels as Dictionary<string, int>;
+                            MenuInfo menuInfo = (MenuInfo)Session["Menu"];
+                            MenuNode megamenu = menuInfo.Menu;
+                            MenuNode activeNode = null;
+                            if (megamenu != null)
+                            {
+                                activeNode = megamenu.FindActiveNode(this.Request.Url);
+                            }
+
+                            foreach (MenuNode node in megamenu.Children.OrderBy(g => g.ShowOrder))
+                            {
+                                string active = activeNode != null && activeNode.Parent == node ? "active" : "";
+                                if (node.Children.Count == 0)
+                                {
+                                    continue;
+                                }
+
+
+                                ViewContext.Writer.Write("<li><h3 class=\"title\" id='" + node.HtmlID + "'>" + node.Caption + "</h3><ul class='" + active + "'" + node.HtmlPropertiesString + ">");
+                                foreach (MenuNode childNode in node.Children.OrderBy(g => g.ShowOrder))
+                                {
+                                    if (string.IsNullOrEmpty(childNode.HtmlClass))
+                                    {
+                                        childNode.HtmlClass = activeNode != null && activeNode == childNode ? "active" : "";
+                                    }
+
+                                    ViewContext.Writer.Write("<li" + childNode.HtmlPropertiesString + ">" + childNode.HtmlLinkString);
+                                    if (ViewBag.ShowCheckBoxes)
+                                    {
+                                        Html.DevExpress().CheckBox(chk =>
+                                        {
+                                            chk.ControlStyle.CssClass = "checkMenu";
+                                            if (childNode.HtmlPropertiesString.Contains("disabled"))
+                                            {
+                                                chk.Enabled = false;
+                                            }
+                                            chk.Checked = selectedMenuDockPanels == null ? false : selectedMenuDockPanels.ContainsKey(childNode.CheckBoxID);
+                                            chk.Properties.ClientSideEvents.ValueChanged = "MenuCheckboxValueChanged";
+                                            chk.Name = childNode.CheckBoxID;
+                                            chk.Properties.AllowGrayed = false;
+                                        }).Render();
+                                    }
+                                    ViewContext.Writer.Write("</li>");
+                                }
+                                ViewContext.Writer.Write("</ul></li>");
+
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="fast_menu_options_btn hidden">@Resources.Options</div>
+        }
+        <div class="rightContainer">
+            @if (ViewBag.CurrentUser != null)
+            {
+                if (Session["UserOneStore"] != null)
+                {
+                    ViewData["admin"] = false;
+                    if ((BaseController.StoresThatCurrentUserOwns != null && BaseController.StoresThatCurrentUserOwns.Count > 0)
+                          || (Session["StoresThatCurrentUserBuysFrom"] != null && (Session["StoresThatCurrentUserBuysFrom"] as IEnumerable<StoreViewModel>).Count() > 0)
+                          || (Session["IsAdministrator"] != null && (bool)Session["IsAdministrator"]))
+                    {
+                        ViewData["admin"] = true;
+                    }
+                    StoreViewModel currentStore = (Session["currentStore"] as StoreViewModel);
+                    <div class="order order_btn dropdown @{if (currentStore == null) { ViewContext.Writer.Write(" hidden"); }}">
+                        @Resources.Sales
+                        <ul class="hidden">
+                            @{List<string> errorMessages = new List<string>();
+                                bool loggeInUserIsCustomer = UserHelper.IsCustomer(ViewBag.CurrentUser);
+                            }
+                            @if (loggeInUserIsCustomer == false
+                                || DocumentHelper.AvailableDocumentTypesPerStore(ViewBag.CurrentUser, ViewBag.Owner, (Session["currentStore"] as StoreViewModel).Oid, eDivision.Sales, MvcApplication.ApplicationInstance, out errorMessages, isOrder: loggeInUserIsCustomer)
+                               )
+                            {
+                                <li>
+                                    <a href="javascript:;" data-oid="@Guid.Empty" id="newSalesDocument" data-mode="@eDivision.Sales">@Resources.NewSalesDocument</a>
+                                </li>
+                            }
+                            @{
+                                string orderShortcutID = String.Empty;
+                                int orderDocumentTypesCounter = 0;
+                            }
+                            @if (MvcApplication.ApplicationInstance == eApplicationInstance.RETAIL || (DocumentHelper.AvailableDocumentTypesPerStore(ViewBag.CurrentUser, ViewBag.Owner, (Session["currentStore"] as StoreViewModel).Oid, eDivision.Sales, MvcApplication.ApplicationInstance, out errorMessages, true)))
+                            {
+                                XPCollection<StoreDocumentSeriesType> orderDocumentTypes = null;
+                                StoreViewModel CurrentStore = Session["currentStore"] as StoreViewModel;
+                                if (CurrentStore != null)
+                                {
+                                    using (UnitOfWork ordersUoW = XpoHelper.GetNewUnitOfWork())
+                                    {
+                                        orderDocumentTypes = DocumentHelper.GetOrderStoreDocumentSeriesTypes(ordersUoW, ordersUoW.GetObjectByKey<Store>(CurrentStore.Oid));
+
+                                        if (orderDocumentTypes != null && orderDocumentTypes.Count > 0)
+                                        {
+                                            foreach (StoreDocumentSeriesType orderType in orderDocumentTypes)
+                                            {
+                                                orderDocumentTypesCounter++;
+                                                orderShortcutID = "shortCutNewSalesDocument" + orderDocumentTypesCounter.ToString();
+                                                <li><a href="javascript:;" data-oid="@Guid.Empty" id="@orderShortcutID" data-mode="@eDivision.Sales" data-doctype="@orderType.Oid.ToString()">@Html.Raw(orderType.Description.Replace("\n", "<br>"))</a></li>
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            <li>
+                                <a id="shortCutListSalesDocument" href="@Url.Action("Index", "Document", new { Mode = eDivision.Sales })">@Resources.SalesDocumentList</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    if (UserHelper.IsCustomer(ViewBag.CurrentUser) == false && BaseController.OwnerApplicationSettings != null && BaseController.OwnerApplicationSettings.EnablePurchases)
+                    {
+                        <div class="order purchases dropdown @{if (currentStore == null) { ViewContext.Writer.Write(" hidden"); }}">
+                            @Resources.Purchases
+                            <ul class="hidden">
+                                <li>
+                                    @if (MvcApplication.ApplicationInstance == eApplicationInstance.RETAIL || (DocumentHelper.AvailableDocumentTypesPerStore(ViewBag.CurrentUser, ViewBag.Owner, currentStore.Oid, eDivision.Purchase, MvcApplication.ApplicationInstance, out errorMessages)))
+                                    {
+                                        <a href="javascript:;" id="shortCutNewPurchaseDocument" data-oid="@Guid.Empty" data-mode="@eDivision.Purchase">@Resources.NewPurchaseDocument</a>
+                                    }
+                                </li>
+                                <li>
+                                    <a id="shortCutListPurchaseDocument" href="@Url.Action("Index", "Document", new { Mode = eDivision.Purchase })">@Resources.PurchaseDocumentList</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+                    if (UserHelper.IsCustomer(ViewBag.CurrentUser) == false)
+                    {
+                        <div class="order storage dropdown @{if (currentStore == null) { ViewContext.Writer.Write(" hidden"); }}">
+                            @Resources.Storage
+                            <ul class="hidden">
+                                <li>
+                                    @if (MvcApplication.ApplicationInstance == eApplicationInstance.RETAIL || (DocumentHelper.AvailableDocumentTypesPerStore(ViewBag.CurrentUser, ViewBag.Owner, currentStore.Oid, eDivision.Store, MvcApplication.ApplicationInstance, out errorMessages)))
+                                    {
+                                        <a href="javascript:;" id="shortCutNewStoreDocument" data-oid="@Guid.Empty" data-mode="@eDivision.Store">@Resources.NewStoreDocument</a>
+                                    }
+                                </li>
+                                <li>
+                                    <a id="shortCutListStoreDocument" href="@Url.Action("Index", "Document", new { Mode = eDivision.Store })">@Resources.StoreDocumentList</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="order financial dropdown @{if (currentStore == null) { ViewContext.Writer.Write(" hidden"); }}">
+                            @Resources.FinancialWrapped
+                            <ul class="hidden">
+                                <li>
+                                    @if (MvcApplication.ApplicationInstance == eApplicationInstance.RETAIL || (DocumentHelper.AvailableDocumentTypesPerStore(ViewBag.CurrentUser, ViewBag.Owner, currentStore.Oid, eDivision.Financial, MvcApplication.ApplicationInstance, out errorMessages)))
+                                    {
+                                        <a href="javascript:;" id="shortCutNewFinancialDocument" data-oid="@Guid.Empty" data-mode="@eDivision.Financial">@Resources.NewFinancialDocumentWrapped</a>
+                                    }
+                                </li>
+                                <li>
+                                    <a id="shortCutListFinancialDocument" href="@Url.Action("Index", "Document", new { Mode = eDivision.Financial })">@Resources.FinancialDocumentListWrapped</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    Html.RenderPartial("../Shared/UserInfo", ViewData["admin"]);
+                }
+            }
+            <div class="languagePick">
+                @Html.DevExpress().Menu(sets =>
+                {
+                    sets.Name = "languagePicker";
+                    sets.AllowSelectItem = true;
+                    sets.EnableHotTrack = true;
+                    sets.EnableAnimation = true;
+                    sets.Items.Add(grps =>
+                    {
+                        if (ViewData["CurrentCulture"] == null)
+                            grps.Text = "Language";
+                        else if (ViewData["CurrentCulture"].ToString() == "en")
+                        {
+                            grps.Text = "English";
+                        }
+                        else if (ViewData["CurrentCulture"].ToString() == "el")
+                        {
+                            grps.Text = "Ελληνικά";
+                        }
+                        else
+                        {
+                            grps.Text = "Language";
+                        }
+
+                        grps.Items.Add(eng =>
+                        {
+                            eng.Text = "English";
+                            eng.Name = "mitLanguageEnglish";
+                            eng.NavigateUrl = "javascript:chooseLanguage('en')";
+                        });
+                        grps.Items.Add(gr =>
+                        {
+                            gr.Text = "Ελληνικά";
+                            gr.Name = "mitLanguageGreek";
+                            gr.NavigateUrl = "javascript:chooseLanguage('el')";
+                        });
+                    });
+
+                }).GetHtml()
+            </div>
+            @if (ViewBag.ShowNavigation == null || Boolean.Parse(ViewBag.ShowNavigation.ToString()) == true)
+            {
+                string url;
+                CompanyNew owner = ViewBag.Owner as CompanyNew;
+                if (owner != null && owner.OwnerApplicationSettings != null)
+                {
+                    url = Url.Content("~/About/Index");
+                }
+                else { url = Url.Content("~/About/ItsSA"); }
+                <div id="its_info">
+                    <a href='@url' title="@Resources.ContactUs"></a>
+                    <a id="itslink" href='@Url.Content("~/About/ItsSA")' title="@Resources.DesignedDevelopedBy ITS SA"></a>
+                </div>
+            }
+        </div>
+        @*Show only logout button*@
+        @Html.DevExpress().HyperLink(settings =>
+             {
+                 if (ViewBag.CurrentUser == null)
+                 {
+                     settings.Properties.Text = Resources.Login;
+                 }
+                 else
+                 {
+                     settings.Properties.Text = Resources.Logout;
+                 }
+                 settings.NavigateUrl = "~/Login";
+                 settings.Name = "LoginLink2";
+                 settings.ControlStyle.CssClass = "logout_btn";
+             }).GetHtml()
+    </div>
+</div>

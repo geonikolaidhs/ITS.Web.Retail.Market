@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:tns="http://tempuri.org/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" name="WRMMobileAtStore" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd4" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Mobile.AuxilliaryClasses" />
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.WebClient.RetailAtStoreModel" />
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" />
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/ITS.MobileAtStore.ObjectModel" />
+      <xsd:import schemaLocation="http://192.168.1.2/webclient/WRMMobileAtStore.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWRMMobileAtStore_GetProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProduct" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetReceiptProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReceiptProduct" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetReceiptProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReceiptProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetOffers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOffers" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetOffers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOffersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetSupplier_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupplier" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetSupplier_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetCustomer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCustomer" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetCustomer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetWarehouses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWarehouses" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetWarehouses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWarehousesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_ExportDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExportDocument" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_ExportDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExportDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetNow_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNow" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetNow_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNowResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetWebServiceVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWebServiceVersion" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetWebServiceVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWebServiceVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_ProductCheckAdd_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProductCheckAdd" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_ProductCheckAdd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProductCheckAddResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_ProductCheckRemove_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProductCheckRemove" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_ProductCheckRemove_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProductCheckRemoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetMobileFilelist_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMobileFilelist" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetMobileFilelist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMobileFilelistResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_PerformInventoryExport_InputMessage">
+    <wsdl:part name="parameters" element="tns:PerformInventoryExport" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_PerformInventoryExport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PerformInventoryExportResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetMobileConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMobileConfig" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetMobileConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMobileConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetInvLines_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvLines" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetInvLines_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInvLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_CountInvLines_InputMessage">
+    <wsdl:part name="parameters" element="tns:CountInvLines" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_CountInvLines_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CountInvLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_UploadInvLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:UploadInvLine" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_UploadInvLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadInvLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetESLInvLines_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetESLInvLines" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetESLInvLines_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetESLInvLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_UploadESLInvLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:UploadESLInvLine" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_UploadESLInvLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadESLInvLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetPriceCatalogPolicies_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPriceCatalogPolicies" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetPriceCatalogPolicies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPriceCatalogPoliciesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_UpdateInvLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateInvLine" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_UpdateInvLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateInvLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetSettings_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSettings" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetSettings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetStores_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStores" />
+  </wsdl:message>
+  <wsdl:message name="IWRMMobileAtStore_GetStores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoresResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWRMMobileAtStore">
+    <wsdl:operation name="GetProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetProduct" message="tns:IWRMMobileAtStore_GetProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetProductResponse" message="tns:IWRMMobileAtStore_GetProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetReceiptProduct" message="tns:IWRMMobileAtStore_GetReceiptProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetReceiptProductResponse" message="tns:IWRMMobileAtStore_GetReceiptProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOffers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetOffers" message="tns:IWRMMobileAtStore_GetOffers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetOffersResponse" message="tns:IWRMMobileAtStore_GetOffers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetSupplier" message="tns:IWRMMobileAtStore_GetSupplier_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetSupplierResponse" message="tns:IWRMMobileAtStore_GetSupplier_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetCustomer" message="tns:IWRMMobileAtStore_GetCustomer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetCustomerResponse" message="tns:IWRMMobileAtStore_GetCustomer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetWarehouses" message="tns:IWRMMobileAtStore_GetWarehouses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetWarehousesResponse" message="tns:IWRMMobileAtStore_GetWarehouses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/ExportDocument" message="tns:IWRMMobileAtStore_ExportDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/ExportDocumentResponse" message="tns:IWRMMobileAtStore_ExportDocument_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNow">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetNow" message="tns:IWRMMobileAtStore_GetNow_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetNowResponse" message="tns:IWRMMobileAtStore_GetNow_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetWebServiceVersion" message="tns:IWRMMobileAtStore_GetWebServiceVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetWebServiceVersionResponse" message="tns:IWRMMobileAtStore_GetWebServiceVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/ProductCheckAdd" message="tns:IWRMMobileAtStore_ProductCheckAdd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/ProductCheckAddResponse" message="tns:IWRMMobileAtStore_ProductCheckAdd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/ProductCheckRemove" message="tns:IWRMMobileAtStore_ProductCheckRemove_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/ProductCheckRemoveResponse" message="tns:IWRMMobileAtStore_ProductCheckRemove_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetMobileFilelist" message="tns:IWRMMobileAtStore_GetMobileFilelist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetMobileFilelistResponse" message="tns:IWRMMobileAtStore_GetMobileFilelist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PerformInventoryExport">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/PerformInventoryExport" message="tns:IWRMMobileAtStore_PerformInventoryExport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/PerformInventoryExportResponse" message="tns:IWRMMobileAtStore_PerformInventoryExport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetMobileConfig" message="tns:IWRMMobileAtStore_GetMobileConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetMobileConfigResponse" message="tns:IWRMMobileAtStore_GetMobileConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetInvLines" message="tns:IWRMMobileAtStore_GetInvLines_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetInvLinesResponse" message="tns:IWRMMobileAtStore_GetInvLines_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CountInvLines">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/CountInvLines" message="tns:IWRMMobileAtStore_CountInvLines_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/CountInvLinesResponse" message="tns:IWRMMobileAtStore_CountInvLines_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/UploadInvLine" message="tns:IWRMMobileAtStore_UploadInvLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/UploadInvLineResponse" message="tns:IWRMMobileAtStore_UploadInvLine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetESLInvLines" message="tns:IWRMMobileAtStore_GetESLInvLines_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetESLInvLinesResponse" message="tns:IWRMMobileAtStore_GetESLInvLines_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadESLInvLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/UploadESLInvLine" message="tns:IWRMMobileAtStore_UploadESLInvLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/UploadESLInvLineResponse" message="tns:IWRMMobileAtStore_UploadESLInvLine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceCatalogPolicies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetPriceCatalogPolicies" message="tns:IWRMMobileAtStore_GetPriceCatalogPolicies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetPriceCatalogPoliciesResponse" message="tns:IWRMMobileAtStore_GetPriceCatalogPolicies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/UpdateInvLine" message="tns:IWRMMobileAtStore_UpdateInvLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/UpdateInvLineResponse" message="tns:IWRMMobileAtStore_UpdateInvLine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetSettings" message="tns:IWRMMobileAtStore_GetSettings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetSettingsResponse" message="tns:IWRMMobileAtStore_GetSettings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetStores" message="tns:IWRMMobileAtStore_GetStores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWRMMobileAtStore/GetStoresResponse" message="tns:IWRMMobileAtStore_GetStores_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IWRMMobileAtStore" type="tns:IWRMMobileAtStore">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProduct">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetReceiptProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOffers">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetOffers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomer">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetWarehouses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportDocument">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/ExportDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNow">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetNow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetWebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/ProductCheckAdd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/ProductCheckRemove" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetMobileFilelist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PerformInventoryExport">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/PerformInventoryExport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileConfig">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetMobileConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetInvLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CountInvLines">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/CountInvLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvLine">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/UploadInvLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetESLInvLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadESLInvLine">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/UploadESLInvLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceCatalogPolicies">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetPriceCatalogPolicies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/UpdateInvLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettings">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStores">
+      <soap:operation soapAction="http://tempuri.org/IWRMMobileAtStore/GetStores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WRMMobileAtStore">
+    <wsdl:port name="BasicHttpBinding_IWRMMobileAtStore" binding="tns:BasicHttpBinding_IWRMMobileAtStore">
+      <soap:address location="http://192.168.1.2/webclient/WRMMobileAtStore.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

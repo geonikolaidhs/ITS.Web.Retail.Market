@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ReceiptFormat>
+  <Header>
+    <SimpleLine align="center" bold="true">EXPRESS MARKET.</SimpleLine>
+    <SimpleLine align="center" bold="true">ΑΝΑΦΟΡΑ Χ</SimpleLine>
+    <DynamicLine>
+      <Cell align="center" bold="true">@TerminalDescription@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+  </Header>
+  <Body>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΣΥΝ. ΠΟΣΟΤΗΤΑΣ ΕΙΔΩΝ</Cell>
+      <Cell align="right" bold="true">@ItemsQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@ItemsAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΕΚΠΤΩΣΕΙΣ ΕΙΔΩΝ</Cell>
+      <Cell align="right" bold="true">@DiscountsQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@DiscountsAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΕΚΠΤΩΣΕΙΣ ΣΥΝΟΛΟΥ</Cell>
+      <Cell align="right" bold="true">@DocumentDiscountsQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@DocumentDiscountsAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΑΚΥΡΩΣΕΙΣ</Cell>
+      <Cell align="right" bold="true">@CanceledDocumentsQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@CanceledDocumentsAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΑΚΥΡΩΣΕΙΣ ΓΡΑΜΜΩΝ</Cell>
+      <Cell align="right" bold="true">@CanceledQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@CanceledAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΝΤΟΙ</Cell>
+      <Cell align="right" bold="true">@LoyaltyPointsQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@LoyaltyPointsAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΑΛΛΑΓΕΣ ΕΠΙΣΤΡΟΦΕΣ</Cell>
+      <Cell align="right" bold="true">@SwitchesReturnsQty@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΟΣΟ</Cell>
+      <Cell align="right" bold="true">@SwitchesReturnsAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΟ ΕΙΣΠΡΑΞΕΩΝ</Cell>
+      <Cell align="right">@TotalAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΟ ΦΠΑ</Cell>
+      <Cell align="right">@TotalVatAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <SimpleLine align="center" bold="true">ΠΩΛΗΣΕΙΣ ΑΝΑ Φ.Π.Α</SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">Φ.Π.Α. @VatFactor1@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΚΑΘΑΡΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@NetAmount1@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΑΞΙΑ ΦΠΑ</Cell>
+      <Cell align="right">@VatAmount1@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@GrossAmount1@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">Φ.Π.Α. @VatFactor2@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΚΑΘΑΡΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@NetAmount2@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΑΞΙΑ ΦΠΑ</Cell>
+      <Cell align="right">@VatAmount2@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@GrossAmount2@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">Φ.Π.Α. @VatFactor3@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΚΑΘΑΡΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@NetAmount3@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΑΞΙΑ ΦΠΑ</Cell>
+      <Cell align="right">@VatAmount3@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@GrossAmount3@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">Φ.Π.Α. @VatFactor4@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΚΑΘΑΡΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@NetAmount4@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΑΞΙΑ ΦΠΑ</Cell>
+      <Cell align="right">@VatAmount4@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@GrossAmount4@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">Φ.Π.Α. @VatFactor5@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΚΑΘΑΡΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@NetAmount5@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΑΞΙΑ ΦΠΑ</Cell>
+      <Cell align="right">@VatAmount5@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left">ΣΥΝΟΛΙΚΑ ΕΣΟΔΑ</Cell>
+      <Cell align="right">@GrossAmount5@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <SimpleLine>
+    </SimpleLine>
+    <SimpleLine align="center">ΑΝΑΛΥΣΗ ΣΥΡΤΑΡΙΟΥ</SimpleLine>
+    <SimpleLine align="center">-----------------</SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true" maxChars="14">ΑΝΑΛΥΣΗ</Cell>
+      <Cell align="right">ΠΟΣΟΤΗΤΑ</Cell>
+      <Cell align="right" bold="true">ΑΞΙΕΣ</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true" maxChars="14">ΑΠΟΔΕΙΞΕΙΣ</Cell>
+      <Cell align="right">@ReceiptsQty@</Cell>
+      <Cell align="right" bold="true">@ReceiptsAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true" maxChars="14">ΠΡΟΤΙΜΟΛΟΓΙΑ</Cell>
+      <Cell align="right">@InvoicesQty@</Cell>
+      <Cell align="right" bold="true">@InvoicesAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <Detail source="PaymentMethods">
+      <DynamicLine condition="INCREASESDRAWERAMOUNT">
+        <Cell align="right">--------</Cell>
+      </DynamicLine>
+      <DynamicLine condition="INCREASESDRAWERAMOUNT">
+        <Cell align="left">@PaymentMethodName@</Cell>
+        <Cell align="right">@Amount@</Cell>
+      </DynamicLine>
+      <DynamicLine condition="DOESNOTINCREASEDRAWERAMOUNT">
+        <Cell align="left" maxChars="14">@PaymentMethodName@</Cell>
+        <Cell align="right">@Qty@</Cell>
+        <Cell align="right">@NegativeAmount@</Cell>
+      </DynamicLine>
+    </Detail>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΠΑΓΙΟ</Cell>
+      <Cell align="right" bold="true">@StartingCashAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" maxChars="14" bold="true">ΚΑΤΑΘΕΣΕΙΣ</Cell>
+      <Cell align="right">@DepositsQty@</Cell>
+      <Cell align="right" bold="true">@DepositsAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" maxChars="14" bold="true">ΑΝΑΛΗΨΕΙΣ</Cell>
+      <Cell align="right">@WithdrawsQty@</Cell>
+      <Cell align="right" bold="true">@WithdrawsNegativeAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="right">--------</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΣΥΝΟΛΟ ΣΥΡΤΑΡΙΟΥ</Cell>
+      <Cell align="right" bold="true">@CashAmount@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <SimpleLine>
+    </SimpleLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΑΝΑΦΕΡΟΜΕΝΟ ΣΥΝΟΛΟ ΣΥΡΤΑΡΙΟΥ</Cell>
+      <Cell align="right" bold="true">@UserCashFinalAmount@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΔΙΑΦΟΡΑ ΣΥΝΟΛΟΥ ΣΥΡΤΑΡΙΟΥ</Cell>
+      <Cell align="right" bold="true">@CashAmountDifference@</Cell>
+    </DynamicLine>
+  </Body>
+  <Footer>
+    <DynamicLine>
+      <Cell align="center" bold="true">ΠΑΡΑΝΟΜΗ ΑΠΟΔΕΙΞΗ - ΔΙΩΚΕΤΑΙ ΑΠΟ ΤΟΝ ΝΟΜΟ</Cell>
+    </DynamicLine>
+  </Footer>
+</ReceiptFormat>

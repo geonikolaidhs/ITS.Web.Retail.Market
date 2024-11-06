@@ -1,0 +1,24 @@
+﻿@Html.DevExpress().CallbackPanel(callbacksettings =>
+{
+    callbacksettings.Name = "TargetFieldsCallBackPanel";
+    callbacksettings.CallbackRouteValues = new { Controller = "Variable", Action = "TargetFieldComboBox", category = DataBinder.Eval(Model, "TargetCategory"), variableSource = DataBinder.Eval(Model, "Source") };
+    callbacksettings.SetContent(() =>
+    {
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            combosettings.Properties.Caption = Resources.Field + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "TargetFieldName";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.ValueType = typeof(string);
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            combosettings.Properties.Buttons.Add(button);
+            combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).BindList(ViewBag.TargetFields).Bind(DataBinder.Eval(Model, "TargetFieldName")).GetHtml();
+    });
+}).GetHtml()

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ITS.Retail.Platform.Enumerations" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/ITS.Retail.WebClient/ITSStoreControllerDesktopService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="ePosCommand">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NONE">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SEND_CHANGES">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RESTART_POS">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ISSUE_X">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ISSUE_Z">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RELOAD_ENTITIES">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RETRY_IMMEDIATE">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="ePosCommand" nillable="true" type="tns:ePosCommand" />
+  <xs:simpleType name="eApplicationInstance">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RETAIL" />
+      <xs:enumeration value="STORE_CONTROLER" />
+      <xs:enumeration value="DUAL_MODE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="eApplicationInstance" nillable="true" type="tns:eApplicationInstance" />
+  <xs:simpleType name="ApplicationStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ONLINE" />
+      <xs:enumeration value="OFFLINE_VIA_COMMAND" />
+      <xs:enumeration value="OFFLINE_VIA_ERROR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ApplicationStatus" nillable="true" type="tns:ApplicationStatus" />
+</xs:schema>

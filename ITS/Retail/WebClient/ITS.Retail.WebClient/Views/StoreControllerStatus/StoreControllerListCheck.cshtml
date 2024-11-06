@@ -1,0 +1,74 @@
+﻿@using System.Linq;
+@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().CallbackPanel(cbp =>
+{
+    cbp.Name = "StoreControllerCommands";
+    cbp.CallbackRouteValues = new { Controller = "StoreControllerStatus", Action = "StoreControllerListCheck" };
+    cbp.ClientSideEvents.BeginCallback = "StoreControllerStatus.CommandsBeginCallback"; //Advanced
+    cbp.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"ribbon-custom\"><div class=\"ribbon-stitches-top\"></div><strong class=\"ribbon-content\"><h1>" + Resources.Commands + "</h1></strong><div class=\"ribbon-stitches-bottom\"></div></div>");
+
+        ViewContext.Writer.Write("<table class='headerTable'><tr><td>");
+
+        Html.DevExpress().ComboBox(settings =>
+        {
+            settings.Name = "cmbCommand"; //Advanced
+            settings.Properties.ValueType = typeof(eStoreControllerCommand);
+            settings.Properties.ValueField = "Key";
+            settings.Properties.TextField = "Value";
+            settings.SelectedIndex = 0;
+            settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+            settings.Width = 150;
+        }).BindList(Enum<eStoreControllerCommand>.GetLocalizedDictionary().Where(x => x.Key != eStoreControllerCommand.NONE).OrderByDescending(x => x.Key)).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().DropDownEdit(settings =>
+        {
+            settings.Name = "cmbStore"; //Advanced
+            settings.Properties.DropDownWindowStyle.BackColor = System.Drawing.Color.FromArgb(0xEDEDED);
+
+            settings.SetDropDownWindowTemplateContent(c =>
+            {
+                @Html.DevExpress().ListBox(listBoxSettings =>
+                {
+                    listBoxSettings.Name = "lstStore"; 
+                    listBoxSettings.ControlStyle.Border.BorderWidth = 0;
+                    listBoxSettings.ControlStyle.BorderBottom.BorderWidth = 1;
+                    listBoxSettings.ControlStyle.BorderBottom.BorderColor = System.Drawing.Color.FromArgb(0xDCDCDC);
+                    listBoxSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    listBoxSettings.Height = 200;
+                    listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+                    listBoxSettings.Properties.ClientSideEvents.SelectedIndexChanged = "StoreControllerStatus.OnListBoxSelectionChanged";  
+                    listBoxSettings.Properties.Items.Add(Resources.SelectAll, Guid.Empty);
+                    foreach (StoreControllerSettings scsetting  in Model)
+                    {
+                        listBoxSettings.Properties.Items.Add(scsetting.Store.Name, scsetting.Oid);
+                    } 
+                    
+                }).Render();
+                ViewContext.Writer.Write("<table style=\"width:100%\"><tr><td align=\"right\">");
+                @Html.DevExpress().Button(buttonSettings =>
+                {
+                    buttonSettings.Name = "buttonClose"; //Advanced
+                    buttonSettings.Text = Resources.Close;
+                    buttonSettings.Style.Add("float", "right");
+                    buttonSettings.ClientSideEvents.Click = "function(s, e){ cmbStore.HideDropDown(); }"; //Advanced
+                }).Render();
+                ViewContext.Writer.Write("</td></tr></table>");
+            });
+            settings.Properties.AnimationType = AnimationType.None;
+            settings.Properties.ClientSideEvents.TextChanged = "StoreControllerStatus.SynchronizeListBoxValues"; 
+            settings.Properties.ClientSideEvents.DropDown = "StoreControllerStatus.SynchronizeListBoxValues";
+        }).GetHtml();
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Button(btnset =>
+        {
+            btnset.Name = "btnSendCommandAdvanced"; //Advanced
+            btnset.Text = Resources.SendCommand;
+            btnset.ClientSideEvents.Click = "StoreControllerStatus.SendCommandButtonBasicClick"; 
+        }).GetHtml();
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+}).GetHtml()

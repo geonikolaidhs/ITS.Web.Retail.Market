@@ -1,0 +1,639 @@
+﻿@using ITS.Retail.ResourcesLib
+@using ITS.Retail.WebClient.Extensions;
+@model OwnerApplicationSettings
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/MenuApplicationSettings.css?ver=" + ViewData["ApplicationVersionNumber"])" />
+
+@Html.DevExpress().FormLayout(settings =>
+{
+
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.Name = "ownerappsettings";
+    settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+    settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+    settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+    settings.RequiredMarkDisplayMode = DevExpress.Web.RequiredMarkMode.None;
+    settings.ShowItemCaptionColon = false;
+
+
+    bool ViewMode = (ViewBag.editMode != null && ViewBag.editMode == false);
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> group1 = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.PaddingSettings;
+        groupSettings.ColCount = 3;
+    });
+
+    group1.Items.Add(item => item.PadBarcodes, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-40-important", caption: Resources.PadBarcodes));
+
+    group1.Items.Add(item => item.BarcodeLength, FormInstances.SpinEditItem(enabled: !ViewMode));
+
+    group1.Items.Add(item => item.BarcodePaddingCharacter, itemSettings =>
+    {
+        itemSettings.Caption = Resources.BarcodePaddingCharacter;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group1.Items.Add(item => item.PadItemCodes, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-40-important", caption: Resources.PadItemCodes));
+
+    group1.Items.Add(item => item.ItemCodeLength, itemSettings =>
+    {
+        itemSettings.Caption = Resources.ItemCodeLength;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group1.Items.Add(item => item.ItemCodePaddingCharacter, itemSettings =>
+    {
+        itemSettings.Caption = Resources.ItemCodePaddingCharacter;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> groupTerminalSettings = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.TerminalSettings;
+        groupSettings.ColCount = 3;
+    });
+
+    groupTerminalSettings.Items.Add(item => item.QuantityNumberOfDecimalDigits, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.QuantityNumberOfDecimalDigits));
+
+    groupTerminalSettings.Items.Add(item => item.QuantityNumberOfIntegralDigits, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.QuantityNumberOfIntegralDigits));
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> group2 = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.ComputeSettings;
+        groupSettings.ColCount = 3;
+    });
+
+    group2.Items.Add(item => item.ComputeDigits, itemSettings =>
+    {
+        itemSettings.Caption = Resources.ComputationDigits;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group2.Items.Add(item => item.DisplayDigits, itemSettings =>
+    {
+        itemSettings.Caption = Resources.DisplayDigits;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group2.Items.Add(item => item.DisplayValueDigits, itemSettings =>
+    {
+        itemSettings.Caption = Resources.DisplayValueDigits;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group2.Items.Add(item => item.MaximumAllowedDiscountPercentage, itemSettings =>
+    {
+        itemSettings.Caption = Resources.MaximumAllowedDiscountPercentage;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    Dictionary<ePromotionExecutionPriority, string> promotionPriorities = Enum.GetValues(typeof(ePromotionExecutionPriority)).OfType<ePromotionExecutionPriority>().ToDictionary(x => x, x => x.ToLocalizedString());
+    group2.Items.Add(item => item.PromotionExecutionPriority, FormInstances.ComboBoxItem(Html: Html, Model: Model.PromotionExecutionPriority, enabled: !ViewMode, dataSource: promotionPriorities, valueField: "Key", textField: "Value", valueType: typeof(ePromotionExecutionPriority), captionPosition: LayoutItemCaptionLocation.Top, caption: Resources.PriomotionExecutionPriority));
+
+
+    group2.Items.Add(item => item.UseBarcodeRelationFactor, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-25", caption: Resources.UseBarcodeRelationFactor));
+
+    group2.Items.Add(item => item.DiscountPermited, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-25", caption: Resources.SellerCanEditOrderDiscounts));
+
+    group2.Items.Add(item => item.TrimBarcodeOnDisplay, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-25", caption: Resources.Trim + " " + Resources.Barcode, width: 60));
+
+    group2.Items.Add(item => item.RecomputePrices, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-25", caption: Resources.RecalculateDocumentDetails));
+
+    group2.Items.Add(item => item.AllowPriceCatalogSelection, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-25", caption: Resources.AllowPriceCatalogSelection, colSpan: 2));
+
+    group2.Items.Add(item => item.EnablePurchases, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-25", caption: Resources.EnablePurchases, width: 150));
+
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> group3 = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.LoyaltySettings;
+        groupSettings.ColCount = 3;
+    });
+
+
+    group3.Items.Add(item => item.SupportLoyalty, FormInstances.CheckBoxItem(!ViewMode, "", Resources.SupportLoyalty, "OnInitSupportLoyalty", "OnChangeSupportLoyalty"));
+    group3.Items.Add(item => item.LoyaltyOnDocumentSum, FormInstances.CheckBoxItem(!ViewMode, "", Resources.LoyaltyOnDocumentSum, "OnInitLoyaltyOnDocumentSum", "OnChangeLoyaltyOnDocumentSum", colSpan: 2));
+
+
+
+    group3.Items.Add(item => item.DocumentSumForLoyalty, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.DocumentSumForLoyalty, colSpan: 1));
+    group3.Items.Add(item => item.LoyaltyPointsPerDocumentSum, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.LoyaltyPointsPerDocumentSum, colSpan: 2));
+
+
+
+    Dictionary<eLoyaltyRefundType, string> loyaltyRefuntTypes = Enum.GetValues(typeof(eLoyaltyRefundType)).OfType<eLoyaltyRefundType>().ToDictionary(x => x, x => x.ToLocalizedString());
+    group3.Items.Add(item => item.LoyaltyRefundType, FormInstances.ComboBoxItem(Html: Html, Model: Model.LoyaltyRefundType, enabled: !ViewMode, dataSource: loyaltyRefuntTypes, valueField: "Key", textField: "Value", valueType: typeof(eLoyaltyRefundType), captionPosition: LayoutItemCaptionLocation.Top, caption: Resources.LoyaltyRefundType, OnInitJs: "OnInitLoyaltyRefundType", OnValueChangedJs: "OnValueChangedLoyaltyRefundType", colSpan: 1));
+
+    group3.Items.Add(item => item.RefundPoints, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.RefundPoints, colSpan: 2));
+
+    group3.Items.Add(itemSettings =>
+    {
+        itemSettings.Name = "DiscountRadioList";
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.ColSpan = 3;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.RadioButtonList;
+        RadioButtonListSettings rbSettings = (RadioButtonListSettings)itemSettings.NestedExtensionSettings;
+        rbSettings.Name = "DiscountType";
+        rbSettings.Properties.Items.Add(Resources.DiscountAmount, "DiscountAmountRadio");
+        rbSettings.Properties.Items.Add(Resources.DiscountPercentage, "DiscountPercentageRadio");
+        rbSettings.Properties.ClientSideEvents.Init = "OnInitDiscountType";
+        rbSettings.Properties.ClientSideEvents.ValueChanged = "OnChangeDiscountType";
+        rbSettings.ControlStyle.Border.BorderWidth = 0;
+        rbSettings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+        rbSettings.SelectedIndex = Model.DiscountAmount == null || Model.DiscountAmount > 0 ? 0 : 1;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group3.Items.Add(item => item.DiscountAmount, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.DiscountAmount));
+    group3.Items.Add(item => item.DiscountPercentage, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.DiscountPercentage));
+    group3.Items.Add(item => item.LoyaltyPaymentMethod, FormInstances.ComboBoxItem(Html: Html, Model: Model.LoyaltyPaymentMethod, enabled: !ViewMode, dataSource: ViewBag.PaymentMehtods as IEnumerable<PaymentMethod>, captionPosition: LayoutItemCaptionLocation.Top, caption: Resources.LoyaltyPaymentMethod));
+    group3.Items.Add(item => item.PointCost, FormInstances.SpinEditItem(enabled: !ViewMode, type: SpinEditNumberType.Integer, caption: Resources.PointCost, colSpan: 3));
+    group3.Items.Add(item => item.OnlyRefundStore, FormInstances.CheckBoxItem(!ViewMode, "", Resources.OnlyRefundStore, colSpan: 3));
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> group3_1 = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.DocumentPointsSettings;
+        groupSettings.ColCount = 3;
+    });
+
+
+    IEnumerable<DocumentType> docTypes = ViewBag.PointsDocumentTypes;
+    IEnumerable<DocumentSeries> docSeries = ViewBag.PointsDocumentSeries;
+    IEnumerable<DocumentStatus> docStatus = ViewBag.PointsDocumentStatus;
+
+    group3_1.Items.Add(item => item.PointsDocumentType, FormInstances.ComboBoxItem(Html: Html, Model: Model.PointsDocumentType, enabled: !ViewMode, dataSource: docTypes, valueField: "Oid", textField: "Description", caption: Resources.PointsDocumentType, captionPosition: LayoutItemCaptionLocation.Top));
+    group3_1.Items.Add(item => item.PointsDocumentSeries, FormInstances.ComboBoxItem(Html: Html, Model: Model.PointsDocumentSeries, enabled: !ViewMode, dataSource: docSeries, valueField: "Oid", textField: "Description", caption: Resources.PointsDocumentSeries, captionPosition: LayoutItemCaptionLocation.Top));
+    group3_1.Items.Add(item => item.PointsDocumentStatus, FormInstances.ComboBoxItem(Html: Html, Model: Model.PointsDocumentStatus, enabled: !ViewMode, dataSource: docStatus, valueField: "Oid", textField: "Description", caption: Resources.PointsDocumentStatus, captionPosition: LayoutItemCaptionLocation.Top));
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> otherOwnerApplicationSettingsGroup = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.Settings + " " + Resources.MarkUp;
+        groupSettings.ColCount = 4;
+        groupSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        groupSettings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        groupSettings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+    });
+
+    otherOwnerApplicationSettingsGroup.Items.Add(item => item.NumberOfDaysDocumentCanBeCanceled, itemSettings =>
+    {
+        itemSettings.Caption = Resources.NumberOfDaysDocumentCanBeCanceled;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.SpinEdit;
+        (itemSettings.NestedExtensionSettings as SpinEditSettings).Properties.ValidationSettings.ErrorText = "error";
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    otherOwnerApplicationSettingsGroup.Items.Add(item => item.MarkupDefaultValueDifference, FormInstances.SpinEditItem(true, caption: Resources.MarkupDefaultValueDifference));
+    otherOwnerApplicationSettingsGroup.Items.Add(item => item.UseMarginInsteadMarkup, FormInstances.CheckBoxItem(true, caption: Resources.UseMarginInsteadMarkup, cssClass: "padding-top-40-important"));
+
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> group4 = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.WebsiteSettings;
+        groupSettings.ColCount = 4;
+    });
+
+
+
+    group4.Items.Add(item => item.eMail,
+    itemSettings =>
+    {
+        itemSettings.Caption = Resources.email;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group4.Items.Add(item => item.Phone,
+    itemSettings =>
+    {
+        itemSettings.Caption = Resources.Phone;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group4.Items.Add(item => item.FAX,
+    itemSettings =>
+    {
+        itemSettings.Caption = Resources.Fax;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group4.Items.Add(item => item.TwitterAccount, itemSettings =>
+    {
+        itemSettings.Caption = Resources.TwitterAccount;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group4.Items.Add(item => item.FacebookAccount, itemSettings =>
+    {
+        itemSettings.Caption = Resources.FacebookAccount;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group4.Items.Add(item => item.LinkedInAccount, itemSettings =>
+    {
+        itemSettings.Caption = Resources.LinkedInAccount;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    group4.Items.Add(item => item.LocationGoogleID, itemSettings =>
+    {
+        itemSettings.Caption = Resources.GoogleMaps + "(" + Resources.Latitude + "," + Resources.Longitude + ")";
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+        itemSettings.NestedExtensionSettings.Height = 33;
+        itemSettings.ColSpan = 2;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+
+    group4.Items.Add(itemSettings =>
+    {
+        itemSettings.Caption = Resources.CompanyLogo;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.UploadControl;
+    }).SetNestedContent(() =>
+        @Html.DevExpress().UploadControl(set =>
+        {
+            set.UploadMode = UploadControlUploadMode.Auto;
+            set.Name = "UploadControl";
+            set.CallbackRouteValues = new { Controller = "OwnerApplicationSettings", Action = "UploadControl" };
+            set.ShowProgressPanel = true;
+            set.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.ItemController.UploadControlValidationSettings);
+            set.ClientSideEvents.FileUploadComplete = "OnFileUploadComplete";
+            if (ViewMode)
+            {
+                set.Enabled = false;
+            }
+        }).GetHtml());
+
+    group4.Items.Add(itemSettings =>
+    {
+        itemSettings.Caption = "";
+        itemSettings.ColSpan = 2;
+        if (ViewBag.editMode != null && ViewBag.editMode == false)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    }).SetNestedContent(() =>
+    {
+        Html.DevExpress().Image(settings2 =>
+        {
+            settings2.Name = "btnUpload";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn padding-top-40-important";
+            settings2.Properties.ClientSideEvents.Click = "function (s,e) { UploadControl.Upload(); }";
+            if (ViewMode)
+            {
+                settings2.Enabled = false;
+            }
+        }).Render();
+
+        Html.DevExpress().Image(settings2 =>
+        {
+            settings2.Name = "btnDeleteItemImage";
+            settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Delete;
+            settings2.ControlStyle.CssClass = "deletebtn padding-top-40-important";
+            settings2.Properties.ClientSideEvents.Click = "btnDeleteItemImageClick";
+            if (ViewMode)
+            {
+                settings2.Enabled = false;
+            }
+        }).Render();
+        //fix case 5631
+        ViewContext.Writer.Write("<td><img alt='' id='previewImage' src=\"" + Url.Action("ShowImageId", "OwnerApplicationSettings", new { dt = DateTime.Now.Ticks }) + "\" /></td>");
+    });
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> posGeneralSettings = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.POSGeneralSettings;
+        groupSettings.ColCount = 4;
+        groupSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        groupSettings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        groupSettings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+    });
+
+    posGeneralSettings.Items.Add(item => item.POSCanSetPrices, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-40-important", caption: Resources.POSCanSetPrices));
+
+    posGeneralSettings.Items.Add(item => item.POSCanChangePrices, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-40-important", caption: Resources.POSCanChangePrices));
+
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> b2cGroup = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.Settings + " B2C";
+        groupSettings.ColCount = 4;
+        groupSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        groupSettings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        groupSettings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpHost, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Host;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpPort, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Port;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpUsername, itemSettings =>
+    {
+        itemSettings.Caption = Resources.UserName;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpPassword, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Password;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpDomain, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Domain;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpEmailAddress, itemSettings =>
+    {
+        itemSettings.Caption = Resources.email;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.SmtpUseSSL, FormInstances.CheckBoxItem(enabled: !ViewMode, cssClass: "padding-top-40-important", caption: Resources.UseSSL));
+
+    b2cGroup.Items.Add(item => item.GoogleAnalyticsID, itemSettings =>
+    {
+        itemSettings.Caption = "Google Analytics ID";
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.MetaDescription, itemSettings =>
+    {
+        itemSettings.Caption = "Meta " + Resources.Description;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+        itemSettings.NestedExtensionSettings.Height = 100;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.EmailTemplateColor1, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Color + " 1";
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ColorEdit;
+        itemSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.EmailTemplateColor2, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Color + " 2";
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ColorEdit;
+        itemSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = "B2C " + Resources.PriceCatalog; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "B2CPriceCatalog";
+        Html.RenderPartial("../OwnerApplicationSettings/B2CPriceCatalog");
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = Resources.Store; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "B2CStore";
+        Html.RenderPartial("../OwnerApplicationSettings/B2CStore");
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = Resources.DocumentType; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "B2CDocumentType";
+        Html.RenderPartial("../OwnerApplicationSettings/B2CDocumentType");
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = Resources.DocumentSeries; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "B2CDocumentSeries";
+        Html.RenderPartial("../OwnerApplicationSettings/B2CDocumentSeries");
+    });
+
+    b2cGroup.Items.Add(item => item.PayPalEmail, itemSettings =>
+    {
+        itemSettings.Caption = "PayPal email";
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => item.PayPalMode, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Status + " PayPal";
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+        itemSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        ComboBoxSettings cbSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+        cbSettings.Properties.DataSource = Enum.GetNames(typeof(PayPalMode));
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = Resources.CashOnDelivery; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "CashOnDelivery";
+        Html.RenderPartial("../OwnerApplicationSettings/PaymentMethodAttribute");
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = Resources.BankDeposit; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "BankDeposit";
+        Html.RenderPartial("../OwnerApplicationSettings/PaymentMethodAttribute");
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = "Paypal"; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "PayPal";
+        Html.RenderPartial("../OwnerApplicationSettings/PaymentMethodAttribute");
+    });
+
+    b2cGroup.Items.Add(item => { item.Name = ""; item.Caption = Resources.Customer; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "B2CDefaultCustomer";
+        Html.RenderPartial("../OwnerApplicationSettings/B2CDefaultCustomer");
+    });
+
+    b2cGroup.Items.Add(item => item.Fonts, itemSettings =>
+    {
+        itemSettings.Caption = Resources.Font;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.ComboBox;
+        itemSettings.VerticalAlign = FormLayoutVerticalAlign.Top;
+        ComboBoxSettings cbSettings = (ComboBoxSettings)itemSettings.NestedExtensionSettings;
+        cbSettings.Properties.DataSource = ViewBag.Fonts;
+        if (ViewMode)
+        {
+            itemSettings.NestedExtensionSettings.Enabled = false;
+        }
+    });
+
+    MVCxFormLayoutGroup<OwnerApplicationSettings> groupGDPR = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = Resources.GDPRSettings;
+        groupSettings.ColCount = 3;
+    });
+
+    groupGDPR.Items.Add(itemSettings=> itemSettings.CustomerExportProtocolReport, item => { item.Name = ""; item.Caption = Resources.GDPRCustomerExportReport; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "CustomerExportProtocolReport";
+        Html.RenderPartial("ReportsComboBox");
+    });
+    groupGDPR.Items.Add(itemSettings => itemSettings.CustomerAnonymizationProtocolReport, item => { item.Name = ""; item.Caption = Resources.GDPRCustomerAnonymizationReport; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "CustomerAnonymizationProtocolReport";
+        Html.RenderPartial("ReportsComboBox");
+    });
+    groupGDPR.Items.Add(itemSettings => itemSettings.SupplierExportProtocolReport, item => { item.Name = ""; item.Caption = Resources.GDPRSupplierExportReport; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "SupplierExportProtocolReport";
+        Html.RenderPartial("ReportsComboBox");
+    });
+    groupGDPR.Items.Add(itemSettings => itemSettings.SupplierAnonymizationProtocolReport, item => { item.Name = ""; item.Caption = Resources.GDPRSupplierAnonymizationReport; item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; item.VerticalAlign = FormLayoutVerticalAlign.Top; }).SetNestedContent(() =>
+    {
+        ViewData["Name"] = "SupplierAnonymizationProtocolReport";
+        Html.RenderPartial("ReportsComboBox");
+    });
+
+}).GetHtml()
+

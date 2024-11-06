@@ -1,0 +1,170 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Name = "grdDocumentSeries";
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Store.Name";
+        col.Caption = Resources.Store;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PrintedCode";
+        col.Caption = Resources.PrintedCode;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsCancelingSeries";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.IsCancelingSeries;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "HasAutomaticNumbering";
+        col.Caption = Resources.HasAutomaticNumbering;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        (col.PropertiesEdit as CheckBoxProperties).ValueChecked = true;
+        (col.PropertiesEdit as CheckBoxProperties).ValueGrayed = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueUnchecked = false;
+        (col.PropertiesEdit as CheckBoxProperties).ValueType = typeof(bool);
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "eModule";
+        col.Caption = Resources.Module;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "POS.Name";
+        col.Caption = Resources.POS;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "DocumentSeries", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "DocumentSeries", Action = "UpdatePartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DocumentSeries", Action = "UpdatePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.KeyboardSupport = false;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.MenuDocumentSettigsDocumentSeries;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.CommandColumn.Caption = Resources.Actions;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.Enabled = false;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.SettingsText.PopupEditFormCaption = Resources.DocumentSeries;
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewData["item"] = item;
+
+
+        switch (ITS.Retail.WebClient.MvcApplication.ApplicationInstance)
+        {
+            case eApplicationInstance.DUAL_MODE:
+                Html.RenderPartial("EditDocumentSeries");
+                break;
+            case eApplicationInstance.STORE_CONTROLER:
+                Html.RenderPartial("EditDocumentSeriesSequence");
+                break;
+            case eApplicationInstance.RETAIL:
+                Html.RenderPartial("EditDocumentSeries");
+                break;
+        }
+    });
+}).Bind(Model).GetHtml()

@@ -1,0 +1,47 @@
+﻿@{
+    Wizard wizard = ViewData["Wizard"] as Wizard;
+}
+
+@Html.DevExpress().PopupControl(popUpSettings =>
+    {
+        popUpSettings.AccessibilityCompliant = true;
+        popUpSettings.LoadContentViaCallback = LoadContentViaCallback.None;
+        popUpSettings.Name ="WizardPopup";
+        popUpSettings.SettingsLoadingPanel.Enabled = true;        
+        popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";
+
+        if (!String.IsNullOrWhiteSpace(wizard.CloseUpEvent))
+        {
+            popUpSettings.ClientSideEvents.CloseUp = wizard.CloseUpEvent;
+        }
+
+        if (!String.IsNullOrWhiteSpace(wizard.OnShownEvent))
+        {
+            popUpSettings.ClientSideEvents.Shown = wizard.OnShownEvent;
+        }
+
+        popUpSettings.Width = wizard.Width;
+        popUpSettings.Height = wizard.Height;
+        popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+        popUpSettings.AllowDragging = true;
+        popUpSettings.CloseAction = CloseAction.CloseButton;
+        popUpSettings.PopupAnimationType = AnimationType.Auto;
+        popUpSettings.HeaderText = wizard.HeaderText == null ? "" : wizard.HeaderText;        
+        popUpSettings.ShowShadow =true;
+        popUpSettings.CloseAnimationType = AnimationType.Auto;
+        popUpSettings.ResizingMode = ResizingMode.Live;
+        popUpSettings.ShowHeader = true;     
+        popUpSettings.Modal = true;
+        popUpSettings.AllowResize = false;
+        popUpSettings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        popUpSettings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+        popUpSettings.ClientSideEvents.Shown = "function (s,e) { " + popUpSettings.Name + ".SetWidth($('#WizardStepForm').width()+100);" + popUpSettings.Name + ".SetHeight(550);" + popUpSettings.Name + ".UpdatePosition(); }";
+
+        popUpSettings.SetContent(() =>
+        {
+            Html.RenderAction("WizardStepForm", (string)ViewBag.ControllerName, new { ID = wizard.ID, StepCommand = eWizardAction.INITIALIZE });
+        });
+
+        popUpSettings.AutoUpdatePosition = false;
+    }).GetHtml();

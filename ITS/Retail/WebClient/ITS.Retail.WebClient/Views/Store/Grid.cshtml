@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Store>
+ 
+@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+
+@if (ViewBag.CurrentUser != null)
+{
+    if (Session["UserOneStore"] != null)
+    {
+        ViewData["admin"] = false;
+        if ((BaseController.StoresThatCurrentUserOwns != null && BaseController.StoresThatCurrentUserOwns.Count > 0)
+            || (Session["StoresThatCurrentUserBuysFrom"] != null && (Session["StoresThatCurrentUserBuysFrom"] as IEnumerable<ITS.Retail.Common.ViewModel.StoreViewModel>).Count() > 0)
+            || (Session["IsAdministrator"] != null && (bool)Session["IsAdministrator"]))
+        {
+            ViewData["admin"] = true;
+        }
+    }
+}
+
+@{   
+    bool admin = (bool)ViewData["admin"];
+}
+
+@{
+    GridViewSettings settings = new GridViewSettings();
+
+    settings.AccessibilityCompliant = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if ((string)ViewData["CallbackMode"] == "SEARCH" || (string)ViewData["CallbackMode"] == "DELETESELECTED" || (string)ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+        {
+            grid.Selection.UnselectAll();
+        }
+    };
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.VisibleIndex = 0;
+
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+    ITS.Retail.Common.ViewModel.StoreViewModel currentStore = (Session["currentStore"] as ITS.Retail.Common.ViewModel.StoreViewModel);
+    bool applicationRefersToOneStore = ((MvcApplication.ApplicationInstance == eApplicationInstance.DUAL_MODE || MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER)
+                && currentStore != null);
+
+    if (admin && (Session["IsAdministrator"] != null && (bool)Session["IsAdministrator"])  && !applicationRefersToOneStore)
+    {
+        settings.ClientSideEvents.EndCallback = "RefreshCompaniesAndStoresMenu";
+    }
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.Caption = Resources.Code;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = Unit.Percentage(20);
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Name";
+        column.Caption = Resources.Name;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = Unit.Percentage(20);
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsCentralStore";
+        column.Caption = Resources.IsCentralStore;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        column.Width = Unit.Percentage(10);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Address.Street";
+        column.Caption = Resources.Street;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = Unit.Percentage(20);
+
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Address.PostCode";
+        column.Caption = Resources.PostCode;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = Unit.Percentage(20);
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Address.POBox";
+        column.Caption = Resources.POBox;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = Unit.Percentage(20);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ReferenceCompany.Description";
+        column.Caption = Resources.ReferenceCompany;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.Width = Unit.Percentage(20);
+    });
+
+    //FranchiseCompany
+
+    settings.Name = "grdStore";
+
+    settings.Settings.ShowPreview = true;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowAsPopup;
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Store", Action = "Grid" };
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Store", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Store", Action = "UpdatePartial" };
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = false;
+    settings.SettingsCookies.StoreColumnsWidth = false;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = false;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Stores;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.Settings.UseFixedTableLayout = true;
+    settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+    settings.SettingsPager.AlwaysShowPager = true;
+    Session["StoreGridSettings"] = settings;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

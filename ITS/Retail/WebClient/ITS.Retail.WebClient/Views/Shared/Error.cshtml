@@ -1,0 +1,41 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using System.Web.Optimization;
+
+@{
+    Layout = "~/Views/Shared/ErrorLayout.cshtml";
+}
+
+<!DOCTYPE HTML>
+<!--[if IE]>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<![endif]-->
+<html>
+    <head>
+        <title>Error 500</title>
+        
+        @Scripts.Render("~/bundles/mainpage.js")
+
+        <link href="@Url.Content("~/Content/css/Init.css?ver=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/css/Error.css?ver=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css" />
+        <link rel="shortcut icon" media="all" type="image/x-icon" href="@Url.Content("~/Content/favicon.ico")" />
+    </head>
+    <body>
+        <div class="wrapper_error">
+            <div class="error error500">
+            </div>
+            <div class="container">
+                <p>Sorry it's not you...It's us!!</p><p> We recommend you contact with ITS S.A.</p>
+                <p style="font-size:xx-large">@Model.Exception.GetFullMessage()</p>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+

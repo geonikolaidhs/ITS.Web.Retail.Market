@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW ITS_V_COMMON_PRODUCT_INFO
+ (
+ PRODUCTID, PRODUCTBARCODE, PRODUCTPRICEPERUNIT, PRODUCTDESCRIPTION, PRODUCTPOINTS, BARCODEPOINTS,
+MM, PMM, PMP, PRICEPERMEASUREUNIT, COMPCODE, CHAINPRODUCT, CHAINPRODUCTQUANTITY
+
+ )
+ AS 
+Select   
+item_ms.intcode,   
+item_bc.barcode,   
+case when (sysdate between item_ex.fromdate and item_ex.todate) then item_ex.timeprice else item_ex.unitprice end, 
+item_ms.descr,   
+case when item_si.points is null OR NOT (sysdate between item_si.fromdate and item_si.todate) then 0 else item_si.points end PONTOI,  
+case when item_bc.points is null OR NOT (sysdate between item_bc.fromdate and item_bc.todate) then 0 else item_bc.points end BARCODEPONTOI,  
+item_ad.mm,  
+item_ad.pmm,  
+item_ad.pmp,  
+TRUNC((case when (sysdate between item_ex.fromdate and item_ex.todate) then item_ex.timeprice else item_ex.unitprice end) * ( case when item_ms.uom = 2 then 1 else (item_ad.pmm / item_ad.pmp) end),2),
+item_ex.compcode,  
+item_ms.chainplu,  
+item_ms.chainpluquan  
+   
+From   
+item_ms join item_bc on item_ms.intcode = item_bc.intcode   
+join item_ex on item_ms.intcode = item_ex.intcode   
+join item_si on item_ex.intcode = item_si.intcode and item_ex.compcode = item_si.compcode   
+join item_ad on item_ms.intcode = item_ad.intcode   
+   
+Where   
+(item_ex.pricetype = 'F') and   
+(item_ex.pricelist = 1) and  
+(item_ms.ISDELETED = 'F')
+/

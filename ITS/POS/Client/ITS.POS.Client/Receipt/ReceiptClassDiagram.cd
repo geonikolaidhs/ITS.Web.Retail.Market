@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ITS.POS.Client.Receipt.DetailGroup">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\DetailGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.SimpleLine">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\SimpleLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.DynamicLine">
+    <Position X="9" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\DynamicLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.DynamicLineCell">
+    <Position X="11.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAgAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\DynamicLineCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.Receipt">
+    <Position X="0.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Receipt\Receipt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.ReceiptElement">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\ReceiptElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.ReceiptLine">
+    <Position X="7.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAACAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Receipt\ReceiptLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.ReceiptPart">
+    <Position X="0.5" Y="2.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\ReceiptPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Receipt.ReceiptSchema">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAIAAAAAAAAAAAAAAAEAAQAAQA=</HashCode>
+      <FileName>Receipt\ReceiptSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ITS.POS.Client.Receipt.eAlignment">
+    <Position X="12.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAIAA=</HashCode>
+      <FileName>Receipt\eAlignment.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.POS.Client.Receipt.eCondition">
+    <Position X="10.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAgQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Receipt\eCondition.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.POS.Client.Receipt.eSource">
+    <Position X="10.25" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Receipt\eSource.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

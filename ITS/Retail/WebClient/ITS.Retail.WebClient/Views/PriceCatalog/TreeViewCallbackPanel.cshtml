@@ -1,0 +1,12 @@
+﻿@Html.DevExpress().CallbackPanel(set =>
+    {
+
+        set.Name = "priceCatalogTreeViewCbPanel";
+        set.CallbackRouteValues = new { Controller = "PriceCatalog", Action = "TreeViewCallbackPanel" };
+        set.ClientSideEvents.BeginCallback = "OnBeginCallbackTreeViewCbPanel";
+        set.ClientSideEvents.EndCallback = "OnEndCallbackTreeViewCbPanel";
+        set.SetContent(() =>
+        {
+            Html.RenderPartial("TreeView");
+        });
+    }).GetHtml()

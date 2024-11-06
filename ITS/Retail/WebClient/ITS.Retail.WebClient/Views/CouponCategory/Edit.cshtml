@@ -1,0 +1,32 @@
+﻿@model CouponCategoryViewModel
+
+@using (Html.BeginForm("Save", "CouponCategory", FormMethod.Post, new { id = "EditForm" }))
+{
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+    headerOptions.CancelButton.OnClick = "CouponCategory.CancelEdit";
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+
+    ViewContext.Writer.Write("<input type='hidden' id='Oid' name='Oid' value='" + Model.Oid.ToString() + "'/>");
+    ViewContext.Writer.Write("<input type='hidden' id='Owner' name='Owner' value='" + Model.Owner.ToString() + "'/>");   
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Code";
+        edtSettings.Properties.Caption = Resources.Code;
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(DataBinder.Eval(Model, "Code")).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Description";
+        edtSettings.Properties.Caption = Resources.Description;
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(DataBinder.Eval(Model, "Description")).Render();
+}

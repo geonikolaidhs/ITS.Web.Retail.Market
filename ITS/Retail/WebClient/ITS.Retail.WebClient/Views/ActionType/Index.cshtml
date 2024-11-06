@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ITS.Retail.Model.ActionType>
+@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = Resources.ActionTypes;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/ActionType.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/RecalculateActionTypes.min.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/require.js")" type="text/javascript"></script>*@ @*TODO Use require.js*@
+}
+
+@section DialogCallbackPanelSection
+{
+    @Html.Partial("DialogCallbackPanel")
+}
+
+@Html.Partial("Grid", Model)
+
+@Html.Partial("../Shared/_ActionTypeRecalculateForm",new ITS.Retail.Common.ViewModel.ActionRecalculateCriteria())

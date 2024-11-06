@@ -1,0 +1,21 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+<div class="row col">
+    <div class="col-md-4 col-xs-6 col ">
+        @{Html.RenderAction("CustomDataViewsComboBox", "VariableValuesDisplay");}
+        <br/>
+        @Html.DevExpress().Button(btn_settings =>
+        {
+            btn_settings.Name = "BtnDisplay";
+            btn_settings.Text = Resources.Show;
+            btn_settings.ControlStyle.CssClass = "button";
+            btn_settings.ClientSideEvents.Click = "VariableValuesDisplay.DisplayVariableValues";
+        }).GetHtml()
+    </div>
+
+    <div id="VariableValuesForm" class="col-md-8 col-xs-6 col Document">
+        @Html.Partial("VariableValues")
+    </div>
+</div>

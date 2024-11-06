@@ -1,0 +1,117 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+    
+@if (ViewBag.NoResults != null)
+{
+    <h3 class="empty">@Resources.YourSearchHasNoResults</h3>
+}       
+else if (Model != null)
+{
+    <ul>
+        @foreach (KeyValuePair<string, object> results in Model)
+        {
+            if (results.Key == "Item")
+            {
+                if (results.Value!=null)
+                { 
+                    <li class="category">
+                        <h3>@Resources.Items</h3>
+
+                        <ul>
+                            @foreach (Item item in results.Value as IEnumerable<Item>)
+                            {
+                                <li class="child item">
+                                    <div class="pull-left width-10-perc"><span class="fa fa-eye fa-2x" data-id="@item.Oid" data-type="item"></span></div>
+                                    <div class="pull-left width-90-perc"><span class="title">@item.Code @{ ViewContext.Writer.Write(item.DefaultBarcode != null && item.Code != item.DefaultBarcode.Code ? " / " + item.DefaultBarcode : ""); } -  @item.Description</span></div>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+            if (results.Key == "Customer")
+            {
+                if (results.Value!=null)
+                { 
+                    <li class="category">
+                        <h3>@Resources.Customers</h3>
+
+                        <ul>                
+                            @foreach (Customer customer in results.Value as IEnumerable<Customer>)
+                            {
+                                <li class="child">
+                                    <span class="fa fa-eye fa-2x" data-id="@customer.Oid" data-type="customer"></span><span class="title">@customer.Code - @customer.CompanyName</span>
+                                </li>
+                            }
+                        </ul>
+                    </li>          
+                }
+
+            }
+            if (results.Key == "Supplier")
+            {
+                if (results.Value!=null)
+                { 
+                    <li class="category">
+                        <h3>@Resources.Suppliers</h3>
+
+                        <ul>     
+                            @foreach (SupplierNew supplier in results.Value as IEnumerable<SupplierNew>)
+                            {
+                                <li class="child">
+                                    <span class="fa fa-eye fa-2x" data-id="@supplier.Oid" data-type="supplier"></span><span class="title">@supplier.Code - @supplier.CompanyName</span>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+            }
+            if (results.Key == "Company")
+            {
+                if (results.Value!=null)
+                {                 
+                    <li class="category">
+                        <h3>@Resources.Company</h3>
+
+                        <ul>
+                            @foreach ( CompanyNew company in results.Value as IEnumerable<CompanyNew>)
+                            {
+                                <li class="child">
+                                    <span class="fa fa-eye fa-2x" data-id="@company.Oid" data-type="company"></span><span class="title">@company.CompanyName</span>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+            }
+            if (results.Key == "User")
+            {
+                if (results.Value!=null)
+                {                 
+                    <li class="category">
+                        <h3>@Resources.Users</h3>
+
+                        <ul>
+                            @foreach (User user in results.Value as IEnumerable<User>)
+                            {
+                                <li class="child">
+                                    <span class="fa fa-eye fa-2x" data-id="@user.Oid" data-type="user"></span><span class="title">@user.FullName</span>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+            }            
+        }
+
+    </ul>
+}
+else
+{
+    <h3 class="empty">@Resources.PleaseAddYourSearchTerm</h3>
+}
+

@@ -1,0 +1,9 @@
+﻿@Html.DevExpress().CallbackPanel(cpb_settings =>
+{
+    cpb_settings.Name = "AddressesCallbackPanel";
+    cpb_settings.CallbackRouteValues = new { Controller = "Membership", Action = "AddressesCallbackPanel" };    
+    cpb_settings.SetContent(() =>
+    {
+        Html.RenderPartial("Addresses");
+    });
+}).GetHtml()

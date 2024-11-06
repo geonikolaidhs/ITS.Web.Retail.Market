@@ -1,0 +1,18 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.MenuAdministrationDatabaseUpgrade;
+}
+<div>
+    @Html.DevExpress().Button(btn => 
+    {
+        btn.Name ="btnUpgradeDB";
+        btn.Text = Resources.MenuAdministrationDatabaseUpgrade;
+        btn.RouteValues = new { Controller = "Tools", Action = "UpgradeDB" };
+    }).GetHtml()
+
+    @Html.DevExpress().Label(lbl=>
+    {
+        lbl.Name = "lblMessage";
+        lbl.Text = @ViewBag.DatabaseMessage;
+    }).GetHtml()
+</div>

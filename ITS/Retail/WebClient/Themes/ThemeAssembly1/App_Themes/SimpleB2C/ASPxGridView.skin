@@ -1,0 +1,26 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxGridView runat="server" CssFilePath="{0}/styles.css" CssPostfix="SimpleB2C">
+    <SettingsPager CurrentPageNumberFormat="{0}">
+        <PageSizeItemSettings ShowPopupShadow="False">
+            <DropDownImage>
+                <SpriteProperties HottrackedCssClass="dxWeb_pPopOutHover_SimpleB2C" PressedCssClass="dxWeb_pPopOutPressed_SimpleB2C" />
+            </DropDownImage>
+        </PageSizeItemSettings>
+    </SettingsPager>
+    <Images SpriteCssFilePath="{0}/sprite.css">
+        <LoadingPanelOnStatusBar Url="GridView/gvLoadingOnStatusBar.gif" />
+        <LoadingPanel Url="GridView/Loading.gif" />
+    </Images>
+    <Styles CssPostfix="SimpleB2C" CssFilePath="{0}/styles.css" />
+    <StylesPager>
+        <Pager ItemSpacing="0px" Spacing="0px" />
+    </StylesPager>
+    <StylesEditors>
+        <Calendar>
+            <Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" />
+        </Calendar>
+    </StylesEditors>
+</dx:ASPxGridView>
+

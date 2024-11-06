@@ -1,0 +1,164 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Platform.Enumerations;
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+<table class="style_table">
+    <tr>
+        <td class='head' colspan="4"><h2>@Resources.CustomerDetails</h2></td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.Code/@Resources.CompanyName </td>
+        <td colspan="4">
+            @{
+                if (document != null && document.Customer != null)
+                {
+                    ViewContext.Writer.Write(document.Customer.Code.TrimStart(("0").ToCharArray()) + " / " + document.Customer.CompanyName);
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.TaxCode </td>
+        <td colspan="4">
+            @{
+                if (document != null && document.Customer != null && document.Customer.Trader != null && document.Customer.Trader.TaxOfficeLookUp != null)
+                {
+                    ViewContext.Writer.Write(document.Customer.Trader.TaxCode);
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels'>@Resources.Profession </td>
+        <td colspan="2">
+            @{
+                if (document != null && document.Customer != null)
+                {
+                    ViewContext.Writer.Write(document.Customer.Profession);
+                }
+            }
+        </td>
+    </tr>
+    @{
+        if ((bool)ViewData["GDPREnabled"] == true)
+        {
+            ViewContext.Writer.Write("<tr><td class='infoLabels'>" + Resources.DefaultPhone + " *</td><td colspan=\"2\">");
+
+            if (document != null && document.Customer != null)
+            {
+                String phone = (document.Customer.DefaultAddress != null && document.Customer.DefaultAddress.DefaultPhone != null) ? document.Customer.DefaultAddress.DefaultPhone.Number : "-";
+                ViewContext.Writer.Write(phone);
+            }
+            ViewContext.Writer.Write("</td></tr>");
+        }
+    }
+    <tr>
+        <td class='infoLabels'>@Resources.CardID  </td>
+        <td colspan="2">
+            @{
+                if (document != null && document.Customer != null)
+                {
+                    string cardID = document.Customer.CardID;
+                    ViewContext.Writer.Write(cardID);
+                }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class='infoLabels bolder'>@Resources.TaxOffice</td>
+        <td class='bolder'>
+            @{
+                if (document != null && document.Customer != null && document.Customer.Trader != null && document.Customer.Trader.TaxOffice != null && document.Customer.Trader.TaxOfficeLookUp != null)
+                {
+                    ViewContext.Writer.Write(document.Customer.Trader.TaxOfficeLookUp.Description);
+                }
+            }
+        </td>
+    </tr>
+    @if (document != null && document.Customer != null)
+    {
+        <tr>
+            <td class='infoLabels required_field'>@Resources.DeliveryAddress </td>
+            <td colspan="5">
+                @Html.DevExpress().TextBox(tbx_settings =>
+                          {
+                              tbx_settings.Name = "DeliveryAddress";
+                              tbx_settings.Text = document.DeliveryAddress;
+                              tbx_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                              tbx_settings.Enabled = true;
+                              tbx_settings.ClientEnabled = false;
+                          }).GetHtml()
+            </td>
+            <td>
+                <input type="hidden" id="DeliveryStreet" value="" />
+                <input type="hidden" id="DeliveryPOBox" value="" />
+                <input type="hidden" id="DeliveryPostCode" value="" />
+                <input type="hidden" id="DeliveryCity" value="" />
+                <input type="hidden" id="DeliveryProfession" value="" />
+                @if (!ViewBag.InViewMode)
+                {
+                    @Html.DevExpress().Image(btnSettings =>
+                              {
+                                  btnSettings.Name = "btnSelectDelivery";
+                                  btnSettings.ImageUrl = "~/Content/img/post.png?ver=" + ViewData["ApplicationVersionNumber"];
+                                  btnSettings.ToolTip = Resources.SelectDelivery;
+                                  btnSettings.Properties.ClientSideEvents.Click = "SelectDeliveryAddress";
+                              }).GetHtml()
+                }
+            </td>
+        </tr>
+        <tr>
+            <td class='infoLabels required_field'>@Resources.Profession </td>
+            <td colspan="5">
+                @Html.DevExpress().TextBox(tbx_settings =>
+                          {
+                              tbx_settings.Name = "DeliveryProfession";
+                              tbx_settings.Text = document.DeliveryProfession;
+                              tbx_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                              tbx_settings.Enabled = true;
+                              tbx_settings.ClientEnabled = false;
+                          }).GetHtml()
+            </td>
+        </tr>
+
+        <tr>
+            <td class='infoLabels'>@Resources.Discount % : </td>
+            <td colspan="5">
+
+
+                @Html.DevExpress().SpinEdit(
+                         settings =>
+                         {
+                             settings.Name = "CustomerDiscount";
+                             settings.Properties.DisplayFormatString = "p";
+                             settings.Properties.DisplayFormatInEditMode = false;
+                             settings.Properties.NumberFormat = SpinEditNumberFormat.Number;
+                             settings.Properties.NumberType = SpinEditNumberType.Float;
+                             settings.Properties.MinValue = 0;
+                             settings.Properties.MaxValue = 100;
+                             settings.Properties.Increment = 1M;
+                             settings.Properties.DecimalPlaces = 2;
+                             settings.Properties.SpinButtons.ShowIncrementButtons = true;
+                             settings.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                             settings.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                             settings.Properties.ClientSideEvents.NumberChanged = "OnDefaultCustomerDiscountChanged";
+                             settings.Enabled = true;
+                             settings.Properties.AllowMouseWheel = false;
+                             settings.ClientEnabled = true;
+                             settings.Number = document.DefaultCustomerDiscount;
+
+
+
+
+                         }
+                 ).GetHtml()
+            </td>
+        </tr>
+
+    }
+</table>

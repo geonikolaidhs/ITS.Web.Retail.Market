@@ -1,0 +1,12 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+
+
+@Html.React("Components.PosRecovery", new
+{
+    initialData = Model,
+    urlGetDocumentHeaders = Url.Action("GetDocumentHeaders", "POSRecovery"),
+    urlGetPOSTransactionFiles = Url.Action("GetPOSTransactionFiles", "POSRecovery"),
+    language = Response.Cookies["_culture"].Value
+})

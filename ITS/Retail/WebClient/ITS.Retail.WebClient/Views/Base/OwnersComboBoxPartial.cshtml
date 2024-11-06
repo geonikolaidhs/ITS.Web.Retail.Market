@@ -1,0 +1,47 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+
+@{
+    object val = DataBinder.Eval(ViewData["UserSupplier"], "Oid");
+    Guid oid = Guid.Empty;
+    if( val != null )
+    {
+        oid = (Guid)val;
+    }
+    List<Guid> listOid = new List<Guid>() { oid };
+}
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Properties.Caption = Resources.Company;
+    combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    combosettings.Name = "OwnersComboBox";
+    combosettings.CallbackRouteValues = new { Controller = "Base", Action = "OwnersComboBoxPartial" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.ClientEnabled = ViewData["EnableOwnersComboBox"] == null ? true : (bool)ViewData["EnableOwnersComboBox"];
+
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ValueType = typeof(Guid);
+
+    combosettings.Properties.Columns.Add("CompanyName", Resources.CompanyName);
+    combosettings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode);
+    combosettings.Properties.TextField = "CompanyName";
+    combosettings.ControlStyle.CssClass = "search_filter";
+    if (ViewData["IsRequiredOwnersComboBox"] != null && (bool)ViewData["IsRequiredOwnersComboBox"])
+    {
+        combosettings.ShowModelErrors = true;
+        combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 0;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Add;
+    combosettings.Properties.Buttons.Add(button);
+}).BindList(BaseController.OwnersRequestedByFilterCondition, BaseController.ObjectRequestedByValue<CompanyNew>).Bind(ViewData["UserSupplier"], "Oid").GetHtml()
+
+

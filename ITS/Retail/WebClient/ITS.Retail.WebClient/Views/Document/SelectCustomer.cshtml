@@ -1,0 +1,51 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "storeCustomers";
+    cmb_settings.Properties.TextField = "Customer";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    if (ViewBag.InViewMode)
+    {
+        cmb_settings.Enabled = false;
+        cmb_settings.ClientEnabled = false;
+    }
+    else
+    {
+        cmb_settings.Properties.ClientSideEvents.ValueChanged = "UpdateDocHeader";
+        cmb_settings.Properties.ClientSideEvents.KeyPress = "CheckIfEnterKeyPressed";
+    }
+
+    cmb_settings.Properties.Columns.Add("CompanyName", Resources.CompanyName, 90);
+    cmb_settings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode, 90);
+    cmb_settings.Properties.Columns.Add("Code", Resources.Code, 90);
+    cmb_settings.Properties.CallbackPageSize = 15;
+    cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_settings.Properties.FilterMinLength = 2;
+    cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearCustomerComboBox";
+    var button = new EditButton(" ");
+    button.Visible = !freezeEdit;
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Visible = false;
+    cmb_settings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+    button = new EditButton("");
+    button.Image.Url = Url.Content("~/Content/img/search.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Search;
+    cmb_settings.Properties.Buttons.Add(button);
+    cmb_settings.CallbackRouteValues = new { Controller = "Document", Action = "ReturnView", ViewName = "SelectCustomer", IsPartial = true };
+    cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+}).BindList(DocumentController.TraderRequestedByFilterCondition<Customer>, DocumentController.ObjectRequestedByValue<Customer>).BindList(DocumentController.GetObjectByValue<Customer>(DataBinder.Eval(document, "Customer!Key"))).Bind(DataBinder.Eval(document, "Customer!Key")).GetHtml()
+
+       
+

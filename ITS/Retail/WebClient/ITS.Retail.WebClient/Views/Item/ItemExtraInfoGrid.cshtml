@@ -1,0 +1,296 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Common;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    string gridName = "";
+    eApplicationInstance applicationInstance = ViewBag.ApplicationInstance;
+    bool editOnSC = applicationInstance == eApplicationInstance.STORE_CONTROLER || applicationInstance == eApplicationInstance.DUAL_MODE;
+
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true)
+    {
+        settings.Name = "grdItemExtraInfo";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                  "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>"
+                );
+
+            });
+
+
+            if (ViewBag.ApplicationInstance == eApplicationInstance.RETAIL || ViewBag.ApplicationInstance == eApplicationInstance.DUAL_MODE)
+            {
+                column.SetHeaderTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(
+                        "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+                    );
+                });
+            }
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "ItemExtraInfoGrid", editMode = true };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Item", Action = "UpdateItemExtraInfo" };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Item", Action = "AddItemExtraInfo" };
+
+        settings.ClientSideEvents.BeginCallback = "OnBeginCallbackItemExtraInfoStoreGrid";
+        gridName = "grdItemExtraInfoEdit";
+    }
+    else
+    {
+        settings.Name = "grdItemExtraInfoRow" + ViewData["ItemID"];
+        settings.CallbackRouteValues = new { Controller = "Item", Action = "ItemExtraInfoGrid", ItemID = ViewData["ItemID"], editMode = false };
+        gridName = "grdItemExtraInfoView";
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+        col.FieldName = "ExpiresAt";
+        col.Caption = Resources.ExpiresAt;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+        col.FieldName = "PackedAt";
+        col.Caption = Resources.PackedAt;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+        col.FieldName = "Ingredients";
+        col.Caption = Resources.Ingredients;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+        col.FieldName = "Lot";
+        col.Caption = Resources.Lot;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+        col.FieldName = "Origin";
+        col.Caption = Resources.Origin;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    if (!editOnSC)
+    {
+        settings.Columns.Add(col =>
+        {
+            col.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+            col.FieldName = "Store.Name";
+            col.Caption = Resources.Store;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        });
+    };
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Pixel(430);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.ItemExtraInfo;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowNewButton = true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.ItemExtraInfo;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["Item"] = item;
+        ViewData["Tab"] = "ItemExtraInfo";
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnItemExtraInfoUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnItemExtraInfoCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        if (!editOnSC)
+        {
+            Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Store + ":";
+            }
+            ).Render();
+            Html.RenderPartial("StoresComboBoxPartial", ViewData["Item"]);
+
+            ViewContext.Writer.Write("</td><td>");
+        }
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ItemExtraInfoDescription";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Properties.Caption = Resources.Description;
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ItemExtraInfoLot";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Properties.Caption = Resources.Lot;
+        }).Bind(DataBinder.Eval(item, "Lot")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Memo(edtSettings =>
+        {
+            edtSettings.Name = "ItemExtraInfoIngredients";
+            edtSettings.Properties.Caption = Resources.Ingredients;
+            edtSettings.ControlStyle.CssClass = "form-control";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Properties.Rows = 6;
+        }).Bind(DataBinder.Eval(item, "Ingredients")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().DateEdit(dt_settings =>
+        {
+            dt_settings.Name = "ItemExtraInfoPackedAt";
+            dt_settings.Properties.Caption = Resources.PackedAt;
+            dt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            dt_settings.Properties.EditFormat = EditFormat.DateTime;
+        }).Bind(DataBinder.Eval(item, "PackedAt")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().DateEdit(dt_settings =>
+        {
+            dt_settings.Name = "ItemExtraInfoExpiresAt";
+            dt_settings.Properties.Caption = Resources.ExpiresAt;
+            dt_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            dt_settings.Properties.EditFormat = EditFormat.DateTime;
+        }).Bind(DataBinder.Eval(item, "ExpiresAt")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ItemExtraInfoOrigin";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Properties.Caption = Resources.Origin;
+        }).Bind(DataBinder.Eval(item, "Origin")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+
+}).Bind(Model).GetHtml()

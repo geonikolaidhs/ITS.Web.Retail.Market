@@ -1,0 +1,52 @@
+﻿//colors
+$color_mountain_mist_approx: rgba(153, 153, 153, 1);
+$color_stack_approx: rgba(141, 141, 141, 1);
+$color_valencia_approx: rgba(216, 60, 60, 1);
+$color_pastel_green_29_approx: rgba(90, 236, 142, 0.29);
+$color_chateau_green_approx: rgba(54, 189, 102, 1);
+$color_guardsman_red_approx: rgba(207, 0, 0, 1);
+
+.user {
+	form {
+		margin-top: 30px;
+		input {
+			width: 300px;
+		}
+		#UserSubmit {
+			float: left;
+		}
+	}
+	label {
+		color: $color_mountain_mist_approx;
+		float: none;
+		margin-bottom: 5px;
+	}
+	.dxeTextBox_SimpleB2C {
+		margin-bottom: 30px;
+	}
+	.dxeMemo_SimpleB2C {
+		margin-bottom: 30px;
+	}
+	#success {
+		background: $color_pastel_green_29_approx;
+		padding: 20px;
+		margin-bottom: 50px;
+		border: 5px solid #36BD66;
+	}
+	.grey {
+		color: #CF0000;
+		font-weight: bold;
+		text-align: left;
+		font-size: .9em;
+		margin: -20px 0 25px;
+	}
+	.steps li {
+		color: $color_stack_approx;
+		margin: 10px 0 0;
+		span {
+			color: $color_valencia_approx;
+			display: inline-block;
+			margin: 0 5px 0 0;
+		}
+	}
+}

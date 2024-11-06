@@ -1,0 +1,132 @@
+.dxXtraReports_BtnFirstPage_SimpleB2C,
+.dxXtraReports_BtnFirstPageDisabled_SimpleB2C,
+.dxXtraReports_BtnLastPage_SimpleB2C,
+.dxXtraReports_BtnLastPageDisabled_SimpleB2C,
+.dxXtraReports_BtnNextPage_SimpleB2C,
+.dxXtraReports_BtnNextPageDisabled_SimpleB2C,
+.dxXtraReports_BtnPrevPage_SimpleB2C,
+.dxXtraReports_BtnPrevPageDisabled_SimpleB2C,
+.dxXtraReports_BtnPrint_SimpleB2C,
+.dxXtraReports_BtnPrintDisabled_SimpleB2C,
+.dxXtraReports_BtnPrintPage_SimpleB2C,
+.dxXtraReports_BtnPrintPageDisabled_SimpleB2C,
+.dxXtraReports_BtnSave_SimpleB2C,
+.dxXtraReports_BtnSaveDisabled_SimpleB2C,
+.dxXtraReports_BtnSaveWindow_SimpleB2C,
+.dxXtraReports_BtnSaveWindowDisabled_SimpleB2C,
+.dxXtraReports_BtnSearch_SimpleB2C,
+.dxXtraReports_BtnSearchDisabled_SimpleB2C
+{
+	background: transparent url('<%=WebResource("ThemeAssembly1.App_Themes.SimpleB2C.XtraReports.sprite.png")%>') no-repeat;
+}
+
+.dxXtraReports_BtnFirstPage_SimpleB2C {
+    background-position: -16px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnFirstPageDisabled_SimpleB2C {
+    background-position: -16px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnLastPage_SimpleB2C {
+    background-position: -32px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnLastPageDisabled_SimpleB2C {
+    background-position: -32px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnNextPage_SimpleB2C {
+    background-position: -64px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnNextPageDisabled_SimpleB2C {
+    background-position: -64px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnPrevPage_SimpleB2C {
+    background-position: -48px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnPrevPageDisabled_SimpleB2C {
+    background-position: -48px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnPrint_SimpleB2C {
+    background-position: -80px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnPrintDisabled_SimpleB2C {
+    background-position: -80px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnPrintPage_SimpleB2C {
+    background-position: -96px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnPrintPageDisabled_SimpleB2C {
+    background-position: -96px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnSave_SimpleB2C {
+    background-position: -112px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnSaveDisabled_SimpleB2C {
+    background-position: -112px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnSaveWindow_SimpleB2C {
+    background-position: -128px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnSaveWindowDisabled_SimpleB2C {
+    background-position: -128px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnSearch_SimpleB2C {
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxXtraReports_BtnSearchDisabled_SimpleB2C {
+    background-position: 0px -16px;
+    width: 16px;
+    height: 16px;
+}
+
+
+

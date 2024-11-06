@@ -1,0 +1,65 @@
+﻿using System;
+using System.ComponentModel;
+using System.Text;
+using System.Windows.Forms;
+using DevExpress.XtraEditors;
+using System.Collections.Generic;
+using System.Drawing;
+using ITS.POS.Model.Settings;
+using ITS.POS.Client.Helpers;
+using ITS.POS.Client.ObserverPattern;
+using ITS.POS.Client.ObserverPattern.ObserverParameters;
+using ITS.POS.Client.Actions.ActionParameters;
+using ITS.POS.Client.Kernel;
+using ITS.Retail.Platform.Enumerations;
+
+
+namespace ITS.POS.Client.UserControls
+{
+    [Obsolete("Key mappings are not set from the client. Class not removed for backwards compatibility. Excluded from designer")]
+    public partial class ucKeyMappingButton : ucActionButton
+    {
+        public ucKeyMappingButton()
+        {
+            _button.Text = "KeyMapping";
+            //Action = eActions.KEYMAPPINGS;
+        }
+
+        public bool ShouldSerializeAction()
+        {
+            //DO NOT DELETE
+            return false;
+        }
+
+        protected override void OnButtonClick(object sender, EventArgs e)
+        {
+            IActionManager actionManager = this.Kernel.GetModule<IActionManager>();
+            ISessionManager SessionManager = Kernel.GetModule<ISessionManager>();
+
+            POSKeyMapping keyMap = new POSKeyMapping(SessionManager.MemorySettings) { KeyData = Keys.None, 
+                //ActionCode = eActions.KEYMAPPINGS, 
+                ActionCode = eActions.NONE,
+                NotificationType = eNotificationsTypes.ACTION };
+            
+            actionManager.GetAction(eActions.PUBLISH_KEY_PRESS).Execute(new ActionPublishKeyPressParams(keyMap));
+            keyMap.Delete();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // Button
+            // 
+            this._button.Size = new System.Drawing.Size(108, 41);
+            // 
+            // usitsKeyMappingButton
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Name = "usitsKeyMappingButton";
+            this.ResumeLayout(false);
+
+        }
+
+    }
+}

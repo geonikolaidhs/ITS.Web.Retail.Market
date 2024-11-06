@@ -1,0 +1,43 @@
+﻿@using ITS.Retail.ResourcesLib;
+@*@using (Html.BeginForm("POSLayoutUploadForm", "POSLayout", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{*@
+
+	<div class='UploadImageForm'>
+
+	@Html.DevExpress().UploadControl(settings =>
+	   {
+		   settings.UploadMode = UploadControlUploadMode.Standard;
+           settings.Name = "MainLayoutUploadControl";
+           settings.CallbackRouteValues = new { Controller = "POSLayout", Action = "MainLayoutUploadControl" };
+		   settings.ShowProgressPanel = true;
+		   settings.ClientSideEvents.FileUploadComplete = "OnMainLayoutFileUploadComplete";
+		   settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.POSLayoutController.MainLayoutValidationSettings);
+	   }).GetHtml()
+    @Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnMainLayoutUpload";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn" ;
+            settings2.Properties.ClientSideEvents.Click = "function (s,e) { MainLayoutUploadControl.Upload(); }";
+        }
+         ).GetHtml()
+      @Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnDeleteMainLayoutFile";
+            settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Delete;
+            settings2.ControlStyle.CssClass = "deletebtn";
+            settings2.Properties.ClientSideEvents.Click = "btnDeleteMainLayoutFileClick";
+        }
+         ).GetHtml()
+        @{
+            string url = @Url.Action("ShowImage", "POSLayout") + "?type=0&time=" + DateTime.Now.Ticks;
+        }
+        <img alt='' id='previewMainImage' class='previewImage' src='@url' />
+
+	</div>
+
+@*}*@

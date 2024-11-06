@@ -1,0 +1,21 @@
+﻿  @using ITS.Retail.ResourcesLib;
+  @{
+
+      ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td>");
+
+	  Html.DevExpress().Label(
+  edtSettings =>
+  {
+	  edtSettings.Text = Resources.PortName + ":";
+  }).Render();
+
+	  ViewContext.Writer.Write("</td><td>");
+
+	  Html.DevExpress().TextBox(
+		  edtSettings =>
+		  {
+			  edtSettings.Name = "LPTPortName";
+		  }
+	  ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.LPTDeviceSettings, "PortName")).Render();
+		ViewContext.Writer.Write("</td></tr></table>");
+		}

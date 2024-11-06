@@ -1,0 +1,17 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{
+    //ViewBag.Title = Resources.TermsAndConditions; Set Dynamically on Controller
+    Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        @{
+            ViewContext.Writer.Write(ViewBag.HtmlContent);
+        }
+    </div>
+</div>

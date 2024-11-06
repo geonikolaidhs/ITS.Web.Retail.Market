@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.POS.Client.Kernel.ActionExecutor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAIAAAAAAAAAQAAAAAAABAgAAAABAAAAA=</HashCode>
+      <FileName>Kernel\ActionExecutor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.ActionManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIABAAAAggAAAAAAEAAABAAAAABgAEAAhAAA=</HashCode>
+      <FileName>Kernel\ActionManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.AppContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIAQAkAJIAGQQAggIAEIAABAAAAAIJEAACAiQABgQA=</HashCode>
+      <FileName>Kernel\AppContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.CategoryService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\CategoryService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.ConfigurationManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CUACAQAOGDARYEARIUBBCAKABApASEQEAAhAACYFAFA=</HashCode>
+      <FileName>Kernel\ConfigurationManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.CustomerService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\CustomerService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.DeviceManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACADIAAAAAhICEAAEABAQAAgSABABAAgAAAAIAA=</HashCode>
+      <FileName>Kernel\DeviceManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.FormManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCoAAAEAAAAEIAAAAAAAAAQAAAAAgAAAAACAIgAAAAI=</HashCode>
+      <FileName>Kernel\FormManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.ItemInfo" Collapsed="true">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAABAAAQAAAAAAAAAAAAAEAAAAAAAEAAAAAQAACAA=</HashCode>
+      <FileName>Kernel\ItemService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.ItemService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAEMAAAAAAAAAAAAIAQAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Kernel\ItemService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.Kernel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAJAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\Kernel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.ScannedCodeHandler" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAAIAAAAAQAAAAAAgBAAAAAIACAAAA=</HashCode>
+      <FileName>Kernel\ScannedCodeHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.SessionManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAICAAAAAASIIBACCAYABAAApQEAggQAAAApAAA=</HashCode>
+      <FileName>Kernel\SessionManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Kernel.SynchronizationManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFMAkIAKSgAsKQYIIgAEADZBSIDIQKxCISAJFxAAEMI=</HashCode>
+      <FileName>Kernel\SynchronizationManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Helpers.DocumentService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBBwWQIBA5tkIgkAIB0GQIAIDQVAAAASwIIAESAUgQQ=</HashCode>
+      <FileName>Kernel\DocumentService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Helpers.PromotionService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACAIAAEIAAAAAACgAAAAAAFAAgEAABQQAYIFBA=</HashCode>
+      <FileName>Kernel\PromotionService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Helpers.ReceiptBuilder" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UABAAEAAAAEEIAgAAgAJEAAAQAGBAAQAAAAAAAABAAI=</HashCode>
+      <FileName>Kernel\ReceiptBuilder.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ITS.POS.Client.Helpers.TotalizersService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAQAQCAAgAEIAIABAAEIACAAAAgAAAAABAJAAAEAAk=</HashCode>
+      <FileName>Kernel\TotalizersService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="ITS.POS.Client.Kernel.IAppContext" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAJIACQAAgAIAAIAABAAAAAAIEAACAiQAAgAA=</HashCode>
+      <FileName>Kernel\IAppContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IConfigurationManager" Collapsed="true">
+    <Position X="9.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CUACAQAOGDARQEARIUABCACABApASEQEAAhAACYFAFA=</HashCode>
+      <FileName>Kernel\IConfigurationManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IDeviceManager" Collapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAADIAAAAAAICEAAEABAQAAgCAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Kernel\IDeviceManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IFormManager" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACoAAAEAAAAAAAAAAAAAAAAAAAAAgAAAAACAIAAAAAI=</HashCode>
+      <FileName>Kernel\IFormHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.ISessionManager" Collapsed="true">
+    <Position X="13.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAABAACAYAAAAAhQAAAAAAAAApAAA=</HashCode>
+      <FileName>Kernel\ISessionManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.ISynchronizationManager" Collapsed="true">
+    <Position X="7" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAgAACAYIAAAAABJAAAAAAKwAAQAAABAAEEI=</HashCode>
+      <FileName>Kernel\ISynchronizationManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IActionExecutor" Collapsed="true">
+    <Position X="1.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Kernel\IActionExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IActionManager" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAgAAAAAAAAAAAAAAAAAgAEAABAAA=</HashCode>
+      <FileName>Kernel\IActionManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.ICategoryService" Collapsed="true">
+    <Position X="1" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\ICategoryService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.ICustomerService" Collapsed="true">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\ICustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IDocumentService" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAQAAAZtkAgEAABwEAAAADAVAAAAQwIAAEAAUAQA=</HashCode>
+      <FileName>Kernel\IDocumentService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IItemService" Collapsed="true">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAIAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\IItemService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IScannedCodeHandler" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Kernel\IScannedCodeHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IPromotionService" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAQAAAABA=</HashCode>
+      <FileName>Kernel\IPromotionService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IReceiptBuilder" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAEAAAAAAAAgAAAAJAAAAQAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Kernel\IReceiptBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.ITotalizersService" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAQAQCAAgAAAAIAAAAEAAAAAAAAAAAAAAABAAAEAAk=</HashCode>
+      <FileName>Kernel\ITotalizersService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.Kernel.IKernelModule" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Kernel\IKernelModule.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

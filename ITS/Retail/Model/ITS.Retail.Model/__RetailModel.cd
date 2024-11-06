@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.Retail.Model.Barcode">
+    <Position X="97" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQAABAAAEBAAAIAAAAAgAAAEBEAAAAgAAQQIAAAABAA=</HashCode>
+      <FileName>Barcode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Address">
+    <Position X="140.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAQAAEAAgApAoAAAAACAAgAEIAgIEAAIAoUQABAI=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VatLevel">
+    <Position X="54.75" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAEAAAAIAQBAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VatLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.AddressType">
+    <Position X="44" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddressType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.BarcodeType">
+    <Position X="23" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAgAAIAgAAAIAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BarcodeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.BaseObj">
+    <Position X="75.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseObj.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.BasicObj">
+    <Position X="69.5" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AoAAEAJEESCAIIBEUBAAAoUAAAAGCAVgIAEAAAAIAgE=</HashCode>
+      <FileName>BasicObj.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ITS.Retail.Model.Category">
+    <Position X="63.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Categories.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CompaniesGroup" Collapsed="true">
+    <Position X="12.75" Y="16.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CompaniesGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Country">
+    <Position X="8.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Country.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Customer">
+    <Position X="131.5" Y="9" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABUAEAEQQAhYAACAE4EIAgAAAgAgoIQgAgAUDABEA=</HashCode>
+      <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentDetail">
+    <Position X="135" Y="9" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Members" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAACAQACERGBoIAQAAhQK0BMgMAEAQAAwA0OBIQIoRE=</HashCode>
+      <FileName>DocumentDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentHeader">
+    <Position X="129" Y="9" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Members" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EgEAgAeEFcAABKYkACEgIsAAzZcEMkAgACBIVQgSkAQ=</HashCode>
+      <FileName>DocumentHeader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentSeries">
+    <Position X="15.25" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DocumentSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentStatus">
+    <Position X="35.5" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAEQAAAIAAAAAAAAAAAAAEAAAAQAAIAAAAAAA=</HashCode>
+      <FileName>DocumentStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentType">
+    <Position X="29" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAAAAAAABEFAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DocumentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.FactorLookupField">
+    <Position X="57.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAEAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FactorLookupField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CategoryNode">
+    <Position X="62.5" Y="18.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AIEAAAAAEQAAAIAAAAAAQQgBAAAMAQgAACQAAAAQAAA=</HashCode>
+      <FileName>CategoryNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Lookup2Fields">
+    <Position X="39.5" Y="13.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAgAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Lookup2Fields.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.LookupField">
+    <Position X="37.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAEAAgAIAAAAAAAIAAgAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>LookupField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MemberType" Collapsed="true">
+    <Position X="20.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAI=</HashCode>
+      <FileName>MemberType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MesurmentUnits">
+    <Position X="47" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAQAAAAAAAAAAAAAEAAAAAIAAAAA=</HashCode>
+      <FileName>MesurmentUnits.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PaymentMethod">
+    <Position X="32.25" Y="16.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAEAAAAYQAAAAQAAAAAAAAAAAAAAAAAAABgAA=</HashCode>
+      <FileName>PaymentMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Phone">
+    <Position X="99.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAEAAAAIAAAEAEBEAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Phone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PhoneType">
+    <Position X="26" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>PhoneType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Role">
+    <Position X="68.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.TerminalType">
+    <Position X="38.75" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TerminalType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Trader">
+    <Position X="116.5" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAFQAFABEAkAAIAAAAEgAAAAAACgAAgAAEAIAABIEAg=</HashCode>
+      <FileName>Trader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Permission">
+    <Position X="76" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IEAAAAUAEAABAIAAAAACAAAAAAAAAAAIAAABAAAAAAA=</HashCode>
+      <FileName>Permission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Store">
+    <Position X="142.5" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAEAACAAEAAADIAAAAAgIMRAIFAAAAgDZAABQAAAAQA=</HashCode>
+      <FileName>Store.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StorePriceList">
+    <Position X="88.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAARAAEAAAAIAEAAAAAAAAgAAAAgAAAAAAAQBAAAA=</HashCode>
+      <FileName>StorePriceList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerStorePriceList">
+    <Position X="118.75" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIEAAQAAEAAAAIAAAAAAAIAAgAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>CustomerStorePriceList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Supplier">
+    <Position X="126.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAEAEAAACIAAAAAwAAAAAAAAAAoAAAAgAQCABEA=</HashCode>
+      <FileName>Supplier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VatCategory">
+    <Position X="41.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAACIAQAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>VatCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemCategory">
+    <Position X="60.25" Y="24.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAAAAEgAIABIAAAAAACAAAAABAAA=</HashCode>
+      <FileName>ItemCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreAnalyticTree">
+    <Position X="108" Y="15" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StoreAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.User">
+    <Position X="73" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgCICEAAQAMQAkAIAAAEAQUCAAAACBQABAIBAAQA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.VatFactor">
+    <Position X="57.5" Y="19.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAQAAIAAAAAEAQAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VatFactor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalogDetail">
+    <Position X="78.75" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABCAAEDEAAJAAAAEAAAAFAAAAAQAAAgAiAAAAAAA=</HashCode>
+      <FileName>PriceCatalogDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DocumentSequence">
+    <Position X="70.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEEAAAIAAAAEAAAAAAAQAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>DocumentSequence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.PriceCatalog">
+    <Position X="50.25" Y="16.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AIAABQAAFQAQCYAAAACAAIAgAAEAIgEBAQAAAECJAAA=</HashCode>
+      <FileName>PriceCatalog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.GlobalSettings" Collapsed="true">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAYAAAAAAAAAAABEIAgAAAAAAAQAAAAA=</HashCode>
+      <FileName>GlobalSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDocumentSeriesType">
+    <Position X="138" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAFAAIAIgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StoreDocumentSeriesType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreDocumentSeries">
+    <Position X="113.5" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAgAIAAAAAAAAAAAAABAgAAAAQAAQAAAAE=</HashCode>
+      <FileName>StoreDocumentSeries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Company">
+    <Position X="124.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAEAEAAAAIAAAAAwAAAAAAAAAAoAAAAgAACABEA=</HashCode>
+      <FileName>Company.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemStock">
+    <Position X="94.5" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABEAAJAAAAAAAIAEAAAAAgAAAAAiAQAAAAA=</HashCode>
+      <FileName>ItemStock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ApplicationSettings" Collapsed="true">
+    <Position X="81.75" Y="9" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>giEAkAIwECCJAoCJKgJBIACohAiyDIBIAACAQAgAEAM=</HashCode>
+      <FileName>ApplicationSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerCategory">
+    <Position X="63" Y="24.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>CustomerCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerAnalyticTree">
+    <Position X="104.75" Y="15" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CustomerAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerCategoryDiscount">
+    <Position X="121.5" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAMAAACEAAAAAAAAEAQAAAgAAAAAAAAA=</HashCode>
+      <FileName>CustomerCategoryDiscount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.UserTypeAccess">
+    <Position X="111.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAQEAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAoA=</HashCode>
+      <FileName>UserTypeAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.EntityAccessPermision">
+    <Position X="75.25" Y="13" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAAAAAAQACAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>EntityAccessPermision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.RoleEntityAccessPermision">
+    <Position X="90.75" Y="9" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAEAAAAIAAEAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoleEntityAccessPermision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Division" Collapsed="true">
+    <Position X="10.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAEAAAAIAAAAAAAAAAAAAAAAQAAAAAAIAAAAA=</HashCode>
+      <FileName>Division.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DeliveryType">
+    <Position X="6" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DeliveryType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DailyTotals">
+    <Position X="145.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAABIAgAAAQAAAAAAAAAkAAAAAIAQACAAA=</HashCode>
+      <FileName>DailyTotals.cs</FileName>
+      <NewMemberFileName>UserDailyTotals.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.DailyTotalsDetail">
+    <Position X="147.75" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAUACDAIAAAIAEAQCAAAAAAAAAAAABAAQQAAA=</HashCode>
+      <FileName>DailyTotalsDetail.cs</FileName>
+      <NewMemberFileName>UserDailyTotalsDetail.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.StoreCategory">
+    <Position X="65.75" Y="24.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAEgAIABIAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StoreCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemAnalyticTree">
+    <Position X="101.5" Y="15" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.absAnalyticTree&lt;T&gt;">
+    <Position X="104.75" Y="9" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAEEAAAgqAAUAEAAJECAAAUAAAAAAAAAAEAAgA=</HashCode>
+      <FileName>absAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.Offer">
+    <Position X="18.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAFCAgAIAAAAAAAIAgAAAAIQAAAAABAECAEAA=</HashCode>
+      <FileName>Offer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.OfferDetail">
+    <Position X="86.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEBAQAIAAAAAAAIAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OfferDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.CustomerPopoularItems">
+    <Position X="150" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAABBQAYAAgBAEABAEAAIAAAwIAAABAAAAgAA=</HashCode>
+      <FileName>CustomerPopoularItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.MLString" Collapsed="true">
+    <Position X="3.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAEAAAAIAEAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MLString.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.ItemMLString">
+    <Position X="3.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemMLString.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.FormMessage">
+    <Position X="1.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAABAAAAAAAAAAAAAAQAAAAAJgAAAA=</HashCode>
+      <FileName>FormMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.Retail.Model.FormMessageDetail">
+    <Position X="2" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAIAAAAAAIAAAAAAAAAAQAAAGABAAAAA=</HashCode>
+      <FileName>FormMessageDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DevExpress.Xpo.IXPObject" Collapsed="true">
+    <Position X="6.25" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="System.IComparable" Collapsed="true">
+    <Position X="4.5" Y="1" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="ITS.Retail.Model.eDivision" Collapsed="true">
+    <Position X="11" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>eDivision.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.Retail.Model.eTraderType" Collapsed="true">
+    <Position X="9.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>eTraderType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ITS.Retail.Model.MessageType" Collapsed="true">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MessageType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,37 @@
+﻿@model ITS.Retail.Common.ViewModel.CustomerPointTransaction
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    ViewBag.Title = "PointTransaction";
+}
+
+@using (Html.BeginForm("PointTransaction", "Customer"))
+{
+    @Html.DevExpress().FormLayout(settings =>
+    {
+
+        settings.Name = "PointTransactionFormLayout";
+        settings.Items.Add(x => x.DateTime, FormInstances.DateItem(false));
+        settings.Items.Add(item =>
+        {
+            item.Name = ""; 
+            item.Caption = Resources.Customer;
+            item.CaptionSettings.Location = LayoutItemCaptionLocation.Top; 
+            item.VerticalAlign = FormLayoutVerticalAlign.Top;
+        }).SetNestedContent(() =>
+        {           
+            Html.RenderPartial("CustomerComboBox",Model);
+        });
+        settings.Items.Add(x => x.Points, FormInstances.SpinEditItem(enabled: true, minValue: -100, maxValue: 100, type: SpinEditNumberType.Integer));
+        settings.Items.Add(x => x.Remarks, FormInstances.MemoItem(enabled: true));
+    }).Bind(Model).GetHtml()
+
+    @Html.Hidden("Oid", Model.Oid)
+    @Html.Hidden("User", Model.User)
+    @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "buttonOK";
+        settings.Text = Resources.OK;
+        settings.UseSubmitBehavior = true;
+    }).GetHtml()
+}

@@ -1,0 +1,29 @@
+﻿@using ITS.Retail.WebClient.Controllers
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Properties.Caption = Resources.CustomerCategory;
+    cmb_settings.Name = "CustomerCategory";   
+    cmb_settings.Properties.DropDownWidth = 350;
+    cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_settings.CallbackRouteValues = new { Controller = "Promotion", Action = "ReturnView", ViewName = "SelectCustomerCategory", IsPartial = true };
+    cmb_settings.Properties.CallbackPageSize = 15;
+    cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_settings.Properties.TextField = "Code";
+    cmb_settings.Properties.TextFormatString = "{0} {1}";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.Properties.FilterMinLength = 0;
+    cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    cmb_settings.Properties.Columns.Add("Code", "Code", 90);
+    cmb_settings.Properties.Columns.Add("Description", "Description", 90);
+    cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Visible = true;
+    cmb_settings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+    cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+}).BindList(ITS.Retail.WebClient.Controllers.BaseController.RequestedByFilterCondition(typeof(CustomerCategory), new String[] { "Code", "Description" }, new DevExpress.Xpo.SortProperty("Code", DevExpress.Xpo.DB.SortingDirection.Ascending)),BaseController.RequestByValue(typeof(CustomerCategory))).BindList(BaseController.GetObjectByValue<CustomerCategory>(DataBinder.Eval(Model, "CustomerCategory"))).Bind(DataBinder.Eval(Model, "CustomerCategory")).GetHtml()

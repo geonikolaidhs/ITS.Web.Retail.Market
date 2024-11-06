@@ -1,0 +1,86 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdDailyTotalDetailsGrid";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;    
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "DailyReport", Action = "DailyTotalDetails" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowSelectCheckbox = false;
+    settings.CommandColumn.ShowNewButton= false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Actions;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.DailyTotals;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "QtyValue";
+        col.Caption = Resources.Quantity;
+        col.Width = 250;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    
+    //settings.Columns.Add(col =>
+    //{
+    //    col.FieldName = "FiscalDate";
+    //    col.Caption = Resources.FiscalDate;
+    //    col.Width = 250;
+    //    col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    //});
+    
+    //settings.Columns.Add(col =>
+    //{
+    //    col.FieldName = "POS.Name";
+    //    col.Caption = Resources.FiscalDevice;
+    //    col.Width = 100;
+    //    col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    //});    
+    
+    //settings.Columns.Add(col =>
+    //{
+    //    col.FieldName = "Store.Name";
+    //    col.Caption = Resources.Store;
+    //    col.Width = 200;
+    //    col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;  
+    //});
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    
+}).Bind(Model).GetHtml()

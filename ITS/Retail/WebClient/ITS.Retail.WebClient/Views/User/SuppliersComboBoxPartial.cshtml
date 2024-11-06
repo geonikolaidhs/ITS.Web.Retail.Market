@@ -1,0 +1,23 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{    
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = "SupplierComboBox";
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.Properties.DropDownWidth = 350;
+    combosettings.CallbackRouteValues = new { Controller = "User", Action = "SuppliersComboBoxPartial" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.FilterMinLength = 0;       
+    
+    combosettings.Properties.Columns.Add("CompanyName", Resources.CompanyName);
+    combosettings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode);
+    combosettings.Properties.TextField = "CompanyName";
+
+}).GetHtml()

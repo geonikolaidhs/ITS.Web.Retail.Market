@@ -1,0 +1,141 @@
+﻿@model IEnumerable<ITS.Retail.Model.User>
+@using ITS.Retail.ResourcesLib;
+@{    
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/User.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditUser.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+    ViewBag.Title =Resources.Users;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@{   
+    ViewBag.Title = ViewBag.Mode;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+        
+        ViewContext.Writer.Write("<table><tr><td>");        
+
+        ViewContext.Writer.Write("<label for=\"name_I\">" + Resources.FullnameOrUsername + "</label>");      
+        
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "name";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"supplier_I\">" + Resources.Supplier + "</label>");      
+        
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "supplier";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        ViewContext.Writer.Write("<label for=\"role_I\">" + Resources.Role + "</label>");      
+
+
+        @Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "role";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Description";
+            edtSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            edtSettings.ControlStyle.CssClass = "search_filter";
+        }).BindList(ViewBag.RoleComboBox).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        
+        ViewContext.Writer.Write("<label for=\"taxCode_I\">" + Resources.TaxCode + "</label>");      
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "taxCode";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"customer_I\">" + Resources.Customer + "</label>");      
+        
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "customer";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+
+        ViewContext.Writer.Write("<label for=\"isActive_I\">" + Resources.IsActive + "</label>");      
+        
+        
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "isActive";
+            combosettings.Properties.Items.Add("", -1);
+            combosettings.Properties.Items.Add(Resources.Yes, 1);
+            combosettings.Properties.Items.Add(Resources.No, 0);
+            combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            combosettings.ControlStyle.CssClass = "search_filter";
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td>");
+        @Html.RenderAction("ActiveUsers");
+        //ViewContext.Writer.Write("<div id=\"btn\">");
+        @Html.DevExpress().Button(settings2 =>
+        {
+            settings2.Name = "btnSearch";
+            settings2.Text = Resources.Search;
+            settings2.UseSubmitBehavior = true;
+            settings2.ClientSideEvents.Click = "SearchUser";
+        }).GetHtml();
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+}).GetHtml()
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdUsers)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+@Html.Partial("Grid", Model)

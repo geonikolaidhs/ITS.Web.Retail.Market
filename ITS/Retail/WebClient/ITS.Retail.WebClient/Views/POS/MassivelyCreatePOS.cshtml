@@ -1,0 +1,370 @@
+﻿@*model ITS.Retail.Model.POS*@
+@using ITS.Retail.ResourcesLib;
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+    ViewBag.ShowNavigation = false;
+    ViewBag.Title = ViewBag.Mode;
+}
+
+
+@using (Html.BeginForm("CreateMassivelyPOS", "POS", FormMethod.Post, new { id = "MassivellyCreatePOS" }))
+{
+    string title = Resources.MassivelyCreatePOS;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("createMassivelyForm");
+    popUpSettings.HeaderText = title;
+    popUpSettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnCreate";
+        headerOptions.SaveButton.Text = Resources.MassivelyCreatePOS;
+        headerOptions.SaveButton.OnClick = "MassivelyCreatePOSCreateClick";
+        headerOptions.CancelButton.Name = "btnCancel";
+        headerOptions.CancelButton.OnClick = "MassivelyCreatePOSCancelClick";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='validateForm headerTable'><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = "IDs" + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "IDs";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.ABCDirectory + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ABCDirectory";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "ABCDirectory")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.FiscalDevice + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "FiscalDevice";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum.GetValues(typeof(ITS.Retail.Platform.Enumerations.eFiscalDevice))).GetHtml();
+
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.ReceiptFormat + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "ReceiptFormat";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.ReceiptFormats).Bind(DataBinder.Eval(Model, "ReceiptFormat!Key")).Render();
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.XReportFormat + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "XFormat";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.XFormats).Bind(DataBinder.Eval(Model, "XFormat!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.ZReportFormat + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "ZFormat";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.ZFormats).Bind(DataBinder.Eval(Model, "ZFormat!Key")).Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.POSKeysLayout + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "POSKeysLayout";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+        }).BindList(ViewBag.POSKeysLayouts).Bind(DataBinder.Eval(Model, "POSKeysLayout!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.POSLayout + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "POSLayout";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+        }).BindList(ViewBag.POSLayouts).Bind(DataBinder.Eval(Model, "POSLayout!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.DefaultPaymentMethod + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultPaymentMethod";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.PaymentMethods).Bind(DataBinder.Eval(Model, "DefaultPaymentMethod!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.POSActionLevelsSet + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "POSActionLevelsSet";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+        }).BindList(ViewBag.POSActionLevelsSets).Bind(DataBinder.Eval(Model, "POSActionLevelsSet!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UsesTouchScreen;
+            edtSettings.Name = "UsesTouchScreen";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "UsesTouchScreen")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UsesKeyLock;
+            edtSettings.Name = "UsesKeyLock";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "UsesKeyLock")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AutoFocus;
+            edtSettings.Name = "AutoFocus";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "AutoFocus")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AsksForStartingAmount;
+            edtSettings.Name = "AsksForStartingAmount";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "AsksForStartingAmount")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AsksForFinalAmount;
+            edtSettings.Name = "AsksForFinalAmount";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "AsksForFinalAmount")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.PrintDiscountAnalysis;
+            edtSettings.Name = "PrintDiscountAnalysis";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "PrintDiscountAnalysis")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ForcedWithdrawMode + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "ForcedWithdrawMode";
+            cmb_settings.ControlStyle.CssClass = "editor";
+            cmb_settings.Properties.TextField = "Value";
+            cmb_settings.Properties.ValueField = "Key";
+            cmb_settings.Properties.ValueType = typeof(ITS.Retail.Platform.Enumerations.eForcedWithdrawMode);
+        }).BindList(Enum<ITS.Retail.Platform.Enumerations.eForcedWithdrawMode>.GetLocalizedDictionary())
+        .Bind(eForcedWithdrawMode.NO).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ForcedWithdrawCashAmountLimit + ":";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "ForcedWithdrawCashAmountLimit";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Number = 0;
+        }).GetHtml();
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "EnableLowEndMode";
+            edtSettings.Text = Resources.EnableLowEndMode;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "EnableLowEndMode")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "DemoMode";
+            edtSettings.Text = Resources.DemoMode;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "DemoMode")).Render();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td colspan=2>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.StandaloneFiscalOnErrorMessage + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "StandaloneFiscalOnErrorMessage";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(Model, "StandaloneFiscalOnErrorMessage")).Render();
+        
+        ViewContext.Writer.Write("</td></tr></table>");
+        
+        ViewContext.Writer.Write("</div>");
+        @Html.RenderAction("POSDeviceGrid");
+    });
+
+    @Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+}
+
+
+
+

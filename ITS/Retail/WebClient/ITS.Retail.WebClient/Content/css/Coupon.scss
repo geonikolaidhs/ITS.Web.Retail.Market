@@ -1,0 +1,38 @@
+﻿ .ModalView{
+    font-size: 18px;
+    color: #06A7FF;
+    background-color: rgba(176, 176, 176, 0.4);
+    padding: 12px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    box-shadow: none;
+    height: 25px;    
+ }
+
+.wrapper .container {
+    background: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    -moz-box-shadow: 0 0 0px #fff;
+    -webkit-box-shadow: 0 0 0px #fff;
+    box-shadow: 0 0 0px #fff;
+}
+
+.interWrapper {
+    white-space: normal;
+    padding: 10px;
+}
+
+.input-height{
+    height: 80px;
+}
+
+.wrapper{
+    background: #fff;
+}
+
+.dxeErrorCell_ITSTheme1, .dxeErrorCell_ITSTheme1 td{
+    padding-top:2px;
+}

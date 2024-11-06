@@ -1,0 +1,41 @@
+﻿@using ITS.Retail.Model;
+@using System.Collections;
+@using ITS.Retail.Platform.Enumerations;
+
+@{
+    DocumentHeader documentHeader = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+
+    IEnumerable<User> users = null;
+
+    if (documentHeader != null)
+    {
+        if (documentHeader.DocumentType.ChargeToUser)
+        {
+            users = new List<User>() { Model.ChargedToUser };
+        }
+    }
+}
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+        settings.Name = "ChargeToUserCombobox";
+        settings.CallbackRouteValues = new { Controller = "Document", Action = "ChargeToUserCombobox" };
+
+        settings.SettingsLoadingPanel.Enabled = true;
+        settings.SetContent(() =>
+        {
+
+            Html.DevExpress().ComboBox(combosettings =>
+            {
+                combosettings.Name = "ChargedToUser";
+                combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                combosettings.Properties.TextField = "FullName";
+                combosettings.Properties.ValueField = "Oid";
+                //combosettings.ControlStyle.CssClass = "xlarge";
+                combosettings.Properties.ValueType = typeof(Guid);
+                //combosettings.Properties.ClientSideEvents.ValueChanged = "ChargedToUserValueChanged";
+            }).BindList(users).Bind(DataBinder.Eval(documentHeader.ChargedToUser, "Oid")).GetHtml();
+
+        });
+}).GetHtml()

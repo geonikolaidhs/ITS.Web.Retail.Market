@@ -1,0 +1,302 @@
+﻿//colors
+$color_celeste_approx: rgba(204, 204, 204, 1);
+$white: rgba(255, 255, 255, 1);
+$color_valencia_approx: rgba(216, 60, 60, 1);
+$color_mountain_mist_approx: rgba(153, 153, 153, 1);
+$color_flush_orange_approx: rgba(255, 133, 0, 1);
+$color_mine_shaft_approx: rgba(51, 51, 51, 1);
+$black: rgba(0, 0, 0, 1);
+$black_30: rgba(0, 0, 0, 0.3);
+$color_venice_blue_approx: rgba(0, 88, 138, 1);
+//@extend-elements
+//original selectors
+//.page .ad, .page .ad_vertical
+%ads {
+	display: block;
+	float: right;
+	margin: 0 0 1em 2em;
+	width: 15em;
+	border: 1px solid $color_celeste_approx;
+	padding: 50px 40px;
+	color: $color_celeste_approx;
+}
+
+
+.page {
+	//border: 1px solid $color_celeste_approx;
+	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+	background: $white;	
+	min-height: 776px;
+	h1 {
+		font-size: 2em;
+		margin-bottom: 30px;
+		
+		vertical-align: text-top;		
+		span {
+			font-size: 0.8em;
+			color: $color_mountain_mist_approx;
+		}
+	}
+	.list_icons {
+		vertical-align: text-top;
+		display: inline-block;
+		span {
+			display: inline-block;
+			padding: 15px;
+			margin: 5px 0 0 15px;
+			cursor: pointer;
+			float: left;
+			background-image: url("../img/icons/list.png");
+			background-size: 25px;
+			background-repeat: no-repeat;
+			background-position: center 4px;
+			&.grid {
+				background-position: 4px -30px;
+				background-size: 23px;
+			}
+		}
+	}
+	h2 {
+		font-size: 1.5em;
+		text-align: left;
+		display: block;
+		font-weight: 800;
+		margin-bottom: 10px;
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	.section {
+		clear: both;
+		padding: 0;
+		margin: 0;
+	}
+	.col {
+		display: block;
+		float: left;
+		margin: 1% 0 1% 1.6%;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+	.group {
+		&:before {
+			content: "";
+			display: table;
+		}
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+	.right {
+		width: 76.1%;
+		.postmetadata {
+			overflow: hidden;
+			padding-bottom: 10px;
+			margin-bottom: 30px;
+			border-bottom: 1px solid $color_flush_orange_approx;
+			li {
+				color: $black_30;
+				float: left;
+				font-size: 20px;
+				font-weight: bold;
+				&.date {
+					padding-left: 5px;
+				}
+				a {
+					color: $color_flush_orange_approx;
+					font-weight: bold;
+					opacity: 0.6;
+					-moz-transition: opacity 0.5s ease;
+					-o-transition: opacity 0.5s ease;
+					-webkit-transition: opacity 0.5s ease;
+					-ms-transition: opacity 0.5s ease;
+					&:hover {
+						opacity: 1;
+					}
+				}
+			}
+		}
+		p {
+			font-weight: bolder;
+			font-size: 1.3em;
+		}
+		.small {
+			font-size: 1em;
+			font-weight: normal;
+		}
+		.prettyprint {
+			border: 1px solid $color_celeste_approx;
+			margin-top: 20px;
+		}
+	}
+	.left {
+		width: 22.2%;
+		a {
+			&:hover {
+				color: $white;
+				background: $color_flush_orange_approx;
+				border-left: 0;
+			}
+			&#all:hover {
+				text-decoration: underline;
+			}
+		}
+		.also_see {
+			h2 {
+				font-size: 17px;
+				margin-top: 20px;
+				font-weight: bold;
+				line-height: 20px;
+				border-bottom: 1px solid $color_mine_shaft_approx;
+				padding-top: 20px;
+				border-top: 1px dashed $black;
+				span {
+					border-bottom: 3px solid $color_mine_shaft_approx;
+				}
+			}
+			a {
+				display: block;
+				line-height: 30px;
+				padding-left: 10px;
+				color: $color_flush_orange_approx;
+			}
+		}
+		ul li a {
+			border: 0;
+			font-size: 18px;
+			padding: 10px;
+			border-left: 10px solid $color_mine_shaft_approx;
+			text-transform: none;
+			display: block;
+			letter-spacing: 0;
+			-webkit-transition: color .3s ease;
+			-moz-transition: all .3s ease;
+			-o-transition: all .3s ease;
+			//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+			transition: all .3s ease;
+		}
+	}
+	.ad {
+		@extend %ads;
+	}
+	.ad_vertical {
+		@extend %ads;
+		float: none;
+		margin: 0;
+		text-align: center;
+		width: 100%;
+		height: 220px;
+		padding: 30px 0;
+	}
+	#portfoliocont {
+		ul {
+			list-style-type: none;
+			margin: 0 0 25px 0;
+			li {
+				display: block;
+				margin: 0 0 10px 0;
+				a {
+					position: relative;
+					float: left;
+					width: 23%;
+					margin: 0 1% 15px;
+					img {
+						width: 100%;
+						height: auto;
+						display: block;
+					}
+				}
+			}
+		}
+		a .overlay {
+			position: absolute;
+			height: 100%;
+			left: 0;
+			opacity: 0;
+			top: 0;
+			color: $white;
+			font-size: 20px;
+			text-align: center;
+			line-height: 110px;
+			width: 100%;
+			z-index: 40;
+			-webkit-transition: all 0.1s linear;
+			-moz-transition: all 0.1s linear;
+			-o-transition: all 0.1s linear;
+			//Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+			transition: all 0.1s linear;
+			background: url("../img/icons/overlay.png") repeat;
+			display: inline-block;
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+	a#all {
+		text-align: right;
+		display: block;
+		padding-top: 10px;
+		background: $white;
+		color: $color_flush_orange_approx;
+	}
+	#features h2 {
+		background: url("../img/icons/feature.png") no-repeat;
+		padding: 0 0 5px 45px;
+		margin: 50px 0 0;
+		color: $color_flush_orange_approx;
+		background-size: 30px;
+		background-position: 5px -9px;
+		border-top: 5px solid $color_mine_shaft_approx;
+	}
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+	.page {
+		.ad_vertical {
+			height: auto;
+			padding: 30px 0;
+		}
+		.right {
+			width: 100%;
+		}
+		.left {
+			width: 100%;
+			.also_see a {
+				width: 200px;
+			}
+		}
+		.col {
+			display: block;
+			float: none;
+			margin: 20px 0;
+		}
+		#portfoliocont ul li a {
+			width: 31.3%;
+			margin-bottom: 10px;
+		}
+	}
+}
+@media only screen and (max-width: 480px) {
+	.page {
+		.col {
+			margin: 1% 0;
+		}
+		.right {
+			width: 100%;
+		}
+		.left {
+			width: 100%;
+		}
+		#portfoliocont ul li a {
+			width: 48%;
+			margin-bottom: 6px;
+		}
+	}
+}

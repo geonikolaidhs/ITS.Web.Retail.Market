@@ -1,0 +1,22 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().PopupControl(
+settings =>
+{
+    settings.AccessibilityCompliant = true;
+    settings.Name = "EditTreeViewPopup";
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.PopupAnimationType = AnimationType.None;
+    settings.HeaderText = Resources.EditItemCategory;
+    settings.Modal = true;
+    settings.Width = 450;
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "EditItemNode" };
+    settings.ClientSideEvents.EndCallback = "hidepopup";
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("PopUpCallBackPanel");
+    });
+    settings.ClientSideEvents.Shown = "function (s, e) { cbp.PerformCallback(); }";
+}).GetHtml()

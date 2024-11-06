@@ -1,0 +1,51 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Areas/B2C/Views/Membership/_EmailLayout.cshtml";
+    ITS.Retail.Model.NonPersistant.ContactFormEmailTemplate contactFormEmailTemplate = (ITS.Retail.Model.NonPersistant.ContactFormEmailTemplate)Model;
+}
+
+<tbody>
+    <tr>
+        <td>
+            <!-- content start -->
+            <table class="row">
+                <tbody>
+                    <tr>
+                        <td class="wrapper last">
+
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h1>@contactFormEmailTemplate.WelcomeMessage</h1>
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="twelve columns">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span>@Resources.Fullname : </span><span>@contactFormEmailTemplate.FullName</span><br/>
+                                            <span>Email : </span><span>@contactFormEmailTemplate.Email</span><br />
+                                            <span>@Resources.Subject : </span><span>@contactFormEmailTemplate.Subject</span><br />
+                                            @if (!String.IsNullOrWhiteSpace(contactFormEmailTemplate.Message))
+                                            { 
+                                                <span>@Resources.Message : </span><span>@contactFormEmailTemplate.Message</span> 
+                                            }                                           
+                                        </td>
+                                        <td class="expander"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- container end below -->
+        </td>
+    </tr>
+</tbody>

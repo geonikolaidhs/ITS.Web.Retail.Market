@@ -1,0 +1,33 @@
+//-----------------------------------------------------------------------
+// <copyright file="BaseObj.cs" company="ITS">
+//     Copyright (c) ITS SA.  All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using DevExpress.Xpo;
+
+namespace ITS.Retail.Model
+{
+    [NonPersistent]
+    //[DeferredDeletion(true)]
+    public class BaseObj : BasicObj
+	{
+        public BaseObj()
+            : base()
+        {
+            // This constructor is used when an object is loaded from a persistent storage.
+            // Do not place any code here.
+        }
+
+        public BaseObj(Session session)
+            : base(session)
+        {
+            // This constructor is used when an object is loaded from a persistent storage.
+            // Do not place any code here.
+        }
+
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+        }
+    }
+}

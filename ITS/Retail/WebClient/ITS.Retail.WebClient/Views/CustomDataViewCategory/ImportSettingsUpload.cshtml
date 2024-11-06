@@ -1,0 +1,16 @@
+﻿@using (Html.BeginForm("ImportSettingsUploadForm", "CustomDataViewCategory", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{
+    ViewContext.Writer.Write("<div class='UploadForm'>");
+    Html.DevExpress().UploadControl(settings =>
+    {
+        settings.UploadMode = UploadControlUploadMode.Standard;
+        settings.Name = "UploadControl";
+        settings.CallbackRouteValues = new { Controller = "CustomDataViewCategory", Action = "UploadControl" };
+        settings.ShowProgressPanel = true;
+        settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.CustomDataViewCategoryController.UploadControlValidationSettings);
+        settings.ClientSideEvents.FileUploadComplete = "CustomDataViewCategory.onFileUploadComplete_UploadControl";
+    }).Render();
+
+    ViewContext.Writer.Write("</div>");
+
+}

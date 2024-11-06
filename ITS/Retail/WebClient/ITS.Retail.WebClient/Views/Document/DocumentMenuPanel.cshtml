@@ -1,0 +1,14 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{
+    ViewContext.Writer.Write("<div id='documentMenuPanel'><div class='basket' data-index='0'>");   
+    ViewContext.Writer.Write(Resources.Item);
+    ViewContext.Writer.Write("</div><div class='basket' data-index='1'>");
+    ViewContext.Writer.Write(Resources.ItemCategories);
+    ViewContext.Writer.Write("</div><div class='basket' data-index='2'>");
+    ViewContext.Writer.Write(Resources.SearchItemOffers);
+    ViewContext.Writer.Write("</div><div class='basket' data-index='3'>");
+    ViewContext.Writer.Write(Resources.NewItems);
+    ViewContext.Writer.Write("</div></div>");
+}

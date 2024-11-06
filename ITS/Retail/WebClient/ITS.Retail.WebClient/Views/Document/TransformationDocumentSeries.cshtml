@@ -1,0 +1,22 @@
+﻿@using ITS.Retail.Model;
+@using DevExpress.Xpo;
+
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "DocumentSeriesCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TransformationDocumentSeries" };
+    cpbseriessettings.SetContent(() =>
+    {
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "DocumentSeries";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.Properties.TextField = "Description";
+        }).BindList(Model).Bind(
+            ViewBag.SelectedDocumentSeries != null ? DataBinder.Eval(ViewBag.SelectedDocumentSeries, "Oid") 
+                                                   : (Model == null || Model.Count <= 0 ? null : DataBinder.Eval((Model as XPCollection<DocumentSeries>).FirstOrDefault<DocumentSeries>(), "Oid"))
+        ).Render();
+    });
+    cpbseriessettings.ClientSideEvents.BeginCallback = "TransformationDocumentSeriesCbPanelOnBeginCallback";
+}).GetHtml()

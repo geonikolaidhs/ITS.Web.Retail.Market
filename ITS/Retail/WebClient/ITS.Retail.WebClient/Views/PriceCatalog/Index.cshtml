@@ -1,0 +1,46 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.PriceCatalogs;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Item.css?v=" + ViewData["ApplicationVersionNumber"]));
+    
+}
+
+@section HeaderScriptsAndStyles
+{
+	<script src="@Url.Content("~/Scripts/scripts/PriceCatalog.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_"+ViewData["CurrentCulture"]+".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditPriceCatalog.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@Html.Partial("PopupEditCallbackPanel")
+
+@Html.DevExpress().PageControl(pcSettings =>
+{
+    pcSettings.AccessibilityCompliant = false;
+    pcSettings.Name = "pcGeneralPageControl";
+    pcSettings.ActivateTabPageAction = ActivateTabPageAction.Click;
+    pcSettings.TabAlign = TabAlign.Left;
+    pcSettings.TabPosition = TabPosition.Top;
+    pcSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    if ((ViewData["IsSupplier"] != null && Boolean.Parse(ViewData["IsSupplier"].ToString())) || Boolean.Parse(ViewData["IsAdministrator"].ToString()))
+    {
+        pcSettings.TabPages.Add(Resources.SupplierPriceCatalogs).SetContent(() =>
+        {
+            Html.RenderPartial("SupplierTabPage");
+        });
+    }
+    if (ViewData["IsCustomer"] != null && Boolean.Parse(ViewData["IsCustomer"].ToString()))
+    {
+        Html.RenderPartial("CustomerTabPage", ViewData["TabPage"] = "Customer");
+    }
+}).GetHtml()
+
+@if (ViewData["IsSupplier"] == null && ViewData["IsCustomer"] == null && !bool.Parse(Session["IsAdministrator"].ToString()))
+{
+    ViewContext.Writer.Write(Resources.NoSupplierOrCustomerDefined);
+}
+
+@Html.Partial("../Item/ItemCategoriesPopup")
+

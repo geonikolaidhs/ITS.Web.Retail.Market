@@ -1,0 +1,27 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@{
+    CompanyNew company = (CompanyNew)Session["Company"];
+    ViewBag.InViewMode = (CompanyNew)Session["Company"] != null;
+}
+
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "TaxOfficeLookUpOid";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.Properties.Columns.Add("Description", Resources.Description);
+    cmb_settings.Properties.Columns.Add("Code", Resources.Code);
+    cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_settings.CallbackRouteValues = new { Controller = "Company", Action = "SelectTaxOffice" };
+    cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_settings.Properties.FilterMinLength = 0;
+    cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    cmb_settings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+}).BindList(CompanyController.TaxOfficeRequestedByFilterCondition, CompanyController.GetObjectByValue<TaxOffice>).BindList(CompanyController.GetObjectByValue<TaxOffice>(DataBinder.Eval(company.Trader, "TaxOfficeLookUp!Key"))).Bind(DataBinder.Eval(company.Trader, "TaxOfficeLookUp!Key")).GetHtml()

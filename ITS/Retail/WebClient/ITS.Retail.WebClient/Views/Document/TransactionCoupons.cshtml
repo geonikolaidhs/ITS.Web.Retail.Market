@@ -1,0 +1,50 @@
+﻿@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+
+
+    Html.DevExpress().CallbackPanel(cpb_settings =>
+    {
+        cpb_settings.Name = "transactionCouponsCallbackPanel";
+        cpb_settings.ControlStyle.CssClass = "tab-top-padding";
+        cpb_settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TransactionCoupons" };
+        if (ViewBag.InViewMode || freezeEdit)
+        {
+            cpb_settings.Enabled = false;
+        }
+
+        cpb_settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<label class=\"label large-font\">" + Resources.Coupons + ": </label>");
+            ViewContext.Writer.Write("<table class=\"table-hover\">");
+            ViewContext.Writer.Write(string.Format("<thead><tr><th>{0}</th><th>{1}</th><th>{2}</th><th>{3}</th></tr></thead>", Resources.Code, Resources.Type,Resources.Amount, Resources.CouponAmountType));
+            
+            foreach (TransactionCoupon transactionCoupon in document.TransactionCoupons)
+            {
+                if (transactionCoupon.Coupon != null)
+                {
+                    ViewContext.Writer.Write(
+                        string.Format("<tbody><tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>",
+                        transactionCoupon.CouponCode,
+                        Enum<CouponAppliesOn>.ToLocalizedString(transactionCoupon.Coupon.CouponAppliesOn),
+                        string.Format("{0:0.##}", transactionCoupon.Coupon.Amount),
+                        Enum<CouponAmountType>.ToLocalizedString(transactionCoupon.Coupon.CouponAmountType)
+                    ));
+                }
+                else
+                {
+                    ViewContext.Writer.Write(
+                        string.Format("<tbody><tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>",
+                        transactionCoupon.CouponCode,
+                        Enum<CouponAppliesOn>.ToLocalizedString(transactionCoupon.CouponMask.CouponAppliesOn),
+                        string.Format("{0:0.##}", CouponHelper.GetMaskAmount(transactionCoupon.CouponCode,transactionCoupon.CouponMask)),
+                        Enum<CouponAmountType>.ToLocalizedString(transactionCoupon.CouponMask.CouponAmountType)
+                    ));
+                }
+            }
+            ViewContext.Writer.Write("</tbody></table>");
+        });
+    }).GetHtml();
+
+}

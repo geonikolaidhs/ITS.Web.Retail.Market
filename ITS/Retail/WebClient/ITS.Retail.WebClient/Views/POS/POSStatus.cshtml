@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = Resources.PosStatus;
+    //ViewBag.HideSpanSettings = false;
+}
+
+<style>
+    .nonVisible {
+        height: 1px;
+        max-height: 1px;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.5s, opacity 1.5s linear;
+    }
+
+        .nonVisible div {
+            height: 1px;
+            max-height: 1px;
+        }
+
+
+
+    #advBtn {
+        width: 250px;
+        height: 50px;
+        background: #578aaf;
+        color: whitesmoke;
+        cursor: pointer;
+        z-index: 50;
+    }
+
+        #advBtn :hover {
+            background: #365f7d !important;
+        }
+
+    .wrapper {
+        overflow-y: hidden !important;
+    }
+
+    #btnSendSqlCommandBasic {
+        background: #578aaf !important;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
+
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/POSStatus.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.json-2.4.min.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@section DialogCallbackPanelSection {
+    @Html.Partial("DialogCallbackPanel")
+}
+
+@{ Html.RenderPartial("AdvancedMenuPopup"); }
+
+
+<div class="pull-left">
+    @Html.Partial("PosListCheckBasic")
+</div>
+<div class="pull-right">
+    @Html.Partial("PosListCheckAdvanced")
+</div>
+
+<div>
+    @Html.Partial("POSStatusGrid")
+</div>
+
+<div id="buttonPanelPanel" class="row" style="width:100%; height:80px; border-bottom:1px solid black; border-bottom-color: #365f7d; ">
+    <button id="advBtn" class="pull-right advancedBtn"> Show Advanced Commands </button>
+</div>
+<br><br>
+
+<div id="advancedPanel" class="nonVisible" style=" background : #e0e2e6">
+
+    <div style="width:900px; height:30px; padding:5px;">
+        <p style="margin:auto; font-weight:600; font-size:16px; color:#7b7f7f"> Command Editor</p>
+    </div>
+
+    <div id="commandArea" style=" width:900px; height:100px; display:inline-block;">
+        <textarea id="commandTextArea" style="width:900px;  height:100%; font-weight:600; font-size:14px; color:gray;"></textarea>
+    </div>
+    <div class="pull-right" style="display:inline-block;">
+        @Html.Partial("PosListCheckBasicSqlCommands")
+    </div>
+    <br><br>
+    <br><br>
+    <div class="pull-left">
+        @{Html.RenderPartial("POSComandsResultsGrid", new { commandResults = ViewBag.commandResults });}
+    </div>
+</div>
+
+
+

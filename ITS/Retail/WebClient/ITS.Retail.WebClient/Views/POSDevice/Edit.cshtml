@@ -1,0 +1,280 @@
+﻿@model ITS.Retail.Model.POSDevice
+
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Platform.Enumerations;
+
+
+
+@using (Html.BeginForm("Save", "POSDevice", FormMethod.Post, new { id = "EditForm" }))
+{
+    @Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("POSDeviceGuid", ViewData["POSDeviceGuid"].ToString()));
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray margin-0-auto'><tr><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.Text = Resources.DeviceType + ":";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }
+            ).Render();
+
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "DeviceType";
+            cmb_settings.Properties.ClientSideEvents.ValueChanged = "onValueChangedDeviceTypeComboBox";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValueType = typeof(ITS.Retail.Platform.Enumerations.DeviceType);
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum.GetValues(typeof(ITS.Retail.Platform.Enumerations.DeviceType))).Bind(Model.DeviceSettings != null ? Model.DeviceSettings.DeviceType : ITS.Retail.Platform.Enumerations.DeviceType.Undefined).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+    edtSettings =>
+    {
+        edtSettings.Text = Resources.CharacterSet + ":";
+        edtSettings.ControlStyle.CssClass = "label";
+    }
+    ).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "CharacterSet";
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "CharacterSet"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.Text = Resources.ConnectionType + ":";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }).Render();
+
+
+        Html.RenderPartial("ConnectionTypeCallbackPanel");
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.Text = Resources.NewLine + ":";
+        }
+        ).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "NewLine";
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "NewLine"))
+        .Render();
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.Text = Resources.Name + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }
+        ).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Name";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }
+        )
+        .Bind(DataBinder.Eval(Model, "Name"))
+        .Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+    edtSettings =>
+    {
+        edtSettings.Text = Resources.NumberOfLines + ":";
+    }
+    ).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "NumberOfLines";
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "NumberOfLines"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        Html.DevExpress().Label(
+    edtSettings =>
+    {
+        edtSettings.Text = Resources.LineChars + ":";
+    }
+    ).Render();
+
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "LineChars";
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "LineChars"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.Text = Resources.DeviceSpecificType + ":";
+            }
+            ).Render();
+
+        Html.RenderPartial("DeviceSpecificTypeCallbackPanel");
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "ConvertCharset";
+                edtSettings.Text = Resources.NeedCharacterConversion;
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "ConvertCharset"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "ConvertCharsetFrom";
+                edtSettings.Properties.Caption = Resources.FromCodePage;
+                edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "ConvertCharsetFrom"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "ConvertCharsetTo";
+                edtSettings.Properties.Caption = Resources.ToCodePage;
+                edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "ConvertCharsetTo"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr><tr>");
+
+        ViewContext.Writer.Write("<td>");
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "CommandChars";
+                edtSettings.Properties.Caption = Resources.MaxCharsPerCommand;
+                edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }
+        )
+        .Bind(DataBinder.Eval(Model.DeviceSettings, "CommandChars"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        @Html.DevExpress().PageControl(
+                settings2 =>
+                {
+                    settings2.AccessibilityCompliant = false;
+                    settings2.EnableClientSideAPI = true;
+                    settings2.Name = "pcConnectionSettings";
+                    settings2.ActivateTabPageAction = ActivateTabPageAction.Click;
+                    settings2.TabAlign = TabAlign.Left;
+                    settings2.TabPosition = TabPosition.Top;
+                    settings2.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings2.TabPages.Add(Resources.CashRegisterSettings, "CashierRegisterSettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("CashierRegisterSettingsTab");
+                    });
+
+                    settings2.TabPages.Add(Resources.DeviceVatFactorSettings, "CashierVatFactorTabSettings").SetContent(() =>
+                    {
+                        @Html.RenderPartial("CashierVatFactorTabSettings", Model.MapVatFactors);
+                    });
+
+                    settings2.TabPages.Add(Resources.CashierRegisterDocumentSettings, "CashierRegisterDocumentSettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("CashierRegisterDocumentSettingsTab");
+                    });
+
+                    settings2.TabPages.Add(Resources.COMSettings, ConnectionType.COM + "SettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("COMSettingsTab");
+
+                    });
+
+                    settings2.TabPages.Add(Resources.LPTSettings, ConnectionType.LPT + "SettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("LPTSettingsTab");
+                    });
+
+                    settings2.TabPages.Add(Resources.OPOSSettings, ConnectionType.OPOS + "SettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("OPOSSettingsTab");
+                    });
+
+                    settings2.TabPages.Add(Resources.EthernetSettings, ConnectionType.ETHERNET + "SettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("EthernetSettingsTab");
+                    });
+
+                    settings2.TabPages.Add(Resources.IndirectSettings, ConnectionType.INDIRECT + "SettingsTab").SetContent(() =>
+                    {
+                        @Html.RenderPartial("IndirectSettingsTab");
+                    });
+
+                    foreach (TabPage tabPage in settings2.TabPages)
+                    {
+                        if (tabPage.Name != Model.ConnectionType + "SettingsTab")
+                        {
+                            tabPage.ClientVisible = false;
+                        }
+                    }
+
+                }).Render();
+    });
+}).GetHtml();
+}

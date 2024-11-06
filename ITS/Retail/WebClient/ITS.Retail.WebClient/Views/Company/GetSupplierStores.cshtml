@@ -1,0 +1,31 @@
+﻿@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "SupplierStoresCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Supplier", Action = "GetSupplierStores" };
+    cpbseriessettings.SetContent(() =>
+    {
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Store";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Name";
+
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "OnSelectedStoreChange";
+            edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            edtSettings.Properties.FilterMinLength = 0;
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+        }).BindList(ViewBag.StoreComboBox).Bind(ViewData["SupplierStoreBind"]).GetHtml();
+    });
+    if (!(bool)ViewData["OwnEdit"])
+    {
+        cpbseriessettings.ClientSideEvents.BeginCallback = "grdCustomerSupplierStoresCallback";
+        cpbseriessettings.ClientSideEvents.EndCallback = "OnSelectedStoreChange";
+    }
+    cpbseriessettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+}).GetHtml()

@@ -1,0 +1,828 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@{
+
+    Html.EnableClientValidation();
+
+    DocumentType currentDocumentType = Session["currentDocumentType"] as DocumentType;
+
+    dynamic quantityFactorValue = DataBinder.Eval(Model, "QuantityFactor");
+    int quantityFactor = (quantityFactorValue != null && (quantityFactorValue < 1 || quantityFactorValue > -1)) ? quantityFactorValue : 0;
+    dynamic valueFactorValue = DataBinder.Eval(Model, "ValueFactor");
+    int valueFactor = (valueFactorValue != null && (valueFactorValue < 1 || valueFactorValue > -1)) ? valueFactorValue : 0;
+
+    dynamic linkedLineQuantityFactorValue = DataBinder.Eval(Model, "LinkedLineQuantityFactor");
+    int linkedLineQuantityFactor = (linkedLineQuantityFactorValue != null && (linkedLineQuantityFactorValue < 1 || linkedLineQuantityFactorValue > -1)) ? linkedLineQuantityFactorValue : 0;
+    dynamic linkedLineValueFactorValue = DataBinder.Eval(Model, "LinkedLineValueFactor");
+    int linkedLineValueFactor = (linkedLineValueFactorValue != null && (linkedLineValueFactorValue < 1 || linkedLineValueFactorValue > -1)) ? linkedLineValueFactorValue : 0;
+
+    using (Html.BeginForm("Save", "DocumentType", FormMethod.Post))
+    {
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey margin-bottom-20'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "CancelDocumentType";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray margin-auto'><tr><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(currentDocumentType.Code).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description + ":";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(currentDocumentType.Description).Render();
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Division + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Division";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "OnDivisionChanged";
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.DivisionComboBox).Bind(DataBinder.Eval(currentDocumentType, "Division!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.MinistryDocumentType + ":";
+        }).Render();
+
+        Html.RenderPartial("MinistryDocumentTypeComboBox", currentDocumentType);
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.DefaultDocumentStatus + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultDocumentStatus";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.DocumentStatusComboBox).Bind(DataBinder.Eval(currentDocumentType, "DefaultDocumentStatus!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.DefaultPaymentMethod + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultPaymentMethod";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+        }).BindList(ViewBag.PaymentMethodComboBox).Bind(DataBinder.Eval(currentDocumentType, "DefaultPaymentMethod!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.MobileType + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Type";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(ITS.Retail.Mobile.AuxilliaryClasses.eDocumentType);
+        }).BindList(Enum<ITS.Retail.Mobile.AuxilliaryClasses.eDocumentType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "Type")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.MeasurementUnitMode + ":";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "MeasurementUnitMode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(eDocumentTypeMeasurementUnit);
+        }).BindList(Enum<eDocumentTypeMeasurementUnit>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "MeasurementUnitMode")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.MaxCountOfLines + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "MaxCountOfLines";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(currentDocumentType.MaxCountOfLines).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DocumentTypeItemCategoryMode";
+            edtSettings.Properties.Caption = Resources.DocumentTypeItemCategoryMode;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(eDocumentTypeItemCategory);
+        }).BindList(Enum<eDocumentTypeItemCategory>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "DocumentTypeItemCategoryMode")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DocTypeCustomerCategoryMode";
+            edtSettings.Properties.Caption = Resources.DocTypeCustCategoryMode;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(eDocTypeCustomerCategory);
+        }).BindList(Enum<eDocTypeCustomerCategory>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "DocTypeCustomerCategoryMode")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.FormDescription + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "FormDescription";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(currentDocumentType.FormDescription).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.MaximumQuantity;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "MaxDetailQty";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(currentDocumentType, "MaxDetailQty")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.MaximumValue;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "MaxDetailValue";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(currentDocumentType, "MaxDetailValue")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.MaximumTotal;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "MaxDetailTotal";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(currentDocumentType, "MaxDetailTotal")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.MaxPaymentAmount;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "MaxPaymentAmount";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.MaxValue = 99999;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(currentDocumentType, "MaxPaymentAmount")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "PriceSuggestionType";
+            edtSettings.Properties.Caption = Resources.PriceSuggestionType;
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.ValueType = typeof(ePriceSuggestionType);
+        }).BindList(Enum<ePriceSuggestionType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "PriceSuggestionType")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.ReasonCategory + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "ReasonCategory";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+        }).BindList(ViewBag.ReasonCategoryComboBox).Bind(DataBinder.Eval(Model, "ReasonCategory!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.ReferenceCode + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Name = "ReferenceCode";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(currentDocumentType.ReferenceCode).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.RenderPartial("TraderTypeCombobox", currentDocumentType);
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.RenderPartial("DocumentTypeSpecialItemComboBox", currentDocumentType);
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.ManualLinkedLineInsertion;
+            edtSettings.Name = "ManualLinkedLineInsertion";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.ManualLinkedLineInsertion).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().RadioButtonList(radio_settings =>
+        {
+            radio_settings.Properties.Caption = Resources.LinkedLineValueFactor + ":";
+            radio_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            radio_settings.Name = "LinkedLineValueFactor";
+            radio_settings.Properties.ValueType = typeof(int);
+            radio_settings.Properties.Items.Add("-1", -1);
+            radio_settings.Properties.Items.Add("0", 0);
+            radio_settings.Properties.Items.Add("+1", 1);
+            radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+            radio_settings.ShowModelErrors = true;
+            radio_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            radio_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(linkedLineValueFactor).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().RadioButtonList(radio_settings =>
+             {
+                 radio_settings.Properties.Caption = Resources.LinkedLineQuantityFactor + ":";
+                 radio_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                 radio_settings.Name = "LinkedLineQuantityFactor";
+                 radio_settings.Properties.ValueType = typeof(int);
+                 radio_settings.Properties.Items.Add("-1", -1);
+                 radio_settings.Properties.Items.Add("0", 0);
+                 radio_settings.Properties.Items.Add("+1", 1);
+                 radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                 radio_settings.ShowModelErrors = true;
+                 radio_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                 radio_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+             }).Bind(linkedLineQuantityFactor).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().RadioButtonList(radio_settings =>
+        {
+            radio_settings.Properties.Caption = Resources.ValueFactor + ":";
+            radio_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            radio_settings.Name = "ValueFactor";
+            radio_settings.Properties.ValueType = typeof(int);
+            radio_settings.Properties.Items.Add("-1", -1);
+            radio_settings.Properties.Items.Add("0", 0);
+            radio_settings.Properties.Items.Add("+1", 1);
+            radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+            radio_settings.ShowModelErrors = true;
+            radio_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            radio_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(valueFactor).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().RadioButtonList(radio_settings =>
+             {
+                 radio_settings.Properties.Caption = Resources.QuantityFactor + ":";
+                 radio_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                 radio_settings.Name = "QuantityFactor";
+                 radio_settings.Properties.ValueType = typeof(int);
+                 radio_settings.Properties.Items.Add("-1", -1);
+                 radio_settings.Properties.Items.Add("0", 0);
+                 radio_settings.Properties.Items.Add("+1", 1);
+                 radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                 radio_settings.ShowModelErrors = true;
+                 radio_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                 radio_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+             }).Bind(quantityFactor).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.MergedSameDocumentLines;
+            edtSettings.Name = "MergedSameDocumentLines";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.MergedSameDocumentLines).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AllowItemZeroPrices;
+            edtSettings.Name = "AllowItemZeroPrices";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.AllowItemZeroPrices).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.RecalculatePricesOnTraderChange;
+            edtSettings.Name = "RecalculatePricesOnTraderChange";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.RecalculatePricesOnTraderChange).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.SupportLoyalty;
+            edtSettings.Name = "SupportLoyalty";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.SupportLoyalty).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UsesPrices;
+            edtSettings.Name = "UsesPrices";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.UsesPrices).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.TakesDigitalSignature;
+            edtSettings.Name = "TakesDigitalSignature";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.TakesDigitalSignature).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.IsForWholesale;
+            edtSettings.Name = "IsForWholesale";
+            if (currentDocumentType.Division != null && currentDocumentType.Division.Section == eDivision.Purchase)
+            {
+                edtSettings.ClientEnabled = false;
+            }
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.IsForWholesale).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UsesPaymentMethods;
+            edtSettings.Name = "UsesPaymentMethods";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.UsesPaymentMethods).Render();
+
+
+        //ViewContext.Writer.Write("</td><td>");
+
+        //Html.DevExpress().CheckBox(edtSettings =>
+        //{
+        //    edtSettings.Text = Resources.IsQuantitative;
+        //    edtSettings.Name = "IsQuantitative";
+        //    edtSettings.ControlStyle.CssClass = "editor";
+        //    edtSettings.Properties.ValueChecked = true;
+        //    edtSettings.Properties.ValueGrayed = false;
+        //    edtSettings.Properties.ValueUnchecked = false;
+        //    edtSettings.Properties.ValueType = typeof(bool);
+        //}).Bind(currentDocumentType.IsQuantitative).Render();
+
+        //ViewContext.Writer.Write("</td><td>");
+
+        //Html.DevExpress().CheckBox(edtSettings =>
+        //{
+        //    edtSettings.Text = Resources.IsOfValues;
+        //    edtSettings.Name = "IsOfValues";
+        //    edtSettings.ControlStyle.CssClass = "editor";
+        //    edtSettings.Properties.ValueChecked = true;
+        //    edtSettings.Properties.ValueGrayed = false;
+        //    edtSettings.Properties.ValueUnchecked = false;
+        //    edtSettings.Properties.ValueType = typeof(bool);
+        //}).Bind(currentDocumentType.IsOfValues).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UsesMarkUp;
+            edtSettings.Name = "UsesMarkUp";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.UsesMarkUp).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UsesMarkUpForm;
+            edtSettings.Name = "UsesMarkUpForm";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.UsesMarkUpForm).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.DocumentHeaderCanBeCopied;
+            edtSettings.Name = "DocumentHeaderCanBeCopied";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.DocumentHeaderCanBeCopied).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AcceptsGeneralItems;
+            edtSettings.Name = "AcceptsGeneralItems";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.AcceptsGeneralItems).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.ReserveCoupons;
+            edtSettings.Name = "ReserveCoupons";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.ReserveCoupons).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.IsPrintedOnStoreController;
+            edtSettings.Name = "IsPrintedOnStoreController";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.IsPrintedOnStoreController).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.InitialisesQuantities;
+            edtSettings.Name = "InitialisesQuantities";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.InitialisesQuantities).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.InitialisesValues;
+            edtSettings.Name = "InitialisesValues";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.InitialisesValues).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AffectsCustomerBalance;
+            edtSettings.Name = "AffectsCustomerBalance";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.AffectsCustomerBalance).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.AllowItemValueEdit;
+            edtSettings.Name = "AllowItemValueEdit";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.AllowItemValueEdit).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Properties.Caption = Resources.AffectsItemStock + ":";
+            cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            cmb_settings.Name = "ItemStockAffectionOptions";
+            cmb_settings.Properties.ValueType = typeof(ItemStockAffectionOptions);
+            cmb_settings.Properties.ValueField = "Key";
+            cmb_settings.Properties.TextField = "Value";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum<ItemStockAffectionOptions>.GetLocalizedDictionary()).Bind(DataBinder.Eval(currentDocumentType, "ItemStockAffectionOptions")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.IncreaseVatAndSales;
+            edtSettings.Name = "IncreaseVatAndSales";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.IncreaseVatAndSales).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.JoinInTotalizers;
+            edtSettings.Name = "JoinInTotalizers";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.JoinInTotalizers).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.DisplayInCashCount;
+            edtSettings.Name = "DisplayInCashCount";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.DisplayInCashCount).Render();
+
+        ViewContext.Writer.Write("</td></tr>");
+
+        ViewContext.Writer.Write("<tr><td>");
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.ChargeToUser;
+            edtSettings.Name = "ChargeToUser";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.ChargeToUser).Render();
+        ViewContext.Writer.Write("</td>");
+
+
+        ViewContext.Writer.Write("<td>");
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.SupportCustomerVatLevel;
+            edtSettings.Name = "SupportCustomerVatLevel";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.SupportCustomerVatLevel).Render();
+        ViewContext.Writer.Write("</td>");
+
+        ViewContext.Writer.Write("<td>");
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.UpdateSalesRecords;
+            edtSettings.Name = "UpdateSalesRecords";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(currentDocumentType.UpdateSalesRecords).Render();
+
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("</div>");
+    }
+    Html.DevExpress().PageControl(tab_settings =>
+    {
+        tab_settings.Name = "document_type_tabs";
+        tab_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        tab_settings.EnableTabScrolling = true;
+
+
+        tab_settings.TabPages.Add(Resources.MenuDocumentSettigsStoreDocumentSeriesTypes).SetContent(() =>
+        {
+            Html.RenderPartial("../StoreDocumentSeriesType/Grid", currentDocumentType.StoreDocumentSeriesTypes);
+        });
+
+        tab_settings.TabPages.Add(Resources.TransformationRules).SetContent(() =>
+        {
+            Html.RenderPartial("../TransformationRule/Grid", currentDocumentType.TransformsTo);
+        });
+
+        tab_settings.TabPages.Add(Resources.Reports).SetContent(() =>
+        {
+            Html.RenderPartial("../DocumentTypeCustomReport/Grid", currentDocumentType.DocumentTypeCustomReports);
+        });
+
+        tab_settings.TabPages.Add(Resources.Roles).SetContent(() =>
+        {
+            Html.RenderPartial("../DocumentTypeRole/Grid", currentDocumentType.DocumentTypeRoles);
+        });
+
+        tab_settings.TabPages.Add(Resources.CustomerCategories).SetContent(() =>
+        {
+            Html.RenderPartial("CustomerCategoryGrid", currentDocumentType.DocTypeCustomerCategories);
+        });
+
+        tab_settings.TabPages.Add(Resources.ItemCategories).SetContent(() =>
+        {
+            Html.RenderPartial("ItemCategoryGrid", currentDocumentType.DocumentTypeItemCategories);
+        });
+
+        tab_settings.TabPages.Add(Resources.ActionTypeEntities).SetContent(() =>
+        {
+            Html.RenderPartial("ActionTypeGrid", currentDocumentType.ActionTypeEntities);
+        });
+
+        tab_settings.TabPages.Add(Resources.DocumentTypeBarcodeTypesForWeightedBarcodes).SetContent(() =>
+        {
+            Html.RenderPartial("BarcodeTypes", currentDocumentType.DocumentTypeBarcodeTypes);
+        });
+
+    }).GetHtml();
+}

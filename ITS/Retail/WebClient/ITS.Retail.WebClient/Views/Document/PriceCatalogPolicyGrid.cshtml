@@ -1,0 +1,42 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@model IEnumerable<PriceCatalogPolicy>
+
+@{
+    var excluded = new List<string>() { "ReferenceCode", "Owner" };
+    var settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(PriceCatalogPolicy), typeof(DocumentController), "grdPriceCatalogPolicy", showAddIcon: false, showEditIcon: false, showDeleteIcon: false, excludeFields: excluded);
+    settings.SettingsText.Title = Resources.PriceCatalogPolicy;
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "PriceCatalogPolicyGrid" };
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    if (ViewBag.HidePopup != null && ViewBag.HidePopup)
+    {
+        settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.None;
+    }
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

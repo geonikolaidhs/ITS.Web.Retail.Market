@@ -1,0 +1,206 @@
+﻿@using DevExpress.Data.Filtering;
+
+@{
+    var item = ViewData["item"];
+
+    DocumentSequence docseq = null;
+    DocumentSeries docseries = DataBinder.Eval(item, "this") as DocumentSeries;
+    if (docseries != null)
+    {
+        docseq = docseries.Session.FindObject<DocumentSequence>(new BinaryOperator("DocumentSeries", docseries.Oid));
+    }
+    ViewContext.Writer.Write("<div class='ValidationContainer'>");
+
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.Name = "btnDocumentSeriesUpdate";
+    headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e,grdDocumentSeries);}";
+    headerOptions.CancelButton.Name = "btnDocumentSeriesCancel";
+    headerOptions.CancelButton.OnClick = "function(s, e){ grdDocumentSeries.CancelEdit(); }";
+    headerOptions.ViewType = eViewType.PopUp;
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+
+    ViewContext.Writer.Write("<table><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Code + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Code";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(DataBinder.Eval(item, "Code")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label required_field";
+        edtSettings.Text = Resources.Description + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Description";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Store + ":";
+    }).Render();
+
+    Html.RenderPartial("StoresComboBoxPartial");
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Remarks + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "Remarks";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+    }).Bind(DataBinder.Eval(item, "Remarks")).Render();
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Module + ":";
+    }).Render();
+
+    List<object>
+        modules = Enum<eModule>
+            .GetValues().ToList();
+    modules.Remove(eModule.ALL);
+
+    Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Name = "eModule";
+        combosettings.ControlStyle.CssClass = "editor";
+        combosettings.Properties.ValueType = typeof(eModule);
+        combosettings.ShowModelErrors = true;
+        combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        combosettings.Properties.ClientSideEvents.ValueChanged = "eModuleValueChanged";
+    }).BindList(modules).Bind(DataBinder.Eval(item, "eModule") ?? eModule.HEADQUARTERS).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Name = "SeriesComboBoxName";
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.IsCanceledBy + ":";
+    }).Render();
+
+    Html.RenderPartial("SeriesComboBoxPartial");
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.PrintedCode;
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "PrintedCode";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+    }).Bind(DataBinder.Eval(item, "PrintedCode")).Render();
+
+    if (ViewBag.DocSeqNumCanChange != null && ViewBag.DocSeqNumCanChange == true)
+    {
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.DocumentSequence + ":";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "DocumentSequence.DocumentNumber";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            if(ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.RETAIL)
+            {
+                edtSettings.ClientEnabled = DataBinder.Eval(ViewData["item"], "this") != null && (eModule)DataBinder.Eval(ViewData["item"], "eModule") == eModule.HEADQUARTERS;
+            }
+
+        }).Bind((docseq != null) ? docseq.DocumentNumber : 0).Render();
+    }
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.ReferenceCode + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "ReferenceCode";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+    }).Bind(DataBinder.Eval(item, "ReferenceCode")).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.RenderPartial("POSComboBoxPartial");
+
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.IsCancelingSeries;
+        edtSettings.Name = "IsCancelingSeries";
+        edtSettings.ControlStyle.CssClass = "editor padding-top-25";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+        edtSettings.Properties.ClientSideEvents.ValueChanged = "IsCancelingSeriesValueChanged";
+        edtSettings.Properties.ClientSideEvents.CheckedChanged = "IsCancelingSeriesCheckChanged";
+    }).Bind(DataBinder.Eval(item, "IsCancelingSeries") ?? false).Render();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().CheckBox(edtSettings =>
+    {
+        edtSettings.Text = Resources.HasAutomaticNumbering;
+        edtSettings.Name = "HasAutomaticNumbering";
+        edtSettings.ControlStyle.CssClass = "editor padding-top-25";
+        edtSettings.Properties.ValueChecked = true;
+        edtSettings.Properties.ValueGrayed = false;
+        edtSettings.Properties.ValueUnchecked = false;
+        edtSettings.Properties.ValueType = typeof(bool);
+    }).Bind(DataBinder.Eval(item, "HasAutomaticNumbering") ?? false).Render();
+
+    ViewContext.Writer.Write("</td></tr>");
+    ViewContext.Writer.Write("</table>");
+    ViewContext.Writer.Write("</div>");
+}

@@ -1,0 +1,4 @@
+﻿
+function refreshgrid() {
+    grdDiscountType.Refresh();
+}

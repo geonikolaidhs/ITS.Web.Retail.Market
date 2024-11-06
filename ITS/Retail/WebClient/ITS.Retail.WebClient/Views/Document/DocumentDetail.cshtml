@@ -1,0 +1,33 @@
+﻿@{
+    DocumentDetail documentDetail = DataBinder.Eval(Model, "This") as DocumentDetail;
+    DocumentHeader documentHeader = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+       
+    if( !documentDetail.IsLinkedLine ){
+        ViewContext.Writer.Write("<li class=\"documentDetail\">");
+            
+        ViewContext.Writer.Write("<div onclick=\"EditItem('"+documentDetail.Oid.ToString()+"'); \">");
+    }
+    else
+    {
+        ViewContext.Writer.Write("<li class=\"documentDetail IsLinkedLine\" \">");
+    }
+    string measurementUnitDesc = documentDetail.MeasurementUnit == null ? "" : documentDetail.MeasurementUnit.Description;   
+    <h3>@documentDetail.Item.Description </h3>
+    <span class='labelSpan'> @Resources.ItemCode :  @documentDetail.Barcode.Code </span>
+    <span class='labelSpan bolder'> @Resources.Quantity : @documentDetail.Qty.ToString()  @measurementUnitDesc </span>
+    <div class='total'>
+        @if (documentDetail.TotalDiscount != 0)
+        {
+            <span class="discount">@Resources.Discount @BusinessLogic.RoundAndStringify(
+            documentHeader.DocumentType.IsForWholesale?
+                documentDetail.TotalDiscountPercentage  : documentDetail.TotalDiscountPercentageWithVat
+            ,ViewBag.Owner as CompanyNew) %</span>
+        }   
+        
+        <p> @Resources.TotalSort <span> @BusinessLogic.RoundAndStringify(documentDetail.GrossTotal,ViewBag.Owner as CompanyNew) </span></p>
+    </div>
+    if( !documentDetail.IsLinkedLine ){
+        ViewContext.Writer.Write("</div>");
+    }
+    ViewContext.Writer.Write("</li>");
+}

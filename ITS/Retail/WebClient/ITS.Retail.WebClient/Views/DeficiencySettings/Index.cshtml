@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ITS.Retail.Model.DeficiencySettings>
+@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = Resources.DeficiencySettings;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/DeficiencySettings.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}*@
+@Html.Partial("Grid", Model)

@@ -1,0 +1,143 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+
+@Html.DevExpress().GridView(settings =>
+{
+    
+
+    string gridName = "";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "5" };
+    settings.AccessibilityCompliant = true;
+
+
+
+    settings.Name = "grdDailyTotals";
+    settings.CallbackRouteValues = new { Controller = "CashierRegister", Action = "DailyItemTotalGrid" };
+    gridName = "grdDailyItemTotalView";
+
+    
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "deviceIndex";
+        col.Caption = Resources.DeviceItemID;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "price";
+        col.Caption = Resources.Price;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Points";
+        col.Caption = Resources.Points;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "VatCode";
+        col.Caption = Resources.VatLevel;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "SoldQTY";
+        col.Caption = Resources.TotalSalesQTY;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Qty";
+        col.Caption = Resources.WarehouseStock;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TotalSalesAmount";
+        col.Caption = Resources.TotalSalesAmount;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "deviceIndex";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = 700;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.DailyItemSales;
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.DailyItemSales;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.SettingsText.PopupEditFormCaption = Resources.DailyItemSales;
+
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+}).Bind(Session["DailyItemTotal"]).GetHtml()
+

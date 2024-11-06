@@ -1,0 +1,251 @@
+.dxPivotGrid_pgCollapsedButton_ITSTheme1,
+.dxPivotGrid_pgExpandedButton_ITSTheme1,
+.dxPivotGrid_pgSortDownButton_ITSTheme1,
+.dxPivotGrid_pgSortUpButton_ITSTheme1,
+.dxPivotGrid_pgFilterResizer_ITSTheme1,
+.dxPivotGrid_pgFilterButton_ITSTheme1,
+.dxPivotGrid_pgFilterButtonActive_ITSTheme1,
+.dxPivotGrid_pgCustomizationFormCloseButton_ITSTheme1,
+.dxPivotGrid_pgDragArrowDown_ITSTheme1,
+.dxPivotGrid_pgDragArrowUp_ITSTheme1,
+.dxPivotGrid_pgDragHideField_ITSTheme1,
+.dxPivotGrid_pgDataHeaders_ITSTheme1,
+.dxPivotGrid_pgGroupSeparator_ITSTheme1,
+.dxPivotGrid_pgSortByColumn_ITSTheme1,
+.dxPivotGrid_pgPrefilterButton_ITSTheme1
+{
+	background: transparent url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.PivotGrid.sprite.png")%>') no-repeat;
+	-background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.PivotGrid.sprite.gif")%>');
+}
+
+.dxPivotGrid_pgCollapsedButton_ITSTheme1 {
+    background-position: 0px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxPivotGrid_pgExpandedButton_ITSTheme1 {
+    background-position: 0px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxPivotGrid_pgSortDownButton_ITSTheme1 {
+    background-position: -37px -1px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxPivotGrid_pgSortUpButton_ITSTheme1 {
+    background-position: -37px -8px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxPivotGrid_pgFilterResizer_ITSTheme1 {
+    background-position: -69px -37px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxPivotGrid_pgFilterButton_ITSTheme1 {
+    background-position: 0px -36px;
+    width: 15px;
+    height: 17px;
+}
+
+.dxPivotGrid_pgFilterButtonActive_ITSTheme1 {
+    background-position: -23px -36px;
+    width: 15px;
+    height: 17px;
+}
+
+.dxPivotGrid_pgCustomizationFormCloseButton_ITSTheme1 {
+    background-position: -46px -39px;
+    width: 14px;
+    height: 14px;
+}
+
+.dxPivotGrid_pgDragArrowDown_ITSTheme1 {
+    background-position: -17px 0px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxPivotGrid_pgDragArrowUp_ITSTheme1 {
+    background-position: -17px -17px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxPivotGrid_pgDragHideField_ITSTheme1 {
+    background-position: -75px 0px;
+    width: 22px;
+    height: 22px;
+}
+
+.dxPivotGrid_pgDataHeaders_ITSTheme1 {
+    background-position: -53px -19px;
+    width: 12px;
+    height: 12px;
+}
+
+.dxPivotGrid_pgGroupSeparator_ITSTheme1 {
+    background-position: -105px -21px;
+    width: 5px;
+    height: 1px;
+}
+
+.dxPivotGrid_pgSortByColumn_ITSTheme1 {
+    background-position: -52px 0px;
+    width: 14px;
+    height: 6px;
+}
+
+.dxPivotGrid_pgPrefilterButton_ITSTheme1 {
+    background-position: -105px 0px;
+    width: 12px;
+    height: 13px;
+}
+.dxPivotGrid_FLButton_ITSTheme1,
+.dxPivotGrid_FLStackedDefault_ITSTheme1,
+.dxPivotGrid_FLStackedSideBySide_ITSTheme1,
+.dxPivotGrid_FLTopPanelOnly_ITSTheme1,
+.dxPivotGrid_FLBottomPanelOnly2by2_ITSTheme1,
+.dxPivotGrid_FLBottomPanelOnly1by4_ITSTheme1,
+.dxPivotGrid_FLFieldList_ITSTheme1,
+.dxPivotGrid_FLFilterAreaHeaders_ITSTheme1,
+.dxPivotGrid_FLColumnAreaHeaders_ITSTheme1,
+.dxPivotGrid_FLRowAreaHeaders_ITSTheme1,
+.dxPivotGrid_FLDataAreaHeaders_ITSTheme1,
+.dxPivotGrid_pgDragArrowLeft_ITSTheme1,
+.dxPivotGrid_pgDragArrowRight_ITSTheme1
+ {
+    background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.PivotGrid.FLsprite.png")%>');
+    -background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.PivotGrid.FLsprite.gif")%>'); /* for IE6 */
+    background-repeat: no-repeat;
+    background-color: transparent; 
+}
+.dxpgFLTextDiv_ITSTheme1 img.dxPivotGrid_FLFilterAreaHeaders_ITSTheme1,
+.dxpgFLTextDiv_ITSTheme1 img.dxPivotGrid_FLColumnAreaHeaders_ITSTheme1,
+.dxpgFLTextDiv_ITSTheme1 img.dxPivotGrid_FLRowAreaHeaders_ITSTheme1,
+.dxpgFLTextDiv_ITSTheme1 img.dxPivotGrid_FLDataAreaHeaders_ITSTheme1,
+.dxpgFLTextDiv_ITSTheme1 img.dxPivotGrid_FLFieldList_ITSTheme1
+{
+    height:16px;
+    width:16px;
+}
+.dxPivotGrid_FLButton_ITSTheme1
+{
+    display:block;
+    height:16px;
+    width:16px
+}
+.dxPivotGrid_FLStackedDefault_ITSTheme1,
+.dxPivotGrid_FLStackedSideBySide_ITSTheme1,
+.dxPivotGrid_FLTopPanelOnly_ITSTheme1,
+.dxPivotGrid_FLBottomPanelOnly2by2_ITSTheme1,
+.dxPivotGrid_FLBottomPanelOnly1by4_ITSTheme1
+{
+    height:32px;
+    width:32px;
+}
+.dxPivotGrid_pgDragArrowLeft_ITSTheme1,
+.dxPivotGrid_pgDragArrowRight_ITSTheme1
+{
+    height:11px;
+    width:9px;
+}
+.dxPivotGrid_pgDragArrowLeft_ITSTheme1
+{
+  background-position: -96px -11px; 
+}
+.dxPivotGrid_pgDragArrowRight_ITSTheme1
+{
+ background-position: -96px -0px; 
+}
+.dxPivotGrid_FLButton_ITSTheme1
+{
+    background-position: -96px -32px;
+}
+.dxPivotGrid_FLStackedDefault_ITSTheme1
+{
+    background-position: -32px 0px;
+}
+.dxPivotGrid_FLStackedSideBySide_ITSTheme1
+{
+    background-position: 0px -32px;
+}
+.dxPivotGrid_FLTopPanelOnly_ITSTheme1
+{
+    background-position: 0px 0px;
+}
+.dxPivotGrid_FLBottomPanelOnly2by2_ITSTheme1
+{
+    background-position: -32px -32px;
+}
+.dxPivotGrid_FLBottomPanelOnly1by4_ITSTheme1
+{
+    background-position: -64px 0px;
+}
+.dxPivotGrid_FLFieldList_ITSTheme1
+{
+    background-position: -64px -32px;
+}
+.dxPivotGrid_FLFilterAreaHeaders_ITSTheme1
+{
+    background-position: -80px -48px;
+}
+.dxPivotGrid_FLColumnAreaHeaders_ITSTheme1
+{
+    background-position: -64px -48px;
+}
+.dxPivotGrid_FLRowAreaHeaders_ITSTheme1
+{
+    background-position: -96px -48px;
+}
+.dxPivotGrid_FLDataAreaHeaders_ITSTheme1
+{
+    background-position: -80px -32px;
+} 
+
+.dxPivotGrid_CTNMeasure_ITSTheme1,
+.dxPivotGrid_CTNDimension_ITSTheme1,
+.dxPivotGrid_CTNAttribute_ITSTheme1,
+.dxPivotGrid_CTNHierarchy_ITSTheme1,
+.dxPivotGrid_CTNKpi_ITSTheme1,
+.dxPivotGrid_CTNFolderClosed_ITSTheme1,
+.dxPivotGrid_CTNFolderOpen_ITSTheme1,
+.dxPivotGrid_CTNCalculatedMeasure_ITSTheme1 {
+    background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.PivotGrid.CustomizationTreeNodeImages.png")%>');
+    -background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.PivotGrid.CustomizationTreeNodeImages.gif")%>');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    height: 16px;
+    width: 16px;
+}
+.dxPivotGrid_CTNMeasure_ITSTheme1 {
+    background-position: 0px 0px;
+}
+.dxPivotGrid_CTNDimension_ITSTheme1 {
+    background-position: -21px 0px;
+}
+.dxPivotGrid_CTNAttribute_ITSTheme1 {
+    background-position: -42px 0px;
+}
+.dxPivotGrid_CTNHierarchy_ITSTheme1 {
+    background-position: -63px 0px;
+}
+.dxPivotGrid_CTNKpi_ITSTheme1 {
+    background-position: -84px 0px;
+}
+.dxPivotGrid_CTNFolderClosed_ITSTheme1 {
+    background-position: 0px -23px;
+}
+.dxPivotGrid_CTNFolderOpen_ITSTheme1 {
+    background-position: -21px -23px;
+}
+.dxPivotGrid_CTNCalculatedMeasure_ITSTheme1 {
+    background-position: -42px -23px;
+}
+

@@ -1,0 +1,9 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model IEnumerable<ITS.Retail.Model.TransferPurpose>
+
+@{
+    ViewBag.Title = Resources.TransferPurposes; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

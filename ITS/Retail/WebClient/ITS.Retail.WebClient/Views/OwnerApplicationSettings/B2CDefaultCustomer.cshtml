@@ -1,0 +1,16 @@
+﻿@model OwnerApplicationSettings
+@using ITS.Retail.WebClient.Extensions;
+@{
+    string callbackRouteValuesController = "OwnerApplicationSettings";
+    string callbackRouteValuesAction = "B2CDefaultCustomer";
+    string callbackRouteValuesArea = string.Empty;
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = OwnerApplicationSettingsController.CustomerRequestedByFilterCondition;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = OwnerApplicationSettingsController.ObjectRequestedByValue<Customer>;
+
+    string name = ViewData["Name"] as string;
+
+    FormInstances.DropDownListNotSearchableComboBoxBody(Html: Html,enabled: true,callbackRouteValuesController: callbackRouteValuesController,callbackRouteValuesAction: callbackRouteValuesAction,callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, name: name, valueType: typeof(Guid), modelType: typeof(Customer), model: Model == null ? null : DataBinder.Eval(Model.B2CDefaultCustomer, "Oid")).Render();
+}
+
+

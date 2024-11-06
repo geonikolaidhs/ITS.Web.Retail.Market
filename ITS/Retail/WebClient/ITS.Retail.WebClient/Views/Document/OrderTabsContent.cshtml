@@ -1,0 +1,209 @@
+﻿@Html.DevExpress().PageControl(page_control_settings =>
+{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+
+    page_control_settings.Name = "documentEditPageControl";
+    page_control_settings.SettingsLoadingPanel.Enabled = false;
+    page_control_settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+    page_control_settings.TabAlign = TabAlign.Left;
+    page_control_settings.TabPosition = TabPosition.Top;
+    page_control_settings.EnableClientSideAPI = true;
+    page_control_settings.EnableTabScrolling = true;
+
+    if (!ViewBag.InViewMode)
+    {
+        page_control_settings.ClientSideEvents.ActiveTabChanging = "DocumentTabChanging";
+    }
+
+    if (document.Division == eDivision.Sales
+    || document.Division == eDivision.Purchase
+    || document.Division == eDivision.Store
+       )
+    {
+        page_control_settings.TabPages.Add(Resources.DocumentLines, "DocumentLines").SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+            if (!ViewBag.InViewMode && !freezeEdit)
+            {
+                @Html.DevExpress().Button(s =>
+                {
+                    s.Name = "btShowCustomizationWindowEditGrid";
+                    s.ControlStyle.CssClass = "btCustomizationWindow";
+                    s.Text = "";
+                    s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+                    s.ToolTip = Resources.CustomizeColumns;
+                    s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdEditGrid)}";
+                }).GetHtml();
+            }
+
+            if (!ViewBag.InViewMode && !freezeEdit)
+            {
+                eDocumentTypeView form = DocumentHelper.CurrentUserDocumentView(ViewBag.CurrentUser, document.DocumentType);
+                switch (form)
+                {
+                    case eDocumentTypeView.Simple:
+                        Html.DevExpress().Button(btnsettings =>
+                        {
+                            btnsettings.Name = "AddItems";
+                            btnsettings.ControlStyle.CssClass = "Addbutton";
+                            btnsettings.Text = Resources.Add;
+                            btnsettings.ToolTip = Resources.NewLine;
+                            btnsettings.UseSubmitBehavior = false;
+                            if (!ViewBag.InViewMode)
+                            {
+                                btnsettings.ClientSideEvents.Click = "AddMoreOrderItems";
+                            }
+                            btnsettings.Enabled = document.Customer != null;
+                        }).GetHtml();
+                        break;
+                    //case eDocumentTypeView.Advanced:
+                    //    @Html.DevExpress().Button(s =>
+                    //    {
+                    //        s.Name = "btnStartAddItem";
+                    //        s.Text = Resources.Add;
+                    //        s.ToolTip = Resources.NewLine;
+                    //        if (!ViewBag.InViewMode)
+                    //        {
+                    //            s.ClientSideEvents.Click = "StartAddItem";
+                    //        }
+                    //    }).GetHtml();
+                    //    break;
+                    //case eDocumentTypeView.CompositionDecomposition:
+                    //    @Html.DevExpress().Button(s =>
+                    //    {
+                    //        s.Name = "btnStartAddItem";
+                    //        s.Text = Resources.Add;
+                    //        s.ToolTip = Resources.NewLine;
+                    //        if (!ViewBag.InViewMode)
+                    //        {
+                    //            s.ClientSideEvents.Click = "StartCompositionDecomposition";
+                    //        }
+                    //    }).GetHtml();
+                    //    break;
+                    default:
+                        @Html.DevExpress().Button(s =>
+                        {
+                            s.Name = "btnStartAddItem";
+                            s.Text = Resources.Add;
+                            s.ToolTip = Resources.NewLine;
+                            if (!ViewBag.InViewMode)
+                            {
+                                s.ClientSideEvents.Click = "StartAddItem";
+                            }
+                        }).GetHtml();
+                        break;
+                }
+            }
+
+            ViewContext.Writer.Write("</div>");
+
+            if (ViewData["InViewMode"] == null || (bool)ViewData["InViewMode"] == false)
+            {
+                string form_id = "";
+                ViewContext.Writer.Write(Html.Hidden("docType" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docSeries" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docNumber" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docFinDate" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docStatus" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docChecked" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docExecuted" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docInvoiceDate" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docDelAddr" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docRemarks" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docTransferMethod" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docPlaceOfLoading" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docVehicleNumber" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docTransferPurpose" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docExecutionDate" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docTriangularCustomer" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docTriangularSupplier" + form_id));
+                ViewContext.Writer.Write(Html.Hidden("docTriangularStore" + form_id));
+            }
+            Html.RenderAction("EditGrid", new { DocumentOid = document.Oid });
+        });
+    }
+
+    if (document != null && ViewBag.TraderTabFormName != null && ViewBag.TraderTabFormName != String.Empty)
+    {
+        string traderFormNameCaption = ViewBag.caption;
+        page_control_settings.TabPages.Add(traderFormNameCaption, "TraderTab").SetContent(() =>
+        {
+            string formName = ViewBag.TraderTabFormName;
+            Html.RenderPartial(formName);
+        });
+    }
+
+    if (document.DocumentType != null && (document.DocumentType.UsesPaymentMethods || document.DocumentPayments.Count > 0))
+    {
+        page_control_settings.TabPages.Add(Resources.PaymentMethods, "PaymentMethods").SetContent(() =>
+        {
+            Html.RenderAction("Payments", new { currentDocumentHeaderOid = document.Oid });
+        });
+    }
+
+
+    if (document.Division == eDivision.Sales
+   || document.Division == eDivision.Purchase
+   || document.Division == eDivision.Store
+      )
+    {
+        page_control_settings.TabPages.Add(Resources.VATFactorsAnalysis, "VATFactorsAnalysis").SetContent(() =>
+        {
+            Html.RenderPartial("VATAnalysis");
+            Html.RenderPartial("DocumentSummary");
+        });
+    }
+
+    if (document.Division == eDivision.Sales
+    || document.Division == eDivision.Purchase
+    || document.Division == eDivision.Store
+       )
+    {
+        page_control_settings.TabPages.Add(Resources.DeliveryDetails, "DeliveryDetails").SetContent(() =>
+        {
+            Html.RenderPartial("DeliveryDetails");
+        });
+    }
+
+
+    if (document.ReferencedDocuments.Count > 0)
+    {
+        page_control_settings.TabPages.Add(Resources.ReferencedDocuments).SetContent(() =>
+        {
+            Html.RenderPartial("ReferencedDocuments");
+        });
+    }
+
+    if (document.DerivedDocuments.Count > 0)
+    {
+        page_control_settings.TabPages.Add(Resources.DerivedDocuments, "DerivedDocuments").SetContent(() =>
+        {
+            Html.RenderPartial("DerivedDocuments");
+        });
+    }
+
+    if (UserHelper.IsCustomer(BaseController.CurrentUserStatic) == false
+     && document.DocumentType != null
+     && (document.Division == eDivision.Purchase
+          || document.Division == eDivision.Sales
+        )
+       )
+    {
+        page_control_settings.TabPages.Add(Resources.TriangularOrderInfo).SetContent(() =>
+        {
+            Html.RenderPartial("TriangularCallbackPanel");
+        });
+    }
+
+
+    if (document.TransactionCoupons.Count > 0)
+    {
+        page_control_settings.TabPages.Add(Resources.Coupons, "Coupons").SetContent(() =>
+        {
+            Html.RenderPartial("TransactionCoupons");
+        });
+    }
+
+}).GetHtml()

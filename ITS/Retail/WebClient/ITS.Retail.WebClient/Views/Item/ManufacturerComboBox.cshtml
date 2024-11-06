@@ -1,0 +1,22 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+
+    combosettings.Enabled = true;
+    combosettings.Name = "ManufacturerComboBox";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.Properties.DropDownWidth = 350;
+    combosettings.CallbackRouteValues = new { Controller = "Item", Action = "ManufacturerComboBox" };
+    combosettings.Properties.EnableCallbackMode = true;
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Code";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.FilterMinLength = 2;
+    //combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+    //combosettings.Properties.Columns.Add("BasicItem.Name", Resources.CompanyName, 130);
+}).GetHtml()
+@*}).BindList(ITS.Retail.WebClient.Controllers.ItemController.ItemsRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.ItemController.ItemRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.ItemController.GetItemByValue(DataBinder.Eval(Model, "MotherCode!Key"))).Bind(DataBinder.Eval(Model, "MotherCode!Key")).GetHtml()*@

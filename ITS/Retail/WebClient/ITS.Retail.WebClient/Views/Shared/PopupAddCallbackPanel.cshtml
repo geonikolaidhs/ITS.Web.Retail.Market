@@ -1,0 +1,11 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "PopupAddCallbackPanel";
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.CallbackRouteValues = new { Controller = (String)ViewBag.ControllerName, Action = "PopupAddCallbackPanel" };
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("LoadAddPopup", (String)ViewBag.ControllerName, new { ID = ViewData["ID"] });
+    });
+
+}).GetHtml()

@@ -1,0 +1,113 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    
+    settings.Name = "grdApplication";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ApplicationOid";
+        col.Caption = "Code";
+        col.Width = 400;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Name";
+        col.Caption = "Name";
+        col.Width = 450;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "HasWeb";
+        col.Caption = "Web";
+        col.Width = 70;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "HasMobile";
+        col.Caption = "Mobile";
+        col.Width = 70;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "HasDesktop";
+        col.Caption = "Desktop";
+        col.Width = 70;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = col.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+    });
+
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+    settings.SettingsDetail.ShowDetailRow = true;
+
+    settings.SetDetailRowTemplateContent(c =>
+    {
+        Html.RenderAction("Grid", "Rule", new { ApplicationInfoGuid = DataBinder.Eval(c.DataItem, "Oid").ToString() });
+    });
+  
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false; 
+    settings.Settings.ShowFilterRowMenu = true; 
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Application", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Application", Action = "AddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Application", Action = "UpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Application", Action = "DeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = true;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = true;
+    settings.SettingsCookies.CookiesID = "grdApplication";
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = true;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Width = 150;
+    settings.CommandColumn.NewButton.Visible = true;
+    settings.CommandColumn.UpdateButton.Visible = true;
+    settings.CommandColumn.DeleteButton.Visible = true;
+    settings.CommandColumn.EditButton.Visible = true;
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).DetailRows.ExpandRow(0);
+    };
+}).Bind(Model).GetHtml()

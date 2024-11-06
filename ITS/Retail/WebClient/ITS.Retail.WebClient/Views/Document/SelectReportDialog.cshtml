@@ -1,0 +1,23 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<table>
+    <tr><td>
+         @Html.DevExpress().Label(
+			edtSettings =>
+			{
+				edtSettings.ControlStyle.CssClass = "label";
+				edtSettings.Text = Resources.Report;
+			}).GetHtml()
+        @Html.DevExpress().ComboBox(cmb_settings =>
+		{
+			cmb_settings.Name = "DialogCustomReport";
+			cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.TextField = "Description";
+            cmb_settings.Properties.ValueField = "Oid";
+            cmb_settings.Properties.ValueType = typeof(Guid);
+		}).BindList(ViewData["ValidReports"]).GetHtml()
+
+        </td>
+
+    </tr>
+</table>

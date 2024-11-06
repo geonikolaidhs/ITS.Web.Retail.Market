@@ -1,0 +1,119 @@
+﻿@model IEnumerable<ITS.Retail.Model.Customer>
+@using ITS.Retail.ResourcesLib;
+
+
+@{
+    /*Header banner*/
+    string title = (string)Resources.AddCustomersToCategory + ':' + ViewData["CategoryName"];
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.Name = "btnOK";
+    headerOptions.SaveButton.Text = Resources.Add;
+    headerOptions.SaveButton.OnClick = "AddCustomersToCategory.SubmitCustomers";
+    headerOptions.CancelButton.Name = "btnCancel";
+    headerOptions.CancelButton.OnClick = "AddCustomersToCategory.BtnClickCancelCategory";
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+
+}
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+        
+        ViewContext.Writer.Write("<ul class='simpleForm'><li>");
+
+        ViewContext.Writer.Write("<label for=\"customer_code_I\">" + Resources.Code + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "customer_code";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"card_id_I\">" + Resources.CardID + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "card_id";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"customer_name_I\">" + Resources.CompanyName + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "customer_name";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"customer_tax_number_I\">" + Resources.TaxCode + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "customer_tax_number";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li><li>");
+
+        ViewContext.Writer.Write("<label for=\"is_active_I\">" + Resources.Active + "</label>");
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "is_active";
+            combosettings.Properties.Items.Add("", null);
+            combosettings.Properties.Items.Add(Resources.Yes, true);
+            combosettings.Properties.Items.Add(Resources.No, false);
+            combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            combosettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"FcreatedOn_I\">" + Resources.NewCustomersFrom + "</label>");
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Properties.EditFormat = EditFormat.DateTime;
+            deSettings.Name = "FcreatedOn";
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<label for=\"FupdatedOn_I\">" + Resources.Updated + "</label>");
+
+        @Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Properties.EditFormat = EditFormat.DateTime;
+            deSettings.Name = "FupdatedOn";
+            deSettings.ControlStyle.CssClass = "search_filter";
+            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</li></ul>");
+        @Html.DevExpress().Button(
+           settings2 =>
+           {
+               settings2.Name = "btnSearch";
+               settings2.Text = Resources.Search;
+               settings2.UseSubmitBehavior = true;
+               settings2.ClientSideEvents.Click = "Component.ClearAllowedItemsAndSearch";
+           }
+       ).GetHtml();
+    });
+}).GetHtml()
+@Html.Partial("AllowedCustomers", Model)
+
+@Html.Hidden("CategoryID", ViewData["CategoryID"])

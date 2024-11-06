@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ITS.Retail.Model.StoreDailyReport>
+@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = Resources.StoreDailyReport;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+
+    <script src="@Url.Content("~/Scripts/scripts/StoreDailyReport.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+
+
+}
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel relative";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        ViewContext.Writer.Write("<label for=\"customer_code_I\">" + Resources.Code + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "ReportCode";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"card_id_I\">" + Resources.StoreCode + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "StoreCode";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"customer_name_I\">" + Resources.StartDate + "</label>");
+
+        @Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "StartDate";
+            datesettings.Properties.EditFormat = EditFormat.Date;
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"customer_tax_number_I\">" + Resources.EndDate + "</label>");
+
+        @Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.Name = "EndDate";
+            datesettings.Properties.EditFormat = EditFormat.Date;
+            datesettings.ControlStyle.CssClass = "search_filter";
+            datesettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td>");
+        ViewContext.Writer.Write("<td>");
+
+        Html.DevExpress().Button(btnsettings =>
+        {
+            btnsettings.Name = "btnSearch";
+            btnsettings.Text = Resources.Search;
+            btnsettings.ClientEnabled = true;
+            btnsettings.ClientSideEvents.Click = "StoreDailyReport.SearchDailyReport";
+        }).GetHtml();
+        ViewContext.Writer.Write("</td>");
+
+        ViewContext.Writer.Write("</tr></table>");
+
+       
+    });
+}).GetHtml();
+
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer storeDailyReport'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdStoreDailyReport)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+@Html.Partial("Grid", Model)

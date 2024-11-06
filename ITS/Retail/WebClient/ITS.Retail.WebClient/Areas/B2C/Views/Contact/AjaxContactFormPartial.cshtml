@@ -1,0 +1,92 @@
+﻿@model ITS.Retail.Model.AjaxContactFormValidationData
+@using ITS.Retail.ResourcesLib;
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+
+            @Html.DevExpress().LabelFor(model => model.FullName, settings =>
+       {
+           settings.Text = Resources.Fullname;
+       }).GetHtml()
+
+
+            @Html.DevExpress().TextBoxFor(model => model.FullName, settings =>
+               {
+                   settings.ShowModelErrors = true;
+                   settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                   settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                   settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                   settings.Properties.NullText = Resources.Enter + " " + Resources.Fullname;
+                   settings.Height = 40;
+
+               }).GetHtml()
+
+        </div>
+        <div class="form-group">
+
+            @Html.DevExpress().LabelFor(model => model.Email).GetHtml()
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </span>
+                @Html.DevExpress().TextBoxFor(model => model.Email, settings =>
+                   {
+                       settings.ShowModelErrors = true;
+                       settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                       settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                       settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                       settings.Properties.NullText = Resources.Enter + " Email";
+                       settings.Height = 40;
+                   }).GetHtml()
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.DevExpress().LabelFor(model => model.Subject, settings =>
+       {
+           settings.Text = Resources.Subject;
+       }).GetHtml()
+            @Html.DevExpress().TextBoxFor(model => model.Subject, settings =>
+               {
+                   settings.ShowModelErrors = true;
+                   settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                   settings.Properties.NullText = Resources.Enter + " " + Resources.Subject;
+                   settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                   settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                   settings.Height = 40;
+               }
+            ).GetHtml()
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.DevExpress().LabelFor(model => model.Message, settings =>
+            {
+               settings.Text = Resources.Message;
+            }).GetHtml()
+            @Html.DevExpress().MemoFor(model => model.Message, settings =>
+            {
+                settings.ShowModelErrors = false;
+                settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                settings.Properties.NullText = Resources.Enter + " " + Resources.Message;
+                settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.Height = 200;
+            }).GetHtml()
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        @Html.DevExpress().Button(
+        settings =>
+        {
+            settings.Name = "btnSubmitContactForm";
+            settings.ControlStyle.CssClass = "pull-right contact-button blue-button";
+            settings.Text = Resources.Submit;
+            settings.UseSubmitBehavior = true;
+        }).GetHtml()
+    </div>
+
+</div>
+
+

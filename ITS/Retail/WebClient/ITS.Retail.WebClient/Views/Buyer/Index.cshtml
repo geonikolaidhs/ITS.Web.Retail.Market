@@ -1,0 +1,10 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@model IEnumerable<ITS.Retail.Model.Buyer>
+
+@{
+    ViewBag.Title = Resources.Buyers;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

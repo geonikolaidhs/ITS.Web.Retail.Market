@@ -1,0 +1,134 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    string title = Resources.OfferInfo;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("OfferPopup_" + ViewData["OfferID"].ToString().Replace('-', '_'));
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "Offer", Action = "OfferViewPopup", OfferID = ViewData["OfferID"] };
+    popUpSettings.HeaderText = title;
+    popUpSettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Code + ":";
+            edtSettings.AssociatedControlName = "Code";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(ViewData["Code"] ?? "").Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            lblsettings.ControlStyle.CssClass = "label";
+            lblsettings.Text = Resources.PriceCatalog + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Name = "PriceCatalog";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(ViewData["PriceCatalog"] ?? "").Render();
+                            
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Description;
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td colspan='3'>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(ViewData["Description"] ?? "").Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Description2 + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description2";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(ViewData["Description2"] ?? "").Render();
+                            
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.StartDate + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "StartDate";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(ViewData["StartDate"] ?? "").Render();
+
+        ViewContext.Writer.Write("</td><td>");
+                            
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.EndDate + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.Name = "EndDate";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ReadOnly = true;
+        }).Bind(ViewData["EndDate"] ?? "").Render();
+                            
+        ViewContext.Writer.Write("</td></tr></table>");
+                            
+        Html.RenderAction("OfferDetailGrid", "Offer", new { OfferID = ViewData["OfferID"] , editMode = false});
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+
+
+
+

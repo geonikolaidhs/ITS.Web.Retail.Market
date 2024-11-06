@@ -1,0 +1,75 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<h3>@Resources.LoginUser</h3>
+
+@{
+    var FormAttributes = new Dictionary<string, object>();
+    FormAttributes.Add("role", "form");
+    FormAttributes.Add("autocomplete", "off");
+    FormAttributes.Add("id", "FormSignIn");
+}
+
+    @using (Html.BeginForm("SignIn", "Membership", FormMethod.Post,htmlAttributes: FormAttributes))
+    {
+        <div class="form-group">
+            <label>@Resources.email*</label>
+            @Html.DevExpress().TextBox(settings =>
+        {
+            settings.Name = "UserEmail";
+            settings.ControlStyle.CssClass = "form-control";
+        }).GetHtml()
+        </div>
+        <div class="form-group">
+            <label>@Resources.Password*</label>
+            @Html.DevExpress().TextBox(settings =>
+        {
+            settings.Name = "UserPassword";
+            settings.Properties.Password = true;
+            settings.ControlStyle.CssClass = "form-control";
+        }).GetHtml()
+        </div>
+
+
+        <div class="btn-group center-block text-center">
+            @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "submit";
+                    settings.Text = Resources.Login;
+                    settings.ControlStyle.CssClass = "blue-button";
+                    settings.Height = 40;
+                    settings.UseSubmitBehavior = true;
+                    settings.CausesValidation = false;
+
+                }).GetHtml()
+
+            @Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "forgotPassword";
+                    settings.Text = Resources.ForgotYourPassword +" <span class=\"glyphicon glyphicon-question-sign\"></span>";
+                    settings.ControlStyle.CssClass = "light-blue-button";
+                    settings.EncodeHtml = false;
+                    settings.Height = 40;
+                    settings.RouteValues = new { Controller = "User", Action = "ForgotPassword" };
+                    settings.CausesValidation = false;
+                }).GetHtml()
+
+        </div>
+        
+    }
+    
+
+
+
+    <h4 class="text-center">@Resources.AreYouNewUser <span class="glyphicon glyphicon-question-sign"></span></h4>
+    <div class="text-center">
+        @Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "signUp";
+        settings.Text = Resources.Register + " <span class=\"glyphicon glyphicon-exclamation-sign\"></span>";
+        settings.ControlStyle.CssClass = "medium-blue-button";
+        settings.EncodeHtml = false;
+        settings.Height = 40;
+        settings.RouteValues = new { Controller = "Membership", Action = "SignUp" };
+        settings.CausesValidation = false;
+    }).GetHtml()
+    </div>

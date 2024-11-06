@@ -1,0 +1,220 @@
+body, html {
+  color: #333333;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+footer {
+  background: #d5d5d5;
+  clear: both;
+  margin: 10px;
+  padding: 10px;
+}
+
+header {
+  -moz-box-shadow: 0 0 12px #7e7e7e;
+  -webkit-box-shadow: 0 0 12px #7e7e7e;
+  box-shadow: 0 0 12px #7e7e7e;
+  background: #d5d5d5;
+  border: 1px solid #cdcdcd;
+  margin: 10px;
+  padding: 10px;
+}
+
+.mainpage {
+  border: 1px solid #cdcdcd;
+  margin: 0 auto;
+}
+.mainpage .RenderBody {
+  min-height: 65vh;
+  position: relative;
+}
+.mainpage h1 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0;
+}
+.mainpage h2 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0 0 10px 0;
+}
+.mainpage p {
+  color: #929292;
+  font: 12px Arial;
+  margin: 0;
+  padding-bottom: 5px;
+  padding-left: 0;
+  text-align: left;
+}
+.mainpage a {
+  color: #06a7ff;
+}
+.mainpage a:hover {
+  text-decoration: underline;
+}
+.mainpage .dxICheckBox_ITSTheme1 {
+  margin: 0 -3px;
+}
+.mainpage table#buttons {
+  float: right;
+  margin-top: 20px;
+}
+.mainpage table#buttons #btnClose .dxbButton_ITSTheme1 {
+  position: relative;
+}
+.mainpage #ReportToolbar_Menu ul li label {
+  margin: 7px 0 0;
+}
+.mainpage #btnClose .dxbButton_ITSTheme1 {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.wrapper {
+  background: white;
+  margin: 20px;
+  min-width: 50%;
+  width: auto;
+}
+.wrapper .container {
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  min-width: 50%;
+  padding: 10px !important;
+  width: auto !important;
+}
+.wrapper .container .filter_search_container {
+  margin-left: 5px;
+  padding: 3px 2px 5px;
+  top: -48px;
+}
+.wrapper .container table.FilterPanel .dxbButton_ITSTheme1 {
+  clear: none;
+  margin-left: 20px;
+}
+.wrapper .container table.FilterPanel td.dxrpHeader_ITSTheme1 span {
+  background-color: #d5d5d5;
+  font-weight: normal;
+}
+.wrapper #settings {
+  float: left;
+  margin-right: 20px;
+  width: 300px;
+}
+.wrapper #settings ul {
+  overflow: hidden;
+  position: relative;
+}
+.wrapper #settings ul li h4 span {
+  background-image: url(../img/minimize.png);
+  background-position: -20px 0;
+  background-repeat: no-repeat;
+  background-size: 41px;
+  cursor: pointer;
+  display: block;
+  height: 25px;
+  margin: 0;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 21px;
+}
+.wrapper #settings ul li h4 span.maximaze {
+  background-position: 0 0;
+}
+.wrapper #settings .options {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background: #cdcdcd;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 0 auto 10px;
+}
+.wrapper #settings .options li {
+  display: none;
+  margin: 0;
+}
+.wrapper #settings .options a {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  color: #333333;
+  display: block;
+  font-size: 12px;
+  padding: 15px 20px 10px;
+}
+.wrapper #settings .options a:hover {
+  background-color: #06a7ff;
+  color: white;
+  text-decoration: none;
+}
+.wrapper #settings .subtitle {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background: #b4b4b4;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 15px;
+  margin: 0 auto 10px;
+  padding: 2px 15px;
+}
+.wrapper #settings h4.title_settings {
+  background: #06a7ff;
+  border-right: 50px solid #333333;
+  cursor: pointer;
+  display: block;
+  font-size: 15px;
+  margin: 0 0 10px;
+  padding: 1.33em;
+  position: relative;
+  text-align: right;
+}
+
+.dxeTextBox_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1 {
+  height: auto;
+}
+
+.dxeButtonEdit_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1 {
+  height: auto;
+}
+
+table.FilterPanel {
+  background: #d5d5d5;
+  font-size: 20px;
+  left: 10px;
+  position: absolute;
+  top: -50px;
+}
+table.FilterPanel td.dxrpHeader_ITSTheme1 {
+  background: #d5d5d5 !important;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.dxeOutOfRWarnRight_ITSTheme1 {
+  display: none;
+}

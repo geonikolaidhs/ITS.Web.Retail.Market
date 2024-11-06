@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_check_price"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll111333463454"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
+
+        <TableLayout
+            android:id="@+id/ll1113346337"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false" >
+
+            <TableRow
+                android:id="@+id/tableRow35234634476341"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btnCheckPriceScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/scan"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/textView3343255"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:text="@string/code_barcode"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_small" />
+
+                <EditText
+                    android:id="@+id/txtCheckPriceCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:imeOptions="actionDone"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:text="@string/description"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_small" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtCheckPriceDescription"
+                    android:layout_width="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="100"
+                    android:clickable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/text_small" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                 <TextView
+                    android:id="@+id/dummyTextView343"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/discount"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/TextView2452336645"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="bottom"
+                    android:text="@string/discount"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/txtCheckPriceDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="visible" >
+
+                    <requestFocus />
+                </EditText>
+
+                <TextView
+                    android:id="@+id/TextView034232"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="bottom"
+                    android:text="@string/price"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/txtCheckPriceValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="visible" />
+
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+</FrameLayout>

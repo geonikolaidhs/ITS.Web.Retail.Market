@@ -1,0 +1,190 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using System.Web.UI.WebControls;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    settings.Name = "grdTransformationRule";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "TransformationRule", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = 600;
+    settings.SettingsEditing.AddNewRowRouteValues = settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "TransformationRule", Action = "Update" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "TransformationRule", Action = "Delete" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.Width = 60;
+    settings.CommandColumn.ShowSelectCheckbox = false;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.ShowClearFilterButton = false;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = HorizontalAlign.Center;
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+            if ((bool)ViewData["TableCanUpdate"])
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+            if ((bool)ViewData["TableCanDelete"])
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            if ((bool)ViewData["TableCanInsert"])
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 70;
+    });
+
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Owner.CompanyName";
+        col.Caption = Resources.Supplier;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DerrivedType.Description";
+        col.Caption = Resources.DerrivedDocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "QtyTransformationFactor";
+        col.Caption = Resources.QtyTransformationFactor;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ValueTransformationFactor";
+        col.Caption = Resources.ValueTransformationFactor;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Owner.CompanyName";
+        col.Caption = Resources.Company;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TransformationLevel";
+        col.Caption = Resources.TransformationLevel;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eTransformationLevel)DataBinder.Eval(c.DataItem, "TransformationLevel")).ToLocalizedString());
+        });
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsDefault";
+        col.Caption = Resources.IsDefault;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+    });
+
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsText.PopupEditFormCaption = Resources.TransformationRules;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["item"] = item;
+        TransformationRule rule = DataBinder.Eval(item, "This") as TransformationRule;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "TransformationRuleBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "TransformationRuleBtnCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        Html.RenderPartial("TransformationRuleEditForm");
+
+        ViewContext.Writer.Write("</div>");
+    });
+
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.TransformationRules;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+}).Bind(Model).GetHtml()

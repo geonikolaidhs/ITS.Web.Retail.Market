@@ -1,0 +1,519 @@
+.dxpgControl_ITSTheme1, .dxpgCustForm_ITSTheme1
+{
+	color: #333333;
+	font: 11px arial;
+	border: solid 1px #c0c0c0;
+	background-color: white;
+}
+.dxpgContainerCell_ITSTheme1
+{
+	vertical-align: top;
+}
+.dxpgMainTable_ITSTheme1
+{
+	border: 0px;
+	border-collapse: separate;
+	width: 100%;
+	text-align: left;
+}
+div.dxpgMainTable_ITSTheme1
+{
+	-ms-touch-action: pinch-zoom;
+}
+.dxpgMainTable_ITSTheme1 caption 
+{
+	background: #ACACAC;
+	color: white;
+	border-bottom: Solid 1px #9F9F9F;
+    font-size: 15px;
+	font-weight: normal;
+	padding: 3px 3px 5px;
+	text-align: center;
+}
+.dxpgHeader_ITSTheme1
+{
+	border-width: 0px;
+	cursor: pointer;
+	white-space: nowrap;
+    	text-align: left;
+}
+.dxpgHeaderTable_ITSTheme1
+{
+	border-width: 1px;
+	width: 100%;
+}
+.dxpgMSDraggable_ITSTheme1 .dxpgHeaderTable_ITSTheme1,
+.dxpgCustFieldsDiv_ITSTheme1 .dxpgHeaderTable_ITSTheme1
+{
+	-ms-touch-action: pinch-zoom;
+}
+
+.dxpgHeaderGroupButton_ITSTheme1
+{
+	padding-left: 4px;
+	vertical-align: middle;
+}
+.dxpgHeaderText_ITSTheme1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 3px;
+	padding-bottom: 4px;
+}
+.dxpgHeaderSort_ITSTheme1
+{
+	padding-left: 0px;
+	padding-right: 4px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	vertical-align: middle;
+}
+.dxpgHeaderFilter_ITSTheme1
+{
+	padding-left: 0px;
+	padding-right: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	vertical-align: middle;	
+}
+.dxpgHeaderHover_ITSTheme1
+{
+	background-color: #f1f1f1;
+}
+.dxpgArea_ITSTheme1, .dxpgArea_ITSTheme1 table
+{
+	font: 11px arial ;
+}
+.dxpgArea_ITSTheme1
+{
+	border: solid 1px #c0c0c0;
+	border-left-style: none;
+	border-top-style: none;
+	border-bottom-style: none;
+	border-right-style: none;
+}
+.dxpgColumnArea_ITSTheme1
+{
+	border-bottom-style: solid;
+}
+.dxpgRowArea_ITSTheme1
+{
+}
+.dxpgDataArea_ITSTheme1
+{
+}
+.dxpgFilterArea_ITSTheme1
+{
+	border-bottom-style: solid;
+}
+.dxpgEmptyArea_ITSTheme1
+{
+	cursor: default;
+	padding-top: 6px;
+	padding-left: 6px;
+	padding-bottom: 7px;
+	padding-right: 6px;
+}
+.dxpgColumnFieldValue_ITSTheme1
+{
+	border: solid 1px #c0c0c0;
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: none;
+	border-top-style: none;
+	padding: 4px 6px;
+	font-weight: normal;
+	text-align: left;	
+}
+.dxpgColumnTotalFieldValue_ITSTheme1
+{
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: none;
+	border-top-style: none;
+}
+.dxpgColumnGrandTotalFieldValue_ITSTheme1
+{
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: none;
+	border-top-style: none;
+}
+.dxpgRowFieldValue_ITSTheme1
+{
+	border: solid 1px #c0c0c0;
+	border-left-style: none;
+	border-bottom-style: none;
+	border-right-style: solid;
+	border-top-style: solid;
+	padding: 3px 6px 4px 6px;
+	font-weight: normal;
+	text-align: left;
+}
+.dxpgRowTotalFieldValue_ITSTheme1
+{
+	border-left-style: none;
+	border-bottom-style: none;
+	border-right-style: solid;
+	border-top-style: solid;
+}
+.dxpgRowTreeFieldValue_ITSTheme1
+{	
+	padding: 0px;
+	font: 0px;
+}
+.dxpgRowGrandTotalFieldValue_ITSTheme1
+{
+	border-left-style: none;
+	border-bottom-style: none;
+	border-right-style: solid;
+	border-top-style: solid;
+	padding-top: 5px;
+	padding-bottom: 6px;	
+}
+.dxpgCollapsedButton_ITSTheme1
+{
+	vertical-align: -1px;
+	border: 0px;
+	margin-right: 5px;
+}
+.dxpgSortByColumnImage_ITSTheme1
+{
+	vertical-align: -1px;
+	border: 0px;
+	margin-left: 5px;
+}
+.dxpgCell_ITSTheme1
+{
+	text-align: right;
+	background-color: White;	
+	border-color: #cecece;
+	border-width: 1px;
+	border-top-style: solid;
+	border-left-style: solid;
+	border-bottom-style: none;
+	border-right-style: none;
+	padding: 4px;
+	padding-top:3px;
+	white-space: nowrap;
+}
+.dxpgKPICell_ITSTheme1
+{
+	text-align: center;
+	vertical-align: middle;
+}
+.dxpgTotalCell_ITSTheme1
+{
+}
+.dxpgGrandTotalCell_ITSTheme1
+{
+}
+.dxpgFilterItem_ITSTheme1
+{
+font: 11px arial ;
+    	white-space: nowrap;
+}
+.dxpgFilterButton_ITSTheme1
+{
+	font: 11px arial ;
+	padding: 2px 6px;
+}
+.dxpgLoadingDiv_ITSTheme1
+{
+	background-color: White;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+.dxpgTopPager_ITSTheme1
+{
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: solid 1px #c0c0c0;
+	padding: 4px 0;
+}
+.dxpgBottomPager_ITSTheme1
+{
+	border-top: solid 1px #c0c0c0;
+	border-bottom: none;
+	border-right: none;
+	border-left: none;
+	padding: 7px 0;
+}
+.dxpgCustomizationFieldsHeader_ITSTheme1
+{
+	color: White;
+	font: 11px arial ;
+	background-image: none!important;
+}
+.dxpgCustomizationFieldsContent_ITSTheme1
+{
+	padding: 0px !important;
+	min-width: 300px;
+}
+.dxpgLoadingPanel_ITSTheme1
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px arial ;
+	color: #333333;
+}
+.dxpgLoadingPanel_ITSTheme1 td.dx
+{
+	padding: 10px 14px;
+}
+.dxpgMenuItem_ITSTheme1 
+{
+	font: 11px arial ;	
+}
+.dxpgDataHeadersImage_ITSTheme1
+{
+	margin-right: 5px;
+	vertical-align: -2px;
+}
+.dxpgPrefilterPanelContainer_ITSTheme1
+{
+	border-bottom-style: none;
+	border-left-style: none;
+	border-right-style: none;
+}
+.dxpgPrefilterPanel_ITSTheme1
+{
+	border: none;
+}
+.dxpgPrefilterPanelLink_ITSTheme1
+{
+	color: #06A7FF;
+	text-decoration: underline;
+}
+.dxpgPrefilterPanelCheckBoxCell_ITSTheme1
+{
+	padding: 0 7px;
+}
+.dxpgPrefilterPanelImageCell_ITSTheme1
+{
+	padding: 0 3px;
+	padding-right: 1px;
+	cursor: pointer;
+}
+.dxpgPrefilterPanelExpressionCell_ITSTheme1
+{
+	font-size: 11px;
+	padding: 5px 5px 8px 0;	
+	white-space: nowrap;
+}
+.dxpgPrefilterPanelClearButtonCell_ITSTheme1
+{
+	font-size: 11px;
+	padding: 5px 6px 8px;
+}
+.dxpgFilterBuilderMainArea_ITSTheme1
+{
+	background: white;
+	padding: 6px 2px;
+} 
+.dxpgFilterBuilderButtonArea_ITSTheme1
+{
+	border-top: solid 1px #c0c0c0;
+	padding: 6px;
+	white-space: nowrap;
+}
+.dxpgGroupSeparator_ITSTheme1 
+{
+	vertical-align: middle;
+}
+.dxpgCustFieldsFilterAreaHeaders_ITSTheme1,
+.dxpgCustFieldsRowAreaHeaders_ITSTheme1,
+.dxpgCustFieldsColumnAreaHeaders_ITSTheme1,
+.dxpgCustFieldsDataAreaHeaders_ITSTheme1,
+.BottomPanelOnly1by4 .dxpgFLFRDiv_ITSTheme1,
+.BottomPanelOnly1by4 .dxpgFLCDDiv_ITSTheme1
+{
+width:100%;
+height:50%;
+}
+.StackedDefault .dxpgCustFieldsFieldList_ITSTheme1
+{
+height:34%;
+}
+.StackedDefault .dxpgFLFRDiv_ITSTheme1
+{
+width:50%;
+height:66%;
+float:left;
+}
+.StackedDefault .dxpgFLCDDiv_ITSTheme1
+{
+width:50%;
+height:66%;
+float:right;
+}
+.StackedDefault .dxpgCustFieldsFilterAreaHeaders_ITSTheme1 .dxpgFLTextDiv_ITSTheme1,
+.StackedDefault .dxpgCustFieldsColumnAreaHeaders_ITSTheme1 .dxpgFLTextDiv_ITSTheme1
+{
+height:47px;
+}
+.TopPanelOnly .dxpgCustFieldsFieldList_ITSTheme1
+{
+width:100%;
+height:100%;
+}
+.TopPanelOnly .dxpgFLDefereDiv_ITSTheme1 .dxeBase_ITSTheme1,
+.TopPanelOnly .dxpgFLDefereDiv_ITSTheme1 .dxpgFLDefereDB_ITSTheme1,
+.TopPanelOnly .dxpgFLFRDiv_ITSTheme1,
+.TopPanelOnly .dxpgFLCDDiv_ITSTheme1,
+.BottomPanelOnly1by4 .dxpgCustFieldsFieldList_ITSTheme1,
+.BottomPanelOnly2by2 .dxpgCustFieldsFieldList_ITSTheme1,
+.TopPanelOnly .dxpgFLTextDiv_ITSTheme1 div
+{
+display:none;
+}
+.TopPanelOnly .dxpgFLTextDiv_ITSTheme1
+{
+ height:19px;   
+}
+.TopPanelOnly .dxpgFLDefereDiv_ITSTheme1
+{
+ height:16px;   
+}
+.BottomPanelOnly2by2 .dxpgFLFRDiv_ITSTheme1,
+.StackedSideBySide .dxpgCustFieldsFieldList_ITSTheme1
+{
+width:50%;
+height:100%;
+float:left;
+}
+.BottomPanelOnly2by2 .dxpgFLCDDiv_ITSTheme1
+{
+width:50%;
+height:100%;
+float:right;
+}
+.StackedSideBySide .dxpgFLFRDiv_ITSTheme1,
+.StackedSideBySide .dxpgFLCDDiv_ITSTheme1
+{
+width:50%;
+height:50%;
+float:right;
+}
+.dxpgCustFields_ITSTheme1
+{
+    	display:block;
+position:relative;
+padding: 0 3px!important;
+}
+.dxpgFLListDiv_ITSTheme1 > div
+{
+    border:1px solid #c0c0c0;
+    position:relative;
+    display:block;
+    height:100%;
+    padding:1px;
+    background:#FFFFFF;
+    overflow:hidden;
+}
+.dxpgFLListDiv_ITSTheme1 > div > div
+{
+    position:relative;
+    display:block;
+    background:#FFFFFF;
+    height:100%;
+    padding:0px;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+.DragOver .dxpgFLListDiv_ITSTheme1 > div
+{
+    background:#FFD324;
+}
+.dxpgFLListDiv_ITSTheme1 
+{
+    padding:0px 3px 0px 3px;
+}
+.dxpgFLButtonDiv_ITSTheme1 .dxbButton_ITSTheme1 div.dxb
+{
+    padding:2px 8px 1px;
+}
+.dxpgFLButtonDiv_ITSTheme1 .dxbButton_ITSTheme1 div.dxbf
+{
+	border: dotted 1px black;	
+	padding:1px 7px 0px;
+}
+.dxpgFLTextDiv_ITSTheme1
+{
+ height:28px;
+}
+.dxpgFLTextDiv_ITSTheme1 div
+{
+   display:block;
+   float:left;
+   margin:-17px 0px 3px 0px;
+   left:6px;
+   top:100%;
+   position:relative;
+}
+div.dxpgFLTextImgDiv_ITSTheme1
+{
+    display:block;
+    height:16px;
+    width:16px;
+    margin:-18px 0px 3px 0px;
+    left:3px;
+}
+.dxpgFLButtonDiv_ITSTheme1
+{
+    float:right;
+    height:28px;
+    position:relative;
+    z-index:1;
+}
+.dxpgFLDefereDiv_ITSTheme1
+{
+    height:50px;
+}
+.dxpgCustFieldsDiv_ITSTheme1
+{
+ clear:both;   
+ padding:0px 9px;
+}
+.dxpgFLButton_ITSTheme1 
+{
+ margin:12px 12px 0px 0px;
+ width:40px;
+ height:23px;
+}
+.dxpgFLDefereDiv_ITSTheme1 .dxeBase_ITSTheme1
+{
+ float:left;
+ display:block;
+ border-collapse:separate;
+ padding:17px 0px 0px 0px; 
+ margin-left:8px;  
+}
+.dxpgFLDefereDB_ITSTheme1
+{
+float:right;
+display:block;
+padding:0px 12px 0px 0px;
+margin-top:16px;
+}
+/*.dxpgFLDefereDiv_ITSTheme1 .dxbButton_ITSTheme1 div.dxb
+{
+    padding:2px 14px 2px 14px;
+}
+.dxpgFLDefereDiv_ITSTheme1 .dxbButton_ITSTheme1 div.dxbf
+{
+    padding:1px 13px 1px 13px;
+    border: dotted 1px black;	
+}*/
+.dxpgFLListDiv_ITSTheme1 table 
+{
+ width:100%;
+ table-layout:fixed;  
+ overflow:visible;
+}
+.dxpgFLListDiv_ITSTheme1 table table td
+{
+     overflow:hidden; 
+}
+

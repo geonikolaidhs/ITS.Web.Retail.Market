@@ -1,0 +1,19 @@
+﻿
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "VatLevelCbPanel";
+    settings.CallbackRouteValues = new { Controller = "Customer", Action = "VatLevelCbPanel", OwnEdit = ViewData["OwnEdit"] };
+    settings.SetContent(() =>
+    {
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "VatLevel";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.Enabled = !(bool)ViewData["OwnEdit"];
+        }).BindList(ViewBag.VatLevelComboBox).Bind(DataBinder.Eval(Model, "VatLevel!Key")).Render();
+    });
+}).GetHtml()
+

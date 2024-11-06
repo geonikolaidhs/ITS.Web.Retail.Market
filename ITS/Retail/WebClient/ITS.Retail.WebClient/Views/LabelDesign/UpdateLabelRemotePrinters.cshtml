@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().ComboBox(edtSettings =>
+{
+    edtSettings.Name = "PrinterNickName";
+    edtSettings.ControlStyle.CssClass = "editor";
+    edtSettings.ShowModelErrors = true;
+    edtSettings.Properties.DropDownWidth = 150;
+    edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    edtSettings.Properties.CallbackPageSize = 15;
+    edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    edtSettings.CallbackRouteValues = new { Controller = "LabelDesign", Action = "UpdateLabelRemotePrinters" };
+    edtSettings.Properties.ClientSideEvents.BeginCallback = "EditLabelDesign.PrinterNickNameBeginCallback";
+    edtSettings.Properties.ClientSideEvents.EndCallback = "EditLabelDesign.PrinterNickNameEndCallback";
+}).BindList(ViewBag.PrinterNickNames).Bind(ViewBag.selectedPrinter).Bind(DataBinder.Eval(Session["EditingItem"], "PrinterNickName")).GetHtml()

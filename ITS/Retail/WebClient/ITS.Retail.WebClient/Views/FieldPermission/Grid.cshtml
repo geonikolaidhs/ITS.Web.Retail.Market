@@ -1,0 +1,141 @@
+﻿
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Name = "grdFieldPermission";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "FieldName";
+        column.Caption = "FieldName";
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+        comboBoxProperties.DataSource = ViewBag.Tables;
+        comboBoxProperties.TextField = "FieldName";
+        comboBoxProperties.ValueField = "FieldName";
+        comboBoxProperties.ValueType = typeof(string);
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Visible";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ReadOnly";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CanInsert";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CanUpdate";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CanDelete";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+    settings.Settings.ShowFilterRow = false; 
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "FieldPermission", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "FieldPermission", Action = "InlineEditingAddNewPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "FieldPermission", Action = "InlineEditingUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "FieldPermission", Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowNewButton= true;
+    settings.CommandColumn.ShowUpdateButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = "FieldPermission";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+        settings.ClientSideEvents.BeginCallback = @"
+                    function grdAddressBeginCalback(s, e) 
+                    {
+                       var index = grdTablePermission.GetFocusedRowIndex();
+                        var focusedRowKey = grdTablePermission.GetRowKey(index);
+                        if (focusedRowKey != null) {
+                            e.customArgs['TablePermissionID'] = focusedRowKey;
+                        }                       
+                     }";
+
+
+    
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).FocusedRowIndex = 0;
+        };
+
+}).Bind(ViewData["Fields"]).GetHtml()

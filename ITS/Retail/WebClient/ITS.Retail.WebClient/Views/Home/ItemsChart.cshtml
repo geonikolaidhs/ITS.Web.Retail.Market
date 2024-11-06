@@ -1,0 +1,54 @@
+﻿@using System.Drawing;
+
+@Html.DevExpress().Chart(settings =>
+    {
+        settings.Name = "ItemsChart";
+        settings.BorderOptions.Visibility = DefaultBoolean.False;
+        settings.Height = 324;
+        settings.Width = 550;
+        settings.BackColor = System.Drawing.Color.Transparent;
+        settings.SettingsLoadingPanel.Enabled = true;
+
+        settings.SeriesTemplate.ChangeView(DevExpress.XtraCharts.ViewType.SideBySideStackedBar);
+        settings.SeriesDataMember = "Item.Name"; //z
+        settings.SeriesTemplate.ArgumentDataMember = "Item.Name"; // X
+        settings.SeriesTemplate.ValueDataMembers[0] = "Sum"; //Y
+        settings.SeriesTemplate.LabelsVisibility = DefaultBoolean.True;
+        settings.SeriesTemplate.Label.ResolveOverlappingMode = ResolveOverlappingMode.Default;
+        settings.SeriesTemplate.Label.Font = new Font("Tahoma", 8);
+        settings.BoundDataChanged = (s, e) =>
+        {
+            MVCxChartControl chart = (MVCxChartControl)s;
+            foreach (Series series in chart.Series)
+            {
+                ((ISupportStackedGroup)series.View).StackedGroup = series.Name;
+            }
+        };
+
+        settings.Legend.Visible = false;
+        settings.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.Left;
+        settings.Legend.AlignmentVertical = LegendAlignmentVertical.BottomOutside;
+        settings.Legend.Direction = LegendDirection.LeftToRight;
+        settings.Legend.MaxHorizontalPercentage = 70;
+
+        if (settings.Diagram is XYDiagram)
+        {
+            ((XYDiagram)settings.Diagram).Rotated = false;
+            Axis2D axisY = ((XYDiagram)settings.Diagram).AxisY;
+            axisY.Interlaced = true;
+            axisY.Title.Text = ITS.Retail.ResourcesLib.Resources.SummedQty;
+            axisY.Title.Visibility = DefaultBoolean.True;
+            Axis2D axisX = ((XYDiagram)settings.Diagram).AxisX;
+            axisX.Label.Visible = false;
+        }
+        else
+        {
+            XYDiagram3D diagram = (XYDiagram3D)settings.Diagram;
+            diagram.AxisX.Label.MaxWidth = 60;
+            diagram.AxisY.Interlaced = true;
+            diagram.RotationType = RotationType.UseAngles;
+            diagram.RotationOrder = RotationOrder.XYZ;
+            diagram.ZoomPercent = 140;
+            diagram.VerticalScrollPercent = 4;
+        }
+    }).Bind(Model).GetHtml()

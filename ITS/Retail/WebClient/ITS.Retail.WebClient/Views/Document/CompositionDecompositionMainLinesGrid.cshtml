@@ -1,0 +1,431 @@
+﻿@model  List<DocumentDetail>
+
+@using ITS.Retail.WebClient.Extensions;
+@using System.Web.UI.WebControls
+
+
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    eDocumentTypeView form = DocumentHelper.CurrentUserDocumentView(ViewBag.CurrentUser, document.DocumentType);
+    int displayDigits = BaseController.OwnerApplicationSettings == null ? 4 : (int)BaseController.OwnerApplicationSettings.DisplayDigits;
+    List<string> includedFields = new List<string>() { "" };
+
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext,
+                                                                     typeof(DocumentDetail),
+                                                                     typeof(DocumentController),
+                                                                     "grdCompositionDecompositionMainLinesGrid",
+                                                                     GridViewCommandColumnType.ICONS,
+                                                                     includedFields: includedFields
+                                                                     );
+
+    settings.SettingsText.Title = Resources.DocumentDetails;
+    settings.CommandColumn.Caption = " ";
+    settings.ClientSideEvents.RowClick = "CompositionDecomposition.ViewLinkedLines";
+    settings.ClientSideEvents.ColumnMoving = "grdEditGridColumnMoving";
+    settings.SettingsPopup.EditForm.Width = 900;
+    settings.SettingsPopup.EditForm.MinWidth = 900;
+    settings.SettingsPopup.EditForm.ResizingMode = ResizingMode.Live;
+    settings.SettingsPopup.EditForm.MinHeight = 400;
+    settings.SettingsPopup.EditForm.AllowResize = false;
+    settings.SettingsPopup.EditForm.CloseOnEscape = AutoBoolean.False;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.CommandColumn.SetHeaderCaptionTemplateContent(c =>
+    {
+        Html.DevExpress().Button(button =>
+        {
+            button.Name = "Button";
+            button.Text = Resources.New;
+            button.ClientSideEvents.Click = "CompositionDecomposition.MainLinesGridAddNewRow";
+        }).GetHtml();
+    });
+
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "CompositionDecompositionMainLinesGrid", InViewMode = ViewData["InViewMode"], DocumentOid = document.Oid };
+
+    if (ViewData["InViewMode"] == null || (bool)ViewData["InViewMode"] == false)
+    {
+        settings.ClientSideEvents.BeginCallback = "CompositionDecomposition.MainLinesGridBeginCallback";
+        settings.ClientSideEvents.EndCallback = "CompositionDecomposition.MainLinesGridEndCallback";
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Document", Action = "DeleteMainDocumentDetail" };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Document", Action = "AddMainDocumentDetail" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Document", Action = "UpdateMainDocumentDetail" };
+    }
+    else
+    {
+        settings.ClientSideEvents.EndCallback = "CustomizationWindow";
+        settings.CommandColumn.Visible = false;
+    }
+
+    //settings.ClientSideEvents.Init = "CompositionDecomposition.EnableDisableCompositionDecompositionComponents";
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    if (document.DocumentType == null
+     || document.DocumentType.ManualLinkedLineInsertion == false
+       )
+    {
+        settings.CommandButtonInitialize = (s, e) =>
+        {
+            if (e.ButtonType == ColumnCommandButtonType.Edit || e.ButtonType == ColumnCommandButtonType.Delete)
+            {
+                if (freezeEdit)
+                {
+                    e.Visible = false;
+                }
+                else
+                {
+                    MVCxGridView mvcxGridView = s as MVCxGridView;
+                    bool IsLinkedLine = (bool)mvcxGridView.GetRowValues(e.VisibleIndex, "IsLinkedLine");
+                    bool IsCanceled = (bool)mvcxGridView.GetRowValues(e.VisibleIndex, "IsCanceled");
+                    bool IsReturned = (bool)mvcxGridView.GetRowValues(e.VisibleIndex, "IsReturn");
+                    e.Visible = !IsLinkedLine && !IsCanceled && !IsReturned;
+                }
+            }
+            else if (e.ButtonType == ColumnCommandButtonType.Update)
+            {
+                e.Visible = false;
+            }
+        };
+    }
+
+    settings.HtmlDataCellPrepared = (object sender, ASPxGridViewTableDataCellEventArgs e) =>
+    {
+        MVCxGridView View = sender as MVCxGridView;
+        if (e.VisibleIndex >= 0)
+        {
+            object IsCanceled = View.GetRowValues(e.VisibleIndex, "IsCanceled");
+            object IsReturn = View.GetRowValues(e.VisibleIndex, "IsReturn");
+            object IsLinkedLine = View.GetRowValues(e.VisibleIndex, "IsLinkedLine");
+
+            if (IsCanceled != null && IsCanceled.ToString() != "" && (bool)IsCanceled)
+            {
+                e.Cell.ControlStyle.CssClass += " inactiveRow";
+            }
+            if (IsReturn != null && IsReturn.ToString() != "" && (bool)IsReturn)
+            {
+                e.Cell.ControlStyle.BackColor = System.Drawing.Color.HotPink;
+            }
+
+            if (document.DocumentType != null
+              && document.DocumentType.ManualLinkedLineInsertion
+               )
+            {
+                if (IsLinkedLine != null && IsLinkedLine.ToString() != "" && (bool)IsLinkedLine)
+                {
+                    e.Cell.ControlStyle.BackColor = System.Drawing.Color.Cornsilk;
+                }
+            }
+        }
+    };
+
+    settings.CustomButtonInitialize = (s, e) =>
+    {
+        try
+        {
+            MVCxGridView g = s as MVCxGridView;
+            bool IsLinkedLine = (bool)g.GetRowValues(e.VisibleIndex, "IsLinkedLine");
+            e.Visible = IsLinkedLine ? DefaultBoolean.True : DefaultBoolean.False;
+            e.Image.Url = "~/Content/img/link.png?ver=" + ViewData["ApplicationVersionNumber"];
+        }
+        catch (Exception)
+        {
+
+        }
+    };
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+
+    settings.SetEditFormTemplateContent(editFormTemplateContent =>
+    {
+        if (!freezeEdit)
+        {
+            var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editFormTemplateContent.DataItem;
+            DocumentDetail documentDetail = null;
+
+            try
+            {
+                documentDetail = DataBinder.Eval(item, "This");
+            }
+            catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException)
+            {
+            }
+            Html.RenderPartial("DocumentDetail" + form.GetDescription() + document.Division.GetDescription(), model: documentDetail);
+        }
+    });
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+        MVCxGridView View = sender as MVCxGridView;
+        if (e.VisibleIndex >= 0 && ViewBag.NotIncludedDetails != null)
+        {
+            if (((List<string>)ViewBag.NotIncludedDetails).Contains(View.GetRowValues(e.VisibleIndex, "Oid").ToString()))
+            {
+                e.Row.BackColor = System.Drawing.Color.Red;
+            }
+        }
+    };
+
+    settings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+    {
+        if (BaseController.OwnerApplicationSettings != null && BaseController.OwnerApplicationSettings.PadItemCodes &&
+            BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Item.Code")
+            {
+
+                string s = e.Value as string;
+                if (s == null)
+                {
+                    return;
+                }
+
+                e.DisplayText = s.TrimStart(BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.Code";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Barcode.Code";
+        col.Caption = Resources.Barcode;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CustomDescription";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    if (document.UsesPackingQuantities)
+    {
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "MeasurementUnit.Description";
+            col.Caption = Resources.MeasurementUnit;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        });
+
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Qty";
+            col.Caption = Resources.Quantity;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.PropertiesEdit.DisplayFormatString = "N" + displayDigits;
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PackingMeasurementUnit.Description";
+        col.Caption = document.UsesPackingQuantities ? Resources.PackingMeasurementUnit : Resources.MeasurementUnit;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PackingQuantity";
+        col.Caption = document.UsesPackingQuantities ? Resources.QunatityPacks : Resources.Quantity;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.PropertiesEdit.DisplayFormatString = "N" + displayDigits;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UnitPrice";
+        col.Caption = Resources.UnitPrice;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatItemValueString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "NetTotal";
+        col.Caption = Resources.TotalAfterDiscount;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "GrossTotal";
+        col.Caption = Resources.GrossTotal;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.PackingQty";
+        col.Caption = Resources.PackingQty;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Remarks";
+        col.Caption = Resources.Remarks;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.Visible = false;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "IsNotAvailable";
+        column.Caption = Resources.NotIncludedItem;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().CheckBox(chkboxsettings =>
+            {
+                chkboxsettings.Name = c.KeyValue.ToString();
+                if (ViewBag.NotIncludedDetails != null && ((List<string>)ViewBag.NotIncludedDetails).Contains(DataBinder.Eval(c.DataItem, "Oid").ToString()))
+                {
+                    chkboxsettings.Checked = true;
+                    chkboxsettings.ReadOnly = false;
+                }
+                else
+                {
+                    chkboxsettings.Checked = false;
+                    chkboxsettings.ReadOnly = true;
+                }
+                chkboxsettings.Properties.ClientSideEvents.CheckedChanged = "NotAvailableItemUnchecked";
+            }).Render();
+        });
+    });
+
+    settings.SetEditFormTemplateContent(editFormSettings =>
+    {
+        Html.DevExpress().FormLayout(formLayoutSettings =>
+        {
+            formLayoutSettings.Name = "FormLayoutMainLines";
+            formLayoutSettings.Width = Unit.Percentage(100);
+            formLayoutSettings.ColCount = editFormSettings.Grid.IsNewRowEditing ? 3 : 2;
+
+            if (editFormSettings.Grid.IsNewRowEditing)
+            {
+
+                formLayoutSettings.Items.Add(item =>
+                {
+                    item.Name = "";
+                    item.Caption = Resources.Code;
+                    item.CaptionSettings.Location = LayoutItemCaptionLocation.Left;
+                    item.VerticalAlign = FormLayoutVerticalAlign.Top;
+                }).SetNestedContent(() =>
+                {
+                    Html.RenderPartial("SearchByBarcode");
+                });
+
+                formLayoutSettings.Items.Add(item =>
+                {
+                    item.Name = "";
+                    item.Caption = Resources.Item;
+                    item.CaptionSettings.Location = LayoutItemCaptionLocation.Left;
+                    item.VerticalAlign = FormLayoutVerticalAlign.Top;
+                }).SetNestedContent(() =>
+                {
+                    Html.RenderPartial("SearchByDescriptionCompositionDecomposition");
+                });
+            }
+
+            formLayoutSettings.Items.Add(item =>
+            {
+                item.FieldName = "Qty";
+                item.Caption = Resources.Quantity;
+                item.CaptionSettings.Location = LayoutItemCaptionLocation.Left;
+                item.VerticalAlign = FormLayoutVerticalAlign.Top;
+                item.NestedExtension().SpinEdit(quantitySpinEdit =>
+                {
+                    quantitySpinEdit.Properties.MinValue = 0;
+                    quantitySpinEdit.Properties.MaxValue = 10000;
+                    quantitySpinEdit.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                    quantitySpinEdit.Width = Unit.Percentage(100);
+                    quantitySpinEdit.Properties.ClientSideEvents.KeyPress = "CompositionDecomposition.MainLinesQuantityKeyPress";
+                });
+            });
+
+            formLayoutSettings.Items.Add(itemInfo =>
+            {
+                itemInfo.FieldName = "itemInfo";
+                itemInfo.ShowCaption = DefaultBoolean.False;
+            }).SetNestedContent(() =>
+            {
+                ViewContext.Writer.Write("<div id='itemInfo' style='float:right'>");
+                DocumentDetail sessionDocumentDetail = Session["currentDocumentDetail"] as DocumentDetail;
+                if( sessionDocumentDetail != null )//if ( editFormSettings.Grid.IsNewRowEditing == false )
+                {
+                    string information = sessionDocumentDetail.Item.Name + " (" + sessionDocumentDetail.Item.Code + " , " + sessionDocumentDetail.Barcode.Code + ")";
+                    ViewContext.Writer.Write( information );
+                }
+                ViewContext.Writer.Write("</div>");
+            });
+
+            if (editFormSettings.Grid.IsNewRowEditing == false)
+            {
+                formLayoutSettings.Items.AddEmptyItem();
+            }
+
+            formLayoutSettings.Items.Add(buttons =>
+            {
+                buttons.ShowCaption = DefaultBoolean.False;
+            }).SetNestedContent(() =>
+            {
+                ViewContext.Writer.Write("<div style='float:right'>");
+                Html.DevExpress().Button(
+                    btnSettings =>
+                    {
+                        btnSettings.Name = "btnUpdateMainLine";
+                        btnSettings.Text = Resources.Save;
+                        btnSettings.ClientSideEvents.Click = "CompositionDecomposition.UpdateMainLine";
+                    }).Render();
+                Html.DevExpress().Button(
+                    btnSettings =>
+                    {
+                        btnSettings.Name = "btnCancelMainLine";
+                        btnSettings.Text = Resources.Cancel;
+                        btnSettings.Style[HtmlTextWriterStyle.MarginLeft] = "5px";
+                        btnSettings.Style["background-color"] = "#e90000";
+                        btnSettings.Style["border-color"] = "#e70000";
+                        btnSettings.ClientSideEvents.Click = "CompositionDecomposition.CancelMainLine";
+                    }).Render();
+                ViewContext.Writer.Write("</div>");
+            });
+        }).Bind(editFormSettings.DataItem).Render(); ;
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model.Count() == 0 ? new List<DocumentDetail>() : Model).GetHtml()

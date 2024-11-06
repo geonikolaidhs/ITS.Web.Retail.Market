@@ -1,0 +1,52 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    string callback = Session["CallBackFrom"] as string;
+    /*
+    string title = Resources.DailySales;
+
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("LoadViewPopup");
+    popUpSettings.AccessibilityCompliant = true;
+    //popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";
+    popUpSettings.CallbackRouteValues = new { Controller = "CashierRegister", Action = "LoadViewPopup" };
+    popUpSettings.ControlStyle.CssClass = "isInviewMode";
+    popUpSettings.ClientSideEvents.Closing = "HideOverflowOnBody";
+    popUpSettings.ClientSideEvents.PopUp = "DisplayOverflowOnBody";
+    popUpSettings.HeaderText = title;
+    popUpSettings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+    popUpSettings.AllowResize = false;
+    popUpSettings.AllowDragging = false;
+    popUpSettings.Name = "DailyTotalPopup";
+    popUpSettings.SetContent(() =>
+    {
+        Html.DevExpress().PageControl(pcSettings =>
+        {
+            pcSettings.AccessibilityCompliant = false;
+            pcSettings.Name = "DailySales";
+            pcSettings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            pcSettings.TabAlign = TabAlign.Left;
+            pcSettings.TabPosition = TabPosition.Top;
+            pcSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            pcSettings.EnableTabScrolling = true;
+            pcSettings.EnableHotTrack = true;
+            pcSettings.TabPages.Add(Resources.Barcodes).SetContent(() =>
+            {
+
+                Html.RenderAction("DailyTotalGrid", "CashierRegister");
+
+            });
+
+        }).Render();
+
+    });
+
+    Html.DevExpress().PopupControl(popUpSettings).GetHtml();*/
+    if (callback.Equals("DAILY"))
+    {
+        Html.RenderAction("DailyTotalGrid", "CashierRegister");
+    }
+    else if(callback.Equals("DAILY_ITEMS"))
+    {
+        Html.RenderAction("DailyItemTotalGrid", "CashierRegister");
+    }
+
+}

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCannotBeReverted" xml:space="preserve">
+    <value>Η συγκεκριμένη ενέργεια δεν μπορεί να αναιρεθεί.</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="ApplicationCoundNotConnectToServer" xml:space="preserve">
+    <value>Η εφαρμογή δεν έχει σύνδεση με το διακομιστή</value>
+  </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Ραβδοκώδικας</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="CannotInsertWithZeroValue" xml:space="preserve">
+    <value>Δεν ειναι δυνατή η καταχώρηση με μηδενική ποσότητα</value>
+  </data>
+  <data name="CheckOut" xml:space="preserve">
+    <value>Έλεγχος τιμής</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Κωδικός</value>
+  </data>
+  <data name="ConnectingWithServer" xml:space="preserve">
+    <value>Επικοινωνία με τον Server. Παρακαλώ περιμένετε ...</value>
+  </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>Η διασύνδεση επέστρεψε σφάλμα. Παρακαλώ δοκιμάστε αργότερα. Αν το μήνυμα επιμένει, επικοινωνήστε με την τεχνική υποστήριξη.</value>
+  </data>
+  <data name="ConnectToServerPrompt" xml:space="preserve">
+    <value>Η διαδικασία αυτή απαιτεί σύνδεση με τον διακομιστή</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Λεπτομέρειες</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Έκπτωση</value>
+  </data>
+  <data name="DocumentLines" xml:space="preserve">
+    <value>Γραμμές Παρ.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Έξοδος</value>
+  </data>
+  <data name="Found" xml:space="preserve">
+    <value>Εντοπίστηκαν</value>
+  </data>
+  <data name="InsertYourData" xml:space="preserve">
+    <value>Εισάγετε τα στοιχεία σας</value>
+  </data>
+  <data name="InvalidQty" xml:space="preserve">
+    <value>Μη έγκυρη ποσότητα</value>
+  </data>
+  <data name="ItemCode" xml:space="preserve">
+    <value>Κωδ. Είδους</value>
+  </data>
+  <data name="ItemNotFound" xml:space="preserve">
+    <value>Το είδος δεν βρέθηκε</value>
+  </data>
+  <data name="Lines" xml:space="preserve">
+    <value>Γραμμές</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Είσοδος</value>
+  </data>
+  <data name="MaxOrderQtyError" xml:space="preserve">
+    <value>Η ποσόστητα που προκύπτει ειναι μεγαλύτερη από την επιτρεπτή. Η συνολική ποσότητα έχει περιοριστεί στη μέγιστη δυνατή</value>
+  </data>
+  <data name="NetValue" xml:space="preserve">
+    <value>Καθ. Αξία</value>
+  </data>
+  <data name="NewItem" xml:space="preserve">
+    <value>Νέο Είδος</value>
+  </data>
+  <data name="NewQty" xml:space="preserve">
+    <value>Νέα πoσότητα</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Αποσυνδεδεμένο</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Συνδεδεμένο</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Παραγγελία</value>
+  </data>
+  <data name="OrderSuccesfullySend" xml:space="preserve">
+    <value>Επιτυχής αποστολή της παραγγελίας</value>
+  </data>
+  <data name="PackingQty" xml:space="preserve">
+    <value>Μον. Συσκ.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Κωδικός χρήστη</value>
+  </data>
+  <data name="PleaseInsertItems" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε είδη</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Ποσότητα</value>
+  </data>
+  <data name="RecordIsLinkedtoItem" xml:space="preserve">
+    <value>Η συγκεκριμένη εγγραφή είναι συνδεδεμένη με το είδος</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Αντικατάσταση</value>
+  </data>
+  <data name="_Return" xml:space="preserve">
+    <value>Επιστροφή</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="Series" xml:space="preserve">
+    <value>Σειρά</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="SupplierItemsNotFound" xml:space="preserve">
+    <value>είδη, που δεν υπάρχουν στον συγκεκριμένο προμηθευτή. Οι συγκεκριμένες εγγραφές θα αφαιρεθούν.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Όνομα χρήστη</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Ο χρήστης δεν βρέθηκε</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Τιμή</value>
+  </data>
+  <data name="ValueBeforeDiscount" xml:space="preserve">
+    <value>Αξία προ έκπτωσης</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>ΦΠΑ</value>
+  </data>
+  <data name="WouldYouLikeToChangeQty" xml:space="preserve">
+    <value>Θέλετε να αλλάξετε την ποσότητα στην συγκεκριμένη εγγραφή;</value>
+  </data>
+  <data name="WouldYouLikeToDeleteOrder" xml:space="preserve">
+    <value>Είστε σιγουρος ότι επιθυμείτε να διαγραφεί ΟΛΟΚΛΗΡΗ η παραγγελία;</value>
+  </data>
+  <data name="WouldYouLikeToDeleteRecord" xml:space="preserve">
+    <value>Θέλετε να διαγραφεί η συγκεκριμένη εγγραφή;</value>
+  </data>
+  <data name="WouldYouLikeToEditRecord" xml:space="preserve">
+    <value>Θέλετε να τροποιήσετε τη συγκεκριμένη εγγραφή;</value>
+  </data>
+  <data name="WouldYouLikeToSendYourOrder" xml:space="preserve">
+    <value>Θέλετε να πραγματοποιηθεί η αποστολή της παραγγελίας σας;</value>
+  </data>
+  <data name="YourChangesWillNotBeSaved" xml:space="preserve">
+    <value>Η αλλαγή που πραγματοποιήσατε δεν θα αποθηκευτεί.</value>
+  </data>
+  <data name="ConfigConfirmMessage" xml:space="preserve">
+    <value>Η λανθασμένη αλλαγή των παραπάνω παραμέτρων θα καταστήσει την εφαρμογή μη λειτουργική. Είστε σίγουρος ότι θέλετε να αποθηκεύσετε τις παραπάνω αλλαγές;</value>
+  </data>
+</root>

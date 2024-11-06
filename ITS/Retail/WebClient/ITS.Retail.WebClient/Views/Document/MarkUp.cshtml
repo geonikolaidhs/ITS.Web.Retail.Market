@@ -1,0 +1,63 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.ShowNavigation = false;
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().SpinEdit(edtSettings =>
+                {
+                    edtSettings.Properties.Caption = Resources.ValueDifference;
+                    edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Left;
+                    edtSettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+                    edtSettings.Name = "sensitivity";
+                    edtSettings.Number = ViewBag.Sensitivity ?? 0 ;
+                    edtSettings.Properties.NumberType = SpinEditNumberType.Float;
+                    edtSettings.Properties.SpinButtons.Visible = false;
+                    edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                    edtSettings.Properties.ClientSideEvents.KeyPress = "sensitivityKeyPress";
+                }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().CheckBox(cmbSettings =>
+                {
+                    cmbSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                    cmbSettings.Text = Resources.AllProducts;
+                    cmbSettings.Name = "AllValues";
+                    cmbSettings.ControlStyle.CssClass = "editor";
+                    cmbSettings.Properties.ValueType = typeof(bool);
+                    cmbSettings.Properties.ValueChecked = true;
+                    cmbSettings.Properties.ValueUnchecked = false;
+                    cmbSettings.Properties.ValueGrayed = false;
+                    cmbSettings.ShowModelErrors = true;
+                    cmbSettings.Properties.ClientSideEvents.ValueChanged = "RetrieveValueChanges";
+                }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().CheckBox(cmbSettings =>
+                {
+                    cmbSettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+                    cmbSettings.Text = Resources.SaveMarkups;
+                    cmbSettings.Name = "SaveMarkUpsCheck";
+                    cmbSettings.ControlStyle.CssClass = "editor";
+                    cmbSettings.ShowModelErrors = true;
+                }).GetHtml()
+            </td>
+        </tr>
+    </table>
+
+
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.Name = "btnUpdateMarkUp";
+    headerOptions.SaveButton.OnClick = "SaveMarkUps";
+    headerOptions.ViewType = eViewType.Modal;
+    headerOptions.CancelButton.Name = "btnCancelMarkUp";
+    headerOptions.CancelButton.OnClick = "CancelMarkUps";
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+
+    @Html.Partial("MarkUpGrid");
+}
+
+

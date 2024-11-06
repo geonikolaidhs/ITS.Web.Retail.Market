@@ -1,0 +1,29 @@
+﻿<div class="filter_search_container">
+    @Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnClear";
+            settings2.ImageUrl = "~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.ClearFilters;
+            settings2.ControlStyle.CssClass = "clearbtn";
+            settings2.Properties.ClientSideEvents.Click = "clearAllFilters";
+        }
+         ).GetHtml()
+    
+    @{
+        if (ViewBag.ControllerName == "Document")
+        {
+            @Html.Hidden("ModeForTemporaryForm", Request["Mode"]);
+            ViewContext.Writer.Write("<div id='temporaryFilterContainer'>");                
+            Html.RenderPartial("TemporaryFilter","Document");
+            ViewContext.Writer.Write("</div>");            
+        }
+       
+
+    }
+    <span class="smallipopHorizontal text-color-blue" id="filterinfo" key="">
+        <i class="fa fa-cog fa-2dot5x "></i>
+    </span>    
+
+
+</div>

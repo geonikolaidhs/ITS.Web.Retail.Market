@@ -1,0 +1,52 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    Dictionary<Guid, String> sliderImages = ViewBag.sliderImages as Dictionary<Guid, String>;
+    if (sliderImages == null)
+    {
+        sliderImages = new Dictionary<Guid, String>();
+    }
+}
+
+@if(sliderImages.Count>0 ){
+    int imageCounter = 0;
+    int counter = 0;
+    bool isOpen = false;
+    <div id="document_wrapper">
+        <div id="container">
+            <div id="gallery">
+                <div class="carousel carousel-center">
+                    <div class="carousel-slider">
+                       @foreach (KeyValuePair<Guid,String> image in sliderImages)
+                       {
+                           imageCounter++;
+                           string barcode = image.Value;
+                           if (imageCounter %3 == 1)
+                           {
+                               counter++;
+                               ViewContext.Writer.Write("<div class=\"carousel-content\" id=\""+counter+"\"><div>");
+                               isOpen = true;
+                           }
+                           <div class="OrderItemPhoto">
+                               <img src="@Url.Action("ShowImageId", "Item", new { Id = image.Key, imageSize = 1, ver= DateTime.Now.Date.Ticks})" alt=" @Resources.ClickToAdd "/>@*add version to image ?ver=" + ViewData["ApplicationVersionNumber"]*@
+                               <div class="OrderItemPhotoDiv">@Url.Content(barcode)</div>
+                           </div>
+                           if (imageCounter %3 == 0)
+                           {
+                               ViewContext.Writer.Write("</div></div>");
+                               isOpen = false;
+                           }
+                       }     
+                       @if (isOpen)
+                       {
+                           ViewContext.Writer.Write("</div></div>");
+                       }
+                    </div>
+                </div>
+                <div class="view_carousel"></div>
+                <div id="close_btn"></div>
+                <span class="arrows arrows_left hidden"></span>
+                <span class="arrows arrows_right hidden"></span>
+            </div>
+        </div>
+    </div>
+} 

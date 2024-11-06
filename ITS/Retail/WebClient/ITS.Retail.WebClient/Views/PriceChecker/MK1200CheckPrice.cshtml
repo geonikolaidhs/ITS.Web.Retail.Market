@@ -1,0 +1,215 @@
+﻿@model PriceCheckerViewModel
+
+@using System.Threading
+@using System.Globalization
+
+@{
+    ViewBag.Title = Resources.CHECKPRICE;
+    ViewBag.ShowNavigation = false;
+    Layout = "";
+    string originalCultureName = Thread.CurrentThread.CurrentCulture.Name;
+    Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = new CultureInfo("el");
+}
+
+<header>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+
+        div.generalinfo {
+            background-color: darkorange;
+            color: white;
+            font-size: smaller;
+        }
+
+        div.generalresult {
+            background-color: darkorange;
+            color: white;
+            font-size: medium;
+        }
+
+        div.revertgeneralinfo {
+            background-color: lemonchiffon;
+            font-size: small;
+            text-align: left;
+            height: 20%;
+        }
+
+        div.revertgeneralresult {
+            background-color: lemonchiffon;
+            font-size: large;
+            text-align: center;
+            height: 80%;
+            vertical-align: central;
+            font-weight: lighter;
+        }
+
+        div.orangegeneralinfo {
+            background-color: darkturquoise;
+            color: white;
+            font-size: small;
+            text-align: center;
+            height: 20%;
+        }
+
+        div.orangegeneralresult {
+            background-color: darkturquoise;
+            color: white;
+            font-size: large;
+            text-align: center;
+            height: 80%;
+            vertical-align: central;
+            font-weight: bolder;
+        }
+
+        div.maininfo {
+            background-color: aquamarine;
+            font-size: small;
+        }
+
+        div.mainresult {
+            background-color: aquamarine;
+            font-size: x-large;
+            text-align: center;
+            font-weight: bolder;
+        }
+
+        .error {
+            background-color: red;
+            color: white;
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        div.mainresultcontainer {
+            width: 50%;
+            position: center;
+            margin-left: 25%;
+            margin-top: 5%;
+        }
+
+        div.multilineresultcontainer {
+            width: 33.3%;
+            float: left;
+            height: 100%;
+            background-color: yellow;
+        }
+    </style>
+   
+</header>
+
+<body onload="setTimeInterval()">
+
+    <input type="hidden" value="@Url.Content("~")" id="HOME" name="HOME" />
+
+    @{
+        if (Model.customer != null)
+        {
+            <div class="generalinfo">
+                @Resources.Customer
+            </div>
+            <div class="generalresult">
+                @Model.customer.Description ( @Model.customer.Code )
+            </div>
+            <div class="mainresultcontainer">
+                <div class="maininfo">
+                    @Resources.Points
+                </div>
+                <div class="mainresult">
+                    @BusinessLogic.RoundAndStringify(Model.customer.CollectedPoints, Model.Owner)
+                </div>
+            </div>
+        }
+        else if (Model.weightedBarcodeInfo != null)
+        {
+            string pricePerMeasurementUnit = "€ / MM";
+            string weightedValue = BusinessLogic.RoundAndStringify(Model.priceCatalogDetail.RetailValue, Model.Owner);
+            <div>
+                <div style="height:30%">
+                    <div class="generalinfo">@Resources.Item</div>
+                    <div class="generalresult">
+                        @Model.itemBarcode.Item.Name
+                    </div>
+                    <div class="generalresult">
+                        @Model.itemBarcode.Item.Code
+                    </div>
+                </div>
+
+                <div style="height:70%">
+                    <div class="multilineresultcontainer">
+                        <div class="revertgeneralinfo">@Resources.Quantity</div>
+                        <div class="revertgeneralresult">
+                            @Model.weightedBarcodeInfo.Quantity
+                        </div>
+                        <div class="revertgeneralinfo">@Model.itemBarcode.MeasurementUnit.Description</div>
+                    </div>
+
+                    <div class="multilineresultcontainer">
+                        <div class="orangegeneralinfo">@Resources.Value</div>
+                        <div class="orangegeneralresult">@BusinessLogic.RoundAndStringify(Model.weightedBarcodeInfo.Value, Model.Owner)</div>
+                        <div class="orangegeneralinfo">€</div>
+                    </div>
+
+                    <div class="multilineresultcontainer">
+                        <div class="revertgeneralinfo">@pricePerMeasurementUnit</div>
+                        <div class="revertgeneralresult">@weightedValue</div>
+                        <div class="revertgeneralinfo"></div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.itemBarcode == null)
+        {
+            <h2 class="error">@Resources.ItemNotFound</h2>
+        }
+        else if (Model.priceCatalogDetail == null)
+        {
+            <h2 class="error">@Resources.PriceNotFound</h2>
+        }
+        else
+        {
+            <div class="generalinfo">@Resources.Item</div>
+            <div class="generalresult">
+                @Model.itemBarcode.Item.Name
+            </div>
+            <div class="mainresultcontainer">
+                <div class="maininfo">@Resources.UnitPrice</div>
+                <div class="mainresult">
+                    @BusinessLogic.RoundAndStringify(Model.priceCatalogDetail.RetailValue, Model.Owner) €
+                </div>
+            </div>
+        }
+    }
+    <div style="float:right; margin-top:50px;">
+        @Resources.CreatedBy
+        <img src="@Url.Content("~/Content/ITS.bmp")" width="25" height="20" />
+    </div>
+
+    <script>
+        
+
+        function setTimeInterval() {
+            setInterval(redirectToSearchPage, 5000);
+        }
+
+        function redirectToSearchPage() {
+
+            var home = document.getElementById('HOME').value;          
+                var path = home + 'PriceChecker/MK1200';       
+            window.location.href = path;
+        }
+
+
+    </script>
+</body>
+
+@{
+    Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(originalCultureName);
+}

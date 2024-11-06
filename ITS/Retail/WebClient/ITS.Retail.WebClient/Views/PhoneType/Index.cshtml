@@ -1,0 +1,9 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model IEnumerable<ITS.Retail.Model.PhoneType>
+
+@{
+    ViewBag.Title = Resources.MenuApplicationSettingsPhoneTypes;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

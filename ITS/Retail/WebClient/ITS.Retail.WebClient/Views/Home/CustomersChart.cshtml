@@ -1,0 +1,58 @@
+﻿@model List<ITS.Retail.WebClient.CustomerRevenue>
+
+
+@Html.DevExpress().Chart(settings =>
+    {
+        settings.Name = "CustomersChart";
+        settings.BorderOptions.Visibility = DefaultBoolean.False;
+        settings.Height = 300;
+        settings.Width = 890;
+        settings.BackColor = System.Drawing.Color.Transparent;
+        settings.SettingsLoadingPanel.Enabled = true;
+        settings.CallbackRouteValues = new { Controller = "Home", Action = "CustomersChart" };
+        settings.ClientSideEvents.BeginCallback = "onBeginCallbackCustomersChart";
+        settings.ClientSideEvents.EndCallback = "onEndCallbackCustomersChart";
+        settings.ClientSideEvents.CallbackError = "onCallbackError";
+
+        settings.SeriesTemplate.ChangeView(DevExpress.XtraCharts.ViewType.SideBySideStackedBar);
+        settings.SeriesDataMember = "Year"; //z
+        settings.SeriesTemplate.ArgumentDataMember = "Customer.CompanyName"; // X
+        settings.SeriesTemplate.ValueDataMembers[0] = "Revenue"; //Y
+        settings.SeriesTemplate.LabelsVisibility = DefaultBoolean.False;
+        settings.SeriesTemplate.Label.ResolveOverlappingMode = ResolveOverlappingMode.Default;
+        settings.BoundDataChanged = (s, e) =>
+        {
+            MVCxChartControl chart = (MVCxChartControl)s;
+            foreach (Series series in chart.Series)
+            {
+                ((ISupportStackedGroup)series.View).StackedGroup = series.Name;//.Length < 3 ? series.Name : series.Name.Substring(3);
+            }
+        };
+
+        settings.Legend.Visibility = DefaultBoolean.False;
+        settings.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.Left;
+        settings.Legend.AlignmentVertical = LegendAlignmentVertical.BottomOutside;
+        settings.Legend.Direction = LegendDirection.LeftToRight;
+        settings.Legend.MaxHorizontalPercentage = 70;
+
+        if (settings.Diagram is XYDiagram)
+        {
+            ((XYDiagram)settings.Diagram).Rotated = false;
+            Axis2D axisY = ((XYDiagram)settings.Diagram).AxisY;
+            axisY.Interlaced = true;
+            axisY.Title.Text = ITS.Retail.ResourcesLib.Resources.Revenue+" (€)";
+            axisY.Title.Visibility = DefaultBoolean.False;
+            Axis2D axisX = ((XYDiagram)settings.Diagram).AxisX;
+            axisX.Label.Visible = false;
+        }
+        else
+        {
+            XYDiagram3D diagram = (XYDiagram3D)settings.Diagram;
+            diagram.AxisX.Label.MaxWidth = 60;
+            diagram.AxisY.Interlaced = true;
+            diagram.RotationType = RotationType.UseAngles;
+            diagram.RotationOrder = RotationOrder.XYZ;
+            diagram.ZoomPercent = 140;
+            diagram.VerticalScrollPercent = 4;
+        }
+    }).Bind(Model).GetHtml()

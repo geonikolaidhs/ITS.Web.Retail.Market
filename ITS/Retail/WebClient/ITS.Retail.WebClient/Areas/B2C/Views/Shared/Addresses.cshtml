@@ -1,0 +1,295 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Areas.B2C.Controllers;
+
+
+@{
+
+        ViewContext.Writer.Write("<div class=\"address-row\">");
+    
+
+}
+
+
+    <div class="row">
+
+        <div class="col-md-3 col-md-push-9">
+            <ul class="nav nav-pills nav-stacked" id="address">
+
+                @{
+            int counter = 0;
+            foreach (Address address in BaseController.CurrentCustomer.Trader.Addresses)
+            {
+                counter++;
+                <li class="@( (address.Oid == BaseController.CurrentCustomer.DefaultAddress.Oid && TempData["ActiveAddress"] == null) || (TempData["ActiveAddress"] != null && counter == (int)TempData["ActiveAddress"]) ? "active" : "")"><a href="#address@(counter)" data-toggle="tab" data-id="@address.Oid">@Resources.Address @counter</a></li>
+            }
+                }
+
+
+                <li class="@( TempData["AddAddress"]!=null && (bool)TempData["AddAddress"] == true  ? "active" : "")"><a href=" #address-add" data-toggle="tab"><i class="fa fa-plus-circle"></i> @Resources.AddAddress</a></li>
+            </ul>
+
+        </div>
+        <div class="col-md-9 col-md-pull-3">
+            <div class="tab-content">
+                @{
+            counter = 0;
+            foreach (Address address in BaseController.CurrentCustomer.Trader.Addresses)
+            {
+                counter++;
+                string addressOid = "_" + address.Oid.ToString();
+
+                <div class="tab-pane @( ((address.Oid == BaseController.CurrentCustomer.DefaultAddress.Oid && TempData["ActiveAddress"] == null) || (TempData["ActiveAddress"] != null && counter == (int)TempData["ActiveAddress"])) && (TempData["AddAddress"] == null) ? "active" : "")" id="address@(counter)">
+                    @{
+                var FormAttributes = new Dictionary<string, object>();
+                FormAttributes.Add("role", "form");
+                FormAttributes.Add("class", "col-md-12");
+                    }
+
+                    @using (Ajax.BeginForm("UpdateAddress", new { Controller = "Membership" }, new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        OnComplete = "Address.UpdateAddressOnComplete",
+                        UpdateTargetId = "AddressesCallbackPanel",//InsertionMode = InsertionMode.Replace
+                    }))
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.DevExpress().CheckBox(
+                                        settings =>
+                                        {
+                                            settings.Name = "DefaultAddress" + addressOid;
+                                            settings.Checked = (address.Oid == BaseController.CurrentCustomer.DefaultAddress.Oid) ? true : false;
+                                            settings.Text = Resources.DefaultAddress;
+                                        }
+                                    ).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.Phone*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Phone" + addressOid;
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).Bind(address.Phones.Count > 0 ? address.Phones.First().Number : "").GetHtml()
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Fax</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Fax" + addressOid;
+                                    settings.ControlStyle.CssClass = "form-control";
+                                }).Bind(address.Phones.Count > 1 ? address.Phones[1].Number : "").GetHtml()
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.City*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "City" + addressOid;
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).Bind(address.City).GetHtml()
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.Street*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Street" + addressOid;
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).Bind(address.Street).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.Region*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Region" + addressOid;
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    // settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).Bind(address.Region).GetHtml()
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.PostCode*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "PostCode" + addressOid;
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).Bind(address.PostCode).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 address-buttons">
+                                <div class="text-center">
+                                    @Html.DevExpress().Button(settings =>
+                                {
+                                    settings.Name = "UpdateAddress" + addressOid;
+                                    settings.Text = Resources.UpdateAddress;
+                                    settings.ControlStyle.CssClass = "light-blue-button";
+                                    settings.Height = 40;
+                                    settings.UseSubmitBehavior = true;
+                                }).GetHtml()
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-center">
+                                    @Html.DevExpress().Button(settings =>
+                                {
+                                    settings.Name = "DeleteAddress" + addressOid;
+                                    settings.Text = Resources.DeleteAddress;
+                                    settings.ControlStyle.CssClass = "red-button";
+                                    settings.Height = 40;
+                                    settings.ClientSideEvents.Click = "Address.Delete";
+                                    settings.UseSubmitBehavior = false;
+                                }).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+                }
+                <div class="tab-pane @( TempData["AddAddress"]!=null && (bool)TempData["AddAddress"] == true  ? "active" : "")" id="address-add">
+
+                    @{
+                var FormAddAttributes = new Dictionary<string, object>();
+                FormAddAttributes.Add("role", "form");
+                FormAddAttributes.Add("class", "col-md-12");
+                    }
+
+
+                    @using (Ajax.BeginForm("AddAddress", new { Controller = "Membership" }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnComplete = "Address.AddAddressOnComplete",
+                    UpdateTargetId = "AddressesCallbackPanel",//InsertionMode = InsertionMode.Replace
+                }))
+            {
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.Phone*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Phone";
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).GetHtml()
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Fax</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Fax";
+                                    settings.ControlStyle.CssClass = "form-control";
+                                }).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.City*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "City";
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).GetHtml()
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.Street*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Street";
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.Region*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "Region";
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).GetHtml()
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label>@Resources.PostCode*</label>
+                                    @Html.DevExpress().TextBox(settings =>
+                                {
+                                    settings.Name = "PostCode";
+                                    settings.ControlStyle.CssClass = "form-control";
+                                    //settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                }).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    @Html.DevExpress().Button(settings =>
+                                {
+                                    settings.Name = "AddAddress";
+                                    settings.Text = Resources.AddAddress;
+                                    settings.ControlStyle.CssClass = "light-blue-button";
+                                    settings.Height = 40;
+                                    settings.UseSubmitBehavior = true;
+                                }).GetHtml()
+                                </div>
+                            </div>
+                        </div>
+            }
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

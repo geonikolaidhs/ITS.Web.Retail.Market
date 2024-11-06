@@ -1,0 +1,478 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdPOSs";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "POS", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    if ((bool)ViewData["TableCanUpdate"])
+    {
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "POS", Action = "Update" };
+    }
+    if ((bool)ViewData["TableCanInsert"])
+    {
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "POS", Action = "Add" };
+    }
+
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.POSConfig;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ID";
+        col.Caption = "ID";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UseSliderPauseForm";
+        col.Caption = Resources.UseSliderPauseForm;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.False;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Width = 80;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsActive";
+        col.Caption = Resources.IsActive;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Width = 80;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IPAddress";
+        col.Caption = Resources.IPAddress;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Name";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Remarks";
+        col.Caption = Resources.Remarks;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Store.Code";
+        col.Caption = Resources.StoreCode;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ABCDirectory";
+        col.Caption = Resources.ABCDirectory;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CultureInfo";
+        col.Caption = Resources.CultureInfo;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultCustomer.Code";
+        col.Caption = Resources.DefaultCustomer;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "FiscalDevice";
+        col.Caption = Resources.FiscalDevice;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ReceiptVariableIdentifier";
+        col.Caption = Resources.ReceiptVariableIdentifier;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultDocumentType.Description";
+        col.Caption = Resources.DefaultDocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ProFormaInvoiceDocumentType.Description";
+        col.Caption = Resources.ProFormaInvoiceDocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultPaymentMethod.Description";
+        col.Caption = Resources.DefaultPaymentMethod;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultDocumentStatus.Description";
+        col.Caption = Resources.DefaultDocumentStatus;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DefaultDocumentSeries.Description";
+        col.Caption = Resources.DefaultDocumentSeries;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ReceiptFormat.Description";
+        col.Caption = Resources.ReceiptFormat;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "XFormat.Description";
+        col.Caption = Resources.XReportFormat;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ZFormat.Description";
+        col.Caption = Resources.ZReportFormat;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "POSKeysLayout.Description";
+        col.Caption = Resources.POSKeysLayout;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsCashierRegister";
+        col.Caption = Resources.IsCashRegister;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "POSLayout.Description";
+        col.Caption = Resources.POSLayout;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ProFormaInvoiceDocumentType.Description";
+        col.Caption = Resources.ProFormaInvoiceDocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ProFormaInvoiceDocumentSeries.Description";
+        col.Caption = Resources.ProFormaInvoiceDocumentSeries;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "WithdrawalDocumentType.Description";
+        col.Caption = Resources.WithdrawalDocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "WithdrawalDocumentSeries.Description";
+        col.Caption = Resources.WithdrawalDocumentSeries;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "WithdrawalItem.Name";
+        col.Caption = Resources.WithdrawalItem;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DepositDocumentType.Description";
+        col.Caption = Resources.DepositDocumentType;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DepositDocumentSeries.Description";
+        col.Caption = Resources.DepositDocumentSeries;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DepositItem.Name";
+        col.Caption = Resources.DepositItem;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Visible = false;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "POSActionLevelsSet.Description";
+        col.Caption = Resources.POSActionLevelsSet;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UsesTouchScreen";
+        col.Caption = Resources.UsesTouchScreen;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UsesKeyLock";
+        col.Caption = Resources.UsesKeyLock;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "AutoFocus";
+        col.Caption = Resources.AutoFocus;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "AsksForStartingAmount";
+        col.Caption = Resources.AsksForStartingAmount;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "AutoIssueZEAFDSS";
+        col.Caption = Resources.AutoIssueZEAFDSS;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "AsksForFinalAmount";
+        col.Caption = Resources.AsksForFinalAmount;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "StandaloneFiscalOnErrorMessage";
+        col.Caption = Resources.StandaloneFiscalOnErrorMessage;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 120;
+    });
+
+
+}).Bind(Model).GetHtml()

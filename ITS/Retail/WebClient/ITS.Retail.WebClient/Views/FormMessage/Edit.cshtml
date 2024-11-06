@@ -1,0 +1,57 @@
+﻿@model ITS.Retail.Model.FormMessage
+@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("Save", "FormMessage", new { FormMessageID = ViewData["FormMessage_ID"].ToString() }, FormMethod.Post, new { id = "EditingForm" }))
+{
+
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "FormMessageEditRp";
+        settings.ShowHeader = false;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class='ValidationContainer  background-light-grey'>");
+
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+            headerOptions.CancelButton.OnClick = "btnCancelClickV2";    
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+            /*End of header banner*/
+            ViewContext.Writer.Write("<table class='headerTable margin-0-auto margin-0-border-light-gray'><tr><td>");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.MessagePlace;
+            }).Render();
+
+            Html.DevExpress().ComboBox(sets =>
+            {
+                sets.Name = "MessagePlace";
+                sets.ControlStyle.CssClass = "editor";
+                sets.Properties.ValueType = typeof(string);
+            }).BindList(ViewBag.MessagePlaces).Bind(DataBinder.Eval(Model, "MessagePlace") ?? null).Render();
+
+            ViewContext.Writer.Write("</td></tr></table></div>");
+
+            Html.DevExpress().PageControl(settings2 =>
+            {
+                settings2.Name = "pcFeatures2";
+                settings2.ActivateTabPageAction = ActivateTabPageAction.Click;
+                settings2.TabAlign = TabAlign.Left;
+                settings2.TabPosition = TabPosition.Top;
+                settings2.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings2.TabPages.Add(Resources.MessageTranslations).SetContent(() =>
+                {
+                    @Html.RenderPartial("FormMessageDetailGrid", Model.FormMessageDetails);
+                });
+                settings2.TabPages.Add(Resources.FormToShow).SetContent(() =>
+                {
+                    @Html.RenderPartial("ControllerGrid", Model.ControllerMessages);
+                });
+            }).Render();
+        });
+    }).GetHtml()
+}

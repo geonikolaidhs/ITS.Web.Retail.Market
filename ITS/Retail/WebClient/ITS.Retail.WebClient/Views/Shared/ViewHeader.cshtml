@@ -1,0 +1,88 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@{
+    HeaderOptions headerOptions = ViewData["HeaderOptions"] as HeaderOptions;
+    if(headerOptions==null){
+        headerOptions = new HeaderOptions("");
+    }
+    
+        
+<div class='@headerOptions.ContainerClass'>
+    <div class='button_container'>
+        @if (headerOptions.SaveButton.Visible == true){
+            @Html.DevExpress().Button(
+                btnSettings =>
+                {
+                    btnSettings.Name = headerOptions.SaveButton.Name;
+                    btnSettings.ControlStyle.CssClass = headerOptions.SaveButton.CCSClass;
+                    btnSettings.Text = headerOptions.SaveButton.Text;
+                    btnSettings.ToolTip = headerOptions.SaveButton.Title;
+                    btnSettings.ClientSideEvents.Click = headerOptions.SaveButton.OnClick;
+                }
+            ).GetHtml()
+        }
+
+        @if (headerOptions.SaveAndPrintButton.Visible == true)
+        {
+            @Html.DevExpress().Button(
+                btnSettings =>
+                {
+                    btnSettings.Name = headerOptions.SaveAndPrintButton.Name;
+                    btnSettings.ControlStyle.CssClass = headerOptions.SaveAndPrintButton.CCSClass;
+                    btnSettings.Text = headerOptions.SaveAndPrintButton.Text;
+                    btnSettings.ToolTip = headerOptions.SaveAndPrintButton.Text;
+                    btnSettings.ClientSideEvents.Click = headerOptions.SaveAndPrintButton.OnClick;
+                }
+            ).GetHtml()
+        }
+
+        @if (headerOptions.SaveAndRecalculateButton.Visible == true)
+        {
+            @Html.DevExpress().Button(
+                btnSettings =>
+                {
+                    btnSettings.Name = headerOptions.SaveAndRecalculateButton.Name;
+                    btnSettings.ControlStyle.CssClass = headerOptions.SaveAndRecalculateButton.CCSClass;
+                    btnSettings.Text = headerOptions.SaveAndRecalculateButton.Text;
+                    btnSettings.ToolTip = headerOptions.SaveAndRecalculateButton.Text;
+                    btnSettings.ClientEnabled = headerOptions.SaveAndRecalculateButton.ClientEnabled;
+                    btnSettings.ClientSideEvents.Click = headerOptions.SaveAndRecalculateButton.OnClick;
+                }
+            ).GetHtml()
+        }
+
+        @if (headerOptions.RecalculateButton.Visible == true)
+        {
+            @Html.DevExpress().Button(
+                btnSettings =>
+                {
+                    btnSettings.Name = headerOptions.RecalculateButton.Name;
+                    btnSettings.ControlStyle.CssClass = headerOptions.RecalculateButton.CCSClass;
+                    btnSettings.Text = headerOptions.RecalculateButton.Text;
+                    btnSettings.ToolTip = headerOptions.RecalculateButton.Text;                   
+                    btnSettings.ClientSideEvents.Click = headerOptions.RecalculateButton.OnClick;
+                }
+            ).GetHtml()
+        }
+
+        @if (headerOptions.CancelButton.Visible == true)
+        {
+            @Html.DevExpress().Button(
+                btnSettings =>
+                {
+                    btnSettings.Name = headerOptions.CancelButton.Name;
+                    btnSettings.ControlStyle.CssClass = headerOptions.CancelButton.CCSClass;
+                    btnSettings.Text = headerOptions.CancelButton.Text;
+                    btnSettings.ToolTip = headerOptions.CancelButton.Title;
+                    btnSettings.ClientSideEvents.Click = headerOptions.CancelButton.OnClick;
+                }
+            ).GetHtml()
+        }
+    </div>
+     @if (String.IsNullOrWhiteSpace(headerOptions.HeaderText) == false)
+     {
+        <h2>@headerOptions.HeaderText</h2>
+    }
+</div>
+}

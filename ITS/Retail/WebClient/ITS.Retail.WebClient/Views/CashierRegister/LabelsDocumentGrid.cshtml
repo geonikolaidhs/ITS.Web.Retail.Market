@@ -1,0 +1,93 @@
+﻿@using System.Web.UI.WebControls;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+    settings.Name = "grdLabelDocumentsGrid";
+
+    settings.CallbackRouteValues = new { Controller = "Labels", Action = "LabelsDocumentGrid" };
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.Width = 100;
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "DocumentNumber";
+        col.Caption = Resources.DocumentNumber;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "FinalizedDate";
+        col.Caption = Resources.Date;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "CreatedByDevice";
+        col.Caption = Resources.CreatedBy;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.PropertiesEdit.DisplayFormatString = BaseController.OwnerApplicationSettings.formatCurrencyString;
+        col.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = Unit.Percentage(60);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.PriceInfo;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Labels;
+    settings.ClientSideEvents.EndCallback = "LabelDocumentsGridOnEndCallback";
+    settings.ClientSideEvents.BeginCallback = "grdLabelDocumentsGridBeginCallback";
+    settings.ClientSideEvents.DetailRowCollapsing = "grdLabelDocumentsGridMasterRowCollapsed";
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+    settings.SettingsDetail.ShowDetailRow = true;
+
+    settings.SetDetailRowTemplateContent(c =>
+    {
+        Html.RenderAction("LabelDocumentDetaisGrid", new { DocumentOid = DataBinder.Eval(c.DataItem, "Oid") });
+    });
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+
+}).Bind(Model).GetHtml()

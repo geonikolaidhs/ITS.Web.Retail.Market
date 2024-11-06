@@ -1,0 +1,86 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+    
+    settings.Name = "grdLicense"+ViewData["snOid"];
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ActivationKey";
+        col.Caption = "Activation Key";
+        col.Width = 100;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ReadOnly = true;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "InstalledVersionDateTime";
+        col.Caption = "Version Installation Date";
+        col.Width = 100;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MachineApplicationUniqueKey";
+        col.Caption = "Machine Application Unique Key";
+        col.Width = 250;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MachineID";
+        col.Caption = "Machine ID";
+        col.Width = 250;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+            
+     /*  
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "NumberOfUsers";
+        col.Caption = "NumberOfUsers";
+        col.Width = 250;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });*/
+         
+  
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false; 
+    settings.Settings.ShowFilterRowMenu = true; 
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "License", Action = "Grid", serialNumberGuidStr = ViewData["snOid"] };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "License", Action = "Add" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "License", Action = "Delete" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = true;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = true;
+    settings.SettingsCookies.CookiesID = "grdLicense";
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = true;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.NewButton.Visible = true;
+    settings.CommandColumn.UpdateButton.Visible = true;
+    settings.CommandColumn.DeleteButton.Visible = true;
+    settings.CommandColumn.EditButton.Visible = false;
+}).Bind(Model).GetHtml()

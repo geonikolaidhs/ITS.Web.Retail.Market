@@ -1,0 +1,32 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext,typeof(CustomEnumerationDefinition), typeof(CustomEnumerationController), "grdCustomEnumeration", excludeFields: new List<string>() {"ReferenceCode","Owner"});
+    settings.SettingsText.Title = Resources.CustomEnumeration;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.AlwaysShowPager = true;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

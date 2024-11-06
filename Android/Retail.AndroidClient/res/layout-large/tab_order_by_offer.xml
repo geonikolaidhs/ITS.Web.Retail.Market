@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/order_by_offers"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll1123"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll3212314562"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/lblOffers"
+                android:layout_width="394dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.00"
+                android:background="@android:color/holo_blue_bright"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/offers"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_small" />
+
+            <ImageButton
+                android:id="@+id/btnFilterOffer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.02"
+                android:src="@raw/zoom_32" />
+
+            <TextView
+                android:id="@+id/lblOfferDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.47"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/items"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll34563"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:id="@+id/lltemp12345845457"
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/offer_header_row" />
+
+                <ListView
+                    android:id="@+id/lstItemOffers"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+                </ListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lltemp99875764567"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical" >
+
+                <include
+                    android:layout_height="wrap_content"
+                    layout="@layout/item_row_header_no_code" />
+
+                <ListView
+                    android:id="@+id/lstItemsInsideOffer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.5" >
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

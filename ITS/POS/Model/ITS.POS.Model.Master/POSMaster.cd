@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.POS.Model.Master.Barcode">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAABAAAEBAAAIAAAAAgAAAEBAAAAAgAAAQIAAAAAAA=</HashCode>
+      <FileName>Barcode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.Supplier">
+    <Position X="13" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAAAEAAAAIAAAAAgAAAAAAAAAAgAAAAgAQCAAkA=</HashCode>
+      <FileName>Supplier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.Customer">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAAAIAAABIAAQTAgAAAQAIAAAAkAAAAgAACCAkA=</HashCode>
+      <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.Item">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABkAEAIMAAAoAgIAQAgAAAAgggAAwAAMACAAQ=</HashCode>
+      <FileName>Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.ItemAnalyticTree">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAEAAAgqAgUAEAABEAAAAQAAAAAAAAAAEAAgA=</HashCode>
+      <FileName>ItemAnalyticTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.ItemCategory">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAAAAEgAIABIAAAAAACAAAAABAAA=</HashCode>
+      <FileName>ItemCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.LinkedItem">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEBAAAIAAAACAAAAEAAQCAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>LinkedItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.PriceCatalog">
+    <Position X="7.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAABAAAFAAQCIAAAAAAAIAgAAEAIAEAAQAAAECJAAA=</HashCode>
+      <FileName>PriceCatalog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.PriceCatalogDetail">
+    <Position X="9.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAEDEAAJAAAAEAAAAFAAAAAQAAAgAiAAAAAAA=</HashCode>
+      <FileName>PriceCatalogDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Model.Master.Store">
+    <Position X="14.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAEAAAAIAAAAAgIIRAAAAAAAgAAAAAAAAAAQA=</HashCode>
+      <FileName>Store.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

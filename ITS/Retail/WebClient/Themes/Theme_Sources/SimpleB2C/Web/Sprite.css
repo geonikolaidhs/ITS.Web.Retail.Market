@@ -1,0 +1,910 @@
+.dxWeb_rpHeaderTopLeftCorner_SimpleB2C,
+.dxWeb_rpHeaderTopRightCorner_SimpleB2C,
+.dxWeb_rpBottomLeftCorner_SimpleB2C,
+.dxWeb_rpBottomRightCorner_SimpleB2C,
+.dxWeb_rpTopLeftCorner_SimpleB2C,
+.dxWeb_rpTopRightCorner_SimpleB2C,
+.dxWeb_rpGroupBoxBottomLeftCorner_SimpleB2C,
+.dxWeb_rpGroupBoxBottomRightCorner_SimpleB2C,
+.dxWeb_rpGroupBoxTopLeftCorner_SimpleB2C,
+.dxWeb_rpGroupBoxTopRightCorner_SimpleB2C,
+.dxWeb_mHorizontalPopOut_SimpleB2C,
+.dxWeb_mHorizontalPopOutHover_SimpleB2C,
+.dxWeb_mVerticalPopOut_SimpleB2C,
+.dxWeb_mVerticalPopOutHover_SimpleB2C,
+.dxWeb_mVerticalPopOutRtl_SimpleB2C,
+.dxWeb_mVerticalPopOutHoverRtl_SimpleB2C,
+.dxWeb_mSubMenuItem_SimpleB2C,
+.dxWeb_mSubMenuItemChecked_SimpleB2C,
+.dxWeb_mScrollUp_SimpleB2C,
+.dxWeb_mScrollUpHover_SimpleB2C,
+.dxWeb_mScrollDown_SimpleB2C,
+.dxWeb_mScrollDownHover_SimpleB2C,
+.dxWeb_tcScrollLeft_SimpleB2C,
+.dxWeb_tcScrollRight_SimpleB2C,
+.dxWeb_tcScrollLeftHover_SimpleB2C,
+.dxWeb_tcScrollRightHover_SimpleB2C,
+.dxWeb_tcScrollLeftPressed_SimpleB2C,
+.dxWeb_tcScrollRightPressed_SimpleB2C,
+.dxWeb_tcScrollLeftDisabled_SimpleB2C,
+.dxWeb_tcScrollRightDisabled_SimpleB2C,
+.dxWeb_nbCollapse_SimpleB2C,
+.dxWeb_nbExpand_SimpleB2C,
+.dxWeb_splVSeparator_SimpleB2C,
+.dxWeb_splVSeparatorHover_SimpleB2C,
+.dxWeb_splHSeparator_SimpleB2C,
+.dxWeb_splHSeparatorHover_SimpleB2C,
+.dxWeb_splVCollapseBackwardButton_SimpleB2C,
+.dxWeb_splVCollapseBackwardButtonHover_SimpleB2C,
+.dxWeb_splHCollapseBackwardButton_SimpleB2C,
+.dxWeb_splHCollapseBackwardButtonHover_SimpleB2C,
+.dxWeb_splVCollapseForwardButton_SimpleB2C,
+.dxWeb_splVCollapseForwardButtonHover_SimpleB2C,
+.dxWeb_splHCollapseForwardButton_SimpleB2C,
+.dxWeb_splHCollapseForwardButtonHover_SimpleB2C,
+.dxWeb_pcCloseButton_SimpleB2C,
+.dxWeb_pcPinButton_SimpleB2C,
+.dxWeb_pcRefreshButton_SimpleB2C,
+.dxWeb_pcCollapseButton_SimpleB2C,
+.dxWeb_pcMaximizeButton_SimpleB2C,
+.dxWeb_pcSizeGrip_SimpleB2C,
+.dxWeb_pcSizeGripRtl_SimpleB2C,
+.dxWeb_pPopOut_SimpleB2C,
+.dxWeb_pPopOutDisabled_SimpleB2C,
+.dxWeb_pPopOutHover_SimpleB2C,
+.dxWeb_pPopOutPressed_SimpleB2C,
+.dxWeb_pAll_SimpleB2C,
+.dxWeb_pAllDisabled_SimpleB2C,
+.dxWeb_pPrev_SimpleB2C,
+.dxWeb_pPrevDisabled_SimpleB2C,
+.dxWeb_pNext_SimpleB2C,
+.dxWeb_pNextDisabled_SimpleB2C,
+.dxWeb_pLast_SimpleB2C,
+.dxWeb_pLastDisabled_SimpleB2C,
+.dxWeb_pFirst_SimpleB2C,
+.dxWeb_pFirstDisabled_SimpleB2C,
+.dxWeb_tvColBtn_SimpleB2C,
+.dxWeb_tvColBtnRtl_SimpleB2C,
+.dxWeb_tvExpBtn_SimpleB2C,
+.dxWeb_tvExpBtnRtl_SimpleB2C,
+.dxWeb_fmFolder_SimpleB2C,
+.dxWeb_fmFolderLocked_SimpleB2C,
+.dxWeb_fmCreateButton_SimpleB2C,
+.dxWeb_fmMoveButton_SimpleB2C,
+.dxWeb_fmRenameButton_SimpleB2C,
+.dxWeb_fmDeleteButton_SimpleB2C,
+.dxWeb_fmRefreshButton_SimpleB2C,
+.dxWeb_fmDwnlButton_SimpleB2C,
+.dxWeb_fmCreateButtonDisabled_SimpleB2C,
+.dxWeb_fmMoveButtonDisabled_SimpleB2C,
+.dxWeb_fmRenameButtonDisabled_SimpleB2C,
+.dxWeb_fmDeleteButtonDisabled_SimpleB2C,
+.dxWeb_fmRefreshButtonDisabled_SimpleB2C,
+.dxWeb_fmDwnlButtonDisabled_SimpleB2C,
+.dxWeb_fmThumbnailCheck_SimpleB2C,
+.dxWeb_ucClearButton_SimpleB2C,
+.dxWeb_isPrevBtnHor_SimpleB2C,
+.dxWeb_isNextBtnHor_SimpleB2C,
+.dxWeb_isPrevBtnVert_SimpleB2C,
+.dxWeb_isNextBtnVert_SimpleB2C,
+.dxWeb_isPrevPageBtnHor_SimpleB2C,
+.dxWeb_isNextPageBtnHor_SimpleB2C,
+.dxWeb_isPrevPageBtnVert_SimpleB2C,
+.dxWeb_isNextPageBtnVert_SimpleB2C,
+.dxWeb_isPrevBtnHorDisabled_SimpleB2C,
+.dxWeb_isNextBtnHorDisabled_SimpleB2C,
+.dxWeb_isPrevBtnVertDisabled_SimpleB2C,
+.dxWeb_isNextBtnVertDisabled_SimpleB2C,
+.dxWeb_isPrevPageBtnHorDisabled_SimpleB2C,
+.dxWeb_isNextPageBtnHorDisabled_SimpleB2C,
+.dxWeb_isPrevPageBtnVertDisabled_SimpleB2C,
+.dxWeb_isNextPageBtnVertDisabled_SimpleB2C,
+.dxWeb_isDot_SimpleB2C,
+.dxWeb_isDotDisabled_SimpleB2C,
+.dxWeb_isDotSelected_SimpleB2C,
+.dxWeb_isPlayBtn_SimpleB2C,
+.dxWeb_isPauseBtn_SimpleB2C,
+.dxWeb_igCloseButton_SimpleB2C,
+.dxWeb_igNextButton_SimpleB2C,
+.dxWeb_igPrevButton_SimpleB2C,
+.dxWeb_igPlayButton_SimpleB2C,
+.dxWeb_igPauseButton_SimpleB2C,
+.dxWeb_igNavigationBarMarker_SimpleB2C
+{
+    background-color: transparent;
+	background-image: url('sprite.png');
+	background-repeat: no-repeat;
+    display: block;
+}
+
+.dxWeb_edtCheckBoxChecked_SimpleB2C,
+.dxWeb_edtCheckBoxUnchecked_SimpleB2C,
+.dxWeb_edtCheckBoxGrayed_SimpleB2C,
+.dxWeb_edtCheckBoxCheckedDisabled_SimpleB2C,
+.dxWeb_edtCheckBoxUncheckedDisabled_SimpleB2C,
+.dxWeb_edtCheckBoxGrayedDisabled_SimpleB2C
+{
+	background: White url('sprite.png') no-repeat;
+	width: 16px;
+	height: 16px;
+}
+.dxWeb_edtCheckBoxUnchecked_SimpleB2C
+{
+	background-position: -41px -99px;
+}
+.dxWeb_edtCheckBoxChecked_SimpleB2C
+{
+	background-position: -56px -99px;
+}
+.dxWeb_edtCheckBoxGrayed_SimpleB2C
+{
+	background-position: -71px -99px;
+}
+.dxWeb_edtCheckBoxUncheckedDisabled_SimpleB2C
+{
+	background-position: -86px -99px;
+}
+.dxWeb_edtCheckBoxCheckedDisabled_SimpleB2C
+{
+	background-position: -101px -99px;
+}
+.dxWeb_edtCheckBoxGrayedDisabled_SimpleB2C
+{
+	background-position: -116px -99px;
+}
+
+.dxWeb_mScrollUp_SimpleB2C, .dxWeb_mScrollDown_SimpleB2C
+{
+	margin: auto;
+}
+
+.dxWeb_rpHeaderTopLeftCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpHeaderTopRightCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpBottomLeftCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpBottomRightCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpTopLeftCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpTopRightCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpGroupBoxBottomLeftCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpGroupBoxBottomRightCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpGroupBoxTopLeftCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_rpGroupBoxTopRightCorner_SimpleB2C
+{
+	width: 0;
+	height: 0;
+}
+
+.dxWeb_mHorizontalPopOut_SimpleB2C
+{
+	background-position: -92px -50px;
+	width: 5px;
+	height: 3px;
+}
+
+.dxWeb_mHorizontalPopOutHover_SimpleB2C
+{
+	background-position: -92px -53px;
+	width: 5px;
+	height: 3px;
+}
+
+.dxWeb_mVerticalPopOut_SimpleB2C
+{
+	background-position: -105px -50px;
+	width: 4px;
+	height: 8px;
+}
+
+.dxWeb_mVerticalPopOutHover_SimpleB2C
+{
+	background-position: -109px -50px;
+	width: 4px;
+	height: 8px;
+}
+
+.dxWeb_mVerticalPopOutRtl_SimpleB2C
+{
+	background-position: -145px -50px;
+	width: 4px;
+	height: 8px;
+}
+
+.dxWeb_mVerticalPopOutHoverRtl_SimpleB2C
+{
+	background-position: -149px -50px;
+	width: 4px;
+	height: 8px;
+}
+
+.dxWeb_mSubMenuItem_SimpleB2C
+{
+	background-position: -48px -50px;
+	width: 14px;
+	height: 14px;
+}
+
+.dxWeb_mSubMenuItemChecked_SimpleB2C
+{
+	background-position: -70px -50px;
+	width: 14px;
+	height: 14px;
+}
+
+.dxWeb_mScrollUp_SimpleB2C
+{
+	background-position: -115px -49px;
+	width: 13px;
+	height: 13px;
+}
+
+.dxWeb_mScrollUpHover_SimpleB2C
+{
+	background-position: -101px -84px;
+	width: 13px;
+	height: 13px;
+}
+
+.dxWeb_mScrollDown_SimpleB2C
+{
+	background-position: -129px -49px;
+	width: 13px;
+	height: 13px;
+}
+
+.dxWeb_mScrollDownHover_SimpleB2C
+{
+	background-position: -115px -84px;
+	width: 13px;
+	height: 13px;
+}
+
+.dxWeb_tcScrollLeft_SimpleB2C
+{
+	background-position: -136px -62px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_tcScrollRight_SimpleB2C
+{
+	background-position: -161px -62px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_tcScrollLeftHover_SimpleB2C
+{
+	background-position: -136px -62px;
+	width: 24px;
+	height: 24px;
+}
+.dxWeb_tcScrollRightHover_SimpleB2C
+{
+	background-position: -161px -62px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_tcScrollLeftPressed_SimpleB2C
+{
+	background-position: -136px -62px;
+	width: 24px;
+	height: 24px;
+}
+.dxWeb_tcScrollRightPressed_SimpleB2C
+{
+	background-position: -161px -62px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_tcScrollLeftDisabled_SimpleB2C
+{
+	background-position: -136px -86px;
+	width: 24px;
+	height: 24px;
+}
+.dxWeb_tcScrollRightDisabled_SimpleB2C
+{
+	background-position: -161px -86px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_nbCollapse_SimpleB2C
+{
+	background-position: -130px 0px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_nbExpand_SimpleB2C
+{
+	background-position: -130px -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_splVSeparator_SimpleB2C
+{
+	background-position: -97px -60px;
+	width: 11px;
+	height: 23px;
+}
+
+.dxWeb_splVSeparatorHover_SimpleB2C
+{
+	background-position: -88px -60px;
+	width: 11px;
+	height: 23px;
+}
+
+.dxWeb_splHSeparator_SimpleB2C
+{
+	background-position: -58px -81px;
+	width: 23px;
+	height: 11px;
+}
+
+.dxWeb_splHSeparatorHover_SimpleB2C
+{
+	background-position: -58px -72px;
+	width: 23px;
+	height: 11px;
+}
+
+.dxWeb_splVCollapseBackwardButton_SimpleB2C
+{
+	background-position: -36px -75px;
+	width: 6px;
+	height: 7px;
+}
+
+.dxWeb_splVCollapseBackwardButtonHover_SimpleB2C
+{
+	background-position: -30px -75px;
+	width: 6px;
+	height: 7px;
+}
+
+.dxWeb_splHCollapseBackwardButton_SimpleB2C
+{
+	background-position: 0px -81px;
+	width: 7px;
+	height: 6px;
+}
+
+.dxWeb_splHCollapseBackwardButtonHover_SimpleB2C
+{
+	background-position: 0px -75px;
+	width: 7px;
+	height: 6px;
+}
+
+.dxWeb_splVCollapseForwardButton_SimpleB2C
+{
+	background-position: -50px -75px;
+	width: 6px;
+	height: 7px;
+}
+
+.dxWeb_splVCollapseForwardButtonHover_SimpleB2C
+{
+	background-position: -44px -75px;
+	width: 6px;
+	height: 7px;
+}
+
+.dxWeb_splHCollapseForwardButton_SimpleB2C
+{
+	background-position: -15px -80px;
+	width: 7px;
+	height: 6px;
+}
+
+.dxWeb_splHCollapseForwardButtonHover_SimpleB2C
+{
+	background-position: -15px -74px;
+	width: 7px;
+	height: 6px;
+}
+.dxWeb_pcCloseButton_SimpleB2C,
+.dxWeb_pcPinButton_SimpleB2C,
+.dxWeb_pcRefreshButton_SimpleB2C,
+.dxWeb_pcCollapseButton_SimpleB2C,
+.dxWeb_pcMaximizeButton_SimpleB2C
+{
+	width: 15px;
+	height: 14px;
+}
+.dxWeb_pcCloseButton_SimpleB2C
+{
+	background-position: 0px -50px;
+}
+
+.dxWeb_pcPinButton_SimpleB2C
+{
+	background-position: -146px -114px;
+}
+.dxpcPinButtonChecked_SimpleB2C .dxWeb_pcPinButton_SimpleB2C,
+.dxpc-pinBtnChecked .dxWeb_pcPinButton_SimpleB2C
+{
+	background-position: -166px -113px;
+}
+ 
+.dxWeb_pcRefreshButton_SimpleB2C
+{
+	background-position: -171px 0px;
+}
+
+.dxWeb_pcCollapseButton_SimpleB2C
+{
+	background-position: -145px -144px;
+}
+.dxpcCollapseButtonChecked_SimpleB2C .dxWeb_pcCollapseButton_SimpleB2C,
+.dxpc-collapseBtnChecked .dxWeb_pcCollapseButton_SimpleB2C
+{
+	background-position: -165px -144px;
+}
+ 
+.dxWeb_pcMaximizeButton_SimpleB2C
+{
+	background-position: -165px -128px;
+}
+.dxpcMaximizeButtonChecked_SimpleB2C .dxWeb_pcMaximizeButton_SimpleB2C,
+.dxpc-maximizeBtnChecked .dxWeb_pcMaximizeButton_SimpleB2C
+{
+	background-position: -145px -128px;
+}
+
+.dxWeb_pcSizeGrip_SimpleB2C
+{
+	background-position: -24px -50px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_pcSizeGripRtl_SimpleB2C
+{
+	background-position: -109px -62px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_pPopOut_SimpleB2C
+{
+	background-position: -160px 0px;
+	width: 7px;
+	height: 4px;
+}
+
+.dxWeb_pPopOutDisabled_SimpleB2C
+{
+	background-position: -160px -4px;
+	width: 7px;
+	height: 4px;
+}
+
+.dxWeb_pPopOutHover_SimpleB2C
+{
+	background-position: -160px -8px;
+	width: 7px;
+	height: 4px;
+}
+
+.dxWeb_pPopOutPressed_SimpleB2C
+{
+	background-position: -160px -12px;
+	width: 7px;
+	height: 4px;
+}
+
+.dxWeb_pAll_SimpleB2C
+{
+	background-position: 0px 0px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pAllDisabled_SimpleB2C
+{
+	background-position: 0px -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pPrev_SimpleB2C
+{
+	background-position: -105px 0;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pPrevDisabled_SimpleB2C
+{
+	background-position: -105px -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pNext_SimpleB2C
+{
+	background-position: -81px 0px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pNextDisabled_SimpleB2C
+{
+	background-position: -81px -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pLast_SimpleB2C
+{
+	background-position: -55px 0px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pLastDisabled_SimpleB2C
+{
+	background-position: -55px -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pFirst_SimpleB2C
+{
+	background-position: -29px 0;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_pFirstDisabled_SimpleB2C
+{
+	background-position: -29px -24px;
+	width: 24px;
+	height: 24px;
+}
+
+.dxWeb_tvColBtn_SimpleB2C
+{
+	background-position: -19px -90px;
+	width: 17px;
+	height: 17px;
+}
+
+.dxWeb_tvExpBtn_SimpleB2C
+{
+	background-position: 0px -90px;
+	width: 17px;
+	height: 17px;
+}
+
+.dxWeb_tvColBtnRtl_SimpleB2C
+{
+	background-position: -19px -105px;
+	width: 17px;
+	height: 17px;
+}
+
+.dxWeb_tvExpBtnRtl_SimpleB2C
+{
+	background-position: 0px -105px;
+	width: 17px;
+	height: 17px;
+}
+
+.dxWeb_fmFolder_SimpleB2C
+{
+	background-position: 0px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmFolderLocked_SimpleB2C
+{
+	background-position: -20px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmCreateButton_SimpleB2C
+{
+	background-position: -40px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmRenameButton_SimpleB2C
+{
+	background-position: -60px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmMoveButton_SimpleB2C
+{
+	background-position: -80px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmDeleteButton_SimpleB2C
+{
+	background-position: -100px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmRefreshButton_SimpleB2C
+{
+	background-position: -120px -123px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmDwnlButton_SimpleB2C
+{
+	background-position: 0px -147px;
+	width: 16px;
+	height: 16px;
+}
+.dxWeb_fmDwnlButtonDisabled_SimpleB2C
+{
+	background-position: -20px -147px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmCreateButtonDisabled_SimpleB2C
+{
+	background-position: -40px -147px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmRenameButtonDisabled_SimpleB2C
+{
+	background-position: -60px -147px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmMoveButtonDisabled_SimpleB2C
+{
+	background-position: -80px -147px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmDeleteButtonDisabled_SimpleB2C
+{
+	background-position: -100px -147px;
+	width: 16px;
+	height: 16px;
+}
+
+.dxWeb_fmRefreshButtonDisabled_SimpleB2C
+{
+	background-position: -120px -147px;
+	width: 16px;
+	height: 16px;
+}
+.dxWeb_ucClearButton_SimpleB2C
+{
+	background-position: -100px -123px;
+	width: 16px;
+	height: 16px;
+}
+.dxWeb_ucClearButtonDisabled_SimpleB2C
+{
+	background-position: -100px -147px;
+	width: 16px;
+	height: 16px;
+}
+.dxWeb_fmThumbnailCheck_SimpleB2C
+{
+    background-position: -115px -200px;
+    width: 10px;
+    height: 11px;
+}  
+
+/*ASPxImageSlider*/
+.dxWeb_isPlayBtn_SimpleB2C
+{
+    background-position: -80px -198px;
+}
+.dxWeb_isPauseBtn_SimpleB2C
+{
+    background-position: -94px -197px;
+}
+.dxWeb_isDot_SimpleB2C,
+.dxWeb_isDotDisabled_SimpleB2C
+{
+    background-position: -113px -177px;
+}
+.dxWeb_isDotSelected_SimpleB2C
+{
+    background-position: -131px -177px;
+}
+.dxWeb_isPrevBtnVert_SimpleB2C,
+.dxWeb_isNextBtnVert_SimpleB2C,
+.dxWeb_isPrevBtnVertDisabled_SimpleB2C,
+.dxWeb_isNextBtnVertDisabled_SimpleB2C
+{
+    width: 29px;
+    height: 19px;
+}
+.dxWeb_isPrevBtnHor_SimpleB2C,
+.dxWeb_isNextBtnHor_SimpleB2C,
+.dxWeb_isPrevBtnHorDisabled_SimpleB2C,
+.dxWeb_isNextBtnHorDisabled_SimpleB2C
+{
+    width: 18px;
+    height: 31px;
+}
+.dxWeb_isPrevBtnVert_SimpleB2C,
+.dxWeb_isPrevBtnVertDisabled_SimpleB2C
+{
+    background-position: -46px -173px;
+}
+.dxWeb_isNextBtnVert_SimpleB2C,
+.dxWeb_isNextBtnVertDisabled_SimpleB2C
+{
+    background-position: -79px -173px;
+}
+.dxWeb_isPrevBtnHor_SimpleB2C,
+.dxWeb_isPrevBtnHorDisabled_SimpleB2C
+{
+    background-position: -1px -167px;
+}
+.dxWeb_isNextBtnHor_SimpleB2C,
+.dxWeb_isNextBtnHorDisabled_SimpleB2C
+{
+    background-position: -24px -167px;
+}
+.dxWeb_isPrevPageBtnVert_SimpleB2C,
+.dxWeb_isNextPageBtnVert_SimpleB2C,
+.dxWeb_isPrevPageBtnVertDisabled_SimpleB2C,
+.dxWeb_isNextPageBtnVertDisabled_SimpleB2C
+{
+    width: 21px;
+    height: 14px;
+}
+.dxWeb_isPrevPageBtnHor_SimpleB2C,
+.dxWeb_isNextPageBtnHor_SimpleB2C,
+.dxWeb_isPrevPageBtnHorDisabled_SimpleB2C,
+.dxWeb_isNextPageBtnHorDisabled_SimpleB2C
+{
+    width: 14px;
+    height: 21px;
+}
+.dxWeb_isPrevPageBtnVert_SimpleB2C,
+.dxWeb_isPrevPageBtnVertDisabled_SimpleB2C
+{
+    background-position: -35px -206px;
+}
+.dxWeb_isNextPageBtnVert_SimpleB2C,
+.dxWeb_isNextPageBtnVertDisabled_SimpleB2C
+{
+    background-position: -58px -222px;
+}
+.dxWeb_isPrevPageBtnHor_SimpleB2C,
+.dxWeb_isPrevPageBtnHorDisabled_SimpleB2C
+{
+    background-position: -2px -202px;
+}
+.dxWeb_isNextPageBtnHor_SimpleB2C,
+.dxWeb_isNextPageBtnHorDisabled_SimpleB2C
+{
+    background-position: -18px -202px;
+}
+
+/*ASPxImageGallery*/
+.dxWeb_igCloseButton_SimpleB2C
+{
+    background-position: -144px -222px;
+}
+.dxigControl_SimpleB2C.dxTouchUI .dxWeb_igCloseButton_SimpleB2C
+{
+    background-position: -139px -251px;
+}
+.dxWeb_igPrevButton_SimpleB2C
+{
+    background-position: -92px -223px;
+}
+.dxWeb_igPrevButtonHover_SimpleB2C
+{
+    background-position: 0px -223px;
+}
+.dxWeb_igPrevButtonPressed_SimpleB2C
+{
+    background-position: -46px -223px;
+}
+.dxWeb_igPrevButtonDisabled_SimpleB2C
+{
+    background-position: -92px -223px;
+}
+.dxWeb_igNextButton_SimpleB2C
+{
+    background-position: -92px -289px;
+}
+.dxWeb_igNextButtonHover_SimpleB2C
+{
+    background-position: 0px -289px;
+}
+.dxWeb_igNextButtonPressed_SimpleB2C
+{
+    background-position: -46px -289px;
+}
+.dxWeb_igNextButtonDisabled_SimpleB2C
+{
+    background-position: -92px -289px;
+}
+.dxWeb_igPlayButton_SimpleB2C
+{
+    background-position: -80px -198px;
+}
+.dxWeb_igPauseButton_SimpleB2C
+{
+    background-position: -94px -197px;
+}
+.dxWeb_igNavigationBarMarker_SimpleB2C
+{
+    background-position: -142px -236px;
+}
+.dxigControl_SimpleB2C.dxTouchUI .dxWeb_igPlayButton_SimpleB2C
+{
+    background-position: -141px -300px;
+}
+.dxigControl_SimpleB2C.dxTouchUI .dxWeb_igPauseButton_SimpleB2C
+{
+    background-position: -145px -274px;
+}

@@ -1,0 +1,63 @@
+﻿@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    bool freezeEdit = document.TransformationLevel == eTransformationLevel.FREEZE_EDIT;
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+@Html.DevExpress().CallbackPanel(cpb_settings =>
+{
+    cpb_settings.Name = "triangularCallbackPanel";
+    cpb_settings.ControlStyle.CssClass = "tab-top-padding";
+    cpb_settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "TriangularCallbackPanel" };
+    if (ViewBag.InViewMode || freezeEdit)
+    {
+        cpb_settings.Enabled = false;
+    }
+
+    cpb_settings.SetContent(() =>
+    {
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label large-font";
+            string text = string.Empty;
+            string associatedControlName = string.Empty;
+            switch (document.Division)
+            {
+                case eDivision.Sales:
+                    text = Resources.Customer;
+                    associatedControlName = "TriangularCustomerPartial";
+                    break;
+                case eDivision.Purchase:
+                    text = Resources.Supplier;
+                    associatedControlName = "TriangularSupplierPartial";
+                    break;
+                case eDivision.Store:
+                    text = Resources.Store;
+                    associatedControlName = "TriangularStorePartial";
+                    break;
+                default:
+                    //TOCHECK this should be unreachable code
+                    break;
+            }
+            edtSettings.AssociatedControlName = associatedControlName;
+            edtSettings.Text = text + ":";
+        }).Render();
+
+        switch(document.Division)
+        {
+            case eDivision.Sales:
+                Html.RenderPartial("TriangularCustomerPartial",document);
+                break;
+            case  eDivision.Purchase :
+                Html.RenderPartial("TriangularSupplierPartial",document);
+                break;
+            case  eDivision.Store :
+                Html.RenderPartial("TriangularStorePartial",document);
+                break;
+            default:
+                //TOCHECK this should be unreachable code
+                break;
+        }
+        Html.RenderPartial("TriangularAddressPartial", document);
+    });
+}).GetHtml()

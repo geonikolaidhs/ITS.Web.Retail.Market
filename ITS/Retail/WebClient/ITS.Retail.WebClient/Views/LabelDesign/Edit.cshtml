@@ -1,0 +1,249 @@
+﻿@model ITS.Retail.Model.Label
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@{
+    Html.EnableClientValidation();
+}
+
+@using (Html.BeginForm("Save", "LabelDesign", FormMethod.Post, new { id = "EditForm" }))
+{
+    /*Header banner*/
+    HeaderOptions headerOptions = new HeaderOptions("");
+    headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+    headerOptions.CancelButton.OnClick = "btnCancelClickV2"; 
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    /*End of header banner*/
+    @Html.DevExpress().FormLayout(settings =>
+{
+    ///
+
+    settings.Name = "frmLayoutLabelEdit";
+    settings.AlignItemCaptionsInAllGroups = true;
+    settings.ControlStyle.CssClass = "formLeft";//Every form layout must have the same class name
+    settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+    settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+    settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.NotSet;
+    settings.ShowItemCaptionColon = true;
+    settings.Width = 700;
+
+    var groupItem = settings.Items.AddGroupItem(itemSettings =>
+    {
+        itemSettings.Caption = Resources.Label;
+    });
+
+    groupItem.HorizontalAlign = FormLayoutHorizontalAlign.Center;
+
+    groupItem.ColCount = 3;
+    groupItem.Width = 640;
+
+    groupItem.Items.Add(label => label.Code, set => {
+        set.Caption = Resources.Code;
+        set.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        set.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)set.NestedExtensionSettings;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+
+
+    }).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+    groupItem.Items.Add(label => label.Description, set => {
+        set.Caption = Resources.Description;
+        set.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        set.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)set.NestedExtensionSettings;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+    }).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+
+    groupItem.Items.Add(label => label.IsDefault, itemSettings =>
+    {
+        itemSettings.Caption = Resources.IsDefault;
+        itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Right;
+        itemSettings.Width = 130;
+        itemSettings.CssClass = "padding-top-40";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.CheckBox;
+
+    }).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+
+
+    groupItem.Items.Add(label => label.LabelFileName, set => {
+
+        set.Caption = Resources.FileName;
+        set.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        TextBoxSettings textBoxSettings = (TextBoxSettings)set.NestedExtensionSettings;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+        textBoxSettings.ReadOnly = true;
+    }).RequiredMarkDisplayMode = FieldRequiredMarkMode.Required;
+
+    groupItem.Items.Add(label => label.LabelFile, set => {
+        set.Caption = Resources.Upload;
+        set.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        set.ColSpan = 2;
+        set.Width = 280;
+
+    }).SetNestedContent(() =>
+    {
+        Html.DevExpress().UploadControl(set =>
+        {
+            set.UploadMode = UploadControlUploadMode.Auto;
+            set.Name = "UploadControl";
+            set.ControlStyle.CssClass = "upload-control-css";
+            set.CallbackRouteValues = new { Controller = "LabelDesign", Action = "UploadControl" };
+            set.ShowProgressPanel = true;
+            set.ClientSideEvents.FileUploadComplete = "OnFileUploadComplete";
+            set.ValidationSettings.ShowErrors = true;
+            set.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.LabelDesignController.UploadControlValidationSettings);
+
+
+        }).Render();
+
+        ViewContext.Writer.Write("<td class=\"vertical-align-td-top\">");
+
+        Html.DevExpress().Image(settings2 =>
+        {
+            settings2.Name = "btnUpload";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn padding-top-2";
+            settings2.Properties.ClientSideEvents.Click = "function (s,e) { UploadControl.Upload(); }";
+        }).Render();
+        ViewContext.Writer.Write("</td>");
+    });
+
+    groupItem.Items.Add(label => label.UseDirectSQL, set =>
+    {
+        set.Caption = Resources.UseDirectSQL;
+        set.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        set.CaptionSettings.Location = LayoutItemCaptionLocation.Right;
+        set.Width = 130;
+        set.CssClass = "padding-top-30-important";
+        set.NestedExtensionType = FormLayoutNestedExtensionItemType.CheckBox;
+    }).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+    groupItem.Items.Add(label => label.DirectSQL, set => { set.Caption = Resources.DirectSQL; set.CaptionSettings.Location = LayoutItemCaptionLocation.Top; });
+
+    groupItem.Items.Add(label => label.PrinterEncoding, itemSettings =>
+    {
+        itemSettings.Caption = Resources.CodePage;
+        itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+    }).RequiredMarkDisplayMode = FieldRequiredMarkMode.Hidden;
+
+    //groupItem.Items.Add(label => label.RemotePrinterService, set =>
+    //{
+    //    set.Caption = Resources.RemotePrinterService;
+    //    set.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+    //})
+    //.SetNestedContent(() =>
+    //{
+    //    Html.DevExpress().ComboBox(edtSettings =>
+    //    {
+    //        edtSettings.Name = "RemotePrinterServices";
+    //        edtSettings.ControlStyle.CssClass = "editor";
+    //        edtSettings.Properties.TextField = "Name";
+    //        edtSettings.Properties.ValueField = "Oid";
+    //        edtSettings.Properties.ValueType = typeof(Guid);
+    //        edtSettings.ShowModelErrors = true;
+    //        edtSettings.Properties.DropDownWidth = 550;
+    //        edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    //        edtSettings.Properties.CallbackPageSize = 15;
+    //        edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    //        EditButton button = new EditButton(" ");
+    //        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    //        button.Image.AlternateText = Resources.Clear;
+    //        edtSettings.Properties.Buttons.Add(button);
+    //        edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    //        edtSettings.Properties.Columns.Add("Name", Resources.Name, 130);
+    //    }).BindList(ViewBag.RemotePrinterServicesComboBox).Bind(DataBinder.Eval(Session["EditingItem"], "RemotePrinterService!Key")).Render();
+
+    //    @Html.DevExpress().Button(buttonSettings =>
+    //    {
+    //        buttonSettings.Name = "TestConnectionButton";
+    //        buttonSettings.Text = Resources.TestConnection;
+    //        buttonSettings.ControlStyle.CssClass = "green-button";
+    //        buttonSettings.EncodeHtml = false;
+    //        buttonSettings.Height = 40;
+    //        buttonSettings.UseSubmitBehavior = false;
+    //        buttonSettings.ClientSideEvents.Click = "EditLabelDesign.TestRemotePrinterServerConnection";
+    //    }).Render();
+    //});
+
+    //groupItem.Items.Add(label => label.PrinterNickName, set =>
+    //{
+    //    set.Caption = Resources.PrinterNickName;
+    //    set.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+    //})
+    //.SetNestedContent(() =>
+    //{
+    //    Html.RenderPartial("UpdateLabelRemotePrinters");
+    //});
+
+}).GetHtml()
+
+    ViewContext.Writer.Write("<div class=\"formRight tag-list\">");
+        ViewContext.Writer.Write("<h2>");
+        @Resources.LabelFieldsInserted
+    ViewContext.Writer.Write("</h2>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{0}</span><span class=\"small\">");
+        @Resources.ItemDescription
+    ViewContext.Writer.Write("(");
+        @Resources.FirstLine
+    ViewContext.Writer.Write(")");
+        ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{1}</span><span class=\"small\">");
+        @Resources.ItemDescription
+    ViewContext.Writer.Write("(");
+        @Resources.SecondLine
+    ViewContext.Writer.Write(")");
+        ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{2}</span><span class=\"small\">");
+        @Resources.ItemCodeFull
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{3}</span><span class=\"small\">");
+        @Resources.ItemCodeBarcode
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{4}</span><span class=\"small\">");
+        @Resources.ValueChangedDate
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{5}</span><span class=\"small\">");
+        @Resources.VatCategory
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{6}</span><span class=\"small\">");
+        @Resources.MeasurementUnit
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{7}</span><span class=\"small\">");
+        @Resources.Value
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{8}</span><span class=\"small\">");
+        @Resources.LinkedItem
+    ViewContext.Writer.Write("(");
+        @Resources.Value
+    ViewContext.Writer.Write(")");
+        ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{9}</span><span class=\"small\">");
+        @Resources.SupplierCode
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{10}</span><span class=\"small\">");
+        @Resources.ReferenceUnit
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{11}</span><span class=\"small\">");
+        @Resources.ContentUnit
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{12}</span><span class=\"small\">");
+        @Resources.UnitContentValue
+    ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("<div class=\"tag\"><span class=\"big\">{13}</span><span class=\"small\">");
+        ViewContext.Writer.Write(Resources.Value + " + " + Resources.LinkedItem);
+        ViewContext.Writer.Write("</span></div>");
+        ViewContext.Writer.Write("</div>");
+    }

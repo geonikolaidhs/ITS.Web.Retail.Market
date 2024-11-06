@@ -1,0 +1,32 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+
+    combosettings.Enabled = true;
+    combosettings.Name = "DepositItemComboBox";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.Properties.DropDownWidth = 350;
+    combosettings.CallbackRouteValues = new { Controller = "POS", Action = "DepositItemComboBox" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Code";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.ShowModelErrors = true;
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+    combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+    combosettings.Properties.Columns.Add("Description", Resources.Description, 130);
+
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 0;
+    combosettings.Properties.NullText = Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+    
+}).BindList(ITS.Retail.WebClient.Controllers.POSController.ItemsRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.POSController.ItemRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.POSController.GetItemByValue(DataBinder.Eval(Model, "DepositItem!Key"))).Bind(DataBinder.Eval(Model, "DepositItem!Key")).GetHtml()

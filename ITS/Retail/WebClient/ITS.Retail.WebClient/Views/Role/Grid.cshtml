@@ -1,0 +1,117 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdRoles";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] {  "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Role", Action = "Grid" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Role", Action = "DeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;    
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;   
+    settings.SettingsCookies.StorePaging = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    settings.Settings.ShowTitlePanel = true;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.SettingsText.Title = Resources.UserRoles;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Oid";
+        column.Visible = false;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Type";
+        col.Caption = Resources.Type;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eRoleType)DataBinder.Eval(c.DataItem, "Type")).ToLocalizedString());
+        });
+    });
+    settings.Columns.Add(col =>
+    {
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "GDPREnabled";
+        col.Caption = Resources.GDPREnabled;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "GDPRActions";
+        col.Caption = Resources.ExecuteGDPRActions;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    });
+
+}).Bind(Model).GetHtml()

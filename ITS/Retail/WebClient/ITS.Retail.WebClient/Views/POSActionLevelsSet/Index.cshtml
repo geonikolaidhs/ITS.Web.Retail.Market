@@ -1,0 +1,14 @@
+﻿@using ITS.Retail.ResourcesLib;
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/POSActionLevelsSet.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditPOSActionLevelsSet.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.POSActionLevelsSets;
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid")

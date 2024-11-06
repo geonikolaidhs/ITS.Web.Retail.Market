@@ -1,0 +1,15 @@
+﻿<script language="javascript" type="text/javascript">
+
+    function MasterRowChanged(s, e) {
+        grdFieldPermission.PerformCallback();
+    }
+  
+</script>
+
+@model IEnumerable<ITS.Retail.Model.TablePermission>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("Grid", Model)
+@Html.Partial("~/FieldPermission/Grid")

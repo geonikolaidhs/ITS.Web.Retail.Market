@@ -1,0 +1,266 @@
+/* ----------------- Main ----------------- */
+/* Loading panel */
+.dxheLoadingDiv_ITSTheme1
+{
+    background: white;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+}
+.dxheLoadingPanel_ITSTheme1
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px arial;
+	color: #333333;
+}
+.dxheLoadingPanel_ITSTheme1 td.dx
+{
+    white-space: nowrap;
+    text-align: center;
+	padding: 10px 14px;
+}
+
+.dxheControl_ITSTheme1
+{
+}
+
+/* Area */
+.dxheContentArea_ITSTheme1
+{
+    padding: 6px 4px;
+}
+.dxheContentArea_ITSTheme1 .dxheErrorFrame_ITSTheme1
+{
+	font: 11px arial ;
+	color: #D00707;
+	background-color: #FBC7C7;
+	margin-bottom: 6px;
+}
+.dxheContentArea_ITSTheme1 .dxheErrorFrame_ITSTheme1 .dxhe {
+    padding: 5px;
+}
+.dxheContentArea_ITSTheme1 .dxheErrorFrame_ITSTheme1 .dxhe td {
+    padding: 0px;
+}
+.dxheContentArea_ITSTheme1 .dxheErrorFrame_ITSTheme1 .dxheErrorFrameCloseButton_ITSTheme1 {
+    cursor: pointer;
+}
+.dxheViewArea_ITSTheme1
+{
+}
+.dxheContentArea_ITSTheme1 td.dxheViewArea_ITSTheme1 /*B209529*/
+{
+	font-size: 0;
+}
+.dxheHtmlViewArea_ITSTheme1,
+.dxheDesignViewArea_ITSTheme1,
+.dxhePreviewArea_ITSTheme1 
+{
+    	margin: 0px;
+    	background: none #FFFFFF;
+border: 0;
+    	font-size: smaller;
+    	font: normal 12px Arial;    
+}
+.dxheContentArea_ITSTheme1 .dxeMemo_ITSTheme1 td,
+body.dxheDesignViewArea_ITSTheme1,
+body.dxhePreviewArea_ITSTheme1
+{
+    padding: 0 0 0 4px;
+}
+.dxheContentArea_ITSTheme1 .dxeMemoEditArea_ITSTheme1
+{
+    padding-left: 0;
+    padding-right: 0;
+}
+.dxheControl_ITSTheme1.dxhe-rtl .dxheContentArea_ITSTheme1 .dxeMemo_ITSTheme1 td,
+body.dxheDesignViewArea_ITSTheme1.dxhe-rtl,
+body.dxhePreviewArea_ITSTheme1.dxhe-rtl
+{
+	padding: 0 4px 0 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .dxheControl_ITSTheme1.dxhe-rtl .dxheContentArea_ITSTheme1 .dxeMemo_ITSTheme1 td
+    {
+	    padding: 0 0 0 4px;
+    }
+}
+.dxheControl_ITSTheme1 .dxeMemo_ITSTheme1 textarea 
+{
+	resize: none;
+}
+/* Element appearance in DesignView */
+body.dxheDesignViewArea_ITSTheme1 table.dxEmptyBorderTable_ITSTheme1,
+body.dxheDesignViewArea_ITSTheme1 table.dxEmptyBorderTable_ITSTheme1 td  {
+    border:1px dotted gray;
+}
+@media print 
+{
+	body.dxheDesignViewArea_ITSTheme1 table.dxEmptyBorderTable_ITSTheme1,
+	body.dxheDesignViewArea_ITSTheme1 table.dxEmptyBorderTable_ITSTheme1 td  
+	{
+		border:0px;
+	}
+}
+
+/* Status Bar */
+.dxheStatusBar_ITSTheme1 
+{
+}
+.dxheStatusBar_ITSTheme1 .dxheStatusBarTab_ITSTheme1 
+{
+    padding-left: 11px;
+    padding-right: 12px;
+    padding-bottom: 5px;
+}
+.dxheStatusBarActiveTab_ITSTheme1 
+{
+}
+.dxHtmlEditor_heSizeGrip_ITSTheme1
+{
+    cursor: se-resize;
+}
+.dxHtmlEditor_heSizeGripRtl_ITSTheme1
+{
+    cursor: ne-resize;
+}
+.dxheSizeGripContainer_ITSTheme1
+{
+    float: left;
+    height: 0;
+    width: 100%;
+    text-align: right;
+    font-size: 0;
+    margin-top: -16px;
+}
+.dxheControl_ITSTheme1.dxhe-rtl .dxheSizeGripContainer_ITSTheme1 
+{
+	text-align: left;
+}
+/* ----------------- Dialog Forms ----------------- */
+#dxInsertTableForm .buttonsCell,
+#dxInsertLinkForm .buttonsCell,
+#dxInsertImageForm .buttonsCell,
+#dxPasteFromWordForm .buttonsCell,
+#dxTableColumnPropertiesForm .buttonsCell,
+#dxSelectImageForm .buttonsCell,
+.dxheCustomDialog_ITSTheme1 .dxhecd-Buttons
+{
+    background-color: white;
+    border-top: Solid 1px #E0E0E0;
+    padding: 11px;
+}
+/* Insert Image Form */
+#dxInsertImageForm .imagePreviewCell,
+#dxSelectImageForm .imagePreviewCell
+{
+    color: #878787;
+    border: dashed 1px #cac8c8;
+}
+#dxPasteFromWordForm .pasteContainerCell td
+{
+	border: Solid 1px #9F9F9F;
+}
+/*----------------- Toolbars -----------------*/
+.dxtbSpacing_ITSTheme1
+{
+	height: 1px;
+}
+.dxtbControl_ITSTheme1 
+{
+    font: 11px arial ;
+    color: #333333;
+    width: 100%;
+    border-bottom: Solid 1px #c0c0c0;
+}
+.dxtbControl_ITSTheme1 td.dxmMenu_ITSTheme1
+{
+	border-width: 0px;
+}
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-main 
+{
+	background-color: #FFFFFF;
+}
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxmtb.dxm-horizontal .dxm-separator 
+{
+}
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxmtb.dxm-horizontal .dxm-separator b
+{
+	margin-top: 3px;
+	background-color: #c0c0c0;
+}
+.dxtbComboBoxMenuItem_ITSTheme1
+{
+    padding-top: 2px;
+}
+
+/* Toolbars Lightweight Mode */
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-main {
+    border-width: 0px;
+}
+.dxmLite_ITSTheme1 .dxmtb .dxtb-comboBoxMenuItem {
+	border-width: 0px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-horizontal.dxmtb .dxm-image-l .dxm-dropDownMode.dxtb-cb .dxm-content, 
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-horizontal.dxmtb .dxm-image-r .dxm-dropDownMode.dxtb-cb .dxm-content
+{
+	padding-top: 3px;
+	padding-bottom: 4px;
+}
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-horizontal.dxmtb .dxm-image-l .dxm-item.dxtb-cddi .dxm-content, 
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-horizontal.dxmtb .dxm-image-r .dxm-item.dxtb-cddi .dxm-content
+{
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-horizontal.dxmtb .dxm-image-l .dxm-item.dxtb-cddi .dxm-content img, 
+.dxtbControl_ITSTheme1 .dxmLite_ITSTheme1 .dxm-horizontal.dxmtb .dxm-image-r .dxm-item.dxtb-cddi .dxm-content img
+{
+	margin-top: -1px;
+}
+.dxmLite_ITSTheme1 .dxhetipControl_ITSTheme1 img
+{
+	vertical-align: top;
+}
+
+/* ToolbarColorButton */
+.dxtcbControl_ITSTheme1 { }
+.dxtcbColorDiv_ITSTheme1
+{
+	width: 16px;
+	height: 3px;
+	font-size:0px;
+	background-color: Transparent;
+}
+
+/*----------------- RoundPanel -----------------*/
+.dxheRP.dxrpControl_ITSTheme1 .dxrpContent_ITSTheme1,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpLE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpRE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpBE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpNHTE
+{
+}
+.dxheRP.dxrpControl_ITSTheme1 .dxrpContent_ITSTheme1
+{
+    padding: 9px 8px;
+}
+.dxheRP.dxrpControl_ITSTheme1 .dxrpTE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpNHTE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpLE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpHLE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpRE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpHRE,
+.dxheRP.dxrpControl_ITSTheme1 .dxrpBE,
+.dxheRP.dxrpControlGB_ITSTheme1 .dxrpNHTE,
+.dxheRP.dxrpControlGB_ITSTheme1 .dxrpLE,
+.dxheRP.dxrpControlGB_ITSTheme1 .dxrpHLE,
+.dxheRP.dxrpControlGB_ITSTheme1 .dxrpRE,
+.dxheRP.dxrpControlGB_ITSTheme1 .dxrpBE
+{
+}
+
+

@@ -1,0 +1,89 @@
+﻿
+CREATE OR REPLACE VIEW its_v_common_discount_info (
+   productid,
+   grouptype,
+   discountpercent,
+   unitprice,
+   finalprice,
+   compcode )
+AS
+select nvl(c.productid,nvl(e.productid,nvl(b.productid,a.productid)))productid,
+       nvl(c.grouptype,nvl(e.grouptype,nvl(b.grouptype,a.grouptype)))grouptype, 
+       nvl(c.discountpercent,nvl(e.discountpercent,nvl(b.discountpercent,a.discountpercent)))discountpercent,
+       nvl(c.unitprice,nvl(e.unitprice,nvl(b.unitprice,a.unitprice)))unitprice,
+       nvl(c.finalprice,nvl(e.finalprice,nvl(b.finalprice,a.finalprice)))finalprice,
+       nvl(c.compcode,nvl(e.compcode,nvl(b.compcode,a.compcode)))compcode 
+ from (
+select a.intcode productid,c.cstgrpid grouptype,CONCAT(TRUNC(b.discountperc), '%') discountpercent, t.unitprice unitprice, TRUNC((t.unitprice*(100-TRUNC(b.discountperc))/100),3) finalprice, t.compcode compcode
+from cstgrp_do b , cstgrp_ms c, item_ms a, item_ex t
+where a.dept1 = b.dept1 and a.dept2 = b.dept2
+and a.dept3 = b.dept3
+and a.dept4 = b.dept4
+and b.cstgrpid=c.cstgrpid
+and b.isdeleted='F'
+and c.isdeleted='F'
+and sysdate between b.efectdatefrom
+and (b.efectdateto+1)
+and b.discountperc <> 0
+and t.intcode = a.intcode
+and t.pricelist = '1'
+and t.pricetype = 'F'
+and t.isdeleted = 'F'
+and a.isdeleted = 'F'
+--and a.active = 'T'
+) a full outer join
+
+(select a.intcode productid,123454321 grouptype,CONCAT(TRUNC(b.discount), '%') discountpercent, t.unitprice unitprice, TRUNC((t.unitprice*(100-TRUNC(b.discount))/100),3) finalprice, t.compcode compcode
+from dept_dt b , dept_ms c, item_ms a, item_ex t
+where a.dept1 = b.dept1 and a.dept2 = b.dept2
+and a.dept3 = b.dept3
+and a.dept4 = b.dept4
+and b.dept1 = c.dept1 and b.dept2 = c.dept2
+and b.dept3 = c.dept3
+and b.dept4 = c.dept4
+and sysdate between b.dfromdate
+and (b.dtodate+1)
+and b.discount <> 0
+and t.intcode = a.intcode
+and t.pricelist = '1'
+and t.pricetype = 'F'
+and t.isdeleted = 'F'
+and a.isdeleted = 'F'
+) e on e.productid=a.productid full outer join
+
+(SELECT a.intcode productid, b.cstgrpid grouptype, CONCAT(TRUNC(a.discountperc), '%') discountpercent, t.unitprice unitprice, TRUNC(t.unitprice*(100-TRUNC(a.discountperc))/100,3) finalprice, t.compcode compcode
+FROM  cstgrp_ms b, cstgrp_io a, item_ex t
+where a.cstgrpid=b.cstgrpid
+and b.isdeleted='F'
+and a.isdeleted='F'
+and sysdate between a.efectdatefrom
+and (a.efectdateto+1)
+and a.discountperc <> 0
+and t.intcode = a.intcode
+and t.pricelist = '1'
+and t.pricetype = 'F'
+and t.isdeleted = 'F'
+)b on e.productid=b.productid full outer join
+
+(SELECT a.intcode productid, 123454321 grouptype, case when a.discqtytype = 1 then CONCAT(a.discount, '?') else CONCAT(a.discount, '%') end discountpercent, a.unitprice unitprice , case when a.discqtytype = 1 then unitprice - a.discount else Round(((100 - a.discount) * 0.01) * unitprice, 2) end finalprice, a.compcode compcode
+FROM item_ex a
+where sysdate between a.discfromdate and (a.disctodate + 1)
+and a.isdeleted = 'F'
+and a.pricelist = '1'
+and a.discount <> 0
+and a.pricetype = 'F')c on b.productid=c.productid
+union all
+SELECT a.intcode productid, b.cstgrpid grouptype, CONCAT(TRUNC(a.discountperc), '%') discountpercent, t.unitprice unitprice, TRUNC(t.unitprice*(100-TRUNC(a.discountperc))/100,3) finalprice, t.compcode compcode
+FROM  cstgrp_ms b, cstgrp_io a, item_ex t
+where a.cstgrpid=b.cstgrpid
+and b.isdeleted='F'
+and a.isdeleted='F'
+and sysdate between a.efectdatefrom
+and (a.efectdateto+1)
+and a.discountperc <> 0
+and t.intcode = a.intcode
+and t.pricelist = '1'
+and t.pricetype = 'F'
+and t.isdeleted = 'F'
+and b.cstgrpid=1
+/

@@ -1,0 +1,44 @@
+﻿@using ITS.Retail.ResourcesLib;
+@*@using (Html.BeginForm("POSLayoutUploadForm", "POSLayout", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{*@
+
+	<div class='UploadImageForm'>
+
+	@Html.DevExpress().UploadControl(settings =>
+	   {
+		   settings.UploadMode = UploadControlUploadMode.Standard;
+           settings.Name = "SecondaryLayoutUploadControl";
+           settings.CallbackRouteValues = new { Controller = "POSLayout", Action = "SecondaryLayoutUploadControl" };
+		   settings.ShowProgressPanel = true;
+		   settings.ClientSideEvents.FileUploadComplete = "OnSecondaryLayoutFileUploadComplete";
+		   settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.POSLayoutController.SecondaryLayoutValidationSettings);
+	   }).GetHtml()
+    @Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnSecondaryLayoutUpload";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn" ;
+            settings2.Properties.ClientSideEvents.Click = "function (s,e) { SecondaryLayoutUploadControl.Upload(); }";
+        }
+         ).GetHtml()
+      @Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnDeleteSecondaryLayoutFile";
+            settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Delete;
+            settings2.ControlStyle.CssClass = "deletebtn";
+            settings2.Properties.ClientSideEvents.Click = "btnDeleteSecondaryLayoutFileClick";
+        }
+         ).GetHtml()
+
+        @{
+            string url = @Url.Action("ShowImage", "POSLayout") + "?type=1&time=" + DateTime.Now.Ticks;
+        }
+        <img alt='' id='previewSecondaryImage' class='previewImage' src='@url' />
+
+	</div>
+
+@*}*@

@@ -1,0 +1,187 @@
+﻿
+
+@model DevExpress.Xpo.XPCollection<ITS.Retail.Model.MapVatFactor>
+
+
+@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.Name = "grdCashierVatFactor";
+
+    settings.CallbackRouteValues = new { Controller = "POSDevice", Action = "CashierVatFactorTabSettings" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "POSDevice", Action = "UpdateGridRow" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "POSDevice", Action = "DeleteGridRow" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "POSDevice", Action = "AddGridRow" };
+    //settings.ClientSideEvents.BeginCallback = "OnBeginCallbackMapVatGrid";
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>" +
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+            );
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+            );
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 90;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DeviceVatLevel";
+        col.Caption = Resources.DeviceVatCode;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Item.Name";
+        col.Caption = Resources.Item;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+
+
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = false;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Hidden;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.DeviceInfo;
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Devices;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsText.PopupEditFormCaption = Resources.DeviceInfo;
+
+    //settings.ClientLayout += (sndr, evt) =>
+    //{
+    //    User user = (User)ViewBag.CurrentUser;
+    //    if (user != null)
+    //    {
+    //        if (evt.LayoutMode == ClientLayoutMode.Loading)
+    //        {
+    //            GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridName);
+    //            if (sets != null)
+    //            {
+    //                evt.LayoutData = sets.GridLayout;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            BaseController.UpdateUserGridSettings(user.Oid, gridName, evt.LayoutData);
+    //        }
+    //    }
+    //};
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewData["Item"] = item;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnDeviceUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnDeviceCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.DeviceVatCode;
+            edtSettings.Properties.CaptionStyle.CssClass = "label";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            edtSettings.Name = "DeviceVatLevel";
+            edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+            edtSettings.Properties.MinValue = 0;
+        }).Bind(DataBinder.Eval(item, "DeviceVatLevel") ?? 1).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.Caption = Resources.Item;
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Enabled = true;
+            combosettings.Name = "ItemCombobox";
+            combosettings.Properties.DropDownWidth = 350;
+            combosettings.CallbackRouteValues = new { Controller = "POSDevice", Action = "SelectItem" };
+            combosettings.Properties.CallbackPageSize = 15;
+            combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            combosettings.Properties.TextField = "Name";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.FilterMinLength = 2;
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+            combosettings.Properties.Columns.Add("Name", Resources.ItemName, 130);
+
+            combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            combosettings.Properties.NullText = Resources.ComboBoxNote;
+            combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            combosettings.Properties.Buttons.Add(button);
+        }).BindList(POSDeviceController.ItemRequestedByFilterCondition, PriceCatalogController.ObjectRequestedByValue<Item>).BindList(PriceCatalogController.GetObjectByValue<Item>(DataBinder.Eval(item, "Item!Key"))).Bind(DataBinder.Eval(item, "Item!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+}).Bind(Model).GetHtml()

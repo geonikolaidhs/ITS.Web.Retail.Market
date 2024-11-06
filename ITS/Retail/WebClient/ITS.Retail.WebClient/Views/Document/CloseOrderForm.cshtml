@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.DoNotClearNotification = true;
+    ViewBag.ShowNavigation = false;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/OrderCommon.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/OrderItems.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+<script type="text/javascript">
+    if (window.opener != null && window.opener != undefined && window.opener.updateNotifications != undefined && window.opener.updateNotifications != null)
+    {
+        window.opener.updateNotifications();
+    }
+    CancelOrder();
+</script>
+

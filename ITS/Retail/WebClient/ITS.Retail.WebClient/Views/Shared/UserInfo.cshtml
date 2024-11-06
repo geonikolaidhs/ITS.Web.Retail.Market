@@ -1,0 +1,60 @@
+﻿@using ITS.Retail.ResourcesLib; 
+@using ITS.Retail.Model;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient;
+
+@{
+   bool admin = (bool)ViewData["admin"];
+}
+<div class="userInformation">
+    <table>
+        <tr>
+            <td class="first sec" id="DefaultSupplierCompanyName">
+                @{
+                    ITS.Retail.Common.ViewModel.StoreViewModel currentStore = (Session["currentStore"] as ITS.Retail.Common.ViewModel.StoreViewModel);
+                    bool applicationRefersToOneStore = ((MvcApplication.ApplicationInstance == eApplicationInstance.DUAL_MODE || MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER) && currentStore != null);
+                }
+                @if (admin && (Session["IsAdministrator"] != null && (bool)Session["IsAdministrator"]) && !applicationRefersToOneStore)
+                {
+                    <div class="select_store_cmp dropdown" id="company_btn">
+                        @Html.Partial("../Shared/CompanySelection")
+                    </div>
+                }
+                else
+                {
+                    string supplierName = Session["TraderCompanyName"] != null ? Session["TraderCompanyName"].ToString() : Resources.SelectCompany;
+                    @supplierName
+                }
+            </td>
+            <td id="itsLink">
+                <a href="http://www.its.net.gr/" target="_blank">
+                    <img src="@Url.Content("~/Content/small_logo.png?ver=" + ViewData["ApplicationVersionNumber"])" title="@Resources.DesignedDevelopedBy ITS SA" />
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="first">
+
+                @if (admin && !applicationRefersToOneStore)
+                {
+                    <div class="select_store_cmp dropdown @{if (BaseController.EffectiveOwner == null) { ViewContext.Writer.Write(" hidden"); }}" id="store_btn">
+                        @Html.Partial("../Shared/StoreSelection")
+                    </div>
+                }
+                else
+                {
+                    string StoreName = (Session["StoreName"] != null) ? Session["StoreName"].ToString() : Resources.SelectStore;
+                    @StoreName
+                }
+            </td>
+            @if (Session["UserName"] != null)
+            {
+                <td class="userName">@Session["UserName"] </td>
+            }
+            else
+            {
+                <td>-</td>
+            }
+        </tr>
+    </table>
+</div>

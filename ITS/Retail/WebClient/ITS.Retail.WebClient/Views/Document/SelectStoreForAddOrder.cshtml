@@ -1,0 +1,31 @@
+﻿@using ITS.Retail.ResourcesLib;
+@if (Session["StoresThatCurrentUserOwns"] != null && (Session["StoresThatCurrentUserOwns"] as List<ITS.Retail.Common.ViewModel.StoreViewModel>).Count > 0)
+{    
+
+
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "StorePanel";
+        settings.HeaderText = Resources.NewDocument;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SetContent(() =>
+        {
+            @Html.DevExpress().Label(label_settings =>
+            {
+                label_settings.Name = "marketplace";
+                label_settings.Text = Resources.SelectStore;
+            }).GetHtml();
+
+            @Html.DevExpress().ComboBox(cmp_settings =>
+       {
+           cmp_settings.Name = "order_from_store";
+           cmp_settings.Properties.TextField = "Name";
+           cmp_settings.Properties.ValueField = "Oid";
+           cmp_settings.Properties.ValueType = typeof(Guid);
+           cmp_settings.Properties.ClientSideEvents.SelectedIndexChanged = "jsonSelectStoreForOrder";
+       }).BindList(Session["StoresThatCurrentUserOwns"]).GetHtml();
+
+        });
+    }).GetHtml();
+
+}

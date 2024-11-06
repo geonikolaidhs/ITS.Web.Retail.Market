@@ -1,0 +1,70 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+
+.wrapper .container {
+    #SplitterPriceCatalogs {
+        #SplitterPriceCatalogs_0_CC {
+            background: $color_gallery_approx !important;
+        }
+
+        #priceCatalogTreeView {
+            clear: both;
+        }
+    }
+
+    #PriceCatalogInfo {
+        display: none;
+
+        .dxtc-content #pcFeaturesSupplier_C0 {
+            position: relative;
+        }
+    }
+
+    #pcFeatures_C0 {
+        position: relative;
+    }
+
+    #pcFeaturesCustomer_C0 {
+        position: relative;
+    }
+
+    .ItemCategory_index #CategoryTreeView img.node_img {
+        background-color: $color_nobel_approx;
+        height: 24px;
+        margin-bottom: -3px;
+    }
+}
+
+@media screen and (max-width: 1040px) {
+    .header {
+        .header_container {
+            div {
+                &.order_btn {
+                    display: none;
+                }
+
+                &.order {
+                    display: none;
+                }
+            }
+
+            a.logout_btn {
+                display: none;
+            }
+        }
+
+        .rightContainer .userInformation table {
+            display: none;
+        }
+    }
+}
+
+
+
+.IndexView_button_container {
+    left: 400px !important;
+}

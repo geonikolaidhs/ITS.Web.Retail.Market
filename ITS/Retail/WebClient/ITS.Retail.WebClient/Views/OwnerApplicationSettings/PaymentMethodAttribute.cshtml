@@ -1,0 +1,36 @@
+﻿@model OwnerApplicationSettings
+@using ITS.Retail.WebClient.Extensions;
+@{
+    string callbackRouteValuesController = "OwnerApplicationSettings";
+    string callbackRouteValuesAction = "PaymentMethodAttribute";
+    string callbackRouteValuesArea = string.Empty;
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = OwnerApplicationSettingsController.PaymentMethodRequestedByFilterCondition;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = OwnerApplicationSettingsController.PaymentMethodRequestedByValue;
+
+    string name = ViewData["Name"] as string;
+
+    object model = null;
+    if(Model != null)
+    {
+        switch(name)
+        {
+            case "CashOnDelivery":
+                model =DataBinder.Eval(Model.CashOnDelivery, "Oid");
+                break;
+            case "BankDeposit":
+                model = DataBinder.Eval(Model.BankDeposit, "Oid");
+                break;
+            case "PayPal":
+                model = DataBinder.Eval(Model.PayPal, "Oid");
+                break;
+            default:
+                model = null;
+                break;
+        }
+    }
+
+    FormInstances.DropDownListNotSearchableComboBoxBody(Html: Html, enabled: true, callbackRouteValuesController: callbackRouteValuesController, callbackRouteValuesAction: callbackRouteValuesAction, callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, name: name, valueType: typeof(Guid), modelType: typeof(PaymentMethod), model: model).Render();
+}
+
+

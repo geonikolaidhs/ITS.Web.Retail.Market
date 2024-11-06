@@ -1,0 +1,98 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using System.Web.UI.WebControls;
+
+@using (
+    Ajax.BeginForm("Search", new { Controller = "Products" },
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnComplete = "Products.ProductListing",
+        UpdateTargetId = "maincontent",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "Layout.ShowLoadingPanel",
+        OnSuccess = "Layout.HideLoadingPanel",
+    },
+    new { @class = "filters nav navbar-form nav navbar-form navbar-right form-wrapper collapse-mobile", @id = "search-form-mobile" }
+
+    ))
+{
+    @Html.Hidden("prefix", ViewData["prefix"])
+
+    string searchName = ViewData["prefix"] + "_searchText";
+    <div class="center-block form-mobile">
+        <div class="dropdown form-group">
+            <a id="dFilter" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="true">
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-filter"></span>
+                    <span class="caret"></span>
+                </button>
+            </a>
+
+            <ul class="dropdown-menu search-selector remove-right" role="menu" aria-labelledby="dLabel">
+
+                <div class="yamm-content">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-1 first-group-container">
+                            <div class="radiogroup radio-first form-group">
+                                @Html.DevExpress().RadioButtonList(
+                            settings =>
+                            {
+                                settings.Name = ViewData["prefix"] + "_RadioButtonList";
+                                settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                                settings.Properties.RepeatColumns = 1;
+                                settings.Properties.Items.Add(Resources.Barcode, "Barcode");
+                                settings.Properties.Items.Add(Resources.Description, "Description");
+                                settings.Properties.Items.Add(Resources.AllProducts, "AllProducts");
+                                settings.SelectedIndex = 1;
+                                settings.ControlStyle.CssClass = "radioButtonList";
+                                settings.Properties.EnableClientSideAPI = true;
+                            }).GetHtml()
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="radiogroup" id="radiogroup2">
+
+                                @Html.DevExpress().RadioButtonList(
+                            settings =>
+                            {
+                                settings.Name = ViewData["prefix"] + "_RadioButtonDateList";
+                                settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                                settings.Properties.RepeatColumns = 2;
+                                settings.Properties.Items.Add(Resources.FromDate, "FromDate");
+                                settings.Properties.Items.Add(Resources.ExactDate, "ExactDate");
+                                settings.SelectedIndex = 0;
+                                settings.Properties.EnableClientSideAPI = true;
+                                //settings.Properties.ClientSideEvents.ValueChanged = "onValueChangedListsValueOrQtyRadio";
+                            }).GetHtml()
+
+                                @Html.DevExpress().DateEdit(deSettings =>
+                            {
+                                deSettings.Properties.EditFormat = EditFormat.Date;
+                                deSettings.Name = ViewData["prefix"] + "_FilterDate";
+                                deSettings.ControlStyle.CssClass = "center-block margin-top-8";
+                            }).GetHtml()
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ul>
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.DevExpress().TextBox(deSettings =>
+        {
+            deSettings.Properties.NullDisplayText = Resources.SearchByDescriptionOrBarcode;
+            deSettings.Name = searchName;
+            deSettings.ControlStyle.CssClass = "form-control col-lg-8 col-sm-2";
+            deSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+            deSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+        }).GetHtml()
+        </div>
+        @{ string buttonName = ViewData["prefix"] + "_SearchBtn"; }
+        <button class="button-search button btn btn-default custom-form-button btn-md" type="submit" id="@buttonName">@Resources.SearchCapital</button>
+    </div>
+}

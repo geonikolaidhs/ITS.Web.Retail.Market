@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.GridParams">
+    <Position X="6.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAEAAAAACAABAAAAAAAAAAAAAAQAAAAAAAQAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\GridParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.KeyListenerParams">
+    <Position X="10.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAABAAQgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\KeyListenerParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.ErrorMessengerParams">
+    <Position X="12.75" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\ErrorMessengerParams.cs</FileName>
+      <NewMemberFileName>ObserverPattern\ObserverParameters\MessengerParams.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.NumberDisplayerParams">
+    <Position X="15.25" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAgAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\NumberDisplayerParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.ObserverParams">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\ObserverParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.MessengerParams">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\MessengerParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ITS.POS.Client.ObserverPattern.ObserverParameters.StatusDisplayerParams">
+    <Position X="17.75" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQCABAAAAAAABAAAAAQAAAAAAAAgAAAAAAAQAEAAA=</HashCode>
+      <FileName>ObserverPattern\ObserverParameters\StatusDisplayerParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObservable">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAACEA=</HashCode>
+      <FileName>ObserverPattern\IObservable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserver">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserverErrorMessenger">
+    <Position X="13" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserverErrorMessenger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserverGrid">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserverGrid.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserverKeyListener">
+    <Position X="10.75" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserverKeyListener.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserverNumberDisplayer">
+    <Position X="15.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserverNumberDisplayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserverSimpleMessenger">
+    <Position X="8.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserverSimpleMessenger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ITS.POS.Client.ObserverPattern.IObserverStatusDisplayer">
+    <Position X="17.75" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObserverPattern\IObserverStatusDisplayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

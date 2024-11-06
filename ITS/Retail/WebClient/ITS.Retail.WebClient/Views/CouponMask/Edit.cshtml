@@ -1,0 +1,277 @@
+﻿@model ITS.Retail.Platform.Common.ViewModel.CouponViewModel
+
+@{
+    ViewBag.Title = ViewBag.Mode;
+}
+
+
+@using (Html.BeginForm("Save", "Coupon", FormMethod.Post, new { id = "EditForm" }))
+{
+}
+<div class="ValidationContainer background-light-grey">
+    @{
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "Coupon.CancelEdit";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+    }
+
+    <div class="container-fluid headerTable validateForm margin-0-auto-20 grey-border-with-bg padding-bottom-20-important col">
+
+        <div class="row col">
+
+            <input type="hidden" id="Oid" name="Oid" value="@{Model.Oid.ToString();}" />
+            <input type="hidden" id="Owner" name="Owner" value="@{Model.Owner.ToString();}" />
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.Prefix + ":";
+                    }).Render();
+
+                    Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "Prefix";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = false;
+                        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+                        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "Prefix")).GetHtml();
+                }
+
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.Mask;
+                        edtSettings.AssociatedControlName = "Mask";
+                    }).Render();
+
+                    Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "Mask";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = false;
+                        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+                        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "Mask")).GetHtml();
+                }
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.Description;
+                        edtSettings.AssociatedControlName = "Description";
+                    }).Render();
+
+                    Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "Description";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = false;
+                        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+                        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "Mask")).GetHtml();
+                }
+
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.ActiveFrom + ":";
+                        edtSettings.AssociatedControlName = "IsActiveFromDate";
+                    }).Render();
+
+                    Html.DevExpress().DateEdit(dt_settings =>
+                    {
+                        dt_settings.Name = "IsActiveFromDate";
+                        dt_settings.Properties.EditFormat = EditFormat.DateTime;
+                        dt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "IsActiveFromDate")).GetHtml();
+                }
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.ActiveUntil + ":";
+                        edtSettings.AssociatedControlName = "IsActiveUntilDate";
+                    }).Render();
+
+                    Html.DevExpress().DateEdit(dt_settings =>
+                    {
+                        dt_settings.Name = "IsActiveUntilDate";
+                        dt_settings.Properties.EditFormat = EditFormat.DateTime;
+                        dt_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "IsActiveUntilDate")).GetHtml();
+                }
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = "IsUnique";
+                        edtSettings.Text = Resources.IsUnique;
+                        edtSettings.ControlStyle.CssClass = "editor display-table custom-checkbox-height";
+                        edtSettings.Properties.ValueChecked = true;
+                        edtSettings.Properties.ValueGrayed = false;
+                        edtSettings.Properties.ValueUnchecked = false;
+                        edtSettings.Properties.ValueType = typeof(bool);
+                        edtSettings.Properties.AllowGrayed = false;
+                        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "IsUnique")).GetHtml();
+                }
+
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.CouponAppliesOn + ":";
+                    }).Render();
+
+                    Html.DevExpress().ComboBox(cmb_settings =>
+                    {
+                        cmb_settings.Name = "CouponAppliesOn";
+                        cmb_settings.Properties.ValueType = typeof(CouponAppliesOn);
+                        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        cmb_settings.Properties.ValueField = "Key";
+                        cmb_settings.Properties.TextField = "Value";
+                        cmb_settings.ShowModelErrors = true;
+                    }).BindList(Enum<CouponAppliesOn>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CouponAppliesOn")).Render();
+                }
+            </div>
+
+        </div>
+
+        <div class="row col">
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.CouponAmountType + ":";
+                    }).Render();
+
+                    Html.DevExpress().ComboBox(cmb_settings =>
+                    {
+                        cmb_settings.Name = "CouponAmountType";
+                        cmb_settings.Properties.ValueType = typeof(CouponAmountType);
+                        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        cmb_settings.Properties.ValueField = "Key";
+                        cmb_settings.Properties.TextField = "Value";
+                    }).BindList(Enum<CouponAmountType>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CouponAmountType")).Render();
+                }
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.CouponAmountIsAppliedAs + ":";
+                    }).Render();
+
+                    Html.DevExpress().ComboBox(cmb_settings =>
+                    {
+                        cmb_settings.Name = "CouponAmountIsAppliedAs";
+                        cmb_settings.Properties.ValueType = typeof(CouponAmountIsAppliedAs);
+                        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        cmb_settings.Properties.ClientSideEvents.ValueChanged = "Coupon.HandleChangeCouponAmountIsAppliedAs";
+                        cmb_settings.Properties.ClientSideEvents.Init = "Coupon.HandleChangeCouponAmountIsAppliedAs";
+                        cmb_settings.Properties.ValueField = "Key";
+                        cmb_settings.Properties.TextField = "Value";
+                    }).BindList(Enum<CouponAmountIsAppliedAs>.GetLocalizedDictionary()).Bind(DataBinder.Eval(Model, "CouponAmountIsAppliedAs")).Render();
+                }
+            </div>
+
+            <div id="DiscountType-Container" class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = Resources.DiscountType + ":";
+                    }).Render();
+
+                    Html.DevExpress().ComboBox(cmb_settings =>
+                    {
+                        cmb_settings.Name = "DiscountType";
+                        cmb_settings.SelectedIndex = 0;
+                        cmb_settings.ControlStyle.CssClass = "editor";
+                        cmb_settings.Properties.TextField = "Description";
+                        cmb_settings.Properties.ValueField = "Oid";
+                        cmb_settings.Properties.ValueType = typeof(Guid);
+                        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).BindList(ViewBag.DiscountTypes).Bind(DataBinder.Eval(Model, "DiscountType")).Render();
+
+                }
+            </div>
+
+            <div id="PaymentMethod-Container" class="col-xs-3 col-md-2 input-height col">
+                @{
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = Resources.PaymentMethod + ":";
+                    }).Render();
+
+                    Html.DevExpress().ComboBox(cmb_settings =>
+                    {
+                        cmb_settings.Name = "PaymentMethod";
+                        cmb_settings.SelectedIndex = 0;
+                        cmb_settings.ControlStyle.CssClass = "editor";
+                        cmb_settings.Properties.TextField = "Description";
+                        cmb_settings.Properties.ValueField = "Oid";
+                        cmb_settings.Properties.ValueType = typeof(Guid);
+                        cmb_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).BindList(ViewBag.PaymentMethods).Bind(DataBinder.Eval(Model, "PaymentMethod")).Render();
+                }
+
+            </div>
+
+            <div class="col-xs-3 col-md-2 input-height col">
+                @{
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label required_field";
+                        edtSettings.Text = Resources.PropertyName + ":";
+                    }).Render();
+
+                    Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PropertyName";
+                        edtSettings.ControlStyle.CssClass = "editor";
+                        edtSettings.ShowModelErrors = false;
+                        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = false;
+                        edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "PropertyName")).GetHtml();
+                }
+
+            </div>
+
+        </div> @*End row*@
+
+
+    </div>
+</div>
+}

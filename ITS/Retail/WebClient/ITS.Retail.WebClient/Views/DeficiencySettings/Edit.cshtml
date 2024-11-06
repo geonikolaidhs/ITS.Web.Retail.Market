@@ -1,0 +1,67 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@model DeficiencySettings
+
+@{
+
+    ViewBag.ShowNavigation = false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Html.EnableClientValidation();
+    @section HeaderScriptsAndStyles {
+        @*<script src="@Url.Content("~/Scripts/scripts/EditDocumentType.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>*@
+    }
+
+    HeaderOptions headerOptions = new HeaderOptions(Resources.Edit);
+    HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+    
+    Html.DevExpress().FormLayout(settings =>
+    {
+        settings.AlignItemCaptionsInAllGroups = true;
+        settings.Name = "DeficiencySettingsForm";
+        settings.ControlStyle.CssClass = "formInstances";//Every form layout must have the same class name
+        //settings.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+        settings.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+        settings.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+        settings.ShowItemCaptionColon = false;
+        settings.EncodeHtml = false;
+
+        var group = settings.Items.AddGroupItem(Resources.DeficiencySettings);
+        group.ColCount = 3;
+
+        group.Items.Add(item =>item.Code,
+                 itemSettings =>
+                 {
+                     itemSettings.Caption = Resources.Code;
+                     itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+                     itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                     itemSettings.ColSpan = 2;
+                 });
+        group.Items.Add(item => item.Description,
+                 itemSettings =>
+                 {
+                     itemSettings.Caption = Resources.Description;
+                     itemSettings.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+                     itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                     itemSettings.ColSpan = 2;
+                 });
+
+        var comboBox = group.Items.Add(FormInstances.ComboBoxItem(
+            Html: Html,
+            Model: DataBinder.Eval(Model.DeficiencyDocumentType, "Oid"),
+            enabled: true, 
+            dataSource: ViewBag.DocumentTypesComboBox,
+                                           textField: "Description", 
+                                           valueType: typeof(Guid), 
+                                           name: "DeficiencyDocumentType",
+                                           validation:false,
+                                           captionPosition:LayoutItemCaptionLocation.Top, 
+                                           caption: Resources.DocumentType,
+                                           colSpan:2));
+        
+        
+        
+    }).GetHtml();
+
+    Html.RenderPartial("DeficiencySettingsDetails", Model.DeficiencySettingsDetails);
+}

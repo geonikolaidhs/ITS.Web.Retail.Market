@@ -1,0 +1,40 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{  
+    List<string> excludedFields = new List<string>() {
+        "Oid",
+        "PersistedType",
+        "IsDeleted",
+        "Store"
+    };
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(MobileTerminalViewModel), typeof(MobileTerminalController), "grdMobileTerminals", columnType: GridViewCommandColumnType.CHECKBOX, excludeFields: excludedFields);
+    settings.CallbackRouteValues = new { Controller = "MobileTerminal", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.MobileTerminals;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "MobileTerminal", Action = "AddMobileTerminal" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "MobileTerminal", Action = "UpdateMobileTerminal" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "MobileTerminal", Action = "DeleteMobileTerminal" };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        ///*Header banner*/
+        //HeaderOptions headerOptions = new HeaderOptions("");
+        //headerOptions.SaveButton.Name = "btnActionTypeUpdate";
+        //headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        //headerOptions.CancelButton.Name = "btnActionTypeCancel";
+        //headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        //headerOptions.ViewType = eViewType.PopUp;
+        //HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        ///*End of header banner*/
+    });
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

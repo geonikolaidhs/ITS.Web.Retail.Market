@@ -1,0 +1,81 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers.AuxilliaryClasses;
+
+@Html.DevExpress().GridView(settings =>
+{
+    GenericViewModelDetail detail = ViewData["Detail"] as GenericViewModelDetail;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    settings.Name = "grdGenericViewDetail_" + detail.PropertyName;
+    settings.CallbackRouteValues = new {Controller = (string)ViewBag.ControllerName,
+                                        Action = "GenericViewGridPartial",
+                                        DetailPropertyName = detail.PropertyName,
+                                        MasterObjKey = detail.Master.Object.Oid,
+                                        MasterObjType = detail.Master.Object.GetType().Name};
+
+    foreach (string property in detail.PropertiesToShow)
+    {
+        if (property != "DailyTotal.Description")
+        {
+            settings.Columns.Add(col =>
+            {
+                string title1 = property;
+                title1 = Resources.ResourceManager.GetString(title1);
+                if (string.IsNullOrWhiteSpace(title1))
+                {
+                    title1 = property;
+
+                    if (title1.IndexOf(".", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        title1 = title1.Replace(".", "");
+                        title1 = Resources.ResourceManager.GetString(title1);
+                    }
+                }
+                col.FieldName = property;
+                col.Caption = title1;
+                col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            });
+        }
+
+    }
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsText.PopupEditFormCaption = detail.PropertyName;
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+
+    settings.Settings.ShowTitlePanel = true;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+
+    var title = detail.PropertyName;
+    title = Resources.ResourceManager.GetString(title);
+    if (string.IsNullOrWhiteSpace(title))
+    {
+        title = detail.PropertyName;
+    }
+    settings.SettingsText.Title = title;
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+}).Bind(Model).GetHtml()

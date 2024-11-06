@@ -1,0 +1,81 @@
+.dxTreeList_CollapsedButton_ITSTheme1,
+.dxTreeList_CollapsedButtonRtl_ITSTheme1,
+.dxTreeList_ExpandedButton_ITSTheme1,
+.dxTreeList_ExpandedButtonRtl_ITSTheme1,
+.dxTreeList_SortAsc_ITSTheme1,
+.dxTreeList_SortDesc_ITSTheme1,
+.dxTreeList_DragAndDropArrowDown_ITSTheme1,
+.dxTreeList_DragAndDropArrowUp_ITSTheme1,
+.dxTreeList_DragAndDropHide_ITSTheme1,
+.dxTreeList_DragAndDropNode_ITSTheme1
+{
+	background: transparent url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.TreeList.sprite.png")%>') no-repeat;
+	-background-image: url('<%=WebResource("ThemeAssembly1.App_Themes.ITSTheme1.TreeList.sprite.gif")%>');
+}
+
+.dxTreeList_CollapsedButton_ITSTheme1
+{
+    background-position: -64px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_CollapsedButtonRtl_ITSTheme1 
+{
+    background-position: -79px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_ExpandedButton_ITSTheme1
+{
+    background-position: -64px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_ExpandedButtonRtl_ITSTheme1 
+{
+    background-position: -79px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_SortAsc_ITSTheme1 {
+    background-position: -50px 0px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxTreeList_SortDesc_ITSTheme1 {
+    background-position: -50px -7px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxTreeList_DragAndDropArrowDown_ITSTheme1 {
+    background-position: -30px 0px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxTreeList_DragAndDropArrowUp_ITSTheme1 {
+    background-position: -30px -18px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxTreeList_DragAndDropHide_ITSTheme1 {
+    background-position: 0px 0px;
+    width: 22px;
+    height: 22px;
+}
+
+.dxTreeList_DragAndDropNode_ITSTheme1 {
+    background-position: -46px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+
+

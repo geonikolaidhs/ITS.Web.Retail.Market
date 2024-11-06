@@ -1,0 +1,222 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "showForm";
+    settings.HeaderText = "";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<div class=\"background-light-grey\"><table class=\"headerTable margin-0-border-light-gray \"><tr><td>");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Code;
+                edtSettings.AssociatedControlName = "Code";
+            }
+        )
+        .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Code)
+        .GetHtml();
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.TaxCode;
+                edtSettings.AssociatedControlName = "TaxCode";
+            }
+        )
+        .GetHtml();
+      
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "TaxCode";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Trader.TaxCode)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+          edtSettings =>
+          {
+              edtSettings.ControlStyle.CssClass = "label";
+              edtSettings.Text = Resources.CompanyName;
+              edtSettings.AssociatedControlName = "CompanyName";
+          }
+      )
+      .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "CompanyName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.CompanyName)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+           edtSettings =>
+           {
+               edtSettings.ControlStyle.CssClass = "label";
+               edtSettings.Text = Resources.Profession;
+               edtSettings.AssociatedControlName = "Profession";
+           }
+       ).GetHtml();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Profession";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Profession).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.TaxOffice;
+                edtSettings.AssociatedControlName = "TaxOffice";
+            }
+        ).GetHtml();
+     
+        Html.DevExpress().TextBox(
+            txtboxSettings =>
+            {
+                txtboxSettings.Name = "TaxOffice";
+                txtboxSettings.ControlStyle.CssClass = "editor";
+                txtboxSettings.Enabled = false;
+               txtboxSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        ).Bind(Model.Trader.TaxOffice).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(
+          edtSettings =>
+          {
+              edtSettings.ControlStyle.CssClass = "label";
+              edtSettings.Text = Resources.Active;
+              edtSettings.AssociatedControlName = "IsActive";
+          }
+      ).GetHtml();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Text = "Ενεργός";
+                edtSettings.Name = Resources.Active;
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+            ).Bind(Model.IsActive ? Resources.Yes : Resources.No).GetHtml();
+
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan=2>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.DefaultAddress;
+                edtSettings.AssociatedControlName = "DefaultAddress";
+            }
+        ).GetHtml();
+
+        Html.DevExpress().TextBox(
+          edtSettings =>
+          {
+              edtSettings.Name = "DefaultAddress";
+              edtSettings.ControlStyle.CssClass = "editor";
+              edtSettings.Enabled = false;
+              edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+              edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+          }
+      )
+      .Bind((Model.DefaultAddress == null) ? "" : Model.DefaultAddress.Description)
+      .GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+           edtSettings =>
+           {
+               edtSettings.ControlStyle.CssClass = "label";
+               edtSettings.Text = Resources.Name;
+               edtSettings.AssociatedControlName = "FirstName";
+           }
+       )
+       .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "FirstName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Trader.FirstName)
+        .GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Surname;
+                edtSettings.AssociatedControlName = "LastName";
+
+            }
+        )
+        .GetHtml();
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "LastName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Enabled = false;
+                edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+            }
+        )
+        .Bind(Model.Trader.LastName)
+        .GetHtml();
+
+
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+
+    }
+    );
+
+}
+).GetHtml()
+

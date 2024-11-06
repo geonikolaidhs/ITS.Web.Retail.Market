@@ -1,0 +1,352 @@
+﻿@model XtraReport
+@using ITS.Retail.ResourcesLib;
+@using DevExpress.XtraReports.Parameters;
+
+
+@{
+    //using(Html.BeginForm("ReportParametersForm","Reports"))
+    //{
+    ViewBag.Title = ViewData["Title"];
+    int loops = 0;
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+        settings.Name = "FilterPanel";
+        settings.ControlStyle.CssClass = "FilterPanel";
+        settings.HeaderText = ViewBag.Title;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<table><tr>");
+
+            foreach (Parameter parameter in Model.Parameters)
+            {
+                if (parameter.Visible == false) //if non visible create a hidden input
+                {
+                    if (parameter.Value != null)
+                    {
+                        ViewContext.Writer.Write(Html.Hidden(parameter.Name + "_reportParam", parameter.Value.ToString()));
+                    }
+                    continue;
+                }
+
+                ViewContext.Writer.Write("<td>");
+                int? height = null;
+                int? width = null;
+                if (parameter is ITS.Retail.Common.ReportParameterExtension)
+                {
+                    height = (parameter as ITS.Retail.Common.ReportParameterExtension).Height;
+                    width = (parameter as ITS.Retail.Common.ReportParameterExtension).Width;
+                }
+                if (parameter.Type == typeof(bool))
+                {
+                    Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = parameter.Name + "_reportParam";
+                        edtSettings.ControlStyle.CssClass = "search_filter";
+                        edtSettings.Text = parameter.Description;
+                        edtSettings.Properties.ValueChecked = true;
+                        edtSettings.Properties.ValueGrayed = false;
+                        edtSettings.Properties.ValueUnchecked = false;
+                        edtSettings.Properties.ValueType = typeof(bool);
+                        if (width != null)
+                        {
+                            edtSettings.Width = width.Value;
+                        }
+                        if (height != null)
+                        {
+                            edtSettings.Height = height.Value;
+                        }
+                        if (parameter.Value != null)
+                        {
+                            edtSettings.Checked = (bool)parameter.Value;  //default value
+                        }
+                    }).Render();
+                }
+                else
+                {
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = parameter.Description + ":";
+                    }).Render();
+
+                    if (parameter.LookUpSettings != null)  //Combo box
+                    {
+                        if (parameter.LookUpSettings.GetType().Equals(typeof(DynamicListLookUpSettings))) //dynamic combo
+                        {
+                            DynamicListLookUpSettings lookupSettings = parameter.LookUpSettings as DynamicListLookUpSettings;
+                            IQueryable bindList = (lookupSettings.DataSource as DevExpress.Data.Linq.LinqServerModeSource) == null ? null : (lookupSettings.DataSource as DevExpress.Data.Linq.LinqServerModeSource).QueryableSource;
+
+                            if (parameter is ITS.Retail.Common.ReportParameterExtension && (parameter as ITS.Retail.Common.ReportParameterExtension).MultiSelect)
+                            {
+                                string listboxName = parameter.Name + "_reportParam";
+                                ViewContext.Writer.Write("<div class=\"select-all-container\" >");
+                                Html.DevExpress().CheckBox(edtSettings =>
+                                {
+                                    edtSettings.Name = parameter.Name + "_selectAllCheckbox";
+                                    edtSettings.Text = Resources.SelectAll;
+                                    edtSettings.Properties.ValueChecked = true;
+                                    edtSettings.Properties.ValueGrayed = false;
+                                    edtSettings.Properties.ValueUnchecked = false;
+                                    edtSettings.Properties.ValueType = typeof(bool);
+                                    if (width != null)
+                                    {
+                                        edtSettings.Width = width.Value;
+                                    }
+                                    edtSettings.ControlStyle.CssClass = "select-all-report";
+                                    edtSettings.Properties.ClientSideEvents.CheckedChanged = "OnCheckChanged_SelectAllCheckbox";
+                                }).Render();
+
+                                Html.DevExpress().ListBox(listSettings =>
+                                {
+                                    listSettings.Name = listboxName;
+                                    listSettings.Properties.EnableClientSideAPI = true;
+                                    listSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+                                    listSettings.Properties.DataMember = lookupSettings.DataMember;
+                                    listSettings.Properties.ValueField = lookupSettings.ValueMember;
+                                    listSettings.Properties.TextField = lookupSettings.DisplayMember;
+
+                                    if (width != null)
+                                    {
+                                        listSettings.Width = width.Value;
+                                    }
+                                    else
+                                    {
+                                        listSettings.Width = 120;
+                                    }
+
+                                    if (height != null)
+                                    {
+                                        listSettings.Height = height.Value;
+                                    }
+
+                                    listSettings.Properties.ValueType = typeof(string);
+                                    listSettings.Properties.ClientSideEvents.SelectedIndexChanged = "OnSelectedIndexChanged_ParameterListBox";
+                                }).BindList(bindList).GetHtml();
+                                ViewContext.Writer.Write("</div>");
+                            }
+                            else
+                            {
+
+                                Html.DevExpress().ComboBox(cmb_settings =>
+                                {
+                                    //cmb_settings.ControlStyle.CssClass = "editor";
+                                    cmb_settings.Name = parameter.Name + "_reportParam";
+                                    cmb_settings.ControlStyle.CssClass = "search_filter";
+                                    //cmb_settings.Properties.DataSource = lookupSettings.DataSource;
+                                    cmb_settings.Properties.DataMember = lookupSettings.DataMember;
+                                    cmb_settings.Properties.ValueField = lookupSettings.ValueMember;
+                                    cmb_settings.Properties.TextField = lookupSettings.DisplayMember;
+
+                                    if (width != null)
+                                    {
+                                        cmb_settings.Properties.Width = width.Value;
+                                    }
+                                    if (height != null)
+                                    {
+                                        cmb_settings.Properties.Height = height.Value;
+                                    }
+
+                                    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                                    var button = new EditButton(" ");
+                                    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                                    button.Image.AlternateText = Resources.Clear;
+                                    cmb_settings.Properties.Buttons.Add(button);
+                                }).BindList(bindList).GetHtml();
+                            }
+                        }
+                        else if (parameter.LookUpSettings.GetType().Equals(typeof(StaticListLookUpSettings)))  //static combo
+                        {
+                            StaticListLookUpSettings lookupSettings = parameter.LookUpSettings as StaticListLookUpSettings;
+
+                            if (parameter is ITS.Retail.Common.ReportParameterExtension && (parameter as ITS.Retail.Common.ReportParameterExtension).MultiSelect)
+                            {
+                                string listboxName = parameter.Name + "_reportParam";
+                                ViewContext.Writer.Write("<div class=\"select-all-container\" >");
+                                Html.DevExpress().CheckBox(edtSettings =>
+                                {
+                                    edtSettings.Name = parameter.Name + "_selectAllCheckbox";
+                                    edtSettings.Text = Resources.SelectAll;
+                                    edtSettings.Properties.ValueChecked = true;
+                                    edtSettings.Properties.ValueGrayed = false;
+                                    edtSettings.Properties.ValueUnchecked = false;
+                                    edtSettings.Properties.ValueType = typeof(bool);
+                                    if (width != null)
+                                    {
+                                        edtSettings.Width = width.Value;
+                                    }
+                                    edtSettings.ControlStyle.CssClass = "select-all-report";
+                                    edtSettings.Properties.ClientSideEvents.CheckedChanged = "OnCheckChanged_SelectAllCheckbox";
+                                }).Render();
+                                
+                                Html.DevExpress().ListBox(listSettings =>
+                                {
+                                    listSettings.Name = listboxName;
+                                    listSettings.Properties.EnableClientSideAPI = true;
+                                    listSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+                                    listSettings.Properties.ValueField = "Value";
+                                    listSettings.Properties.TextField = "Description";
+                                    listSettings.Properties.ValueType = typeof(string);
+                                    if (width != null)
+                                    {
+                                        listSettings.Width = width.Value;
+                                    }
+                                    else
+                                    {
+                                        listSettings.Width = 120;
+                                    }
+                                    if (height != null)
+                                    {
+                                        listSettings.Height = height.Value;
+                                    }
+                                }).BindList(lookupSettings.LookUpValues).GetHtml();
+
+                                ViewContext.Writer.Write("</div>");
+                            }
+                            else
+                            {
+                                Html.DevExpress().ComboBox(cmb_settings =>
+                                {
+                                    //cmb_settings.ControlStyle.CssClass = "editor";
+                                    cmb_settings.Name = parameter.Name + "_reportParam";
+                                    cmb_settings.ControlStyle.CssClass = "search_filter";
+                                    //cmb_settings.Properties.DataSource = ;
+                                    cmb_settings.Properties.ValueField = "Value";
+                                    cmb_settings.Properties.TextField = "Description";
+                                    if (width != null)
+                                    {
+                                        cmb_settings.Properties.Width = width.Value;
+                                    }
+                                    if (height != null)
+                                    {
+                                        cmb_settings.Properties.Height = height.Value;
+                                    }
+
+                                    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                                    var button = new EditButton(" ");
+                                    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                                    button.Image.AlternateText = Resources.Clear;
+                                    cmb_settings.Properties.Buttons.Add(button);
+                                }).BindList(lookupSettings.LookUpValues).GetHtml();
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (parameter.Type == typeof(DateTime))
+                        {
+                            Html.DevExpress().DateEdit(edtSettings =>
+                            {
+                                edtSettings.Name = parameter.Name + "_reportParam";
+                                edtSettings.ControlStyle.CssClass = "search_filter";
+                                if (width != null)
+                                {
+                                    edtSettings.Properties.Width = width.Value;
+                                }
+                                if (height != null)
+                                {
+                                    edtSettings.Properties.Height = height.Value;
+                                }
+                                if (parameter.Value != null)
+                                {
+                                    edtSettings.Date = (DateTime)parameter.Value;  //default value
+                                }
+                            }).Render();
+                        }
+                        else if (parameter.Type == typeof(string) || parameter.Type == typeof(Guid))
+                        {
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "search_filter";
+                                edtSettings.Name = parameter.Name + "_reportParam";
+                                if (width != null)
+                                {
+                                    edtSettings.Properties.Width = width.Value;
+                                }
+                                if (height != null)
+                                {
+                                    edtSettings.Properties.Height = height.Value;
+                                }
+                                if (parameter.Value != null)
+                                {
+                                    edtSettings.Text = parameter.Value.ToString();  //default value
+                                }
+                            }).Render();
+                        }
+                        else   //Numeric input
+                        {
+                            Html.DevExpress().SpinEdit(edtSettings =>
+                            {
+                                edtSettings.Name = parameter.Name + "_reportParam";
+                                edtSettings.ControlStyle.CssClass = "search_filter";
+                                edtSettings.Properties.MinValue = 0;
+                                edtSettings.Properties.MaxValue = 999999999;
+                                edtSettings.Properties.MaxLength = 999;
+                                if (parameter.Value != null)
+                                {
+                                    edtSettings.Number = decimal.Parse(parameter.Value.ToString());
+                                }
+                                if (width != null)
+                                {
+                                    edtSettings.Properties.Width = width.Value;
+                                }
+                                if (height != null)
+                                {
+                                    edtSettings.Properties.Height = height.Value;
+                                }
+                                edtSettings.Properties.NumberType = parameter.Type == typeof(int) ? SpinEditNumberType.Integer : SpinEditNumberType.Float;
+                            }).Render();
+                        }
+                    }
+                }
+
+                ViewContext.Writer.Write("</td>");
+
+
+                loops++;
+
+                if (loops % 3 == 0)
+                {
+                    ViewContext.Writer.Write("</tr><tr>");
+                }
+            }
+
+            ViewContext.Writer.Write("</tr></table>");
+
+            ViewContext.Writer.Write("<div class='SimpleView'><div class='button_container'>");
+
+            @Html.DevExpress().Button(btnsettings =>
+            {
+                btnsettings.Name = "btnPreview";
+                btnsettings.Text = Resources.Preview;
+                btnsettings.ControlStyle.CssClass = "button";
+                btnsettings.UseSubmitBehavior = true;
+                btnsettings.ClientSideEvents.Click = "OnClick_btnPreview";
+
+            }).GetHtml();
+
+            @Html.DevExpress().Button(btnsettings =>
+            {
+                btnsettings.Name = "btnPrint";
+                btnsettings.Text = Resources.Print;
+                btnsettings.ControlStyle.CssClass = "button";
+                btnsettings.UseSubmitBehavior = true;
+                btnsettings.ClientSideEvents.Click = "OnClick_btnPrint";
+
+            }).GetHtml();
+
+            @Html.DevExpress().Button(btnsettings =>
+            {
+                btnsettings.Name = "btnClear";
+                btnsettings.Text = Resources.ClearFilters;
+                btnsettings.ControlStyle.CssClass = "button";
+                btnsettings.UseSubmitBehavior = false;
+                btnsettings.ClientSideEvents.Click = "clearAllFilters";
+
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div></div>");
+        });
+    }).GetHtml()
+
+}

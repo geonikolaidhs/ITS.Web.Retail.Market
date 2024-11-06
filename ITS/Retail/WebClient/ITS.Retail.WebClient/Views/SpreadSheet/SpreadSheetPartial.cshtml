@@ -1,0 +1,29 @@
+﻿@model ITS.Retail.Model.SpreadSheet
+@Html.DevExpress().Spreadsheet(
+    settings =>
+    {
+        
+        settings.Name = "spreadsheet";
+        settings.CallbackRouteValues = new { Controller = "SpreadSheet", Action = "SpreadSheetPartial" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Height = 600;
+        settings.ActiveTabIndex = 0;
+        settings.EnableClientSideAPI = true;
+        
+        if (Model != null)
+            settings.PreRender = (s, e) =>
+            {
+                MVCxSpreadsheet spreadsheet = (MVCxSpreadsheet)s;
+                SpreadsheetUtils.ShowOnlyPrintFile(spreadsheet);
+                spreadsheet.Document.LoadDocument((byte[])Model.BinaryFile, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+            };
+        else
+        {
+            settings.PreRender = (s, e) =>
+            {
+                MVCxSpreadsheet spreadsheet = (MVCxSpreadsheet)s;
+                SpreadsheetUtils.ShowOnlyPrintFile(spreadsheet);
+            };
+        }
+    }
+).GetHtml()

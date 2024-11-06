@@ -1,0 +1,317 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@{
+	GridViewSettings gridSettings = new GridViewSettings();
+	gridSettings.AccessibilityCompliant = true;
+    gridSettings.SettingsPager.PageSizeItemSettings.Visible = true;
+    gridSettings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    gridSettings.CommandColumn.Visible = true;
+    gridSettings.CommandColumn.ShowSelectCheckbox = true;
+    gridSettings.CommandColumn.VisibleIndex = 1;
+   
+    gridSettings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "DELETESELECTED" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+            grid.Selection.UnselectAll();
+    };
+
+    gridSettings.Columns.Add(column =>
+    {
+        column.Caption = "";
+        column.Name = "hidden";
+        column.VisibleIndex = 0;
+        column.SetDataItemTemplateContent(c =>
+        {
+            @Html.RenderAction("LoadViewPopup", "Item", new { ObjectID = DataBinder.Eval(c.DataItem, "Oid").ToString(), Type = typeof(ITS.Retail.Model.ItemBarcode).Name });
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 0;
+    });
+
+    gridSettings.CommandColumn.Width = 50;
+    gridSettings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    gridSettings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    gridSettings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    gridSettings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+	gridSettings.SettingsBehavior.EnableCustomizationWindow = true;
+	gridSettings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    gridSettings.HtmlDataCellPrepared = (object sender, ASPxGridViewTableDataCellEventArgs e) =>
+    {
+        MVCxGridView View = sender as MVCxGridView;
+        if (e.VisibleIndex >= 0)
+        {
+            object isActive = View.GetRowValues(e.VisibleIndex, "IsActive");
+            if (isActive != null && isActive != "" && !(bool)isActive)
+            {
+                e.Cell.ControlStyle.CssClass += " inactiveRow";
+            }
+        }
+    };
+	gridSettings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+	{
+		if (e.RowType == GridViewRowType.Data)
+			e.Row.Attributes.Remove("oncontextmenu");
+	};
+
+
+	gridSettings.Name = "grdItemBarcodes";
+	gridSettings.KeyFieldName = "Oid";
+	gridSettings.Settings.ShowFilterRow = true;
+	gridSettings.Settings.ShowFilterRowMenu = true;
+	gridSettings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+	gridSettings.Settings.ShowGroupPanel = true;
+	gridSettings.Settings.ShowFooter = true;
+	gridSettings.Settings.ShowHeaderFilterButton = true;
+	gridSettings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+	gridSettings.SettingsBehavior.EnableRowHotTrack = true;
+	gridSettings.CallbackRouteValues = new { Controller = "ItemBarcode", Action = "Grid" };
+    gridSettings.SettingsEditing.DeleteRowRouteValues = new { Controller = "ItemBarcode", Action = "DeletePartial" };
+	gridSettings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+	gridSettings.SettingsBehavior.ConfirmDelete = true;
+	gridSettings.KeyboardSupport = false;
+	gridSettings.SettingsPager.PageSize = 20;
+	gridSettings.SettingsCookies.Enabled = false;
+	gridSettings.SettingsCookies.StoreColumnsVisiblePosition = true;
+	gridSettings.SettingsCookies.StoreColumnsWidth = true;
+	gridSettings.SettingsCookies.StoreFiltering = false;
+	gridSettings.SettingsCookies.StorePaging = true;
+	gridSettings.Settings.ShowTitlePanel = true;
+	gridSettings.SettingsText.Title = Resources.AlternativeCodes;
+	gridSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+	gridSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+	gridSettings.SettingsPager.AlwaysShowPager = true;
+    gridSettings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    gridSettings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    gridSettings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    gridSettings.SettingsPager.EnableAdaptivity = true;
+
+	gridSettings.PreRender = (sender, e) =>
+	{
+		((MVCxGridView)sender).FocusedRowIndex = 0;
+	};
+
+    gridSettings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == gridSettings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, gridSettings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+	gridSettings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+	{
+        if (ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings != null && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.PadItemCodes
+            && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Item.Code" || e.Column.FieldName == "Item.MotherCode.Code")
+			{
+
+				string s = e.Value as string;
+				if (s == null) return;
+                e.DisplayText = s.TrimStart(ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+			}
+		}
+	};
+
+	gridSettings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+    gridSettings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    gridSettings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    gridSettings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    gridSettings.ClientSideEvents.Init = "CustomizationWindow";
+    gridSettings.Columns.Add(col =>
+    {
+        col.FieldName = "Barcode.Code";
+        col.Caption = Resources.Barcode;
+        col.Width = 100;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+    
+    gridSettings.Columns.Add(col =>
+    {
+        col.FieldName = "MeasurementUnit.Description";
+        col.Caption = Resources.MeasurementUnit;
+        col.Width = 100;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });    
+     
+    gridSettings.Columns.Add(col =>
+    {
+        col.FieldName = "RelationFactor";
+        col.Caption = Resources.RelationFactor;
+        col.Width = 100;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });     
+	gridSettings.Columns.Add(col =>
+	{
+        col.FieldName = "Item.Code";
+		col.Caption = Resources.ItemCodeFull;
+		col.Width = 100;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+	});
+
+    
+	gridSettings.Columns.Add(col =>
+	{
+        col.FieldName = "Item.Name";
+        col.Caption = Resources.ItemName;
+		col.Width = 250;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+        col.Visible = false;
+        col.FieldName = "Item.ExtraDescription";
+		col.Caption = Resources.Description;
+		col.Width = 250;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+    if (ITS.Retail.WebClient.Helpers.UserHelper.IsAdmin(ViewBag.CurrentUser))
+    {
+        gridSettings.Columns.Add(col =>
+        {
+            col.FieldName = "Item.Owner.CompanyName";
+            col.Caption = Resources.Company;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        });
+    }
+
+	gridSettings.Columns.Add(col =>
+	{
+        col.FieldName = "Item.VatCategory.Description";
+		col.Caption = Resources.VatCategory;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+        col.Visible = false;
+        col.FieldName = "Item.DefaultBarcode.Code";
+		col.Caption = Resources.DefaultBarcode;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+        col.Visible = false;
+        col.FieldName = "Item.MotherCode.Code";
+		col.Caption = Resources.MotherCode;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+        col.Visible = false;
+        col.FieldName = "Item.DefaultSupplier.CompanyName";
+		col.Caption = Resources.ItemSupplier;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+		col.Visible = false;
+        col.FieldName = "Item.Seasonality.Description";
+		col.Caption = Resources.Seasonality;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+		col.Visible = false;
+        col.FieldName = "Item.Buyer.Description";
+		col.Caption = Resources.Buyer;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+        col.Visible = false;
+        col.FieldName = "Item.InsertedDate";
+		col.Caption = Resources.InsertedDate;
+		col.ColumnType = MVCxGridViewColumnType.DateEdit;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+		col.Visible = false;
+        col.FieldName = "Item.PackingQty";
+		col.Caption = Resources.PackingQty;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+		col.Visible = false;
+        col.FieldName = "Item.OrderQty";
+		col.Caption = Resources.OrderQty;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(col =>
+	{
+		col.Visible = false;
+        col.FieldName = "Item.MaxOrderQty";
+		col.Caption = Resources.MaxOrderQty;
+		col.HeaderStyle.Wrap = DefaultBoolean.True;
+		col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+	gridSettings.Columns.Add(column =>
+	{
+        column.FieldName = "Barcode.IsActive";
+		column.Caption = Resources.IsActive;
+		column.HeaderStyle.Wrap = DefaultBoolean.True;
+		column.ColumnType = MVCxGridViewColumnType.CheckBox;
+		var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+		checkBoxProperties.ValueChecked = true;
+		checkBoxProperties.ValueGrayed = false;
+		checkBoxProperties.ValueUnchecked = false;
+		checkBoxProperties.ValueType = typeof(bool);
+		column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+	});
+
+    Session["ItemBarcodeGridSettings"] = gridSettings;  
+}
+@Html.DevExpress().GridView(gridSettings).BindToLINQ("","", (s,e)=>{e.QueryableSource = Model;}).GetHtml()
+

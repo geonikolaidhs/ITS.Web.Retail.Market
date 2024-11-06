@@ -1,0 +1,25 @@
+﻿@model XtraReport
+@using ITS.Retail.ResourcesLib;
+@using System.Linq;
+@using DevExpress.XtraReports.Parameters;
+@{
+    ViewBag.Title = ViewData["Title"];
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/CustomReportView.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script type="text/html" id="combobox-with-paging">
+        <div data-bind="dxAutocomplete: { dataSource: { store: values, paginate: true, pageSize: 50 }, value: value, valueExpr: 'value', displayExpr: 'displayValue', displayCustomValue: true, disabled: disabled }, dxValidator: { validationRules: $data.validationRules || [] }"></div>
+    </script>
+}
+<section class="container custom-report-container">
+    @Html.DevExpress().WebDocumentViewer(settings =>
+    {
+        settings.EnableTheming = true;
+        settings.Name = "WebDocumentViewer";
+        settings.ClientSideEvents.CustomizeParameterEditors = "WebDocumentViewer_CustomizeParameterEditors";    
+    }).Bind(Model).GetHtml()
+
+</section>
+  

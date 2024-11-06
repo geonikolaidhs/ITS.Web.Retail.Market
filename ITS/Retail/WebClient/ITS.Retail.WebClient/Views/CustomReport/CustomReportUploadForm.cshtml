@@ -1,0 +1,92 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using (Html.BeginForm("CustomReportUploadForm", "CustomReport", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.UploadLayoutFile + ":";
+    }).Render();
+
+	@Html.DevExpress().UploadControl(settings =>
+	{
+		settings.UploadMode = UploadControlUploadMode.Standard;
+		settings.Name = "UploadControl";
+        settings.ControlStyle.CssClass = "upload-control-css";
+		settings.CallbackRouteValues = new { Controller = "CustomReport", Action = "UploadControl" };
+		settings.ClientSideEvents.FileUploadComplete = "OnFileUploadComplete";
+        settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.CustomReportController.UploadControlValidationSettings);
+           
+	}).GetHtml();
+    ViewContext.Writer.Write("</td><td class='vertical-align-td-top'>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.FileName + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "FileName";
+        edtSettings.ReadOnly = true;
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+    }).Bind(DataBinder.Eval(Model, "FileName")).Render();
+    
+    ViewContext.Writer.Write("</td><td><div class='UploadImageForm'>");
+    
+    @Html.DevExpress().Image(settings2 =>
+    {
+        settings2.Name = "btnUpload";
+        settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+        settings2.ToolTip = Resources.Upload;
+        settings2.ControlStyle.CssClass = "uploadbtn" ;
+        settings2.Properties.ClientSideEvents.Click = "function (s,e) { UploadControl.Upload(); }";
+    }).GetHtml()
+
+    @Html.DevExpress().Image(settings2 =>
+    {
+        settings2.Name = "btnDeleteReportFile";
+        settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+        settings2.ToolTip = Resources.Delete;
+        settings2.ControlStyle.CssClass = "deletebtn";
+        settings2.Properties.ClientSideEvents.Click = "btnDeleteReportFileClick";
+    }).GetHtml()
+    
+  
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.Type + ":";
+    }).Render();
+
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "ReportType";
+        edtSettings.ReadOnly = true;
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).Bind(DataBinder.Eval(Model, "ReportType")).Render();
+    
+    ViewContext.Writer.Write("</td><td>");
+    
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.ObjectType + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "ObjectType";
+        edtSettings.ReadOnly = true;
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).Bind(DataBinder.Eval(Model, "ObjectType")).Render();
+
+	ViewContext.Writer.Write("</td>");
+
+}

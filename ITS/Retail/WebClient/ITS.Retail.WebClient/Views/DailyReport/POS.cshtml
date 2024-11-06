@@ -1,0 +1,4 @@
+﻿ @section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/DailyReportsPOS.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@Html.Partial("DailyGrid",ViewData["DailyTotals"])

@@ -1,0 +1,10 @@
+﻿@model ITS.Retail.Model.OwnerApplicationSettings
+ 
+@Html.DevExpress().HtmlEditor(settings =>
+{
+    settings.Name = "Terms_Html";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);    
+    settings.EncodeHtml = true;
+    settings.Enabled = (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER);
+    settings.CallbackRouteValues = new { Controller = "OwnerApplicationSettings", Action = "TermsEditor", CompanyID = Model==null ? Guid.Empty.ToString() : Model.Owner.Oid.ToString() };
+}).Bind(Model == null ? "" : Model.ApplicationTerms).GetHtml()

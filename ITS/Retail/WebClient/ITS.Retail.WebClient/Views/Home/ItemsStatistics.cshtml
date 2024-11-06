@@ -1,0 +1,127 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@model ITS.Retail.WebClient.ItemStatistics
+
+
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+    {
+        cpbseriessettings.Name = "ItemsStatisticsCallbackPanel";
+        cpbseriessettings.CallbackRouteValues = new { Controller = "Home", Action = "ItemsStatistics" };
+        cpbseriessettings.ClientSideEvents.CallbackError = "onCallbackError";    
+        cpbseriessettings.SettingsLoadingPanel.Enabled = true;
+        cpbseriessettings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"lists\">");
+            if (Model.Items != null && Model.Items.Count()>0)
+            {
+                ViewContext.Writer.Write("<div class=\"container\"><h3>");
+                ViewContext.Writer.Write(ITS.Retail.ResourcesLib.Resources.TopItems);
+                ViewContext.Writer.Write("</h3><span class=\"info_icons bar_c\"></span></span><div class=\"container_js\">");
+                {
+                    var counter = 0;
+                    ViewContext.Writer.Write("<table class=\"headerListTable\" cellpadding=\"0\" cellspacing=\"0\">");
+                    ViewContext.Writer.Write("<tr class=\"headerList\">");
+                    ViewContext.Writer.Write("<td class=\"number\">" + Resources.SerialNumber + "</td>");
+                    ViewContext.Writer.Write("<td>" + Resources.Description + "</td>");
+                    if (ViewData["displayBy"].Equals("value"))
+                    {
+                        ViewContext.Writer.Write("<td class=\"align_style\">" + Resources.Value + "</td>");
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write("<td class=\"align_style\">" + Resources.Quantity + "</td>");
+                    }
+
+                    ViewContext.Writer.Write("</tr></table>");
+                    ViewContext.Writer.Write("<div class=\"container_table\">");
+                    ViewContext.Writer.Write("<table id=\"ItemList\" cellpadding=\"0\" cellspacing=\"0\">");
+
+                    foreach (ITS.Retail.WebClient.ObjectFrequency<Item> item in Model.Items)
+                    {
+                        if (counter % 2 != 0)
+                        {
+                            ViewContext.Writer.Write("<tr class=\"light\">");
+                        }
+                        else
+                        {
+                            ViewContext.Writer.Write("<tr>");
+                        }
+                        ViewContext.Writer.Write("<td class=\"number\">");
+                        ViewContext.Writer.Write(++counter);
+                        ViewContext.Writer.Write("</td>");
+                        ViewContext.Writer.Write("<td>");
+                        ViewContext.Writer.Write(item.Item.Name);
+                        ViewContext.Writer.Write("</td>");
+                        if (ViewData["displayBy"].Equals("value"))
+                        {
+                            ViewContext.Writer.Write("<td class=\"align_style\">" + (item.Summary ?? "") + "</td>");
+                        }
+                        else
+                        {
+                            ViewContext.Writer.Write("<td class=\"align_style\">" + (item.Quantity ?? "") + "</td>");
+                        }
+
+                        ViewContext.Writer.Write("</tr>");
+                    }
+                    ViewContext.Writer.Write("</table>");
+                }
+                Html.RenderPartial("ItemsChart", Model.Items);
+                ViewContext.Writer.Write("</div></div></div>");
+            }
+            if (Model.ItemCategories.Count() > 0)
+            {
+                ViewContext.Writer.Write("<div class=\"container\" id=\"sec\"><h3>");
+                ViewContext.Writer.Write(ITS.Retail.ResourcesLib.Resources.TopCategories + "</h3><span class=\"info_icons bar_c\"></span></span><div class=\"container_js\">");
+                {
+                    var counter = 0;
+                    ViewContext.Writer.Write("<table   class=\"headerListTable\" cellpadding=\"0\" cellspacing=\"0\">");
+                    ViewContext.Writer.Write("<tr class=\"headerList\">");
+                    ViewContext.Writer.Write("<td class=\"number\">" + Resources.SerialNumber + "</td>");
+                    ViewContext.Writer.Write("<td>" + Resources.Description + "</td>");
+                    if (ViewData["displayBy"].Equals("value"))
+                    {
+                        ViewContext.Writer.Write("<td class=\"align_style\">" + (Resources.Value ?? "") + "</td>");
+                    }
+                    else
+                    {
+                        ViewContext.Writer.Write("<td class=\"align_style\">" + (Resources.Quantity ?? "") + "</td>");
+                    }
+                    ViewContext.Writer.Write("</tr></table>");
+                    ViewContext.Writer.Write("<div class=\"container_table\">");
+                    ViewContext.Writer.Write("<table id=\"ItemCategoriesList\" cellpadding=\"0\" cellspacing=\"0\">");
+                    foreach (ITS.Retail.WebClient.ObjectFrequency<CategoryNode> item in Model.ItemCategories)
+                    {
+                        if (counter % 2 != 0)
+                        {
+                            ViewContext.Writer.Write("<tr class=\"light\">");
+                        }
+                        else
+                        {
+                            ViewContext.Writer.Write("<tr>");
+                        }
+                        ViewContext.Writer.Write("<td class=\"number\">");
+                        ViewContext.Writer.Write(++counter);
+                        ViewContext.Writer.Write("</td>");
+                        ViewContext.Writer.Write("<td>");
+                        ViewContext.Writer.Write(item.Item.Description);
+                        ViewContext.Writer.Write("</td>");
+                        if (ViewData["displayBy"].Equals("value"))
+                        {
+                            ViewContext.Writer.Write("<td class=\"align_style\">" + item.Summary + "</td>");
+                        }
+                        else
+                        {
+                            ViewContext.Writer.Write("<td class=\"align_style\">" + item.Quantity + "</td>");
+                        }
+                        ViewContext.Writer.Write("</tr>");
+                    }
+                    ViewContext.Writer.Write("</table>");
+                    ViewContext.Writer.Write("</div>");
+                }
+                Html.RenderPartial("ItemCategoriesChart", Model.ItemCategories);
+                ViewContext.Writer.Write("</div></div>");
+            }
+            ViewContext.Writer.Write("</div>");
+        });
+    }).GetHtml()
+ 

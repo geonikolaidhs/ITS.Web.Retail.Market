@@ -1,0 +1,622 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Common.InfoExtraction</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Common.InfoExtraction.IDataLayerBuilder">
+            <summary>
+            The IDataLayerBuilder abstract class declares a set of abstract methods that should be implemented by other class who
+            implement this interface. These methods should communicate with the different databases and product the required results
+            disregarding the data layer.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.IDataLayerBuilder.GetProduct(System.String,System.String)">
+            <summary>
+            The GetProduct abstract method requires the implementation to provide a code and after accessing the database
+            to return the Product that corresponds to that code.
+            </summary>
+            <param name="code">the scanned code of the price checker</param>
+            <param name="compCode">the store code if any</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.IDataLayerBuilder.GetCustomer(System.String)">
+            <summary>
+            The GetCustomer abstract method requires the implementation to provide a code and after accessing the database 
+            to return a Customer that corresponds to the provided code.
+            </summary>
+            <param name="code">The code is the scanned string/barcode of the price checker and should correspond to some
+            kind of loyalty/identification of the user-customer</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.IDataLayerBuilder.GetOffersWithProduct(ITS.Common.InfoExtraction.IEProduct,System.String)">
+            <summary>
+            The GetOffersWithProduct abstract method requires a product as parameter and returns after accessing the database
+            all those offers that this product participates in
+            </summary>
+            <param name="p">The product that we want to search offers for</param>
+            <param name="compCode">the store code if any</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.IDataLayerBuilder.GetProductsWithOffer(ITS.Common.InfoExtraction.IEOffer,System.String)">
+            <summary>
+            The GetProductsWithOffer abstract method requires an Offer as parameter and returns after accessing the database
+            all the products that participate in this offer.
+            </summary>
+            <param name="a"></param>
+            <param name="compCode">the store code if any</param>
+            <returns></returns>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.InfoExtractionSettings">
+            <summary>
+            Settings for the datalayers
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.InfoExtractionSettings.DatabaseType">
+            <summary>
+            Can be SRS or Warehouse2x and accordingly the builder creates a different object
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.InfoExtractionSettings.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.InfoExtractionSettings.ExtractSettings(System.String)">
+            <summary>
+            Extras the Settings/InfoExtractionSettings from the given xml file
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.InfoExtractionSettings.GetSetting(System.Xml.XmlDocument,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="doc"></param>
+            <param name="xPath"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.InfoExtractionSettings.GetSetting(System.Xml.XmlDocument,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="doc"></param>
+            <param name="xPath"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.InfoExtractionSettings.WarehouseSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.InfoExtractionSettings.SRSSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.SRSSettings">
+            <summary>
+            The settings for the srs datalayer
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.DATABASE_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.PASSWORD_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.USER_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.TREAT_BARCODE_21_AS_29_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.LEFT_PAD_BARCODES_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.LEFT_PAD_BARCODES_NUMBER_OF_CHARACTERS_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.DISCOUNT_EXCLUDE_IDS_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.DISCOUNT_LOYALTY_ID_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.PRODUCT_POINTS_LOCATION_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.LOYALTY_TEXT_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.Database">
+            <summary>
+            The datasource name, typically the name of the tnsnames entry
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.Password">
+            <summary>
+            The password of our user
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.User">
+            <summary>
+            The username
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.TreatBarcode21AS29">
+            <summary>
+            Whether or not we should treat 21 barcodes as 29
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.LeftPadBarcodes">
+            <summary>
+            Whether or not we should left pad barcodes
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.LeftPadBarcodesNumberOfCharacters">
+            <summary>
+            The number of digits for the barcode leftpadding
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.DiscountExcludeIDS">
+            <summary>
+            The discount exclude ids, this should be comma delimited ie 1,2,3
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.DiscountLoyaltyID">
+            <summary>
+            The ID in the database that represents loyalty discounts
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.ProductPointsLocation">
+            <summary>
+            Product points can have a value of BARCODE or PRODUCT depending on where are the points in SRS
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.SRSSettings.LoyaltyText">
+            <summary>
+            The text that should appear for the loyalty name for the default offers
+            </summary>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.WarehouseSettings">
+            <summary>
+            The warehouse settings
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.SERVER_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.DATABASE_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.USER_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.PASSWORD_XPATH">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.Server">
+            <summary>
+            Server
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.Database">
+            <summary>
+            Database name
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.User">
+            <summary>
+            Username
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.WarehouseSettings.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.SRSDataLayerBuilder">
+            <summary>
+            The SRSDataLayerBuilder implements the IDataLayerBuilder interface and takes care of the methods that contact the database
+            in a specific way for the SRS in order to return various information such as Products, Offers etc.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.#ctor(ITS.Common.InfoExtraction.InfoExtractionSettings)">
+            <summary>
+            The SRSDataLayerBuilder constructor initializes the variables of this class.
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.GetProduct(System.String,System.String)">
+            <summary>
+            The GetProduct method implementation gets a product code and searches for this product in the SRS database.
+            </summary>
+            <param name="code">The product code that was scanned by the price checker(barcode).</param>
+            <param name="compCode">the store code if any</param>
+            <returns>The corresponding product for the provided code, return null if no product was found.</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.TruncateFunction(System.Decimal,System.Int32)">
+            <summary>
+            Truncates the given decimal number to n decimal digits
+            </summary>
+            <param name="number">The number to truncate</param>
+            <param name="digits">The number of digits we want to leave on</param>
+            <returns>Returns the truncated number to the digits we wanted.</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.GetCustomer(System.String)">
+            <summary>
+            The GetCustomer method implementation gets a customer code and searches for this customer in the SRS database.
+            </summary>
+            <param name="code">The customer code is the scanned string from the price checkers and corresponds to the loyalty number
+            /identification of this customer</param>
+            <returns>If the customer was found it gets returned, otherwise this returns a null value</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.GetOffersWithProduct(ITS.Common.InfoExtraction.IEProduct,System.String)">
+            <summary>
+            The GetOffersWithProduct searches for all the offers that the given product participates in the SRS database.
+            </summary>
+            <param name="product">The product code that was scanned by the price checker and corresponds to the product identification/barcode</param>
+            <param name="compCode"></param>
+            <returns>If the product has offers they are returned within an Offer[] array, otherwise the resulting array is null</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.GetProductsWithOffer(ITS.Common.InfoExtraction.IEOffer,System.String)">
+            <summary>
+            The GetProductsWithOffer searches for all the products that the given offer includes in the SRS database
+            </summary>
+            <param name="offer">The provided offer is going to be crossed checked so we may find the products that it includes</param>
+            <param name="compCode">the store code if any</param>
+            <returns>If the offer has products within it then these products will be returned in an array, otherwise this array if empty will be null</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.OpenConnection">
+            <summary>
+            Opens the connection with the database and initializes the database objects.
+            </summary>
+            <returns>Return true if succeeds, false otherwise</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.SRSDataLayerBuilder.CloseConnection">
+            <summary>
+            Closes the connection with the database and does all cleanup required
+            </summary>
+            <returns>Returns true if succeeds, false otherwise</returns>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder">
+            <summary>
+            This class implemenents the data layer access methods of IDataLayerBuilder for the MOBILE@Warehouse.NET database.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.#ctor(ITS.Common.InfoExtraction.InfoExtractionSettings)">
+            <summary>
+            Takes all the necesseray parameters in order to connect to the MOBILE@Warehouse.NET database and initializes all the local variables.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.GetProduct(System.String,System.String)">
+            <summary>
+            The GetProduct method implementation gets a product code and searches for this product in the MOBILE@Warehouse.NET database
+            </summary>
+            <param name="code">The product code that was scanned by the price checker(barcode).</param>
+            <param name="compCode">not used</param>
+            <returns>The corresponding product for the provided code, return null if no product was found.</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.TruncateFunction(System.Decimal,System.Int32)">
+            <summary>
+            Truncates the given decimal number to n decimal digits
+            </summary>
+            <param name="number">The number to truncate</param>
+            <param name="digits">The number of digits we want to leave on</param>
+            <returns>Returns the truncated number to the digits we wanted.</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.GetCustomer(System.String)">
+            <summary>
+            Not supported
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.GetOffersWithProduct(ITS.Common.InfoExtraction.IEProduct,System.String)">
+            <summary>
+            Not supported
+            </summary>
+            <param name="product"></param>
+            <param name="compCode">not used</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.GetProductsWithOffer(ITS.Common.InfoExtraction.IEOffer,System.String)">
+            <summary>
+            Not supported.
+            </summary>
+            <param name="offer"></param>
+            <param name="compCode">not used</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.OpenConnection">
+            <summary>
+            Opens the connection with the database and initializes the database objects.
+            </summary>
+            <returns>Return true if succeeds, false otherwise</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.Warehouse2xDataLayerBuilder.CloseConnection">
+            <summary>
+            Closes the connection with the database and does all cleanup required
+            </summary>
+            <returns>Returns true if succeeds, false otherwise</returns>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.IEOffer">
+            <summary>
+            The class Action represents an offer which may be related to multiple products. An action has a description and a set of products
+            </summary>
+        </member>
+        <member name="F:ITS.Common.InfoExtraction.IEOffer._descriptionProcessed">
+            <summary>
+            Gets the processed description so it will be shown in the offer grid.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.IEOffer.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.IEOffer.SetProcessedDescription">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.Description">
+            <summary>
+            Gets or sets the description of this action ie "Buy 2 katana get 1 for free"
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.DescriptionProcessed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.FinalPrice">
+            <summary>
+            Gets or sets the final price that this offer of type discount sets. Returns -1 if its not set or its not valid.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.IsSingleItemDiscount">
+            <summary>
+            Gets or sets whether or not this offer is a single item discount
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.DiscountPercent">
+            <summary>
+            Gets or sets the discount percent of this offer
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.ValidForMembers">
+            <summary>
+            Gets or sets the target group of this offer. If true, then its only for loyalty members, otherwise for all.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.OfferId">
+            <summary>
+            Gets or sets the identification of this action in the data layer
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.OperationId">
+            <summary>
+            Gets or sets the operation id or otherwise the grouping of offers that this offer belongs.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.RelatedProducts">
+            <summary>
+            Gets or sets the array of related products for this action
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.AA">
+            <summary>
+            Gets or sets the incremental number for this object which is used as a key in aspxgridview
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEOffer.LoyaltyText">
+            <summary>
+            The text of the loyalty for the default offers
+            </summary>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.DataLayerManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.#ctor(ITS.Common.InfoExtraction.InfoExtractionSettings,System.String)">
+            <summary>
+            Takes parameters and initializes the builder, in the case that we want to use a specific data layer manager such as SRS
+            then we need to provide a terminalEntry, otherwise if we need to manipulate the database etc we can leave the terminalEntry
+            null
+            </summary>
+            <param name="viewsFolder">where the views folder is located</param>
+            <param name="settings"></param>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.GetProduct(System.String,System.String)">
+            <summary>
+            Returns a product based on the given code
+            </summary>
+            <param name="code">The scanned code corresponding to barcode / product identification</param>
+            <param name="compCode">the store code if any</param>
+            <returns>The product correspodning to the provided code</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.GetCustomer(System.String)">
+            <summary>
+            Returns a customer who corresponds to the provided code
+            </summary>
+            <param name="code">The code identifies the customer within the database</param>
+            <returns>Customer object which has the provided id</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.GetProductsWithOffer(ITS.Common.InfoExtraction.IEOffer,System.String)">
+            <summary>
+            Returns all the products who correspond to the provided offer
+            </summary>
+            <param name="offer">The offer which we want to search the products participating.</param>
+            <param name="compCode">the store code if any</param>
+            <returns>An array of Product objects</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.GetOffersWithProduct(ITS.Common.InfoExtraction.IEProduct,System.String)">
+            <summary>
+            Returns all offers which the provided Product object participates
+            </summary>
+            <param name="product">The product which we want to search offers for</param>
+            <param name="compCode">the store code if any</param>
+            <returns>The offers that the provided product participates in</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.ReInitializeBuilder">
+            <summary>
+            Recreates the builder based on the new settings, this method is usefull when we do a lot of
+            changes to the settings and we want to reload the builder efficiently.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.InitializeDatabase(System.String)">
+            <summary>
+            Initializes the database, meaning that required objects will be created and connectivity will be checked.
+            </summary>
+            <param name="databaseType">The database type</param>
+            <returns>True if succeeds, false otherwise.</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.CheckConnectivity(System.String)">
+            <summary>
+            Checks the connectivity with the provided datalayer
+            </summary>
+            <param name="databaseType">The database type for which we will check the connectivity</param>
+            <returns>Returns true if the connectivity is succesfull, false otherwise.</returns>
+        </member>
+        <member name="M:ITS.Common.InfoExtraction.DataLayerManager.InitializeBuilder(System.Boolean)">
+            <summary>
+            This method initializes the builder for our datalayer based on the database type and property settings.
+            </summary>
+            <returns>Returns true if succeeded, false otherwise.</returns>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.IEProduct">
+            <summary>
+            The class Product has the information related to a scanned product code such as product name,code, price, calculated price, and actions.
+            The actions are considered special offers related to this product.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.ChainProduct">
+            <summary>
+            Gets or sets the chain product that this product is bind with
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.ChainProductQuantity">
+            <summary>
+            Gets or sets the quantity for the chain product.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.Description">
+            <summary>
+            Gets or sets the name/description of the product
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.MeasurementUnitText">
+            <summary>
+            Gets or sets the text that appears when we are showing the price value per measurement unit ( ie kilos, litres etc)
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.Points">
+            <summary>
+            Gets or sets the aquired points that the customer gets if he buys this product.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.ID">
+            <summary>
+            Gets or sets the id field of the product
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.Code">
+            <summary>
+            Gets or sets the Code of the product
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.PricePerUnit">
+            <summary>
+            Gets or sets the cost per unit of this product.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.RelatedActions">
+            <summary>
+            Gets or sets the array of related actions of this product
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.CalculatedTotalPrice">
+            <summary>
+            Gets the final price of this product in the case that its different that the price per unit, ie a price based on quantity ie kg etc
+            Its possible to extract the price from the barcode it self so based on barcode length we may pull the price from there or from the priceperunit property.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.PricePerMeasurementUnit">
+            <summary>
+            Gets or sets the price value of this product per measurement unit, ie how much does one Kilo costs of XYZ product
+            which is weighted in Kilos. If the product is not weighted in any category, then this is considered the same
+            as price per unit.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IEProduct.ChainProductExtraCharge">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.InfoExtraction.IECustomer">
+            <summary>
+            The Customer class holds information about the customers points, full name, card code and published store etc.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IECustomer.FullName">
+            <summary>
+            Gets of sets the customer's full name
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IECustomer.ID">
+            <summary>
+            Gets or sets the id field of the Customer
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IECustomer.Code">
+            <summary>
+            Gets or sets the Card/Identification code of the customer
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IECustomer.PublishedStore">
+            <summary>
+            Gets or sets the store that this customer has published the scanned card/id
+            </summary>
+        </member>
+        <member name="P:ITS.Common.InfoExtraction.IECustomer.Points">
+            <summary>
+            Gets or sets the points a customer has accumulated in his account.
+            </summary>
+        </member>
+    </members>
+</doc>

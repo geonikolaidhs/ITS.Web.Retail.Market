@@ -1,0 +1,68 @@
+﻿    @using ITS.Retail.ResourcesLib;
+    @{    
+        ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+    }
+
+    @Html.DevExpress().GridView(settings =>
+    {        
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+        settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+        settings.SettingsBehavior.EnableRowHotTrack = true;
+        settings.Settings.ShowFilterRow = true; 
+        settings.Settings.ShowFilterRowMenu = true; 
+        settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+        settings.Settings.ShowFooter = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.SettingsText.Title = Resources.UserStoreAccess;
+        settings.Name = "grdUserStores";
+        settings.CallbackRouteValues = new { Controller = "User", Action = "UserStores" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.KeyFieldName = "Oid";
+        
+        settings.Columns.Add(col =>
+        {
+            col.FieldName = "Name";
+            col.Caption = Resources.Stores;
+        });
+        
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.CommandColumn.Width = 60;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.KeyboardSupport = false;
+        settings.Settings.ShowTitlePanel = true;
+        settings.ClientSideEvents.Init = "function (s,e) { InitUserStores(s,e,'" + ViewData["InitialSelectedStores"] + "'); }";
+        settings.ClientSideEvents.SelectionChanged = "SelectionChangedUserStores";
+        settings.CommandColumn.Width = 50;
+        settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+        settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+        settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+        settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+        settings.SettingsCookies.StoreFiltering = false;
+        settings.SettingsPager.EnableAdaptivity = true;
+        settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+        settings.ClientLayout += (sndr, evt) =>
+        {
+            User user = (User)ViewBag.CurrentUser;
+            if (user != null)
+            {
+                if (evt.LayoutMode == ClientLayoutMode.Loading)
+                {
+                    GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                    if (sets != null)
+                    {
+                        evt.LayoutData = sets.GridLayout;
+                    }
+                }
+                else
+                {
+                    BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+                }
+            }
+        };
+    }).Bind(Session["UserStores"]).GetHtml()

@@ -1,0 +1,17 @@
+﻿@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "SupplierCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Company", Action = "UpdateAddressComboBox", TraderID = ViewData["TraderID"].ToString() };
+    cpbseriessettings.SetContent(() =>
+    {
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "DefaultAddress";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Description";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+        }).BindList(ViewBag.AddressComboBox).Bind(DataBinder.Eval(Model, "DefaultAddress!Key")).GetHtml();
+    });
+}).GetHtml()

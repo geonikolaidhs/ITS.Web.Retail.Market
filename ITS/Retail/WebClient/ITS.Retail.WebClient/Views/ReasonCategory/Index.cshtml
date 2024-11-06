@@ -1,0 +1,19 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@model IEnumerable<ReasonCategory>
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/CustomDataViewCategory.js")" type="text/javascript"></script>
+}
+
+
+@{
+    ViewBag.Title = Resources.DataViewCategories;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section DialogCallbackPanelSection {
+    @Html.Partial("DialogCallbackPanel")
+}
+
+@Html.Partial("Grid", Model)

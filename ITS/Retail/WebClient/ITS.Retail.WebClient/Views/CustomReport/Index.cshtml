@@ -1,0 +1,91 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Platform.Enumerations;
+@{
+    ViewBag.Title = ITS.Retail.ResourcesLib.Resources.CustomReports;    
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/CustomReport.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditCustomReport.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("FilterButtons");
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fcode_I\">" + Resources.Code + ":" + "</label>");        
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fcode";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+        }).GetHtml();
+        ViewContext.Writer.Write("</td><td>");
+        ViewContext.Writer.Write("<label for=\"Ftitle_I\">" + Resources.Title + ":" + "</label>");
+
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Ftitle";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"Fdescription_I\">" + Resources.Description + ":" + "</label>");
+
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "Fdescription";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        ViewContext.Writer.Write("<label for=\"FcultureInfo_I\">" + Resources.Language + ":" + "</label>");        
+
+
+        var cultures = Enum.GetNames(typeof(eCultureInfo)).Cast<string>().ToList();
+        cultures.Insert(0, "");
+        
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "FcultureInfo";
+            cmb_settings.ControlStyle.CssClass = "search_filter";
+        }).BindList(cultures).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        //ViewContext.Writer.Write("<label for=\"OwnersComboBox_I\">" + Resources.Owner + ":" + "</label>"); 
+
+        Html.RenderPartial("../Base/OwnersComboBoxPartial");
+        
+        ViewContext.Writer.Write("</td></tr></table>");
+        @Html.DevExpress().Button(
+            settings2 =>
+            {
+                settings2.Name = "btnSearch";
+                settings2.Text = Resources.Search;
+                settings2.ClientSideEvents.Click = "SearchCustomReport";
+            }
+        ).GetHtml();
+
+    });
+}).GetHtml()
+
+
+@Html.Partial("Grid")

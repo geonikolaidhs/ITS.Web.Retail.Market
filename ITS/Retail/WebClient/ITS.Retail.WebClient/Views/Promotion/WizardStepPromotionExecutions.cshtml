@@ -1,0 +1,531 @@
+﻿@model ITS.Retail.WebClient.ViewModel.PromotionWizardModel
+@using System.Reflection
+@using DevExpress.Xpo
+@using DevExpress.Data.Filtering
+@{
+    var wiz = ViewData["Wizard"];
+    Wizard wizard = null;
+    if (wiz != null && wiz is Wizard)
+    {
+        wizard = (Wizard)wiz;
+    }
+
+    List<PromotionThenWizardModel> modelDetails = Model.PromotionExecutions.Cast<PromotionThenWizardModel>().Union(Model.PromotionResults.Cast<PromotionThenWizardModel>()).Where(x => x.IsDeleted == false).ToList();
+
+    GridViewSettings settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(
+        ViewContext, typeof(PromotionThenWizardModel),
+        typeof(PromotionController),
+        "grdPromotionResult",
+        ITS.Retail.WebClient.Extensions.GridViewCommandColumnType.ICONS,
+        false);
+
+    settings.Settings.ShowGroupPanel = false;
+    settings.SettingsText.Title = Resources.PromotionExecutions;
+    settings.Columns.Add("Type", Resources.Type);
+    settings.ControlStyle.CssClass = "wizard-grid";
+    settings.Settings.VerticalScrollableHeight = 190;
+    settings.SettingsText.PopupEditFormCaption = Resources.Edit;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "DiscountTypeDescription";
+        c.Caption = Resources.DiscountType;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "ValueOrPercentage";
+        c.Caption = Resources.ValueOrPercentage;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null && pInfo.GetValue(md, null) as decimal? != 0)
+            {
+                PromotionExecutionWizardModel current = (md as PromotionExecutionWizardModel);
+                if (current != null && current.Percentage > 0)
+                {
+                    ViewContext.Writer.Write(String.Format("{0:p2}", current.Percentage));
+                }
+                else
+                {
+                    ViewContext.Writer.Write(pInfo.GetValue(md, null));
+                }
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "FinalUnitPrice";
+        c.Caption = Resources.UnitPrice;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null && pInfo.GetValue(md, null) as decimal? != 0)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "ItemCategoryDescription";
+        c.Caption = Resources.ItemCategory;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "ItemDescription";
+        c.Caption = Resources.Item;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "Quantity";
+        c.Caption = Resources.Quantity;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null && pInfo.GetValue(md, null) as decimal? != 0)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "Points";
+        c.Caption = Resources.Points;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null && pInfo.GetValue(md, null) as decimal? != 0)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "ExecutionPlan";
+        c.Caption = Resources.ExecutionPlan;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null)
+            {
+                ViewContext.Writer.Write(((Enum)(pInfo.GetValue(md, null))).ToLocalizedString());
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "Message";
+        c.Caption = Resources.Message;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        string FieldName = "OncePerItem";
+        c.Caption = Resources.OncePerItem;
+        c.SetDataItemTemplateContent(ct =>
+        {
+            PromotionThenWizardModel md = ct.Grid.GetRow(ct.VisibleIndex) as PromotionThenWizardModel;
+            PropertyInfo pInfo = md.GetType().GetProperty(FieldName);
+            if (pInfo != null)
+            {
+                ViewContext.Writer.Write(pInfo.GetValue(md, null));
+            }
+        });
+    });
+
+
+
+    settings.Columns.Add(c => { c.FieldName = "This"; c.Visible = false; });
+
+    settings.KeyFieldName = "Oid";
+
+    settings.CallbackRouteValues = new { Controller = "Promotion", Action = "WizardStepPromotionExecutions", WizardID = wizard.ID };
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Promotion", Action = "AddNewResult", WizardID = wizard.ID };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Promotion", Action = "UpdateResult", WizardID = wizard.ID };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Promotion", Action = "DeleteResult", WizardID = wizard.ID };
+
+    settings.ClientSideEvents.EndCallback = "PromotionExecutionsEndCallback";
+
+    settings.Width = 1200;
+
+    settings.SetFooterRowTemplateContent(h =>
+    {
+        ViewContext.Writer.Write("<input type = 'hidden' value = '" + ViewData["ObjectID"] + "' id = 'objectid' ></input>");
+    });
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+
+        ViewContext.Writer.Write(Html.ValidationSummary());
+        PromotionThenWizardModel editItem = (ViewBag.EditItem is PromotionThenWizardModel) ? (PromotionThenWizardModel)ViewBag.EditItem : ITS.Retail.WebClient.Controllers.PromotionController.GetEditedGridView(c);
+        ViewContext.Writer.Write(Html.Hidden("Oid", DataBinder.Eval(editItem, "Oid")).ToHtmlString());
+        if (editItem == null)
+        {
+
+            //New Item
+            ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+            Html.DevExpress().Label(lblSettings =>
+            {
+                lblSettings.Name = "lblType";
+                lblSettings.Text = Resources.Type;
+            }).Render();
+            Dictionary<string, string> promotionExecutionOptions = typeof(PromotionRuleWizardModel).Assembly.GetTypes()
+                                                                .Where(type => typeof(PromotionThenWizardModel)
+                                                                .IsAssignableFrom(type) && type.IsAbstract == false)
+                                                                .ToDictionary(promotionModel => promotionModel.Name,
+                                                                              promotionModel => promotionModel.GetProperty("PersistedType").GetDisplayName()
+                                                                             );
+            if (Model.Rule.GetItems(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork()).Count == 0)
+            {
+                promotionExecutionOptions.Remove(typeof(PromotionItemExecutionWizardModel).Name);
+            }
+            if (Model.Rule.GetItemCategories(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork()).Count == 0)
+            {
+                promotionExecutionOptions.Remove(typeof(PromotionItemCategoryExecutionWizardModel).Name);
+            }
+            Html.DevExpress().ComboBox(cmbSettings =>
+            {
+                cmbSettings.Name = "PromotionThenTypeSelector";
+                cmbSettings.Properties.ValueField = "Key";
+                cmbSettings.Properties.TextField = "Value";
+            }).BindList(promotionExecutionOptions).Render();
+            ViewContext.Writer.Write("</td></tr></table>");
+        }
+        else if (editItem is PromotionItemCategoryExecutionWizardModel)
+        {
+            XPCollection<DiscountType> dtList = new XPCollection<DiscountType>(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork(),
+                                                CriteriaOperator.And(new BinaryOperator("Owner.Oid", BaseController.EffectiveOwner.Oid), new BinaryOperator("IsHeaderDiscount", false)));
+            ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+            //Display Result
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.ItemExecutionMode;
+                cmb.Name = "ExecutionMode";
+                cmb.Properties.ValueType = typeof(eItemExecutionMode);
+                cmb.Properties.ValueField = "Key";
+                cmb.Properties.TextField = "Value";
+                cmb.Properties.ClientSideEvents.Init = "ItemCategoryExecutionModeChanged";
+                cmb.Properties.ClientSideEvents.ValueChanged = "ItemCategoryExecutionModeChanged";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(Enum<eItemExecutionMode>.GetLocalizedDictionary()).Bind(DataBinder.Eval(editItem, "ExecutionMode")).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().SpinEdit(spin =>
+            {
+                spin.Name = "FinalUnitPrice";
+                spin.Properties.Caption = Resources.UnitPrice;
+                spin.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "FinalUnitPrice")).Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+            var ic = DataBinder.Eval(editItem, "ItemCategory");
+            object objToBind = null;
+            if (ic != null)
+            {
+                ItemCategory itemCategory = (ViewBag.ItemCategoriesOnPromotion as List<ItemCategory>).FirstOrDefault(x => x.Oid == (Guid)ic);
+                if (itemCategory != null)
+                {
+                    objToBind = itemCategory.Oid;
+                }
+            }
+
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.ItemCategory;
+                cmb.Name = "ItemCategory";
+                cmb.Properties.ValueType = typeof(Guid);
+                cmb.Properties.ValueField = "Oid";
+                cmb.Properties.TextField = "Description";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(ViewBag.ItemCategoriesOnPromotion)
+            .Bind(objToBind).Render();
+
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td>");
+
+            Html.DevExpress().SpinEdit(spin =>
+            {
+                spin.Name = "Quantity";
+                spin.Properties.Caption = Resources.Quantity;
+                spin.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "Quantity")).Render();
+
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().CheckBox(chk =>
+            {
+                chk.Name = "OncePerItem";
+                chk.Properties.ValueType = typeof(bool);
+                chk.Properties.ValueUnchecked = false;
+                chk.Properties.ValueChecked = true;
+                chk.Properties.AllowGrayed = false;
+                chk.Properties.Caption = Resources.OncePerItem;
+                chk.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "OncePerItem") ?? true).Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+
+            var dt = DataBinder.Eval(editItem, "DiscountType");
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.DiscountType;
+                cmb.Name = "DiscountType";
+                cmb.Properties.ValueType = typeof(Guid);
+                cmb.Properties.ValueField = "Oid";
+                cmb.Properties.TextField = "Description";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(dtList).Bind(dt).Render();
+
+
+            ViewContext.Writer.Write("</td>");
+            Html.RenderPartial("SelectValuePercentage", editItem);
+            ViewContext.Writer.Write("</table>");
+        }
+        else if (editItem is PromotionItemExecutionWizardModel)
+        {
+            XPCollection<DiscountType> dtList = new XPCollection<DiscountType>(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork(),
+               CriteriaOperator.And(new BinaryOperator("Owner.Oid", BaseController.EffectiveOwner.Oid), new BinaryOperator("IsHeaderDiscount", false)));
+
+            ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+            //Display Result
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.ItemExecutionMode;
+                cmb.Name = "ExecutionMode";
+                cmb.Properties.ValueType = typeof(eItemExecutionMode);
+                cmb.Properties.ValueField = "Key";
+                cmb.Properties.TextField = "Value";
+                cmb.Properties.ClientSideEvents.Init = "ItemExecutionModeChanged";
+                cmb.Properties.ClientSideEvents.ValueChanged = "ItemExecutionModeChanged";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(Enum<eItemExecutionMode>.GetLocalizedDictionary()).Bind(DataBinder.Eval(editItem, "ExecutionMode")).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().SpinEdit(spin =>
+            {
+                spin.Name = "FinalUnitPrice";
+                spin.Properties.Caption = Resources.UnitPrice;
+                spin.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "FinalUnitPrice")).Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+
+            var ic = DataBinder.Eval(editItem, "Item");
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.Item;
+                cmb.Name = "Item";
+                cmb.Properties.ValueType = typeof(Guid);
+                cmb.Properties.ValueField = "Oid";
+                cmb.Properties.TextField = "Description";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(ViewBag.ItemsOnPromotion).Bind(ic).Render();
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().SpinEdit(spin =>
+            {
+                spin.Name = "Quantity";
+                spin.Properties.Caption = Resources.Quantity;
+                spin.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "Quantity")).Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().CheckBox(chk =>
+            {
+                chk.Name = "OncePerItem";
+                chk.Properties.ValueType = typeof(bool);
+                chk.Properties.ValueUnchecked = false;
+                chk.Properties.ValueChecked = true;
+                chk.Properties.AllowGrayed = false;
+                chk.Properties.Caption = Resources.OncePerItem;
+                chk.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "OncePerItem") ?? true).Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+
+            var dt = DataBinder.Eval(editItem, "DiscountType");
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.DiscountType;
+                cmb.Name = "DiscountType";
+                cmb.Properties.ValueType = typeof(Guid);
+                cmb.Properties.ValueField = "Oid";
+                cmb.Properties.TextField = "Description";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(dtList).Bind(dt).Render();
+
+            ViewContext.Writer.Write("</td>");
+            Html.RenderPartial("SelectValuePercentage", editItem);
+            ViewContext.Writer.Write("</table>");
+        }
+        else if (editItem is PromotionDocumentExecutionWizardModel)
+        {
+            //Document
+            var dt = DataBinder.Eval(editItem, "DiscountType");
+            XPCollection<DiscountType> dtList = new XPCollection<DiscountType>(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork(),
+               CriteriaOperator.And(new BinaryOperator("Owner.Oid", BaseController.EffectiveOwner.Oid), new BinaryOperator("IsHeaderDiscount", true)));
+            ViewContext.Writer.Write("<table class='promotionTable'><tr><td class=\"padding-top-25-important\">");
+            Html.DevExpress().CheckBox(chk =>
+            {
+                chk.Text = Resources.Points;
+                chk.Name = "KeepOnlyPoints";
+                chk.Properties.ValueType = typeof(bool);
+                chk.Properties.ValueUnchecked = false;
+                chk.Properties.ValueChecked = true;
+                chk.Properties.AllowGrayed = false;
+                chk.Properties.ClientSideEvents.CheckedChanged = "KeepOnlyPointsCheckedChanged";
+                chk.Properties.ClientSideEvents.Init = "KeepOnlyPointsCheckedChanged";
+
+
+            }).Bind(DataBinder.Eval(editItem, "KeepOnlyPoints")).Render();
+            ViewContext.Writer.Write("</td><td>");
+            Html.DevExpress().SpinEdit(spin =>
+            {
+                spin.Name = "Points";
+                spin.Properties.Caption = Resources.Points;
+                spin.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "Points")).Render();
+            ViewContext.Writer.Write("</td><tr><td>");
+
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.DiscountType;
+                cmb.Name = "DiscountType";
+                cmb.Properties.ValueType = typeof(Guid?);
+                cmb.Properties.ValueField = "Oid";
+                cmb.Properties.TextField = "Description";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(dtList).Bind(dt).Render();
+            ViewContext.Writer.Write("</td>");
+            Html.RenderPartial("SelectValuePercentage", editItem);
+            ViewContext.Writer.Write("</tr></tr></table>");
+        }
+        else if (editItem is PromotionDisplayResultWizardModel || editItem is PromotionPrintResultWizardModel)
+        {
+            ViewContext.Writer.Write("<table class='promotionTable'><tr><td>");
+            //Display Result
+            Html.DevExpress().ComboBox(cmb =>
+            {
+                cmb.Properties.Caption = Resources.ExecutionPlan;
+                cmb.Name = "ExecutionPlan";
+                cmb.Properties.ValueType = typeof(ePromotionResultExecutionPlan);
+                cmb.Properties.ValueField = "Key";
+                cmb.Properties.TextField = "Value";
+                cmb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).BindList(Enum<ePromotionResultExecutionPlan>.GetLocalizedDictionary()).Bind(DataBinder.Eval(editItem, "ExecutionPlan")).Render();
+            ViewContext.Writer.Write("</td>");
+            ViewContext.Writer.Write("<td>");
+            Html.DevExpress().TextBox(txt =>
+            {
+                txt.Properties.Caption = Resources.Message;
+                txt.Name = "Message";
+                txt.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            }).Bind(DataBinder.Eval(editItem, "Message")).Render();
+            ViewContext.Writer.Write("</td></table>");
+        }
+        else if (editItem is PromotionPriceCatalogExecutionWizardModel)
+        {
+            Html.RenderPartial("PromotionPriceCatalogExecutionWizardModelEditView", editItem);
+        }
+
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnSave";
+            btnSettings.Text = Resources.Save;
+            btnSettings.ControlStyle.CssClass = "button wizard-button-group";
+            btnSettings.ClientSideEvents.Click = "function(s, e) { " + settings.Name + ".UpdateEdit(); }";
+        }).Render();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.Text = Resources.Close;
+            btnSettings.ControlStyle.CssClass = "button wizard-button wizard-button-group";
+            btnSettings.ClientSideEvents.Click = "function(s, e) { " + settings.Name + ".CancelEdit(); }";
+        }).Render();
+    });
+
+
+
+    Html.DevExpress().GridView(settings).Bind(modelDetails).GetHtml();
+}

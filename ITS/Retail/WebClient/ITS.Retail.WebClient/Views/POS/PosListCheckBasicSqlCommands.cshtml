@@ -1,0 +1,164 @@
+﻿@using System.Linq;
+@using ITS.Retail.ResourcesLib;
+
+<style>
+    .hiddenList {
+        display: none;
+    }
+
+    .timeoutClass {
+        height: 40px !important;
+        width: 100px !important;
+        text-align: center;
+    }
+
+    #timeoutLabel label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-right: 10px;
+    }
+
+    .rowDiv {
+        background-color: red !important;
+    }
+</style>
+
+@Html.DevExpress().CallbackPanel(cbp =>
+{
+    cbp.Name = "PosListCheckBasicSqlCommands"; //Basic
+cbp.CallbackRouteValues = new { Controller = "POS", Action = "PosListCheck" };
+    cbp.ClientSideEvents.BeginCallback = "function(s,e){PosSqlCommandsBeginCallback(s,e,'basic')}"; //Basic
+cbp.SetContent(() =>
+{
+
+    ViewContext.Writer.Write("<table class='headerTable'><tr><td id='dbListId' class='hiddenList' >");
+    Html.DevExpress().DropDownEdit(settings =>
+{
+
+    settings.Name = "posDbType"; //Basic
+settings.Properties.DropDownWindowStyle.BackColor = System.Drawing.Color.FromArgb(0xEDEDED);
+    settings.SetDropDownWindowTemplateContent(c =>
+{
+    @Html.DevExpress().ListBox(listBoxSettings =>
+{
+    listBoxSettings.Name = "posDbTypeList"; //Basic
+listBoxSettings.ControlStyle.Border.BorderWidth = 0;
+    listBoxSettings.ControlStyle.BorderBottom.BorderWidth = 1;
+    listBoxSettings.ControlStyle.BorderBottom.BorderColor = System.Drawing.Color.FromArgb(0xDCDCDC);
+    listBoxSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    listBoxSettings.Height = 150;
+    listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+    listBoxSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s,e){ OnDBTypeSelectionChanged(s,e,'dbtype'); }";  //Basic
+List<ePOSDbType> cmdTypeList = new List<ePOSDbType>() { ePOSDbType.POS_MASTER, ePOSDbType.POS_SETTINGS, ePOSDbType.POS_TRANSCATION, ePOSDbType.POS_VERSION };
+    foreach (ePOSDbType db in cmdTypeList)
+    {
+        listBoxSettings.Properties.Items.Add(db.ToString(), db);
+    }
+}).Render();
+
+    ViewContext.Writer.Write("<table style=\"width:100%\"><tr><td align=\"right\">");
+    @Html.DevExpress().Button(buttonSettings =>
+{
+    buttonSettings.Name = "buttonCloseposDbType"; //Basic
+buttonSettings.Text = Resources.Close;
+    buttonSettings.Style.Add("float", "left");
+    buttonSettings.ClientSideEvents.Click = "function(s, e){ posDbType.HideDropDown(); }"; //Basic
+}).Render();
+    ViewContext.Writer.Write("</td></tr></table>");
+});
+    settings.Properties.AnimationType = AnimationType.None;
+}).GetHtml();
+
+
+    ViewContext.Writer.Write("</td><td>");
+    Html.DevExpress().DropDownEdit(settings =>
+{
+    settings.Name = "cmbtype"; //Basic
+settings.Properties.DropDownWindowStyle.BackColor = System.Drawing.Color.FromArgb(0xEDEDED);
+
+    settings.SetDropDownWindowTemplateContent(c =>
+{
+    @Html.DevExpress().ListBox(listBoxSettings =>
+{
+    listBoxSettings.Name = "cmbtypebasic"; //Basic
+listBoxSettings.ControlStyle.Border.BorderWidth = 0;
+    listBoxSettings.ControlStyle.BorderBottom.BorderWidth = 1;
+    listBoxSettings.ControlStyle.BorderBottom.BorderColor = System.Drawing.Color.FromArgb(0xDCDCDC);
+    listBoxSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    listBoxSettings.Height = 170;
+    listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+    listBoxSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s,e){ OnCommandTypeSelectionChanged(s,e,'cmtype'); }";  //Basic
+List<ePosCommand> cmdTypeList = new List<ePosCommand>() { ePosCommand.EXECUTE_POS_CMD, ePosCommand.EXECUTE_POS_SQL, ePosCommand.POS_UPDATE, ePosCommand.POS_APPLICATION_RESTART };
+    foreach (ePosCommand cmd in cmdTypeList)
+    {
+        listBoxSettings.Properties.Items.Add(cmd.ToString(), cmd);
+    }
+
+}).Render();
+    ViewContext.Writer.Write("<table style=\"width:100%\"><tr><td align=\"right\">");
+    @Html.DevExpress().Button(buttonSettings =>
+{
+    buttonSettings.Name = "buttonClosecmbtypebasic"; //Basic
+buttonSettings.Text = Resources.Close;
+    buttonSettings.Style.Add("float", "left");
+    buttonSettings.ClientSideEvents.Click = "function(s, e){ cmbtype.HideDropDown(); }"; //Basic
+}).Render();
+    ViewContext.Writer.Write("</td></tr></table>");
+});
+    settings.Properties.AnimationType = AnimationType.None;
+}).GetHtml();
+
+
+    ViewContext.Writer.Write("</td><td>");
+    Html.DevExpress().DropDownEdit(settings =>
+{
+    settings.Name = "cmbSqlPosBasic"; //Basic
+settings.Properties.DropDownWindowStyle.BackColor = System.Drawing.Color.FromArgb(0xEDEDED);
+
+    settings.SetDropDownWindowTemplateContent(c =>
+{
+    @Html.DevExpress().ListBox(listBoxSettings =>
+{
+    listBoxSettings.Name = "lstSqlPosBasic"; //Basic
+listBoxSettings.ControlStyle.Border.BorderWidth = 0;
+    listBoxSettings.ControlStyle.BorderBottom.BorderWidth = 1;
+    listBoxSettings.ControlStyle.BorderBottom.BorderColor = System.Drawing.Color.FromArgb(0xDCDCDC);
+    listBoxSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    listBoxSettings.Height = 170;
+    listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+    listBoxSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s,e){ OnListBoxSelectionChanged(s,e,'sql'); }";  //Basic
+listBoxSettings.Properties.Items.Add(Resources.SelectAll, Guid.Empty);
+    foreach (KeyValuePair<Guid, string> el in ViewBag.POSList)
+    {
+        listBoxSettings.Properties.Items.Add(el.Value, el.Key);
+    }
+
+}).Render();
+    ViewContext.Writer.Write("<table style=\"width:100%\"><tr><td align=\"right\">");
+    @Html.DevExpress().Button(buttonSettings =>
+{
+    buttonSettings.Name = "buttonCloseSqlBasic"; //Basic
+buttonSettings.Text = Resources.Close;
+    buttonSettings.Style.Add("float", "right");
+    buttonSettings.ClientSideEvents.Click = "function(s, e){ cmbSqlPosBasic.HideDropDown(); }"; //Basic
+}).Render();
+    ViewContext.Writer.Write("</td></tr></table>");
+});
+    settings.Properties.AnimationType = AnimationType.None;
+}).GetHtml();
+
+
+    ViewContext.Writer.Write("</td><td>");
+    Html.DevExpress().Button(btnset =>
+{
+    btnset.Name = "btnSendSqlCommandBasic"; //Basic
+btnset.Text = Resources.SendCommand;
+    btnset.ClientSideEvents.Click = "function(s,e) { SendCommandSqlButtonBasicClick(s,e); }"; // Basic
+}).GetHtml();
+    ViewContext.Writer.Write("</td></tr></table>");
+});
+}).GetHtml()
+<div>
+    <label id="timeoutLabel">Timeout (seconds) </label>
+    <input id="timeout" class="timeoutClass" value="6">
+</div>

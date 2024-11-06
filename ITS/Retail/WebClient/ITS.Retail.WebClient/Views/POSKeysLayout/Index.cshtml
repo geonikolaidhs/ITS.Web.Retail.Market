@@ -1,0 +1,70 @@
+﻿@using ITS.Retail.ResourcesLib;
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/POSKeysLayout.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditPOSKeysLayout.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+
+@section DialogCallbackPanelSection {
+    @Html.Partial("DialogCallbackPanel")
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@{
+    ViewBag.Title = Resources.POSKeysLayouts;
+}
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "FilterPanel";
+    settings.ControlStyle.CssClass = "FilterPanel";
+    settings.HeaderText = Resources.SearchFilters;
+    settings.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.RenderPartial("FilterButtons");
+        
+        ViewContext.Writer.Write("<label for=\"fcode_I\">" + Resources.Code + ":" + "</label>");
+        
+        
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+            textsettings.Name = "fcode";
+            textsettings.Text = "";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        ViewContext.Writer.Write("<label for=\"fdescription_I\">" + Resources.Description + ":" + "</label>");
+        
+        @Html.DevExpress().TextBox(textsettings =>
+        {
+			textsettings.Name = "fdescription";
+            textsettings.Text = "";
+            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            textsettings.ControlStyle.CssClass = "search_filter";
+            textsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        @Html.DevExpress().Button(
+            settings2 =>
+            {
+                settings2.Name = "btnSearch";
+                settings2.Text = Resources.Search;
+                settings2.UseSubmitBehavior = true;
+                settings2.ClientSideEvents.Click = "SearchPOSKeysLayout";
+            }
+        ).GetHtml();
+   
+    });
+}).GetHtml()
+
+
+@Html.Partial("Grid")

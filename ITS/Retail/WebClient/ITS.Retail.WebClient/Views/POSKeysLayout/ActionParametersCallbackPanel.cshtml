@@ -1,0 +1,83 @@
+﻿@Html.DevExpress().CallbackPanel(set =>
+{
+
+    set.Name = "ActionParametersCallbackPanel";
+    set.CallbackRouteValues = new { Controller = "POSKeysLayout", Action = "ActionParametersCallbackPanel" };
+    set.SetContent(() =>
+    {
+        Dictionary<string,Type> parameters = ViewData["ActionParameters"] as Dictionary<string,Type>;
+        if (parameters != null)
+        {
+            //int loops = 0;
+            ViewContext.Writer.Write("<table><tr>");
+            foreach (KeyValuePair<string,Type> parameterPair in parameters.OrderBy(parameter=> parameter.Value.Name))
+            {
+                ViewContext.Writer.Write("<td>");
+
+                if (parameterPair.Value == typeof(DateTime))
+                {
+                    Html.DevExpress().DateEdit(edtSettings =>
+                    {
+                        edtSettings.Properties.Caption = parameterPair.Key + ":";
+                        edtSettings.Properties.CaptionStyle.CssClass = "label";
+                        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        edtSettings.Name = parameterPair.Key + "_actionParam";
+                    }).Render();
+                }
+                else if (parameterPair.Value == typeof(bool))
+                {
+                    Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Properties.Caption = parameterPair.Key;
+                        edtSettings.Properties.CaptionStyle.CssClass = "label";
+                        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Right;
+                        edtSettings.Name = parameterPair.Key + "_actionParam";
+                        edtSettings.Properties.ValueChecked = true;
+                        edtSettings.Properties.ValueGrayed = false;
+                        edtSettings.Properties.ValueUnchecked = false;
+                        edtSettings.Checked = false;
+                        edtSettings.Properties.ValueType = typeof(bool);
+                    }).Render();
+                }
+                else if (parameterPair.Value == typeof(string) || parameterPair.Value == typeof(Guid))
+                {
+                    Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Properties.Caption = parameterPair.Key + ":";
+                        edtSettings.Properties.CaptionStyle.CssClass = "label";
+                        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        edtSettings.Name = parameterPair.Key + "_actionParam";
+                    }).Render();
+                }
+                else if(parameterPair.Value.IsEnum)
+                {
+                    Html.DevExpress().ComboBox(cmb_settings =>
+                    {
+                        cmb_settings.Properties.Caption = parameterPair.Key + ":";
+                        cmb_settings.Properties.CaptionStyle.CssClass = "label";
+                        cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        cmb_settings.Name = parameterPair.Key + "_actionParam";
+                    }).BindList(Enum.GetValues(parameterPair.Value)).Render();
+                    
+                }
+                else if (parameterPair.Value == typeof(int) || parameterPair.Value == typeof(double))   //Numeric input
+                {
+                    Html.DevExpress().SpinEdit(edtSettings =>
+                    {
+                        edtSettings.Properties.Caption = parameterPair.Key + ":";
+                        edtSettings.Properties.CaptionStyle.CssClass = "label";
+                        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        edtSettings.Name = parameterPair.Key + "_actionParam";
+                        edtSettings.Properties.MinValue = 0;
+                        edtSettings.Properties.MaxLength = 999;
+                        edtSettings.Properties.NumberType = parameterPair.Value == typeof(int) ? SpinEditNumberType.Integer : SpinEditNumberType.Float;
+                    }).Render();
+                }
+
+
+                ViewContext.Writer.Write("</td></tr><tr>");
+            }
+            ViewContext.Writer.Write("</tr></table>");
+        }
+    });
+}).GetHtml()

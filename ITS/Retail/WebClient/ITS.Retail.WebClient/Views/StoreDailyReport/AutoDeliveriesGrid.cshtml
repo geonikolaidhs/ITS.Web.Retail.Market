@@ -1,0 +1,62 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.Model
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(StoreDailyReportDocumentHeader), typeof(StoreDailyReportController), "grdAutodeliveries", columnType: GridViewCommandColumnType.NONE, generateColumns: false/*, includedFields: new List<string>() { "Code", "Date", "Description" }*/);
+    settings.CallbackRouteValues = new { Controller = "StoreDailyReport", Action = "AutoDeliveriesGrid", storeDailyreportOid = ViewData["StoreDailyReportOid"] };
+    settings.ClientSideEvents.EndCallback = "StoreDailyReport.autoDeliverieEndCallback";
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "StoreDailyReport", Action = "AutoDeliveriesUpdatePartial" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.SettingsPopup.EditForm.Width = 600;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.CommandColumn.ShowNewButtonInHeader = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = false;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Hidden;
+    settings.Settings.ShowHeaderFilterButton = false;
+    settings.SettingsBehavior.AllowSort = false;
+    settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+    
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "LineNumber";
+        column.ReadOnly = true;
+        column.Caption = Resources.LineNumber;
+    });
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Description";
+        column.Caption = Resources.Description;
+        column.ReadOnly = true;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DocumentHeader.GrossTotal";
+        column.ReadOnly = true;
+        column.Caption = Resources.Value;
+        column.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+    });
+
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "UserValue";
+    //    column.Caption = Resources.UserValue;
+    //    column.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+    //});
+
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "UserSetsValue";
+    //    column.ColumnType = MVCxGridViewColumnType.CheckBox;
+    //    column.Caption = Resources.UserSetsValue;
+    //});
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

@@ -1,0 +1,15 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@model DocumentHeader
+
+@{
+    bool enabled = ViewBag.InViewMode == null ? true : !(bool)ViewBag.InViewMode;
+
+    string callbackRouteValuesController = "Document";
+    string callbackRouteValuesAction = "TriangularCustomerPartial";
+    string callbackRouteValuesArea = string.Empty;
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = DocumentController.TraderRequestedByFilterCondition<Customer>;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = DocumentController.ObjectRequestedByValue<Customer>;
+    string deleteImg = enabled==true ? Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) : "";
+    FormInstances.DropDownListSearchableComboBoxBody(Html: Html,enabled: enabled,callbackRouteValuesController: callbackRouteValuesController,callbackRouteValuesAction: callbackRouteValuesAction,callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, clientSideEventsValueChanged: "UpdateTriangularAddress", clientSidesEventsButtonClick: "clearTriangularComboBox", name: "TriangularCustomer", valueType: typeof(Guid), model: (Model == null || Model.TriangularCustomer == null) ? null : DataBinder.Eval(Model.TriangularCustomer, "Oid"), modelType: typeof(Customer), deleteImg: deleteImg).Render();
+}

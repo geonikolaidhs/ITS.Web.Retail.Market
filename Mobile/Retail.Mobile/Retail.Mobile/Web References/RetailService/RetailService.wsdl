@@ -1,0 +1,1807 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://weborders.masoutis.gr/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="https://weborders.masoutis.gr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://weborders.masoutis.gr/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="type" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="typeName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="device" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PostDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSeries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Userid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="mode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSeriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSeriesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentStatus">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDocumentStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentStatusResult" type="tns:ArrayOfTDocumentStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTDocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TDocumentStatus" type="tns:TDocumentStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TDocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsDefault" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sfilter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Sfields" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetItemResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemWithBarcodeCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Sfields" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemWithBarcodeCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetItemWithBarcodeCustomerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemWithBarcode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Sfields" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemWithBarcodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetItemWithBarcodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ItemOid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPriceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPriceCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CustomerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ItemOid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPriceCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPriceCustomerResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentDetailCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="customerString" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentDetailCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentDetailCustomerResult" type="tns:ArrayOfTransferedDocumentDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransferedDocumentDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransferedDocumentDetail" type="tns:TransferedDocumentDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransferedDocumentDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Barcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FinalUnitPrice" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDiscount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="GrossTotal" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitPrice" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Qty" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="NetTotal" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="NetTotalAfterDiscount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecondDiscount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalDiscount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalVatAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitPriceAfterDiscount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="VatAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="VatFactor" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemOid" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDocumentDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentDetailResult" type="tns:ArrayOfTransferedDocumentDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateOrderResult" type="tns:ArrayOfTInvalidItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTInvalidItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TInvalidItem" type="tns:TInvalidItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TInvalidItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemOid" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="Reason" type="tns:InactiveItemReason" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="InactiveItemReason">
+        <s:restriction base="s:string">
+          <s:enumeration value="INACTIVE" />
+          <s:enumeration value="NOPRICE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PostDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PostDocumentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetUserTypeResult" type="tns:UserType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="UserType">
+        <s:restriction base="s:string">
+          <s:enumeration value="SUPPLIER" />
+          <s:enumeration value="CUSTOMER" />
+          <s:enumeration value="BOTH" />
+          <s:enumeration value="ADMIN" />
+          <s:enumeration value="NONE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetCustomersOfUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="updatedOn" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomersOfUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomersOfUserResult" type="tns:ArrayOfTCustomer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTCustomer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TCustomer" type="tns:TCustomer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TCustomer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="PriceListOid" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="VatLevel" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="StoreOid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultPhone" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateOn" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCustomers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updatedOn" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomersResult" type="tns:ArrayOfTCustomer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotalUpdates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Customerupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Itemupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IATupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Barcodeupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="ICupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="PCupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="PCDupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="VCupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="VFupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="VLupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="offerUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="offerDetailUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentStatusUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="storesUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="linkedItemsUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="mmUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeUpdatedOn" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotalUpdatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTotalUpdatesResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserStoreAccess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserStoreAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUserStoreAccessResult" type="tns:ArrayOfTUserStoreAccess" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTUserStoreAccess">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TUserStoreAccess" type="tns:TUserStoreAccess" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TUserStoreAccess">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="StoreID" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdatedOn" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getStores">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="updatedon" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getStoresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getStoresResult" type="tns:ArrayOfTStore" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTStore">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TStore" type="tns:TStore" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TStore">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsCentralStore" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdatedOn" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getAppSettings">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAppSettingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getAppSettingsResult" nillable="true" type="tns:TAppSettings" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TAppSettings">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BarcodePad" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodePad" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountPermited" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="BarcodePadChar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodePadChar" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BarcodePadLength" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodePadLength" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ComputeDigits" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ComputeValueDigits" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayDigits" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayValueDigits" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CleanFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="filename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CleanFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CleanFileResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotalUpdatesLink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Customerupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Itemupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IATupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Barcodeupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="ICupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="PCupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="PCDupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="VCupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="VFupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="VLupdatedon" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="offerUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="offerDetailUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentStatusUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="storesUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="linkedItemsUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="mmUpdatedOn" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentTypeUpdatedOn" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotalUpdatesLinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTotalUpdatesLinkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckValidStorePriceCatalogPair">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="store" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="priceCatalog" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckValidStorePriceCatalogPairResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckValidStorePriceCatalogPairResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentHeaders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentHeadersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentHeadersResult" type="tns:ArrayOfTDocumentHeader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTDocumentHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TDocumentHeader" type="tns:TDocumentHeader" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TDocumentHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="finalizedDateTime" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="netTotal" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="discount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="final" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDocumentHeadersXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentHeadersXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentHeadersXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentHeadersXMLWithFilters">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fromTicks" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="toTicks" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="docStatusID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="docTypeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hasBeenChecked" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hasBeenExecuted" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentHeadersXMLWithFiltersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDocumentHeadersXMLWithFiltersResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taxCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customer_code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="store" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="priceCatalog" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateCustomerResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagesLink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="imageGuids" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetImagesLinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImagesLinkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoesExistsAndIsActive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="objectIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="objectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DoesExistsAndIsActiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DoesExistsAndIsActiveResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInactiveObjects">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="mobileUpdatedOn" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="objectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInactiveObjectsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInactiveObjectsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreControllerGuid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="storeControllerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreControllerGuidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetStoreControllerGuidResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOwner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="storeControllerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOwnerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOwnerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreControllerSettings">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="storeControllerID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreControllerSettingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStoreControllerSettingsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreOfStoreController">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="storeControllerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStoreOfStoreControllerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetStoreOfStoreControllerResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDefaultCustomerOfStoreController">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="storeControllerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDefaultCustomerOfStoreControllerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetDefaultCustomerOfStoreControllerResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMobileFilelist">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMobileFilelistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMobileFilelistResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostDataSoapIn">
+    <wsdl:part name="parameters" element="tns:PostData" />
+  </wsdl:message>
+  <wsdl:message name="PostDataSoapOut">
+    <wsdl:part name="parameters" element="tns:PostDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSeriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSeries" />
+  </wsdl:message>
+  <wsdl:message name="GetSeriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSeriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetItemSoapIn">
+    <wsdl:part name="parameters" element="tns:GetItem" />
+  </wsdl:message>
+  <wsdl:message name="GetItemSoapOut">
+    <wsdl:part name="parameters" element="tns:GetItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetItemWithBarcodeCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetItemWithBarcodeCustomer" />
+  </wsdl:message>
+  <wsdl:message name="GetItemWithBarcodeCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetItemWithBarcodeCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetItemWithBarcodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetItemWithBarcode" />
+  </wsdl:message>
+  <wsdl:message name="GetItemWithBarcodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetItemWithBarcodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrice" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPriceCustomer" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPriceCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDetailCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentDetailCustomer" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDetailCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentDetailCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateOrder" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:PostDocument" />
+  </wsdl:message>
+  <wsdl:message name="PostDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:PostDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserType" />
+  </wsdl:message>
+  <wsdl:message name="GetUserTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersOfUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomersOfUser" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersOfUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomersOfUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomers" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalUpdatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTotalUpdates" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalUpdatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTotalUpdatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUserStoreAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:getUserStoreAccess" />
+  </wsdl:message>
+  <wsdl:message name="getUserStoreAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:getUserStoreAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="getStoresSoapIn">
+    <wsdl:part name="parameters" element="tns:getStores" />
+  </wsdl:message>
+  <wsdl:message name="getStoresSoapOut">
+    <wsdl:part name="parameters" element="tns:getStoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAppSettingsSoapIn">
+    <wsdl:part name="parameters" element="tns:getAppSettings" />
+  </wsdl:message>
+  <wsdl:message name="getAppSettingsSoapOut">
+    <wsdl:part name="parameters" element="tns:getAppSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CleanFileSoapIn">
+    <wsdl:part name="parameters" element="tns:CleanFile" />
+  </wsdl:message>
+  <wsdl:message name="CleanFileSoapOut">
+    <wsdl:part name="parameters" element="tns:CleanFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalUpdatesLinkSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTotalUpdatesLink" />
+  </wsdl:message>
+  <wsdl:message name="GetTotalUpdatesLinkSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTotalUpdatesLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckValidStorePriceCatalogPairSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckValidStorePriceCatalogPair" />
+  </wsdl:message>
+  <wsdl:message name="CheckValidStorePriceCatalogPairSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckValidStorePriceCatalogPairResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHeadersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentHeaders" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHeadersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentHeadersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHeadersXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentHeadersXML" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHeadersXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentHeadersXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHeadersXMLWithFiltersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocumentHeadersXMLWithFilters" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentHeadersXMLWithFiltersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentHeadersXMLWithFiltersResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateCustomer" />
+  </wsdl:message>
+  <wsdl:message name="CreateCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImagesLinkSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImagesLink" />
+  </wsdl:message>
+  <wsdl:message name="GetImagesLinkSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImagesLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="DoesExistsAndIsActiveSoapIn">
+    <wsdl:part name="parameters" element="tns:DoesExistsAndIsActive" />
+  </wsdl:message>
+  <wsdl:message name="DoesExistsAndIsActiveSoapOut">
+    <wsdl:part name="parameters" element="tns:DoesExistsAndIsActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInactiveObjectsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInactiveObjects" />
+  </wsdl:message>
+  <wsdl:message name="GetInactiveObjectsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInactiveObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreControllerGuidSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStoreControllerGuid" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreControllerGuidSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStoreControllerGuidResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOwnerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOwner" />
+  </wsdl:message>
+  <wsdl:message name="GetOwnerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOwnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreControllerSettingsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStoreControllerSettings" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreControllerSettingsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStoreControllerSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreOfStoreControllerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStoreOfStoreController" />
+  </wsdl:message>
+  <wsdl:message name="GetStoreOfStoreControllerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStoreOfStoreControllerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDefaultCustomerOfStoreControllerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDefaultCustomerOfStoreController" />
+  </wsdl:message>
+  <wsdl:message name="GetDefaultCustomerOfStoreControllerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDefaultCustomerOfStoreControllerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileFilelistSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMobileFilelist" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileFilelistSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMobileFilelistResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RetailServiceSoap">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostData">
+      <wsdl:input message="tns:PostDataSoapIn" />
+      <wsdl:output message="tns:PostDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSeries">
+      <wsdl:input message="tns:GetSeriesSoapIn" />
+      <wsdl:output message="tns:GetSeriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentStatus">
+      <wsdl:input message="tns:GetDocumentStatusSoapIn" />
+      <wsdl:output message="tns:GetDocumentStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItem">
+      <wsdl:input message="tns:GetItemSoapIn" />
+      <wsdl:output message="tns:GetItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItemWithBarcodeCustomer">
+      <wsdl:input message="tns:GetItemWithBarcodeCustomerSoapIn" />
+      <wsdl:output message="tns:GetItemWithBarcodeCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItemWithBarcode">
+      <wsdl:input message="tns:GetItemWithBarcodeSoapIn" />
+      <wsdl:output message="tns:GetItemWithBarcodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrice">
+      <wsdl:input message="tns:GetPriceSoapIn" />
+      <wsdl:output message="tns:GetPriceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceCustomer">
+      <wsdl:input message="tns:GetPriceCustomerSoapIn" />
+      <wsdl:output message="tns:GetPriceCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentDetailCustomer">
+      <wsdl:input message="tns:GetDocumentDetailCustomerSoapIn" />
+      <wsdl:output message="tns:GetDocumentDetailCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentDetail">
+      <wsdl:input message="tns:GetDocumentDetailSoapIn" />
+      <wsdl:output message="tns:GetDocumentDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrder">
+      <wsdl:input message="tns:ValidateOrderSoapIn" />
+      <wsdl:output message="tns:ValidateOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostDocument">
+      <wsdl:input message="tns:PostDocumentSoapIn" />
+      <wsdl:output message="tns:PostDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserType">
+      <wsdl:input message="tns:GetUserTypeSoapIn" />
+      <wsdl:output message="tns:GetUserTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomersOfUser">
+      <wsdl:input message="tns:GetCustomersOfUserSoapIn" />
+      <wsdl:output message="tns:GetCustomersOfUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <wsdl:input message="tns:GetCustomersSoapIn" />
+      <wsdl:output message="tns:GetCustomersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalUpdates">
+      <wsdl:input message="tns:GetTotalUpdatesSoapIn" />
+      <wsdl:output message="tns:GetTotalUpdatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserStoreAccess">
+      <wsdl:input message="tns:getUserStoreAccessSoapIn" />
+      <wsdl:output message="tns:getUserStoreAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getStores">
+      <wsdl:input message="tns:getStoresSoapIn" />
+      <wsdl:output message="tns:getStoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAppSettings">
+      <wsdl:input message="tns:getAppSettingsSoapIn" />
+      <wsdl:output message="tns:getAppSettingsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CleanFile">
+      <wsdl:input message="tns:CleanFileSoapIn" />
+      <wsdl:output message="tns:CleanFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalUpdatesLink">
+      <wsdl:input message="tns:GetTotalUpdatesLinkSoapIn" />
+      <wsdl:output message="tns:GetTotalUpdatesLinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidStorePriceCatalogPair">
+      <wsdl:input message="tns:CheckValidStorePriceCatalogPairSoapIn" />
+      <wsdl:output message="tns:CheckValidStorePriceCatalogPairSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeaders">
+      <wsdl:input message="tns:GetDocumentHeadersSoapIn" />
+      <wsdl:output message="tns:GetDocumentHeadersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeadersXML">
+      <wsdl:input message="tns:GetDocumentHeadersXMLSoapIn" />
+      <wsdl:output message="tns:GetDocumentHeadersXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeadersXMLWithFilters">
+      <wsdl:input message="tns:GetDocumentHeadersXMLWithFiltersSoapIn" />
+      <wsdl:output message="tns:GetDocumentHeadersXMLWithFiltersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCustomer">
+      <wsdl:input message="tns:CreateCustomerSoapIn" />
+      <wsdl:output message="tns:CreateCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagesLink">
+      <wsdl:input message="tns:GetImagesLinkSoapIn" />
+      <wsdl:output message="tns:GetImagesLinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DoesExistsAndIsActive">
+      <wsdl:input message="tns:DoesExistsAndIsActiveSoapIn" />
+      <wsdl:output message="tns:DoesExistsAndIsActiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInactiveObjects">
+      <wsdl:input message="tns:GetInactiveObjectsSoapIn" />
+      <wsdl:output message="tns:GetInactiveObjectsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerGuid">
+      <wsdl:input message="tns:GetStoreControllerGuidSoapIn" />
+      <wsdl:output message="tns:GetStoreControllerGuidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOwner">
+      <wsdl:input message="tns:GetOwnerSoapIn" />
+      <wsdl:output message="tns:GetOwnerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerSettings">
+      <wsdl:input message="tns:GetStoreControllerSettingsSoapIn" />
+      <wsdl:output message="tns:GetStoreControllerSettingsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreOfStoreController">
+      <wsdl:input message="tns:GetStoreOfStoreControllerSoapIn" />
+      <wsdl:output message="tns:GetStoreOfStoreControllerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDefaultCustomerOfStoreController">
+      <wsdl:input message="tns:GetDefaultCustomerOfStoreControllerSoapIn" />
+      <wsdl:output message="tns:GetDefaultCustomerOfStoreControllerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileFilelistSoapIn" />
+      <wsdl:output message="tns:GetMobileFilelistSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RetailServiceSoap" type="tns:RetailServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="https://weborders.masoutis.gr/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostData">
+      <soap:operation soapAction="https://weborders.masoutis.gr/PostData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSeries">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetSeries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentStatus">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDocumentStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItem">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemWithBarcodeCustomer">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetItemWithBarcodeCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemWithBarcode">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetItemWithBarcode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrice">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceCustomer">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetPriceCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentDetailCustomer">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDocumentDetailCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentDetail">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDocumentDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrder">
+      <soap:operation soapAction="https://weborders.masoutis.gr/ValidateOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostDocument">
+      <soap:operation soapAction="https://weborders.masoutis.gr/PostDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserType">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetUserType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomersOfUser">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetCustomersOfUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetCustomers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalUpdates">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetTotalUpdates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserStoreAccess">
+      <soap:operation soapAction="https://weborders.masoutis.gr/getUserStoreAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStores">
+      <soap:operation soapAction="https://weborders.masoutis.gr/getStores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAppSettings">
+      <soap:operation soapAction="https://weborders.masoutis.gr/getAppSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CleanFile">
+      <soap:operation soapAction="https://weborders.masoutis.gr/CleanFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalUpdatesLink">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetTotalUpdatesLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidStorePriceCatalogPair">
+      <soap:operation soapAction="https://weborders.masoutis.gr/CheckValidStorePriceCatalogPair" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeaders">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDocumentHeaders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeadersXML">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDocumentHeadersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeadersXMLWithFilters">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDocumentHeadersXMLWithFilters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCustomer">
+      <soap:operation soapAction="https://weborders.masoutis.gr/CreateCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagesLink">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetImagesLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesExistsAndIsActive">
+      <soap:operation soapAction="https://weborders.masoutis.gr/DoesExistsAndIsActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInactiveObjects">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetInactiveObjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerGuid">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetStoreControllerGuid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOwner">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetOwner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerSettings">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetStoreControllerSettings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreOfStoreController">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetStoreOfStoreController" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDefaultCustomerOfStoreController">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetDefaultCustomerOfStoreController" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <soap:operation soapAction="https://weborders.masoutis.gr/GetMobileFilelist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RetailServiceSoap12" type="tns:RetailServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostData">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/PostData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSeries">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetSeries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentStatus">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDocumentStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItem">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemWithBarcodeCustomer">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetItemWithBarcodeCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItemWithBarcode">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetItemWithBarcode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrice">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetPrice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceCustomer">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetPriceCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentDetailCustomer">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDocumentDetailCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentDetail">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDocumentDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrder">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/ValidateOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostDocument">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/PostDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserType">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetUserType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomersOfUser">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetCustomersOfUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomers">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetCustomers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalUpdates">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetTotalUpdates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserStoreAccess">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/getUserStoreAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStores">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/getStores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAppSettings">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/getAppSettings" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CleanFile">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/CleanFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalUpdatesLink">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetTotalUpdatesLink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidStorePriceCatalogPair">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/CheckValidStorePriceCatalogPair" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeaders">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDocumentHeaders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeadersXML">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDocumentHeadersXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocumentHeadersXMLWithFilters">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDocumentHeadersXMLWithFilters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCustomer">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/CreateCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagesLink">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetImagesLink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoesExistsAndIsActive">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/DoesExistsAndIsActive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInactiveObjects">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetInactiveObjects" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerGuid">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetStoreControllerGuid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOwner">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetOwner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreControllerSettings">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetStoreControllerSettings" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreOfStoreController">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetStoreOfStoreController" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDefaultCustomerOfStoreController">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetDefaultCustomerOfStoreController" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <soap12:operation soapAction="https://weborders.masoutis.gr/GetMobileFilelist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RetailService">
+    <wsdl:port name="RetailServiceSoap" binding="tns:RetailServiceSoap">
+      <soap:address location="http://localhost/its.retail.webclient/retailservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RetailServiceSoap12" binding="tns:RetailServiceSoap12">
+      <soap12:address location="http://localhost/its.retail.webclient/retailservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

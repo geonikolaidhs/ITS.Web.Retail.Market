@@ -1,0 +1,37 @@
+﻿@{
+    List<Script> scriptsToRender = new List<Script>(8);
+    scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.GridView });
+    scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.Editors });
+    scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout });
+    scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.TreeList });
+
+
+    if (ViewBag.EnableDevexpressHtmlEditor != null && ViewBag.EnableDevexpressHtmlEditor == true)
+    {
+        scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.HtmlEditor });
+    }
+
+    if (ViewBag.EnableDevexpressChart != null && ViewBag.EnableDevexpressChart == true)
+    {
+        scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.Chart });
+    }
+
+    if (ViewBag.EnableDevexpressReports != null && ViewBag.EnableDevexpressReports == true)
+    {
+        scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.Report });
+    }
+
+    if (ViewBag.EnableDevexpressDockingPanels != null && ViewBag.EnableDevexpressDockingPanels == true)
+    {
+        @*@Html.DevExpress().GetScripts(new Script { ExtensionSuite = ExtensionSuite.GridView },
+            new Script { ExtensionSuite = ExtensionSuite.Editors },
+            new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout })*@
+    }
+
+    if (ViewBag.EnableDevexpressPivotGrid != null && ViewBag.EnableDevexpressPivotGrid == true)
+    {
+        scriptsToRender.Add(new Script { ExtensionSuite = ExtensionSuite.PivotGrid });
+    }
+
+    Html.DevExpress().GetScripts(scriptsToRender.ToArray());
+}

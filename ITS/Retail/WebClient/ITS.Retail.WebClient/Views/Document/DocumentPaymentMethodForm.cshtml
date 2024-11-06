@@ -1,0 +1,101 @@
+﻿@using System.Reflection;
+@using ITS.Retail.Model;
+
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "DocumentPaymentMethodPanel";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "DocumentPaymentMethodForm" };
+    settings.SettingsLoadingPanel.Enabled = false;
+                  
+    settings.SetContent(() =>
+    {
+        DocumentPayment documentPayment = Session["currentDocumentPayment"] as DocumentPayment;
+        foreach (KeyValuePair<PropertyInfo, string> pair in (Model as Dictionary<PropertyInfo, string>))
+        {
+            PropertyInfo propertyInfo = pair.Key;
+            object propertyValue = DataBinder.Eval(documentPayment, propertyInfo.Name);
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Text = Resources.ResourceManager.GetString(pair.Value);
+                if (string.IsNullOrWhiteSpace(edtSettings.Text))
+                {
+                    edtSettings.Text = pair.Value;
+                }                
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }).Render();                 
+                 
+            if( propertyInfo.PropertyType.IsSubclassOf(typeof(ITS.Retail.Model.BaseObj)) )
+            {                    
+                Html.DevExpress().ComboBox(cmbSettings =>
+                {
+                    string textField = "Description";
+                    cmbSettings.Name = propertyInfo.Name.Replace("ITS.Retail.Model.","")+"!Key";
+                    cmbSettings.ControlStyle.CssClass = "editor";
+                    cmbSettings.Properties.TextField = textField;
+                    cmbSettings.Properties.ValueField = "Oid";
+                    cmbSettings.Properties.ValueType = typeof(Guid);
+                    cmbSettings.ShowModelErrors = true;
+                    cmbSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    cmbSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+                    if (propertyInfo.PropertyType.Equals(typeof(ITS.Retail.Model.PaymentMethod)))
+                    {
+                        cmbSettings.Properties.ClientSideEvents.SelectedIndexChanged = "OnPaymentMethodChanged";
+                    }
+                }).BindList(ViewData[propertyInfo.Name]).Bind(DataBinder.Eval(documentPayment, propertyInfo.Name+"!Key")).Render();
+            }
+            else if (propertyInfo.PropertyType.Equals(typeof(bool)))
+            {
+                Html.DevExpress().CheckBox(edtSettings =>
+                {
+                    edtSettings.Name = propertyInfo.Name;
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.Properties.ValueType = typeof(bool);
+                    edtSettings.Properties.ValueChecked = true;
+                    edtSettings.Properties.ValueUnchecked = false;
+                    edtSettings.Properties.ValueGrayed = false;
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                }).Bind(DataBinder.Eval(documentPayment, propertyInfo.Name)).Render();
+            }
+            else if (propertyInfo.PropertyType.Equals(typeof(DateTime)))
+            {
+                Html.DevExpress().DateEdit(edtSettings =>
+                {
+                    edtSettings.Name = propertyInfo.Name;
+                }).Bind(DataBinder.Eval(documentPayment, propertyInfo.Name)).Render();
+            }
+            else if (propertyInfo.PropertyType.Equals(typeof(String)))
+            {
+                Html.DevExpress().TextBox(edtSettings =>
+                {
+                    edtSettings.Name = propertyInfo.Name;
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ShowModelErrors = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+                }).Bind(DataBinder.Eval(documentPayment, propertyInfo.Name)).GetHtml();
+            }
+            else
+            {
+                Html.DevExpress().SpinEdit(edtSettings =>
+                {
+                    edtSettings.Name = propertyInfo.Name;
+                    edtSettings.Properties.MinValue = -999999999;
+                    edtSettings.Properties.MaxValue = 999999999;
+                    edtSettings.Properties.MaxLength = 999;
+                    edtSettings.Properties.NumberType = propertyInfo.PropertyType == typeof(int) ? SpinEditNumberType.Integer : SpinEditNumberType.Float;
+                    //if(edtSettings.Properties.NumberType == SpinEditNumberType.Float)
+                    //{
+                    //    edtSettings.Properties.DecimalPlaces = 2;
+                    //}
+                    //edtSettings.ShowModelErrors = true;
+                    //edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    //edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                }).Bind(DataBinder.Eval(documentPayment, propertyInfo.Name)).Render();
+            }
+        }
+    });        
+}).GetHtml()

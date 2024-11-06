@@ -1,0 +1,134 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.ItemCategories;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Item.css?v=" + ViewData["ApplicationVersionNumber"]));
+
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/TreeView.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/AddItemsToCategory.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+
+    <style>
+
+        a.dxbButton_ITSTheme1.dxgvCommandColumnItem_ITSTheme1 {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            /*margin-left: 20px !important;
+            margin-right: 20px !important;*/
+        }
+
+            a.dxbButton_ITSTheme1.dxgvCommandColumnItem_ITSTheme1 span {
+                color: #06a7ff !important;
+                font-size: 14px !important;
+                font-weight: 400 !important;
+            }
+    </style>
+
+}
+
+
+@Html.Partial("../Shared/PopupAddCallbackPanel")
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 30%;" class="vertical-align-td-top">
+            <table style="height:100%">
+                <tr>
+                    <td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "btninsertroot";
+                            settings.Text = Resources.AddNewTree;
+                            settings.ClientSideEvents.Click = "OpenCategoryTreeView";
+                            settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+                            settings.Enabled = (bool)ViewData["TableCanInsert"];
+                            settings.ClientVisible = (bool)ViewData["TableCanInsert"];
+
+                        }).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "btninsert";
+                            settings.Text = Resources.AddNewNode;
+                            settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+                            settings.ClientSideEvents.Click = "function(s,e){showpopup(CategoryTreeView,0)}";
+                            settings.Enabled = (bool)ViewData["TableCanInsert"];
+                            settings.ClientVisible = (bool)ViewData["TableCanInsert"];
+                        }).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "btnedit";
+                            settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+                            settings.Text = Resources.Edit;
+                            settings.ClientSideEvents.Click = "function(s,e){showpopup(CategoryTreeView,1)}";
+                            settings.Enabled = (bool)ViewData["TableCanUpdate"];
+                            settings.ClientVisible = (bool)ViewData["TableCanInsert"];
+                        }).GetHtml()
+                    </td>
+                    <td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "btndelete";
+                            settings.Text = Resources.Delete;
+                            settings.ClientSideEvents.Click = "function(s,e){deletenode(s,e,CategoryTreeView)}";
+                            settings.Enabled = (bool)ViewData["TableCanDelete"];
+                            settings.ClientVisible = (bool)ViewData["TableCanInsert"];
+                        }).GetHtml()
+                    </td>
+                </tr>
+            </table>
+            <div id="CategoriesTree">
+                @Html.Partial("TreeViewPartial")
+            </div>
+            @Html.Partial("EditTreeViewPopup")
+        </td>
+        <td class="vertical-align-td-top">
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "showMembersOfCategoryBtn";
+                            settings.Text = Resources.Select;
+                            settings.ClientVisible = false;
+                            settings.ClientSideEvents.Click = "showMembersOfCategoryBtnClick";
+                        }).GetHtml()
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Partial("ItemsOfNode", ViewData["ItemAnalyticTree"])
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.AccessibilityCompliant = true;
+    settings.Name = "pcCategoriesPopup";
+    settings.AllowDragging = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.HeaderText = Resources.DoubleClickToSelectCategory;
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+    settings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Auto;
+    settings.MaxHeight = 600;
+    settings.Height = 400;
+    settings.AllowResize = true;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("TreeViewPopupPartial", ViewData["ItemAnalyticTree"]);
+    });
+}).GetHtml()

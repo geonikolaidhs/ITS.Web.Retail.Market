@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>NUnit unit test snippet</Title>
+      <Author>Dave Lowe</Author>
+      <Description>Adds a unit test stub method for NUnit</Description>
+      <Shortcut>aaa</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Method</ID>
+          <ToolTip>name of method under test</ToolTip>
+          <Default>MethodName</Default>
+          <Type>string</Type>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Scenario</ID>
+          <ToolTip>scenario under test</ToolTip>
+          <Default>Scenario</Default>
+          <Type>string</Type>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Expectation</ID>
+          <ToolTip>expected behaviour</ToolTip>
+          <Default>Expectation</Default>
+          <Type>string</Type>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp">
+        <![CDATA[
+        [Test]
+        public void $Method$_$Scenario$_$Expectation$(){
+          //Arrange
+		  
+          //Act
+		  
+          //Assert
+		  Assert.Fail();
+        }]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,35 @@
+﻿@using ITS.Retail.WebClient;
+@using ITS.Retail.ResourcesLib;
+@using DevExpress.Data.Filtering;
+@using DevExpress.Xpo;
+
+@{
+    ePOSDocumentTypes documentType = (ePOSDocumentTypes)ViewData["ePOSDocumentType"];
+}
+
+@Html.DevExpress().CallbackPanel(set =>
+{
+    set.Name = documentType + "DocumentSeriesCBP";
+    set.CallbackRouteValues = new { Controller = "POS", Action = "DocumentSeriesCallbackPanel", ePOSDocumentType = ViewData["ePOSDocumentType"] };
+    set.SetContent(() =>
+    {
+        Html.DevExpress().ComboBox(
+        edtSettings =>
+        {
+            edtSettings.Name = documentType+"DocumentSeries";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = documentType != ePOSDocumentTypes.SpecialProforma;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+        })
+        .BindList(ViewBag.DocumentSeries)
+        .Bind(DataBinder.Eval(Model, documentType+"DocumentSeries!Key")).Render();
+    });
+}).GetHtml()

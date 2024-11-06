@@ -1,0 +1,615 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+//@extend-elements
+//original selectors
+//.wrapper .container .tag_cloud #ItemTagCloudLastTwoMonths, .wrapper .container .tag_cloud #ItemTagCloudLastYearTwoMonths
+%extend_1 {
+    vertical-align: top;
+    display: inline-block;
+    width: 49%;
+}
+
+#OrderItemsPopUp_PWC-1{
+
+    position: relative;
+    
+}
+
+.wrapper {
+    .Document_SelectDocumentTypeAndSeries {
+        .slections {
+            height: 106px;
+            margin: 50px auto;
+            position: relative;
+            width: 50%;
+        }
+
+        label {
+            float: left;
+            margin-left: 20px;
+        }
+
+        form {
+            bottom: 0;
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    .container {
+        .Document_OrderItems {
+            span {
+                display: block;
+                text-align: left;
+
+                &.dxeBase_ITSTheme1 {
+                    display: initial;
+                    font: 12px $arial;
+                }
+            }
+
+            .dxeButtonEditSys {
+                width: 420px;
+            }
+
+            div {
+                &.odrerInfoTable {
+                    background-color: $color_gallery_approx;
+                    border: solid 1px $color_celeste_approx;
+                    margin-bottom: 20px;
+                    overflow: hidden;
+                    padding: 10px;
+                }
+
+                &.itemInfo {
+                    text-align: center;
+
+                    #itemImagePanel {
+                        display: inline-block;
+                        vertical-align: top;
+                    }
+
+                    .documentDetailForm {
+                        display: inline-block;
+                        vertical-align: top;
+                    }
+
+                    #itemPanel {
+                        background: $white;
+                        display: inline-block;
+                        margin: 0;
+                        padding: 0;
+                        width: 65%;
+                    }
+
+                    div {
+                        label {
+                            clear: both;
+                            float: left;
+                        }
+
+                        table {
+                            clear: both;
+                            float: left;
+                        }
+                    }
+
+                    .left {
+                        background: $color_bon_jour_approx;
+                        margin-bottom: 20px;
+                        margin-right: 10px;
+                        position: relative;
+
+                        img {
+                            display: block;
+                            margin: 0 auto;
+                            width: 300px;
+
+                            &.plus {
+                                cursor: pointer;
+                                display: inline-block;
+                                margin: 7px 5px 0;
+                                width: 25px;
+                            }
+                        }
+
+                        #quality {
+                            clear: both;
+                            float: none;
+                            margin: 10px auto;
+                            overflow: hidden;
+                            text-align: center;
+                            width: 95%;
+                        }
+
+                        div {
+                            display: inline-block;
+                            text-align: left;
+                            vertical-align: top;
+
+                            span {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    .right {
+                        background: $white;
+
+                        label {
+                            margin: 10px 0 0;
+                        }
+
+                        table {
+                            width: 99%;
+                        }
+
+                        div {
+                            &.first {
+                                background: $color_bon_jour_approx;
+                                border: 1px solid $color_celeste_approx;
+                                margin-bottom: 10px;
+                                overflow: hidden;
+                                padding: 10px;
+
+                                div {
+                                    float: left;
+                                    width: 50%;
+                                }
+                            }
+
+                            &.second {
+                                min-height: 130px;
+                                position: relative;
+
+                                div {
+                                    label {
+                                        clear: none;
+                                        float: left;
+                                        margin: 5px 0 0 10px;
+                                        width: 145px;
+                                    }
+
+                                    table {
+                                        clear: none;
+                                        float: left;
+                                        margin: 0 0 10px 10px;
+                                        width: 100px;
+                                    }
+                                }
+                            }
+
+                            &.total {
+                                background: $color_dodger_blue_approx;
+                                color: $white;
+                                min-width: 100px;
+                                overflow: hidden;
+                                padding: 4px;
+                                text-align: right;
+
+                                label {
+                                    color: $white !important;
+                                    display: inline-block;
+                                    font-size: 18px;
+                                    font-weight: bold;
+                                    margin: 10px 15px 10px 0 !important;
+                                }
+
+                                span {
+                                    color: $white !important;
+                                    display: inline-block;
+                                    font-size: 23px !important;
+                                    font-weight: bold !important;
+                                    margin-top: 4px;
+                                    vertical-align: middle;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .odrerInfoTable {
+                div {
+                    float: left;
+
+                    label {
+                        display: block !important;
+                    }
+                }
+
+                #SearchByDescription {
+                    margin-left: 25px;
+                }
+
+                p#search_img {
+                    background-image: $search-small;
+                    background-repeat: no-repeat;
+                    background-size: 32px;
+                    float: left;
+                    font-weight: bold;
+                    margin: 0;
+                    margin-top: 3px;
+                    padding: 18px 17px;
+                }
+            }
+
+            #Continuebtn {
+                background: $color_bon_jour_approx;
+                background-image: $arrow-left;
+                background-position: center 15px;
+                background-repeat: no-repeat;
+                background-size: 35px;
+                display: block;
+                left: 0;
+                margin: 0 10px 10px 5px;
+                padding: 80px 0 10px;
+                text-align: center;
+                text-decoration: none;
+                top: 0;
+                width: 100px;
+                @include transition(all 0.5s ease);
+
+                &:hover {
+                    background-color: $color_blaze_orange_approx;
+                    color: $white;
+                }
+
+                &:focus {
+                    background-color: $color_blaze_orange_approx;
+                    color: $white;
+                }
+            }
+
+            .add_button {
+                @include transition(all .5s ease);
+                background: $color_bon_jour_approx;
+                background-image: $add-order;
+                background-position: center 15px;
+                background-repeat: no-repeat;
+                background-size: 48px;
+                display: block;
+                left: auto;
+                margin: 0 10px 10px 5px;
+                padding: 80px 0 10px;
+                position: absolute;
+                right: 0;
+                text-align: center;
+                text-decoration: none;
+                top: 0;
+                width: 100px;
+
+                &:hover {
+                    background-color: $color_blaze_orange_approx;
+                    color: $white;
+                }
+
+                &:focus {
+                    background-color: $color_blaze_orange_approx;
+                    color: $white;
+                }
+            }
+
+            h2 {
+                border-bottom: 4px solid $color_dodger_blue_approx;
+                padding-bottom: 5px;
+                position: absolute;
+                right: 0;
+                text-align: right;
+                top: 93px;
+                width: 98%;
+                margin-right: 1%;
+                margin-left: 1%;
+
+            }
+
+            #documentInfoPanel {
+                float: right;
+                margin-right: 110px;
+                overflow: hidden;
+                top: 0;
+                right: 0;
+                position: absolute;
+            }
+
+            #documentMenuPanel {
+                float: left;
+                margin-left: 110px;
+                overflow: hidden;
+                top:0;
+                position:absolute;
+                .basket {
+                    cursor: pointer;
+                    font-size: 18px;
+                    height: 74px;
+                    line-height: 2;
+                    padding-top: 20px;
+                    width: 40px;
+
+                    &:hover {
+                        background: $color_deep_cerulean_approx;
+                    }
+                }
+            }
+
+            .basket {
+                background: $color_venice_blue_approx;
+                background-image: none;
+                color: $white;
+                display: inline-block;
+                float: left;
+                font-size: 14px;
+                height: 84px;
+                line-height: 40px;
+                margin: 0 5px 10px 0;
+                min-width: 100px;
+                padding: 10px;
+                text-align: center;
+
+                span {
+                    font-size: 35px;
+                    text-align: center;
+                }
+            }
+
+            .basket2 {
+                margin-left: 0;
+            }
+
+            h4 {
+                margin: 10px 0 35px 120px;
+            }
+
+            img {
+                cursor: pointer;
+            }
+
+            input {
+                &#item_info_name_I {
+                    font-weight: bold;
+                }
+
+                &#spinlineqty_I {
+                    font-size: 15px;
+                }
+            }
+
+            #orderInfoContainer {
+                @include box-shadow( 0, 0,12px, $color_star_dust_approx);
+                background: $white;
+                margin: 30px auto;
+                min-height: 650px;
+                padding: 20px;
+                position: relative;
+                width: 80%;
+            }
+
+            .filters {
+                background: $color_gallery_approx;
+                border: 1px solid $color_celeste_approx;
+                float: left;
+                padding: 10px;
+
+                #inserted_after {
+                    width: auto !important;
+                }
+
+                #rdBLNewItems {
+                    border: none;
+                }
+
+                h3 {
+                    margin: 0;
+                }
+            }
+
+            .arrows {
+                background-image: $arrows;
+                background-position: -34px center;
+                background-repeat: no-repeat;
+                background-size: 80px;
+                color: $color_star_dust_approx;
+                cursor: pointer;
+                display: none;
+                font-size: 50px;
+                height: 75px;
+                left: 0;
+                opacity: .8;
+                position: absolute;
+                top: 42%;
+                width: 40px;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .arrows_right {
+                background-image: $arrows;
+                background-position: 0 center;
+                left: auto;
+                right: 0;
+            }
+
+            .dxtcLite_ITSTheme1 .dxtc-content {
+                margin-top: 125px;
+                overflow: visible;
+            }
+
+            .dxbButton_ITSTheme1 span {
+                color: $white;
+            }
+
+            table.splitterCategories {
+                td {
+                    &#splitterCategories_0 {
+                        background: $color_gallery_approx;
+                    }
+
+                    &#splitterCategories_1_S {
+                        background: $color_dodger_blue_approx;
+                    }
+                }
+
+                ul li {
+                    span {
+                        overflow: hidden;
+                    }
+
+                    div img {
+                        background-color: $color_nobel_approx;
+                        height: 24px;
+                        margin-bottom: -3px;
+                    }
+                }
+
+                #grdMembersOfNode .dxeTextBoxSys {
+                    width: 80px;
+                }
+            }
+
+            .OrderItemPhoto .OrderItemPhotoDiv {
+                background: $color_blaze_orange_approx;
+                bottom: 10px;
+                color: $white;
+                cursor: pointer;
+                font-size: 12px;
+                left: 0;
+                letter-spacing: 2px;
+                margin: 0;
+                padding: 5px;
+                position: absolute;
+                right: 30px;
+                text-align: left;
+                text-transform: lowercase;
+                @include box-shadow(1px, 1px, 5px, $color_mountain_mist_approx);
+                @include user-select(none);
+            }
+
+            .view_carousel:hover {
+                opacity: 1;
+            }
+
+            #close_btn:hover {
+                opacity: 1;
+            }
+        }
+
+        .Document_UserStores {
+            margin: 100px auto;
+            width: 80%;
+
+            .dxeButtonEditSys {
+                width: 270px;
+            }
+        }
+
+        .tag_cloud {
+            width: 100%;
+            text-align: center;
+            clear: both;
+
+            #ItemTagCloudLastTwoMonths {
+                @extend %extend_1;
+                @include breakpoint('1200-max'){
+                    width: auto;
+                }
+            }
+
+            #ItemTagCloudLastYearTwoMonths {
+                @extend %extend_1;
+                @include breakpoint('1200-max'){
+                    width: auto;
+                }
+            }
+
+            h3 {
+                background: $color_celeste_approx;
+                color: $color_mine_shaft_approx;
+                font-weight: normal;
+                margin: -10px -10px 10px -10px;
+                padding: 5px;
+            }
+
+            div.tagCloudInfo {
+                border: 1px solid $color_silver_approx;
+                display: inline-block;
+                margin: 5px;
+                padding: 10px;
+                text-align: center;
+
+                a {
+                    background: $color_black_haze_approx;
+                    display: inline-block;
+                    margin: 3px;
+                    padding: 3px;
+                    text-decoration: none;
+
+                    &:hover {
+                        background: $color_bon_jour_approx;
+                    }
+                }
+            }
+        }
+
+        .Document_SelectCustomer span.dxeBase_ITSTheme1 {
+            display: initial;
+            font: 12px $arial;
+        }
+
+        .EditView .vaxlabel {
+            float: left;
+            text-align: right;
+        }
+    }
+
+    .SelectDocumentTypeAndSeries #ff {
+        float: left;
+        margin-left: 20px;
+    }
+
+    .Document_Index .filter_panel {
+        border-spacing: 5px !important;
+        float: left;
+
+        td span {
+            text-align: right;
+        }
+
+        @include breakpoint('1200-max'){
+            .dxeButtonEdit_ITSTheme1 {
+                max-width: 185px !important;
+            }
+        }
+    }
+}
+
+.dxtcLoadingPanel_ITSTheme1 {
+    margin-top: 30px;
+}
+
+#orderInfoContainer {
+    .dxeDisabled_ITSTheme1 {
+        color: $black !important;
+    }
+
+    .itemPanel .total #final_sum {
+        color: $white !important;
+    }
+
+    .barcode-text-container #barcode_search input {
+        color: $color_venice_blue_approx !important;
+    }
+
+    #SearchByDescription #description_search input {
+        color: $color_venice_blue_approx !important;
+    }
+}
+
+#final_sum.dxeDisabled_ITSTheme1 {
+    color: $white !important;
+}

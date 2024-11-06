@@ -1,0 +1,2118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="getpath">
+        <s:complexType />
+      </s:element>
+      <s:element name="getpathResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getpathResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="suppcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="compCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="priceList" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductResult" type="tns:Product" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Product">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseXPObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Barcode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="VatCat" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Supplier" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsActiveOnSupplier" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtraCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ExtraCodeIsActive" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequiredQuantity" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="RestInvQty" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Stock" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="AverageMonthSales" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="OrderMM" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="extrainfo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductQuantities" type="tns:ArrayOfProductQuantity" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseXPObject">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:XPBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="CreatedOn" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="UpdatedOn" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="XPBaseObject" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PersistentBase" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PersistentBase" />
+      <s:complexType name="ArrayOfProductQuantity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductQuantity" nillable="true" type="tns:ProductQuantity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductQuantity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtraCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetReceiptProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="suppcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReceiptProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReceiptProductResult" type="tns:Product" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueueDocumentForExport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="header" type="tns:Header" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Header">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseXPObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="TerminalID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocType" type="tns:DOC_TYPES" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocStatus" type="tns:DOC_STATUS" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Append" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="DocNumber" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomerCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomerName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CustomerAFM" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Lines" type="tns:ArrayOfLine" />
+              <s:element minOccurs="0" maxOccurs="1" name="OutputPathName" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="DOC_TYPES">
+        <s:restriction base="s:string">
+          <s:enumeration value="ALL_TYPES" />
+          <s:enumeration value="ORDER" />
+          <s:enumeration value="NULL2" />
+          <s:enumeration value="INVOICE" />
+          <s:enumeration value="NULL4" />
+          <s:enumeration value="RECEPTION" />
+          <s:enumeration value="INVENTORY" />
+          <s:enumeration value="MATCHING" />
+          <s:enumeration value="PICKING" />
+          <s:enumeration value="TRANSFER" />
+          <s:enumeration value="TAG" />
+          <s:enumeration value="PRICE_CHECK" />
+          <s:enumeration value="COMPETITION" />
+          <s:enumeration value="ESL_INV" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DOC_STATUS">
+        <s:restriction base="s:string">
+          <s:enumeration value="OPEN" />
+          <s:enumeration value="CLOSED" />
+          <s:enumeration value="EXPORTED" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Line" nillable="true" type="tns:Line" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Line">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseXPObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Counter" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Header" type="s1:guid" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProdCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProdBarcode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Qty1" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Uniqueid" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="Flyer" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="QueueDocumentForExportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QueueDocumentForExportResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsMysql">
+        <s:complexType />
+      </s:element>
+      <s:element name="IsMysqlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsMysqlResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSupplier">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSupplierResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSupplierResult" type="tns:Customer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Customer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AFM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetOutputPaths">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetOutputPathsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOutputPathsResult" type="tns:ArrayOfOutputPath" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOutputPath">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OutputPath" nillable="true" type="tns:OutputPath" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OutputPath">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OutputPathName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FolderPath" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Default" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocTypes" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetBuildLabel">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetBuildLabelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBuildLabelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProductVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetESLInvLines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taxCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="invNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetESLInvLinesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetESLInvLinesResult" type="tns:ArrayOfESLInvLine" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfESLInvLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ESLInvLine" nillable="true" type="tns:ESLInvLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ESLInvLine">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseXPObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ProdCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProdBarcode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Qty" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="InventoryNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descr" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetInvLines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="taxCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvLinesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvLinesResult" type="tns:ArrayOfInvLine" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInvLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InvLine" nillable="true" type="tns:InvLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InvLine">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseXPObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ProdCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProdBarcode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Qty" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descr" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Export" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="outputPath" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="UploadESLInvLine">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="line" type="tns:ESLInvLine" />
+            <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="add" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadESLInvLineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadESLInvLineResult" type="tns:ESLInvLine" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadInvLine">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="line" type="tns:InvLine" />
+            <s:element minOccurs="1" maxOccurs="1" name="quantity" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="add" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="outputPath" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadInvLineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadInvLineResult" type="tns:InvLine" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWarehouses">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWarehousesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWarehousesResult" type="tns:ArrayOfWarehouse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWarehouse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Warehouse" nillable="true" type="tns:Warehouse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Warehouse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPriceLists">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPriceListsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPriceListsResult" type="tns:ArrayOfPriceList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPriceList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PriceList" nillable="true" type="tns:PriceList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PriceList">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetIEProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="compCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIEProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIEProductResult" type="tns:IEProduct" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IEProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ChainProduct" type="tns:IEProduct" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChainProductQuantity" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MeasurementUnitText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Points" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PricePerUnit" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="RelatedActions" type="tns:ArrayOfIEOffer" />
+          <s:element minOccurs="1" maxOccurs="1" name="CalculatedTotalPrice" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PricePerMeasurementUnit" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfIEOffer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IEOffer" nillable="true" type="tns:IEOffer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IEOffer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescriptionProcessed" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FinalPrice" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSingleItemDiscount" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountPercent" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidForMembers" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="OfferId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OperationId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RelatedProducts" type="tns:ArrayOfIEProduct" />
+          <s:element minOccurs="1" maxOccurs="1" name="AA" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoyaltyText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfIEProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IEProduct" nillable="true" type="tns:IEProduct" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetIEProductOffers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="compCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIEProductOffersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIEProductOffersResult" type="tns:ArrayOfIEOffer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductCheckAdd">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="compcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductCheckAddResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProductCheckAddResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductCheckRemove">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="compcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductCheckRemoveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProductCheckRemoveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateInvLine">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="outputPath" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateInvLineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateInvLineResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebServiceVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWebServiceVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWebServiceVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDestkopFilelist">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDestkopFilelistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDestkopFilelistResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMobileFilelist">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMobileFilelistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMobileFilelistResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="Product" nillable="true" type="tns:Product" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="Customer" nillable="true" type="tns:Customer" />
+      <s:element name="ArrayOfOutputPath" nillable="true" type="tns:ArrayOfOutputPath" />
+      <s:element name="ArrayOfESLInvLine" nillable="true" type="tns:ArrayOfESLInvLine" />
+      <s:element name="ArrayOfInvLine" nillable="true" type="tns:ArrayOfInvLine" />
+      <s:element name="ArrayOfWarehouse" nillable="true" type="tns:ArrayOfWarehouse" />
+      <s:element name="ArrayOfPriceList" nillable="true" type="tns:ArrayOfPriceList" />
+      <s:element name="IEProduct" nillable="true" type="tns:IEProduct" />
+      <s:element name="ArrayOfIEOffer" nillable="true" type="tns:ArrayOfIEOffer" />
+      <s:element name="ArrayOfArrayOfString" nillable="true" type="tns:ArrayOfArrayOfString" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getpathSoapIn">
+    <wsdl:part name="parameters" element="tns:getpath" />
+  </wsdl:message>
+  <wsdl:message name="getpathSoapOut">
+    <wsdl:part name="parameters" element="tns:getpathResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReceiptProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReceiptProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueueDocumentForExportSoapIn">
+    <wsdl:part name="parameters" element="tns:QueueDocumentForExport" />
+  </wsdl:message>
+  <wsdl:message name="QueueDocumentForExportSoapOut">
+    <wsdl:part name="parameters" element="tns:QueueDocumentForExportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsMysqlSoapIn">
+    <wsdl:part name="parameters" element="tns:IsMysql" />
+  </wsdl:message>
+  <wsdl:message name="IsMysqlSoapOut">
+    <wsdl:part name="parameters" element="tns:IsMysqlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSupplierSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSupplier" />
+  </wsdl:message>
+  <wsdl:message name="GetSupplierSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOutputPathsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOutputPaths" />
+  </wsdl:message>
+  <wsdl:message name="GetOutputPathsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOutputPathsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBuildLabelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBuildLabel" />
+  </wsdl:message>
+  <wsdl:message name="GetBuildLabelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBuildLabelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetProductVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetESLInvLinesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetESLInvLines" />
+  </wsdl:message>
+  <wsdl:message name="GetESLInvLinesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetESLInvLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvLinesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvLines" />
+  </wsdl:message>
+  <wsdl:message name="GetInvLinesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadESLInvLineSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadESLInvLine" />
+  </wsdl:message>
+  <wsdl:message name="UploadESLInvLineSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadESLInvLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvLineSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadInvLine" />
+  </wsdl:message>
+  <wsdl:message name="UploadInvLineSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadInvLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWarehousesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWarehouses" />
+  </wsdl:message>
+  <wsdl:message name="GetWarehousesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWarehousesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceListsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPriceLists" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceListsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPriceListsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIEProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIEProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductOffersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIEProductOffers" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductOffersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIEProductOffersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckAddSoapIn">
+    <wsdl:part name="parameters" element="tns:ProductCheckAdd" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckAddSoapOut">
+    <wsdl:part name="parameters" element="tns:ProductCheckAddResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckRemoveSoapIn">
+    <wsdl:part name="parameters" element="tns:ProductCheckRemove" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckRemoveSoapOut">
+    <wsdl:part name="parameters" element="tns:ProductCheckRemoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvLineSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateInvLine" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvLineSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateInvLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWebServiceVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWebServiceVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDestkopFilelistSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDestkopFilelist" />
+  </wsdl:message>
+  <wsdl:message name="GetDestkopFilelistSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDestkopFilelistResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileFilelistSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMobileFilelist" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileFilelistSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMobileFilelistResponse" />
+  </wsdl:message>
+  <wsdl:message name="getpathHttpGetIn" />
+  <wsdl:message name="getpathHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProductHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="suppcode" type="s:string" />
+    <wsdl:part name="compCode" type="s:string" />
+    <wsdl:part name="priceList" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProductHttpGetOut">
+    <wsdl:part name="Body" element="tns:Product" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptProductHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="suppcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptProductHttpGetOut">
+    <wsdl:part name="Body" element="tns:Product" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionHttpGetIn" />
+  <wsdl:message name="GetVersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="IsMysqlHttpGetIn" />
+  <wsdl:message name="IsMysqlHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetSupplierHttpGetIn">
+    <wsdl:part name="searchString" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSupplierHttpGetOut">
+    <wsdl:part name="Body" element="tns:Customer" />
+  </wsdl:message>
+  <wsdl:message name="GetOutputPathsHttpGetIn" />
+  <wsdl:message name="GetOutputPathsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfOutputPath" />
+  </wsdl:message>
+  <wsdl:message name="GetBuildLabelHttpGetIn" />
+  <wsdl:message name="GetBuildLabelHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProductVersionHttpGetIn" />
+  <wsdl:message name="GetProductVersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetESLInvLinesHttpGetIn">
+    <wsdl:part name="taxCode" type="s:string" />
+    <wsdl:part name="invNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetESLInvLinesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfESLInvLine" />
+  </wsdl:message>
+  <wsdl:message name="GetInvLinesHttpGetIn">
+    <wsdl:part name="taxCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetInvLinesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfInvLine" />
+  </wsdl:message>
+  <wsdl:message name="GetWarehousesHttpGetIn" />
+  <wsdl:message name="GetWarehousesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWarehouse" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceListsHttpGetIn" />
+  <wsdl:message name="GetPriceListsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPriceList" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductHttpGetOut">
+    <wsdl:part name="Body" element="tns:IEProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductOffersHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductOffersHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIEOffer" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckAddHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckAddHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckRemoveHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckRemoveHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvLineHttpGetIn">
+    <wsdl:part name="outputPath" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvLineHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceVersionHttpGetIn" />
+  <wsdl:message name="GetWebServiceVersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDestkopFilelistHttpGetIn" />
+  <wsdl:message name="GetDestkopFilelistHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileFilelistHttpGetIn" />
+  <wsdl:message name="GetMobileFilelistHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="getpathHttpPostIn" />
+  <wsdl:message name="getpathHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProductHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="suppcode" type="s:string" />
+    <wsdl:part name="compCode" type="s:string" />
+    <wsdl:part name="priceList" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProductHttpPostOut">
+    <wsdl:part name="Body" element="tns:Product" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptProductHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="suppcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetReceiptProductHttpPostOut">
+    <wsdl:part name="Body" element="tns:Product" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionHttpPostIn" />
+  <wsdl:message name="GetVersionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="IsMysqlHttpPostIn" />
+  <wsdl:message name="IsMysqlHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetSupplierHttpPostIn">
+    <wsdl:part name="searchString" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSupplierHttpPostOut">
+    <wsdl:part name="Body" element="tns:Customer" />
+  </wsdl:message>
+  <wsdl:message name="GetOutputPathsHttpPostIn" />
+  <wsdl:message name="GetOutputPathsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfOutputPath" />
+  </wsdl:message>
+  <wsdl:message name="GetBuildLabelHttpPostIn" />
+  <wsdl:message name="GetBuildLabelHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetProductVersionHttpPostIn" />
+  <wsdl:message name="GetProductVersionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetESLInvLinesHttpPostIn">
+    <wsdl:part name="taxCode" type="s:string" />
+    <wsdl:part name="invNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetESLInvLinesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfESLInvLine" />
+  </wsdl:message>
+  <wsdl:message name="GetInvLinesHttpPostIn">
+    <wsdl:part name="taxCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetInvLinesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfInvLine" />
+  </wsdl:message>
+  <wsdl:message name="GetWarehousesHttpPostIn" />
+  <wsdl:message name="GetWarehousesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfWarehouse" />
+  </wsdl:message>
+  <wsdl:message name="GetPriceListsHttpPostIn" />
+  <wsdl:message name="GetPriceListsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfPriceList" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductHttpPostOut">
+    <wsdl:part name="Body" element="tns:IEProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductOffersHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetIEProductOffersHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIEOffer" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckAddHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckAddHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckRemoveHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="compcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProductCheckRemoveHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvLineHttpPostIn">
+    <wsdl:part name="outputPath" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvLineHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceVersionHttpPostIn" />
+  <wsdl:message name="GetWebServiceVersionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDestkopFilelistHttpPostIn" />
+  <wsdl:message name="GetDestkopFilelistHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="GetMobileFilelistHttpPostIn" />
+  <wsdl:message name="GetMobileFilelistHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfArrayOfString" />
+  </wsdl:message>
+  <wsdl:portType name="MobileWebServiceSoap">
+    <wsdl:operation name="getpath">
+      <wsdl:input message="tns:getpathSoapIn" />
+      <wsdl:output message="tns:getpathSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <wsdl:input message="tns:GetProductSoapIn" />
+      <wsdl:output message="tns:GetProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <wsdl:input message="tns:GetReceiptProductSoapIn" />
+      <wsdl:output message="tns:GetReceiptProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueueDocumentForExport">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Stores a document for export along with his lines</wsdl:documentation>
+      <wsdl:input message="tns:QueueDocumentForExportSoapIn" />
+      <wsdl:output message="tns:QueueDocumentForExportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the version of the mobile services</wsdl:documentation>
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SRS or Cubit</wsdl:documentation>
+      <wsdl:input message="tns:IsMysqlSoapIn" />
+      <wsdl:output message="tns:IsMysqlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a supplier by his AFM or Code</wsdl:documentation>
+      <wsdl:input message="tns:GetSupplierSoapIn" />
+      <wsdl:output message="tns:GetSupplierSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of output paths that can be used as export paths</wsdl:documentation>
+      <wsdl:input message="tns:GetOutputPathsSoapIn" />
+      <wsdl:output message="tns:GetOutputPathsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the build label of this installation</wsdl:documentation>
+      <wsdl:input message="tns:GetBuildLabelSoapIn" />
+      <wsdl:output message="tns:GetBuildLabelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the product version</wsdl:documentation>
+      <wsdl:input message="tns:GetProductVersionSoapIn" />
+      <wsdl:output message="tns:GetProductVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a number of rows matching the given criteria</wsdl:documentation>
+      <wsdl:input message="tns:GetESLInvLinesSoapIn" />
+      <wsdl:output message="tns:GetESLInvLinesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a number of rows matching the given criteria</wsdl:documentation>
+      <wsdl:input message="tns:GetInvLinesSoapIn" />
+      <wsdl:output message="tns:GetInvLinesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadESLInvLine">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Strores a eslinv line into the database</wsdl:documentation>
+      <wsdl:input message="tns:UploadESLInvLineSoapIn" />
+      <wsdl:output message="tns:UploadESLInvLineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvLine">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Strores a inv line into the database</wsdl:documentation>
+      <wsdl:input message="tns:UploadInvLineSoapIn" />
+      <wsdl:output message="tns:UploadInvLineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the warehouses from srs</wsdl:documentation>
+      <wsdl:input message="tns:GetWarehousesSoapIn" />
+      <wsdl:output message="tns:GetWarehousesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the price lists from srs</wsdl:documentation>
+      <wsdl:input message="tns:GetPriceListsSoapIn" />
+      <wsdl:output message="tns:GetPriceListsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the product with a similar method to the price at store</wsdl:documentation>
+      <wsdl:input message="tns:GetIEProductSoapIn" />
+      <wsdl:output message="tns:GetIEProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the product offers with a similar method to the price at store</wsdl:documentation>
+      <wsdl:input message="tns:GetIEProductOffersSoapIn" />
+      <wsdl:output message="tns:GetIEProductOffersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds a product for check</wsdl:documentation>
+      <wsdl:input message="tns:ProductCheckAddSoapIn" />
+      <wsdl:output message="tns:ProductCheckAddSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Removes a product from check list</wsdl:documentation>
+      <wsdl:input message="tns:ProductCheckRemoveSoapIn" />
+      <wsdl:output message="tns:ProductCheckRemoveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update InvLine</wsdl:documentation>
+      <wsdl:input message="tns:UpdateInvLineSoapIn" />
+      <wsdl:output message="tns:UpdateInvLineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get WebService Version</wsdl:documentation>
+      <wsdl:input message="tns:GetWebServiceVersionSoapIn" />
+      <wsdl:output message="tns:GetWebServiceVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetDestkopFilelistSoapIn" />
+      <wsdl:output message="tns:GetDestkopFilelistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileFilelistSoapIn" />
+      <wsdl:output message="tns:GetMobileFilelistSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MobileWebServiceHttpGet">
+    <wsdl:operation name="getpath">
+      <wsdl:input message="tns:getpathHttpGetIn" />
+      <wsdl:output message="tns:getpathHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <wsdl:input message="tns:GetProductHttpGetIn" />
+      <wsdl:output message="tns:GetProductHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <wsdl:input message="tns:GetReceiptProductHttpGetIn" />
+      <wsdl:output message="tns:GetReceiptProductHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the version of the mobile services</wsdl:documentation>
+      <wsdl:input message="tns:GetVersionHttpGetIn" />
+      <wsdl:output message="tns:GetVersionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SRS or Cubit</wsdl:documentation>
+      <wsdl:input message="tns:IsMysqlHttpGetIn" />
+      <wsdl:output message="tns:IsMysqlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a supplier by his AFM or Code</wsdl:documentation>
+      <wsdl:input message="tns:GetSupplierHttpGetIn" />
+      <wsdl:output message="tns:GetSupplierHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of output paths that can be used as export paths</wsdl:documentation>
+      <wsdl:input message="tns:GetOutputPathsHttpGetIn" />
+      <wsdl:output message="tns:GetOutputPathsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the build label of this installation</wsdl:documentation>
+      <wsdl:input message="tns:GetBuildLabelHttpGetIn" />
+      <wsdl:output message="tns:GetBuildLabelHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the product version</wsdl:documentation>
+      <wsdl:input message="tns:GetProductVersionHttpGetIn" />
+      <wsdl:output message="tns:GetProductVersionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a number of rows matching the given criteria</wsdl:documentation>
+      <wsdl:input message="tns:GetESLInvLinesHttpGetIn" />
+      <wsdl:output message="tns:GetESLInvLinesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a number of rows matching the given criteria</wsdl:documentation>
+      <wsdl:input message="tns:GetInvLinesHttpGetIn" />
+      <wsdl:output message="tns:GetInvLinesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the warehouses from srs</wsdl:documentation>
+      <wsdl:input message="tns:GetWarehousesHttpGetIn" />
+      <wsdl:output message="tns:GetWarehousesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the price lists from srs</wsdl:documentation>
+      <wsdl:input message="tns:GetPriceListsHttpGetIn" />
+      <wsdl:output message="tns:GetPriceListsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the product with a similar method to the price at store</wsdl:documentation>
+      <wsdl:input message="tns:GetIEProductHttpGetIn" />
+      <wsdl:output message="tns:GetIEProductHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the product offers with a similar method to the price at store</wsdl:documentation>
+      <wsdl:input message="tns:GetIEProductOffersHttpGetIn" />
+      <wsdl:output message="tns:GetIEProductOffersHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds a product for check</wsdl:documentation>
+      <wsdl:input message="tns:ProductCheckAddHttpGetIn" />
+      <wsdl:output message="tns:ProductCheckAddHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Removes a product from check list</wsdl:documentation>
+      <wsdl:input message="tns:ProductCheckRemoveHttpGetIn" />
+      <wsdl:output message="tns:ProductCheckRemoveHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update InvLine</wsdl:documentation>
+      <wsdl:input message="tns:UpdateInvLineHttpGetIn" />
+      <wsdl:output message="tns:UpdateInvLineHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get WebService Version</wsdl:documentation>
+      <wsdl:input message="tns:GetWebServiceVersionHttpGetIn" />
+      <wsdl:output message="tns:GetWebServiceVersionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetDestkopFilelistHttpGetIn" />
+      <wsdl:output message="tns:GetDestkopFilelistHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileFilelistHttpGetIn" />
+      <wsdl:output message="tns:GetMobileFilelistHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MobileWebServiceHttpPost">
+    <wsdl:operation name="getpath">
+      <wsdl:input message="tns:getpathHttpPostIn" />
+      <wsdl:output message="tns:getpathHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <wsdl:input message="tns:GetProductHttpPostIn" />
+      <wsdl:output message="tns:GetProductHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <wsdl:input message="tns:GetReceiptProductHttpPostIn" />
+      <wsdl:output message="tns:GetReceiptProductHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the version of the mobile services</wsdl:documentation>
+      <wsdl:input message="tns:GetVersionHttpPostIn" />
+      <wsdl:output message="tns:GetVersionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SRS or Cubit</wsdl:documentation>
+      <wsdl:input message="tns:IsMysqlHttpPostIn" />
+      <wsdl:output message="tns:IsMysqlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets a supplier by his AFM or Code</wsdl:documentation>
+      <wsdl:input message="tns:GetSupplierHttpPostIn" />
+      <wsdl:output message="tns:GetSupplierHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of output paths that can be used as export paths</wsdl:documentation>
+      <wsdl:input message="tns:GetOutputPathsHttpPostIn" />
+      <wsdl:output message="tns:GetOutputPathsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the build label of this installation</wsdl:documentation>
+      <wsdl:input message="tns:GetBuildLabelHttpPostIn" />
+      <wsdl:output message="tns:GetBuildLabelHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns the product version</wsdl:documentation>
+      <wsdl:input message="tns:GetProductVersionHttpPostIn" />
+      <wsdl:output message="tns:GetProductVersionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a number of rows matching the given criteria</wsdl:documentation>
+      <wsdl:input message="tns:GetESLInvLinesHttpPostIn" />
+      <wsdl:output message="tns:GetESLInvLinesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a number of rows matching the given criteria</wsdl:documentation>
+      <wsdl:input message="tns:GetInvLinesHttpPostIn" />
+      <wsdl:output message="tns:GetInvLinesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the warehouses from srs</wsdl:documentation>
+      <wsdl:input message="tns:GetWarehousesHttpPostIn" />
+      <wsdl:output message="tns:GetWarehousesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the price lists from srs</wsdl:documentation>
+      <wsdl:input message="tns:GetPriceListsHttpPostIn" />
+      <wsdl:output message="tns:GetPriceListsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the product with a similar method to the price at store</wsdl:documentation>
+      <wsdl:input message="tns:GetIEProductHttpPostIn" />
+      <wsdl:output message="tns:GetIEProductHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the product offers with a similar method to the price at store</wsdl:documentation>
+      <wsdl:input message="tns:GetIEProductOffersHttpPostIn" />
+      <wsdl:output message="tns:GetIEProductOffersHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adds a product for check</wsdl:documentation>
+      <wsdl:input message="tns:ProductCheckAddHttpPostIn" />
+      <wsdl:output message="tns:ProductCheckAddHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Removes a product from check list</wsdl:documentation>
+      <wsdl:input message="tns:ProductCheckRemoveHttpPostIn" />
+      <wsdl:output message="tns:ProductCheckRemoveHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update InvLine</wsdl:documentation>
+      <wsdl:input message="tns:UpdateInvLineHttpPostIn" />
+      <wsdl:output message="tns:UpdateInvLineHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get WebService Version</wsdl:documentation>
+      <wsdl:input message="tns:GetWebServiceVersionHttpPostIn" />
+      <wsdl:output message="tns:GetWebServiceVersionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetDestkopFilelistHttpPostIn" />
+      <wsdl:output message="tns:GetDestkopFilelistHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Mobile Filelist</wsdl:documentation>
+      <wsdl:input message="tns:GetMobileFilelistHttpPostIn" />
+      <wsdl:output message="tns:GetMobileFilelistHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MobileWebServiceSoap" type="tns:MobileWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getpath">
+      <soap:operation soapAction="http://tempuri.org/getpath" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <soap:operation soapAction="http://tempuri.org/GetProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <soap:operation soapAction="http://tempuri.org/GetReceiptProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueueDocumentForExport">
+      <soap:operation soapAction="http://tempuri.org/QueueDocumentForExport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <soap:operation soapAction="http://tempuri.org/IsMysql" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <soap:operation soapAction="http://tempuri.org/GetSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <soap:operation soapAction="http://tempuri.org/GetOutputPaths" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <soap:operation soapAction="http://tempuri.org/GetBuildLabel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <soap:operation soapAction="http://tempuri.org/GetProductVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <soap:operation soapAction="http://tempuri.org/GetESLInvLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <soap:operation soapAction="http://tempuri.org/GetInvLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadESLInvLine">
+      <soap:operation soapAction="http://tempuri.org/UploadESLInvLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvLine">
+      <soap:operation soapAction="http://tempuri.org/UploadInvLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <soap:operation soapAction="http://tempuri.org/GetWarehouses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <soap:operation soapAction="http://tempuri.org/GetPriceLists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <soap:operation soapAction="http://tempuri.org/GetIEProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <soap:operation soapAction="http://tempuri.org/GetIEProductOffers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <soap:operation soapAction="http://tempuri.org/ProductCheckAdd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <soap:operation soapAction="http://tempuri.org/ProductCheckRemove" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <soap:operation soapAction="http://tempuri.org/UpdateInvLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <soap:operation soapAction="http://tempuri.org/GetWebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <soap:operation soapAction="http://tempuri.org/GetDestkopFilelist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <soap:operation soapAction="http://tempuri.org/GetMobileFilelist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MobileWebServiceSoap12" type="tns:MobileWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getpath">
+      <soap12:operation soapAction="http://tempuri.org/getpath" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetReceiptProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueueDocumentForExport">
+      <soap12:operation soapAction="http://tempuri.org/QueueDocumentForExport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <soap12:operation soapAction="http://tempuri.org/IsMysql" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <soap12:operation soapAction="http://tempuri.org/GetSupplier" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <soap12:operation soapAction="http://tempuri.org/GetOutputPaths" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <soap12:operation soapAction="http://tempuri.org/GetBuildLabel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetProductVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <soap12:operation soapAction="http://tempuri.org/GetESLInvLines" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <soap12:operation soapAction="http://tempuri.org/GetInvLines" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadESLInvLine">
+      <soap12:operation soapAction="http://tempuri.org/UploadESLInvLine" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadInvLine">
+      <soap12:operation soapAction="http://tempuri.org/UploadInvLine" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <soap12:operation soapAction="http://tempuri.org/GetWarehouses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <soap12:operation soapAction="http://tempuri.org/GetPriceLists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetIEProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <soap12:operation soapAction="http://tempuri.org/GetIEProductOffers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <soap12:operation soapAction="http://tempuri.org/ProductCheckAdd" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <soap12:operation soapAction="http://tempuri.org/ProductCheckRemove" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <soap12:operation soapAction="http://tempuri.org/UpdateInvLine" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetWebServiceVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <soap12:operation soapAction="http://tempuri.org/GetDestkopFilelist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <soap12:operation soapAction="http://tempuri.org/GetMobileFilelist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MobileWebServiceHttpGet" type="tns:MobileWebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="getpath">
+      <http:operation location="/getpath" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <http:operation location="/GetProduct" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <http:operation location="/GetReceiptProduct" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <http:operation location="/GetVersion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <http:operation location="/IsMysql" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <http:operation location="/GetSupplier" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <http:operation location="/GetOutputPaths" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <http:operation location="/GetBuildLabel" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <http:operation location="/GetProductVersion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <http:operation location="/GetESLInvLines" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <http:operation location="/GetInvLines" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <http:operation location="/GetWarehouses" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <http:operation location="/GetPriceLists" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <http:operation location="/GetIEProduct" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <http:operation location="/GetIEProductOffers" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <http:operation location="/ProductCheckAdd" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <http:operation location="/ProductCheckRemove" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <http:operation location="/UpdateInvLine" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <http:operation location="/GetWebServiceVersion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <http:operation location="/GetDestkopFilelist" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <http:operation location="/GetMobileFilelist" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MobileWebServiceHttpPost" type="tns:MobileWebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="getpath">
+      <http:operation location="/getpath" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProduct">
+      <http:operation location="/GetProduct" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReceiptProduct">
+      <http:operation location="/GetReceiptProduct" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <http:operation location="/GetVersion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsMysql">
+      <http:operation location="/IsMysql" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplier">
+      <http:operation location="/GetSupplier" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOutputPaths">
+      <http:operation location="/GetOutputPaths" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildLabel">
+      <http:operation location="/GetBuildLabel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductVersion">
+      <http:operation location="/GetProductVersion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetESLInvLines">
+      <http:operation location="/GetESLInvLines" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvLines">
+      <http:operation location="/GetInvLines" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWarehouses">
+      <http:operation location="/GetWarehouses" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceLists">
+      <http:operation location="/GetPriceLists" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProduct">
+      <http:operation location="/GetIEProduct" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIEProductOffers">
+      <http:operation location="/GetIEProductOffers" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckAdd">
+      <http:operation location="/ProductCheckAdd" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductCheckRemove">
+      <http:operation location="/ProductCheckRemove" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateInvLine">
+      <http:operation location="/UpdateInvLine" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceVersion">
+      <http:operation location="/GetWebServiceVersion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDestkopFilelist">
+      <http:operation location="/GetDestkopFilelist" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobileFilelist">
+      <http:operation location="/GetMobileFilelist" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MobileWebService">
+    <wsdl:port name="MobileWebServiceSoap" binding="tns:MobileWebServiceSoap">
+      <soap:address location="http://localhost/mobileatstoreservices/MobileWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MobileWebServiceSoap12" binding="tns:MobileWebServiceSoap12">
+      <soap12:address location="http://localhost/mobileatstoreservices/MobileWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MobileWebServiceHttpGet" binding="tns:MobileWebServiceHttpGet">
+      <http:address location="http://localhost/mobileatstoreservices/MobileWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MobileWebServiceHttpPost" binding="tns:MobileWebServiceHttpPost">
+      <http:address location="http://localhost/mobileatstoreservices/MobileWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

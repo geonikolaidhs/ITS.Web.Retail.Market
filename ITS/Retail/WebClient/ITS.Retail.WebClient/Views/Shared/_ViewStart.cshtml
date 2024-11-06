@@ -1,0 +1,22 @@
+﻿@{
+    /*if (Request["Partial"] == null)
+    {
+        //return full view
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        //this will give just a partialview with the bodyContent
+        Layout = "~/Views/Shared/_LayoutPartial.cshtml";
+    }*/
+}
+<!--
+    ITS Comment 
+
+-->
+@{
+    if (Request["Partial"] !=null)
+    {
+        Layout = "~/Views/Shared/_LayoutPartial.cshtml";
+    }
+}

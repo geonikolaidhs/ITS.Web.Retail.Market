@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ReceiptFormat>
+  <Header>
+    <SimpleLine align="center" bold="true">EXPRESS MARKET</SimpleLine>
+    <DynamicLine condition="Receipt">
+      <Cell align="center" bold="true">ΑΠΟΔΕΙΞΗ ΛΙΑΝΙΚΗΣ ΠΩΛΗΣΗΣ</Cell>
+    </DynamicLine>
+    <DynamicLine condition="proForma">
+      <Cell align="center" bold="true">ΠΡΟΤΙΜΟΛΟΓΙΟ</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine>
+      <Cell align="center" bold="true">@FinalizedDate@</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">Α/Α: @DocumentNumber@</Cell>
+      <Cell align="right" bold="true">TAMEIO: @POSID@</Cell>
+    </DynamicLine>
+    <DynamicLine condition="NONDEFAULTCUSTOMER">
+      <Cell align="left" bold="true">ΠΕΛΑΤΗΣ</Cell>
+      <Cell align="left" bold="true">@CustomerName@</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+  </Header>
+  <Body>
+    <Detail source="DocumentDetail">
+      <DynamicLine condition="singleQuantity">
+        <Cell align="left" maxChars="20">@CustomDescription@</Cell>
+        <Cell align="right">@GrossTotalBeforeDiscount@  @ItemVatCategoryDescription@</Cell>
+      </DynamicLine>
+      <DynamicLine condition="multiQuantity">
+        <Cell align="left" maxChars="20">@CustomDescription@</Cell>
+      </DynamicLine>
+      <DynamicLine condition="multiQuantity">
+        <Cell align="left">   @Qty@ X @FinalUnitPriceWithVat@</Cell>
+        <Cell align="right">@GrossTotalBeforeDiscount@  @ItemVatCategoryDescription@</Cell>
+      </DynamicLine>
+      <!--<DynamicLine condition="NonZeroLineDiscount">
+        <Cell align="left" maxChars="20">  ΕΚΠΤΩΣΗ</Cell>
+        <Cell align="center">  -@TotalNonDocumentDiscount@ ΕΥΡΩ</Cell>
+      </DynamicLine>-->
+      <Detail source="DocumentDetailDiscount">
+        <DynamicLine>
+          <Cell align="left">   @DisplayName@</Cell>
+          <Cell align="right">  -@Value@ ΕΥΡΩ</Cell>
+        </DynamicLine>
+      </Detail>
+    </Detail>
+  </Body>
+  <Footer>
+    <SimpleLine align="center">---------------------------------</SimpleLine>
+    <DynamicLine condition="NonZeroDocumentDiscount">
+      <Cell align="left" bold="true">ΣΥΝΟΛΟ</Cell>
+      <Cell align="right" bold="true">@GrossTotalBeforeDocumentDiscount@ ΕΥΡΩ</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <DynamicLine condition="NonZeroDocumentDiscount">
+      <Cell align="left" bold="true">ΕΚΠΤΩΣΗ</Cell>
+      <Cell align="right" bold="true">@AllDocumentHeaderDiscounts@ ΕΥΡΩ</Cell>
+    </DynamicLine>
+    <DynamicLine>
+      <Cell align="left" bold="true">ΤΕΛΙΚΟ ΣΥΝΟΛΟ</Cell>
+      <Cell align="right" bold="true">@GrossTotal@ ΕΥΡΩ</Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <Detail source="DocumentPayment">
+      <DynamicLine>
+        <Cell align="left" bold="true">@PaymentMethodDescription@</Cell>
+        <Cell align="right" bold="true">@Amount@     </Cell>
+      </DynamicLine>
+    </Detail>
+    <DynamicLine condition="HasChange">
+      <Cell align="left" bold="true">ΡΕΣΤΑ</Cell>
+      <Cell align="right" bold="true">@Change@     </Cell>
+    </DynamicLine>
+    <SimpleLine>
+    </SimpleLine>
+    <SimpleLine align="center">ΕΥΧΑΡΙΣΤΟΥΜΕ ΓΙΑ ΤΗΝ ΠΡΟΤΙΜΗΣΗ</SimpleLine>
+    <SimpleLine>
+    </SimpleLine>
+    <!--<SimpleLine></SimpleLine>
+    <SimpleLine></SimpleLine>
+    <DynamicLine>
+      <Cell align="center">@Signature@</Cell>
+    </DynamicLine>-->
+    <DynamicLine condition="Receipt">
+      <Cell align="center" bold="true">ΝΟΜΙΜΗ ΑΠΟΔΕΙΞΗ</Cell>
+    </DynamicLine>
+    <DynamicLine condition="proForma">
+      <Cell align="center" bold="true">ΠΑΡΑΝΟΜΗ ΑΠΟΔΕΙΞΗ - ΔΙΩΚΕΤΑΙ ΑΠΟ ΤΟΝ ΝΟΜΟ</Cell>
+    </DynamicLine>
+  </Footer>
+</ReceiptFormat>

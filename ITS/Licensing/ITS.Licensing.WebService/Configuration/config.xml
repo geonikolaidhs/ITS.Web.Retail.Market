@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<settings>
+  <retaildb>
+    <sqlserver>localhost</sqlserver>
+    <sqlprovider>MSSQL</sqlprovider>
+    <username>sa</username>
+    <pass>123456</pass>
+    <database>RetailDB</database>
+  </retaildb>
+  <licensedb>
+    <sqlserver>localhost</sqlserver>
+    <sqlprovider>MSSQL</sqlprovider>
+    <username>sa</username>
+    <pass>123456</pass>
+    <database>Licenses</database>
+  </licensedb>
+</settings>

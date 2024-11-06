@@ -1,0 +1,198 @@
+﻿@model IEnumerable<ITS.Retail.Model.UpdaterMode>
+@using ITS.Retail.ResourcesLib;           
+@{
+	GridViewSettings settings = new GridViewSettings();
+
+    settings.AccessibilityCompliant = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "DELETESELECTED" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+            grid.Selection.UnselectAll();
+    };
+    
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.VisibleIndex = 0;
+   
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "EntityName";
+        column.Caption = Resources.EntityName;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.SetDataItemTemplateContent(c =>
+        {
+            string entityName = DataBinder.Eval(c.DataItem, "EntityName") as String;
+            if (String.IsNullOrEmpty(entityName) == false)
+            {
+                Type entityType = typeof(Item).Assembly.GetType(typeof(Item).FullName.Replace(typeof(Item).Name, entityName));
+                if (entityType != null)
+                {
+                    ViewContext.Writer.Write(entityType.ToLocalizedString());
+                }
+            }
+        });
+    });
+
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Mode";
+        column.Caption = Resources.Mode;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eUpdaterMode)DataBinder.Eval(c.DataItem, "Mode")).ToLocalizedString());
+        });
+    });
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.Name = "grdUpdaterMode";
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowAsPopup;    
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowPreview = true;
+    settings.Settings.ShowFilterRow = true; 
+    settings.Settings.ShowFilterRowMenu = true; 
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "UpdaterMode", Action = "Grid" };
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "UpdaterMode", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "UpdaterMode", Action = "UpdatePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;    
+    settings.KeyboardSupport = false;      
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.EntitiesDownloadModes;
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.Edit;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+ 
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.EntityName;
+        }).Render();
+        
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "EntityName";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.Entities).Bind((ViewBag.Entities as Dictionary<string,string>).Where(x => x.Key == (DataBinder.Eval(item, "EntityName") as String)).Select(x=>x.Value).FirstOrDefault()).Render();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Mode;
+        }).Render();
+        
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Mode";
+            edtSettings.Properties.ValueType = typeof(eUpdaterMode);
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).BindList(Enum<eUpdaterMode>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "Mode")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");       
+
+    });
+        
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

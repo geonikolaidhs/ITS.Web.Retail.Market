@@ -1,0 +1,25 @@
+﻿@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <style>
+    html, body {
+	font: 25px sans-serif;
+	background: #fff;
+	padding: 3px;
+	color: #000;
+	margin: 0;
+	}
+    
+    </style>
+</head>
+<body>
+    <input type="hidden" value="@Url.Content("~")" id="HOME" />
+    ITS
+    @{               
+    ViewContext.Writer.Write(RenderBody().ToHtmlString());         
+    }
+</body>
+</html>

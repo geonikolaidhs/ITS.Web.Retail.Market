@@ -1,0 +1,36 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.Common;
+
+@*@model IEnumerable<CustomDataView>*@
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/CustomDataView.js")" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.DataViews;//"Ρυθμίσεις Εφαρμογής";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Properties.Caption = Resources.DataViewCategory;
+    cmb_settings.Properties.CaptionStyle.CssClass = "label required-field";
+    cmb_settings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+    cmb_settings.ShowModelErrors = true;
+    cmb_settings.Name = "CustomDataViewsCategory";
+    cmb_settings.Properties.ClientSideEvents.ValueChanged = "CustomDataView.OnDataViewsCategoryChanged";
+    cmb_settings.Properties.TextField = "Description";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+}).BindList(ViewBag.Categories).GetHtml()
+
+@{
+    ViewContext.Writer.Write("<br/>");
+}
+
+@Html.Partial("Grid")
+

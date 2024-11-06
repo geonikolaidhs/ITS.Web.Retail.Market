@@ -1,0 +1,100 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.AuxillaryClasses;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@{
+    var settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(CustomEnumerationValue), typeof(CustomEnumerationController), "grdValueGrid", GridViewCommandColumnType.ICONS);
+    settings.SettingsText.Title = Resources.CustomEnumerationValues;
+    settings.CallbackRouteValues = new { Controller = "CustomEnumeration", Action = "ValueGrid" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CustomEnumeration", Action = "InsertValue" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CustomEnumeration", Action = "UpdateValue" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "CustomEnumeration", Action = "DeleteValue" };
+    settings.KeyFieldName = "Oid";
+    settings.SettingsText.PopupEditFormCaption = Resources.CustomEnumerationValues;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        //Description
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewData["item"] = item;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnCustomEnumerationValueUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnCustomEnumerationValueCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+            
+        ViewContext.Writer.Write("<table><tr><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description + ":";
+            edtSettings.AssociatedControlName = "Description";
+        }).Render();
+            
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS; 
+        }).Bind(DataBinder.Eval(item,"Description")).Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Ordering + ":";
+            edtSettings.AssociatedControlName = "Description";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "Ordering";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Ordering")).Render();
+                
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });     
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

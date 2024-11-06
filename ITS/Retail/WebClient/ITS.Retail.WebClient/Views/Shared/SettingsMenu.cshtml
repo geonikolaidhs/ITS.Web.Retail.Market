@@ -1,0 +1,473 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using ITS.Retail.Common;
+<div id="settings" class="col-lg-1-5 settings-menu-bottom-spacing hidden">
+    <h4 class="title_settings">
+        <span class="shown">
+            @Resources.Settings
+            @{
+                if (ViewBag.HideSpanSettings == null || ViewBag.HideSpanSettings == true)
+                {
+                    ViewContext.Writer.Write("<i class=\"fa fa-arrow-circle-o-left fa-2x\"></i>");
+                }
+            }
+        </span>
+        <span class="hidden">
+            @Resources.Settings
+            <i class="fa fa-arrow-circle-o-right fa-2x"></i>
+        </span>
+    </h4>
+    @{
+        List<string> forb = null;
+        if (ViewBag.CurrentUser != null)
+        {
+            forb = Session["LayoutForbidden"] as List<string>;
+            if (forb == null)
+            {
+                forb = new List<String>();
+            }
+        }
+        else
+        {
+            forb = new List<string>();
+        }
+    }
+    <ul class="second">
+        <li class="first">
+            @if (!forb.Contains("GDPRActions"))
+            {
+                <ul>
+                    <li class="subtitle">
+                        <h4>@Resources.GDPRActions <span></span></h4>
+                    </li>
+                    <li class="options">
+                        <ul>
+                            <li>
+                                <a href="@Url.Content("~/GDPR/Export")">@Resources.GDPRExport</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/GDPR/Anonymize")">@Resources.GDPRAnonymize</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/GDPR/ExportSupplier")">@Resources.GDPRExportSupplier</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Content("~/GDPR/AnonymizeSupplier")">@Resources.GDPRAnonymizeSupplier</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+            @if (!forb.Contains("FormMessage") ||
+                     !forb.Contains("AddressType") ||
+                     !forb.Contains("PhoneType") ||
+                     !forb.Contains("PaymentMethod") ||
+                     !forb.Contains("MesurmentUnits") ||
+                     !forb.Contains("BarcodeType") ||
+                     !forb.Contains("TaxOffice") ||
+                     !forb.Contains("VatLevel") ||
+                     !forb.Contains("CustomEnumeration") ||
+
+                     (MvcApplication.ApplicationInstance != eApplicationInstance.RETAIL && !forb.Contains("FiscalDevices")))
+            {
+                <ul>
+                    <li class="subtitle">
+                        <h4>@Resources.MenuOptionsSettigs <span></span></h4>
+                    </li>
+                    <li class="options">
+                        <ul>
+                            @if (!forb.Contains("FormMessage"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/FormMessage/Index")">@Resources.MenuAdministrationFormMessage</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("AddressType"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/AddressType/Index")">@Resources.MenuApplicationSettingsAddressTypes</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("PhoneType"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/PhoneType/Index")">@Resources.MenuApplicationSettingsPhoneTypes</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("CustomEnumeration"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/CustomEnumeration/Index")">@Resources.CustomEnumeration</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("PaymentMethod"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/PaymentMethod/Index")">@Resources.MenuApplicationSettingsPaymentMethods</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("MesurmentUnits"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/MesurmentUnits/Index")">@Resources.MenuApplicationSettingsMeasurmentUnits</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("BarcodeType"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/BarcodeType/Index")">@Resources.MenuApplicationSettingsBarcodeTypes</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("TaxOffice"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/TaxOffice/Index")">@Resources.TaxOffice</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("VatLevel"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/VatLevel/Index")">@Resources.MenuApplicationSettingsVATFactors</a>
+                                </li>
+                            }
+                            @if (MvcApplication.ApplicationInstance != eApplicationInstance.RETAIL && !forb.Contains("FiscalDevices"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/FiscalDevices/Index")">@Resources.SignatureDevices</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("Role"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/Role/Index")">@Resources.MenuAdministrationRoles</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("ApplicationLog"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/ApplicationLog/Index")">@Resources.MenuAdministrationLogFiles</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("LicenseManagement"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/LicenseManagement/Index")">@Resources.LicenseManagement</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("ApplicationSettings"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/ApplicationSettings/Index")">@Resources.MenuApplicationSettingsAppSettings</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            }
+            @if (!forb.Contains("Store") ||
+                     !forb.Contains("SpecialItem") ||
+                     !forb.Contains("DocumentType") ||
+                     !forb.Contains("DocumentSeries") ||
+                     !forb.Contains("DocumentStatus") ||
+                     !forb.Contains("OwnerApplicationSettings") ||
+                     !forb.Contains("DataFileRecordHeader") ||
+                     !forb.Contains("Division") ||
+                     !forb.Contains("ReasonCategory") ||
+                     !forb.Contains("Reason") ||
+                     !forb.Contains("TransferPurpose") ||
+                     !forb.Contains("CustomReport") ||
+                     !forb.Contains("LabelDesign") ||
+                     !forb.Contains("SupplierImportFilesSet") ||
+                     !forb.Contains("MobileTerminal")
+                 )
+            {
+                <ul>
+                    <li class="subtitle">
+                        <h4>@Resources.CompanySettings <span></span></h4>
+                    </li>
+                    <li class="options">
+                        <ul>
+                            @if (!forb.Contains("Store"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/Store/Index")">@Resources.Stores</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("SpecialItem"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/SpecialItem/Index")">@Resources.SpecialItems</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("DocumentSeries"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/DocumentSeries/Index")">@Resources.MenuDocumentSettigsDocumentSeries</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("DocumentType"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/DocumentType/Index")">@Resources.MenuDocumentSettigsDocumentTypes</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("DocumentStatus"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/DocumentStatus/Index")">@Resources.MenuDocumentSettigsDocumentStatus</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("DataFileRecordHeader"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/DataFileRecordHeader/Index")">@Resources.BridgeSettings</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("OwnerApplicationSettings"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/OwnerApplicationSettings/Index")">@Resources.OwnerApplicationSettings</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("CustomReport"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/CustomReport/Categories")">@Resources.ReportCategories</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Content("~/CustomReport/Index")">@Resources.CustomReports</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("Division"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/Division/Index")">@Resources.MenuApplicationSettingsDivision</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("PriceCatalogPolicy"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/PriceCatalogPolicy/Index")">@Resources.PriceCatalogPolicies</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("ReasonCategory"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/ReasonCategory/Index")">@Resources.ReasonCategories</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("Reason"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/Reason/Index")">@Resources.Reasons</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("DiscountType"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/DiscountType/Index")">@Resources.DiscountTypes</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("TransferPurpose"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/TransferPurpose/Index")">@Resources.TransferPurposes</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("LabelDesign"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/LabelDesign/Index")">@Resources.LabelDesign</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("SupplierImportFilesSet"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/SupplierImportFilesSet/Index")">@Resources.SupplierImportFilesSets</a>
+                                </li>
+                            }
+                            @if (!forb.Contains("MobileTerminal"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/MobileTerminal/Index")">@Resources.MobileTerminals</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            }
+            @if (MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER &&
+                    (!forb.Contains("Variable") ||
+                     !forb.Contains("ActionType") ||
+                     !forb.Contains("CustomDataViewCategory") ||
+                     !forb.Contains("CustomDataView")) ||
+                 !forb.Contains("VariableValuesDisplay"))
+            {
+                <ul>
+                    <li class="subtitle">
+                        <h4>@Resources.VariablesSettings <span></span></h4>
+                    </li>
+                    <li class="options">
+                        <ul>
+                            @if (MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+                            {
+                                if (!forb.Contains("Variable"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/Variable/Index")">@Resources.Variables</a>
+                                    </li>
+                                }
+                                if (!forb.Contains("ActionType"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/ActionType/Index")">@Resources.VariablesActions</a>
+                                    </li>
+                                }
+                                if (!forb.Contains("CustomDataViewCategory"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/CustomDataViewCategory/Index")">@Resources.DataViewCategories</a>
+                                    </li>
+                                }
+                                if (!forb.Contains("CustomDataView"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/CustomDataView/Index")">@Resources.DataViews</a>
+                                    </li>
+                                }
+                            }
+                            @if (!forb.Contains("VariableValuesDisplay"))
+                            {
+                                <li>
+                                    <a href="@Url.Content("~/VariableValuesDisplay/Index")">@Resources.VariableValues</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            }
+            @if (MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER || MvcApplication.ApplicationInstance == eApplicationInstance.DUAL_MODE)
+            {
+                if (!forb.Contains("POS") ||
+                    !forb.Contains("SFA") ||
+                    !forb.Contains("POSDevice") ||
+                    !forb.Contains("POSKeysLayout") ||
+                    !forb.Contains("POSLayout") ||
+                    !forb.Contains("POSPrintFormat") ||
+                    !forb.Contains("POSReport") ||
+                    !forb.Contains("POSActionLevelsSet") ||
+                    !forb.Contains("UpdaterMode") ||
+                    !forb.Contains("Scale") ||
+                    !forb.Contains("CustomActionCode") ||
+                    !forb.Contains("PrintLabelSettings") ||
+                    !forb.Contains("POSRecovery") ||
+                    !forb.Contains("StoreDocumentSeriesTypePrintServiceSettings") ||
+                    !forb.Contains("LabelPrintServiceSettings")
+                   )
+                {
+                    <ul>
+                        <li class="subtitle">
+                            <h4>@Resources.POSSettings <span></span></h4>
+                        </li>
+                        <li class="options">
+                            <ul>
+                                @if (!forb.Contains("POS"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POS/Index")">@Resources.POSConfig</a>
+                                    </li>
+
+                                }
+                                @if (!forb.Contains("SFA"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/SFA/Index")">@ITS.Retail.ResourcesLib.Resources.TabletSettings</a>
+                                    </li>
+
+                                }
+                                @if (!forb.Contains("POSDevice"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POSDevice/Index")">@Resources.Devices</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("POSKeysLayout"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POSKeysLayout/Index")">@Resources.POSKeysLayouts</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("POSLayout"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POSLayout/Index")">@Resources.POSLayouts</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("POSPrintFormat"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POSPrintFormat/Index")">@Resources.POSPrintFormats</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("PosReport"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/PosReport/Index")">@Resources.POS_REPORTS</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("PrintLabelSettings"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/PrintLabelSettings/Index")">@Resources.PrintLabelSettings</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("POSActionLevelsSet"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POSActionLevelsSet/Index")">@Resources.POSActionLevels</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("UpdaterMode"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/UpdaterMode/Index")">@Resources.POSUpdaterSettings</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("CustomActionCode"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/CustomActionCode/Index")">@Resources.CustomActionCodes</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("Scale"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/Scale/Index")">@Resources.Scale</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("POSRecovery"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/POSRecovery/Index")">@Resources.POSRecoveryFromCashier</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("StoreDocumentSeriesTypePrintServiceSettings"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/StoreDocumentSeriesTypePrintServiceSettings/Index")">@Resources.StoreDocumentSeriesTypePrintServiceSettings</a>
+                                    </li>
+                                }
+                                @if (!forb.Contains("LabelPrintServiceSettings"))
+                                {
+                                    <li>
+                                        <a href="@Url.Content("~/LabelPrintServiceSettings/Index")">@Resources.LabelPrintServiceSettings</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            }
+        </li>
+    </ul>
+</div>

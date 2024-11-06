@@ -1,0 +1,10 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@model IEnumerable<ITS.Retail.Model.Seasonality>
+
+@{
+    ViewBag.Title = Resources.Seasonality;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Grid", Model)

@@ -1,0 +1,157 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.Name = "grdMembersOfNode";
+    settings.SettingsPager.AlwaysShowPager = true;  
+
+    if ((bool)ViewData["TableCanInsert"] || (bool)ViewData["TableCanUpdate"] || (bool)ViewData["TableCanDelete"])
+    {
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                if ((bool)ViewData["TableCanUpdate"])
+                {
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + @"if (!grdMembersOfNode.IsEditing()) {
+                                                AnalyticTreeID = '" + DataBinder.Eval(c.DataItem, "Oid") + @"';
+                                             }"
+                        + "pcCategoriesPopup.Show();\" title=\"" + Resources.ChangeCategory
+                        + "\"><img src='" + Url.Content("~/Content/img/move_category.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.ChangeCategory + "\" /></a>");
+                }
+
+
+                if ((bool)ViewData["TableCanDelete"])
+                {
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+                }
+
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                if ((bool)ViewData["TableCanInsert"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"AddNewRowOnTree()\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+            });
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 90;
+        });
+    }
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.CustomColumnDisplayText = (object sender, ASPxGridViewColumnDisplayTextEventArgs e) =>     //TrimStart sta columns pou theloume
+    {
+        if (ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings != null && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.PadItemCodes
+            && ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.TrimBarcodeOnDisplay)
+        {
+            if (e.Column.FieldName == "Object.Code")
+            {
+
+                string s = e.Value as string;
+                if (s == null) return;
+                e.DisplayText = s.TrimStart(ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.ItemCodePaddingCharacter[0]);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Object.Code";
+        col.Caption = Resources.Code;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Object.CompanyName";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.ItemName;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Node.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.CategoryNode;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CategoryPath";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.CategoryPath;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = false;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "CustomersOfNode" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = ViewBag.ControllerName, Action = "InlineEditingUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = ViewBag.ControllerName, Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = false;
+
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.CustomersOfCategory + " " + ViewBag.CatDescription;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallBackMembersOfNodeGrid";
+    settings.ClientSideEvents.FocusedRowChanged = "OnRowChangedMembersOfNodeGrid";
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    
+        settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == "grdCustomerMembersOfNode");
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, "grdCustomerMembersOfNode", evt.LayoutData);
+            }
+        }
+    };
+
+}).Bind(ViewData["CustomerAnalyticTree"]).GetHtml()

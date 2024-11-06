@@ -1,0 +1,208 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using System.Reflection
+@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib
+@using ITS.Retail.Platform.Enumerations
+
+@{
+    List<string> includedFields = new List<string>() { "Description", "FieldName", "Expression", "Category", "Source" };
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(Variable), typeof(VariableController), "grdVariables", columnType: GridViewCommandColumnType.CHECKBOX, includedFields: includedFields);
+    settings.CallbackRouteValues = new { Controller = "Variable", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.Variables;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Variable", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Variable", Action = "UpdatePartial" };
+    settings.SettingsText.PopupEditFormCaption = Resources.Variable;
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnVariableUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnVariableCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.CancelButton.EncodeHtml = true;
+        headerOptions.ViewType = eViewType.PopUp;
+
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.Description + ":";
+            txtsettings.Properties.CaptionStyle.CssClass = "label blue";
+            txtsettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtsettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            txtsettings.Name = "Description";
+            txtsettings.ControlStyle.CssClass = "editor";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            txtsettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+            txtsettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            combosettings.Properties.Caption = Resources.FieldName + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label blue";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "FieldName";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(string);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+            combosettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+            combosettings.ClientEnabled = ViewBag.IsNewVariable == true;
+        }).BindList(ViewBag.VariableFields).Bind(DataBinder.Eval(item, "FieldName")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            combosettings.Properties.Caption = Resources.Category + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label blue";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "Category";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(ActionEntityCategory);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+            combosettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+            combosettings.Properties.ClientSideEvents.ValueChanged = "Variable.OnVariableCategoryChanged";
+            combosettings.ClientEnabled = ViewBag.IsNewVariable == true;
+        }).BindList(Enum<ActionEntityCategory>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "Category")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            combosettings.Properties.Caption = Resources.Source + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label blue";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "Source";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(VariableSource);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.Properties.ClientSideEvents.ValueChanged = "Variable.OnVariableDestinationChanged";
+            combosettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+            combosettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        }).BindList(Enum<VariableSource>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "Source")).GetHtml();
+
+        VariableSource destination = DataBinder.Eval(item, "Source") != null ? (VariableSource)DataBinder.Eval(item, "Source") : VariableSource.FORMULA;
+
+        string entintyFieldComboBoxColspan = destination == VariableSource.FORMULA ? "2" : "4";
+        ViewContext.Writer.Write("</td></tr><tr><td class=\"EntityFieldsComboBoxContainer\" colspan="+entintyFieldComboBoxColspan+">");
+
+        @Html.RenderAction("EntityFieldsComboBox", "Variable", new { category = DataBinder.Eval(item, "Category"), variableSource = DataBinder.Eval(item, "Source")});
+
+        ViewContext.Writer.Write("</td><td colspan=2>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            combosettings.Properties.Caption = Resources.Variables + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "Variables";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(String);
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            combosettings.Properties.Buttons.Add(button);
+            button = new EditButton("");
+            button.Image.Url = Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Add;
+            combosettings.Properties.Buttons.Add(button);
+            combosettings.Properties.ClientSideEvents.ButtonClick = "Variable.ComboBoxButtonOnClick";
+            combosettings.ClientVisible = destination == VariableSource.FORMULA;
+            combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        }).BindList(ViewBag.Variables).Bind(null).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan=4>");
+
+        @Html.DevExpress().Memo(memosettings =>
+        {
+            memosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            memosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            memosettings.Properties.Caption = Resources.Expression;
+            memosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            memosettings.Name = "Expression";
+            memosettings.Height = 150;
+            memosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            memosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            memosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            memosettings.ShowModelErrors = true;
+            memosettings.ClientEnabled = destination == VariableSource.FORMULA;
+            memosettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+            memosettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        }).Bind(DataBinder.Eval(item, "Expression")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><th class=\"table-header blue-splitter\" colspan=\"4\">");
+
+        ViewContext.Writer.Write(Resources.TargetField +"</th>");
+
+        ViewContext.Writer.Write("</tr><tr><td>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            combosettings.Properties.Caption = Resources.Category + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "TargetCategory";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(ActionEntityCategory);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ClientSideEvents.ValueChanged = "Variable.OnVariableTargetCategoryChanged";
+        }).BindList(Enum<ActionEntityCategory>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "TargetCategory")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td class=\"TargetFieldComboBoxContainer\" colspan=\"3\">");
+
+        @Html.RenderAction("TargetFieldComboBox", "Variable", new { category = DataBinder.Eval(item, "TargetCategory"), variableSource = DataBinder.Eval(item, "Source") });
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("</div>");
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

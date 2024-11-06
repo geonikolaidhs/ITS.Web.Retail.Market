@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ITS.Retail.Model.DataFileRecordHeader>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/DataFileRecordHeader.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditDataFileRecordHeader.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = Resources.BridgeSettings;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section DialogCallbackPanelSection {
+    @Html.Partial("DialogCallbackPanel")
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@{
+    ViewContext.Writer.Write("<div class='buttonGridContainer'>");
+    Html.DevExpress().Button(s =>
+    {
+        s.Name = "btShowCustomizationWindow";
+        s.ControlStyle.CssClass = "btCustomizationWindow";
+        s.Text = "";
+        s.ControlStyle.BackgroundImage.ImageUrl = Url.Content("~/Content/img/ColumnCustomization.png?v=" + ViewData["ApplicationVersionNumber"]);
+        s.ToolTip = Resources.CustomizeColumns;
+        s.ClientSideEvents.Click = "function(s,e){UpdateCustomizationWindowVisibility(grdDataFileRecordHeaders)}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div>");
+}
+
+
+
+@Html.Partial("Grid", Model)

@@ -1,0 +1,37 @@
+﻿  @using ITS.Retail.ResourcesLib;
+  @{
+
+      ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td class=\"vertical-align-td-top\">");
+
+	  Html.DevExpress().Label(
+  edtSettings =>
+  {
+	  edtSettings.Text = Resources.IPAddress + ":";
+  }).Render();
+
+	  Html.DevExpress().TextBox(
+		  edtSettings =>
+		  {
+			  edtSettings.Name = "IPAddress";
+		  }
+	  ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.EthernetDeviceSettings, "IPAddress")).Render();
+
+      ViewContext.Writer.Write("</td><td>");
+      Html.DevExpress().Label(
+ edtSettings =>
+ {
+     edtSettings.Text = "Port:";
+ }).Render();
+
+
+      Html.DevExpress().SpinEdit(
+          edtSettings =>
+          {
+              edtSettings.Properties.MinValue = 0;
+              edtSettings.Properties.MaxValue = 65536;
+              edtSettings.Properties.NumberType = SpinEditNumberType.Integer;                  
+              edtSettings.Name = "Port";
+          }
+      ).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.EthernetDeviceSettings, "Port")).Render();
+		ViewContext.Writer.Write("</td></tr></table>");
+		}

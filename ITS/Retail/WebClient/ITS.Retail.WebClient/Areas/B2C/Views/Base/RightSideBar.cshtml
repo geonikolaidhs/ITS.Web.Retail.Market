@@ -1,0 +1,15 @@
+﻿@Html.DevExpress().CallbackPanel(set =>
+{
+    set.Name = "rightSideBarCallbackPanel";    
+    set.ClientSideEvents.EndCallback = "RightSidebarCallbackPanelEndCallback";   
+    set.CallbackRouteValues = new { Controller = "Base", Action = "RightSideBar" };
+    set.SetContent(() =>
+        {
+            if (ViewData["PartialName"] != null)
+            {
+                Html.RenderPartial(ViewData["PartialName"].ToString());
+            }
+        });
+}).GetHtml()
+
+

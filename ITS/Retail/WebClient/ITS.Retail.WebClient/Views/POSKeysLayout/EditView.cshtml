@@ -1,0 +1,37 @@
+﻿@model ITS.Retail.Model.POSKeysLayout
+@using ITS.Retail.ResourcesLib;
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/EditPOSKeysLayout.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@{
+	ViewBag.ShowNavigation = false;
+	ViewBag.Title = ViewBag.Mode;
+
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@Html.Partial("../Notification/NotifyUser")*@
+@using (Html.BeginForm("Save", "POSKeysLayout", FormMethod.Post, new { id = "EditForm" }))
+{
+    
+	@Html.DevExpress().RoundPanel(settings =>
+{
+	settings.Name = "editForm";
+	settings.HeaderText = "";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+	settings.SetContent(() =>
+	{
+		ViewContext.Writer.Write(Html.Hidden("POSKeysLayoutGuid", ViewData["POSKeysLayoutGuid"].ToString()));
+
+        ViewContext.Writer.Write("<div>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions(Resources.POSInfo);
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        Html.RenderPartial("KeysEntryPartial");
+        Html.RenderPartial("POSKeyMappingsGrid", Model.POSKeyMappings);
+	});
+}).GetHtml();
+}

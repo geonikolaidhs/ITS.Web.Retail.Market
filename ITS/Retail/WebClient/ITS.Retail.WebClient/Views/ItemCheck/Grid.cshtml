@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ITS.Retail.Model.MobileInventory.ItemCheck>
+
+@{
+    var settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext,
+        typeof(ITS.Retail.Model.MobileInventory.ItemCheck),
+        typeof(ItemCheckController), "grdItemCheck", generateColumns:false);
+        //includedFields: new List<string>() { "Item.Code", "Item.Name" }
+    settings.Columns.Add("Item.Code", Resources.Code);
+    settings.Columns.Add("Item.Name", Resources.Name);
+
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

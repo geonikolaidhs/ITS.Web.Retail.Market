@@ -1,0 +1,17 @@
+﻿@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "KeyPropertyCbPanel";
+    cpbseriessettings.CallbackRouteValues = new { Controller = "DataFileRecordHeader", Action = "KeyPropertyComboBox" };
+    cpbseriessettings.SetContent(() =>
+    {
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Name = "KeyProperty";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "PropertyName";
+            combosettings.Properties.ValueField = "Oid";
+            combosettings.Properties.ValueType = typeof(Guid);
+        }).BindList(ViewBag.KeyPropertyComboBox).Bind(DataBinder.Eval(Model, "Oid") ?? null).Render();
+    });
+}).GetHtml()

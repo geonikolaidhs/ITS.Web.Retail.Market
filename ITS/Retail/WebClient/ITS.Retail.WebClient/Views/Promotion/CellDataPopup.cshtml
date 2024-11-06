@@ -1,0 +1,41 @@
+﻿@model Promotion
+@{
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("CellDataPopup_" + ViewData["ViewMode"].ToString().ToUpper() + Model.Oid.ToString().Replace('-', '_'), Width: 700, Height: 300);
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "Promotion", Action = "CellDataPopup", PromotionID = Model.Oid.ToString(), ViewMode = ViewData["ViewMode"] };
+
+    if (ViewData["ViewMode"].ToString() == "CONDITIONS")
+    {
+        popUpSettings.HeaderText = Resources.Conditions;
+    }
+    else if (ViewData["ViewMode"].ToString() == "RESULTS")
+    {
+        popUpSettings.HeaderText = Resources.PromotionResults;
+    }
+    
+    popUpSettings.SetContent(() =>
+    {
+        if (ViewData["ViewMode"].ToString() == "CONDITIONS")
+        {
+            ViewContext.Writer.Write("<div class=\"blue-color-promotion-command\">");
+            popUpSettings.HeaderText = Resources.Conditions;
+            string conditions = Model.PromotionApplicationRuleGroup.HtmlDescription == null ?
+                    "" :
+                    Model.PromotionApplicationRuleGroup.HtmlDescription.Replace(Environment.NewLine, "<br>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            ViewContext.Writer.Write(conditions);
+            ViewContext.Writer.Write("</div>");
+        }
+        else if (ViewData["ViewMode"].ToString() == "RESULTS")
+        {
+            ViewContext.Writer.Write("<div class=\"blue-color-promotion-command\">");
+            popUpSettings.HeaderText = Resources.PromotionResults;
+            string results = String.IsNullOrWhiteSpace(Model.PromotionResultsDescription) ? "" :"<i class=\"fa fa-arrow-right\"></i>" + Model.PromotionResultsDescription.Replace(Environment.NewLine, "<br><i class=\"fa fa-arrow-right\"></i>").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+            ViewContext.Writer.Write(results);
+            ViewContext.Writer.Write("</div>");
+        }
+        
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()
+

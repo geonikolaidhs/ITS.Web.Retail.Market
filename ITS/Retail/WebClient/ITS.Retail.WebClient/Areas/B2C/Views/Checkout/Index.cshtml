@@ -1,0 +1,36 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{
+    Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+}
+
+
+@section HeaderScriptsAndStyles {
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/B2C/css/product_listing.css")" type="text/css" media="screen" />
+    <script src="@Url.Content("~/Content/B2C/js/Address.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+    <script src="@Url.Content("~/Content/B2C/js/Checkout.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1 class="text-center">@Resources.Buy - @Resources.OrderReview</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    @Html.Partial("TablePartial")
+
+</div>
+
+
+
+
+
+
+

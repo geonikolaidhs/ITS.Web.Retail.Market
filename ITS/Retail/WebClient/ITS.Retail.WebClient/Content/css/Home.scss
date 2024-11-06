@@ -1,0 +1,548 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+@import "data-urls";
+
+//@extend-elements
+//original selectors
+//.presenter .lists div.container #ItemsChart, .presenter .lists div.container #ItemCategoriesChart
+%extend_1 {
+    background: $wild_sand;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 43px;
+    width: 100% !important;
+    z-index: -1;
+}
+
+//original selectors
+//.wrapper .Home_Index .dockZone .dxpcLite_ITSTheme1 .dxpc-header, .wrapper .Home_Index .dockZone .dxdpLite_ITSTheme1 .dxpc-header
+%extend_2 {
+    background: transparent !important;
+    box-shadow: none;
+    color: $black;
+    font-size: 20px;
+    margin-bottom: 0;
+    //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    padding: 5px;
+    white-space: nowrap;
+}
+
+//original selectors
+//.wrapper .Home_Index .dxpcLite_ITSTheme1 a, .wrapper .Home_Index .dxdpLite_ITSTheme1 a
+%extend_3 {
+    color: $black;
+    display: block;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
+//original selectors
+//.dxdpLite_ITSTheme1, .dxpcLite_ITSTheme1
+%extend_4 {
+    height: 110px !important;
+    margin-bottom: 25px;
+    min-height: 0;
+    min-width: 10px !important;
+    width: 150px !important;
+}
+
+
+.footer {
+    margin-top: 0;
+}
+
+#products {
+    width: 98%;
+    padding: 1%;
+    div.container {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+        width: 49%;
+        @include breakpoint('1200-max'){
+             min-width: 100%;
+        }
+    }
+}
+
+
+
+#customers {
+    width: 98%;
+}
+
+#MenuDockPanels {
+    background: $white;
+    box-shadow: 0 0 12px $color_star_dust_approx;
+    //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    display: inline-block;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    position: relative;
+    text-align: left;
+    vertical-align: top;
+    width: 100%;
+}
+
+
+.presenter {
+    background: $white;
+    box-shadow: 0 0 12px $color_star_dust_approx;
+    //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    display: inline-block;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    position: relative;
+    text-align: left;
+    vertical-align: top;
+    width: 100%;
+    div {
+        &.CustomersChart {
+            overflow: hidden;
+            position: relative;
+        }
+
+        &.container {
+            background: $wild_sand;
+            box-shadow: none;
+            margin: 20px 0;
+            //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+            min-height: 38px;
+            overflow: visible;
+            padding: 0;
+            width: auto;
+        }
+    }
+
+    .lists {
+        table {
+            td {
+                background: $wild_sand;
+                padding: 10px 5px;
+                text-align: left;
+
+                &.number {
+                    text-align: right;
+                    width: 20px;
+                }
+            }
+
+            tr {
+                &.light td {
+                    background: $color_iron_approx;
+                }
+
+                &.headerList td {
+                    background: $color_dodger_blue_approx;
+                    color: $white;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        div.container {
+            .container_table {
+                background: $wild_sand;
+                height: 290px;
+                max-height: 300px;
+                overflow-y: auto;
+                width: 100%;
+
+                table {
+                    width: 100%;
+                }
+            }
+
+            #ItemsChart {
+                @extend %extend_1;
+            }
+
+            #ItemCategoriesChart {
+                @extend %extend_1;
+            }
+
+            .headerListTable {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.wrapper {
+    height: auto;
+
+    .Home_Index {
+        overflow: visible;
+        position: relative;
+
+        .presenter {
+            .trackBars {
+                margin: 0 auto;
+                position: relative;
+
+                .trackBarsRadio {
+                    background: $white;
+                }
+
+                .dxeTrackBar_ITSTheme1 {
+                    background: $white;
+                }
+            }
+
+            .trackBarsRadio {
+                background: $color_wild_sand_approx;
+                float: left;
+            }
+
+            .lists {
+                clear: both;
+                position: relative;
+            }
+
+            .dxeTrackBar_ITSTheme1 {
+                background: $color_wild_sand_approx;
+                clear: right;
+                display: inline-block;
+                float: left;
+                margin: 0 5px 10px 10px;
+                padding: 10px;
+            }
+
+            span {
+                &.info_icons {
+                    background-image: url($info-icon-uri);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    cursor: pointer;
+                    display: block;
+                    float: left;
+                    height: 28px;
+                    margin: 5px;
+                    width: 35px;
+                }
+
+                &.bar_c, &.bar {
+                    background-image: url($bar-icon-uri);
+                    background-size: 28px;
+                }
+
+                &.up {
+                    background-image: url($up-icon-uri);
+                }
+
+                &.info {
+                    background-image: url($up-icon-alt-uri);
+                    background-size: 27px;
+                }
+            }
+
+            .container_js {
+                clear: both;
+            }
+
+            div {
+                &.offers {
+                    table {
+                        clear: both;
+                        float: none;
+                        margin: 0;
+                        max-height: 410px;
+                        overflow-y: auto;
+                        width: 100%;
+                    }
+
+                    .container_table {
+                        max-height: 410px;
+                        overflow-y: auto;
+                    }
+                }
+
+                &.CustomersChart .CustomersChart1 {
+                    margin: 0 -10px 0 0;
+                }
+            }
+
+            h3 {
+                background: $color_blaze_orange_approx;
+                border: 1px transparent solid;
+                border-radius: 0;
+                clear: left;
+                color: $white;
+                display: inline-block;
+                float: left;
+                font-size: 15px;
+                line-height: 28px;
+                //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+                margin: auto;
+                outline: none;
+                padding: 4px 12px;
+                text-align: center;
+            }
+
+            .dxeRadioButtonList_ITSTheme1, .dxeCheckBoxList_ITSTheme1 {
+                border: 0;
+                padding: 12px 10px 11px;
+            }
+        }
+
+        .presenter2 {
+            background: $color_dodger_blue_approx;
+            min-height: 400px;
+            position: relative;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .dxpc-contentWrapper {
+            width: auto !important;
+        }
+
+
+
+        .dockContainer {
+            padding: 0 5px;
+        }
+
+        .dxdz-pnlPlcHolder {
+            width: 100% !important;
+        }
+
+        .wrapper .Home_Index .presenter .dxeTrackBar_ITSTheme1 {
+            padding: 5px 10px;
+        }
+
+        table td.align_style {
+            padding-right: 30px;
+            text-align: right;
+        }
+    }
+
+    #document_wrapper {
+        cursor: pointer;
+        height: auto;
+        left: 0;
+        margin: 80px -20px 0;
+        position: absolute;
+        right: 0;
+        z-index: 0;
+
+        #container {
+            height: 550px;
+            margin: 0 auto;
+            position: relative;
+            @include breakpoint('1200-max'){
+                margin: auto 15px;
+            }
+            .view_carousel {
+                background-image: url($view-carousel-uri);
+                background-position: 11px 0;
+                background-repeat: no-repeat;
+                background-size: 165%;
+                color: $color_star_dust_approx;
+                cursor: pointer;
+                font-size: 50px;
+                height: 40px;
+                opacity: 0.8;
+                position: absolute;
+                right: 60px;
+                top: -50px;
+                width: 50px;
+                @include breakpoint('1200-max'){
+                    right: 45px;
+                }
+            }
+
+            #close_btn {
+                background-image: url($view-carousel-uri);
+                background-position: -38px 0;
+                background-repeat: no-repeat;
+                background-size: 165%;
+                color: $color_star_dust_approx;
+                cursor: pointer;
+                font-size: 50px;
+                height: 40px;
+                opacity: 0.8;
+                position: absolute;
+                right: 10px;
+                top: -50px;
+                width: 50px;
+                @include breakpoint('1200-max'){
+                    right: 0;
+                }
+            }
+        }
+
+        #gallery {
+            @include user-select(none);
+            position: relative;
+            left: 0;
+            background: $white;
+            -webkit-touch-callout: none;
+        }
+
+        .carousel {
+            overflow: hidden;
+            background: $white;
+            height: 550px;
+
+            .carousel-slider {
+                width: 3000px;
+                @include breakpoint('1300-max'){
+                    height: 460px;
+                }
+            }
+        }
+
+        .carousel-content {
+            float: left;
+            margin: 30px 25px 0;
+            overflow: hidden;
+            width: 150px;
+
+            .OrderItemPhoto {
+                background-color: $color_gallery_approx;
+                position: relative;
+            }
+
+            img {
+                display: block;
+                height: 150px;
+                margin: 0 0 15px 0;
+                position: relative;
+                width: 150px;
+
+                @include breakpoint('1300-max'){
+                    height: 170px;
+                    width: 200px;
+                }
+            }
+        }
+    }
+}
+
+#close_btn {
+    color: $color_star_dust_approx;
+    cursor: pointer;
+    font-size: 50px;
+    opacity: 0.8;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.dockZone {
+    background-image: url($dockZone-uri);
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    margin: 20px auto;
+    max-height: 500px;
+    min-height: 500px;
+    overflow: hidden;
+    text-align: center;
+
+    &:after {
+        content: "";
+        opacity: 0.5;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+    }
+
+    #message {
+        color: $color_mountain_mist_approx;
+        font-size: 20px;
+        margin: 20px auto;
+    }
+
+    #SaveMenuDockPanels {
+        display: none;
+        left: 5px;
+        position: absolute;
+        top: 5px;
+    }
+
+    .dxpc-content {
+        height: 100% !important;
+        padding: 0;
+        width: auto !important;
+    }
+
+    div.zone {
+        float: left;
+        margin: 2%;
+        min-width: 10px !important;
+        width: 29%;
+    }
+
+            
+    .dxpcLite_ITSTheme1 .dxpc-header {
+        @extend %extend_2;
+    }
+
+    .dxdpLite_ITSTheme1 .dxpc-header {
+        @extend %extend_2;
+    }        
+
+    .dxpc-mainDiv {
+        @include transition(all 0.5s ease);
+        @include border-radius(3px);
+        @include box-shadow(0, 2px, 4px, $black_10);
+        background: $color_wild_sand_93_approx;
+        padding: 5px;
+
+        &:hover {
+            background: $color_dodger_blue_approx;
+        }
+    }
+
+
+}
+
+.dxdpLite_ITSTheme1 {
+    @extend %extend_4;
+
+    .dxpc-header {
+        background-color: transparent !important;
+    }
+    a{
+        @extend %extend_3;
+    }
+}
+
+
+#CustomersYearFilter {
+    margin-top: 25px;
+}
+
+.float-left {
+    float: left;
+    position: relative;
+}
+
+a .wrapper .container {
+    background: none;
+    //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: none;
+    min-height: 200px;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}

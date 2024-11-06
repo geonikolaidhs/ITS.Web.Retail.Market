@@ -1,0 +1,69 @@
+﻿@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using System.Web.Optimization;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.WebClient.Helpers;
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(viewContext: ViewContext, objectType: typeof(DocumentTypeItemCategory), controllerType: typeof(DocumentTypeController), gridName: "gridDocumentTypeItemCategories", columnType: GridViewCommandColumnType.ICONS, generateColumns: false);
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "DocumentType", Action = "ItemCategoryUpdatePartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DocumentType", Action = "ItemCategoryUpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "DocumentType", Action = "ItemCategoryDeletePartial" };
+    settings.CallbackRouteValues = new { Controller = "DocumentType", Action = "ItemCategoryGrid" };
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallbackCategoryGrid";
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsText.Title = Resources.ItemCategories;
+    settings.SettingsText.PopupEditFormCaption = Resources.ItemCategory;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ItemCategory.Code";
+        column.Caption = Resources.Code;
+        column.SortAscending();
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ItemCategory.Description";
+        column.Caption = Resources.Description;
+    });
+
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        Html.RenderPartial("ItemCategoryTreeView");
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnItemAnalyticTreeUpdate";
+        headerOptions.SaveButton.OnClick = "function(s,e){OnSaveBtnClickItemAnalyticTree(s,e,"+settings.Name+");}";
+        headerOptions.CancelButton.Name = "btnItemAnalyticTreeCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+    });
+
+
+
+    settings.DataBinding = (object sender, EventArgs e) =>
+    {
+        (sender as ASPxGridView).ForceDataRowType(typeof(DocumentTypeItemCategory));
+    };
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

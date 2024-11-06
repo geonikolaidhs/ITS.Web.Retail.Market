@@ -1,0 +1,128 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+
+@{
+
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(LabelPrintServiceSettings), typeof(LabelPrintServiceSettingsController), "grdLabelPrintServiceSettings", columnType: GridViewCommandColumnType.CHECKBOX, generateColumns: false);
+
+    settings.CallbackRouteValues = new { Controller = "LabelPrintServiceSettings", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.LabelPrintServiceSettings;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "LabelPrintServiceSettings", Action = "Insert" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "LabelPrintServiceSettings", Action = "Update" };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.PrintServiceSettings;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Label.Description";
+        col.Caption = Resources.StoreDocumentSeriesTypes;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "RemotePrinterService.Name";
+        col.Caption = Resources.RemotePrinterService;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PrinterNickName";
+        col.Caption = Resources.Printer;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsActive";
+        col.Caption = Resources.IsActive;
+    });
+
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnUpdatePrintServiceSettings";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnCancelPrintServiceSettings";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Label + " :";
+        }).Render();
+
+        Html.RenderPartial("Labels");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.RemotePrinterService + " :";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "RemotePrinterServices";//DevExpress 15.1 stupid bug https://community.devexpress.com/blogs/aspnet/archive/2015/06/09/asp-net-mvc-other-enhancements-in-v15-1.aspx
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.TextField = "Name";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.DropDownWidth = 550;
+            edtSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            edtSettings.Properties.CallbackPageSize = 15;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            edtSettings.Properties.Buttons.Add(button);
+            edtSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            edtSettings.Properties.Columns.Add("Name", Resources.Name, 130);
+        }).BindList(ViewBag.RemotePrinterServicesComboBox).Bind(DataBinder.Eval(item, "RemotePrinterService!Key")).Render();
+
+        @Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "TestConnectionButton";
+            buttonSettings.Text = Resources.TestConnection;
+            buttonSettings.ControlStyle.CssClass = "green-button";
+            buttonSettings.EncodeHtml = false;
+            buttonSettings.Height = 40;
+            buttonSettings.UseSubmitBehavior = false;
+            buttonSettings.ClientSideEvents.Click = "PrintServiceSettings.TestRemotePrinterServerConnection";
+        }).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.PrinterNickName + " :";
+        }).Render();
+
+        Html.RenderPartial("UpdateRemotePrinters");
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.IsActive;
+            edtSettings.Name = "IsActive";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(item, "IsActive") ?? false).Render();
+
+        ViewContext.Writer.Write("</div>");
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

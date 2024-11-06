@@ -1,0 +1,29 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Common;
+
+@Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Enabled = true;
+        combosettings.Name = "ItemSupplier";
+        combosettings.CallbackRouteValues = new { Controller = "Item", Action = "ItemSuppliersComboBoxPartial" };
+        combosettings.Properties.CallbackPageSize = 15;
+        combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        combosettings.Properties.TextField = "DefaultSupplier.CompanyName";
+        combosettings.Properties.ValueType = typeof(Guid);
+        combosettings.Properties.ValueField = "Oid";
+        combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+        combosettings.Properties.Columns.Add("CompanyName", Resources.Description, 130);
+
+        combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+        combosettings.Properties.FilterMinLength = 0;
+        combosettings.Properties.NullText = Resources.ComboBoxNote;
+        combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+        var button = new EditButton(" ");
+        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        combosettings.Properties.Buttons.Add(button);
+        button.Image.AlternateText = Resources.Clear;
+
+        combosettings.ShowModelErrors = true;
+        combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        combosettings.Enabled = (ViewBag.ApplicationInstance != eApplicationInstance.STORE_CONTROLER);
+    }).BindList(ITS.Retail.WebClient.Controllers.ItemController.ItemSuppliersRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.ItemController.ItemSupplierRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.ItemController.GetItemSupplierByValue(DataBinder.Eval(Model, "DefaultSupplier!Key"))).Bind(DataBinder.Eval(Model, "DefaultSupplier!Key")).GetHtml()

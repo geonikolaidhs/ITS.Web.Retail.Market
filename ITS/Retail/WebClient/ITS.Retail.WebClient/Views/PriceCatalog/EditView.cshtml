@@ -1,0 +1,401 @@
+﻿@model PriceCatalog
+@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("Save", "PriceCatalog", FormMethod.Post , new{ id = "EditForm"}))
+{
+    @Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("PriceCatalogID", ViewData["PriceCatalogID"].ToString()));
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+            /*Header banner*/
+            HeaderOptions headerOptions = new HeaderOptions("");
+            headerOptions.SaveButton.OnClick = "EditPriceCatalog.Save";
+            headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+            HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);   
+            /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray'><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code+":";
+            edtSettings.AssociatedControlName = "Code";
+        }
+        ).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ClientSideEvents.LostFocus = "CheckForExistingPriceCatalog";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).Bind(DataBinder.Eval(Model, "Code")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description+":";
+            edtSettings.AssociatedControlName = "Description";
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            edtSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).Bind(DataBinder.Eval(Model, "Description")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ParentCatalog+":";
+        }).Render();
+
+        Html.RenderPartial("PriceCatalogsComboBoxPartial", Model);
+
+        ViewContext.Writer.Write("</td><td>");
+        Html.DevExpress().CheckBox(checkBoxSettings =>
+        {
+            checkBoxSettings.Name = "IgnoreZeroPrices";
+            checkBoxSettings.Text = Resources.IgnoreZeroPrices;
+            checkBoxSettings.ControlStyle.CssClass = "editor";
+            checkBoxSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).Bind(DataBinder.Eval(Model, "IgnoreZeroPrices")).Render();
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.StartDate+":";
+            edtSettings.AssociatedControlName = "Value";
+        }).Render();
+
+        Html.DevExpress().DateEdit(dateSettings =>
+        {
+            dateSettings.ControlStyle.CssClass = "editor";
+            dateSettings.Name = "StartDate";
+            dateSettings.Properties.TimeSectionProperties.Visible = true;
+            dateSettings.Properties.EditFormat = EditFormat.DateTime;
+            dateSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).Bind(DataBinder.Eval(Model, "StartDate")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.EndDate+":";
+            edtSettings.AssociatedControlName = "Value";
+        }).Render();
+
+        Html.DevExpress().DateEdit(dateSettings =>
+        {
+            dateSettings.ControlStyle.CssClass = "editor";
+            dateSettings.Name = "EndDate";
+            dateSettings.Properties.EditFormat = EditFormat.DateTime;
+            dateSettings.Properties.TimeSectionProperties.Visible = true;
+            dateSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).Bind(DataBinder.Eval(Model, "EndDate")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.IsEditableAtStore + ":";
+            edtSettings.AssociatedControlName = "IsEditableAtStore";
+        }).Render();
+
+
+        Html.DevExpress().ComboBox(comboSettings =>
+        {
+            comboSettings.Name = "IsEditableAtStore";
+            comboSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+            comboSettings.ControlStyle.CssClass = "search_filter";
+            comboSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            comboSettings.Properties.ValueField = "Oid";
+            comboSettings.Properties.ValueType = typeof(Guid);
+            comboSettings.Properties.ValueField = "Oid";
+            comboSettings.Properties.TextField = "Description";
+
+            if (ITS.Retail.WebClient.MvcApplication.ApplicationInstance != eApplicationInstance.STORE_CONTROLER)
+            {
+                EditButton button = new EditButton(" ");
+                button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                button.Image.AlternateText = Resources.Clear;
+                comboSettings.Properties.Buttons.Add(button);
+            }
+
+            comboSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).BindList(ViewBag.Store).Bind(DataBinder.Eval(Model, "IsEditableAtStore!Key")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-bottom\">");
+
+        Html.DevExpress().CheckBox(checkBoxSettings =>
+        {
+            checkBoxSettings.Name = "SupportLoyalty";
+            checkBoxSettings.Text = Resources.SupportLoyalty;
+            checkBoxSettings.ControlStyle.CssClass = "editor";
+            checkBoxSettings.ReadOnly = ITS.Retail.WebClient.MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER;
+        }).Bind(DataBinder.Eval(Model, "SupportLoyalty")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+
+        Html.DevExpress().PageControl(pcSettings =>
+        {
+            pcSettings.AccessibilityCompliant = false;
+            pcSettings.Name = "pcFeatures";
+            pcSettings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            pcSettings.TabAlign = TabAlign.Left;
+            pcSettings.TabPosition = TabPosition.Top;
+            pcSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            pcSettings.TabPages.Add(Resources.ItemsOfPriceCatalog).SetContent(() =>
+            {
+                //-----------------------------------ItemFilters-------------------------------------//
+                @Html.DevExpress().RoundPanel(FilterPanelsettings =>
+                {
+                    FilterPanelsettings.Name = "FilterPanel";
+                    FilterPanelsettings.ControlStyle.CssClass = "FilterPanel";
+                    FilterPanelsettings.HeaderText = Resources.SearchFilters;
+                    FilterPanelsettings.SetContent(() =>
+                    {
+                        Html.RenderPartial("FilterButtons");
+                        ViewContext.Writer.Write("<table><tr><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.Code+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "Fcode";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.ItemName + ":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "Fname";
+                            textsettings.Text = "";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.Barcode+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "Fbarcode";
+                            textsettings.Text = "";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.ItemSupplier + ":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "FitemSupplier";
+                            textsettings.Text = "";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.InsertedDateFilter+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().DateEdit(deSettings =>
+                        {
+                            deSettings.Properties.EditFormat = EditFormat.Date;
+                            deSettings.Name = "FcreatedOn";
+                            deSettings.ControlStyle.CssClass = "search_filter";
+                            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.UpdatedOnFilter+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().DateEdit(deSettings =>
+                        {
+                            deSettings.Properties.EditFormat = EditFormat.DateTime;
+                            deSettings.Name = "FupdatedOn";
+                            deSettings.ControlStyle.CssClass = "search_filter";
+                            deSettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.Seasonality+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "Fseasonality";
+                            textsettings.Text = "";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.MotherCode + ":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "Fmothercode";
+                            textsettings.Text = "";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.IsActive+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().ComboBox(combosettings =>
+                        {
+                            combosettings.Name = "Factive";
+                            combosettings.Properties.Items.Add("", -1);
+                            combosettings.Properties.Items.Add(Resources.Yes, 1);
+                            combosettings.Properties.Items.Add(Resources.No, 0);
+                            combosettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                            combosettings.ControlStyle.CssClass = "search_filter";
+                            combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+                            EditButton button = new EditButton(" ");
+                            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+                            button.Image.AlternateText = Resources.Clear;
+                            combosettings.Properties.Buttons.Add(button);
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = Resources.Buyer+":";
+                        }).GetHtml();
+
+                        @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "Fbuyer";
+                            textsettings.Text = "";
+                            textsettings.Properties.ClientSideEvents.KeyPress = "Component.OnKeyPressFilters";
+                            textsettings.ControlStyle.CssClass = "search_filter";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Button(settings2 =>
+                        {
+                            settings2.Name = "btnCategories";
+                            settings2.Text = Resources.Category;
+                            settings2.ClientSideEvents.Click = "function(s,e){ pcCategoriesPopup.Show() }";
+                        }).GetHtml();
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Name = "categoryfilterid";
+                            labelsetings.ClientVisible = false;
+                            labelsetings.Text = "";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Name = "categoryfiltertext";
+                        }).GetHtml();
+
+                        ViewContext.Writer.Write("</td><td>");
+
+                        ViewContext.Writer.Write("<img class='clearbtn' id='btnClearCategories' src='" + Url.Content("~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt='" + Resources.Clear + "' title='" + @Resources.Clear + "' onclick='clearCategory()' style='display:none'/>");
+
+                        ViewContext.Writer.Write("</td></tr></table>");
+
+                        @Html.DevExpress().Button(settings2 =>
+                        {
+                            settings2.Name = "btnSearch";
+                            settings2.Text = Resources.Search;
+                            settings2.ControlStyle.CssClass = "button";
+                            settings2.ClientSideEvents.Click = "SearchItem";
+                        }).GetHtml();
+                    });
+                }).GetHtml();
+
+
+
+                Html.RenderPartial("PriceCatalogDetailGrid", Model.PriceCatalogDetails);
+
+                //-------------------------------------------------------------------//
+            });
+
+            pcSettings.TabPages.Add(Resources.PriceCatalogStores).SetContent(() =>
+            {
+                Html.RenderPartial("StorePriceListGrid", Model.StorePriceLists);
+            });
+
+            pcSettings.TabPages.Add(Resources.SubCatalogs).SetContent(() =>
+            {
+                Html.RenderPartial("PriceCatalogChildsGrid", Model.PriceCatalogs);
+            });
+
+        }).GetHtml();
+    });
+}).GetHtml();
+    }
+
+    @Html.Partial("../Item/ItemCategoriesPopup")

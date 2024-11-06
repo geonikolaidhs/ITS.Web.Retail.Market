@@ -1,0 +1,124 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using System.Web.UI.WebControls
+@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib
+@using ITS.Retail.Platform.Enumerations
+
+@{
+    List<string> includedFields = new List<string>() { "Description", "Query", "Category", /*"DisplayValuesMode"*/};
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(CustomDataView), typeof(CustomDataViewController), "grdCustomDataViews", columnType: GridViewCommandColumnType.CHECKBOX, includedFields: includedFields);
+    settings.CallbackRouteValues = new { Controller = "CustomDataView", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.DataViews;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+
+    settings.ClientSideEvents.BeginCallback = "CustomDataView.grdOnBeginCallback";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CustomDataView", Action = "DataViewUpdatePartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CustomDataView", Action = "DataViewUpdatePartial" };
+    settings.SettingsText.PopupEditFormCaption = Resources.DataView;
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnVariableUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnVariableCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class=\"item-center-div\"><tr><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.Description + ":";
+            txtsettings.Properties.CaptionStyle.CssClass = "label";
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtsettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            txtsettings.Name = "Description";
+            txtsettings.ControlStyle.CssClass = "editor";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            txtsettings.Width = Unit.Percentage(100);
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.RenderAction("CustomDataViewCategoryComboBox", "CustomDataView");
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan = 4>");
+
+        string roles = "";
+        if (DataBinder.Eval(item, "This") != null && (DataBinder.Eval(item, "This") as CustomDataView).Roles.Count > 0)
+        {
+            roles = (DataBinder.Eval(item, "This") as CustomDataView).Roles.Select(status => status.Oid.ToString()).Aggregate((x, y) => x + "," + y);
+        }
+        ViewContext.Writer.Write(Html.Hidden("Roles_initial", roles));
+
+        Html.DevExpress().ListBox(listBoxSettings =>
+        {
+            listBoxSettings.Name = "lstRoles";
+            listBoxSettings.Properties.Caption = Resources.Roles;
+            listBoxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            listBoxSettings.Width = Unit.Percentage(100);
+            listBoxSettings.Height = 100;
+            listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+            listBoxSettings.Properties.TextField = "Description";
+            listBoxSettings.Properties.ValueType = typeof(Guid);
+            listBoxSettings.Properties.ValueField = "Oid";
+            listBoxSettings.Properties.ClientSideEvents.Init = "CustomDataView.OnCustomDataViewInit";
+
+        }).BindList(ViewBag.Roles).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan=4>");
+
+        Html.DevExpress().Memo(memosettings =>
+        {
+            memosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            memosettings.Properties.CaptionSettings.HorizontalAlign = EditorCaptionHorizontalAlign.Left;
+            memosettings.Properties.CaptionStyle.CssClass = "label";
+            memosettings.Properties.Caption = Resources.Query;
+            memosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            memosettings.Name = "Query";
+            memosettings.Height = 150;
+            memosettings.Width = Unit.Percentage(100);
+            memosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            memosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            memosettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "Query")).Render();
+
+        Html.DevExpress().PageControl(page_control_settings =>
+        {
+            page_control_settings.AccessibilityCompliant = false;
+            page_control_settings.Name = "CustomDataViewTabs";
+            page_control_settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+            page_control_settings.TabAlign = TabAlign.Left;
+            page_control_settings.TabPosition = TabPosition.Top;
+            page_control_settings.Width = Unit.Percentage(100);
+            page_control_settings.TabPages.Add(Resources.CustomDataViewSettings).SetContent(() =>
+            {
+                Html.RenderAction("CustomDataViewShowSettingsGrid", "CustomDataView");
+            });
+
+            page_control_settings.TabPages.Add(Resources.CustomDataViewParameters).SetContent(() =>
+            {
+                Html.RenderAction("CustomDataViewParametersGrid", "CustomDataView");
+            });
+
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr></table>"); /** /.item-center-div **/
+
+        ViewContext.Writer.Write("</div>"); /** /.ValidationContainer **/
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

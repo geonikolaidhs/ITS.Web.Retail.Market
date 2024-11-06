@@ -1,0 +1,12 @@
+﻿@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = "EntityName";
+    combosettings.ControlStyle.CssClass = "editor";
+    combosettings.Properties.ValueType = typeof(string);
+    combosettings.ShowModelErrors = true;
+    combosettings.Properties.ValueField = "Key";
+    combosettings.Properties.TextField = "Value";		
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    combosettings.Properties.ClientSideEvents.ValueChanged = "OnValueChangedEntityComboBox";
+}).BindList(ViewBag.EntityComboBox).Bind(DataBinder.Eval(Model, "EntityName") ?? "").GetHtml()

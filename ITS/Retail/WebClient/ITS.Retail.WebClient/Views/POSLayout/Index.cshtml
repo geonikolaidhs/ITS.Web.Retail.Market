@@ -1,0 +1,13 @@
+﻿@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/POSLayout.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditPOSLayout.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@{
+    ViewBag.Title = ITS.Retail.ResourcesLib.Resources.POSLayouts;
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid")

@@ -1,0 +1,266 @@
+@import "compass/css3";
+@import "colors";
+@import "mixins";
+@import "fonts";
+@import "urls";
+//@extend-elements
+//original selectors
+//body, html
+%extend_1 {
+    color: $color_mine_shaft_approx;
+    font-family: $arial, $sans-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+//original selectors
+//ul, li
+%extend_2 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    @extend %extend_1;
+}
+
+html {
+    @extend %extend_1;
+}
+
+ul {
+    @extend %extend_2;
+}
+
+li {
+    @extend %extend_2;
+}
+
+a {
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+footer {
+    background: $color_quill_gray_approx;
+    clear: both;
+    margin: 10px;
+    padding: 10px;
+}
+
+header {
+    @include box-shadow(0, 0, 12px,$color_gray_approx);
+    background: $color_quill_gray_approx;
+    border: 1px solid $color_celeste_approx;
+    margin: 10px;
+    padding: 10px;
+}
+
+.mainpage {
+    border: 1px solid $color_celeste_approx;
+    margin: 0 auto;
+
+    .RenderBody {
+        min-height: 65vh;
+        position: relative;
+    }
+
+    h1 {
+        font-size: 20px;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 20px;
+        font-weight: normal;
+        margin: 0 0 10px 0;
+    }
+
+    p {
+        color: $color_mountain_mist_approx;
+        font: 12px $arial;
+        margin: 0;
+        padding-bottom: 5px;
+        padding-left: 0;
+        text-align: left;
+    }
+
+    a {
+        color: $color_dodger_blue_approx;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .dxICheckBox_ITSTheme1 {
+        margin: 0 -3px;
+    }
+
+    table#buttons {
+        float: right;
+        margin-top: 20px;
+
+        #btnClose .dxbButton_ITSTheme1 {
+            position: relative;
+        }
+    }
+
+    #ReportToolbar_Menu ul li label {
+        margin: 7px 0 0;
+    }
+
+    #btnClose .dxbButton_ITSTheme1 {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+.wrapper {
+    background: $white;
+    margin: 20px;
+    min-width: 50%;
+    width: auto;
+
+    .container {
+        box-shadow: none !important;
+        margin-top: 0 !important;
+        min-width: 50%;
+        padding: 10px !important;
+        //Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+        width: auto !important;
+
+        .filter_search_container {
+            margin-left: 5px;
+            padding: 3px 2px 5px;
+            top: -48px;
+        }
+
+        table.FilterPanel {
+            .dxbButton_ITSTheme1 {
+                clear: none;
+                margin-left: 20px;
+            }
+
+            td.dxrpHeader_ITSTheme1 span {
+                background-color: $color_quill_gray_approx;
+                font-weight: normal;
+            }
+
+        }
+    }
+
+    #settings {
+        float: left;
+        margin-right: 20px;
+        width: 300px;
+
+        ul {
+            overflow: hidden;
+            position: relative;
+
+            li h4 span {
+                background-image: $minimize;
+                background-position: -20px 0;
+                background-repeat: no-repeat;
+                background-size: 41px;
+                cursor: pointer;
+                display: block;
+                height: 25px;
+                margin: 0;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                width: 21px;
+
+                &.maximaze {
+                    background-position: 0 0;
+                }
+            }
+        }
+
+        .options {
+            @include transition(all .5s ease);
+            background: $color_celeste_approx;
+            color: $white;
+            cursor: pointer;
+            font-size: 15px;
+            margin: 0 auto 10px;
+
+            li {
+                display: none;
+                margin: 0;
+            }
+
+            a {
+                @include transition(all .5s ease);
+                color: $color_mine_shaft_approx;
+                display: block;
+                font-size: 12px;
+                padding: 15px 20px 10px;
+
+                &:hover {
+                    background-color: $color_dodger_blue_approx;
+                    color: $white;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .subtitle {
+            @include transition(all .5s ease);
+            background: $color_nobel_approx;
+            color: $white;
+            cursor: pointer;
+            display: block;
+            font-size: 15px;
+            margin: 0 auto 10px;
+            padding: 2px 15px;
+        }
+
+        h4.title_settings {
+            background: $color_dodger_blue_approx;
+            border-right: 50px solid $color_mine_shaft_approx;
+            cursor: pointer;
+            display: block;
+            font-size: 15px;
+            margin: 0 0 10px;
+            padding: 1.33em;
+            position: relative;
+            text-align: right;
+        }
+    }
+}
+
+.dxeTextBox_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1 {
+    height: auto;
+}
+
+.dxeButtonEdit_ITSTheme1 td.dxic .dxeEditArea_ITSTheme1 {
+    height: auto;
+}
+
+table.FilterPanel {
+    background: $color_quill_gray_approx;
+    font-size: 20px;
+    left: 10px;
+    position: absolute;
+    top: -50px;
+
+    td.dxrpHeader_ITSTheme1 {
+        background: $color_quill_gray_approx !important;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.dxeOutOfRWarnRight_ITSTheme1{
+    display:none;
+}

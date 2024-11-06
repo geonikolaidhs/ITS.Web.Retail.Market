@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@model CustomDataViewCategory
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Properties.Caption = Resources.DataViewCategory;
+    combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    combosettings.Properties.CaptionStyle.CssClass = "label";
+    combosettings.Name = "CustomDataViewCategoryCb";
+    combosettings.CallbackRouteValues = new { Controller = "CustomDataView", Action = "CustomDataViewCategoryComboBox" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Description";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.ClientSideEvents.EndCallback = "CustomDataView.grdOnEndCallback";
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+    combosettings.ShowModelErrors = true;
+    combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+}).BindList(ViewBag.CategoriesForEdit).Bind(DataBinder.Eval(Model,"Oid")).GetHtml()

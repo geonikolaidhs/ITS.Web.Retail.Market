@@ -1,0 +1,63 @@
+﻿@using ITS.Retail.WebClient.Areas.B2C.Controllers;
+@using ITS.Retail.ResourcesLib;
+
+<div class="col-sm-9">
+    @using (Ajax.BeginForm("UpdateProfile", new { Controller = "Membership" }, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnComplete = "Profile.UpdateProfileOnComplete",
+        UpdateTargetId = "ProfileCallbackPanel",//InsertionMode = InsertionMode.Replace
+        OnBegin = "Profile.UpdateProfileOnBegin"
+    }))
+    {
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.Name</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "FirstName";
+                        settings.ControlStyle.CssClass = "form-control";
+                    }).Bind(BaseController.CurrentCustomer.Trader.FirstName).GetHtml()
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.LastName</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "LastName";
+                        settings.ControlStyle.CssClass = "form-control";
+                    }).Bind(BaseController.CurrentCustomer.Trader.LastName).GetHtml()
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label>@Resources.email</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "Email";
+                        settings.ControlStyle.CssClass = "form-control";
+                    }).Bind(BaseController.CurrentUser.Email).GetHtml()
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center">
+                    @Html.DevExpress().Button(settings =>
+                        {
+                            settings.Name = "UserSubmit";
+                            settings.Text = Resources.Submit;
+                            settings.ControlStyle.CssClass = "light-blue-button";
+                            settings.Height = 40;
+                            settings.UseSubmitBehavior = true;
+                        }).GetHtml()
+                </div>
+            </div>
+        </div>
+    }
+</div>

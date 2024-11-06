@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="INVALID_DISCOUNT" xml:space="preserve">
+    <value>Μη έγκυρη έκπτωση</value>
+  </data>
+  <data name="INVALID_SETTINGS_POS_IS_NULL" xml:space="preserve">
+    <value>Μη έγγκυρες ρυθμίσεις. Οι ρυθμίσεις του POS δεν βρέθηκαν ή δεν κατέβηκαν ακόμη.</value>
+  </data>
+  <data name="INVALID_SETTINGS_STORE_IS_NULL" xml:space="preserve">
+    <value>Μη έγγκυρες ρυθμίσεις. Το κατάστημα δεν βρέθηκε ή δεν κατέβηκε ακόμη.</value>
+  </data>
+  <data name="ACTION_FORBIDDEN" xml:space="preserve">
+    <value>Η συγκεκριμένη ενέργεια δεν επιτρέπεται</value>
+  </data>
+  <data name="ADD_ITEM" xml:space="preserve">
+    <value>Προσθήκη είδους</value>
+  </data>
+  <data name="ADD_PAYMENT" xml:space="preserve">
+    <value>Προσθήκη Πληρωμής</value>
+  </data>
+  <data name="AMOUNT" xml:space="preserve">
+    <value>Ποσό</value>
+  </data>
+  <data name="CANCEL" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="CANCEL_LINE" xml:space="preserve">
+    <value>Ακύρωση γραμμής</value>
+  </data>
+  <data name="CANCEL_RECEIPT" xml:space="preserve">
+    <value>Ακύρωση απόδειξης</value>
+  </data>
+  <data name="CHANGE" xml:space="preserve">
+    <value>Ρέστα</value>
+  </data>
+  <data name="CHECK_PRICE" xml:space="preserve">
+    <value>Ελεγχος τιμής</value>
+  </data>
+  <data name="CHECKING" xml:space="preserve">
+    <value>Έλεγχος</value>
+  </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="CODE" xml:space="preserve">
+    <value>Κωδικός</value>
+  </data>
+  <data name="ConfigurationFileNotSetProperly" xml:space="preserve">
+    <value>Το αρχείο ρυθμίσεων δεν είναι έγκυρο. Η σήμανση &lt;Global&gt; απουσιάζει</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="DESCRIPTIONS" xml:space="preserve">
+    <value>Περιγραφές</value>
+  </data>
+  <data name="DEVICE_INIT_FAILED" xml:space="preserve">
+    <value>Η αρχικοποίηση της συσκευής απέτυχε.</value>
+  </data>
+  <data name="DEVICE_NOT_READY" xml:space="preserve">
+    <value>Η συσκευή δεν είναι έτοιμη.</value>
+  </data>
+  <data name="DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_CANCEL" xml:space="preserve">
+    <value>Θέλετε να ακυρώσετε την τρέχουσα απόδειξη;</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_CANCEL_LINE" xml:space="preserve">
+    <value>Θέλετε να ακυρώσετε την τρέχουσα γραμμή;</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="ERROR_DURING_RECEIPT" xml:space="preserve">
+    <value>Σφάλμα προέκυψε κατά την εκτύπωση της απόδειξης:{0}. Θέλετε να προσπαθήσετε ξανά ;</value>
+  </data>
+  <data name="ERROR_LOADING_DOCUMENT" xml:space="preserve">
+    <value>Σφάλμα κατά την ανάκτηση του παραστατικού</value>
+  </data>
+  <data name="ERROR_OPEN_DRAWER" xml:space="preserve">
+    <value>Σφάλμα κατά το άνοιγμα του συρταριού</value>
+  </data>
+  <data name="ERROR_PRINT_RECEIPT" xml:space="preserve">
+    <value>Σφάλμα κατα την εκτύπωση της απόδειξης</value>
+  </data>
+  <data name="ERROR_PRINT_X" xml:space="preserve">
+    <value>Σφάλμα κατα την εκτύπωση της αναφοράς Χ</value>
+  </data>
+  <data name="ERROR_PRINT_Z" xml:space="preserve">
+    <value>Σφάλμα κατα την εκτύπωση της αναφοράς Ζ</value>
+  </data>
+  <data name="FAIL_OPEN_SCANNER" xml:space="preserve">
+    <value>Σφάλμα κατά την αρχικοποίηση του Scanner</value>
+  </data>
+  <data name="FILE_0_IS_INVALID" xml:space="preserve">
+    <value>Το αρχείο {0} δεν είναι έγκυρο.</value>
+  </data>
+  <data name="FILE_0_NOT_FOUND" xml:space="preserve">
+    <value>Το αρχείο {0} δεν βρέθηκε.</value>
+  </data>
+  <data name="IDLE" xml:space="preserve">
+    <value>Σε αδράνεια</value>
+  </data>
+  <data name="INIT_ERROR" xml:space="preserve">
+    <value>Σφάλμα αρχικοποίησης</value>
+  </data>
+  <data name="INVALID_ACTION" xml:space="preserve">
+    <value>Λανθασμένη ενέργεια</value>
+  </data>
+  <data name="INVALID_FISCAL_DEVICE" xml:space="preserve">
+    <value>Λανθασμένη Φορολογική μηχανή</value>
+  </data>
+  <data name="INVALID_FISCAL_METHOD" xml:space="preserve">
+    <value>Λανθασμένη Φορολογική μέθοδος</value>
+  </data>
+  <data name="INVALID_PROPERTY_DETECTED" xml:space="preserve">
+    <value>Παρουσιάστικε λανθασμένη Ιδιότητα</value>
+  </data>
+  <data name="INVALID_SCHEMA" xml:space="preserve">
+    <value>Λανθασμένο Σχήμα ΒΔ</value>
+  </data>
+  <data name="INVALID_TERMINAL_OID" xml:space="preserve">
+    <value>Λανθασμένο αναγνωριστικό Συσκευής</value>
+  </data>
+  <data name="ISSUE_X" xml:space="preserve">
+    <value>Έκδοση Χ</value>
+  </data>
+  <data name="ISSUE_Z" xml:space="preserve">
+    <value>Έκδοση Ζ</value>
+  </data>
+  <data name="ITEM_NOT_FOUND" xml:space="preserve">
+    <value>Το είδος δεν βρέθηκε</value>
+  </data>
+  <data name="ItemCodeOrBarcode" xml:space="preserve">
+    <value>Κωδικός είδους ή Barcode</value>
+  </data>
+  <data name="LINE_TOTAL" xml:space="preserve">
+    <value>Σύνολο Γραμμής</value>
+  </data>
+  <data name="TOTAL_NOT_FULLY_PAID" xml:space="preserve">
+    <value>Δεν έχει εισαχθεί ολόκληρο το ποσό</value>
+  </data>
+  <data name="NO_ELECTRONIC_SIGNATURE_DEVICE_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε συσκευή φορολογικής σήμανσης</value>
+  </data>
+  <data name="NO_OR_INVALID_CONNECTION" xml:space="preserve">
+    <value>Ανύπαρκτος ή μη έγκυρος τρόπος σύνδεσης</value>
+  </data>
+  <data name="NO_PRIMARY_PRINTER_FOUND" xml:space="preserve">
+    <value>Δεν εντοπίστηκε ο κύριος εκτυπωτής</value>
+  </data>
+  <data name="NOT_IN_SALE_MODE" xml:space="preserve">
+    <value>Το Ταμείο δεν είναι σε κατάσταση πώλησης</value>
+  </data>
+  <data name="PAUSED" xml:space="preserve">
+    <value>Σε παύση</value>
+  </data>
+  <data name="PAYMENT_METHOD" xml:space="preserve">
+    <value>Τρόπος πληρωμής</value>
+  </data>
+  <data name="PAYMENT_METHOD_NOT_FOUND" xml:space="preserve">
+    <value>Ο τρόπος πληρωμής δεν βρέθηκε.</value>
+  </data>
+  <data name="PRICE" xml:space="preserve">
+    <value>Τιμή</value>
+  </data>
+  <data name="PRINTER_NULL" xml:space="preserve">
+    <value>Ο εκτυπωτής είναι κενός</value>
+  </data>
+  <data name="PROFORMA" xml:space="preserve">
+    <value>Προτιμολόγιο</value>
+  </data>
+  <data name="QTY" xml:space="preserve">
+    <value>Ποσότητα</value>
+  </data>
+  <data name="SAVE" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Κατάστημα</value>
+  </data>
+  <data name="TOTAL" xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="USER_NO_ROLE" xml:space="preserve">
+    <value>Ο χρήστης δεν έχει ρόλο</value>
+  </data>
+  <data name="VALUE" xml:space="preserve">
+    <value>Τιμή</value>
+  </data>
+  <data name="YOU_SHOULD_OPEN_FISCAL_DAY" xml:space="preserve">
+    <value>Πρέπει να κάνετε "Έναρξη Ημέρας"</value>
+  </data>
+  <data name="INVALID_SETTINGS" xml:space="preserve">
+    <value>Λανθασμένες Ρυθμίσεις</value>
+  </data>
+  <data name="DEPOSIT" xml:space="preserve">
+    <value>Κατάθεση</value>
+  </data>
+  <data name="WITHDRAW" xml:space="preserve">
+    <value>Ανάληψη</value>
+  </data>
+  <data name="YOU_SHOULD_START_SHIFT" xml:space="preserve">
+    <value>Πρέπει να κάνετε "Έναρξη Βάρδιας"</value>
+  </data>
+  <data name="YOU_SHOULD_ISSUE_Z" xml:space="preserve">
+    <value>Πρέπει να εκδοθεί αναφορά Ζ</value>
+  </data>
+  <data name="SUCCESSFUL_ISSUE_Z" xml:space="preserve">
+    <value>Η αναφορά Ζ έχει εκδοθεί επιτυχώς</value>
+  </data>
+  <data name="START_DAY" xml:space="preserve">
+    <value>Εναρξη ημέρας</value>
+  </data>
+  <data name="START_SHIFT" xml:space="preserve">
+    <value>Εναρξη βάρδιας</value>
+  </data>
+  <data name="PRESS_A_KEY" xml:space="preserve">
+    <value>Πατήστε ένα πλήκτρο</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>Ενέργειες</value>
+  </data>
+  <data name="SHUT_DOWN" xml:space="preserve">
+    <value>Τερματισμός</value>
+  </data>
+  <data name="ITEMS" xml:space="preserve">
+    <value>Είδη</value>
+  </data>
+  <data name="SYSTEM" xml:space="preserve">
+    <value>Σύστημα</value>
+  </data>
+  <data name="KEYBOARD" xml:space="preserve">
+    <value>Πληκτρολόγιο</value>
+  </data>
+  <data name="CONFIGURATION" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="MAIN_MENU" xml:space="preserve">
+    <value>Κύριο Μενού</value>
+  </data>
+  <data name="KEYBOARD_MAPPING" xml:space="preserve">
+    <value>Αντιστοίχιση πληκτρολογίου</value>
+  </data>
+  <data name="MAIN_FORM" xml:space="preserve">
+    <value>Κύρια φόρμα</value>
+  </data>
+  <data name="CUSTOMER" xml:space="preserve">
+    <value>Πελάτης</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_SERIES" xml:space="preserve">
+    <value>Προεπιλεγμένη σειρά παραστατικού</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_STATUS" xml:space="preserve">
+    <value>Προεπιλεγμένη κατάσταση παραστατικού</value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_TYPE" xml:space="preserve">
+    <value>Προεπιλεγμένος τύπος παραστατικού</value>
+  </data>
+  <data name="DEFAULT_PAYMENT_METHOD" xml:space="preserve">
+    <value>Προεπιλεγμένος τρόπος πληρωμής</value>
+  </data>
+  <data name="FISCAL_DATE" xml:space="preserve">
+    <value>Φορολογική Ημέρα</value>
+  </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>Τερματικό</value>
+  </data>
+  <data name="ITEM" xml:space="preserve">
+    <value>Είδος</value>
+  </data>
+  <data name="KEY_CODE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Το πλήκτρο υπάρχει ήδη</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Ο χρήστης δεν βρέθηκε</value>
+  </data>
+  <data name="PLEASE_SELECT_AN_ACTION" xml:space="preserve">
+    <value>Παρακαλώ επιλέξτε ενέργεια</value>
+  </data>
+  <data name="NEXT_CUSTOMER" xml:space="preserve">
+    <value>Επόμενος Πελάτης</value>
+  </data>
+  <data name="PLEASE_CLOSE_DRAWER" xml:space="preserve">
+    <value>Παρακαλώ κλείστε το συρτάρι</value>
+  </data>
+  <data name="OPEN_DRAWER_FAIL" xml:space="preserve">
+    <value>Αποτυχία κατά το ανοίγμα του συρταριού</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>Επιτυχία</value>
+  </data>
+  <data name="ACTION_NOT_SUPPORTED" xml:space="preserve">
+    <value>Η ενέργεια δεν υποστηρίζεται</value>
+  </data>
+  <data name="CHARACTER_SET_NOT_SUPPORTED" xml:space="preserve">
+    <value>Η κωδικοσελίδα δεν υποστηρίζεται</value>
+  </data>
+  <data name="CONNECTION_NOT_SUPPORTED" xml:space="preserve">
+    <value>Ο συγκεκριμένος τύπος σύνδεσης δεν υποστηρίζεται.</value>
+  </data>
+  <data name="COVER_OPEN" xml:space="preserve">
+    <value>Το κάλυμμα είναι ανοιχτό</value>
+  </data>
+  <data name="FAILURE" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="INVALID_PROPERTY" xml:space="preserve">
+    <value>Λανθασμένη Ιδιότητα</value>
+  </data>
+  <data name="NO_EXIST" xml:space="preserve">
+    <value>Δεν υπάρχει</value>
+  </data>
+  <data name="OUT_OF_PAPER" xml:space="preserve">
+    <value>Το χαρτί εξαντλήθηκε</value>
+  </data>
+  <data name="UNAUTHORIZED_ACCESS" xml:space="preserve">
+    <value>Μη εξουσιοδοτημένη πρόσβαση</value>
+  </data>
+  <data name="FAIL_OPEN_DRAWER" xml:space="preserve">
+    <value>Αποτυχία κατά το ανοίγμα του συρταριού</value>
+  </data>
+  <data name="CUSTOMER_HAS_NO_PRICECATALOG" xml:space="preserve">
+    <value>Ο Πελάτης δεν έχει τιμοκατάλογο</value>
+  </data>
+  <data name="CURRENT_LINE_SHORT" xml:space="preserve">
+    <value>Τρέχων</value>
+  </data>
+  <data name="PREVIOUS_LINE_SHORT" xml:space="preserve">
+    <value>Προηγούμενη Γραμμή</value>
+  </data>
+  <data name="TURN_KEY_TO_POSITION" xml:space="preserve">
+    <value>Γύριστε το κλειδί στη θέση</value>
+  </data>
+  <data name="ACTION_CANCELED" xml:space="preserve">
+    <value>Η ενέργεια ακυρώθηκε</value>
+  </data>
+  <data name="HIGHER_LEVEL_USER_IS_REQUIRED" xml:space="preserve">
+    <value>Απαιτείται εξουσιοδότηση από τον υπεύθυνο</value>
+  </data>
+  <data name="USER_NOT_ENOUGH_PRIVILEGES" xml:space="preserve">
+    <value>Ο χρήστης δεν έχει επαρκή δικαιώματα</value>
+  </data>
+  <data name="DATE" xml:space="preserve">
+    <value>Ημερομηνία</value>
+  </data>
+  <data name="DOCUMENT_NUMBER" xml:space="preserve">
+    <value>Αριθμός Παραστατικού</value>
+  </data>
+  <data name="DOCUMENT_TYPE" xml:space="preserve">
+    <value>Τύπος παραστατικού</value>
+  </data>
+  <data name="TIME" xml:space="preserve">
+    <value>Ώρα</value>
+  </data>
+  <data name="NUMBER_SHORT" xml:space="preserve">
+    <value>Α/Α</value>
+  </data>
+  <data name="DOCUMENT_SEQUENCE_NOT_FOUND_FOR_SERIES" xml:space="preserve">
+    <value>Δεν βρέθηκε Αρίθμηση για την σειρά {0}</value>
+  </data>
+  <data name="CASH_REGISTRY_CLOSED" xml:space="preserve">
+    <value>Ταμείο κλειστό</value>
+  </data>
+  <data name="CASH_REGISTRY_OPEN" xml:space="preserve">
+    <value>Ταμείο Ανοιχτό</value>
+  </data>
+  <data name="DOCUMENT_SEQUENCE_DOES_NOT_MATCH_ERROR" xml:space="preserve">
+    <value>Αποτυχία έναρξης ημέρας. Σοβαρό πρόβλημα στη σειρά  '{0}'. Τοπική αρίθμηση: '{1}' - Απομακρυσμένη αρίθμιση: '{2}'</value>
+  </data>
+  <data name="DOCUMENT_SEQUENCE_DOES_NOT_MATCH_WARNING" xml:space="preserve">
+    <value>Διαφοροποίηση στη σειρά  '{0}'. Τοπική αρίθμηση: '{1}' - Απομακρυσμένη αρίθμιση: '{2}'</value>
+  </data>
+  <data name="INCORRECT_SETTINGS" xml:space="preserve">
+    <value>Λανθασμένες ρυθμίσεις ή οι ρυθμίσεις δεν έχουν συγχρονιστεί πλήρως.</value>
+  </data>
+  <data name="PLEASE_FILL_ALL_REQUIRED_FIELDS" xml:space="preserve">
+    <value>Παρακαλώ συμπληρώστε όλα τα πεδία</value>
+  </data>
+  <data name="RETURN" xml:space="preserve">
+    <value>Επιστροφή</value>
+  </data>
+  <data name="NEGATIVE_TOTAL_NOT_PERMITED" xml:space="preserve">
+    <value>Δεν επιτρέπεται αρνητικό Σύνολο</value>
+  </data>
+  <data name="ITEM_DOES_NOT_SUPPORT_PRICE_CHANGE" xml:space="preserve">
+    <value>Το είδος δεν υποστηρίζει αλλαγή τιμής</value>
+  </data>
+  <data name="ITEM_DOES_NOT_SUPPORT_DECIMAL_QUANTITY" xml:space="preserve">
+    <value>Το είδος δεν υποστηρίζει δεκαδική ποσότητα</value>
+  </data>
+  <data name="NO_ITEMS_ADDED" xml:space="preserve">
+    <value>Δεν έχετε προσθέσει είδη</value>
+  </data>
+  <data name="RETRY" xml:space="preserve">
+    <value>Επανάληψη</value>
+  </data>
+  <data name="PAID_AMOUNT_CANNOT_EXCEED_TOTAL" xml:space="preserve">
+    <value>Αυτός ο τρόπος πληρωμής δεν μπορεί να ξεπεράσει το σύνολο</value>
+  </data>
+  <data name="INVALID_AMOUNT" xml:space="preserve">
+    <value>Μη έγκυρο ποσό</value>
+  </data>
+  <data name="INVALID_QUANTITY" xml:space="preserve">
+    <value>Μη έγκυρη ποσότητα</value>
+  </data>
+  <data name="YOU_MUST_START_NEW_Z" xml:space="preserve">
+    <value>Πρέπει να ξεκινήσετε νέο 'Ζ'</value>
+  </data>
+  <data name="INSERT_VALUES" xml:space="preserve">
+    <value>Εισάγετε Τιμές</value>
+  </data>
+  <data name="ILLEGAL_RECEIPT" xml:space="preserve">
+    <value>ΠΑΡΑΝΟΜΗ ΑΠΟΔΕΙΞΗ - ΔΙΩΚΕΤΑΙ ΑΠΟ ΤΟΝ ΝΟΜΟ</value>
+  </data>
+  <data name="LEGAL_RECEIPT" xml:space="preserve">
+    <value>ΝΟΜΙΜΗ ΑΠΟΔΕΙΞΗ</value>
+  </data>
+  <data name="NO_ITEM_CODE_DEFINED" xml:space="preserve">
+    <value>Δεν έχει οριστεί κωδικός είδους</value>
+  </data>
+  <data name="SELECT_PAYMENT_METHOD" xml:space="preserve">
+    <value>Επιλέξτε Τρόπο Πληρωμής</value>
+  </data>
+  <data name="TOTAL_ALREADY_PAID" xml:space="preserve">
+    <value>Έχει πληρωθεί ολόκληρο το ποσό</value>
+  </data>
+  <data name="PRICE_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Δεν βρέθηκε τιμή</value>
+  </data>
+  <data name="PRICE_IS_ZERO" xml:space="preserve">
+    <value>H τιμή είναι μηδενική</value>
+  </data>
+  <data name="DOCUMENT_TYPE_DOES_NOT_ALLOW_ZERO_PRICES" xml:space="preserve">
+    <value>Ο τύπος παραστατικού δεν επιτρέπει μηδενικές τιμές</value>
+  </data>
+  <data name="ITEM_HAS_NO_VAT_CATEGORY" xml:space="preserve">
+    <value>Το είδος δεν έχει κατηγορία Φ.Π.Α.</value>
+  </data>
+  <data name="STORE_HAS_NO_VAT_LEVEL" xml:space="preserve">
+    <value>Το κατάστημα δεν έχει επίπεδο Φ.Π.Α</value>
+  </data>
+  <data name="VAT_FACTOR_NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε συντελεστής Φ.Π.Α.</value>
+  </data>
+  <data name="VAT_CATEGORY" xml:space="preserve">
+    <value>Κατηγορία ΦΠΑ</value>
+  </data>
+  <data name="ACTIVE" xml:space="preserve">
+    <value>Ενεργό</value>
+  </data>
+  <data name="NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε</value>
+  </data>
+  <data name="ITEM_IS_INACTIVE" xml:space="preserve">
+    <value>Το είδος είναι ανενεργό</value>
+  </data>
+  <data name="YOU_MUST_ISSUE_Z" xml:space="preserve">
+    <value>Έχουν περάσει 24 ώρες από την έναρξη ημέρας. Πρέπει να εκδόσετε Ζ. Η έναρξη ημέρας έγινε στις : {0}</value>
+  </data>
+  <data name="NEGATIVE_VALUES_NOT_PERMITTED" xml:space="preserve">
+    <value>Δεν επιτρέπονται αρνητικές τιμές</value>
+  </data>
+  <data name="ISSUING_Z_PLEASE_WAIT" xml:space="preserve">
+    <value>Έκδοση αναφοράς Z - Μεταφορά αρχείων ηλεκτρονικού ημερολογίου
+Παρακαλώ περιμένετε ...</value>
+  </data>
+  <data name="FISCAL_PRINTER_RECEIPTS_COUNT_MISSMATCH" xml:space="preserve">
+    <value>Υπάρχει διαφορά στο πλήθος των αποδείξεων μεταξύ της εφαρμογής και του φορολογικού εκτυπωτή. Αποδείξεις Εφαρμογής: {0}, Αποδείξεις Εκτυπωτή: {1}</value>
+  </data>
+  <data name="PRINTER_DOES_NOT_SUPPORT_SLIP_STATION" xml:space="preserve">
+    <value>Ο εκτυπωτής δεν υποστηρίζει εκτύπωση SLIP</value>
+  </data>
+  <data name="PLEASE_INSERT_DOCUMENT" xml:space="preserve">
+    <value>Εισάγετε το έγγραφο στον εκτυπωτή και πατήστε ΟΚ ή Enter</value>
+  </data>
+  <data name="POS" xml:space="preserve">
+    <value>Ταμείο</value>
+  </data>
+  <data name="RATIFIED" xml:space="preserve">
+    <value>Επικυρώθηκε</value>
+  </data>
+  <data name="SIGNATURE" xml:space="preserve">
+    <value>Υπογραφή</value>
+  </data>
+  <data name="SLIP_PRINT_FAILED" xml:space="preserve">
+    <value>Απέτυχε η εκτύπωση Slip</value>
+  </data>
+  <data name="NEGATIVE_TOTAL_PER_VAT_CATEGORY_NOT_PERMITED" xml:space="preserve">
+    <value>Δεν επιτρέπεται αρνητικό σύνολο ανά κατηγορία ΦΠΑ. Κατ. ΦΠΑ: {0} , Συν.: {1}</value>
+  </data>
+  <data name="FROM_DATE" xml:space="preserve">
+    <value>Από Ημ/νία</value>
+  </data>
+  <data name="FROM_Z" xml:space="preserve">
+    <value>Από Z</value>
+  </data>
+  <data name="TO_DATE" xml:space="preserve">
+    <value>Έως Ημ/νία</value>
+  </data>
+  <data name="TO_Z" xml:space="preserve">
+    <value>Έως Z</value>
+  </data>
+  <data name="INVALID_FILTER" xml:space="preserve">
+    <value>Λανθασμένο φίλτρο</value>
+  </data>
+  <data name="REPRINT_Z_REPORTS" xml:space="preserve">
+    <value>Επανεκτύπωση αναφορών Ζ</value>
+  </data>
+  <data name="REPRINT_RECEIPTS" xml:space="preserve">
+    <value>Επανεκτύπωση Αποδείξεων</value>
+  </data>
+  <data name="FROM_RECEIPT" xml:space="preserve">
+    <value>Από Απόδειξη</value>
+  </data>
+  <data name="TO_RECEIPT" xml:space="preserve">
+    <value>Έως Απόδειξη</value>
+  </data>
+  <data name="DAY_START" xml:space="preserve">
+    <value>Έναρξη Ημέρας</value>
+  </data>
+  <data name="SHIFT_STARTED" xml:space="preserve">
+    <value>Έναρξη Βάρδιας</value>
+  </data>
+  <data name="CASHIER_CONNECTED" xml:space="preserve">
+    <value>Σύνδεση Ταμία</value>
+  </data>
+  <data name="FROM_BLOCK" xml:space="preserve">
+    <value>Από block</value>
+  </data>
+  <data name="PRINT_FISCAL_MEMORY_BLOCKS" xml:space="preserve">
+    <value>Εκτύπωση block Φορολογικής Μνήμης</value>
+  </data>
+  <data name="TO_BLOCK" xml:space="preserve">
+    <value>Έως Block</value>
+  </data>
+  <data name="CARDS" xml:space="preserve">
+    <value>Κάρτες</value>
+  </data>
+  <data name="CASH" xml:space="preserve">
+    <value>Μετρητά</value>
+  </data>
+  <data name="CREDIT" xml:space="preserve">
+    <value>Πίστωση</value>
+  </data>
+  <data name="FAILURE_READING_DEVICE_STATUS" xml:space="preserve">
+    <value>Αποτυχία ανάγνωσης της κατάστασης της συσκευής</value>
+  </data>
+  <data name="FISCAL_PRINTER_ERROR" xml:space="preserve">
+    <value>Σφάλμα Φορολογικού Εκτυπωτή. \r\nΚωδ. Λάθους: {0}. \r\nΜήνυμα: {1}</value>
+  </data>
+  <data name="CANNOT_OPEN_PORT_OR_PRINTER_IS_OFFLINE" xml:space="preserve">
+    <value>Αδύνατη επικοινωνία με την port '{0}' ή ο εκτυπωτής είναι εκτός λειτουργίας</value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+  <data name="DO_NOT_PROCEED_IF_YOU_DONT_KNOW" xml:space="preserve">
+    <value>Μην προχωρήσετε αν δεν ξέρετε τι κάνετε</value>
+  </data>
+  <data name="CANNOT_ADD_DISCOUNT_TO_RETURN" xml:space="preserve">
+    <value>Δεν επιτρέπεται η έκπτωση στις επιστροφές</value>
+  </data>
+  <data name="DAY_START_PLEASE_WAIT" xml:space="preserve">
+    <value>Έναρξη ημέρας - Παρακαλώ Περιμένετε</value>
+  </data>
+  <data name="ZERO_AMOUNT_IS_NOT_ALLOWED" xml:space="preserve">
+    <value>Δεν επιτρέπεται μηδενικό ποσό</value>
+  </data>
+  <data name="PAYABLE" xml:space="preserve">
+    <value>Πληρωτέο</value>
+  </data>
+  <data name="PAYOFF" xml:space="preserve">
+    <value>Εξόφληση</value>
+  </data>
+  <data name="ANALYTIC" xml:space="preserve">
+    <value>Αναλυτική</value>
+  </data>
+  <data name="BY_DATE" xml:space="preserve">
+    <value>Ανα Ημ/νία</value>
+  </data>
+  <data name="BY_Z_NUMBER" xml:space="preserve">
+    <value>Ανά Αρ. Ζ</value>
+  </data>
+  <data name="PER_BLOCK" xml:space="preserve">
+    <value>Ανα Block</value>
+  </data>
+  <data name="READ_FISCAL_MEMORY" xml:space="preserve">
+    <value>Ανάγνωση Φ.Μ.</value>
+  </data>
+  <data name="SIGNATURES" xml:space="preserve">
+    <value>Υπογραφές</value>
+  </data>
+  <data name="SUMMARIZED" xml:space="preserve">
+    <value>Συνοπτική</value>
+  </data>
+  <data name="FISCAL_PRINTER_COMMANDS" xml:space="preserve">
+    <value>Εντολές Φορολογικού Εκτυπωτή</value>
+  </data>
+  <data name="LINE_DISPLAY_ERROR" xml:space="preserve">
+    <value>Σφάλμα Γραμμικής Οθόνης</value>
+  </data>
+  <data name="NO_PRIMARY_SCALE_FOUND" xml:space="preserve">
+    <value>Δεν εντοπίστηκε ζυγός</value>
+  </data>
+  <data name="SELECT_DISCOUNT" xml:space="preserve">
+    <value>Επιλογή Έκπτωσης</value>
+  </data>
+  <data name="CANNOT_ADD_DISCOUNT_TO_CANCELED_LINE" xml:space="preserve">
+    <value>Δεν επιτρέπεται η έκπτωση σε ακυρωμένες γραμμές</value>
+  </data>
+  <data name="SELECT_LINE" xml:space="preserve">
+    <value>Επιλέξτε Γραμμή</value>
+  </data>
+  <data name="INVALID_DISCOUNT_TYPE_CODE" xml:space="preserve">
+    <value>Μη έγκυρος κωδικός Τύπου Έκπτωσης</value>
+  </data>
+  <data name="DISCOUNT_TYPE_NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε ο τύπος έκπτωσης</value>
+  </data>
+  <data name="MINISTY_CATEGORY_CODE_NOT_DEFINED_FOR_VAT_CATEGORY" xml:space="preserve">
+    <value>Δεν έχει οριστεί Κωδικός Υπουργείου για την Κατηγορία ΦΠΑ</value>
+  </data>
+  <data name="VAT_CATEGORY_NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε η Κατηγορία ΦΠΑ</value>
+  </data>
+  <data name="CODE_OR_BARCODE_OF_ITEM" xml:space="preserve">
+    <value>Κωδικός/Barcode Είδους</value>
+  </data>
+  <data name="CUSTOMER_CODE" xml:space="preserve">
+    <value>Κωδικός Πελάτη</value>
+  </data>
+  <data name="CUSTOMER_NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε ο Πελάτης</value>
+  </data>
+  <data name="APPLY_POINTS_DISCOUNT" xml:space="preserve">
+    <value>Θέλετε να εξαργυρώσετε τους πόντους σας;</value>
+  </data>
+  <data name="LOYALTY_DISCOUNT_NOT_DEFINED" xml:space="preserve">
+    <value>Δεν έχει οριστεί έκπτωση πιστότητας</value>
+  </data>
+  <data name="CONSUMED_POINTS" xml:space="preserve">
+    <value>Πόντοι που αφαιρέθηκαν</value>
+  </data>
+  <data name="CURRENT_TOTAL" xml:space="preserve">
+    <value>Τρέχον Υπόλοιπο</value>
+  </data>
+  <data name="POINTS" xml:space="preserve">
+    <value>Πόντοι</value>
+  </data>
+  <data name="PREVIOUS_TOTAL" xml:space="preserve">
+    <value>Προηγούμενο Υπόλοιπο</value>
+  </data>
+  <data name="POINT_ANALYSIS" xml:space="preserve">
+    <value>Ανάλυση Πόντων</value>
+  </data>
+  <data name="POINTS_OF_TRANSACTION" xml:space="preserve">
+    <value>Πόντοι συναλλαγής</value>
+  </data>
+  <data name="PREVIOUS_TOTAL_POINTS" xml:space="preserve">
+    <value>Προηγούμενο υπόλοιπο πόντων</value>
+  </data>
+  <data name="NEW_POINTS_AMOUNT" xml:space="preserve">
+    <value>Νέο υπόλοιπο πόντων</value>
+  </data>
+  <data name="CUSTOMER_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Πελάτη</value>
+  </data>
+  <data name="CUSTOM_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Χρήστη</value>
+  </data>
+  <data name="DOCUMENT_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Παραστατικού</value>
+  </data>
+  <data name="POINTS_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Πόντων</value>
+  </data>
+  <data name="PRICE_CATALOG_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Τιμοκαταλόγου</value>
+  </data>
+  <data name="DELETE_DISCOUNT_QUESTION" xml:space="preserve">
+    <value>Διαγραφή Έκπτωσης;</value>
+  </data>
+  <data name="SET_FISCAL_ON_ERROR" xml:space="preserve">
+    <value>Ορισμό του ΕΑΦΔΣΣ σε κατάσταση βλάβης</value>
+  </data>
+  <data name="REMOVE_FISCAL_ON_ERROR" xml:space="preserve">
+    <value>Ορισμό του ΕΑΦΔΣΣ σε κανονική κατάσταση</value>
+  </data>
+  <data name="REMAINING_AMOUNT" xml:space="preserve">
+    <value>Υπόλοιπο</value>
+  </data>
+  <data name="CASHIER" xml:space="preserve">
+    <value>Χειριστής</value>
+  </data>
+  <data name="PLEASE_WAIT" xml:space="preserve">
+    <value>Παρακαλώ Περιμένετε</value>
+  </data>
+  <data name="YOU_CANNOT_ISSUE_X_DOCUMENTS_ON_HOLD" xml:space="preserve">
+    <value>Δεν μπορείτε να εκδώσετε Χ. Υπάρχουν {0} παραστατικά σε αναμονή.</value>
+  </data>
+  <data name="NOT_ENOUGH_CASH" xml:space="preserve">
+    <value>Δεν υπάρχει επαρκές ποσό στο ταμείο</value>
+  </data>
+  <data name="NO_DOCUMENTS_ON_HOLD" xml:space="preserve">
+    <value>Δεν υπάρχουν παραστατικά σε αναμονή</value>
+  </data>
+  <data name="NO_CASH_PAYMENT_METHOD_IS_DEFINED" xml:space="preserve">
+    <value>Δεν έχει οριστεί τρόπος πληρωμής που αυξάνει το ποσό του συρταριού</value>
+  </data>
+  <data name="VALUE_FACTOR_MUST_BE_NEGATIVE" xml:space="preserve">
+    <value>Ο Συντελεστής Αξιών του τύπου παραστατικού πρέπει να είναι αρνητικός</value>
+  </data>
+  <data name="VALUE_FACTOR_MUST_BE_POSITIVE" xml:space="preserve">
+    <value>Ο Συντελεστής Αξιών του τύπου παραστατικού πρέπει να είναι θετικός</value>
+  </data>
+  <data name="PROMOTIONS_EXECUTION_ERROR" xml:space="preserve">
+    <value>Σφάλμα Εκτέλεσης Ενεργειών</value>
+  </data>
+  <data name="PROMOTION_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Ενέργειας</value>
+  </data>
+  <data name="ERROR_EXECUTING_PROMOTIONS_RESULT" xml:space="preserve">
+    <value>Σφάλμα κατά την εκτέλεση των αποτελεσμάτων των ενεργειών</value>
+  </data>
+  <data name="ROOT_APPLICATION_RULE_GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε ο βασικός κανόνας της ενέργειας. Ενέργεια : {0}</value>
+  </data>
+  <data name="PRINTER_FAILURE" xml:space="preserve">
+    <value>Σφάλμα Εκτυπωτή</value>
+  </data>
+  <data name="ONLY_VALUE_TYPE_DISCOUNTS_ARE_ALLOWED_IN_SET_PRICE_EXECUTION" xml:space="preserve">
+    <value>Μόνο Αξιακές εκπτώσεις επιτρέπονται στην εκτέλεση ενέργειας με ορισμό τιμής</value>
+  </data>
+  <data name="PROMOTION" xml:space="preserve">
+    <value>Ενέργεια</value>
+  </data>
+  <data name="FAILURE_ISSUING_EAFDSS_Z" xml:space="preserve">
+    <value>Σφάλμα στην Έκδοση Ζ του ΕΑΦΔΣΣ</value>
+  </data>
+  <data name="AMOUNT_EXCEED_LIMIT" xml:space="preserve">
+    <value>Το ποσό υπερβαίνει το μέγιστο επιτρεπτό</value>
+  </data>
+  <data name="STARTING_AMOUNT" xml:space="preserve">
+    <value>Πάγιο</value>
+  </data>
+  <data name="DOCUMENT_DISCOUNTS" xml:space="preserve">
+    <value>Εκπτώσεις Συνόλου</value>
+  </data>
+  <data name="LINE_DISCOUNTS" xml:space="preserve">
+    <value>Εκπτώσεις Ειδών</value>
+  </data>
+  <data name="WEIGH_ON_THE_SCALE_IS_NOT_STABLE" xml:space="preserve">
+    <value>Το βάρος στον ζυγό δεν είναι σταθερό</value>
+  </data>
+  <data name="DEMO_MODE_ERROR" xml:space="preserve">
+    <value>Η Demo έκδοση λειτουργεί μόνο με EAFDSS και EMULATED εκτυπωτή</value>
+  </data>
+  <data name="DRAWER_AMOUNT" xml:space="preserve">
+    <value>Ποσό Συρταριού</value>
+  </data>
+  <data name="ERROR_DURING_FORCED_WITHDRAW" xml:space="preserve">
+    <value>Πρόβλημα κατά την "Υποχρεωτική Ανάληψη"</value>
+  </data>
+  <data name="FORCED_WITHDRAW" xml:space="preserve">
+    <value>Υποχρεωτική Ανάληψη</value>
+  </data>
+  <data name="FORCED_WITHDRAW_TITLE" xml:space="preserve">
+    <value>Υποχρεωτική Ανάλυψη
+(Ξεπεράσατε τα {0:C})</value>
+  </data>
+  <data name="PRICECATALOG_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Ο τιμοκατάλογος δεν βρέθηκε</value>
+  </data>
+  <data name="STORE_HAS_NO_DEFAULT_PRICECATALOG" xml:space="preserve">
+    <value>Δεν έχει οριστεί προεπιλεγμένος τιμοκατάλογος για το κατάστημα</value>
+  </data>
+  <data name="GROSS_TOTAL_MISSMATCH" xml:space="preserve">
+    <value>Ασυμφωνία Συνόλου: 
+Συν. Εκτυπωτή {0}, Συν. Εφαρμογής {1}</value>
+  </data>
+  <data name="CANNOT_CANCEL_ALL_LINES" xml:space="preserve">
+    <value>Δεν μπορείτε να ακυρώσετε όλες τις γραμμές</value>
+  </data>
+  <data name="DAY_WILL_BE_CLOSED" xml:space="preserve">
+    <value>Θα γίνει Κλείσιμο Ημέρας</value>
+  </data>
+  <data name="FISCAL_PRINTER_AND_APPLICATION_DAY_WILL_BE_CLOSED" xml:space="preserve">
+    <value>Θα γίνει "Κλείσιμο Ημέρας" στον φορολογικό εκτυπωτή και στην εφαρμογή</value>
+  </data>
+  <data name="VAT_CATEGORY_MULTIPLE_MINISTRY_CODES" xml:space="preserve">
+    <value>Η Κατηγορία ΦΠΑ"{0}" έχει οριστεί παραπάνω από μία φορά</value>
+  </data>
+  <data name="CURRENT_STORE_NOT_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε το τρέχον κατάστημα</value>
+  </data>
+  <data name="STORE_HAS_NO_ADDRESS" xml:space="preserve">
+    <value>Το κατάστημα δεν έχει διεύθυνση</value>
+  </data>
+  <data name="FISCAL_VAT_FACTORS_ARE_INVALID" xml:space="preserve">
+    <value>Οι συντελεστές ΦΠΑ του φορολογικού εκτυπωτή δεν είναι σωστοί</value>
+  </data>
+  <data name="FISCAL_PRINTER_VAT_FACTORS" xml:space="preserve">
+    <value>Συντελεστές ΦΠΑ ΑΔΗΜΕ</value>
+  </data>
+  <data name="APPLICATION_VAT_FACTORS" xml:space="preserve">
+    <value>Συντελεστές ΦΠΑ Εφαρμογής</value>
+  </data>
+  <data name="STANDALONE_FISCAL_ON_ERROR_MESSAGE_IS_EMPTY" xml:space="preserve">
+    <value>Το μήνυμα εκτύπωσης αυτόνομης λειτουργίας ΕΑΦΔΣΣ "Σε Βλάβη" είναι άδειο</value>
+  </data>
+  <data name="EJ_DATA_PENDING" xml:space="preserve">
+    <value>Εκκρεμεί μεταφορά ηλεκτρονικού ημερολογίου</value>
+  </data>
+  <data name="FISCAL_PRINTER_DAY_NOT_OPEN" xml:space="preserve">
+    <value>Ο Φορολογικός εκτυπωτής δεν έχει ανοιχτή ημέρα</value>
+  </data>
+  <data name="ITEM_CODE_AS_BARCODE_IS_UNDEFINED" xml:space="preserve">
+    <value>Δεν έχει οριστεί ο κωδικός του είδους ως Barcode</value>
+  </data>
+  <data name="CURRENT_POS_IS_NOT_ACTIVE_START_DAY_NOT_ALLOWED" xml:space="preserve">
+    <value>Το τρέχον ταμείο δεν είναι ενεργό. Δεν επιτρέπεται η "Έναρξη Ημέρας"</value>
+  </data>
+  <data name="NO_PRIMARY_EDPS_FOUND" xml:space="preserve">
+    <value>Δεν εχει οριστεί συσκευή EDPS</value>
+  </data>
+  <data name="ACTION_FORBIDDEN_DUE_TO_EDPS" xml:space="preserve">
+    <value>Η ενέργεια δεν επιτρέπεται. Υπάρχει πληρωμή με EDPS</value>
+  </data>
+  <data name="ILLEGAL_RECEIPT_TRAINING_MODE_MESSAGE" xml:space="preserve">
+    <value>**ΠΑΡΑΝΟΜΗ ΑΠΟΔΕΙΞΗ-ΜΟΝΟ ΓΙΑ ΕΚΠΑΙΔΕΥΣΗ**</value>
+  </data>
+  <data name="IS_NOT_VALID_SALES_DOCUMENT_MESSAGE" xml:space="preserve">
+    <value>** ΔΕΝ ΑΠΟΤΕΛΕΙ ΣΤΟΙΧΕΙΟ ΠΛΗΡΩΜΗΣ **</value>
+  </data>
+  <data name="PUNISHABLE_BY_LAW_MESSAGE" xml:space="preserve">
+    <value>**ΔΙΩΚΕΤΑΙ ΑΠΟ ΤΟΝ ΝΟΜΟ**</value>
+  </data>
+  <data name="PACKET_CLOSE_FAILURE" xml:space="preserve">
+    <value>Προέκυψε σφάλμα κατά το κλείσιμο του πακέτου.</value>
+  </data>
+  <data name="PROCESS_PAYMENT_ON_DEVICE" xml:space="preserve">
+    <value>Παρακαλώ ολοκληρώστε την συναλλαγή στην συσκευή.</value>
+  </data>
+  <data name="EDPS_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>Πρόβλημα επικοινωνίας με την συσκευή EDPS</value>
+  </data>
+  <data name="CANCEL_DISCOUNT_SHORT" xml:space="preserve">
+    <value>Ακ.Έκπτωσης</value>
+  </data>
+  <data name="CANCEL_PAYMENT" xml:space="preserve">
+    <value>Ακύρωση Πληρωμής</value>
+  </data>
+  <data name="CANCEL_RECEIPT_SHORT" xml:space="preserve">
+    <value>Ακ. Απόδειξης</value>
+  </data>
+  <data name="CASHIER_ACTIONS" xml:space="preserve">
+    <value>ΕΝΕΡ TAMEIA</value>
+  </data>
+  <data name="CHANGE_PRICE" xml:space="preserve">
+    <value>Αλλαγή Τιμής</value>
+  </data>
+  <data name="CHANGE_WITH_COLON" xml:space="preserve">
+    <value>Ρέστα:</value>
+  </data>
+  <data name="CREDIT_CARD" xml:space="preserve">
+    <value>Πιστωτική</value>
+  </data>
+  <data name="DELETE_ITEM_SHORT" xml:space="preserve">
+    <value>Διαγ.  Είδους</value>
+  </data>
+  <data name="DEPOSIT_BUTTON_TEXT" xml:space="preserve">
+    <value>Είσπραξη έναντι</value>
+  </data>
+  <data name="EXIT" xml:space="preserve">
+    <value>Έξοδος</value>
+  </data>
+  <data name="FISCAL_PRINTER_ACTIONS" xml:space="preserve">
+    <value>ΕΝΕΡ ΕΚΤ</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_BLOCKS" xml:space="preserve">
+    <value>Ανάγ. Φ.Μ. ανα Block</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_DETAILED_PER_DATE" xml:space="preserve">
+    <value>Αναλυτική Αν. Φ.Μ. Ανα Ημ/νια</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_DETAILED_PER_Z" xml:space="preserve">
+    <value>Αναλυτική Αν. Φ.Μ. Ανα Ζ</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_PER_DATE" xml:space="preserve">
+    <value>Συνοπτική Αν. Φ.Μ. Ανα Ημ/νία</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_MEMORY_PER_Z" xml:space="preserve">
+    <value>Συνοπτική Αν. Φ.Μ. Ανα Ζ</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_SIGNATURES_PER_Date" xml:space="preserve">
+    <value>Αναγ. Ηλ. Υπογραφών Ανα Ημ/νία</value>
+  </data>
+  <data name="FISCAL_PRINTER_READ_SIGNATURES_PER_Z" xml:space="preserve">
+    <value>Αναγ. Ηλ. Υπογραφών Ανα Ζ</value>
+  </data>
+  <data name="HOLD_TAB_TITLE" xml:space="preserve">
+    <value>Αναμονή</value>
+  </data>
+  <data name="ITEM_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Είδους</value>
+  </data>
+  <data name="ITEM_DISCOUNT_MULTILINE" xml:space="preserve">
+    <value>Έκπτωση
+
+Είδους</value>
+  </data>
+  <data name="ON_HOLD" xml:space="preserve">
+    <value>Σε αναμονή</value>
+  </data>
+  <data name="ON_HOLD_WITH_COLON" xml:space="preserve">
+    <value>Σε Αναμονή:</value>
+  </data>
+  <data name="OTHER_PAYMENT" xml:space="preserve">
+    <value>Άλλο</value>
+  </data>
+  <data name="PAYMENTS" xml:space="preserve">
+    <value>Πληρωμές</value>
+  </data>
+  <data name="PREVIEW_X_SHORT" xml:space="preserve">
+    <value>Προεπ. Χ</value>
+  </data>
+  <data name="REMAINING_AMOUNT_WITH_COLON" xml:space="preserve">
+    <value>Υπόλοιπο:</value>
+  </data>
+  <data name="RETURN_PRINTED" xml:space="preserve">
+    <value>ΑΛΛΑΓΗ</value>
+  </data>
+  <data name="SET_ON_HOLD_OR_GET_FROM_HELD_DOCUMENTS" xml:space="preserve">
+    <value>Σε Αναμονή/Επαναφορά Απόδειξης Από Αναμονή</value>
+  </data>
+  <data name="TOTAL_DISCOUNT" xml:space="preserve">
+    <value>Έκπτωση Συνόλου</value>
+  </data>
+  <data name="TOTAL_DISCOUNT_MULTILINE" xml:space="preserve">
+    <value>Έκπτωση
+
+Συνόλου</value>
+  </data>
+  <data name="TOTAL_WITH_COLON" xml:space="preserve">
+    <value>Σύνολο:</value>
+  </data>
+  <data name="WITHDRAW_BUTTON_TEXT" xml:space="preserve">
+    <value>Ανάληψη έναντι</value>
+  </data>
+  <data name="DISCOUNT_SHORT" xml:space="preserve">
+    <value>Εκπτ.</value>
+  </data>
+  <data name="FORCED_FISCAL_PRINTER_START_DAY" xml:space="preserve">
+    <value>Έναρξη Ημέρας Φορολογικού Εκτυπωτή</value>
+  </data>
+  <data name="FORCED_RECEIPT_CANCEL" xml:space="preserve">
+    <value>Εξαναγκασμένη Ακύρωση Απόδειξης</value>
+  </data>
+  <data name="PAYMENT" xml:space="preserve">
+    <value>Πληρωμή</value>
+  </data>
+  <data name="QUANTITY_SHORT" xml:space="preserve">
+    <value>Ποσότ.</value>
+  </data>
+  <data name="SERVICE" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="CANCEL_EDPS_PAYMENTS_FIRST" xml:space="preserve">
+    <value>Παρακαλώ ακυρώστε τις πληρωμές πιστωτικής πριν την ακύρωση της απόδειξης</value>
+  </data>
+  <data name="LOADING_PLEASE_WAIT" xml:space="preserve">
+    <value>Εκκίνηση εφαρμογής, παρακαλώ περιμένετε....</value>
+  </data>
+  <data name="FISCAL_PRINTER_STATUS_MISSMATCH" xml:space="preserve">
+    <value>Διαφορά κατάστασης Φ.Ε. και εφαρμογής.
+Ανοιχτή ημέρα στον Φ.Ε.: {0}
+Ανοιχτή ημέρα στην εφαρμογή: {1}
+Πρέπει να εκδοθεί Ζ για να συνεχίσετε.</value>
+  </data>
+  <data name="INSTALLMENTS" xml:space="preserve">
+    <value>Δόσεις</value>
+  </data>
+  <data name="AUTHORIZATION_KEY" xml:space="preserve">
+    <value>Κωδικός Έγκρισης</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_TRY_OFFLINE" xml:space="preserve">
+    <value>Θέλετε να δοκιμάσετε offline (τηλεφωνική έγκριση);</value>
+  </data>
+  <data name="ADD_COUPON" xml:space="preserve">
+    <value>Προσθήκη Κουπονιού</value>
+  </data>
+  <data name="EDPS_CHECK_COMMUNICATION" xml:space="preserve">
+    <value>Έλεγχος επικοινωνίας με συσκευή EDPS</value>
+  </data>
+  <data name="FORCE_DELETE_PAYMENT" xml:space="preserve">
+    <value>Εξαναγκασμένη διαγραφή πληρωμής</value>
+  </data>
+  <data name="CANNOT_CONNECT_TO_THE_SERVER" xml:space="preserve">
+    <value>Δεν υπάρχει σύνδεση με το Server</value>
+  </data>
+  <data name="COUPON_HAS_ALREADY_BEEN_USED_TIMES" xml:space="preserve">
+    <value>Το κουπόνι έχει ήδη χρησιμοποιηθεί {0} φορά(ές)</value>
+  </data>
+  <data name="COUPON_HAS_NOT_BEEN_FOUND" xml:space="preserve">
+    <value>Το κουπόνι δε βρέθηκε</value>
+  </data>
+  <data name="COUPON_IS_ACTIVE_FROM_UNTIL" xml:space="preserve">
+    <value>Το κουπόνι είναι ενεργό από {0} έως {1}</value>
+  </data>
+  <data name="ISSUE_Z_EAFDSS" xml:space="preserve">
+    <value>Έκδοση Ζ στον ΕΑΦΔΣΣ</value>
+  </data>
+  <data name="PLEASE_DEFINE_HOW_COUPON_SHOULD_BE_APPLIED" xml:space="preserve">
+    <value>Παρακαλώ ορίστε πως πρέπει να εφαρμοστεί το κουπόνι</value>
+  </data>
+  <data name="USER_HAS_NO_STORE_ACCESS" xml:space="preserve">
+    <value>Ο χρήστης δεν έχει πρόσβαση στο κατάστημα</value>
+  </data>
+  <data name="MAX_COUNT_OF_DOC_LINES_EXCEEDED" xml:space="preserve">
+    <value>Ο μέγιστος αριθμός γραμμών του τρέχοντος παραστατικού έχει ξεπεραστεί</value>
+  </data>
+  <data name="MAX_COUNT_OF_LINES" xml:space="preserve">
+    <value>Μέγιστος Αριθμός Γραμμών</value>
+  </data>
+  <data name="DOCUMENT_TYPE_NOT_USES_GENERAL_ITEMS" xml:space="preserve">
+    <value>Ο συγκεκριμένος τυπος παραστατικού δεν χρησιμοποιεί γενικά είδη</value>
+  </data>
+  <data name="NO_PRIMARY_REMOTE_PRINTER_FOUND" xml:space="preserve">
+    <value>Δεν εντοπίστηκε απομακρυσμένος εκτυπωτής</value>
+  </data>
+  <data name="CUSTOMER_NOT_ALLOWED_TO_THIS_DOCUMENT_TYPE" xml:space="preserve">
+    <value>Ο πελάτης δεν επιτρέπεται σε αυτόν τον τύπο παραστατικού</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_USE_THE_FIELD_IN_COMMENTS" xml:space="preserve">
+    <value>Θέλετε να χρησιμοποιήσετε την τιμή αυτή ως σχόλιο στο παραστατικό;</value>
+  </data>
+  <data name="DOCUMENT_TYPE_DOES_NOT_USE_PAYMENT_METHODS_DO_YOU_WANT_TO_CLOSE_DOCUMENT" xml:space="preserve">
+    <value>Ο Τύπος Παραστατικού {0} δε χρησιμοποιεί τρόπους πληρωμής. Να κλείσει το παραστατικό;</value>
+  </data>
+  <data name="NOT_ALL_ITEMS_CANCELLED" xml:space="preserve">
+    <value>Πρέπει να ακυρώσετε όλα τα είδη</value>
+  </data>
+  <data name="CUSTOMER_CHANGE_CANCELLED" xml:space="preserve">
+    <value>Η αλλαγή πελάτη ακυρώθηκε</value>
+  </data>
+  <data name="GENERAL_SCALE_ERROR" xml:space="preserve">
+    <value>Γενικό σφάλμα στο ζυγό</value>
+  </data>
+  <data name="PROTOCOL_OR_PARITY_ERROR" xml:space="preserve">
+    <value>Σφάλμα πρωτοκόλλου ή ελέγχου Parity</value>
+  </data>
+  <data name="CREATE_CUSTOMER_FROM_SUPPLIER" xml:space="preserve">
+    <value>Να δημιουργηθεί πελάτης με βάση τα επιλεγμένα στοιχεία;</value>
+  </data>
+  <data name="SUPPLIER_FOUND" xml:space="preserve">
+    <value>Επιλέξατε κάρτα που αντιστοιχεί σε προμηθευτή</value>
+  </data>
+  <data name="ADDRESS_PROFESSION" xml:space="preserve">
+    <value>Επάγγελμα - Δραστ. Καταστήματος</value>
+  </data>
+  <data name="CARD_ID" xml:space="preserve">
+    <value>Κωδικός Κάρτας</value>
+  </data>
+  <data name="CUSTOMER_ALREADY_EXISTS" xml:space="preserve">
+    <value>Υπάρχει ήδη συναλλασόμενος βάσει των στοιχείων εισαγωγής : {0}</value>
+  </data>
+  <data name="OPEN_FOUND_CUSTOMER" xml:space="preserve">
+    <value>Θέλετε να ανοίξετε για επεξεργασία  τον συγκεκριμένο;</value>
+  </data>
+  <data name="SYNC_FAILED" xml:space="preserve">
+    <value>Ο συγχρονισμός απέτυχε.</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_RETRY" xml:space="preserve">
+    <value>Θέλετε να προσπαθήσετε ξανά;</value>
+  </data>
+  <data name="TAX_OFFICE_MISSING" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε ΔΟΥ</value>
+  </data>
+  <data name="INVALID_TOTAL" xml:space="preserve">
+    <value>Μη έγκυρο σύνολο</value>
+  </data>
+  <data name="COMMENTS" xml:space="preserve">
+    <value>Σχόλια</value>
+  </data>
+  <data name="REASON" xml:space="preserve">
+    <value>Αιτιολογία</value>
+  </data>
+  <data name="TAX_CODE" xml:space="preserve">
+    <value>ΑΦΜ</value>
+  </data>
+  <data name="TAX_CODE_OR_CODE" xml:space="preserve">
+    <value>ΑΦΜ/Κωδικός</value>
+  </data>
+  <data name="REASON_MISSING" xml:space="preserve">
+    <value>Παρακαλώ επιλέξτε αιτιολογία</value>
+  </data>
+  <data name="NEXT_REASON" xml:space="preserve">
+    <value>Επόμενη Αιτιολογία</value>
+  </data>
+  <data name="PREVIOUS_REASON" xml:space="preserve">
+    <value>Προηγούμενη Αιτιολογία</value>
+  </data>
+  <data name="NEXT" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="PREVIOUS" xml:space="preserve">
+    <value>Προηγούμενο</value>
+  </data>
+  <data name="UP" xml:space="preserve">
+    <value>Επάνω</value>
+  </data>
+  <data name="ISSUE_Z_EAFDSS_ERROR_RETRY" xml:space="preserve">
+    <value>Σφάλμα κατά την έκδοση Ζ στον φορολογικό μηχανισμό. Θέλετε να προσπαθήσετε ξανά;</value>
+  </data>
+  <data name="USE_SPECIAL_PROFORMA" xml:space="preserve">
+    <value>Ειδικό Προτιμολόγιο</value>
+  </data>
+  <data name="PLEASE_REVISE_SPECIAL_PROFORMA_SETTINGS" xml:space="preserve">
+    <value>Παρακαλώ ελέγξτε τις ρυθμίσεις για το Ειδικό Προτιμολόγιο</value>
+  </data>
+  <data name="POS_OFFLINE_DO_YOU_WANT_TO_TRY_TO_CLOSE_OFFLINE" xml:space="preserve">
+    <value>Το POS είναι εκτός σύνδεσης. Θέλετε να προσπαθήσετε να κλείσετε την ημέρα σαν να ήταν σε σύνδεση ; (ΠΡΟΣΟΧΗ! Αν πατήσετε ΟΚ η διαδικασία θα προσπαθεί για περίπου 1 ώρα)</value>
+  </data>
+  <data name="COULD_NOT_EXECUTE_PROMOTION" xml:space="preserve">
+    <value>Δεν ήταν εφικτή η εφαρμογή της προωθητικής {0}</value>
+  </data>
+  <data name="DOCUMENT_SUCCESFULLY_SAVED_AND_PRINTED" xml:space="preserve">
+    <value>Το παραστατικό αποθηκεύτηκε και εκτυπώθηκε</value>
+  </data>
+  <data name="DOCUMENT_SUCCESFULLY_SAVED_BUT_NOT_PRINTED" xml:space="preserve">
+    <value>Το παραστατικό αποθηκεύτηκε αλλά δεν εκτυπώθηκε</value>
+  </data>
+  <data name="DOCUMENT_SUCCESFULLY_SAVED_PRINT_ON_BACK_OFFICE" xml:space="preserve">
+    <value>Το παραστατικό αποθηκεύτηκε επιτυχώς. Μπορείτε να το εκτυπώσετε στο web ή στον Office Manager</value>
+  </data>
+  <data name="RESET_EAFDSS_DEVICES_ORDER" xml:space="preserve">
+    <value>Επαναφορά ταξινόμησης ΕΑΦΔΣΣ συσκευών</value>
+  </data>
+  <data name="MODULE_ASSEMBLY_NOT_FOUND" xml:space="preserve">
+    <value>Το Module  {0} δε βρέθηκε</value>
+  </data>
+  <data name="DOCUMENT_SAVED_PRINT_FAIL" xml:space="preserve">
+    <value>Σφάλμα προέκυψε κατά την εκτύπωση.  Η νόμιμη απόδειξη με αριθμό : {0} έχει αποθηκευτεί.</value>
+  </data>
+  <data name="REPRINT_RECEIPT" xml:space="preserve">
+    <value>Επανεκτύπωση.</value>
+  </data>
+  <data name="CONTINUE" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="PRESS_C_TO_CONTINUE" xml:space="preserve">
+    <value>Για να συνεχίσετε πατήστε C</value>
+  </data>
+  <data name="PRESS_ENTER_FOR_REPRINT" xml:space="preserve">
+    <value>Για επανεκτύπωση πατήστε ENTER</value>
+  </data>
+  <data name="PROFORMA_SAVED_PRINT_FAIL" xml:space="preserve">
+    <value>Σφάλμα προέκυψε κατά την εκτύπωση.  Το προτιμολόγιο με αριθμό : {0} έχει αποθηκευτεί.</value>
+  </data>
+  <data name="REPRINT_FROM_RECEPTION" xml:space="preserve">
+    <value>Σε περίπτωση πού το πρόβλημα παραμείνει, μπορείτε να τυπώσετε την απόδειξη από τη ρεσεψιόν.</value>
+  </data>
+  <data name="ITEM_DESCRIPTION_SEARCH" xml:space="preserve">
+    <value>Αναζήτηση είδους με περιγραφή</value>
+  </data>
+  <data name="SEARCH" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="DO_YOU_WANT_TO_CREATE_NEW_CUSTOMER" xml:space="preserve">
+    <value>Θέλετε να δημιουργήσετε νέο πελάτη;</value>
+  </data>
+  <data name="CUSTOMER_HAS_NOT_SIGN_THE_GDPR_CONTRACT" xml:space="preserve">
+    <value>    </value>
+  </data>
+  <data name="DEFAULT_DOCUMENT_DISCOUNT" xml:space="preserve">
+    <value>Προεπιλεγμένη Έκπτωση Παραστατικού</value>
+  </data>
+  <data name="CHECK_LAST_FISCAL_REPORT" xml:space="preserve">
+    <value>Έλεγχος τελευταίου Ζ</value>
+  </data>
+  <data name="USE_OPOS_REPORT" xml:space="preserve">
+    <value>Εκτύπωση Αναφοράς</value>
+  </data>
+  <data name="YES" xml:space="preserve">
+    <value>Ναί</value>
+  </data>
+  <data name="ΝΟ" xml:space="preserve">
+    <value>Όχι</value>
+  </data>
+  <data name="PRINT" xml:space="preserve">
+    <value>Εκτύπωση</value>
+  </data>
+  <data name="PREVIEW" xml:space="preserve">
+    <value>Προεπισκόπιση</value>
+  </data>
+  <data name="PLEASE_HANDLE_PRINTER_ACTIONS" xml:space="preserve">
+    <value>Παρακαλώ ελέγξτε τα μηνύματα του Φορολογικού Εκτύπωτή</value>
+  </data>
+  <data name="NO_RESPONSE_FROM_DEVICE" xml:space="preserve">
+    <value>Η συσκευή δεν αποκρίνεται</value>
+  </data>
+  <data name="NO_PRIMARY_CARDLINK_FOUND" xml:space="preserve">
+    <value>Δεν βρέθηκε συσκευή Cardlink</value>
+  </data>
+  <data name="CASH_CASH_BUTTON" xml:space="preserve">
+    <value>Μετρητά</value>
+  </data>
+  <data name="CASH_COUPON_BUTTON" xml:space="preserve">
+    <value>Κουπόνια</value>
+  </data>
+  <data name="CASH_CREDITCARD_BUTTTON" xml:space="preserve">
+    <value>Πιστωτικές</value>
+  </data>
+  <data name="CASH_DEPOSIT_BUTTON" xml:space="preserve">
+    <value>Καταθέσεις</value>
+  </data>
+  <data name="CASH_RETURN_BUTTON" xml:space="preserve">
+    <value>Επιστροφές</value>
+  </data>
+  <data name="CASH_WITHDRAW_BUTTON" xml:space="preserve">
+    <value>Αναλήψεις</value>
+  </data>
+  <data name="CASH_WRONG_CASH_AMOUNT" xml:space="preserve">
+    <value>Το ποσό {0} δεν είναι αριθμητικό μπορείτε να εισάγετε μόνο νούμερα και ένα * (πολαπλασιαστή)</value>
+  </data>
+  <data name="CASH_COUNT_COIN_ALLREADY_ADDED" xml:space="preserve">
+    <value>Το νόμισμα με αξία {0} έχει ξαναεισαχθεί, η ποσότητα {1} θα προστεθεί στην υπάρχουσα ποσότητα</value>
+  </data>
+  <data name="CASH_COUNT_COUNT_AND_AMOUNT" xml:space="preserve">
+    <value>Καταμέτρηση: {0} Αξία: {1}</value>
+  </data>
+  <data name="CASH_COUNT_COIN_VALUE_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Δεν υπάρχει νόμισμα με αξία {0}</value>
+  </data>
+  <data name="CASH_COUNT_THERE_CAN_BE_ONLY_ONE_AMOUNT_WITHOUT_COIN_VALUE" xml:space="preserve">
+    <value>Μπορεί να υπάρχει μόνο μία αξία που δεν αντιστοιχεί σε κάποιο νόμισμα χωρίς να υπάρχουν άλλες αξίες.</value>
+  </data>
+  <data name="CASH_INVOICE_BUTTON" xml:space="preserve">
+    <value>Τιμολόγια</value>
+  </data>
+  <data name="CONTINUE_AND_LOSE_DATA" xml:space="preserve">
+    <value>Θέλετε να συνεχίσετε και να χάσετε τα δεδομένα που πληκτρολογήσατε?</value>
+  </data>
+  <data name="CASH_COUNT_CANCEL" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Άκυρο</value>
+  </data>
+  <data name="CASH_COUNT_ENTER" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Enter</value>
+  </data>
+  <data name="CASH_COUNT_MOVE_DOWN" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Κάτω</value>
+  </data>
+  <data name="CASH_COUNT_MOVE_UP" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Επάνω</value>
+  </data>
+  <data name="CASH_COUNT_MULTIPLY" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Επί</value>
+  </data>
+  <data name="CASH_COUNT_NEXT" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Επόμενο</value>
+  </data>
+  <data name="CASH_COUNT_PREVIOUS" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Προηγούμενο</value>
+  </data>
+  <data name="CASH_COUNT_REMOVE_LINE" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Διαγραφή Γραμμής</value>
+  </data>
+  <data name="CASH_COUNT_SUBMIT" xml:space="preserve">
+    <value>Ταμειακό Φύλλο Αποδοχή Αξειών</value>
+  </data>
+  <data name="CASH_COUNT_NOT_SAVED_AMOUNTS_EXISTING" xml:space="preserve">
+    <value>Υπάρχουν μη ολοκληρωμένα ποσά προς καταχώρηση</value>
+  </data>
+  <data name="CASH_COUNT_YOU_DID_NOT_ENTER_ANY_VALUE" xml:space="preserve">
+    <value>Δεν έχετε συμπληρώσει κανένα ποσό.</value>
+  </data>
+  <data name="CASH_COUNT_SUMMARY_TEXT" xml:space="preserve">
+    <value>Έχετε συμπληρώσει τα παρακάτω ποσά,  θέλετε να αποθηκευτούν;</value>
+  </data>
+  <data name="ACTION_FORBIDDEN_DUE_TO_CARDLINK" xml:space="preserve">
+    <value>Η ενέργεια δεν επιτρέπεται. Υπάρχει πληρωμή με Card Link</value>
+  </data>
+  <data name="CARDLINK_COMMUNICATION_CHECK" xml:space="preserve">
+    <value>Έλεγχος επικοινωνίας με συσκευή CardLink</value>
+  </data>
+  <data name="CARDLINK_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>Έλεγχος επικοινωνίας με συσκευή CardLink</value>
+  </data>
+  <data name="ERRORZUPLOAD" xml:space="preserve">
+    <value>Αποτυχία στον Συγχρονισμό του Ζ</value>
+  </data>
+  <data name="THIRD_PART_NUM" xml:space="preserve">
+    <value>Κωδικός Τρίτου Συστήματος</value>
+  </data>
+  <data name="SCALE_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>Σφάλμα επικοινωνίας με τον ζυγό</value>
+  </data>
+  <data name="WRONG_PAYMENT_VALUE" xml:space="preserve">
+    <value>Η αξία των πληρωμών είναι μικρότερη από την αξία του παραστατικού, η απόδειξη θα ακυρωθεί</value>
+  </data>
+</root>

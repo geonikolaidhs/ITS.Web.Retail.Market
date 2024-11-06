@@ -1,0 +1,17 @@
+﻿@{    
+    
+ViewContext.Writer.Write("<td>");
+
+@Html.DevExpress().SpinEdit(settings =>
+{
+    settings.ShowModelErrors = false;    
+    settings.Properties.Caption = Resources.ValueOrPercentage;
+    settings.Name = "ValueOrPercentage";
+    settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+
+
+}).Bind(DataBinder.Eval(Model, "ValueOrPercentage")).GetHtml()
+
+ViewContext.Writer.Write("</td>");
+
+}

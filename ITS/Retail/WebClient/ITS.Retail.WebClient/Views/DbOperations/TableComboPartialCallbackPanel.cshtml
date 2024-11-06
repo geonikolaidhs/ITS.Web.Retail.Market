@@ -1,0 +1,36 @@
+﻿
+
+@Html.DevExpress().CallbackPanel(settings =>
+{    
+    settings.Name = "TableComboPartialCallbackPanel";
+    settings.CallbackRouteValues = new { Controller = "DbOperations", Action = "TableComboPartialCallbackPanel", ExtraData = ViewData["Table"] };
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.SetContent(() =>
+    {
+        Html.DevExpress().ComboBox(comboSettings =>
+        {
+            comboSettings.Name = "TableComboBox";
+            comboSettings.Properties.Caption = Resources.Table;
+            comboSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            comboSettings.Properties.ClientSideEvents.Init = "";
+            comboSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            comboSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            comboSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            comboSettings.ControlStyle.CssClass = "editor";
+            comboSettings.ShowModelErrors = true;
+
+
+            //comboSettings.SelectedIndex = -1;
+            comboSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            comboSettings.Properties.CallbackPageSize = 15;
+            comboSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            var button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            comboSettings.Properties.Buttons.Add(button);
+            comboSettings.Properties.ClientSideEvents.ButtonClick = "clearComboBoxDbOperations";
+
+        }).BindList(ViewData["Tables"]).Bind(ViewData["Table"]).Render();
+
+    });
+}).GetHtml()

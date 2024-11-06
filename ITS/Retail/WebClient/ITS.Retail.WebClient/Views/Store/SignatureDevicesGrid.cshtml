@@ -1,0 +1,252 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    if (ViewData["EditMode"] != null && bool.Parse(ViewData["EditMode"].ToString()) == true)
+    {
+
+        settings.Name = "grdSignatureDevices";
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png") + "' alt=\"" + Resources.Edit + "\" /></a>" +
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteGridRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png") + "' alt=\"" + Resources.Delete + "\" /></a>"
+                );
+
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png") + "' alt=\"" + Resources.Add + "\" /></a>"
+                );
+            });
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 90;
+        });
+        settings.CallbackRouteValues = new { Controller = "StoreControllerSettings", Action = "SignatureDevicesGrid", editMode = true };
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "StoreControllerSettings", Action = "DeviceAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "StoreControllerSettings", Action = "DeviceUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "StoreControllerSettings", Action = "DeviceDelete" };
+        //settings.ClientSideEvents.BeginCallback = "OnBeginCallbackDeviceGrid";
+        //settings.ClientSideEvents.EndCallback = "OnEndCallbackDeviceGrid";
+        settings.SettingsCookies.CookiesID = "grdSignatureDevices";
+    }
+    else
+    {
+        settings.Name = "grdSignatureDevices_" + ViewData["StoreControllerSettingsGuid"];
+        settings.CallbackRouteValues = new { Controller = "StoreControllerSettings", Action = "SignatureDevices", POSGuid = ViewData["StoreControllerSettingsGuid"], editMode = false };
+        settings.SettingsCookies.CookiesID = "grdSignatureDevices";
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TerminalDevice.Name";
+        col.Caption = Resources.Name;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TerminalDevice.ConnectionType";
+        col.Caption = Resources.ConnectionType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Caption = Resources.DeviceType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            var currentItem = DataBinder.Eval(c.DataItem, "this");
+            if ((currentItem as StoreControllerTerminalDeviceAssociation) != null &&
+                ((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice) != null &&
+                ((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice).DeviceSettings != null)
+            {
+                ViewContext.Writer.Write(((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice).DeviceSettings.DeviceType.ToString());
+            }
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsPrimary";
+        col.Caption = Resources.IsPrimary;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        //col.FieldName = "TerminalDevice.DeviceSpecificType";
+        col.Caption = Resources.DeviceSpecificType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+            {
+                var currentItem = DataBinder.Eval(c.DataItem, "this");
+                if ((currentItem as StoreControllerTerminalDeviceAssociation) != null && ((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice) != null)
+                {
+                    ViewContext.Writer.Write(((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice).DeviceSpecificType.ToString());
+                }
+            });
+    });
+
+
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.DeviceInfo;
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = true;
+
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = true;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.SignatureDevices;
+
+
+    settings.SettingsText.PopupEditFormCaption = Resources.SignatureDevices;
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Text = Resources.Device + ":";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(
+           edtSettings =>
+           {
+               edtSettings.Name = "Device";
+               edtSettings.Properties.TextField = "Name";
+               edtSettings.Properties.ValueField = "Oid";
+               edtSettings.Properties.ValueType = typeof(Guid);
+               edtSettings.ShowModelErrors = true;
+               edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+               edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+           }
+       )
+       .BindList(ViewBag.SignatureDevices)
+       .Bind(item == null ? null : DataBinder.Eval(item, "TerminalDevice!Key"))
+       .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.IsPrimary + ":";
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsPrimaryCheckBox";
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueType = typeof(bool);
+            }
+        ).Bind(DataBinder.Eval(item, "IsPrimary")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.ABCDirectory + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ABCDirectory";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).Bind(DataBinder.Eval(item, "ABCDirectory")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("<div class='button_container'>");
+
+        Html.DevExpress().Button(
+                 btnSettings =>
+                 {
+                     btnSettings.Name = "btnSignatureDeviceUpdate";
+                     btnSettings.ControlStyle.CssClass = "button";
+                     btnSettings.Text = Resources.Save;
+                     btnSettings.ClientSideEvents.Click = @"function(s, e){ " + settings.Name + ".UpdateEdit(); }";
+                 }
+             )
+             .Render();
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnSignatureDeviceCancel";
+                btnSettings.ControlStyle.CssClass = "button cancel";
+                btnSettings.Text = Resources.Close;
+                btnSettings.ClientSideEvents.Click = "function(s, e){  " + settings.Name + ".CancelEdit(); }";
+            }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+}).Bind(Model).GetHtml()

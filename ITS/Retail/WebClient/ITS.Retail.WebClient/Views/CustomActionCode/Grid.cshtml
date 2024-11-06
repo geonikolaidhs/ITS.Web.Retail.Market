@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ITS.Retail.Model.CustomActionCode>
+@using ITS.Retail.ResourcesLib;           
+@{
+    GridViewSettings settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(CustomActionCode), typeof(CustomActionCodeController), "grdCustomActionCode",generateColumns:false);
+    settings.SettingsText.Title = Resources.CustomActionCodes;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.Caption = Resources.Code;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Action";
+        column.Caption = Resources.Action;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((eActions)DataBinder.Eval(c.DataItem, "Action")).ToLocalizedString());
+        });
+    });
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "CustomActionCode", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "CustomActionCode", Action = "UpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "CustomActionCode", Action = "DeletePartial" };
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Code;
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(
+           edtSettings =>
+           {
+               edtSettings.Name = "Code";
+               edtSettings.ControlStyle.CssClass = "editor";
+               edtSettings.ShowModelErrors = true;
+               edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+               edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+           }
+       ).Bind(DataBinder.Eval(item, "Code")).Render();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Action;
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Action";
+            edtSettings.Properties.ValueType = typeof(eActions);
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.TextField = "Value";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.ExternalActions).Bind(DataBinder.Eval(item, "Action")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+
+
+    });
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

@@ -1,0 +1,5 @@
+package gr.net.its.common.bluetooth;
+
+public enum BTScanState {
+	NOTINITIALIZED, INITIALIZED, WAITING, NOTCONNECTEDTODEVICE, NOTSUPPORTED, NOTACTIVATED
+}

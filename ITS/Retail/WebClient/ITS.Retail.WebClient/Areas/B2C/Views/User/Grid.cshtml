@@ -1,0 +1,168 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using System.Linq;
+
+@{
+    var settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(DocumentHeader), typeof(ITS.Retail.WebClient.Areas.B2C.Controllers.UserController), "grdB2CDocument", generateColumns: false);
+    settings.SettingsText.Title = Resources.OrderHistory;
+    settings.ClientSideEvents.Init = "";
+    settings.ClientSideEvents.SelectionChanged = "";
+    settings.ClientSideEvents.FocusedRowChanged = "OrderHistory.OnGridFocusedRowChanged";
+    settings.KeyFieldName = "Oid";
+    //settings.ClientSideEvents.BeginCallback = "grdDocumentOnBeginCalback";
+    //settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "GrossTotal").DisplayFormat = "c";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, "Quantity");
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Average, "CalculatedTotalQty");
+
+
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsBehavior.AllowFocusedRow = true;
+    settings.SettingsCookies.Enabled = false;     
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.CommandColumn.Visible = false;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.SettingsBehavior.EnableCustomizationWindow = false;
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Disabled;
+
+    settings.SettingsSearchPanel.Visible = true;
+    settings.SettingsSearchPanel.HighlightResults = true;
+    settings.SettingsSearchPanel.ShowApplyButton = true;
+    settings.SettingsSearchPanel.ShowClearButton = true;
+    
+    
+    
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = false;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowClearFilterButton = false;
+
+
+    //settings.SettingsSearchPanel.Visible = true;    
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+    //settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    //{
+    //    if (e.RowType == GridViewRowType.Data)
+    //    {
+    //        e.Row.Attributes.Remove("oncontextmenu");
+    //    }
+    //};
+
+    //settings.Columns.Add(column =>
+    //{
+    //    column.Caption = "";
+    //    column.Name = "hidden";
+    //    column.VisibleIndex = 0;
+    //    column.SetDataItemTemplateContent(c =>
+    //    {
+    //        @Html.RenderAction("LoadViewPopup", "Document", new { DocumentID = DataBinder.Eval(c.DataItem, "Oid").ToString() });
+    //    });
+
+    //    column.Settings.AllowDragDrop = DefaultBoolean.False;
+    //    column.Settings.AllowSort = DefaultBoolean.False;
+    //    column.Width = 0;
+    //});
+
+    ///COLLUMNS OF GRID
+    ///
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Oid";
+        col.Visible = false;
+        col.VisibleIndex = 0;
+        col.Width = 0;
+        col.Caption = "";
+        col.Name = "hidden";
+        col.CellStyle.CssClass = "hidden";
+        col.HeaderStyle.CssClass = "hidden";
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentNumber";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.OrderNumber;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "FinalizedDate";
+        column.Caption = Resources.Date;
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.PropertiesEdit.DisplayFormatString = "dd-MMM-yyyy";
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Status.Description";
+        column.Caption = Resources.Status;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.ColumnType = MVCxGridViewColumnType.ComboBox;
+        var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+        comboBoxProperties.DataSource = ViewBag.DocumentStatusComboBox == null ? null : (ViewBag.DocumentStatusComboBox as IEnumerable<ITS.Retail.Model.DocumentStatus>).Select(ds => ds.Description);
+        comboBoxProperties.ValueType = typeof(String);
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "ExecutionDate";
+        column.Caption = Resources.ExecutionDate;
+        column.ColumnType = MVCxGridViewColumnType.DateEdit;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.PropertiesEdit.DisplayFormatString = "dd-MMM-yyyy";
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Store.Name";
+        col.Caption = Resources.Store;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DeliveryAddress";
+        col.Caption = Resources.DeliveryAddressB2C;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Remarks";
+        col.Caption = Resources.Remarks;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CalculatedTotalQty";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Quantity;
+        col.PropertiesEdit.DisplayFormatString = "n0";     
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "GrossTotal";
+        col.Caption = Resources.TotalB2C;
+        col.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.CurrentOwnerStatic.OwnerApplicationSettings.formatCurrencyString;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        
+    });
+
+
+
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+
+

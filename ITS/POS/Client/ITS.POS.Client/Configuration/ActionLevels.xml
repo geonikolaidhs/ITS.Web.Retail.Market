@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ActionLevels>
+  <ActionLevel>
+    <Action>CANCEL_DOCUMENT</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>SERVICE_FORCED_CANCEL_DOCUMENT</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>ISSUE_Z</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>DISPLAY_DEPOSIT</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>DISPLAY_WITHDRAWAL</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>USE_PROFORMA</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>ISSUE_X</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>SHUTDOWN</Action>
+    <Level>POSITION1</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>DELETE_ITEM</Action>
+    <Level>POSITION0</Level>
+  </ActionLevel>
+  <ActionLevel>
+    <Action>SET_OR_GET_DOCUMENT_ON_HOLD</Action>
+    <Level>POSITION4</Level>
+  </ActionLevel>
+</ActionLevels>

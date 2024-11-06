@@ -1,0 +1,30 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Common;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+combosettings.Enabled = true;
+combosettings.Name = "MotherCode";
+combosettings.CallbackRouteValues = new { Controller = "Item", Action = "ItemsComboBox" };
+combosettings.Properties.CallbackPageSize = 15;
+combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+combosettings.Properties.TextField = "Code";
+combosettings.Properties.ValueType = typeof(Guid);
+combosettings.Properties.ValueField = "Oid";
+
+combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+combosettings.Properties.FilterMinLength = 0;
+combosettings.Properties.NullText = Resources.ComboBoxNote;
+combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+var button = new EditButton(" ");
+button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+combosettings.Properties.Buttons.Add(button);
+button.Image.AlternateText = Resources.Clear;
+combosettings.Properties.Buttons.Add(button);
+
+combosettings.Properties.Columns.Add("Code", Resources.Code, 90);
+combosettings.Properties.Columns.Add("Name", Resources.ItemName, 130);
+combosettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+combosettings.ShowModelErrors = true;
+combosettings.Enabled = (ViewBag.ApplicationInstance != eApplicationInstance.STORE_CONTROLER);
+}).BindList(ITS.Retail.WebClient.Controllers.ItemController.ItemsRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.ItemController.ItemRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.ItemController.GetItemByValue(DataBinder.Eval(Model, "MotherCode!Key"))).Bind(DataBinder.Eval(Model, "MotherCode!Key")).GetHtml()

@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().RadioButtonList(
+settings =>
+{
+    settings.Name = "ListsValueOrQtyRadio";
+    settings.Properties.RepeatLayout = System.Web.UI.WebControls.RepeatLayout.Table;
+    settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Vertical;
+    settings.Properties.RepeatColumns = 1;
+    settings.Properties.Items.Add(ITS.Retail.ResourcesLib.Resources.Value, "value");
+    settings.Properties.Items.Add(ITS.Retail.ResourcesLib.Resources.Quantity, "qty");
+    settings.SelectedIndex = 0;
+    settings.Properties.EnableClientSideAPI = true;
+    settings.Properties.ClientSideEvents.ValueChanged = "onValueChangedListsValueOrQtyRadio";
+}).GetHtml()

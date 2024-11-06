@@ -1,0 +1,17 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model IEnumerable<DocumentType>
+
+@{
+    ViewBag.Title = Resources.MenuDocumentSettigsDocumentTypes; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/DocumentType.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/EditDocumentType.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/scripts/StoreDocumentSeries.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid", Model)

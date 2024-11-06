@@ -1,0 +1,39 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Enabled = true;
+        combosettings.Name = "PriceCatalogsComboBox";
+        combosettings.CallbackRouteValues = new { Controller = "Item", Action = "PriceCatalogsComboBoxPartial" };
+        combosettings.Properties.EnableCallbackMode = true;
+        combosettings.Properties.CallbackPageSize = 15;
+        combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        combosettings.Properties.TextField = "PriceCatalog.Description";
+        combosettings.Properties.ValueType = typeof(Guid);
+        combosettings.Properties.ValueField = "Oid";
+
+        combosettings.Properties.Columns.Add("Code",Resources.Code, 90);
+        combosettings.Properties.Columns.Add("Description", Resources.Description, 130);
+        combosettings.ShowModelErrors = true;
+        combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+
+        combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+        combosettings.Properties.FilterMinLength = 0;
+        combosettings.Properties.NullText = Resources.ComboBoxNote;
+        combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+        var button = new EditButton(" ");
+        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        combosettings.Properties.Buttons.Add(button);
+        button.Image.AlternateText = Resources.Clear;
+
+        //combosettings.Properties.ClientSideEvents.BeginCallback = "OnStartCallback";
+//        combosettings.Properties.ClientSideEvents.EndCallback = @"function OneRecord(s, e) {
+//                                                                var gridInstance = ASPxClientComboBox.Cast(s);
+//                                                                if (gridInstance.GetItemCount() == 1) {
+//                                                                    gridInstance.SetValue(gridInstance.GetItem(0).value);
+//                                                                    gridInstance.HideDropDown();
+//                                                                }
+//                                                            }";
+
+    }).BindList(ITS.Retail.WebClient.Controllers.ItemController.PriceCatalogsRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.ItemController.PriceCatalogRequestedByValue).BindList(ITS.Retail.WebClient.Controllers.ItemController.GetPriceCatalogByValue(DataBinder.Eval(ViewData["Item"], "PriceCatalog!Key"))).Bind(DataBinder.Eval(ViewData["Item"], "PriceCatalog!Key")).GetHtml()

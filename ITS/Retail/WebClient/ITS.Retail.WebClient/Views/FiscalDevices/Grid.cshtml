@@ -1,0 +1,286 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.Name = "grdFiscalDevices";
+   
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.VisibleIndex = 0;
+
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;                   
+    
+    settings.SettingsPager.EnableAdaptivity = true;   
+    
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+   
+    settings.CallbackRouteValues = new { Controller = "FiscalDevices", Action = "Grid", editMode = true };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "FiscalDevices", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "FiscalDevices", Action = "UpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "FiscalDevices", Action = "DeletePartial" };
+
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TerminalDevice.Name";
+        col.Caption = Resources.Name;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "TerminalDevice.ConnectionType";
+        col.Caption = Resources.ConnectionType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.Caption = Resources.DeviceType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            var currentItem = DataBinder.Eval(c.DataItem, "this");
+            if ((currentItem as StoreControllerTerminalDeviceAssociation) != null &&
+                ((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice) != null &&
+                ((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice).DeviceSettings != null)
+            {
+                ViewContext.Writer.Write(((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice).DeviceSettings.DeviceType.ToString());
+            }
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsPrimary";
+        col.Caption = Resources.IsPrimary;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ABCDirectory";
+        col.Caption = Resources.ABCDirectory;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Caption = Resources.DeviceSpecificType;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+            {
+                var currentItem = DataBinder.Eval(c.DataItem, "this");
+                if ((currentItem as StoreControllerTerminalDeviceAssociation) != null && ((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice) != null)
+                {
+                    ViewContext.Writer.Write(((currentItem as StoreControllerTerminalDeviceAssociation).TerminalDevice as POSDevice).DeviceSpecificType.ToString());
+                }
+            });
+    });
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = 550;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsText.PopupEditFormCaption = Resources.DeviceInfo;
+    settings.SettingsBehavior.ConfirmDelete = true;
+
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = false;
+
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.SignatureDevices;
+
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.SettingsText.PopupEditFormCaption = Resources.SignatureDevices;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnFiscalDevicesUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnFiscalDevicesCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.Device + ":";
+            edtSettings.ControlStyle.CssClass = "label required_field";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Device";
+            edtSettings.Properties.TextField = "Name";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.SignatureDevices).Bind(item == null ? null : DataBinder.Eval(item, "TerminalDevice!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.IsPrimary;
+            edtSettings.Name = "IsPrimary";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(item, "IsPrimary") ?? false).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.Text = Resources.ABCDirectory + ":";
+        }).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "ABCDirectory";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "ABCDirectory")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan='2'>");
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Priority;
+            edtSettings.Name = "Priority";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.NumberType = SpinEditNumberType.Integer;
+        }).Bind(DataBinder.Eval(item, "Priority") ?? 0).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td colspan='2'>");
+        var This =  DataBinder.Eval(item, "This") as StoreControllerTerminalDeviceAssociation;
+        DevExpress.Xpo.XPCollection<FiscalDeviceDocumentSeries> fiscalDevicesDocSeries = This == null ? null : This.DocumentSeries;
+        var model = fiscalDevicesDocSeries == null || fiscalDevicesDocSeries.Count==0 ? "" : fiscalDevicesDocSeries.Select(x => x.DocumentSeries.Oid.ToString()).Aggregate((x, y) => x + "," + y);
+        ViewContext.Writer.Write(Html.Hidden("fiscaldevices_initial", model));
+        ViewContext.Writer.Write(Html.Hidden("fiscaldevices_selected", model));
+
+        Html.DevExpress().ListBox(ddesettings =>
+        {
+            ddesettings.Name = "fiscaldevicelist";
+            ddesettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+
+            ddesettings.Properties.ValueField = "Oid";
+            ddesettings.Properties.TextField = "Description";
+            ddesettings.Properties.ValueType = typeof(Guid);
+
+            ddesettings.Properties.ClientSideEvents.SelectedIndexChanged =
+            @"function (s,e) {
+                            var selectedValues = fiscaldevicelist.GetSelectedValues()
+                            $('#fiscaldevices_selected').val(selectedValues);                           
+                        }";
+
+            ddesettings.Properties.ClientSideEvents.Init =
+            @"function (s, e) {                    
+                          var initialOrgs = $('#fiscaldevices_initial').val();
+                          var values = initialOrgs.split(',');
+                          fiscaldevicelist.SelectValues(values);
+                        }";
+
+           
+            ddesettings.Properties.EnableClientSideAPI = true;
+
+            ddesettings.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Top;
+
+        }).BindList(ViewBag.DocumentSeries).Render();
+        
+        
+        
+        ViewContext.Writer.Write("</td></tr></table>"); 
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+}).Bind(Model).GetHtml()

@@ -1,0 +1,202 @@
+.dxGridView_gvCollapsedButton_SimpleB2C,
+.dxGridView_gvCollapsedButtonRtl_SimpleB2C,
+.dxGridView_gvExpandedButton_SimpleB2C,
+.dxGridView_gvExpandedButtonRtl_SimpleB2C,
+.dxGridView_gvDetailCollapsedButton_SimpleB2C,
+.dxGridView_gvDetailCollapsedButtonRtl_SimpleB2C,
+.dxGridView_gvDetailExpandedButton_SimpleB2C,
+.dxGridView_gvDetailExpandedButtonRtl_SimpleB2C,
+.dxGridView_gvFilterRowButton_SimpleB2C,
+.dxGridView_gvHeaderFilter_SimpleB2C,
+.dxGridView_gvHeaderFilterActive_SimpleB2C,
+.dxGridView_gvHeaderSortDown_SimpleB2C,
+.dxGridView_gvHeaderSortUp_SimpleB2C,
+.dxGridView_gvDragAndDropArrowDown_SimpleB2C,
+.dxGridView_gvDragAndDropArrowUp_SimpleB2C,
+.dxGridView_gvDragAndDropHideColumn_SimpleB2C,
+.dxGridView_gvParentGroupRows_SimpleB2C,
+.dxGridView_WindowResizer_SimpleB2C,
+.dxGridView_WindowResizerRtl_SimpleB2C
+{
+	background: transparent url('sprite.png') no-repeat;
+}
+
+.dxGridView_gvCollapsedButton_SimpleB2C
+{
+    background-position: -35px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvCollapsedButtonRtl_SimpleB2C 
+{
+    background-position: -89px -38px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedGroupRow_SimpleB2C .dxGridView_gvCollapsedButton_SimpleB2C
+{
+    background-position: -52px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedGroupRow_SimpleB2C .dxGridView_gvCollapsedButtonRtl_SimpleB2C {
+    background-position: -106px -px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvExpandedButton_SimpleB2C
+{
+    background-position: -35px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvExpandedButtonRtl_SimpleB2C 
+{
+    background-position: -89px -56px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedGroupRow_SimpleB2C .dxGridView_gvExpandedButton_SimpleB2C
+{
+    background-position: -52px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedGroupRow_SimpleB2C .dxGridView_gvExpandedButtonRtl_SimpleB2C 
+{
+    background-position: -106px -56px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvDetailCollapsedButton_SimpleB2C
+{
+    background-position: -35px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvDetailCollapsedButtonRtl_SimpleB2C 
+{
+    background-position: -89px -38px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedRow_SimpleB2C .dxGridView_gvDetailCollapsedButton_SimpleB2C
+{
+    background-position: -52px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedRow_SimpleB2C .dxGridView_gvDetailCollapsedButtonRtl_SimpleB2C {
+    background-position: -106px -38px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvDetailExpandedButton_SimpleB2C
+{
+    background-position: -35px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvDetailExpandedButtonRtl_SimpleB2C 
+{
+    background-position: -89px -56px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedRow_SimpleB2C .dxGridView_gvDetailExpandedButton_SimpleB2C
+{
+    background-position: -52px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxgvFocusedRow_SimpleB2C .dxGridView_gvDetailExpandedButtonRtl_SimpleB2C {
+    background-position: -106px -56px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxGridView_gvFilterRowButton_SimpleB2C 
+{
+    background-position: -100px 0px;
+    width: 14px;
+    height: 14px;
+}
+
+.dxGridView_gvHeaderFilter_SimpleB2C {
+    background-position: 0px -36px;
+    width: 14px;
+    height: 16px;
+}
+
+.dxGridView_gvHeaderFilterActive_SimpleB2C 
+{
+    background-position: -23px -36px;
+    width: 14px;
+    height: 16px;
+}
+
+.dxGridView_gvHeaderSortDown_SimpleB2C {
+    background-position: -19px -1px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxGridView_gvHeaderSortUp_SimpleB2C {
+    background-position: -19px -7px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxGridView_gvDragAndDropArrowDown_SimpleB2C {
+    background-position: 0px 0px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxGridView_gvDragAndDropArrowUp_SimpleB2C {
+    background-position: 0px -17px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxGridView_gvDragAndDropHideColumn_SimpleB2C {
+    background-position: -70px 0px;
+    width: 22px;
+    height: 22px;
+}
+
+.dxGridView_gvParentGroupRows_SimpleB2C {
+    background-position: -70px -36px;
+    width: 18px;
+    height: 13px;
+}
+
+.dxGridView_WindowResizer_SimpleB2C {
+    background-position: -46px -36px;
+    width: 16px;
+    height: 16px;
+}
+
+.dxGridView_WindowResizerRtl_SimpleB2C {
+    background-position: -46px -54px;
+    width: 16px;
+    height: 16px;
+}
+
+
+

@@ -1,0 +1,16 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxmvc" Namespace="DevExpress.Web.Mvc" Assembly="DevExpress.Web.Mvc.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dxmvc:MVCxImageGallery runat="server" PagerPanelSpacing="8px">
+    <Images SpriteCssFilePath="{0}/sprite.css">
+        <LoadingPanel Url="Web/Loading.gif" />
+    </Images>
+    <Styles CssPostfix="ITSTheme1" CssFilePath="{0}/styles.css">
+        <Pager ItemSpacing="0px" Spacing="0px" />
+    </Styles>
+    <PagerSettings CurrentPageNumberFormat="{0}">
+		<PageSizeItemSettings ShowPopupShadow="False">
+        </PageSizeItemSettings>
+	</PagerSettings>
+</dxmvc:MVCxImageGallery>

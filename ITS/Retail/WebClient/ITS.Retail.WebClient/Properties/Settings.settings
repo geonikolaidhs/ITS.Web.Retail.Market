@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ITS.Retail.WebClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Retail_WebClient_gr_gsis_ws_RgWsBasStoixN" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://xportal1.gsis.gr:7777/wsgsis/RgWsBasStoixN/RgWsBasStoixNSoapHttpPort</Value>
+    </Setting>
+    <Setting Name="Retail_WebClient_Retail_WebClient_POSUpdateService_POSUpdateService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost/its.Retail.WebClient/Posupdateservice.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

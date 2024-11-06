@@ -1,0 +1,209 @@
+﻿@model DevExpress.Xpo.XPCollection<POSReportSetting>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using System.Linq;
+@using DevExpress.Xpo;
+@using DevExpress.Data.Filtering;
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext,
+                                                                     typeof(POSReportSetting),
+                                                                     typeof(ITS.Retail.WebClient.Controllers.POSController),
+                                                                     "grdPOSReportSettinsg",
+                                                                     generateColumns: false
+                                                                     );
+
+
+    settings.SettingsText.Title = Resources.POSReportSettings;
+    settings.KeyFieldName = "Oid";
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsBehavior.AllowFocusedRow = true;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.SettingsBehavior.EnableCustomizationWindow = false;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Disabled;
+    settings.SettingsSearchPanel.Visible = false;
+    settings.SettingsSearchPanel.HighlightResults = true;
+    settings.SettingsSearchPanel.ShowApplyButton = true;
+    settings.SettingsSearchPanel.ShowClearButton = true;
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = false;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowClearFilterButton = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsText.PopupEditFormCaption = Resources.POSReportSetting;
+
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "#";
+        column.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>" +
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>"
+            );
+        });
+        column.SetHeaderTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(
+                "<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>"
+            );
+        });
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 90;
+    });
+    settings.CallbackRouteValues = new { Controller = "POS", Action = "POSReportSettingsGrid", editMode = true };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "POS", Action = "AddPOSReportSettings" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "POS", Action = "UpdatePOSReportSettings" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "POS", Action = "DeletePOSReportSettings" };
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DocumentType.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.DocumentType;
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PrintFormat.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.POSPrintFormat;
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Report.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Report;
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Printer.Name";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Printer;
+        col.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    });
+
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+/*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "buttonPOSReportSettingsUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "buttonPOSReportSettingsCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+/*End of header banner*/
+
+        POS pos = Session["UnsavedPOS"] as POS;
+
+        ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td>");
+
+//List<DocumentType> basicPOSTypes = new List<DocumentType>()
+//{
+//    pos.DefaultDocumentType,
+//    pos.WithdrawalDocumentType,
+//    pos.DepositDocumentType,
+//    pos.ProFormaInvoiceDocumentType,
+//    pos.SpecialProformaDocumentType
+//};
+CriteriaOperator posCriteria = CriteriaOperator.And(new BinaryOperator("DocumentSeries.eModule", eModule.POS), new BinaryOperator("DocumentSeries.POS", pos.Oid));
+        List<DocumentType> basicPOSTypes = new XPCollection<StoreDocumentSeriesType>(pos.Session, posCriteria).Select(sdst => sdst.DocumentType).ToList();
+
+
+        List<DocumentType> availableDocumentTypes = pos.POSDocumentSeries.Select(x => x.StoreDocumentSeriesType.DocumentType).Distinct().ToList();
+        availableDocumentTypes.AddRange(basicPOSTypes);
+        availableDocumentTypes = availableDocumentTypes.Where(documentType => documentType != null).ToList();
+
+        Html.DevExpress().ComboBox(comboboxSettings =>
+        {
+            comboboxSettings.Name = "ReportDocumentType";
+            comboboxSettings.Properties.Caption = Resources.DocumentType;
+            comboboxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            comboboxSettings.Properties.ValueType = typeof(Guid);
+            comboboxSettings.Properties.ValueField = "Oid";
+            comboboxSettings.Properties.TextField = "Description";
+        }).BindList(availableDocumentTypes).Bind(DataBinder.Eval(item, "DocumentType!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        bool isForThermalPrinter = DataBinder.Eval(item, "PrintFormat!Key") != null;
+
+        Html.DevExpress().RadioButtonList(radioButtonListSettings =>
+        {
+            radioButtonListSettings.Name = "ReportType";
+            radioButtonListSettings.Properties.Caption = Resources.Type;
+            radioButtonListSettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            radioButtonListSettings.Properties.Items.Add(Resources.ThermalPrinter, 1);
+            radioButtonListSettings.Properties.Items.Add(Resources.WindowsPrinter, 2);
+            radioButtonListSettings.SelectedIndex = isForThermalPrinter ? 0 : 1;
+            radioButtonListSettings.Properties.ClientSideEvents.ValueChanged = "ITSPOS.PrinterTypeSelectionChanged";
+        }).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().ComboBox(comboboxSettings =>
+        {
+            comboboxSettings.Name = "ThermalReport";
+            comboboxSettings.Properties.Caption = Resources.Report;
+            comboboxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            comboboxSettings.Properties.ValueType = typeof(Guid);
+            comboboxSettings.Properties.ValueField = "Oid";
+            comboboxSettings.Properties.TextField = "Description";
+            comboboxSettings.ClientVisible = isForThermalPrinter;
+        }).BindList(ViewBag.Reports).Bind(DataBinder.Eval(item, "PrintFormat!Key")).Render();
+
+        Html.DevExpress().ComboBox(comboboxSettings =>
+        {
+            comboboxSettings.Name = "WindowsReport";
+            comboboxSettings.Properties.Caption = Resources.CustomReport;
+            comboboxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            comboboxSettings.Properties.ValueType = typeof(Guid);
+            comboboxSettings.Properties.ValueField = "Oid";
+            comboboxSettings.Properties.TextField = "Description";
+            comboboxSettings.ClientVisible = isForThermalPrinter == false;
+        }).BindList(ViewBag.CustomReports).Bind(DataBinder.Eval(item, "Report!Key")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(comboboxSettings =>
+        {
+            comboboxSettings.Name = "SelectedPrinter";
+            comboboxSettings.Properties.Caption = Resources.Printer;
+            comboboxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            comboboxSettings.Properties.ValueType = typeof(Guid);
+            comboboxSettings.Properties.ValueField = "Oid";
+            comboboxSettings.Properties.TextField = "Name";
+        }).BindList(pos.TerminalDeviceAssociations.Where(association => (association.TerminalDevice as POSDevice).DeviceSettings.DeviceType == DeviceType.Printer).Where(z => z.TerminalDevice.ConnectionType == ConnectionType.ETHERNET || z.TerminalDevice.ConnectionType == ConnectionType.OPOS || z.TerminalDevice.ConnectionType == ConnectionType.EMULATED || z.TerminalDevice.ConnectionType == ConnectionType.OPERATING_SYSTEM_DRIVER).Select(association => association.TerminalDevice)).Bind(DataBinder.Eval(item, "Printer!Key")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+
+

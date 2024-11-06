@@ -1,0 +1,80 @@
+.dxTreeList_CollapsedButton_SimpleB2C,
+.dxTreeList_CollapsedButtonRtl_SimpleB2C,
+.dxTreeList_ExpandedButton_SimpleB2C,
+.dxTreeList_ExpandedButtonRtl_SimpleB2C,
+.dxTreeList_SortAsc_SimpleB2C,
+.dxTreeList_SortDesc_SimpleB2C,
+.dxTreeList_DragAndDropArrowDown_SimpleB2C,
+.dxTreeList_DragAndDropArrowUp_SimpleB2C,
+.dxTreeList_DragAndDropHide_SimpleB2C,
+.dxTreeList_DragAndDropNode_SimpleB2C
+{
+	background: transparent url('<%=WebResource("ThemeAssembly1.App_Themes.SimpleB2C.TreeList.sprite.png")%>') no-repeat;
+}
+
+.dxTreeList_CollapsedButton_SimpleB2C
+{
+    background-position: -64px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_CollapsedButtonRtl_SimpleB2C 
+{
+    background-position: -79px 0px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_ExpandedButton_SimpleB2C
+{
+    background-position: -64px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_ExpandedButtonRtl_SimpleB2C 
+{
+    background-position: -79px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+.dxTreeList_SortAsc_SimpleB2C {
+    background-position: -50px 0px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxTreeList_SortDesc_SimpleB2C {
+    background-position: -50px -7px;
+    width: 7px;
+    height: 5px;
+}
+
+.dxTreeList_DragAndDropArrowDown_SimpleB2C {
+    background-position: -30px 0px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxTreeList_DragAndDropArrowUp_SimpleB2C {
+    background-position: -30px -18px;
+    width: 11px;
+    height: 9px;
+}
+
+.dxTreeList_DragAndDropHide_SimpleB2C {
+    background-position: 0px 0px;
+    width: 22px;
+    height: 22px;
+}
+
+.dxTreeList_DragAndDropNode_SimpleB2C {
+    background-position: -46px -18px;
+    width: 13px;
+    height: 13px;
+}
+
+
+

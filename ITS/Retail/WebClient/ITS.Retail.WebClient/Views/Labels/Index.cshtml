@@ -1,0 +1,67 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{
+    ViewBag.Title = Resources.Labels;
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Settings.css?v=" + ViewData["ApplicationVersionNumber"]));
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/Label.css?v=" + ViewData["ApplicationVersionNumber"]));
+
+    
+}
+
+@section HeaderScriptsAndStyles {
+     
+     <script src="@Url.Content("~/Scripts/scripts/Labels.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+             
+}
+
+
+
+
+
+<div id="page_content">
+ 
+    @Html.DevExpress().PageControl(
+        settings2 =>
+        {
+            settings2.AccessibilityCompliant = false;
+            settings2.Name = "labelsFilterPanel";
+            settings2.ActivateTabPageAction = ActivateTabPageAction.Click;
+            settings2.TabAlign = TabAlign.Left;
+            settings2.TabPosition = TabPosition.Top;
+            settings2.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings2.ClientSideEvents.ActiveTabChanged = "LabelsActiveTabChanged";
+
+            settings2.TabPages.Add(Resources.PriceChangedOn).SetContent(() =>
+            {
+                Html.DevExpress().RoundPanel(settings =>
+                {
+                    settings.Name = "FilterPanel";
+                    settings.ControlStyle.CssClass = "FilterPanel";
+                    settings.HeaderText = Resources.SearchFilters;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("LabelsWithChangesFilters");
+                    });
+                }).GetHtml();
+                Html.RenderPartial("Grid");
+            });
+
+            settings2.TabPages.Add(Resources.Terminals).SetContent(() =>
+            {
+                Html.DevExpress().RoundPanel(settings =>
+                {
+                    settings.Name = "FilterPanelSecond";
+                    settings.ControlStyle.CssClass = "FilterPanel";
+                    settings.HeaderText = Resources.SearchFilters;
+                    settings.SetContent(() =>
+                    {
+                        Html.RenderPartial("LabelsFromDocumentTagsFilters");
+                    });
+                }).GetHtml();
+                Html.RenderPartial("LabelsDocumentGrid");
+
+            });
+        }).GetHtml()
+
+</div>
+

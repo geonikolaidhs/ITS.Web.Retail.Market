@@ -1,0 +1,1 @@
+del *.orig /s /a

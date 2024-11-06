@@ -1,0 +1,35 @@
+
+//noinspection ScssLintInspection,ScssLintInspection,ScssLintInspection,ScssLintInspection
+.POSCreateDdLoading {
+	text-align: center !important;
+}
+
+//noinspection ScssLintInspection,ScssLintInspection,ScssLintInspection,ScssLintInspection,ScssLintInspection,ScssLintInspection
+.headerTable {
+  //noinspection ScssLintInspection
+  .dxeRadioButtonList_ITSTheme1 {
+		border: 0;
+	}
+	.dxbButton_ITSTheme1.button.dxbButtonSys.dxbTSys {
+		margin-top: 20px;
+	}
+}
+.wrapper .container {
+	.Labels {
+		.filter_search_container {
+			top: 110px;
+		}
+		span#filterinfo {
+			top: 110px;
+		}
+	}
+	.Store_Edit #storeTabControl {
+		width: 100%;
+	}
+	.POS_Index #btnCreatePOSDatabase {
+		margin-left: 0;
+	}
+}
+.Labels .FilterPanel {
+	top: 110px;
+}

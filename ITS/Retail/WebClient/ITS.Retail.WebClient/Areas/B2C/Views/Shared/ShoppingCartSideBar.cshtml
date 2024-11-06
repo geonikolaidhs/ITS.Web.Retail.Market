@@ -1,0 +1,117 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@model DocumentHeader
+
+    @{
+        int counter = Model==null ? 0: Model.DocumentDetails.Select(x=>x.Item.Oid).Distinct().Count();
+    }
+    @if (Model != null)
+    {
+        foreach (DocumentDetail detail in Model.DocumentDetails)
+        {
+            <li class="line">
+                <div class="cart-image">
+                    <a href="#">
+                        <img class="img-responsive" src="@Url.Action("ShowImageId", "Static", new { Id = detail.Item.Oid, imageSize = 1, ticks = detail.Item.UpdatedOnTicks })" data-src="@Url.Action("ShowImageId", "Static", new { Id = detail.Item.Oid, imageSize = 1, ticks = detail.Item.UpdatedOnTicks })" alt="" />
+                    </a>
+                </div>
+                <div class="info text-left">
+                    <h4>
+
+                        @detail.Item.Name
+
+                    </h4>
+                    <div class="float-left">
+                        @{
+                            string componentName = detail.Oid.ToString() + "_Quantity_Cart";
+                        }
+                        @Html.DevExpress().SpinEdit(deSettings =>
+                                {
+                                    deSettings.Name = componentName;
+                                
+                                    deSettings.Number = detail.Qty;
+                                    deSettings.Properties.MinValue = 1;
+                                    deSettings.Properties.MaxValue = 9999;
+                                    deSettings.Properties.SpinButtons.ShowIncrementButtons = true;
+                                    deSettings.ControlStyle.CssClass = "spinnerEdit margin-bottom-0";
+                                    deSettings.Properties.ClientSideEvents.KeyPress = "Products.ItemSpinEditShoppingCart_OnKeyPress";
+                                    deSettings.Height = 42;
+                                    deSettings.Width = 60;
+                                    deSettings.RightToLeft = DefaultBoolean.False;
+                                    deSettings.Properties.ButtonStyle.CssClass = "spinnerButton";
+                                }).GetHtml()
+                    </div>
+                    <div class="float-left">
+
+                        @Html.DevExpress().Button(deSettings =>
+                        {
+                            deSettings.Name = componentName + "2";
+                            deSettings.EncodeHtml = false;
+                            deSettings.ClientSideEvents.Click = "Products.ItemSpinEditShoppingCart_OnKeyPress";
+                            deSettings.Text = "<i class=\"fa fa-pencil visible-xs\"></i><span class=\"hidden-xs\">" + Resources.Change + "</span>";
+                            deSettings.ControlStyle.CssClass = "slidebarBtn change";
+                            deSettings.ToolTip = Resources.Change;
+                            deSettings.Height = 44;
+                        }).GetHtml()
+                    </div>
+                    <div class="float-left">
+                        @Html.DevExpress().Button(deSettings =>
+                        {
+                            deSettings.Name = "delete_" + detail.Oid;
+                            deSettings.EncodeHtml = false;
+                            deSettings.Text = "<i class=\"fa fa-trash visible-xs\"></i><span class=\"hidden-xs\">"+Resources.Delete+"</span>";
+                            deSettings.ControlStyle.CssClass = "slidebarBtn";
+                            deSettings.ClientSideEvents.Click = "Products.CartItemDelete_Click";
+                            deSettings.ToolTip = Resources.Delete;
+                            deSettings.Height = 44;
+                        }).GetHtml()
+                    </div>
+                    <div class="float-right">
+                        <p class="count"> <span>@detail.GrossTotal.ToString("n2") </span> &euro;</p>
+                    </div>
+                </div>
+
+            </li>
+        }
+
+    }
+
+            
+
+    <li>
+        @if (Model != null)
+        {
+            if (Model.CalcTotalQty() != 0)
+            {
+                <div class="total">
+                    <h4 class="total-heading">@Resources.TotalB2C</h4>
+
+
+                    <h4><span> @Model.CalcTotalQty()</span> @Resources.Parts</h4>
+                    <h4 class="last"><span> @Model.GrossTotal.ToString("n2")</span> &euro;</h4>
+
+
+
+                @Html.DevExpress().Button(deSettings =>
+                {
+                    deSettings.Name = "checkout";
+                    deSettings.Text = Resources.Buy;
+                    deSettings.ToolTip = Resources.Buy;
+                    deSettings.Height = 44;
+                    deSettings.RouteValues = new { Controller = "Products", Action = "List" };
+                }).GetHtml()
+                </div>
+            }
+            else
+            {
+                <h4 class="text-center">@Resources.CartIsEmpty</h4>
+            }
+        }
+        else
+        {
+            <h4 class="text-center">@Resources.CartIsEmpty</h4>
+        }
+    </li>
+<script>
+    $('.cart-count').text(@counter);
+</script>

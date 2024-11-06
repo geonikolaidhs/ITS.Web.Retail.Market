@@ -1,0 +1,162 @@
+﻿@model ITS.Retail.Model.Offer
+@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("Save", "Offer", FormMethod.Post))
+{
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.Hidden("OfferID", ViewData["OfferID"].ToString()));
+
+        ViewContext.Writer.Write("<div class='ValidationContainer  background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.BtnUpdateClick";
+        headerOptions.CancelButton.OnClick = "btnCancelClick";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable validateForm'><tr><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Code +":";
+                edtSettings.AssociatedControlName = "Code";
+            }
+        )
+        .Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }
+        )
+        .Bind(DataBinder.Eval(Model, "Code"))
+        .Render();
+
+
+        ViewContext.Writer.Write("</td><td>");
+
+
+        Html.DevExpress().Label(lblsettings =>
+        {
+            lblsettings.ControlStyle.CssClass = "label required_field";
+            lblsettings.Text = Resources.PriceCatalog + ":";
+        }).Render();
+
+
+        Html.RenderPartial("PriceCatalogsComboBox");
+
+
+        ViewContext.Writer.Write("</td><td class=\"vertical-align-td-bottom\">");
+
+        Html.DevExpress().CheckBox(chb_settings =>
+        {
+            chb_settings.Name = "IsActive";
+            chb_settings.Text = Resources.IsActive;
+            chb_settings.ControlStyle.CssClass = "editor";
+            chb_settings.Properties.ValueChecked = true;
+            chb_settings.Properties.ValueGrayed = false;
+            chb_settings.Properties.ValueUnchecked = false;
+            chb_settings.Properties.ValueType = typeof(bool);
+
+        }).Bind(DataBinder.Eval(Model, "IsActive")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description +":";
+        }).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Description";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }
+        ).Bind(DataBinder.Eval(Model, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+       edtSettings =>
+       {
+           edtSettings.ControlStyle.CssClass = "label";
+           edtSettings.Text = Resources.Description2 + ":";
+       }).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Description2";
+                edtSettings.ControlStyle.CssClass = "editor";
+            }
+        )
+        .Bind(DataBinder.Eval(Model, "Description2"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.StartDate + ":";
+        }
+        )
+        .Render();
+
+        Html.DevExpress().DateEdit(datesettings =>
+        {
+            datesettings.ControlStyle.CssClass = "editor";
+            datesettings.Name = "StartDate";
+
+        }).Bind(DataBinder.Eval(Model, "StartDate"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.EndDate + ":";
+            }
+            )
+            .Render();
+
+        Html.DevExpress().DateEdit(datesettings =>
+        {
+
+            datesettings.ControlStyle.CssClass = "editor";
+            datesettings.Name = "EndDate";
+
+
+        }).Bind(DataBinder.Eval(Model, "EndDate"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+
+        Html.RenderPartial("OfferDetailGrid", Model.OfferDetails);
+
+    });
+}).GetHtml();
+}

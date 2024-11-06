@@ -1,0 +1,19 @@
+﻿@Html.DevExpress().ReportViewer(settings =>
+{
+    // The following settings are necessary for a Report Viewer. 
+    settings.Name = "DocumentReportViewer";
+    if (ViewData["Report"] is ITS.Retail.WebClient.Reports.SupplierDocumentReport)
+    {
+        settings.Report = (ITS.Retail.WebClient.Reports.SupplierDocumentReport)ViewData["Report"];
+    }
+    else
+    {
+        settings.Report = (ITS.Retail.WebClient.Reports.CustomerDocumentReport)ViewData["Report"];
+    }
+    // Callback and export route values specify corresponding controllers and their actions. 
+    // These settings are necessary as well. 
+    settings.CallbackRouteValues = new { Controller = "Reports", Action = "DocumentReportViewer" };
+    settings.ExportRouteValues = new { Controller = "Reports", Action = "DocumentExportReportViewer" };
+    settings.Report.DataSource = Model;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+}).GetHtml()

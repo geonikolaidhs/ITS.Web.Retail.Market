@@ -1,0 +1,311 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    DocumentHeader documentHeader = Session["currentDocument"] as DocumentHeader;
+    bool SupportsPacking = documentHeader.DocumentType.MeasurementUnitMode == eDocumentTypeMeasurementUnit.PACKING;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "item_checked";
+        col_settings.FieldName = "item_checked";
+        col_settings.Caption = Resources.Description;
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = "";
+            }).GetHtml();
+        });
+        col_settings.ReadOnly = true;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col_settings.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col_settings.Settings.AllowSort = DefaultBoolean.False;
+        var checkBoxProperties = col_settings.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        col_settings.SetHeaderTemplateContent(c =>
+        {
+            col_settings.Width = 50;
+            ViewContext.Writer.Write("<div class='div_cell'>");
+            Html.DevExpress().Image(img_settings =>
+            {
+                img_settings.Name = "clearOffersImg";
+                img_settings.ImageUrl = "~/Content/img/clear.png?ver=" + ViewData["ApplicationVersionNumber"];
+                img_settings.ControlStyle.CssClass = "clearbtn";
+                img_settings.Width = System.Web.UI.WebControls.Unit.Pixel(20);
+                img_settings.Properties.ClientSideEvents.Click = "ClearSelectedOffers";
+                img_settings.ToolTip = Resources.Clear;
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class='div_cell'>");
+
+            Html.DevExpress().Image(img_settings =>
+            {
+                img_settings.Name = "showHideOffersFiltersImg";
+                img_settings.ImageUrl = "~/Content/img/filter.png?ver=" + ViewData["ApplicationVersionNumber"];
+                img_settings.Width = System.Web.UI.WebControls.Unit.Pixel(20);
+                img_settings.Properties.ClientSideEvents.Click = "showHideOffersFilters";
+                img_settings.ToolTip = Resources.SearchFilters;
+            }).GetHtml();
+            ViewContext.Writer.Write("</div>");
+        });
+
+    });
+
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "item_code";
+        col_settings.FieldName = "item_code";
+        col_settings.Caption = Resources.Code;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col_settings.ReadOnly = true;
+    });
+    
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "item_description";
+        col_settings.FieldName = "item_description";
+        col_settings.Caption = Resources.Description;
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col_settings.ReadOnly = true;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+       
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "Value";
+        col_settings.FieldName = "Value";
+        col_settings.Caption = Resources.UnitPrice;
+        col_settings.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatItemValueString;
+        col_settings.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;            
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+                set.Properties.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatItemValueString;
+            }).GetHtml();
+        });
+        col_settings.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "Qty";
+        col_settings.FieldName = "Qty";
+        col_settings.ColumnType = MVCxGridViewColumnType.SpinEdit;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        if (SupportsPacking)
+        {
+            col_settings.Caption = Resources.QunatityPacks;
+        }
+        else
+        {
+            col_settings.Caption = Resources.Quantity;
+        }
+        col_settings.Width = System.Web.UI.WebControls.Unit.Pixel(100);
+        col_settings.ReadOnly = false;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+
+
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write("<table><tr><td>");
+                
+            bool qsc = (bool)DataBinder.Eval(c.DataItem, "item_support_decimal");
+            ViewContext.Writer.Write(Html.Hidden("qty_support_decimal", qsc ? 1 : 0));
+
+
+            Html.DevExpress().SpinEdit(set =>
+            {
+                set.Name = "qty_spin_edit";
+                set.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                set.Properties.SpinButtons.Visible = false;
+                set.Properties.SpinButtons.ShowIncrementButtons = false;
+                set.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                set.Properties.ClientSideEvents.KeyPress = "qty_spin_editLostFocusKeyPress";
+                if (qsc)
+                {
+                    set.Properties.NumberType = SpinEditNumberType.Float;
+                }
+                else
+                {
+                    set.Properties.NumberType = SpinEditNumberType.Integer;
+                }
+            }).Bind(DataBinder.Eval(c.DataItem, "Qty")).GetHtml();
+
+            ViewContext.Writer.Write("</td><td class=\"inserted_btn\">");
+
+            ViewContext.Writer.Write("</td></tr></table>");
+        });
+    });
+
+    if (documentHeader != null && SupportsPacking)
+    {
+        settings.Columns.Add(col_settings =>
+        {
+            col_settings.Name = "pack_measurement_unit";
+            col_settings.FieldName = "pack_measurement_unit";
+            col_settings.ColumnType = MVCxGridViewColumnType.TextBox;
+            col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col_settings.Caption = Resources.PackingMeasurementUnit;
+            col_settings.ReadOnly = false;
+            col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+            col_settings.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+    }
+
+
+    if (documentHeader != null && SupportsPacking)
+    {
+        settings.Columns.Add(col_settings =>
+        {
+            col_settings.Name = "packing_qty";
+            col_settings.FieldName = "packing_qty";
+            col_settings.ColumnType = MVCxGridViewColumnType.SpinEdit;
+            col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col_settings.Caption = Resources.Quantity;
+            col_settings.ReadOnly = false;
+            col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+            col_settings.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+    }
+
+    if (documentHeader != null && SupportsPacking)
+    {
+        settings.Columns.Add(col_settings =>
+        {
+            col_settings.Name = "measurement_unit";
+            col_settings.FieldName = "measurement_unit";
+            col_settings.ColumnType = MVCxGridViewColumnType.TextBox;
+            col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col_settings.Caption = Resources.MeasurementUnit;
+            col_settings.ReadOnly = false;
+            col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+            col_settings.SetEditItemTemplateContent(c =>
+            {
+                Html.DevExpress().Label(set =>
+                {
+                    set.Text = c.Text;
+                }).GetHtml();
+            });
+        });
+    }
+
+    settings.Columns.Add(col_settings =>
+    {
+        col_settings.Name = "order_qty";
+        col_settings.FieldName = "order_qty";
+        col_settings.ColumnType = MVCxGridViewColumnType.SpinEdit;
+        col_settings.Caption = Resources.OrderQuantity;
+        col_settings.ReadOnly = false;
+        col_settings.HeaderStyle.Wrap = DefaultBoolean.True;
+        col_settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col_settings.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+    });
+    
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+    settings.Name = "grdOfferDetails";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.Control;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = Session["showOffersFilter"] == null ? false : (bool)Session["showOffersFilter"];
+    settings.Settings.ShowFilterRowMenu = Session["showOffersFilter"] == null ? false : (bool)Session["showOffersFilter"]; 
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = Session["showOffersFilter"] == null ? false : (bool)Session["showOffersFilter"];
+    settings.KeyFieldName = "item_oid";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "OfferDetails" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Document", Action = "UpdateOfferDetails" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.Visible = false;
+
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Actions;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 10;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.OfferInfo;
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallBackOfferDetails";
+    settings.ClientSideEvents.EndCallback = "OnEndCallbackBackOfferDetails";
+    settings.ClientSideEvents.RowClick = "OfferDetailsOnRowClicked";
+
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+    
+    settings.CustomJSProperties = (object sender, DevExpress.Web.ASPxGridViewClientJSPropertiesEventArgs args) =>
+    {
+        args.Properties.Add("cp_edited", ViewData["offerDetails"]);
+    };
+}).Bind(Session["ItemOfferDetails"]).GetHtml()

@@ -1,0 +1,9 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "supplierInfoPanel";
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "SupplierInfoPanel" };
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("SupplierInfo");
+    });
+}).GetHtml()

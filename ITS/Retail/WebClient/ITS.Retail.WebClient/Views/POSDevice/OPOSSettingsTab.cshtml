@@ -1,0 +1,58 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@{
+
+    ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Text = Resources.LogicalDeviceName + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Name = "LogicalDeviceName";
+    }).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.OPOSDeviceSettings, "LogicalDeviceName")).Render();
+
+    ViewContext.Writer.Write("</td><td class='printer_settings'>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Name = "LogoTextlbl";
+        edtSettings.Text = Resources.LogoText + ":";
+    }).Render();
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {   
+        edtSettings.Name = "LogoText";
+    }).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.OPOSPrinterSettings, "LogoText")).Render();
+
+    ViewContext.Writer.Write("</td><td class='printer_settings'>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Text = Resources.LogoLocation + ":";
+        edtSettings.Name = "LogoLocationlbl";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "LogoLocation";
+    }).BindList(Enum.GetValues(typeof(ITS.Retail.Model.PrinterLogoLocation))).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.OPOSPrinterSettings, "LogoLocation")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td class='printer_settings'>");
+
+    Html.DevExpress().Label(edtSettings =>
+    {
+        edtSettings.Name = "PrinterStationlbl";
+        edtSettings.Text = Resources.PrinterStation + ":";
+    }).Render();
+
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "PrinterStation";
+    }).BindList(Enum.GetValues(typeof(ITS.Retail.Model.PrinterStation))).Bind(DataBinder.Eval(Model.DeviceSettings as ITS.Retail.Model.OPOSPrinterSettings, "PrinterStation")).GetHtml();
+
+    ViewContext.Writer.Write("</td></tr></table>");
+}

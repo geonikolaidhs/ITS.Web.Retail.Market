@@ -1,0 +1,21 @@
+﻿@model ITS.Retail.Common.ViewModel.CustomerPointTransaction
+    @using ITS.Retail.WebClient.Extensions;
+    @{
+        string callbackRouteValuesController = "Customer";
+        string callbackRouteValuesAction = "CustomerComboBox";
+        string callbackRouteValuesArea = string.Empty;
+        ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = CustomerController.CustomerForPointsRequestedByFilter;
+        ItemRequestedByValueMethod itemRequestedByValueMethod = CustomerController.CustomerForPointsRequestedByValue;
+
+        List<DropDownSearchColumn> columns = new List<DropDownSearchColumn>() {
+            new DropDownSearchColumn( "TaxCode",Resources.TaxCode, 100),
+            new DropDownSearchColumn( "Loyalty",Resources.CardID, 100),
+            new DropDownSearchColumn( "Code",Resources.Code, 100),
+            new DropDownSearchColumn("CompanyName", Resources.Company, 120)
+        };
+
+        FormInstances.DropDownListNotSearchableComboBoxBody(Html, true, callbackRouteValuesController, callbackRouteValuesAction, callbackRouteValuesArea,
+            itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod, columns, "Customer",
+            valueType: typeof(Guid), model: (Model == null || Model.Customer == Guid.Empty ? null : (Guid?)Model.Customer)).Render();
+    }
+

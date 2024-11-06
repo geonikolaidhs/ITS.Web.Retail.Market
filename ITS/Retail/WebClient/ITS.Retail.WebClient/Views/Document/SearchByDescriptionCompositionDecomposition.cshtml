@@ -1,0 +1,32 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+@{
+    DocumentHeader document = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    eDocumentTypeView ViewForm = ViewBag.DocumentViewForm != null
+                                 ? (eDocumentTypeView)ViewBag.DocumentViewForm
+                                 : DocumentHelper.CurrentUserDocumentView(BaseController.CurrentUserStatic, ((DocumentHeader)(Session["currentDocument"])).DocumentType);
+}
+@Html.DevExpress().ComboBox(combosettings =>
+{
+
+    combosettings.Name = "description_search";
+    combosettings.CallbackRouteValues = new { Controller = "Document", Action = "SearchByDescriptionCompositionDecomposition" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Description";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.Columns.Add("Name", Resources.Description, 240);
+    combosettings.Properties.Columns.Add("Code", Resources.Code, 50);
+    combosettings.Properties.Columns.Add("Code", Resources.Barcode, 80);
+    combosettings.Properties.ClientSideEvents.SelectedIndexChanged = "CompositionDecomposition.SelectByDescription";
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.Properties.NullText = Resources.SearchByDescription + " | " + Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    combosettings.Properties.IncrementalFilteringDelay = 500;
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText = Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+}).BindList(DocumentController.ItemAllRequestedByFilterCondition, DocumentController.ItemRequestedByValue).GetHtml()

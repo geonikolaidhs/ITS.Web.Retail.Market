@@ -1,0 +1,48 @@
+﻿
+@model DocumentHeader
+
+<tr>
+    <td>
+        @Html.DevExpress().TextBox(tbx_settings =>
+        {
+            tbx_settings.Properties.Caption = Resources.Address;
+            tbx_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            tbx_settings.Properties.CaptionStyle.CssClass = "label large-font";
+            tbx_settings.Name = "TriangularAddress";
+            tbx_settings.Text = Model.TriangularAddress;
+            tbx_settings.Width = System.Web.UI.WebControls.Unit.Percentage(25);
+            tbx_settings.Enabled = true;
+            tbx_settings.ClientEnabled = false;
+        }).GetHtml()
+    </td>
+    <td>
+       @Html.DevExpress().TextBox(tbx_settings =>
+       {
+           tbx_settings.Properties.Caption = Resources.Profession;
+           tbx_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+           tbx_settings.Properties.CaptionStyle.CssClass = "label large-font";
+           tbx_settings.Name = "TriangularProfession";
+           tbx_settings.Text = Model.TriangularProfession;
+           tbx_settings.Width = System.Web.UI.WebControls.Unit.Percentage(25);
+           tbx_settings.Enabled = true;
+           tbx_settings.ClientEnabled = false;
+       }).GetHtml()
+    </td>
+    <td>
+        <input type="hidden" id="TriangularStreet" value="" />
+        <input type="hidden" id="TriangularPOBox" value="" />
+        <input type="hidden" id="TriangularPostCode" value="" />
+        <input type="hidden" id="TriangularCity" value="" />
+        <input type="hidden" id="TriangularProfession" value="" />
+        @if (!ViewBag.InViewMode)
+        {
+            @Html.DevExpress().Image(btnSettings =>
+            {
+                btnSettings.Name = "btnSelectTriangularAddress";
+                btnSettings.ImageUrl = "~/Content/img/post.png?ver=" + ViewData["ApplicationVersionNumber"];
+                btnSettings.ToolTip = Resources.SelectTriangularAddress;
+                btnSettings.Properties.ClientSideEvents.Click = "SelectTriangularAddress";
+            }).GetHtml()
+        }
+    </td>
+</tr>

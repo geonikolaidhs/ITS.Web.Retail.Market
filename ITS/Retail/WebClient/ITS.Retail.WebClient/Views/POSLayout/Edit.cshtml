@@ -1,0 +1,163 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@using (Html.BeginForm("Save", "POSLayout", FormMethod.Post, new { id = "EditForm" }))
+{
+    ViewBag.ShowNavigation = false;
+    
+    @Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+		ViewContext.Writer.Write(Html.Hidden("POSLayoutID", ViewData["POSLayoutID"].ToString()));
+
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2"; 
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class=\"content margin-0-border-light-gray\"><tr><td>");
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.Code + ":";
+                edtSettings.AssociatedControlName = "Code";
+            }
+        )
+        .Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Code";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+            }
+        )
+		.Bind(DataBinder.Eval(Model, "Code"))
+        .Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.Description + ":";
+            edtSettings.AssociatedControlName = "Description";
+            //edtSettings.Enabled = ViewData["IsNewItemBase"] != null && (bool)ViewData["IsNewItemBase"] == true;
+        }
+        )
+        .Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Description";
+                edtSettings.ControlStyle.CssClass = "editor";
+                //edtSettings.ReadOnly = ViewData["IsNewItemBase"] ==null || (bool)ViewData["IsNewItemBase"] != true;
+            }
+        )
+        .Bind(DataBinder.Eval(Model, "Description"))
+        .Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+		Html.DevExpress().Label(edtSettings =>
+		{
+			edtSettings.ControlStyle.CssClass = "label";
+			edtSettings.Text = Resources.UploadMainLayoutFile + ":";
+		}).Render();
+
+        Html.DevExpress().UploadControl(edtSettings =>
+       {
+           edtSettings.UploadMode = UploadControlUploadMode.Standard;
+           edtSettings.Name = "MainLayoutUploadControl";
+           edtSettings.CallbackRouteValues = new { Controller = "POSLayout", Action = "MainLayoutUploadControl" };
+           edtSettings.ShowProgressPanel = true;
+           edtSettings.ClientSideEvents.FileUploadComplete = "OnMainLayoutFileUploadComplete";
+           edtSettings.ValidationSettings.ShowErrors = true;
+           edtSettings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.POSLayoutController.MainLayoutValidationSettings);
+       }).GetHtml();
+
+       
+        Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnMainLayoutUpload";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn";
+            settings2.Properties.ClientSideEvents.Click = "function (s,e) { MainLayoutUploadControl.Upload(); }";
+        }
+         ).GetHtml();
+        Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnDeleteMainLayoutFile";
+            settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Delete;
+            settings2.ControlStyle.CssClass = "deletebtn";
+            settings2.Properties.ClientSideEvents.Click = "btnDeleteMainLayoutFileClick";
+        }
+         ).GetHtml();
+        ViewContext.Writer.Write("</td><td>");
+        string url = @Url.Action("ShowImage", "POSLayout") + "?type=0&time=" + DateTime.Now.Ticks;
+        //ViewContext.Writer.Write("</td></tr><tr><td>");
+        ViewContext.Writer.Write("<img alt='' id='previewMainImage' class='previewImage' src='" + url + "' />");
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.UploadSecondaryLayoutFile + ":";
+        }).Render();
+        Html.DevExpress().UploadControl(edtSettings =>
+        {
+            edtSettings.UploadMode = UploadControlUploadMode.Standard;
+            edtSettings.Name = "SecondaryLayoutUploadControl";
+            edtSettings.CallbackRouteValues = new { Controller = "POSLayout", Action = "SecondaryLayoutUploadControl" };
+            edtSettings.ShowProgressPanel = true;
+            edtSettings.ClientSideEvents.FileUploadComplete = "OnSecondaryLayoutFileUploadComplete";
+            edtSettings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.POSLayoutController.SecondaryLayoutValidationSettings);
+        }).GetHtml();
+
+       
+         Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnSecondaryLayoutUpload";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn" ;
+            settings2.Properties.ClientSideEvents.Click = "function (s,e) { SecondaryLayoutUploadControl.Upload(); }";
+        }
+         ).GetHtml();
+      Html.DevExpress().Image(
+        settings2 =>
+        {
+            settings2.Name = "btnDeleteSecondaryLayoutFile";
+            settings2.ImageUrl = "~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Delete;
+            settings2.ControlStyle.CssClass = "deletebtn";
+            settings2.Properties.ClientSideEvents.Click = "btnDeleteSecondaryLayoutFileClick";
+        }
+         ).GetHtml();
+      
+         ViewContext.Writer.Write("<td>");
+        string url2 = @Url.Action("ShowImage", "POSLayout") + "?type=1&time=" + DateTime.Now.Ticks;
+        ViewContext.Writer.Write("<img alt='' id='previewSecondaryImage' class='previewImage' src='" + url2 + "' />");
+
+        ViewContext.Writer.Write("</td></tr></table></div>");
+        
+    });
+}).GetHtml();
+}
+

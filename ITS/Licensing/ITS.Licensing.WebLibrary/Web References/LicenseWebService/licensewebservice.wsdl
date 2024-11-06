@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="CheckOnlineStatus">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckOnlineStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckOnlineStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckValidLicence">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicationID" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="serialNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MachineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="activationKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicationBuild" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="beginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckValidLicenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckValidLicenceResult" type="tns:ValidationStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="ValidationStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="LICENSE_VALID" />
+          <s:enumeration value="LICENSE_VERSION_INVALID" />
+          <s:enumeration value="LICENSE_VALID_UPDATES_EXPIRED" />
+          <s:enumeration value="LICENSE_INVALID" />
+          <s:enumeration value="LICENSE_CHANGED" />
+          <s:enumeration value="LICENSE_MAXIMUM_REACHED" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="NumberOfUsersLicence">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicationID" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="serialNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MachineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="activationKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicationBuild" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="beginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NumberOfUsersLicenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NumberOfUsersLicenceResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActivateLicense">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicationID" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="serialNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MachineID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicationBuild" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActivateLicenseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ActivateLicenseResult" type="tns:ValidationStatus" />
+            <s:element minOccurs="1" maxOccurs="1" name="beginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="ActivationKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettingsXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="appID" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="serialnumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MachineID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="activationkey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="applBuild" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="beginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettingsXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSettingsXmlResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="success" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostApplicationData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZipedXml" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostApplicationDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PostApplicationDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="serialNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetVersionResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckOnlineStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckOnlineStatus" />
+  </wsdl:message>
+  <wsdl:message name="CheckOnlineStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckOnlineStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckValidLicenceSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckValidLicence" />
+  </wsdl:message>
+  <wsdl:message name="CheckValidLicenceSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckValidLicenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="NumberOfUsersLicenceSoapIn">
+    <wsdl:part name="parameters" element="tns:NumberOfUsersLicence" />
+  </wsdl:message>
+  <wsdl:message name="NumberOfUsersLicenceSoapOut">
+    <wsdl:part name="parameters" element="tns:NumberOfUsersLicenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActivateLicenseSoapIn">
+    <wsdl:part name="parameters" element="tns:ActivateLicense" />
+  </wsdl:message>
+  <wsdl:message name="ActivateLicenseSoapOut">
+    <wsdl:part name="parameters" element="tns:ActivateLicenseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSettingsXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSettingsXml" />
+  </wsdl:message>
+  <wsdl:message name="GetSettingsXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSettingsXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="PostApplicationDataSoapIn">
+    <wsdl:part name="parameters" element="tns:PostApplicationData" />
+  </wsdl:message>
+  <wsdl:message name="PostApplicationDataSoapOut">
+    <wsdl:part name="parameters" element="tns:PostApplicationDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LicenceWebServiceSoap">
+    <wsdl:operation name="CheckOnlineStatus">
+      <wsdl:input message="tns:CheckOnlineStatusSoapIn" />
+      <wsdl:output message="tns:CheckOnlineStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidLicence">
+      <wsdl:input message="tns:CheckValidLicenceSoapIn" />
+      <wsdl:output message="tns:CheckValidLicenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NumberOfUsersLicence">
+      <wsdl:input message="tns:NumberOfUsersLicenceSoapIn" />
+      <wsdl:output message="tns:NumberOfUsersLicenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ActivateLicense">
+      <wsdl:input message="tns:ActivateLicenseSoapIn" />
+      <wsdl:output message="tns:ActivateLicenseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettingsXml">
+      <wsdl:input message="tns:GetSettingsXmlSoapIn" />
+      <wsdl:output message="tns:GetSettingsXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PostApplicationData">
+      <wsdl:input message="tns:PostApplicationDataSoapIn" />
+      <wsdl:output message="tns:PostApplicationDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LicenceWebServiceSoap" type="tns:LicenceWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckOnlineStatus">
+      <soap:operation soapAction="http://tempuri.org/CheckOnlineStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidLicence">
+      <soap:operation soapAction="http://tempuri.org/CheckValidLicence" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NumberOfUsersLicence">
+      <soap:operation soapAction="http://tempuri.org/NumberOfUsersLicence" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateLicense">
+      <soap:operation soapAction="http://tempuri.org/ActivateLicense" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettingsXml">
+      <soap:operation soapAction="http://tempuri.org/GetSettingsXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostApplicationData">
+      <soap:operation soapAction="http://tempuri.org/PostApplicationData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LicenceWebServiceSoap12" type="tns:LicenceWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckOnlineStatus">
+      <soap12:operation soapAction="http://tempuri.org/CheckOnlineStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckValidLicence">
+      <soap12:operation soapAction="http://tempuri.org/CheckValidLicence" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NumberOfUsersLicence">
+      <soap12:operation soapAction="http://tempuri.org/NumberOfUsersLicence" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateLicense">
+      <soap12:operation soapAction="http://tempuri.org/ActivateLicense" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettingsXml">
+      <soap12:operation soapAction="http://tempuri.org/GetSettingsXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostApplicationData">
+      <soap12:operation soapAction="http://tempuri.org/PostApplicationData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LicenceWebService">
+    <wsdl:port name="LicenceWebServiceSoap" binding="tns:LicenceWebServiceSoap">
+      <soap:address location="http://localhost/ITS.Licensing/LicenseWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LicenceWebServiceSoap12" binding="tns:LicenceWebServiceSoap12">
+      <soap12:address location="http://localhost/ITS.Licensing/LicenseWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

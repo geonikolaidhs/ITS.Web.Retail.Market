@@ -1,0 +1,29 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+   
+    string title = Resources.NewItem;
+    PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("IntializeItemPopup");
+    popUpSettings.AccessibilityCompliant = true;
+    popUpSettings.LoadContentViaCallback = LoadContentViaCallback.OnFirstShow;
+    popUpSettings.CallbackRouteValues = new { Controller = "Item", Action = "InitializeItemPopup", ItemInitialized = ViewData["ItemInitialized"] };
+    popUpSettings.HeaderText = title;
+    popUpSettings.Enabled =  !(bool)ViewData["ItemInitialized"];
+    popUpSettings.SetContent(() =>
+    {
+        Html.DevExpress().RoundPanel(panelSettings =>
+        {
+            panelSettings.Name = "rpInitializeItemPopup";
+            panelSettings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<table><tr><td>");
+                Html.RenderPartial("ItemBaseBarcodeSearchComboBox");
+                ViewContext.Writer.Write("</td><td>");
+
+                ViewContext.Writer.Write("</td></tr></table>");
+            });
+
+        }).Render();
+    });
+}
+
+@Html.DevExpress().PopupControl(popUpSettings).GetHtml()

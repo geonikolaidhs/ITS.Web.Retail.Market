@@ -1,0 +1,76 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+
+@model DocumentHeader
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "updatedByInfoPanel";
+    settings.SettingsLoadingPanel.Enabled = false;
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "UpdatedByInfoPanel" };
+
+    if ((bool)ViewBag.InViewMode)
+    {
+        settings.Enabled = false;
+    }
+
+    settings.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<table class='style_table partial'><tr><td colspan='2' class='head'><h2 class=\"group-header-blue\">" + Resources.UpdatedByInfo + "</h2></td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'></td><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.CreatedByDevice;
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtsettings.Name = "CreatedByDeviceName";
+            txtsettings.Enabled = false;
+            txtsettings.ReadOnly = true;
+            txtsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model,"CreatedByDeviceName")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'></td><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.UpdatedByDevice;
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtsettings.Name = "UpdatedByDeviceName";
+            txtsettings.Enabled = false;
+            txtsettings.ReadOnly = true;
+            txtsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "UpdatedByDeviceName")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'></td><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.CreatedBy;
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtsettings.Name = "CreatedByUserName";
+            txtsettings.Enabled = false;
+            txtsettings.ReadOnly = true;
+            txtsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model.CreatedBy, "UserName")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+        ViewContext.Writer.Write("<tr><td class='infoLabels'></td><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.UpdatedBy;
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtsettings.Name = "UpdatedByUserName";
+            txtsettings.Enabled = false;
+            txtsettings.ReadOnly = true;
+            txtsettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model.CreatedBy, "UserName")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr>");
+
+        ViewContext.Writer.Write("</table>");
+    });
+}).GetHtml()

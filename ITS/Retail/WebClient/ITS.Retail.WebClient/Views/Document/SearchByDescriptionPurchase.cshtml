@@ -1,0 +1,28 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().ComboBox(combosettings =>
+{
+    combosettings.Name = "description_search";
+    combosettings.Enabled = ViewBag.DocumentDetailFormMode == "Add" || ViewBag.DocumentDetailFormMode == "StartAdd"; 
+    combosettings.ControlStyle.CssClass = "search advanced-document-search-field";    
+    combosettings.Properties.DropDownWidth = 502;  
+    combosettings.CallbackRouteValues = new { Controller = "Document", Action = "SearchByDescriptionPurchase" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "Item";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";   
+    combosettings.Properties.IncrementalFilteringDelay = 1000;
+    combosettings.Properties.Columns.Add("Name", Resources.Description, 240);
+    combosettings.Properties.Columns.Add("Code", Resources.Code, 50);
+    combosettings.Properties.ClientSideEvents.SelectedIndexChanged = "SelectByDescription"; 
+
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 2;
+    combosettings.Properties.NullText = Resources.SearchByDescription + " | " + Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Image.AlternateText =  Resources.Clear;
+    combosettings.Properties.Buttons.Add(button);
+}).BindList(ITS.Retail.WebClient.Controllers.DocumentController.ItemAllRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.DocumentController.ItemRequestedByValue).GetHtml()

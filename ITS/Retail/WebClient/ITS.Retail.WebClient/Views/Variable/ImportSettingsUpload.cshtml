@@ -1,0 +1,16 @@
+﻿@using (Html.BeginForm("ImportSettingsUploadForm", "Variable", FormMethod.Post, new { id = "UploadForm", enctype = "multipart/form-data" }))
+{
+    ViewContext.Writer.Write("<div class='UploadForm'>");
+    Html.DevExpress().UploadControl(settings =>
+    {
+        settings.UploadMode = UploadControlUploadMode.Standard;
+        settings.Name = "UploadControl";
+        settings.CallbackRouteValues = new { Controller = "Variable", Action = "UploadControl" };
+        settings.ShowProgressPanel = true;
+        settings.ValidationSettings.Assign(ITS.Retail.WebClient.Controllers.VariableController.UploadControlValidationSettings);
+        settings.ClientSideEvents.FileUploadComplete = "Variable.onFileUploadComplete_UploadControl";
+    }).Render();
+
+    ViewContext.Writer.Write("</div>");
+
+}

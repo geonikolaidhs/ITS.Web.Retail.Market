@@ -1,0 +1,153 @@
+﻿//colors
+@import "compass/css3";
+$color_flush_orange_approx: rgba(255, 133, 0, 1);
+$white: rgba(255, 255, 255, 1);
+$black: rgba(0, 0, 0, 1);
+$color_mine_shaft_approx: rgba(51, 51, 51, 1);
+$color_dodger_blue_approx: rgba(6, 167, 255, 1);
+$color_pacific_blue_approx: rgba(0, 153, 204, 1);
+
+.contact {
+	#info_its {
+		text-align: center;
+		overflow: hidden;
+		margin-top: 30px;
+	}
+	#bgn_its {
+		text-align: center;
+		background: url("../img/poster.jpg");
+		background-size: 100% 100%;
+		float: right;
+		width: 390px;
+		margin: 0 15px 30px 0;
+		height: 675px;
+	}
+	ul {
+		font-size: 14px;
+		float: left;
+		li {
+			text-align: left;
+			a {
+				text-align: left;
+				color: $color_flush_orange_approx;
+				font-weight: bold;
+				opacity: 0.6;
+                @include transition(opacity, 0.5s, ease);
+				&:hover {
+					opacity: 1;
+				}
+			}
+			p {
+				margin-left: 125px;
+			}
+			span {
+				float: left;
+				color: $white;
+				text-align: center;
+				background: $black;
+				padding: 3px 15px;
+				width: 80px;
+				display: block;
+			}
+		}
+	}
+	#tweeter {
+		background-position: 2px -35px;
+		&:hover {
+			background-position: 2px 2px;
+		}
+	}
+	#in {
+		background-position: -77px -36px;
+		&:hover {
+			background-position: -77px 1px;
+		}
+	}
+	#map_canvas {
+		height: 500px;
+		margin: 30px 0 0;
+		float: none;
+		position: relative;
+		width: 100%;
+		p a {
+			position: absolute;
+			top: -30px;
+			right: 0;
+			text-decoration: none;
+			font-size: 16px;
+			color: $color_mine_shaft_approx;
+			&:hover {
+				color: #06A7FF;
+			}
+		}
+	}
+	form {
+		margin: 20px 0 0;
+		position: relative;
+		float: left;
+		font-size: 14px;
+		width: 520px;
+		color: #09C;
+		text-decoration: none;
+		input[type="text"] {
+			width: 70%;
+		}
+		span {
+			display: block;
+			float: left;
+			width: 115px;
+			text-align: left;
+			color: $color_mine_shaft_approx;
+			margin-right: 10px;
+			font-size: 16px;
+		}
+		textarea#feedback {
+			width: 70%;
+			height: 120px;
+			float: left;
+		}
+	}
+	h1#small_logo {
+		width: 160px;
+		height: 70px;
+		margin: 20px auto 40px auto;
+		background: url(../img/small_logo.png);
+		background-position: 0 0;
+		background-size: 100%;
+		background-repeat: no-repeat;
+	}
+	a.social {
+		background: url(../img/icons/social_icons.png);
+		background-position: -40px -36px;
+		background-size: 150px;
+		background-repeat: no-repeat;
+        @include transition(background-position-y, 0.5s, ease);
+		display: block;
+		width: 34px;
+		height: 33px;
+		opacity: 1;
+		float: left;
+		margin-left: 20px;
+	}
+	.social:hover {
+		background-position: -40px 1px;
+	}
+}
+@media (max-width: 915px) {
+	.contact {
+		#bgn_its {
+			float: none;
+			margin: 0 auto 30px auto;
+		}
+		form {
+			width: 98%;
+			input[type="text"] {
+				width: 98%;
+			}
+			textarea#feedback {
+				width: 98%;
+				padding: 7px 4px;
+			}
+		}
+	}
+}

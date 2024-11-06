@@ -1,0 +1,26 @@
+﻿@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Properties.Caption = Resources.Customer;
+    cmb_settings.Name = "Customer";
+    cmb_settings.Properties.TextField = "Customer";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.Properties.Columns.Add("CompanyName", Resources.CompanyName, 90);
+    cmb_settings.Properties.Columns.Add("Trader.TaxCode", Resources.TaxCode, 90);
+    cmb_settings.Properties.Columns.Add("Code", Resources.Code, 90);
+    cmb_settings.Properties.CallbackPageSize = 15;
+    cmb_settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    cmb_settings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    cmb_settings.Properties.FilterMinLength = 2;
+    cmb_settings.Properties.NullText = Resources.ComboBoxNote;
+    cmb_settings.CallbackRouteValues = new { Controller = "Promotion", Action = "ReturnView", ViewName = "SelectCustomer", IsPartial = true };
+    cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+    cmb_settings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    var button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    button.Visible = true;
+    cmb_settings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+    cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+}).BindList(ITS.Retail.WebClient.Controllers.PromotionController.CustomerRequestedByFilterCondition, ITS.Retail.WebClient.Controllers.DocumentController.ObjectRequestedByValue<Customer>).BindList(ITS.Retail.WebClient.Controllers.DocumentController.GetObjectByValue<Customer>(DataBinder.Eval(Model, "Customer"))).Bind(DataBinder.Eval(Model, "Customer")).GetHtml()

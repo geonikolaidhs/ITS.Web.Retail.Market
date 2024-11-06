@@ -1,0 +1,42 @@
+﻿@using ITS.Retail.ResourcesLib
+@{
+    ComboBoxExtension comboBox = Html.DevExpress().ComboBox(combosettings =>
+    {
+        combosettings.Name = "StoresComboBox_" + ViewData["Tab"];
+        combosettings.CallbackRouteValues = new { Controller = "Item", Action = "StoresComboBoxPartial", Tab = ViewData["Tab"] };
+        combosettings.Properties.CallbackPageSize = 15;
+        combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        combosettings.Properties.ValueField = "Oid";
+        combosettings.Properties.ValueType = typeof(Guid);
+
+        combosettings.Properties.Columns.Add("Code", Resources.StoreCode, 90);
+        combosettings.Properties.Columns.Add("Name", Resources.ItemName, 90);
+        combosettings.Properties.Columns.Add("Address.City", Resources.City, 50);
+        combosettings.Properties.Columns.Add("Address.Description", Resources.Description, 90);
+        combosettings.Properties.TextFormatString = "{0} {1} {2} {3}";
+        combosettings.Properties.TextField = "Name";
+        combosettings.Properties.ValueType = typeof(Guid);
+        combosettings.ShowModelErrors = true;
+        combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+
+        combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+        combosettings.Properties.FilterMinLength = 0;
+        combosettings.Properties.NullText = Resources.ComboBoxNote;
+        combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+        EditButton button = new EditButton(" ");
+        button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+        combosettings.Properties.Buttons.Add(button);
+        button.Image.AlternateText = Resources.Clear;
+    });
+
+    if (ViewData["Tab"] != null && ViewData["Tab"].ToString() == "ItemStore")
+    {
+        comboBox.BindList(ItemController.CentralStoresRequestedByFilterCondition, ItemController.ObjectRequestedByValue<Store>).BindList(ItemController.GetObjectByValue<Store>(DataBinder.Eval(ViewData["Item"], "Store!Key"))).Bind(DataBinder.Eval(ViewData["Item"], "Store!Key")).GetHtml();
+    }
+    else
+    {
+        comboBox.BindList(ItemController.StoresRequestedByFilterCondition, ItemController.ObjectRequestedByValue<Store>).BindList(ItemController.GetObjectByValue<Store>(DataBinder.Eval(ViewData["Item"], "Store!Key"))).Bind(DataBinder.Eval(ViewData["Item"], "Store!Key")).GetHtml();
+    }
+
+}

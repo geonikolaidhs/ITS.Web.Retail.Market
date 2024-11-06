@@ -1,0 +1,88 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using System.Web.UI.WebControls
+@using ITS.Retail.Model
+@using ITS.Retail.ResourcesLib
+@using ITS.Retail.Platform.Enumerations
+
+@{
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(Reason), typeof(ReasonController), "grdReasons", columnType: GridViewCommandColumnType.CHECKBOX, includedFields: new List<string>() { "Code", "Description", "Category" });
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Reason", Action = "InsertPartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Reason", Action = "UpdatePartial" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Reason", Action = "DeletePartial" };
+    settings.SettingsText.PopupEditFormCaption = Resources.Reasons;
+    settings.SettingsText.Title = Resources.Reasons;
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnReasonUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnReasonCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Code";
+            edtSettings.Properties.Caption = Resources.Code + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Left;
+            edtSettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            edtSettings.Properties.CaptionCellStyle.Width = Unit.Pixel(160);
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Code")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Properties.Caption = Resources.Description + ":";
+            edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Left;
+            edtSettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            edtSettings.Properties.CaptionCellStyle.Width = Unit.Pixel(160);
+            edtSettings.Name = "Description";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        @Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.Caption = Resources.Category;
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Name = "ReasonCategory";
+            //combosettings.CallbackRouteValues = new { Controller = "CustomDataView", Action = "CustomDataViewCategoryComboBox" };
+            //combosettings.Properties.CallbackPageSize = 15;
+            //combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            combosettings.Properties.TextField = "Description";
+            combosettings.Properties.ValueType = typeof(Guid);
+            combosettings.Properties.ValueField = "Oid";
+            //combosettings.Properties.ClientSideEvents.EndCallback = "CustomDataView.grdOnEndCallback";
+            combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+            combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+            EditButton button = new EditButton(" ");
+            button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+            button.Image.AlternateText = Resources.Clear;
+            combosettings.Properties.Buttons.Add(button);
+            combosettings.ShowModelErrors = true;
+            combosettings.Width = Unit.Percentage(100);
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(ViewBag.CategoriesForEdit).Bind(DataBinder.Eval(item, "Category!Key")).GetHtml();
+
+
+        ViewContext.Writer.Write("</td></tr></table>");
+        ViewContext.Writer.Write("</div>");
+    });
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

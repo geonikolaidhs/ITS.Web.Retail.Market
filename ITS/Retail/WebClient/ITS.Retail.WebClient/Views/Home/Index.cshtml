@@ -1,0 +1,64 @@
+﻿@using ITS.Retail.ResourcesLib;
+@section HeaderScriptsAndStyles{
+    <link href="@Url.Content("~/Content/css/Home.css?v=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css"/>
+    <script src="@Url.Content("~/Scripts/scripts/Home.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+
+    <script src="~/Content/labelauty/jquery-labelauty.js" type="text/javascript"></script>
+    <link href="~/Content/labelauty/jquery-labelauty.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/css/animation.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/scripts/search-panel.js" type="text/javascript"></script>
+    <link href="~/Content/css/search-panel.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/bootstrap.css")" />
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/Item.css")" />
+}
+
+@{
+    ViewBag.Title = "Web Retail Market";
+    ViewBag.EnableDevexpressDockingPanels = true; 
+    ViewBag.EnableDevexpressChart = true;
+    ViewBag.ShowCheckBoxes = true;
+}
+
+
+@Html.Partial("PopupViewCallbackPanel")
+
+<div class="split-home-left">
+    @Html.Partial("MenuDockPanels")
+</div>
+
+<div id="resultsSearchPanelContainer" class="split-home-right">
+    @Html.Partial("../Shared/SearchPanel")
+</div>
+
+@if (Session["TraderCompanyName"] != null)
+{
+    <div class="presenter" id="products">
+        <div class="float-left">
+            <input type="checkbox" id="statisticsCheckbox" data-labelauty="@Resources.ShowStatistics|@Resources.HideStatistics" />
+        </div>
+        @Html.DevExpress().LoadingPanel(
+            settingsLoading =>
+            {
+                settingsLoading.Name = "LoadingPanel";
+                settingsLoading.Modal = true;
+                settingsLoading.ContainerElementID = "statisticsContent";
+            }
+        ).GetHtml()
+
+
+        @using (Ajax.BeginForm("ReturnView", routeValues: new { Controller = "Home", ViewName = "StatisticsContentPartial", IsPartial = true }, ajaxOptions: new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "statisticsContent",
+                OnSuccess = "StatisticsVisibility"
+            }, htmlAttributes: new { id = "statisticsContentForm" }))
+        {
+            <div id="statisticsContent">
+            </div>
+        }
+    </div>    
+} 

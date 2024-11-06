@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = Resources.CouponCategories;
+}
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/CouponCategory.js")"></script>
+}
+
+@Html.Partial("../Shared/PopupEditCallbackPanel")
+
+@Html.Partial("Grid")

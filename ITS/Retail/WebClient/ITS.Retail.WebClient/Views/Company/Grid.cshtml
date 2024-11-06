@@ -1,0 +1,216 @@
+﻿@model IEnumerable<ITS.Retail.Model.CompanyNew>
+@using System.Web.UI.WebControls;
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient;
+@using System.Web.Optimization;
+@using ITS.Retail.Common;
+@using ITS.Retail.WebClient.Controllers;
+@using ITS.Retail.Model;
+@using ITS.Retail.Platform.Enumerations;
+@using ITS.Retail.WebClient.Helpers;   
+
+@if (ViewBag.CurrentUser != null)
+{
+    if (Session["UserOneStore"] != null)
+    {
+        ViewData["admin"] = false;
+        if ((BaseController.StoresThatCurrentUserOwns != null && BaseController.StoresThatCurrentUserOwns.Count > 0)
+            || (Session["StoresThatCurrentUserBuysFrom"] != null && (Session["StoresThatCurrentUserBuysFrom"] as IEnumerable<ITS.Retail.Common.ViewModel.StoreViewModel>).Count() > 0)
+            || (Session["IsAdministrator"] != null && (bool)Session["IsAdministrator"]))
+        {
+            ViewData["admin"] = true;
+        }
+    }
+}
+
+
+@{
+
+    bool admin = (bool)ViewData["admin"];
+}
+     
+
+@{
+	GridViewSettings settings = new GridViewSettings();
+    settings.AccessibilityCompliant = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Styles.Header.HorizontalAlign = HorizontalAlign.Center;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (ViewData["CallbackMode"] == "SEARCH" || ViewData["CallbackMode"] == "DELETESELECTED" || ViewData["CallbackMode"] == "APPLYCOLUMNFILTER")
+            grid.Selection.UnselectAll();
+    };
+
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+
+
+
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.VisibleIndex = 0;
+
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Code";
+        column.Caption = Resources.Code;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxCode";
+        column.Caption = Resources.TaxCode;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "CompanyName";
+        column.Caption = Resources.CompanyName;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Profession";
+        column.Caption = Resources.Profession;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Trader.TaxOfficeLookUp.Description";
+        column.Caption = Resources.TaxOffice;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "DefaultAddress.Description";
+        column.Caption = Resources.DefaultAddress;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "IsActive";
+        column.Caption = Resources.Active;
+        column.ColumnType = MVCxGridViewColumnType.CheckBox;
+        var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+        checkBoxProperties.ValueChecked = true;
+        checkBoxProperties.ValueGrayed = false;
+        checkBoxProperties.ValueUnchecked = false;
+        checkBoxProperties.ValueType = typeof(bool);
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+
+    settings.Name = "grdCompany";
+
+    settings.Settings.ShowPreview = true;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowAsPopup;
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "Company", Action = "Grid" };
+
+
+
+
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Company", Action = "InlineEditingDeletePartial" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+
+    settings.SettingsPager.PageSize = 15;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = false;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.Company;
+
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientSideEvents.BeginCallback = "Component.PassValuesOnGrid";
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    //settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.ClientSideEvents.Init = "CustomizationWindow";
+
+    ITS.Retail.Common.ViewModel.StoreViewModel currentStore = (Session["currentStore"] as ITS.Retail.Common.ViewModel.StoreViewModel);
+    bool applicationRefersToOneStore = ((MvcApplication.ApplicationInstance == eApplicationInstance.DUAL_MODE || MvcApplication.ApplicationInstance == eApplicationInstance.STORE_CONTROLER)
+                && currentStore != null);
+
+    if (admin && (Session["IsAdministrator"] != null && (bool)Session["IsAdministrator"]) && !applicationRefersToOneStore)
+    {
+        settings.ClientSideEvents.EndCallback = "grdCompanyEndCallback";
+    }
+    else
+    {
+        settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+    }
+
+    settings.SettingsPager.EnableAdaptivity = false;
+    settings.SettingsPager.Position = PagerPosition.TopAndBottom;
+    settings.SettingsPager.AlwaysShowPager = true;
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Hidden;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+    Session["CompanyGridSettings"] = settings;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+}
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()
+

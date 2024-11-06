@@ -1,0 +1,93 @@
+﻿@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+@model IEnumerable<Address>
+
+@{
+    ViewContext.Writer.Write("<table class='validateForm' id='addressPopUpEdit'><tr><td>");
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Properties.Caption = Resources.Street + ":";
+        edtSettings.Properties.CaptionStyle.CssClass = "label";
+        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        edtSettings.Name = "Street";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.ShowModelErrors = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+        edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+    }).GetHtml();
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Properties.Caption = Resources.POBox;
+        edtSettings.Properties.CaptionStyle.CssClass = "label";
+        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        edtSettings.Name = "POBox";
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).GetHtml();
+    ViewContext.Writer.Write("</td></tr><tr><td>");
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Properties.Caption = Resources.PostCode;
+        edtSettings.Properties.CaptionStyle.CssClass = "label";
+        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        edtSettings.Name = "PostCode";
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).GetHtml();
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Properties.Caption = Resources.City;
+        edtSettings.Properties.CaptionStyle.CssClass = "label";
+        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        edtSettings.Name = "City";
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().TextBox(edtSettings =>
+    {
+        edtSettings.Properties.Caption = Resources.Profession;
+        edtSettings.Properties.CaptionStyle.CssClass = "label";
+        edtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        edtSettings.Name = "Profession";
+        edtSettings.ControlStyle.CssClass = "editor";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</td></tr></table>");
+
+    DocumentHeader document = Session["currentDocument"] as DocumentHeader;
+    if(document != null &&
+        (
+            (document.Division == eDivision.Sales && document.Customer!=null) ||
+            (document.Division == eDivision.Purchase && document.Supplier != null) ||
+            (document.Division == eDivision.Store && document.SecondaryStore != null)
+        )
+      )
+    {
+        ViewContext.Writer.Write("<table id='addressPopUp'>");
+        ViewContext.Writer.Write("<tr id='header'><td>" +
+            Resources.Street + "</td><td>" +
+            Resources.POBox + "</td><td>" +
+            Resources.PostCode + "</td><td>" +
+            Resources.City + "</td><td>" +
+            Resources.Profession + "</td></tr>");
+
+
+        foreach(Address address in Model)
+        {
+            string addressOid = address.Oid.ToString();
+            ViewContext.Writer.Write("<tr onclick=\" SelectExistingAddress('" + addressOid + "'); \"><td id ='Street_" + addressOid + "' >" + DataBinder.Eval(address, "Street") + "</td>");
+
+            ViewContext.Writer.Write("<td id ='POBox_" + addressOid + "'>" + DataBinder.Eval(address, "POBox") + "</td>");
+            ViewContext.Writer.Write("<td id ='PostCode_" + addressOid + "' >" + DataBinder.Eval(address, "PostCode") + "</td>");
+            ViewContext.Writer.Write("<td id ='City_" + addressOid + "' >" + DataBinder.Eval(address, "City") + "</td>");
+            ViewContext.Writer.Write("<td id ='Profession_" + addressOid + "' >" + DataBinder.Eval(address, "Profession") + "</td>");
+        }
+        ViewContext.Writer.Write("</tr></table>");
+    }
+}

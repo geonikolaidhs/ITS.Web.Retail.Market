@@ -1,0 +1,31 @@
+﻿@{
+    List<StyleSheet> devExpressStylesToRender = new List<StyleSheet>(8);
+    devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = DevExpressHelper.Theme });
+    devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = DevExpressHelper.Theme });
+    devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.Chart, Theme = DevExpressHelper.Theme });
+    devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList, Theme = DevExpressHelper.Theme });
+    devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.Icons, Theme = DevExpressHelper.Theme });
+
+    if (ViewBag.EnableDevexpressHtmlEditor != null && ViewBag.EnableDevexpressHtmlEditor == true)
+    {
+        devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor, Theme = DevExpressHelper.Theme });
+    }
+    if (ViewBag.EnableDevexpressChart != null && ViewBag.EnableDevexpressChart == true)
+    {
+        devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.Chart, Theme = DevExpressHelper.Theme });
+    }
+    if (ViewBag.EnableDevexpressReports != null && ViewBag.EnableDevexpressReports == true)
+    {
+        devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.Report, Theme = DevExpressHelper.Theme });
+    }
+    if (ViewBag.EnableDevexpressPivotGrid != null && ViewBag.EnableDevexpressPivotGrid == true)
+    {
+        devExpressStylesToRender.Add(new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid, Theme = DevExpressHelper.Theme });
+    }
+
+    Html.DevExpress().GetStyleSheets(devExpressStylesToRender.ToArray());
+}
+
+
+@System.Web.Optimization.Scripts.Render("~/bundles/mainpage.js")
+<script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>

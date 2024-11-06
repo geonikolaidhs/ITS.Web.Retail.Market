@@ -1,0 +1,9 @@
+﻿@Html.DevExpress().CallbackPanel(cpb_settings =>
+{
+    cpb_settings.Name = "ProfileCallbackPanel";
+    cpb_settings.CallbackRouteValues = new { Controller = "Membership", Action = "ProfileCallbackPanel" };
+    cpb_settings.SetContent(() =>
+    {
+        Html.RenderPartial("ProfileForm");
+    });
+}).GetHtml()

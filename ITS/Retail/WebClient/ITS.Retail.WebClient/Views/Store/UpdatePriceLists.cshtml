@@ -1,0 +1,27 @@
+﻿@model PriceCatalogPolicy
+@Html.DevExpress().CallbackPanel(cpbseriessettings =>
+{
+    cpbseriessettings.Name = "PriceCatalogPolicyCbPanel";
+
+    cpbseriessettings.CallbackRouteValues = new { Controller = "Store", Action = "UpdatePriceLists" };
+    cpbseriessettings.SetContent(() =>
+    {
+        //Html.DevExpress().ComboBox(edtSettings =>
+        //{
+        //    edtSettings.Name = "DefaultPriceCatalog";
+        //    edtSettings.ControlStyle.CssClass = "editor";
+        //    edtSettings.Properties.ValueField = "Oid";
+        //    edtSettings.Properties.ValueType = typeof(Guid);
+        //    edtSettings.Properties.TextField = "Description";
+        //}).BindList(ViewBag.PriceCatalogs).Bind(DataBinder.Eval(Model,"Oid")).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DefaultPriceCatalogPolicy";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueField = "Oid";
+            edtSettings.Properties.ValueType = typeof(Guid);
+            edtSettings.Properties.TextField = "Description";
+        }).BindList(ViewBag.PriceCatalogPolicies).Bind(DataBinder.Eval(Model, "Oid")).GetHtml();
+    });
+}).GetHtml()

@@ -1,0 +1,39 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{    
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+@{
+    ViewBag.Title = Resources.TermsAndConditions;
+    ViewBag.ShowNavigation = false;
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+<div class='terms'>
+    @Html.DevExpress().Splitter(settings =>
+    {
+        settings.Name = "splitter";
+        ViewContext.Writer.Write(ViewData["Terms"]);
+    }).GetHtml()
+</div>
+
+@using (Html.BeginForm("TermsFormSubmit", "User", FormMethod.Post, new { id = "TermsForm" }))
+{
+    ViewContext.Writer.Write(Html.Hidden("TermsAccepted"));
+    ViewContext.Writer.Write("<div class='button_container'>");
+    @Html.DevExpress().Button(sets =>
+    {
+        sets.Name = "btnAccept";
+        sets.Text = Resources.Accept;
+        sets.UseSubmitBehavior = true;
+        sets.ControlStyle.CssClass = "button";
+        sets.ClientSideEvents.Click = "function (s,e){  document.getElementById('TermsAccepted').value = true;}";
+    }).GetHtml()
+    @Html.DevExpress().Button(sets =>
+    {
+       sets.Name = "btnDecline";
+       sets.Text = Resources.Decline;
+       sets.UseSubmitBehavior = true;
+       sets.ControlStyle.CssClass = "button cancel";
+       sets.ClientSideEvents.Click = "function (s,e){  document.getElementById('TermsAccepted').value = false;}";
+   }).GetHtml()
+    ViewContext.Writer.Write("</div>");
+}

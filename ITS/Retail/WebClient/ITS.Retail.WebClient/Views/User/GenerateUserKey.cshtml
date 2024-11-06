@@ -1,0 +1,11 @@
+﻿@*@using ITS.Retail.ResourcesLib;
+@{    
+    ViewBag.ExtraCSSfiles.Add(Url.Content("~/Content/css/User.css?v=" + ViewData["ApplicationVersionNumber"]));
+}
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "UserType";
+    cmb_settings.Properties.Items.AddRange(typeof(ITS.Licensing.ClientLibrary.ITSLicense.UserAccessType).GetEnumValues());
+    cmb_settings.Properties.ValueType = typeof(ITS.Licensing.ClientLibrary.ITSLicense.UserAccessType);
+}).Bind(ViewData["UserType"]).GetHtml()*@

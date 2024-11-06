@@ -1,0 +1,18 @@
+﻿@model DocumentHeader
+@using ITS.Retail.WebClient.Extensions;
+@{
+    bool enabled = ViewBag.InViewMode == null ? true : !(bool)ViewBag.InViewMode;
+    
+    string callbackRouteValuesController = "Document";
+    string callbackRouteValuesAction = "TriangularStorePartial";
+    string callbackRouteValuesArea = string.Empty;
+    ItemsRequestedByFilterConditionMethod itemsRequestedByFilterConditionMethod = DocumentController.StoreRequestedByFilterCondition;
+    ItemRequestedByValueMethod itemRequestedByValueMethod = DocumentController.ObjectRequestedByValue<Store>;
+
+    string deleteImg = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+
+    FormInstances.DropDownListSearchableComboBoxBody(Html: Html,enabled: enabled,callbackRouteValuesController: callbackRouteValuesController,callbackRouteValuesAction: callbackRouteValuesAction,callbackRouteValuesArea: callbackRouteValuesArea,
+        itemsRequestedByFilterConditionMethod: itemsRequestedByFilterConditionMethod, itemRequestedByValueMethod: itemRequestedByValueMethod, dropDownSearchColumns: null, clientSideEventsValueChanged: "UpdateTriangularAddress", clientSidesEventsButtonClick: "clearTriangularComboBox", name: "TriangularStore", valueType: typeof(Guid), model: (Model == null || Model.TriangularStore == null) ? null : DataBinder.Eval(Model, "Oid"), modelType: typeof(Store), deleteImg: deleteImg).Render();
+}
+
+

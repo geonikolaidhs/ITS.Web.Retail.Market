@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ITS.Retail.WebClient.ObjectFrequency<ITS.Retail.Model.Item>>
+
+
+ @if (Model.Count() > 0)
+ {
+     Html.DevExpress().CallbackPanel(settings =>
+      {
+          settings.Name = ViewBag.Name;
+          settings.CallbackRouteValues = ViewBag.CallbackRouteValues;
+          settings.SettingsLoadingPanel.Enabled = false;
+
+          settings.SetContent(() =>
+          {
+              ViewContext.Writer.Write("<div class=\"tagCloudInfo\" id=\"div_" + ViewBag.Name + "\">");
+
+              ViewContext.Writer.Write("<h3>" + ViewBag.TagCloudHeader + "</h3>");
+
+              foreach (var v in Model)
+              {
+                  ViewContext.Writer.Write(String.Format("<a href=\"#\" rel=\"{0}\" onclick=\"PerformItemTagCloudClick('{1}')\">{2}</a>&nbsp;", v.Frequency, v.Item.Code, v.Item.Name));
+              }
+              ViewContext.Writer.Write("</div>");
+          });
+      }).GetHtml();
+ }

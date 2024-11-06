@@ -1,0 +1,71 @@
+﻿@using ITS.Retail.Model
+@model IEnumerable<ActionTypeEntity>
+
+
+@using ITS.Retail.WebClient.Extensions;
+
+@{
+    GridViewSettings gridSettings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(ActionTypeEntity), typeof(DocumentTypeController), "grdActionTypeEntities", generateColumns: false, columnType: GridViewCommandColumnType.ICONS);
+
+    gridSettings.SettingsEditing.AddNewRowRouteValues = gridSettings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DocumentType", Action = "UpdateActionTypeEntity" };
+    gridSettings.SettingsEditing.DeleteRowRouteValues = new { Controller = "DocumentType", Action = "DeleteActionTypeEntity" };
+    gridSettings.CallbackRouteValues = new { Controller = "DocumentType", Action = "ActionTypeGrid" };
+    gridSettings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    gridSettings.SettingsText.Title = Resources.ActionTypeEntities;
+    gridSettings.SettingsText.PopupEditFormCaption = Resources.ActionTypeEntity;
+
+    gridSettings.Columns.Add(col =>
+    {
+        col.FieldName = "ActionType.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Description;
+    });
+
+    gridSettings.SetEditFormTemplateContent(editContent =>
+    {
+        object item = (@ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : DataBinder.Eval(editContent.DataItem,"This")) as object;
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnSaveActionType";
+        headerOptions.SaveButton.OnClick = "function(s, e){ " + gridSettings.Name + ".UpdateEdit(); }";
+        headerOptions.CancelButton.Name = "btnCancelActionType";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + gridSettings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.Modal;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.RenderPartial("ActionTypeComboBox", model: item  == null? new ActionTypeEntity(ITS.Retail.Common.XpoHelper.GetNewUnitOfWork()):item);
+
+        string statuses = "";
+        if (item != null && (item as ActionTypeEntity).ActionTypeDocStatuses.Count > 0)
+        {
+            statuses = (item as ActionTypeEntity).ActionTypeDocStatuses.Select(x =>x.DocumentStatus.Oid.ToString()).Aggregate((x,y) => x +","+y);
+        }
+        ViewContext.Writer.Write(Html.Hidden("DocStatuses_initial", statuses));
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        @Html.DevExpress().ListBox(listBoxSettings =>
+        {
+            listBoxSettings.Name = "lstDocStatus"; //Basic
+            listBoxSettings.Properties.Caption = Resources.ActionTypeDocStatuses;
+            listBoxSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            listBoxSettings.ControlStyle.Border.BorderWidth = 0;
+            listBoxSettings.ControlStyle.BorderBottom.BorderWidth = 1;
+            listBoxSettings.Width = System.Web.UI.WebControls.Unit.Percentage(30);
+            listBoxSettings.Height = 200;
+            listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+            listBoxSettings.Properties.TextField = "Description";
+            listBoxSettings.Properties.ValueType = typeof(Guid);
+            listBoxSettings.Properties.ValueField = "Oid";
+            listBoxSettings.Properties.ClientSideEvents.Init = "OnActionTypeEntityInit";
+        }).BindList(ViewBag.DocStatuses).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+    });
+
+    Html.DevExpress().GridView(gridSettings).Bind(Model).GetHtml();
+}

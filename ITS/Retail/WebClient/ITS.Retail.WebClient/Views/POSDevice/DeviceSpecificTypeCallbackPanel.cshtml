@@ -1,0 +1,24 @@
+﻿@using ITS.Retail.WebClient;
+
+@Html.DevExpress().CallbackPanel(set =>
+{
+
+    set.Name = "DeviceSpecificTypeCBP";
+    set.CallbackRouteValues = new { Controller = "POSDevice", Action = "DeviceSpecificTypeCallbackPanel" };
+    set.SetContent(() =>
+    {
+        
+        ComboBoxExtension combo = Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "DeviceSpecificType";
+            cmb_settings.Properties.ValueType = typeof(ITS.Retail.Platform.Enumerations.eDeviceSpecificType);
+        });
+
+        if (ViewData["DeviceSpecificTypes"] != null)
+        {
+            combo.BindList(ViewData["DeviceSpecificTypes"]);
+        }
+        combo.Bind(DataBinder.Eval(Model, "DeviceSpecificType")).Render();
+        ViewContext.Writer.Write("<div id='IsCashRegister' style='display:none;'>" + ViewData["IsCashRegister"] + "</div>");
+    });
+}).GetHtml()

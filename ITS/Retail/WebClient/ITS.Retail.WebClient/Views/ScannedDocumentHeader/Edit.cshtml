@@ -1,0 +1,178 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    
+    ViewBag.Title = "Edit";
+    ITS.Retail.Model.ScannedDocumentHeader head = ViewBag.DocumentHeader;
+    ViewBag.ShowNavigation = false;
+}
+@using (Html.BeginForm("Save", "ScannedDocumentHeader", FormMethod.Post, new {  id = "EditingForm" }))
+{
+    @Html.Hidden("Oid", head.Oid.ToString())
+    @Html.DevExpress().RoundPanel(settings =>
+    {
+    settings.Name = "editForm";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        //Html.Hidden("Oid", head.Oid.ToString()).ToHtmlString() ;
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions(Resources.ScannedDocumentHeaders);
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        ViewContext.Writer.Write("<table><tr><td>");
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Supplier + ":";
+                    edtSettings.AssociatedControlName = "SupplierTaxCode";
+                }
+            )
+            .Render();
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "SupplierTaxCode";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(head.SupplierTaxCode ?? "")
+            .Render();
+            ViewContext.Writer.Write("</td><td>");
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Amount + ":";
+                    edtSettings.AssociatedControlName = "DocumentAmount";
+                }
+            )
+            .Render();
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "DocumentAmount";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(head.DocumentAmount)
+            .Render();
+            ViewContext.Writer.Write("</td><td>");
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.DocumentNumber + ":";
+                    edtSettings.AssociatedControlName = "DocumentNumber";
+                }
+            )
+            .Render();
+
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "DocumentNumber";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(head.DocumentNumber)
+            .Render();
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+            Html.DevExpress().Label(
+               edtSettings =>
+               {
+                   edtSettings.ControlStyle.CssClass = "label";
+                   edtSettings.Text = Resources.InvoicingDate + ":";
+                   edtSettings.AssociatedControlName = "DocumentIssueDate";
+               }
+           )
+           .Render();
+
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "DocumentIssueDate";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(head.DocumentIssueDate)
+            .Render();
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(
+               edtSettings =>
+               {
+                   edtSettings.ControlStyle.CssClass = "label";
+                   edtSettings.Text = Resources.Date + ":";
+                   edtSettings.AssociatedControlName = "ScannedOnDateTime";
+               }
+           )
+           .Render();
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "ScannedOnDateTime";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(head.ScannedOnDateTime)
+            .Render();
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(
+              edtSettings =>
+              {
+                  edtSettings.ControlStyle.CssClass = "label";
+                  edtSettings.Text = Resources.User + ":";
+                  edtSettings.AssociatedControlName = "EditingUser";
+              }
+          )
+          .Render();
+
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "EditingUser";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(head.EditingUser == null ? "" : head.EditingUser.UserName)
+            .Render();
+            ViewContext.Writer.Write("</td></tr></table>");
+            ViewContext.Writer.Write("<img alt='' class='imgViewItemImage' id='imgViewItemImage" + ViewBag.DocumentHeader.Oid.ToString().Replace('-', '_') + "' src='" + Url.Action("ShowImageId", "ScannedDocumentHeader", new { Id = ViewBag.DocumentHeader.Oid }) + "'  />");
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Inserted";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Properties.ValueChecked = true;
+                edtSettings.Properties.ValueUnchecked = false;
+                edtSettings.Properties.ValueGrayed = false;
+                edtSettings.Properties.AllowGrayed = false;
+                edtSettings.Text = Resources.Inserted;
+                edtSettings.ShowModelErrors = true;
+            }
+        ).Bind(head.Inserted).Render();
+
+    });
+        
+    }).GetHtml()
+}

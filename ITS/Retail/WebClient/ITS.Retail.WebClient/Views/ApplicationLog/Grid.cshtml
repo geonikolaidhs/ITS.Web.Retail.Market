@@ -1,0 +1,163 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.Name = "grdLogView";
+    settings.SettingsText.Title = Resources.MenuAdministrationLogFiles;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.CallbackRouteValues = new { Controller = "ApplicationLog", Action = "Grid" /*, RoleID = ViewData["Role_ID"]*/ };
+    settings.ClientSideEvents.BeginCallback = "ApplicationLog.GrdLogViewBeginCallback";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.ControlStyle.CssClass = "yellow-anchor";
+
+    settings.SettingsPager.EnableAdaptivity = true;
+
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+        MVCxGridView View = sender as MVCxGridView;
+        if(e.VisibleIndex>=0){
+            object error = View.GetRowValues(e.VisibleIndex, "Error");
+            if(string.IsNullOrWhiteSpace(error as string)==false){
+                e.Row.BackColor = System.Drawing.Color.FromArgb(255, 20, 20);
+                e.Row.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255);
+            }
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CreatedOn";
+        col.Caption = Resources.Created;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CreatedBy.UserName";
+        col.Caption = Resources.Created+" "+Resources.From;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Controller";
+        col.Caption = "Controller";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Action";
+        col.Caption = Resources.Actions;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Error";
+        col.Caption = Resources.Error;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            //if (DataBinder.Eval(c.DataItem, "Error") != null )//|| DataBinder.Eval(c.DataItem, "Error").ToString()!="")
+            if(string.IsNullOrWhiteSpace(DataBinder.Eval(c.DataItem, "Error") as string) == false)
+            {
+                @Html.RenderAction("LoadViewPopupLog", "ApplicationLog", new { LogID = DataBinder.Eval(c.DataItem, "Oid"), view_column = "ERROR" });
+                ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + "ApplicationLogPopUp_ERROR" + DataBinder.Eval(c.DataItem, "Oid").ToString().Replace('-', '_') + ".Show();\" title=\"" + Resources.View + "" + "\">Show Details</a>");
+            }
+        });
+    });
+
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Result";
+        column.Caption = Resources.Result;
+        column.HeaderStyle.Wrap = DefaultBoolean.True;
+        column.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        column.SetDataItemTemplateContent(c =>
+        {
+            if (DataBinder.Eval(c.DataItem, "Result") != null)//|| DataBinder.Eval(c.DataItem, "Error").ToString()!="")
+            {
+                String error = string.IsNullOrWhiteSpace(DataBinder.Eval(c.DataItem, "Error") as string)? "Success!!!" : Resources.AnErrorOccurred;
+                @Html.RenderAction("LoadViewPopupLog", "ApplicationLog", new { LogID = DataBinder.Eval(c.DataItem, "Oid"), view_column = "RESULT" });
+                ViewContext.Writer.Write(error + "&nbsp;<a href='javascript:;' onclick=\"" + "ApplicationLogPopUp_RESULT" + DataBinder.Eval(c.DataItem, "Oid").ToString().Replace('-', '_') + ".Show();\" title=\"" + Resources.View + "" + "\">Show Details</a>");
+            }
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DeviceName";
+        col.Caption = Resources.DeviceName;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IPAddress";
+        col.Caption = "IP";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UserAgent";
+        col.Caption = "UserAgent";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.CommandColumn.Visible = false;
+    settings.SettingsPager.PageSize = 30;
+
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+}).BindToLINQ("", "", (s, e) => { e.QueryableSource = Model; }).GetHtml()

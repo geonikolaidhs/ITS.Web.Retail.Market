@@ -1,0 +1,2 @@
+regsvr32 AlgoDll_webUpdate.dll
+regsvr32 eFiles.dll

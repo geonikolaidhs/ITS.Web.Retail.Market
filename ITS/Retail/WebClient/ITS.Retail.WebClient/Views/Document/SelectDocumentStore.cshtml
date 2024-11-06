@@ -1,0 +1,27 @@
+﻿@using DevExpress.Xpo;
+
+@{
+    DocumentHeader documentHeader = ViewData["currentDocument"] != null ? (DocumentHeader)ViewData["currentDocument"] : (DocumentHeader)Session["currentDocument"];
+    XPCollection<Store> stores = ViewBag.StoreAddresses = StoreHelper.GetStoresByReferenceCompany((UnitOfWork)documentHeader.Session,documentHeader.Store);
+    ViewBag.InViewMode = ViewData["currentDocument"] != null;
+}
+
+
+@Html.DevExpress().ComboBox(cmb_settings =>
+{
+    cmb_settings.Name = "secondaryStores";
+    cmb_settings.Properties.TextField = "Name";
+    cmb_settings.Properties.ValueField = "Oid";
+    cmb_settings.Properties.ValueType = typeof(Guid);
+    cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    if (ViewBag.InViewMode)
+    {
+        cmb_settings.Enabled = false;
+        cmb_settings.ClientEnabled = false;
+    }
+    else
+    {
+        cmb_settings.Properties.ClientSideEvents.ValueChanged = "UpdateDocHeader";
+    }
+}).BindList(stores).Bind(DataBinder.Eval(documentHeader, "SecondaryStore!Key")).GetHtml()
+

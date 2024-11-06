@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+  <QueueMicroFormats>
+    <LargestText>
+      ^XA
+      ^LL150
+      ^CI34
+      ^CF0,40
+      ^LH0,0
+      ^FO125,20,2
+      ^XGE:WRM.PCX,1,1^FS
+      ^XZ
+    </LargestText>
+    <!--<LargestText>
+      ^XA
+      ^LL70
+      ^CI34
+      ^CF0,60
+      ^LH0,0
+      ^FO168,0,2
+      ^FD{0}^FS
+      ^XZ
+    </LargestText>-->
+    <LargeText>
+      ^XA
+      ^LL70
+      ^CI34
+      ^CF0,40
+      ^LH0,0
+      ^FO70,10,2
+      ^FD{0}^FS
+      ^XZ
+    </LargeText>
+    <NormalText>
+      ^XA
+      ^LL25
+      ^CI34
+      ^CF0,20
+      ^LH20,0
+      ^FO0,5,2
+      ^FD{0}^FS
+      ^XZ
+    </NormalText>
+    <AdaptiveText>
+      ^XA
+      ^LL{1}
+      ^CI34
+      ^CF{2}
+      ^LH20,20
+      ^FO0,0,2
+      ^FD{0}^FS
+      ^XZ
+    </AdaptiveText>
+    <QrCode>
+      ^XA
+      ^LL420
+      ^FO,0,0
+      ^BQ,2,5
+      ^FDMM,{0}^FS
+      ^XZ
+    </QrCode>
+    <Barcode>
+      ^XA
+      ^LL100
+      ^FO10,10^BY2
+      ^BEN,50,Y,N
+      ^FD{0}^FS
+      ^XZ
+    </Barcode>
+    <OrientationFix>
+      ! U1 setvar "device.languages" "zpl"
+      ^XA
+      ^LL10
+      ^CFD,40
+      ^POI
+      ^XZ
+    </OrientationFix>
+  </QueueMicroFormats>
+  <QueueFormat>
+    <QRBlockSize>30</QRBlockSize>
+    <IgnoringPrefixes>
+      <Prefix>10</Prefix>
+      <Prefix>981</Prefix>
+      <Prefix>982</Prefix>
+    </IgnoringPrefixes>
+    <PrintingFormat>
+      <OrientationFix />
+      <LargestText>ITS</LargestText>
+      <LargeText>Κωδικοποιημένο Παραστατικό</LargeText>
+      <NormalText />
+      <QRBlock type="NormalText" prefix=";" suffix="XZ" separator=";" qtySeparator="[" barcodePrefix="#ID">Είδη {0}, Ομάδα {1} από {2}</QRBlock>
+      <NotFoundItem type="NormalText" />
+      <Summary type="NormalText" />
+      <Summary type="NormalText">Σύνολική Ποσότητα : {0}</Summary>
+      <Summary type="NormalText">Σύνολο Γραμμών : {1}</Summary>
+      <Summary type="NormalText">Εκτυπώθηκε στις : {2}</Summary>
+      <AdaptiveText size="50" fontParameters="" />
+    </PrintingFormat>
+  </QueueFormat>
+</Settings>

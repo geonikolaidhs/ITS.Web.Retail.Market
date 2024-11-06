@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <!--The folder that we like the items.db to be saved-->
+  <LocalItemsDBLocation>\Program Files\WRM Mobile@Store\</LocalItemsDBLocation>
+  <!-- The WebService Server IP-->
+  <ServerIP>10.3.1.151/webclient</ServerIP>
+  <!--The Operation Mode of the mobile APP. 1 for Batch, 2 for Online. This currently affects Only the price checking-->
+  <OperationMode>2</OperationMode>
+  <!-- To compcode εδώ χρησιμοποιείται επίσης και στον έλεγχο προσφορών. Αφήστε το κενό για εγκαταστάσεις SRS που έχουν μόνο 1 υποκατάστημα-->
+  <AdvancedPriceChecking Active="True">
+    <CompCode>101</CompCode>
+    <PriceCatalogPolicy>1</PriceCatalogPolicy>
+  </AdvancedPriceChecking>
+  <EAN128BarcodeSettings Active="True">
+    <IdentifierSetting IdentifierType="productcodeunit" IdentifierTypeString="01" TruncateLeft="1" VariableWeightText="9" ConstantWeightText="0" ConstantContentLength="14"/>
+    <IdentifierSetting IdentifierType="productcodevariable" IdentifierTypeString="02" TruncateLeft="1" VariableWeightText="9" ConstantWeightText="0" ConstantContentLength="14"/>
+    <IdentifierSetting IdentifierType="quantityunits" IdentifierTypeString="37" MaxContentLength="8"/>
+    <IdentifierSetting IdentifierType="quantityweight" IdentifierTypeString="310" ConstantContentLength="7"/>
+    <IdentifierSetting IdentifierType="lot" IdentifierTypeString="10" MaxContentLength="20"/>
+    <IdentifierSetting IdentifierType="expirationdate" IdentifierTypeString="17" ConstantContentLength="6"/>
+  </EAN128BarcodeSettings>
+  
+  <!-- Ορίζουμε τα document types χωρισμένα με κόμμα πχ(ORDER,PICKING) στα οποία θέλουμε να ισχύουν τα παρακάτω settings-->
+  <!-- Document Types = ORDER,INVOICE,RECEPTION,INVENTORY,MATCHING,PICKING,TRANSFER,TAG,PRICE_CHECK,COMPETITION,ESL_INV -->
+  
+  <!-- Έλεγχος μέσου όρου ποσότητας -->
+  <PerformAverageQuantityCheck>
+    
+  </PerformAverageQuantityCheck>
+
+  <!-- Έλεγχος ενεργού είδους -->
+  <PerformActiveItemCheck>
+    ORDER
+  </PerformActiveItemCheck>
+
+  <!-- Αντικατάσταση ανενεργού είδους με τον μητρικό του -->
+  <ReplaceInActiveItemWithActiveMaternal>
+    ORDER
+  </ReplaceInActiveItemWithActiveMaternal>
+
+  <!-- Εμφάνιση φόρμας εισαγωγής ποσότητας με μέσο όρο πωλήσεων-->
+  <ShowAvgForm>
+    ORDER,INVOICE
+  </ShowAvgForm>
+	<UseSales>
+		TRUE
+	</UseSales>
+  <ShowAvgForm>
+    ORDER,INVOICE,QUEUE_QR
+  </ShowAvgForm>
+  <UseSales>TRUE</UseSales>
+  <Queue>
+    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
+  </Queue>
+  <ExtraSettings>
+    pJmwKRjFyTH6vY4H6wZ34IYofZ/EMEsFC48YKuovezrgNWS2H4eVnicsp2ivqjOqqWrjSa10ZnjOaSVHCU2UJpQM3McVjIm0XxsZulwvoRbxhPtzii8Ph5SU0bVt2al3/f0ZuqptUN6U/FEp/Zgmli/2HG5bAtQAEFNzzOTuLvmbToFQ6EEEQM+iOQfBxltkxc6ftQC5bkhn1s1DLXyU+VeOOZbhZS61UfBHdPIkn5QCazSHj9LzaSP6Aw8qlX9T
+  </ExtraSettings>
+</Settings>

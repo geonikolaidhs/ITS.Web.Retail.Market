@@ -1,0 +1,264 @@
+.dxtlControl_SimpleB2C
+{
+	cursor: default;
+	font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+	border: 1px none #c0c0c0;
+}
+.dxtlControl_SimpleB2C caption
+{
+	background: #ACACAC none;
+	border-bottom: 0 solid #c0c0c0;
+	border: 1px solid #c0c0c0;
+	color: White;
+	font-size: 15px;
+	font-weight: normal;
+	padding: 3px 3px 5px;
+	text-align: center;
+}
+
+/* Indent cells */
+.dxtlIndent_SimpleB2C,
+.dxtlIndentWithButton_SimpleB2C
+{
+	vertical-align: top;
+	background: white none no-repeat top center;
+}
+.dxtlIndent_SimpleB2C
+{
+	padding: 0 11px;
+}
+.dxtlIndentWithButton_SimpleB2C
+{
+	padding: 5px 7px 6px;
+}
+.dxtlSelectionCell_SimpleB2C
+{
+	border: 1px solid #cfcfcf;
+	padding: 3px 5px 5px 6px;
+}
+
+/* Tree-lines cells */
+.dxtlLineRoot_SimpleB2C
+{
+
+}
+
+.dxtlLineFirst_SimpleB2C
+{
+
+}
+.dxtlLineMiddle_SimpleB2C
+{
+
+}
+.dxtlLineLast_SimpleB2C
+{
+
+}
+
+.dxtlLineFirstRtl_SimpleB2C
+{
+}
+.dxtlLineMiddleRtl_SimpleB2C
+{
+
+}
+.dxtlLineLastRtl_SimpleB2C
+{
+}
+
+/* Headers */
+.dxtlHeader_SimpleB2C
+{
+	border: 1px solid #c0c0c0;
+	padding: 4px 6px 5px;
+	font-weight: normal;
+}
+.dxtlHeader_SimpleB2C table.dxtl
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+.dxtlHeader_SimpleB2C td.dxtl
+{
+	padding: 0;
+}
+.dxtlHeader_SimpleB2C,
+.dxtlHeader_SimpleB2C td.dxtl
+{
+	white-space: nowrap;
+	text-align: left;
+	overflow: hidden;
+}
+.dxtlControl_SimpleB2C .dxpc-content 
+{
+	padding: 10px!important;
+}
+/* Nodes */
+.dxtlNode_SimpleB2C
+{
+	background: white none;
+}
+.dxtlAltNode_SimpleB2C
+{
+	background-color: WhiteSmoke;
+}
+.dxtlSelectedNode_SimpleB2C
+{
+	background: #e0e0e0 none;
+}
+.dxtlFocusedNode_SimpleB2C
+{
+	background: #ff8800 none;
+	color: white;
+}
+.dxtlInlineEditNode_SimpleB2C
+{
+	background: white none;
+}
+.dxtlEditFormDisplayNode_SimpleB2C
+{
+	background: white none;
+}
+
+.dxtlNode_SimpleB2C td.dxtl, 
+.dxtlAltNode_SimpleB2C  td.dxtl, 
+.dxtlSelectedNode_SimpleB2C td.dxtl, 
+.dxtlFocusedNode_SimpleB2C td.dxtl,
+.dxtlEditFormDisplayNode_SimpleB2C td.dxtl,
+.dxtlCommandCell_SimpleB2C
+{
+	padding: 3px 6px 4px;
+	border: 1px solid #cfcfcf;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.dxtlInlineEditNode_SimpleB2C td.dxtl
+{
+	border: 1px solid #cfcfcf;
+	padding: 1px;
+}
+
+/* Preview */
+.dxtlPreview_SimpleB2C
+{
+	color: #7f7f7f;
+	padding: 14px;
+	border: 1px solid #cfcfcf;
+	overflow: hidden;
+}
+
+/* Footers */
+.dxtlGroupFooter_SimpleB2C
+{
+}
+.dxtlFooter_SimpleB2C
+{
+}
+.dxtlGroupFooter_SimpleB2C td.dxtl,
+.dxtlFooter_SimpleB2C td.dxtl
+{
+	padding: 5px 6px 6px;
+	white-space: nowrap;
+	border: 1px solid #cfcfcf;
+	overflow: hidden;
+}
+
+/* Pagers */
+.dxtlPagerTopPanel_SimpleB2C
+{
+	border-bottom: 1px none #c0c0c0;
+	padding: 4px 0;
+}
+.dxtlPagerBottomPanel_SimpleB2C
+{
+	border-top: 1px none #c0c0c0;
+	padding: 7px 0;
+}
+
+/* Editing */
+.dxtlEditForm_SimpleB2C
+{
+	border: 1px solid #D3D3D3;
+	padding: 8px 10px 10px;
+}
+.dxtlEditFormCaption_SimpleB2C,
+.dxtlEditFormEditCell_SimpleB2C
+{
+	padding: 4px;
+}
+.dxtlEditFormCaption_SimpleB2C
+{
+	padding-left: 10px;
+	white-space: nowrap;
+}
+.dxtlError_SimpleB2C
+{
+	background: #FFC8C8 none;
+	color: #FF0000;
+	padding: 6px 10px;
+	border: 1px solid #cfcfcf;
+}
+.dxtlPopupEditForm_SimpleB2C
+{
+	padding: 0;
+	min-width: 300px;
+}
+
+/* Links */
+.dxtlControl_SimpleB2C a
+{
+	color: #ff8800;
+}
+.dxtlControl_SimpleB2C a:hover
+{
+}
+.dxtlFocusedNode_SimpleB2C a
+{
+	color: White;
+}
+.dxtlSelectedNode_SimpleB2C a
+{
+	color: #ff8800;
+}
+.dxtlCommandCell_SimpleB2C a
+{
+	margin-right: 3px;
+}
+/* Customization window */
+.dxtlControl_SimpleB2C .dxpcLite_SimpleB2C .dxpc-content
+{
+	min-width: 220px;
+}
+
+/* Loading panel */
+.dxtlLoadingPanel_SimpleB2C
+{
+	border: 1px solid #C3C3C3;
+	background-color: white;
+	font: 14px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+	color: #333333;
+}
+.dxtlLoadingPanel_SimpleB2C td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 10px 14px;
+}
+.dxtlLoadingDiv_SimpleB2C
+{
+	background: white none;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+
+/* Disabled */
+.dxtlDisabled_SimpleB2C,
+.dxtlDisabled_SimpleB2C .dxtl
+{
+	color: #b8b8b8;
+	cursor: default;
+}
+
+

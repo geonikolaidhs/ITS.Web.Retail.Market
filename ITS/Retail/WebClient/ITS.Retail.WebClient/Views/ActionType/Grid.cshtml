@@ -1,0 +1,101 @@
+﻿@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.ResourcesLib
+
+@{
+    List<string> includedFields = new List<string>() {"Description","Category", "UpdateMode" };
+    GridViewSettings settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(ITS.Retail.Model.ActionType), typeof(ActionTypeController), "grdActionType", columnType: GridViewCommandColumnType.CHECKBOX,includedFields: includedFields);
+    settings.CallbackRouteValues = new { Controller = "ActionType", Action = "Grid" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsText.Title = Resources.VariablesActions;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.ColumnResizing = "OnColumnResizing";
+    settings.ClientSideEvents.EndCallback = "grdOnEndCalback";
+
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "ActionType", Action = "InlineEditingUpDatePartial" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "ActionType", Action = "InlineEditingUpDatePartial" };
+
+    settings.SettingsText.PopupEditFormCaption = Resources.VariableAction;
+
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnActionTypeUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "btnActionTypeCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class=\"item-center-div\"><tr><td>");
+
+        Html.DevExpress().TextBox(txtsettings =>
+        {
+            txtsettings.Properties.Caption = Resources.Description + ":";
+            txtsettings.Properties.CaptionStyle.CssClass = "label";
+            txtsettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            txtsettings.Name = "Description";
+            txtsettings.ControlStyle.CssClass = "editor";
+            txtsettings.ShowModelErrors = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtsettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            txtsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.Caption = Resources.Category + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "Category";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(ActionEntityCategory);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            combosettings.ClientEnabled = ViewBag.IsNewAction == true;
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        }).BindList(Enum<ActionEntityCategory>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "Category")).GetHtml();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().ComboBox(combosettings =>
+        {
+            combosettings.Properties.Caption = Resources.Category + ":";
+            combosettings.Properties.CaptionStyle.CssClass = "label";
+            combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+            combosettings.Name = "UpdateMode";
+            combosettings.ControlStyle.CssClass = "editor";
+            combosettings.Properties.TextField = "Value";
+            combosettings.Properties.ValueField = "Key";
+            combosettings.Properties.ValueType = typeof(eTotalizersUpdateMode);
+            combosettings.ShowModelErrors = true;
+            combosettings.Properties.ClientSideEvents.ValueChanged = "ActionType.UpdateModeValueChanged";
+            combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            //combosettings.ClientEnabled = ViewBag.IsNewAction == true;
+            combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        }).BindList(Enum<eTotalizersUpdateMode>.GetLocalizedDictionary()).Bind(DataBinder.Eval(item, "UpdateMode")).GetHtml();
+
+        ViewContext.Writer.Write("</td><td>");
+
+        Html.RenderAction("StoresComboBoxPartial","ActionType");
+
+        ViewContext.Writer.Write("</td></tr></table><br/>");
+        Html.RenderAction("VariablesPartialGrid", "ActionType", new { category = DataBinder.Eval(item, "Category") });
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

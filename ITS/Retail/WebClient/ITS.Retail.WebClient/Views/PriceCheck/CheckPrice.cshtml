@@ -1,0 +1,14 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.React("Components.PriceCheck", new
+{
+    language = Response.Cookies["_culture"].Value,
+    stores = ViewBag.Stores,
+    storeValue = new { label = string.Empty , value = ViewBag.SelectedStore },
+    defaultCustomer = new { label = ViewBag.DefaultCustomerLabel, value = ViewBag.DefaultCustomerValue },
+    itemBarcode = new { label = string.Empty, value = Guid.Empty },
+    urlSearchByType = Url.Action("SearchByType", "PriceCheck"),
+    urlGetPrice = Url.Action("GetPrice", "PriceCheck"),
+    urlGetDefaultCustomer = Url.Action("GetDefaultCustomer", "PriceCheck")
+})

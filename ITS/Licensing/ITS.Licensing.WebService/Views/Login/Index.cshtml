@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--<h2>Login</h2> -->
+@using (Html.BeginForm("Validate", "Login"))
+{
+    @Html.DevExpress().RoundPanel(settings =>
+            {
+                settings.Name = "LoginPanel";
+                settings.HeaderText = "Login";
+                settings.Width = 500;
+                settings.SetContent(() =>
+                {
+
+
+                    @Html.DevExpress().Label(labelsetings =>
+                        {
+                            labelsetings.Text = "Username";
+                            
+                        }).GetHtml();
+
+                    @Html.DevExpress().TextBox(textsettings =>
+                        {
+                            textsettings.Name = "UserName";
+                            textsettings.Text = "";
+                        }).GetHtml();
+
+
+                    @Html.DevExpress().Label(labelsetings =>
+                    {
+                        labelsetings.Text = "Password";
+                    }).GetHtml();
+
+                    @Html.DevExpress().TextBox(textsettings =>
+                    {
+                        textsettings.Name = "Password";
+                        textsettings.Text = "";
+                        textsettings.Properties.Password = true;
+                    }).GetHtml();
+
+                    @Html.DevExpress().Button(btn_settings =>
+                    {
+                        btn_settings.Name = "Login";
+                        btn_settings.UseSubmitBehavior = true;
+                        btn_settings.Text = "Login";
+
+                    }).GetHtml();
+                });
+            }).GetHtml()
+}

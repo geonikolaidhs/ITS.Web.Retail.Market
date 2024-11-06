@@ -1,0 +1,101 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+
+@using (Html.BeginForm("Save", "Role", new { Oid = ViewData["Role_ID"].ToString() }, FormMethod.Post, new { id = "EditingForm" }))
+{
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "roleedtrdp";
+    settings.ShowHeader = false;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class='ValidationContainer background-light-grey'>");
+
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.OnClick = "Component.ValidateAndSubmitForm";
+        headerOptions.CancelButton.OnClick = "btnCancelClickV2";
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+
+        ViewContext.Writer.Write("<table class='headerTable margin-0-border-light-gray margin-auto'><tr><td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Description + ":";
+            edtSettings.AssociatedControlName = "Description";
+
+        }).GetHtml();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).Bind(DataBinder.Eval(Model, "Description")).GetHtml();
+
+        ViewContext.Writer.Write("<td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.Type +":";
+            edtSettings.AssociatedControlName = "Type";
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "Type";
+            edtSettings.Properties.ValueType = typeof(eRoleType);
+            edtSettings.Properties.ValueField = "Key";
+            edtSettings.Properties.TextField = "Value";
+        }).BindList(ViewBag.RoleTypes).Bind(DataBinder.Eval(Model, "Type")).GetHtml();
+
+        ViewContext.Writer.Write("</td>");
+        ViewContext.Writer.Write("<td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.GDPREnabled +":";
+            edtSettings.AssociatedControlName = "GDPREnabled";
+        }).GetHtml();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPREnabled";
+            edtSettings.ShowModelErrors = true;
+
+        }).Bind(DataBinder.Eval(Model, "GDPREnabled")).GetHtml();
+
+        ViewContext.Writer.Write("</td>");
+
+        ViewContext.Writer.Write("<td>");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label required_field";
+            edtSettings.Text = Resources.ExecuteGDPRActions + ":";
+            edtSettings.AssociatedControlName = "GDPRActions";
+        }).GetHtml();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "GDPRActions";
+            edtSettings.ShowModelErrors = true;
+
+        }).Bind(DataBinder.Eval(Model, "GDPRActions")).GetHtml();
+
+        ViewContext.Writer.Write("</td>");
+        ViewContext.Writer.Write("</tr></table></div>");
+
+        @Html.RenderAction("EntityAccessPermisionsGrid", "Role", new { RoleID = ViewData["Role_ID"].ToString() });
+
+    });
+}).GetHtml()
+
+}

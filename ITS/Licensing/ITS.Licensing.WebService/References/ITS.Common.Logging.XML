@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Common.Logging</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Common.Logging.LogLevel">
+            <summary>
+            Enumeration of log levels
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Logging.LogLevel.DEBUG">
+            <summary>
+            DEBUG LEVEL
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Logging.LogLevel.INFO">
+            <summary>
+            INFORMATION LEVEL
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Logging.LogLevel.WARN">
+            <summary>
+            WARNING LEVEL
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Logging.LogLevel.ERROR">
+            <summary>
+            ERROR LEVEL
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Logging.LogLevel.FATAL">
+            <summary>
+            FATAL LEVEL
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Logging.Logger">
+            <summary>
+            Logs messages to a local mdb database
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Debug(System.Object,System.String,System.String)">
+            <summary>
+            Logs a debug message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Debug(System.Object,System.String,System.String,System.Exception)">
+            <summary>
+            Logs a debug message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+            <param name="e">The exception to log its message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Info(System.Object,System.String,System.String)">
+            <summary>
+            Logs an informational message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Info(System.Object,System.String,System.String,System.Exception)">
+            <summary>
+            Logs an informational message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+            <param name="e">The exception to log its message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Warn(System.Object,System.String,System.String)">
+            <summary>
+            Logs a warning message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Warn(System.Object,System.String,System.String,System.Exception)">
+            <summary>
+            Logs a warn message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+            <param name="e">The exception to log its message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Error(System.Object,System.String,System.String)">
+            <summary>
+            Logs an error message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Error(System.Object,System.String,System.String,System.Exception)">
+            <summary>
+            Logs an error message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+            <param name="e">The exception to log its message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Fatal(System.Object,System.String,System.String)">
+            <summary>
+            Logs a fatal message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.Fatal(System.Object,System.String,System.String,System.Exception)">
+            <summary>
+            Logs a fatal message
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The log message</param>
+            <param name="e">The exception to log its message</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.LogMessage(System.Object,System.String,System.String,System.Exception,ITS.Common.Logging.LogLevel)">
+            <summary>
+            Creates the LoggingEventXPO message with the given parameters
+            </summary>
+            <param name="callingClass">The calling class</param>
+            <param name="methodName">The calling method</param>
+            <param name="message">The calling message</param>
+            <param name="t">The given exception</param>
+            <param name="level">The log level</param>
+        </member>
+        <member name="M:ITS.Common.Logging.Logger.SetLogFilePath(System.String)">
+            <summary>
+            Sets the logfile path.
+            </summary>
+            <param name="filePath"></param>
+        </member>
+    </members>
+</doc>

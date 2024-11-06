@@ -1,0 +1,10 @@
+﻿@Html.React("Components.ItemStock", new
+{
+    language = Response.Cookies["_culture"].Value,
+    stores = ViewBag.Stores,
+    storeValue = new { label = string.Empty, value = ViewBag.SelectedStore },
+    fromDate = DateTime.Now,
+    itemBarcode = new { label = string.Empty, value = Guid.Empty },
+    urlRecalculateItemStock = Url.Action("RecalculateItemStock", "ItemStock"),
+    urlSearchByType = Url.Action("SearchByType", "ItemStock")
+})

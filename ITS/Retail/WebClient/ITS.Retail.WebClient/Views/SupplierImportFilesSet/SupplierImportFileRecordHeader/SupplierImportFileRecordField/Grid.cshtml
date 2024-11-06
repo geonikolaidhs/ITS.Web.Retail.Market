@@ -1,0 +1,184 @@
+﻿@model IEnumerable<SupplierImportFileRecordFieldViewModel>
+@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.Name = "grdSupplierImportFileRecordFields";
+    settings.CallbackRouteValues = new { Controller = "SupplierImportFilesSet", Action = "SupplierImportFileRecordFieldGrid" };
+    if ((bool)ViewData["TableCanUpdate"])
+    {
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "SupplierImportFilesSet", Action = "AddOrUpdateSupplierImportFileRecordField" };
+    }
+    
+    if ((bool)ViewData["TableCanInsert"])
+    {
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "SupplierImportFilesSet", Action = "AddOrUpdateSupplierImportFileRecordField" };
+    }
+
+    if ((bool)ViewData["TableCanDelete"])
+    {
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "SupplierImportFilesSet", Action = "DeleteSupplierImportFileRecordField" };
+    }
+
+    settings.SettingsCookies.CookiesID = "grdSupplierImportFileRecordFields";
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "PropertyName";
+        col.Caption = Resources.PropertyName;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Position";
+        col.Caption = Resources.Position;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Length";
+        col.Caption = Resources.Length;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Padding";
+        col.Caption = Resources.Padding;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "PaddingCharacter";
+        col.Caption = Resources.PaddingCharacter;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Trim";
+        col.Caption = Resources.Trim;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "DefaultValue";
+        col.Caption = Resources.DefaultValue;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "ConstantValue";
+        col.Caption = Resources.ConstantValue;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.FieldName = "Multiplier";
+        col.Caption = Resources.Multiplier;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+    
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(80);
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Pixel(1024);
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.ShowHeader = true;
+    settings.StylesPopup.EditForm.Header.Font.Bold = true;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowNewButton = false;
+    settings.CommandColumn.ShowNewButtonInHeader = true;
+    settings.CommandColumn.ShowEditButton = true;
+    settings.CommandColumn.ShowDeleteButton = true;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.ButtonType = GridCommandButtonRenderMode.Image;
+    settings.SettingsCommandButton.DeleteButton.Image.Url = Url.Content("~/Content/img/del.png");
+    settings.SettingsCommandButton.NewButton.Image.Url = Url.Content("~/Content/img/plus.png");
+    settings.SettingsCommandButton.UpdateButton.Image.Url = Url.Content("~/Content/img/save.png");
+    settings.SettingsCommandButton.CancelButton.Image.Url = Url.Content("~/Content/img/undo.png");
+    settings.SettingsCommandButton.EditButton.Image.Url = Url.Content("~/Content/img/edit.png");
+    settings.SettingsCommandButton.NewButton.Image.ToolTip = Resources.New;
+    settings.SettingsCommandButton.DeleteButton.Image.ToolTip = Resources.Delete;
+    settings.SettingsCommandButton.EditButton.Image.ToolTip = Resources.Edit;
+    settings.CommandColumn.CellStyle.CssClass = "GridImages";
+    settings.CommandColumn.MinWidth = 67;
+    settings.CommandColumn.Width = 67; //System.Web.UI.WebControls.Unit.Percentage(5);
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 5;
+    settings.SettingsCookies.Enabled = true;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.SupplierImportFileRecordFields;
+    settings.SettingsText.PopupEditFormCaption = Resources.SupplierImportFileRecordField;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.Styles.Cell.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.ClientSideEvents.BeginCallback = "SupplierImportFilesSet.SupplierImportFileRecordFieldGrid_OnBeginCallback";
+
+    settings.DataBinding += (EventHandler)delegate(object sender, EventArgs e)
+    {
+        (sender as ASPxGridView).ForceDataRowType(typeof(SupplierImportFileRecordFieldViewModel));
+    };
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+        var item = ViewBag.CurrentItem != null ? ViewBag.CurrentItem : editContent.DataItem;
+
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "btnSupplierImportFileRecordFieldViewModelUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ " + settings.Name + ".UpdateEdit(); }";
+        headerOptions.CancelButton.Name = "btnSupplierImportFileRecordFieldViewModelCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        
+        object editModel = DataBinder.Eval(item, "This");
+
+        Html.RenderPartial("SupplierImportFileRecordHeader/SupplierImportFileRecordField/EditForm", editModel);
+    });
+
+}).Bind(Model).GetHtml()

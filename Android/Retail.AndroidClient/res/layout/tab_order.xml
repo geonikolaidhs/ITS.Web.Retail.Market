@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_4"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll111334"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll1113341"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btnScan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan"
+                android:textSize="@dimen/text_tiny" />
+
+            <TextView
+                android:id="@+id/lblOfferHeaderTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/code_barcode"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:textSize="@dimen/text_tiny" />
+
+            <CheckBox
+                android:id="@+id/chkBatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/batch"
+                android:textSize="@dimen/text_tiny" />
+
+            <CheckBox
+                android:id="@+id/chkAllowMultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AllowMultipleLines"
+                android:textSize="@dimen/text_tiny" />
+
+            <EditText
+                android:id="@+id/txtDefaultQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="9"
+                android:inputType="number"
+                android:minWidth="30dp"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll1113342"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/descriptionBOLDUL"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="@dimen/text_tiny" />
+
+            <AutoCompleteTextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:clickable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:imeOptions="actionDone"
+                android:maxLines="1"
+                android:textAllCaps="false"
+                android:textSize="@dimen/text_tiny" >
+
+                <requestFocus />
+            </AutoCompleteTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll1113343"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/txtQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="numberDecimal"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/price"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/txtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <include
+            android:layout_margin="10dp"
+            layout="@layout/row" />
+
+        <ListView
+            android:id="@+id/lstDocumentLines"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ITS.Retail.Model.Coupon>
+@using ITS.Retail.ResourcesLib;
+@{
+    GridViewSettings settings = ITS.Retail.WebClient.Extensions.HtmlGridExtension.GetDefaultSettings(ViewContext,
+                                                        typeof(Coupon), typeof(CouponController), "grdCoupons",
+                                                        showAddIcon: false, generateColumns: false);
+                                                        
+    settings.SettingsText.Title = Resources.Coupons;
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Amount";
+        set.Caption = Resources.Amount;
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "Code";
+        set.Caption = Resources.Code;
+    });
+    settings.Columns.Add(set =>
+    {
+        set.FieldName = "CouponCategory.Description";
+        set.Caption = Resources.Category;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsActiveFromDate";
+        col.Caption = Resources.IsActiveFromDate;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsActiveUntilDate";
+        col.Caption = Resources.IsActiveUntilDate;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsUnique";
+        col.Caption = Resources.IsUnique;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "NumberOfTimesUsed";
+        col.Caption = Resources.Used;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "DiscountType.Description";
+        col.Caption = Resources.DiscountType;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PaymentMethod.Description";
+        col.Caption = Resources.PaymentMethod;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CouponAppliesOn";
+        col.Caption = Resources.CouponAppliesOn;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((CouponAppliesOn)DataBinder.Eval(c.DataItem, "CouponAppliesOn")).ToLocalizedString());
+        });
+    });    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CouponAmountType";
+        col.Caption = Resources.CouponAmountType;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((CouponAmountType)DataBinder.Eval(c.DataItem, "CouponAmountType")).ToLocalizedString());
+        });
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CouponAmountIsAppliedAs";
+        col.Caption = Resources.CouponAmountIsAppliedAs;
+        col.SetDataItemTemplateContent(c =>
+        {
+            ViewContext.Writer.Write(((CouponAmountIsAppliedAs)DataBinder.Eval(c.DataItem, "CouponAmountIsAppliedAs")).ToLocalizedString());
+        });
+    });
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    Html.DevExpress().GridView(settings).Bind(Model).GetHtml();
+}

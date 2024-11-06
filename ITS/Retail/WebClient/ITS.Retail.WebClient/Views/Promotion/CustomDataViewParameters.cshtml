@@ -1,0 +1,129 @@
+﻿@model PromotionCustomDataViewApplicationRuleWizardModel
+
+@Html.DevExpress().CallbackPanel(set =>
+{
+    set.Name = "CustomDataViewParametersCallbackPanel";
+    set.CallbackRouteValues = new { Controller = "Promotion", Action = "CustomDataViewParameters" };
+    set.SetContent(() =>
+    {
+        if (Model != null && Model.Parameters != null && Model.Parameters.Count > 0)
+        {
+            ViewContext.Writer.Write("<table>");
+            int componentCounter = 0;
+            foreach (PromotionCustomDataViewParameterWizardModel promotionCustomDataViewParameterWizardModel in Model.Parameters)
+            {
+                ViewContext.Writer.Write("<tr><th>"+promotionCustomDataViewParameterWizardModel.Description+ ":</th><td>");
+                componentCounter ++;
+                string componentNamingConvention = "parameter_" + componentCounter;
+
+                string componentName = componentNamingConvention + "_Description";
+
+                ViewContext.Writer.Write("<input type='hidden' name='"+ componentName + "' id='" + componentName + "' value='"+ promotionCustomDataViewParameterWizardModel.Description + "' />");
+                componentName = componentNamingConvention + "_Name";
+                ViewContext.Writer.Write("<input type='hidden' name='" + componentName + "' id='" + componentName + "' value='" + promotionCustomDataViewParameterWizardModel.Name + "' />");
+
+                string typeValue = string.Empty;
+
+                componentName = componentNamingConvention + "_Value";
+                switch (promotionCustomDataViewParameterWizardModel.Type)
+                {
+                    case "DateTime":
+                        typeValue = typeof(DateTime).FullName;
+                        Html.DevExpress().DateEdit(deSettings =>
+                        {
+                            deSettings.Properties.EditFormat = EditFormat.Date;
+                            deSettings.Name = componentName;
+                        }).Bind(promotionCustomDataViewParameterWizardModel.Value).GetHtml();
+                        break;
+                    case "Boolean":
+                        typeValue = typeof(Boolean).FullName;
+                        Html.DevExpress().CheckBox(settings =>
+                        {
+                            settings.Name = componentName;
+                            settings.Checked = promotionCustomDataViewParameterWizardModel.Value == null ? false : (Boolean)promotionCustomDataViewParameterWizardModel.Value;
+                            settings.Text = promotionCustomDataViewParameterWizardModel.Description;
+                        }).GetHtml();
+                        break;
+                    default:
+                        typeValue = typeof(String).FullName;
+                        Html.DevExpress().TextBox(settings =>
+                        {
+                            settings.Name = componentName;
+                        }).Bind(promotionCustomDataViewParameterWizardModel.Value).GetHtml();
+                        break;
+                }
+
+                ViewContext.Writer.Write("<input type='hidden' name='" + componentNamingConvention + "_Type" + "' id ='" + componentNamingConvention + "_Type" + "' value='" + typeValue + "'");
+
+                ViewContext.Writer.Write("</td></tr>");
+            }
+            ViewContext.Writer.Write("</table>");
+
+            int conditionsComponentCounter = 0;
+            foreach (PromotionCustomDataViewConditionViewModel condition in Model.Conditions)
+            {
+                ViewContext.Writer.Write("<table>");
+
+
+                conditionsComponentCounter++;
+                string componentNamingConvention = "condition_" + conditionsComponentCounter;
+                string componentName = componentNamingConvention + "_DataViewColumn";
+
+                ViewContext.Writer.Write("<input type='hidden' name='" + componentName + "' id ='" + componentName + "' value='" + condition.DataViewColumn + "'");
+
+                ViewContext.Writer.Write("<tr><th>" + condition.DataViewColumn + ":</th><td>");
+
+                Html.DevExpress().ComboBox(combosettings =>
+                {
+                    combosettings.Properties.CaptionStyle.CssClass = "label";
+                    combosettings.Properties.CaptionSettings.VerticalAlign = EditorCaptionVerticalAlign.Middle;
+                    combosettings.Name = componentNamingConvention+ "_ComparisonOperator";
+                    combosettings.ControlStyle.CssClass = "editor";
+                    combosettings.Properties.TextField = "Value";
+                    combosettings.Properties.ValueField = "Key";
+                    combosettings.Properties.ValueType = typeof(ComparisonOperator);
+                    combosettings.ShowModelErrors = true;
+                    combosettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    combosettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+                    combosettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                }).BindList(Enum<ComparisonOperator>.GetLocalizedDictionary()).Bind(DataBinder.Eval(condition, "ComparisonOperator")).GetHtml();
+
+                ViewContext.Writer.Write("</td><td>");
+                componentName = componentNamingConvention + "_Value";
+                string typeName = condition.Value == null ? typeof(String).FullName : condition.Value.GetType().FullName;
+                switch (typeName)
+                {
+                    case "DateTime":
+                        Html.DevExpress().DateEdit(deSettings =>
+                        {
+                            deSettings.Properties.EditFormat = EditFormat.Date;
+                            deSettings.Name = componentName;
+                        }).Bind(DataBinder.Eval(condition, "Value")).GetHtml();
+                        break;
+                    case "bool":
+                        bool result = false;
+                        string conditionValue = condition.Value == null ? string.Empty : condition.Value.ToString();
+                        Boolean.TryParse(conditionValue,out result);
+                        Html.DevExpress().CheckBox(settings =>
+                        {
+                            settings.Name = componentName;
+                            settings.Checked = result;
+                            settings.Text = condition.DataViewColumn;
+                        }).Bind(DataBinder.Eval(condition, "Value")).GetHtml();
+                        break;
+                    default:
+                        Html.DevExpress().TextBox(settings =>
+                        {
+                            settings.Name = componentName;
+                        }).Bind(DataBinder.Eval(condition, "Value")).GetHtml();
+                        break;
+                }
+
+                ViewContext.Writer.Write("</td></tr>");
+
+                ViewContext.Writer.Write("</table>");
+            }
+        }
+    });
+}).GetHtml()
+

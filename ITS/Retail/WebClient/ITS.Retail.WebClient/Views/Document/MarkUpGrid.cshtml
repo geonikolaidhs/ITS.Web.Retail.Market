@@ -1,0 +1,296 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@{       
+    GridViewSettings settings = new GridViewSettings();
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.Name = "grdMarkUp";
+    settings.CommandColumn.Width = 45;
+    settings.ControlStyle.CssClass = "GridfirstCollumnHeader";
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.MarkUp;
+    settings.KeyFieldName = "Oid";
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.ClientSideEvents.BeginCallback = "grdMarkUpBeginCallback";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.CallbackRouteValues = new { Controller = "Document", Action = "MarkUpGrid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 8;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSize = 10;
+    settings.SettingsPager.AlwaysShowPager = true;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.CommandColumn.Visible = false;
+    settings.CommandColumn.ShowSelectCheckbox = false;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    
+    settings.PreRender = (sender, e) =>
+    {
+        ((MVCxGridView)sender).FocusedRowIndex = 0;
+    };
+    
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+        {
+            e.Row.Attributes.Remove("oncontextmenu");
+        }
+    };
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Selected";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Select;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().CheckBox(cbx_settings =>
+            {
+                cbx_settings.Name = "selected" + DataBinder.Eval(c.DataItem, "Oid");// +DataBinder.Eval(c.DataItem, "LineNumber");
+                cbx_settings.Text = "";
+                cbx_settings.ControlStyle.CssClass = "editor";
+                cbx_settings.Properties.ValueChecked = true;
+                cbx_settings.Properties.ValueGrayed = false;
+                cbx_settings.Properties.ValueUnchecked = false;
+                cbx_settings.Properties.ValueType = typeof(bool);
+                cbx_settings.ControlStyle.ForeColor = System.Drawing.Color.Black;
+                cbx_settings.Properties.ClientSideEvents.ValueChanged = "grdMarkUpValueChanged";
+            }).Bind(DataBinder.Eval(c.DataItem, "Selected")).GetHtml();
+        });
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "priceCatalogDetail.Item.Code";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Code;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "newDocumentDetail.Item.Name";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.Item;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "priceCatalogDetail.PriceCatalog.Description";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.PriceCatalog;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "priceCatalogDetail.Value";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.UnitPrice;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "priceCatalogDetail.VATIncluded";
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.VatIncluded;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "lastValueStr";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.OldUnitPrice;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "newValue";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.NewUnitPrice;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.SetEditItemTemplateContent(c =>
+        {
+            Html.DevExpress().Label(set =>
+            {
+                set.Text = c.Text;
+            }).GetHtml();
+        });
+        col.ReadOnly = true;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MarkUp";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.MarkUp + " (%)";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+        col.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().SpinEdit(set =>
+            {
+                set.Name = "markup" + DataBinder.Eval(c.DataItem, "Oid");
+                set.Enabled = true;
+                set.ReadOnly = false;
+                set.ClientEnabled = true;
+                set.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                set.Properties.ClientSideEvents.KeyPress = "markupKeyPress";
+                set.Properties.SpinButtons.Visible = false;
+                set.Properties.SpinButtons.Enabled = false;
+                set.Properties.SpinButtons.ShowIncrementButtons = false;
+                set.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                set.Properties.NumberType = SpinEditNumberType.Float;
+                set.Properties.NumberFormat = SpinEditNumberFormat.Number;
+                set.Properties.DecimalPlaces = 2;
+                set.Properties.DisplayFormatInEditMode = true;
+                set.Properties.SpinButtons.ShowIncrementButtons = false;
+                set.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                set.Properties.AllowMouseWheel = false;
+                set.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Bind((decimal)DataBinder.Eval(c.DataItem, "MarkUp") * 100).GetHtml();
+        });
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "UnitPrice";
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Caption = Resources.UnitPrice;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+
+        col.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().SpinEdit(set =>
+            {
+                set.Name = "unit_price" + DataBinder.Eval(c.DataItem, "Oid");
+                set.Enabled = true;
+                set.ReadOnly = false;
+                set.ClientEnabled = true;
+                set.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                set.Properties.ClientSideEvents.KeyPress = "unit_priceKeyPress";
+                set.Properties.SpinButtons.Visible = false;
+                set.Properties.SpinButtons.Enabled = false;
+                set.Properties.SpinButtons.ShowIncrementButtons = false;
+                set.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                set.Properties.NumberType = SpinEditNumberType.Float;
+                set.Properties.NumberFormat = SpinEditNumberFormat.Number;
+                set.Properties.SpinButtons.ShowIncrementButtons = false;
+                set.Properties.SpinButtons.ShowLargeIncrementButtons = false;
+                set.Properties.DecimalPlaces = 4;
+                set.Properties.AllowMouseWheel = false;
+            }).Bind(c.Text).GetHtml();
+        });
+    });   
+}
+
+@Html.DevExpress().GridView(settings).Bind(Session["valueChanges"]).GetHtml()

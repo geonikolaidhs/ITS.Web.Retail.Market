@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ITS.Retail.Model.VatLevel>
+@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.MenuApplicationSettingsVATFactors;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.HideSpanSettings = false;
+}
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/VatLevel.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@Html.DevExpress().PageControl(
+                settings2 =>
+                {
+                    settings2.Name = "pcFeatures2";
+                    settings2.ActivateTabPageAction = ActivateTabPageAction.Click;
+                    settings2.TabAlign = TabAlign.Left;
+                    settings2.TabPosition = TabPosition.Top;
+                    settings2.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    //settings2.Height = 600;
+                    settings2.TabPages.Add(Resources.VatLevels).SetContent(() =>
+                    {
+                        @Html.RenderPartial("Grid", Model);
+                    });
+
+                    settings2.TabPages.Add(Resources.VatCategories).SetContent(() =>
+                    {
+                        @Html.RenderPartial("VatCategoryGrid");
+                    });
+
+                    settings2.TabPages.Add(Resources.VatFactors).SetContent(() =>
+                    {
+                        @Html.RenderPartial("VatFactorGrid");
+                    });
+
+                  
+                }).GetHtml()

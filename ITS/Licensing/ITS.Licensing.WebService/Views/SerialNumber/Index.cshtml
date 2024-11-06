@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Serial Number";
+}
+
+<h2>Serial Number</h2>
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "snLicensePanel";
+    settings.HeaderText = "Serial Numbers";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+
+        Html.RenderPartial("Grid");
+    });
+}).GetHtml()

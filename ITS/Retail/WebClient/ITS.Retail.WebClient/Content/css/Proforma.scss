@@ -1,0 +1,66 @@
+﻿//colors
+$mercury: rgba(229, 229, 229, 1);
+$color_dove_gray_40_approx: rgba(110, 110, 110, 0.4);
+$color_cerulean_approx: rgba(0, 152, 236, 1);
+
+.wrapper .container {
+	.relative {
+		.filter_search_container {
+			background: none;
+		}
+		span#filterinfo {
+			background: none;
+		}
+	}
+	table.FilterPanel.relative {
+		position: relative;
+		z-index: 2;
+		width: 100%;
+        #FilterPanel_RPC {
+	        background: $mercury;
+	        border: 1px solid $color_dove_gray_40_approx;
+	        border-top: 0;
+	        border-bottom: 0;
+            box-shadow: none;
+        }
+		#btnSearch {
+			clear: none;
+			float: none;
+			margin: 16px 0 0;
+		}
+		td.dxrpHeader_ITSTheme1 {
+			background: $mercury;
+			border: 1px solid $color_dove_gray_40_approx;
+			border-bottom: 0;
+			span {
+				padding: 5px 9px 9px 6px;
+				background: none;
+				background-image: none;
+				background-position: center;
+				cursor: auto;
+				color: $color_cerulean_approx;
+				&.up {
+					background-image: none;
+				}
+			}
+		}
+	}
+}
+
+.Proforma .buttonGridContainer {
+  position: absolute;
+    right: 60px;
+    top: 134px;
+}
+
+#documentEditPageControlContainer .buttonGridContainer{
+    top: 33px;
+}
+
+.buttonGridContainer .btnTransform {
+  margin-right: 6px;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 9px 20px;
+  background-color: #000;
+}

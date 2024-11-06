@@ -1,0 +1,42 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.WebClient.Controllers;
+@{
+    eDocumentTypeView ViewForm = (eDocumentTypeView)ViewBag.DocumentViewForm;
+}
+@Html.DevExpress().ComboBox(combosettings =>
+{
+
+    combosettings.Name = "description_search";
+    combosettings.CallbackRouteValues = new { Controller = "Document", Action = "SearchByDescription" };
+    combosettings.Properties.CallbackPageSize = 15;
+    combosettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    combosettings.Properties.TextField = "PriceCataloDetail";
+    combosettings.Properties.ValueType = typeof(Guid);
+    combosettings.Properties.ValueField = "Oid";
+    combosettings.Properties.Columns.Add("Item.Name", Resources.Description, 240);
+    combosettings.Properties.Columns.Add("Item.Code", Resources.Code, 50);
+    combosettings.Properties.Columns.Add("Barcode.Code", Resources.Barcode, 80);
+    combosettings.Properties.ClientSideEvents.SelectedIndexChanged = "SelectByDescription";
+    combosettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+    combosettings.Properties.FilterMinLength = 0;
+    combosettings.Properties.NullText = Resources.SearchByDescription + " | " + Resources.ComboBoxNote;
+    combosettings.Properties.ClientSideEvents.ButtonClick = "clearComboBox";
+    EditButton button = new EditButton(" ");
+    button.Image.Url = Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]);
+    combosettings.Properties.Buttons.Add(button);
+    button.Image.AlternateText = Resources.Clear;
+
+    if (ViewForm == eDocumentTypeView.Advanced)
+    {
+        combosettings.Enabled = ViewBag.DocumentDetailFormMode == "Add" || ViewBag.DocumentDetailFormMode == "StartAdd";
+        combosettings.ControlStyle.CssClass = "search advanced-document-search-field";
+        combosettings.Properties.DropDownWidth = 502;
+        combosettings.Properties.IncrementalFilteringDelay = 1000;
+    }
+    else if (ViewForm == eDocumentTypeView.Simple)
+    {
+        combosettings.ControlStyle.CssClass = "font-weight-bold";
+        combosettings.Properties.IncrementalFilteringDelay = 500;
+    }
+
+}).BindList(DocumentController.ItemAllRequestedByFilterCondition, DocumentController.ItemRequestedByValue).GetHtml()

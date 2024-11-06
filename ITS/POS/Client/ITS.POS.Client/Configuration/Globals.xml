@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Globals>
+  <CurrentStore>6bca1c46-b2fa-44fe-bdd9-442e3e1b7ef7</CurrentStore>
+  <CurrentTerminal>c113d471-9c87-4ae0-8901-b032001e7cfd</CurrentTerminal>
+  <TerminalID>1</TerminalID>
+  <DefaultCustomer>f741e99e-b4d1-4ded-ac5e-5d3014e6c208</DefaultCustomer>
+  <DefaultDocumentType>a6e71fd2-70de-4846-9099-ccc3d185e0c2</DefaultDocumentType>
+  <ProFormaInvoiceDocumentType>bafce965-cb9a-4ec0-9de8-252d49dcdf47</ProFormaInvoiceDocumentType>
+  <ProFormaInvoiceDocumentSeries>2a3a9ac4-af52-4a5a-a6ba-a4863cec1b9c</ProFormaInvoiceDocumentSeries>
+  <SpecialProformaDocumentType>00000000-0000-0000-0000-000000000000</SpecialProformaDocumentType>
+  <SpecialProformaDocumentSeries>00000000-0000-0000-0000-000000000000</SpecialProformaDocumentSeries>
+  <WithdrawalDocumentType>3d45b219-a95f-4310-a398-28f9d6418623</WithdrawalDocumentType>
+  <WithdrawalDocumentSeries>210e1272-28c2-4b1d-a271-90134718c8f9</WithdrawalDocumentSeries>
+  <WithdrawalItem>a062ca64-16fd-4a10-959e-70636397b14b</WithdrawalItem>
+  <DepositDocumentType>b80aa995-caf1-4fa9-a588-e5bcadd78938</DepositDocumentType>
+  <DepositDocumentSeries>32f6cc07-6ed4-43d9-be73-88175a63fc5a</DepositDocumentSeries>
+  <DepositItem>dcafc132-3bb4-4769-89e2-6d1096c10c3a</DepositItem>
+  <DefaultDocumentStatus>3150c8ab-f725-4e15-a143-65cfff9a7084</DefaultDocumentStatus>
+  <DefaultDocumentSeries>8ecbb774-2c4c-46b3-b023-475e6a6cf6ca</DefaultDocumentSeries>
+  <DefaultPaymentMethod>3112fa44-7a19-42ce-9586-5331d13eb5ab</DefaultPaymentMethod>
+  <UsesTouchScreen>False</UsesTouchScreen>
+  <UsesKeyLock>False</UsesKeyLock>
+  <AutoFocus>False</AutoFocus>
+  <AsksForStartingAmount>True</AsksForStartingAmount>
+  <AsksForFinalAmount>False</AsksForFinalAmount>
+  <PrintDiscountAnalysis>False</PrintDiscountAnalysis>
+  <AutoIssueZEAFDSS>False</AutoIssueZEAFDSS>
+  <FiscalDevice>MICRELEC_FISCAL_PRINTER</FiscalDevice>
+  <ReceiptVariableIdentifier>@</ReceiptVariableIdentifier>
+  <CurrencySymbol>€</CurrencySymbol>
+  <CurrencyPattern>AFTER_NUMBER_WITH_SPACE</CurrencyPattern>
+  <ABCDirectory>c:\abc</ABCDirectory>
+  <Locale>el</Locale>
+  <EnableLowEndMode>False</EnableLowEndMode>
+  <DemoMode>False</DemoMode>
+  <ForcedWithdrawMode>NO</ForcedWithdrawMode>
+  <StandaloneFiscalOnErrorMessage>
+  </StandaloneFiscalOnErrorMessage>
+  <ForcedWithdrawCashAmountLimit>0</ForcedWithdrawCashAmountLimit>
+  <POSSellsInactiveItems>False</POSSellsInactiveItems>
+  <StoreControllerURL>http://localhost/WebClient</StoreControllerURL>
+</Globals>

@@ -1,0 +1,10 @@
+﻿<div id="statisticsPresenter" class="float-left">
+    <div class="trackBars">
+        <div class="trackBarsRadio">
+            @Html.Partial("../Home/ListsValueOrQtyRadio")
+        </div>
+        @Html.Partial("../Home/ListsTopItemsTrackBar")
+        @Html.Partial("../Home/ListsDateFilterTrackBar")
+    </div>
+</div>
+@Html.Action("ItemsStatistics", "Home")

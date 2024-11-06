@@ -1,0 +1,1242 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITS.Common.Utilities.Compact</name>
+    </assembly>
+    <members>
+        <member name="T:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlCe">
+            <summary>
+            PreviewControllerSqlCe class
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Preview.Compact.IPreviewController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.IPreviewController.ParseXmlFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="formName"></param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.IPreviewController.ExecuteMasterStatement(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="docHeadId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.IPreviewController.ExecuteDetailsStatement(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="docHeadId"></param>
+            <param name="docLineId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlCe.#ctor(System.Data.SqlServerCe.SqlCeConnection)">
+            <summary>
+            
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlCe.ParseXmlFile(System.String)">
+            <summary>
+            Parses the preview xml file and reads the SELECT statements of it.
+            </summary>
+            <param name="formName">The name of the xml file (without the extension).</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlCe.ExecuteMasterStatement(System.Int32)">
+            <summary>
+            Executes the master SELECT statement.
+            </summary>
+            <param name="docHeadId">The id of a voucher.</param>
+            <returns>A DataSet containing the data returned by the execution of the SELECT statement.</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlCe.ExecuteDetailsStatement(System.Int32,System.Int32)">
+            <summary>
+            Executes the details SELECT statement.
+            </summary>
+            <param name="docHeadId"></param>
+            <param name="docLineId">The id of a voucher.</param>
+            <returns>A list containing the results returned by the execution of the SELECT statement.</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlCe.ProcessSubqueries(System.String)">
+            <summary>
+            Processes subqueries found within the provided statement which have the form of @Select ... @ and replaces
+            them with actualy fields with hard coded values(results)
+            </summary>
+            <param name="statement">The provided statement that includes the subqueries</param>
+            <returns>The processed statement witht the hard coded fields and values</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.BarcodeType">
+            <summary>
+            This represents various different types of barcodes.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.ComplexBarcode.BarcodeType.btNone">
+            <summary>
+            The barcode is not complex.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.ComplexBarcode.BarcodeType.btWeight">
+            <summary>
+            The barcode contains a number that represents Weight
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.ComplexBarcode.BarcodeType.btAmount">
+            <summary>
+            The barcode contains a number that represents Amount (Money)
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.BarcodeBuilder">
+            <summary>
+            This class takes a string that represents a barcode and a BarcodeSettings instance
+            and generates a BarcodeComplex instance;
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeBuilder.#ctor(System.String,ITS.Common.Utilities.ComplexBarcode.BarcodeSettings)">
+            <summary>
+            Initializes a new instance of the BarcodeBuilder class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeBuilder.GetInstance">
+            <summary>
+            It creates a BarcodeComplex instance and fills properties with values that are
+            extracted from the Barcode based on the BarcodeSettings information.
+            </summary>
+            <returns>A BarcodeComplex instance</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.BarcodeSettingsLoader">
+            <summary>
+            This class tries to load a Config XML file and if it has a valid BarcodeSettings section
+            it returns a BarcodeSettings instance that represents that section.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettingsLoader.#ctor">
+            <summary>
+            Initializes a new instance of the BarcodeSettingsLoader class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettingsLoader.LoadFromFile(System.String)">
+            <summary>
+            Tries to load a Config XML file and if it has a valid BarcodeSettings section
+            it returns a BarcodeSettings instance that represents that section.
+            </summary>
+            <param name="file">The Confic XML file</param>
+            <returns>A BarcodeSettings instance or Null if there are Errors</returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeSettingsLoader.Errors">
+            <summary>
+            This is the list for errors, if there are any.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes">
+            <summary>
+            The EAN128 identifier types
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.ProductCodeUnit">
+            <summary>
+            (01) ProductCode Unit
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.ProductCodeVariable">
+            <summary>
+            (02) ProductCode Variable
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.QuantityUnits">
+            <summary>
+            (37) Quantity in units
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.QuantityWeight">
+            <summary>
+            (31XX) Quantity in weight XX = decimals
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.LOT">
+            <summary>
+            (10) LOT
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.ExpirationDate">
+            <summary>
+            (17)Expiration Date
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.IsIdentifierType(System.String)">
+            <summary>
+            Returns true if the given identifier type is included in the possible identifiers
+            </summary>
+            <param name="identifierType">The identifier provided through the xml</param>
+            <returns>True if is one of the possible</returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierTypes.GetTypesMessage">
+            <summary>
+            Returns the list of possible identifier types with \r\n after each one
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting">
+            <summary>
+            A single identifier setting for EAN128 barcodes
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.#ctor(System.String,System.String,System.Int32,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the BarcodeSetting class.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.IdentifierType">
+            <summary>
+            Gets or sets the identifier type
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.VarWeightText">
+            <summary>
+            The variable weight characters in the beginning of the product
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.ConstWeightText">
+            <summary>
+            The constant weight characters in the beginning of the product 
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.TruncateLeft">
+            <summary>
+            Truncates left characters before returning the product code
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.IdentifierString">
+            <summary>
+            Gets or sets the string of this identifier type
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.ConstantContentLength">
+            <summary>
+            Constant length content for this identifier.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSetting.MaxContentLength">
+            <summary>
+            The max content length to read, this can be interrupted by the input of FNC1 characters in the 
+            in the identifier content
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Preview.Compact.Utility">
+            <summary>
+            Utility class
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.Utility.PreviewFileExists(System.String)">
+            <summary>
+            It checks if the preview file exists inside a predefine relative path
+            </summary>
+            <param name="formName">The name of the XML file</param>
+            <returns>True if it exists and False otherwise</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.Utility.GetConnectionString">
+            <summary>
+            Gets a connection string that is extracted from the local Config.XML file
+            </summary>
+            <returns>The connection string</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.Utility.GetPreviewFileName(System.String)">
+            <summary>
+            It prepends the preview filename with the correct relative path
+            </summary>
+            <param name="formName">The preview filename</param>
+            <returns>The preview filename</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.CradleResult">
+            <summary>
+            Enumeration for representing the status of a PDA.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.CradleResult.Cradled">
+            <summary>
+            The device is cradled
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.CradleResult.Uncradled">
+            <summary>
+            The device is not cradled
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.CradleResult.WebException">
+            <summary>
+            There was a WebException thrown
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.CradleResult.OtherException">
+            <summary>
+            There was some other exception thrown
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.PDAHelper">
+            <summary>
+            A helper class for working with PDAs
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.PDAHelper.IsDeviceCradled">
+            <summary>
+            Checks if the device is cradled
+            </summary>
+            <returns>One of the following enumeration values: Cradled, Uncradled, WebException, OtherException</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader">
+            <summary>
+            The EAN128 barcode settings loader which loads the identifier settings from an xml file
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.#ctor">
+            <summary>
+            Initializes a new instance of the BarcodeSettingsLoader class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.LoadFromFile(System.String)">
+            <summary>
+            Loads the given configuration file with default "Configuration" root xml element
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.LoadFromFile(System.String,System.String)">
+            <summary>
+            Tries to load a Config XML file and if it has a valid BarcodeSettings section
+            it returns a BarcodeSettings instance that represents that section.
+            </summary>
+            <param name="file">The Confic XML file</param>
+            <param name="rootElement">The root element from which we will search EAN128BarcodeSettings</param>
+            <returns>A BarcodeSettings instance or Null if there are Errors</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.GetConstantContentLength(ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings,System.Int32,System.Xml.XmlNode,System.String)">
+            <summary>
+            Extracts the length of the content for the current identifier.
+            </summary>
+            <param name="result"></param>
+            <param name="lineCount"></param>
+            <param name="xmlNode"></param>
+            <param name="identifierType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.GetConstantWeightText(ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings,System.Int32,System.Xml.XmlNode)">
+            <summary>
+            Gets the constant weight text used in initial identifiers
+            </summary>
+            <param name="result"></param>
+            <param name="lineCount"></param>
+            <param name="xmlNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.GetVariableWeightText(ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings,System.Int32,System.Xml.XmlNode)">
+            <summary>
+            Gets the variable weight text used in initial identifiers
+            </summary>
+            <param name="result"></param>
+            <param name="lineCount"></param>
+            <param name="xmlNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.GetErrorsWithLineBreaks">
+            <summary>
+            Returns the errors if any with linebreaks at the end
+            </summary>
+            <returns>Errors + "\r\n" on each one</returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeSettingsLoader.Errors">
+            <summary>
+            This is the list for errors, if there are any.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.BarcodeComplex">
+            <summary>
+            You can get a valid instance of this class using BarcodeBuilder.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeComplex.#ctor(System.String,ITS.Common.Utilities.ComplexBarcode.BarcodeType,System.Decimal,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the BarcodeComplex class.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeComplex.BarcodeType">
+            <summary>
+            The BarcodeType of this Barcode
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeComplex.Number">
+            <summary>
+            The Weight or Amount
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeComplex.InternalBarcode">
+            <summary>
+            This holds the internal represenation of this Barcode. This is
+            how it would be stored in the database.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeComplex.ProductCode">
+            <summary>
+            This is the code of the product
+            </summary>
+        </member>
+        <member name="T:ITS.Sales.Client.WinCE.PleaseWaitForm">
+            <summary>
+            A progress form
+            </summary>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.SetProgressLimits(System.Int32,System.Int32)">
+            <summary>
+            Sets the progress limits
+            </summary>
+            <param name="min"></param>
+            <param name="max"></param>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.ShowProgressForm(System.Int32,System.Int32)">
+            <summary>
+            Shows the progress form with the given min max progres
+            </summary>
+            <param name="min"></param>
+            <param name="max"></param>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.CloseProgessForm">
+            <summary>
+            Closes any open progress form
+            </summary>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.IncrementOne">
+            <summary>
+            Increments by one the progress bar
+            </summary>
+        </member>
+        <member name="F:ITS.Sales.Client.WinCE.PleaseWaitForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ITS.Sales.Client.WinCE.PleaseWaitForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.MessageForm">
+            <summary>
+            Displays a message and an interface to the user depending on the preferend behavior ( DialogType)
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.PlaySound(System.Byte[],System.IntPtr,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="szSound"></param>
+            <param name="hModule"></param>
+            <param name="flags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.PlaySound(System.String,System.IntPtr,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="szSound"></param>
+            <param name="hModule"></param>
+            <param name="flags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.Initialize(ITS.Common.Utilities.Compact.MessageForm.SoundModes)">
+            <summary>
+            Initializes the variables needed for the MessageForm
+            </summary>
+            <param name="soundMode">The sound mode that will be used. Default = CUSTOM_SOUNDS(wav files that we provide embedded).
+            SYSTEM_SOUNDS means that we will use equivalent system wav files which are commonly found in windows\\</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.Execute(System.String,System.String)">
+            <summary>
+            Shows a form with a title and a message to the user
+            </summary>
+            <param name="title"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.Execute(System.String,System.String,ITS.Common.Utilities.Compact.MessageForm.DialogTypes)">
+            <summary>
+            Shows a form with a title a message with a DialoType behavior to the user.
+            </summary>
+            <param name="title"></param>
+            <param name="message"></param>
+            <param name="dialogType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.Execute(System.String,System.String,ITS.Common.Utilities.Compact.MessageForm.DialogTypes,ITS.Common.Utilities.Compact.MessageForm.MessageTypes)">
+            <summary>
+            Shows a form with a title and a message to the user
+            </summary>
+            <param name="title"></param>
+            <param name="message"></param>
+            <param name="dialogType"></param>
+            <param name="messageType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.PlayEmbeddedSound(System.String)">
+            <summary>
+            Plays the resource name from the dll resource file. Use SoundTypes class to pass a resource name.
+            </summary>
+            <param name="resourceName"></param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.PlayFileSound(System.String)">
+            <summary>
+            Plays a system sound
+            </summary>
+            <param name="fileSound"></param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.PlaySystemSound(System.String)">
+            <summary>
+            Accepts values from SND_ALIASES class
+            </summary>
+            <param name="systemSound"></param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.PlaySound">
+            <summary>
+            Plays the sound set for the MessageForm
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.#ctor(System.String,System.String,ITS.Common.Utilities.Compact.MessageForm.DialogTypes,ITS.Common.Utilities.Compact.MessageForm.MessageTypes)">
+            <summary>
+            Takes a title, a message and a dialog type and shows the corresponding information to the user
+            </summary>
+            <param name="title"></param>
+            <param name="message"></param>
+            <param name="dialogType"></param>
+            <param name="messageType"></param>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.MessageForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.MessageForm.SoundModes">
+            <summary>
+            The sound mode signified whether we are using the system sounds or custom sounds for the messages
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.SoundModes.SYSTEM_SOUNDS">
+            <summary>
+            Use system wavs
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.SoundModes.CUSTOM_SOUNDS">
+            <summary>
+            Use custom wavs
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags">
+            <summary>
+            PlaySound interface flags.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_SYNC">
+            <summary>
+            play synchronously (default)
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_ASYNC">
+            <summary>
+            play asynchronously
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_NODEFAULT">
+            <summary>
+            silence (!default) if sound not found
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_MEMORY">
+            <summary>
+            pszSound points to a memory file
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_LOOP">
+            <summary>
+            loop the sound until next sndPlaySound
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_NOSTOP">
+            <summary>
+            don't stop any currently playing sound
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_NOWAIT">
+            <summary>
+            don't stop any currently playing sound
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_ALIAS">
+            <summary>
+            name is a registry alias
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_ALIAS_ID">
+            <summary>
+            alias is a predefined ID
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_FILENAME">
+            <summary>
+            name is file name
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.PlaySoundFlags.SND_RESOURCE">
+            <summary>
+            name is resource name or atom
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.MessageForm.DialogTypes">
+            <summary>
+            The available DialogType behaviors
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.DialogTypes.MESSAGE">
+            <summary>
+            A common message dialog
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.DialogTypes.YESNO">
+            <summary>
+            A Yes or No dialog
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.MessageForm.MessageTypes">
+            <summary>
+            Defines the nature of the content of the message passed.
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.MessageTypes.NOTIFY">
+            <summary>
+            A simple notification
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.MessageTypes.QUESTION">
+            <summary>
+            A simple question
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.MessageTypes.WARNING">
+            <summary>
+            A warning
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.MessageForm.MessageTypes.CRITICAL">
+            <summary>
+            A critical message
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.SoundResourceNames">
+            <summary>
+            Enumerates strings corresponding to resource file names
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundResourceNames.CRITICAL">
+            <summary>
+            Suprise is an annoying sound meant to really grab the user's attention.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.SND_ALIASES">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMASTERISK">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMDEFAULT">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMEXCLAMATION">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMEXIT">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMHAND">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMQUESTION">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMSTART">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SND_ALIASES.SND_ALIAS_SYSTEMWELCOME">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings">
+            <summary>
+            This class represents a BarcodeSettings section of the Config XML file.
+            It contains a list with all the BarcodeSetting entries.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.#ctor">
+            <summary>
+            Initializes a new instance of the BarcodeSetting class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.GetBarcodeType(System.String)">
+            <summary>
+            It returns the BarcodeType of the given BarcodeSetting.
+            </summary>
+            <param name="typeID">The typeID of the BarcodeSetting we want to get the BarcodeType of</param>
+            <returns>The BarcodeType of the setting</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.Add(System.String,ITS.Common.Utilities.ComplexBarcode.BarcodeType,System.Boolean)">
+            <summary>
+            It adds a new BarcodeSetting.
+            </summary>
+            <param name="typeID">The TypeID</param>
+            <param name="type">The Type</param>
+            <param name="padding">The Padding</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.GetPadding(System.String)">
+            <summary>
+            It returns the Padding of the given BarcodeSetting.
+            </summary>
+            <param name="typeID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.Clear">
+            <summary>
+            It clears the containts of the BarcodeSettings list
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.ContainsTypeID(System.String)">
+            <summary>
+            It returns true if the given typeID exists in the list
+            </summary>
+            <param name="typeID">The TypeID we are searching for</param>
+            <returns>True if it exists in the list</returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeSettings.Count">
+            <summary>
+            The number of BarcodeSetting items in the list
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.BarcodeSetting">
+            <summary>
+            Represents a BarcodeSetting entry.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.BarcodeSetting.#ctor(ITS.Common.Utilities.ComplexBarcode.BarcodeType,System.Boolean)">
+            <summary>
+            Initializes a new instance of the BarcodeSetting class.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeSetting.BarcodeType">
+            <summary>
+            The BarcodeType of the BarcodeSetting
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.ComplexBarcode.BarcodeSetting.Padding">
+            <summary>
+            The Padding of the BarcodeSetting
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeTypes">
+            <summary>
+            The different barcode types based on initial identifier parsing
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeTypes.NOT_SET">
+            <summary>
+            It may be anything
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeTypes.UNIT">
+            <summary>
+            In (01) product quantity is 1
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeTypes.CONST_WEIGHT">
+            <summary>
+            In (02)0 product quantity is variable while weight is constant
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.EAN128BarcodeNS.EAN128BarcodeTypes.VARIABLE_WEIGHT">
+            <summary>
+            In (02)9 product quantity is variable and weight as well
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode">
+            <summary>
+            A EAN128Barcode
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.#ctor(System.String,ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings)">
+            <summary>
+            Constructor of EAN128Barcode
+            </summary>
+            <param name="barcode">The EAN128 barcode candidate</param>
+            <param name="settings">The EAN128 Identifier settings</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.Parse">
+            <summary>
+            Parses the given b arcode and extracts all the information included
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.ProductCode">
+            <summary>
+            Gets the product code
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.QuantityUnits">
+            <summary>
+            Gets the quantity units
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.QuantityWeight">
+            <summary>
+            Gets the quantity weight
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.LOT">
+            <summary>
+            Gets the LOT
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.ExpirationDateDate">
+            <summary>
+            Gets the expiration date
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.IsEAN128Barcode">
+            <summary>
+            Gets true if the given barcode in the constructor is a EAN128 barcode
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.Settings">
+            <summary>
+            Gets or sets the EAN128IdentifierSettings
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128Barcode.EAN128BarcodeType">
+            <summary>
+            The type of the barcode, it's set after we parse succesfully a barcode
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlClient">
+            <summary>
+            PreviewController class
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlClient.#ctor(System.Data.SqlClient.SqlConnection)">
+            <summary>
+            
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlClient.ParseXmlFile(System.String)">
+            <summary>
+            Parses the preview xml file and reads the SELECT statements of it.
+            </summary>
+            <param name="formName">The name of the xml file (without the extension).</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlClient.ExecuteMasterStatement(System.Int32)">
+            <summary>
+            Executes the master SELECT statement.
+            </summary>
+            <param name="docHeadId">The id of a voucher.</param>
+            <returns>A DataSet containing the data returned by the execution of the SELECT statement.</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerSqlClient.ExecuteDetailsStatement(System.Int32,System.Int32)">
+            <summary>
+            Executes the details SELECT statement.
+            </summary>
+            <param name="docHeadId"></param>
+            <param name="docLineId">The id of a voucher.</param>
+            <returns>A list containing the results returned by the execution of the SELECT statement.</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.ComplexBarcode.Helper">
+            <summary>
+            This static class contains helper methods for ComplexBarcode 
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.Helper.BoolTryParse(System.String,System.Boolean@)">
+            <summary>
+            This is a Compact Framework compatible TryParse method for Booleans.
+            </summary>
+            <param name="value">The value to try to convert</param>
+            <param name="result">The converted result</param>
+            <returns>True if the conversion was done</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.Helper.DecimalTryParse(System.String,System.Decimal@)">
+            <summary>
+            This is a Compact Framework compatible TryParse method for Decimals.
+            </summary>
+            <param name="value">The value to try to convert</param>
+            <param name="result">The converted result</param>
+            <returns>True if the conversion was done</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.ComplexBarcode.Helper.IntTryParse(System.String,System.Int32@)">
+            <summary>
+            This is a Compact Framework compatible TryParse method for Decimals.
+            </summary>
+            <param name="value">The value to try to convert</param>
+            <param name="result">The converted result</param>
+            <returns>True if the conversion was done</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.Preview.Compact.PreviewControllerFactory">
+            <summary>
+            This static class can be used to create a PreviewController either for SqlConnections or
+            SqlCeConnections.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerFactory.CreateSqlClientPreviewController(System.Data.SqlClient.SqlConnection)">
+            <summary>
+            It returns an IPreviewController instance for SqlConnections.
+            </summary>
+            <param name="connection">The SqlConnection</param>
+            <returns>An IPreviewController</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewControllerFactory.CreateSqlCePreviewController(System.Data.SqlServerCe.SqlCeConnection)">
+            <summary>
+            It returns an IPreviewController instance for SqlCeConnections.
+            </summary>
+            <param name="connection">The SqlCeConnection</param>
+            <returns>An IPreviewController</returns>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.CompactTools">
+            <summary>
+            Common func
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.CompactTools.ShowForm(System.Object)">
+            <summary>
+            Shows a form
+            </summary>
+            <param name="form"></param>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.XMLSettings">
+            <summary>
+            XMLSettings is used to maintain an application settings file for Compact Framework applications.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.#ctor(System.Boolean)">
+            <summary>
+            Creates an instance of an XMLSettings class.
+            </summary>
+            <param name="AllUsers">If this is true, it creates the settings file for all users.</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.SaveSetting(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Saves a boolean setting
+            </summary>
+            <param name="AppTitle">The application title</param>
+            <param name="Settings">The setting group</param>
+            <param name="Key">The setting name</param>
+            <param name="Value">A boolean value</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.SaveSetting(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Saves an integer setting
+            </summary>
+            <param name="AppTitle">The application title</param>
+            <param name="Settings">The setting group</param>
+            <param name="Key">The setting name</param>
+            <param name="Value">An integer value</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.SaveSetting(System.String,System.String,System.String,System.String)">
+            <summary>
+            Saves a string setting
+            </summary>
+            <param name="AppTitle">The application title</param>
+            <param name="Settings">The setting group</param>
+            <param name="Key">The settings name</param>
+            <param name="Value">A string value</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.GetSetting(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Gets an integer setting
+            </summary>
+            <param name="AppTitle">The application title</param>
+            <param name="Settings">The setting group</param>
+            <param name="Key">The setting name</param>
+            <param name="KeyValue">An integer value</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.GetSetting(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a boolean setting
+            </summary>
+            <param name="AppTitle">The application title</param>
+            <param name="Settings">The setting group</param>
+            <param name="Key">The setting name</param>
+            <param name="KeyValue">A boolean value</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.GetSetting(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets a string setting
+            </summary>
+            <param name="AppTitle">The application title</param>
+            <param name="Settings">The setting group</param>
+            <param name="Key">The setting name</param>
+            <param name="KeyValue">A string value</param>
+            <returns></returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.XMLSettings.SetupXMLFileName(System.String)">
+            <summary>
+            Returns filename for xmlfile, generated by using
+            AppTitle supplied to the two public methods and then
+            boolean supplied to the constructor.
+            install directory may be locked so check to see if
+            caller supplied an alternate directory.
+            </summary>
+            <param name="filename">Filename</param>
+        </member>
+        <member name="P:ITS.Common.Utilities.Compact.XMLSettings.AllUsers">
+            <summary>
+            Gets or sets if the application settings file is for all users or not.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Compact.XMLSettings.AlternatePath">
+            <summary>
+            Gets or sets the alternate path
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Preview.Compact.PreviewForm">
+            <summary>
+            A form for previewing SQL results
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewForm.#ctor(ITS.Common.Utilities.Preview.Compact.IPreviewController,System.String,System.Int32)">
+            <summary>
+            Constructs a new PreviewForm object and executes the master SELECT
+            statement of the given xml file.
+            </summary>
+            <param name="previewController">The controller for fetching the data</param>
+            <param name="formName"></param>
+            <param name="docHeadId"></param>
+        </member>
+        <member name="F:ITS.Common.Utilities.Preview.Compact.PreviewForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.Preview.Compact.PreviewForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Compact.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Compact.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.Compact.Properties.Resources.PleaseWait">
+            <summary>
+              Looks up a localized string similar to Παρακαλώ περιμένετε.
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.SoundPlayer">
+            <summary>
+            A static class that plays sounds
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.SoundPlayer.PlaySound(System.String,System.IntPtr,System.Int32)">
+            <summary>
+            This is the imported routine from coredll.dll
+            </summary>
+            <param name="szSound">This is the filename</param>
+            <param name="hModule">Here we usually put IntPtr.Zero</param>
+            <param name="flags">This is a combination of PlaySoundFlags, for example (int)(PlaySoundFlags.SND_FILENAME | PlaySoundFlags.SND_SYNC)</param>
+            <returns>Integer result</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.Compact.SoundPlayer.Play(System.String)">
+            <summary>
+            This is a helper that executes PlaySound(filename, IntPtr.Zero, (int)(PlaySoundFlags.SND_FILENAME | PlaySoundFlags.SND_SYNC))
+            </summary>
+            <param name="filename">The filename of the WAV sound</param>
+        </member>
+        <member name="T:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags">
+            <summary>
+            PlaySoundFlags for the last parameter of the imported function
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_SYNC">
+            <summary>
+            Play synchronously (default)
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_ASYNC">
+            <summary>
+            Play asynchronously
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_NODEFAULT">
+            <summary>
+            Silence (!default) if sound not found
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_MEMORY">
+            <summary>
+            pszSound points to a memory file
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_LOOP">
+            <summary>
+            Loop the sound until next sndPlaySound
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_NOSTOP">
+            <summary>
+            Don't stop any currently playing sound
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_NOWAIT">
+            <summary>
+            Don't wait if the driver is busy
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_ALIAS">
+            <summary>
+            Name is a registry alias
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_ALIAS_ID">
+            <summary>
+            Alias is a predefined ID
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_FILENAME">
+            <summary>
+            Name is file name
+            </summary>
+        </member>
+        <member name="F:ITS.Common.Utilities.Compact.SoundPlayer.PlaySoundFlags.SND_RESOURCE">
+            <summary>
+            Name is resource name or atom
+            </summary>
+        </member>
+        <member name="T:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings">
+            <summary>
+            Stires the identifier settings for EAN128 barcodes
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.#ctor">
+            <summary>
+            Initializes a new instance of the BarcodeSetting class.
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.Add(System.String,System.String,System.Int32,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            It adds a new BarcodeSetting.
+            </summary>
+            <param name="identifierType">The Type</param>
+            <param name="identifierString">The Padding</param>
+            <param name="truncateLeft">The truncate left</param>
+            <param name="constWeightText">The text that symbolizes a constant weight product</param>
+            <param name="varWeightText">The text that symbolizes a variable weight product</param>
+            <param name="constantContentLength">The constant length of content we read after an identifier has been found</param>
+            <param name="maxContentLength">The max content length we will read after an identifier, interrupted by FNC1</param>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.Clear">
+            <summary>
+            It clears the containts of the BarcodeSettings list
+            </summary>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.ContainsIdentifierType(System.String)">
+            <summary>
+            It returns true if the given identifierType exists in the list
+            </summary>
+            <param name="identifierType">The identifierString we are searching for</param>
+            <returns>True if it exists in the list</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.GetIdentifierSettingByType(System.String)">
+            <summary>
+            It returns true if the given identifierType exists in the list
+            </summary>
+            <param name="identifierType">The identifierString we are searching for</param>
+            <returns>True if it exists in the list</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.ContainsIdentifierString(System.String)">
+            <summary>
+            It returns true if the given identifierString exists in the list
+            </summary>
+            <param name="identifierString">The identifierString we are searching for</param>
+            <returns>True if it exists in the list</returns>
+        </member>
+        <member name="M:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.GetIdentifierSetting(System.String)">
+            <summary>
+            Gets the IdentifierSetting for the given string
+            </summary>
+            <param name="identifierString"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.Count">
+            <summary>
+            The number of BarcodeSetting items in the list
+            </summary>
+        </member>
+        <member name="P:ITS.Common.Utilities.EAN128BarcodeNS.EAN128IdentifierSettings.ContentTerminator">
+            <summary>
+            The character that terminates identifier content in case they don't have set length
+            </summary>
+        </member>
+    </members>
+</doc>

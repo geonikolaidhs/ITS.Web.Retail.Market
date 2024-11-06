@@ -1,0 +1,144 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    string title = Resources.OfferInfo;
+    if (ViewData["ID"] != null) {
+        PopupControlSettings popUpSettings = ITS.Retail.WebClient.Extensions.PopUpControlExtension.GetDefaultSettings("LoadViewPopup");
+        popUpSettings.AccessibilityCompliant = true;
+        popUpSettings.ClientSideEvents.Init = "function (s,e) { " + popUpSettings.Name + ".Show(); }";         
+        popUpSettings.CallbackRouteValues = new { Controller = "Offer", Action = "LoadViewPopup", ID = ViewData["ID"] };
+        popUpSettings.HeaderText = title;
+        popUpSettings.ControlStyle.CssClass = "isInviewMode";
+        popUpSettings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"background-light-grey\"><table class=\"headerTable margin-0-border-light-gray margin-0-auto-20\" ><tr><td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.Code + ":";
+                    edtSettings.AssociatedControlName = "Code";
+                }
+            )
+            .Render();
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    edtSettings.Name = "Code";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(ViewData["Code"] ?? "")
+            .Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Description;
+            }).Render();
+
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Description";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(ViewData["Description"] ?? "")
+            .Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.Description2 + ":";
+            }).Render();
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "Description2";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(ViewData["Description2"] ?? "")
+            .Render();
+
+            ViewContext.Writer.Write("</td></tr><tr><td>");
+
+            Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.StartDate + ":";
+            }
+            )
+            .Render();
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "StartDate";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(ViewData["StartDate"] ?? "")
+            .Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().Label(
+                edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Text = Resources.EndDate + ":";
+                }
+                )
+                .Render();
+
+            Html.DevExpress().TextBox(
+                edtSettings =>
+                {
+                    edtSettings.Name = "EndDate";
+                    edtSettings.ControlStyle.CssClass = "editor";
+                    edtSettings.ReadOnly = true;
+                }
+            )
+            .Bind(ViewData["EndDate"] ?? "")
+            .Render();
+
+            ViewContext.Writer.Write("</td><td>");
+
+            Html.DevExpress().CheckBox(chb_settings =>
+            {
+                chb_settings.Name = "IsActive";
+                chb_settings.Text = Resources.IsActive;
+                chb_settings.ControlStyle.CssClass = "editor padding-top-25";
+                chb_settings.Properties.ValueChecked = true;
+                chb_settings.Properties.ValueGrayed = false;
+                chb_settings.Properties.ValueUnchecked = false;
+                chb_settings.Properties.ValueType = typeof(bool);
+
+            }).Bind(ViewData["IsActive"] ?? "").Render();
+        
+            ViewContext.Writer.Write("</td></tr></table></div>");
+
+            Html.RenderAction("OfferDetailGrid", "Offer", new { OfferID = ViewData["ID"], editMode = false });
+
+        });
+
+
+        Html.DevExpress().PopupControl(popUpSettings).GetHtml();
+    }
+}

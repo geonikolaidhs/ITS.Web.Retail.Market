@@ -1,0 +1,4 @@
+﻿@{      
+    Html.RenderAction("AddressGrid", "Address", new { strTraderID = ViewData["TraderID"], displayCommands = false });
+    ViewContext.Writer.Write("<br /><div id='divGridPhone_" + ViewData["TraderID"].ToString().Replace('-', '_' ) + "'></div>");
+}

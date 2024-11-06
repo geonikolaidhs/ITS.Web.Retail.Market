@@ -1,0 +1,201 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().GridView(settings =>
+{
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.Name = "grdVatCategory";
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    //settings.ClientSideEvents.BeginCallback = "VatOnBeginCallback";
+    settings.ClientSideEvents.EndCallback = "function(s,e){grdVatFactor.PerformCallback();}";
+
+    if ((bool)ViewData["TableCanUpdate"] || (bool)ViewData["TableCanDelete"] || (bool)ViewData["TableCanInsert"])
+    {
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "#";
+            column.SetDataItemTemplateContent(c =>
+            {
+                if ((bool)ViewData["TableCanUpdate"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".SetFocusedRowIndex('" + c.ItemIndex.ToString() + "');" + settings.Name + ".StartEditRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Edit + "\"><img src='" + Url.Content("~/Content/img/edit.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Edit + "\" /></a>");
+                if ((bool)ViewData["TableCanDelete"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".DeleteRow('" + c.ItemIndex.ToString() + "');\" title=\"" + Resources.Delete + "\"><img src='" + Url.Content("~/Content/img/del.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Delete + "\" /></a>");
+
+            });
+            column.SetHeaderTemplateContent(c =>
+            {
+                if ((bool)ViewData["TableCanInsert"])
+                    ViewContext.Writer.Write("<a href='javascript:;' onclick=\"" + settings.Name + ".AddNewRow();\" title=\"" + Resources.New + "\"><img src='" + Url.Content("~/Content/img/plus.png?ver=" + ViewData["ApplicationVersionNumber"]) + "' alt=\"" + Resources.Add + "\" /></a>");
+            });
+
+            column.Settings.AllowDragDrop = DefaultBoolean.False;
+            column.Settings.AllowSort = DefaultBoolean.False;
+            column.Width = 70;
+        });
+    }
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Code";
+        col.Caption = Resources.Code;
+        col.Width = 100;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Description";
+        col.Caption = Resources.Description;
+        col.Width = 250;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "IsDefault";
+        col.Caption = Resources.Default;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "MinistryVatCategoryCode";
+        col.Caption = Resources.MinistryVatCategoryCode;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "VatLevel", Action = "VatCategoryGrid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.Center;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(60);
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "VatLevel", Action = "VatCategoryInsert" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "VatLevel", Action = "VatCategoryUpdate" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "VatLevel", Action = "VatCategoryDelete" };
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.KeyboardSupport = false;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.VatCategories;
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };    
+
+    settings.SettingsText.PopupEditFormCaption = Resources.VatCategory;
+    
+    settings.SetEditFormTemplateContent(editContent =>
+    {
+
+        ViewContext.Writer.Write("<div class='ValidationContainer'>");
+        /*Header banner*/
+        HeaderOptions headerOptions = new HeaderOptions("");
+        headerOptions.SaveButton.Name = "VatCategoryBtnUpdate";
+        headerOptions.SaveButton.OnClick = "function(s, e){ValidateForm(s,e," + settings.Name + ");}";
+        headerOptions.CancelButton.Name = "VatCategoryBtnCancel";
+        headerOptions.CancelButton.OnClick = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+        headerOptions.ViewType = eViewType.PopUp;
+        HtmlGenerator.CreateViewHeader(Html, ViewData, headerOptions, true);
+        /*End of header banner*/
+        
+        var item = @ViewBag.CurrentItem != null ? @ViewBag.CurrentItem : editContent.DataItem;
+
+        ViewContext.Writer.Write("<table><tr><td>");
+
+        Html.DevExpress().TextBox(txtSettings =>
+        {
+            txtSettings.Properties.Caption = Resources.Code + ":";
+            txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtSettings.Name = "Code";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.ShowModelErrors = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).Bind(DataBinder.Eval(item, "Code")).Render();
+
+        ViewContext.Writer.Write("</td><td>");
+        
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Text = Resources.Default;
+            edtSettings.Name = "IsDefault";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueChecked = true;
+            edtSettings.Properties.ValueGrayed = false;
+            edtSettings.Properties.ValueUnchecked = false;
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(item, "IsDefault") ?? false).Render();
+        
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+        
+        Html.DevExpress().TextBox(txtSettings =>
+        {
+            txtSettings.Properties.Caption = Resources.Description + ":";
+            txtSettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            txtSettings.Name = "Description";
+            txtSettings.ControlStyle.CssClass = "editor";
+            txtSettings.ShowModelErrors = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;  
+        }).Bind(DataBinder.Eval(item, "Description")).Render();
+
+        ViewContext.Writer.Write("</td></tr><tr><td>");
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Properties.Caption = Resources.MinistryVatCategoryCode + ":";
+            cmb_settings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            cmb_settings.Properties.ValueType = typeof(eMinistryVatCategoryCode);
+            cmb_settings.Name = "MinistryVatCategoryCode";
+            cmb_settings.ShowModelErrors = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+            cmb_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+        }).BindList(Enum.GetValues(typeof(eMinistryVatCategoryCode))).Bind(DataBinder.Eval(item, "MinistryVatCategoryCode")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+
+        ViewContext.Writer.Write("</div>");
+    });
+}).Bind(ViewData["VatCategory"]).GetHtml()

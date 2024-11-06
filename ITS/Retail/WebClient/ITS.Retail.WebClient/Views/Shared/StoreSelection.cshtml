@@ -1,0 +1,42 @@
+﻿@using ITS.Retail.ResourcesLib;
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "LayoutStoreSelection";
+    settings.CallbackRouteValues = new { Controller = "Base", Action = "StoreSelection" };
+    settings.SettingsLoadingPanel.ShowImage = false;
+    settings.SetContent(() =>
+    {             
+        string StoreName = (Session["StoreName"] != null) ? Session["StoreName"].ToString() : Resources.SelectStore;
+        string name = "";
+        if (RetailHelper.CountWords(StoreName) > 2 && StoreName != Resources.SelectStore)
+        {
+            string[] string_array = StoreName.Split(' ');
+            string first = string_array[0];
+            string second = string_array[1];
+            name = first + " " + second + " ...";
+        }
+        else
+        {
+            name = StoreName;
+        }
+        ViewContext.Writer.Write(name + " <span>&#9662; </span><ul class='hidden'>");
+        List<ITS.Retail.Common.ViewModel.StoreViewModel> stores = Session["StoresThatCurrentUserOwns"] as List<ITS.Retail.Common.ViewModel.StoreViewModel>;
+        if (stores != null)
+        {
+            foreach (ITS.Retail.Common.ViewModel.StoreViewModel store in stores.OrderBy(g => g.Name))
+            {
+                ViewContext.Writer.Write("<li><a id=\"" + store.Oid + "\" href=\"#\" onclick=\"jsonSetCurrentStore('" + store.Oid + "');\">" + store.Name + "</a></li>");
+            }
+        }
+
+        stores = (Session["StoresThatCurrentUserBuysFrom"] as IEnumerable<ITS.Retail.Common.ViewModel.StoreViewModel>).ToList();
+        if (stores != null)
+        {
+            foreach (ITS.Retail.Common.ViewModel.StoreViewModel store in stores.OrderBy(g => g.Name))
+            {
+                ViewContext.Writer.Write("<li><a id=\"" + store.Oid + "\" href=\"#\" onclick=\"jsonSetCurrentStore('" + store.Oid + "');\">" + store.Name + "</a></li>");
+            }
+        }
+        ViewContext.Writer.Write("</ul>");
+    });
+}).GetHtml()

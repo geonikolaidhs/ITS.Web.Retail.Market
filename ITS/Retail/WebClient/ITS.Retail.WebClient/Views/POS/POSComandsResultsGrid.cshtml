@@ -1,0 +1,153 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+
+@Html.DevExpress().GridView(settings =>
+{
+
+    settings.Name = "grdPosCommandsResults";
+    settings.EncodeHtml = true;
+//settings.ClientSideEvents.EndCallback = "function(s,e){ grdPosCommandsResultsEndCallback(s,e); }";
+settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.AccessibilityCompliant = true;
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.ShowOnStatusBar;
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "PosCode";
+        col.Caption = "PosCode";//Resources.Code;
+col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        col.Width = 100;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "CommandType";
+        col.Caption = "CommandType";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 150;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Command";
+        col.Caption = "Command";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 200;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "ResultTime";
+        col.Caption = "ResultTime";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Width = 150;
+    });
+
+    settings.Columns.Add(col =>
+    {
+        col.CellStyle.CssClass = "CommandResultClass";
+        col.FieldName = "CommandResult";
+        col.Caption = "CommandResult";
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+    });
+
+
+
+
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "POS", Action = "POSComandsResultsGrid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.Width = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.Height = System.Web.UI.WebControls.Unit.Percentage(40);
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+
+    settings.CommandColumn.Visible = false;
+    settings.KeyboardSupport = false;
+    settings.CommandColumn.Caption = Resources.Options;
+    settings.CommandColumn.Width = 150;
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = "Αποτελέσματα Εντολών ";
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+//User user = (User)ViewBag.CurrentUser;
+//if (user != null)
+//{
+//    if (evt.LayoutMode == ClientLayoutMode.Loading)
+//    {
+//        GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+//        if (sets != null)
+//        {
+//            evt.LayoutData = sets.GridLayout;
+//        }
+//    }
+//    else
+//    {
+//        BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+//    }
+//}
+
+
+};
+
+}).Bind(ViewBag.commandResults).GetHtml()
+
+
+<style>
+
+    #grdPosCommandsResults_DXTitle .dxgvTitlePanel_ITSTheme1 {
+        background: #4f6571 !important;
+    }
+
+    #grdPosCommandsResults_DXPagerTop .dxp-num {
+        background: #4f6571 !important;
+    }
+
+    #grdPosCommandsResults_DXPagerBottom .dxp-num {
+        background: #4f6571 !important;
+    }
+
+    #cmbSqlPosBasic_DDD_DDDC .dxbButton_ITSTheme1 {
+        background: #4f6571 !important;
+    }
+
+    #cmbtype_DDD_PW-1 .dxbButton_ITSTheme1 {
+        background: #4f6571 !important;
+    }
+</style>

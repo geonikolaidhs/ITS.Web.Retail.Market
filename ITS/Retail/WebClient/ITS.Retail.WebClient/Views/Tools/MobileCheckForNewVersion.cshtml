@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mobile>
+    @{
+        if(ViewData["MobileVersionError"]==null)
+        {
+            if (Boolean.Parse(ViewData["MobileVersionNew"].ToString()))
+            {
+                ViewContext.Writer.Write("<newversion>1</newversion>");
+            }
+            else
+            {
+                ViewContext.Writer.Write("<newversion>0</newversion>");
+            }
+        }
+        else
+        {
+            ViewContext.Writer.Write("<error>" + ViewData["MobileVersionError"].ToString() + "</error>");
+        }
+    }
+</mobile>

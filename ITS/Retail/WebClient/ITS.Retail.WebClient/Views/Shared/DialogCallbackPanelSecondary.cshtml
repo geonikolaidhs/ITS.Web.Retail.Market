@@ -1,0 +1,15 @@
+﻿@Html.DevExpress().CallbackPanel(settings => {
+    settings.Name = "DialogCallbackPanelSecondary";
+    settings.CallbackRouteValues = new { Controller = ViewBag.ControllerName, Action = "DialogCallbackPanelSecondary" };
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.SetContent(() =>
+    {
+        DialogOptions options = ViewData["DialogOptions"] as DialogOptions;
+        if (options != null && options.RenderDialog)
+        {
+            Html.RenderAction("Dialog", (string)ViewBag.ControllerName, new { Arguments = options.Arguments});
+        }
+    });
+    
+}).GetHtml()
+

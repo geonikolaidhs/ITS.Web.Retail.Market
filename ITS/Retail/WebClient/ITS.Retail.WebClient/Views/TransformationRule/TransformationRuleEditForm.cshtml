@@ -1,0 +1,114 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+<table>
+    <tr>
+        <td>
+
+            @Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.DerrivedDocumentType + ":";
+                edtSettings.AssociatedControlName = "DerrivedDocumentType";
+            }).GetHtml()
+
+            @Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "DerrivedDocumentType";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.TextField = "Description";
+                edtSettings.Properties.ValueField = "Oid";
+                edtSettings.Properties.ValueType = typeof(Guid);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).BindList(ViewBag.DocumentType).Bind(DataBinder.Eval(ViewData["item"], "DerrivedType!Key")).GetHtml()
+
+        </td>
+        <td>
+
+            @Html.DevExpress().CheckBox(edtSettings =>
+            {
+                edtSettings.Name = "IsDefault";
+                edtSettings.Text = Resources.IsDefault + ":";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValueType = typeof(bool);
+            }).Bind(DataBinder.Eval(ViewData["item"], "IsDefault") ?? false).GetHtml()
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+
+            @Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.QtyTransformationFactor + ":";
+                edtSettings.AssociatedControlName = "TransformationFactor";
+            }).GetHtml()
+
+            @{dynamic qtyTransformationFactorValue = DataBinder.Eval(ViewData["item"], "QtyTransformationFactor");
+                int qtyTransformationFactor = (qtyTransformationFactorValue != null && qtyTransformationFactorValue > 0) ? 0 : 1;
+            }
+
+            @Html.DevExpress().RadioButtonList(radio_settings =>
+            {
+                radio_settings.Name = "rdBLQtyTransformationFactor";
+                radio_settings.Properties.Items.Add("+", 1.0);
+                radio_settings.Properties.Items.Add("-", -1.0);
+                radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                radio_settings.SelectedIndex = qtyTransformationFactor > 0 ? 1 : 0;
+            }).GetHtml()
+
+        </td>
+
+        <td>
+
+            @Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.ValueTransformationFactor + ":";
+                edtSettings.AssociatedControlName = "TransformationFactor";
+            }).GetHtml()
+
+            @{dynamic valueTransfromationFactorValue = DataBinder.Eval(ViewData["item"], "ValueTransformationFactor");
+                int valueTransfromationFactor = (valueTransfromationFactorValue != null && valueTransfromationFactorValue > 0) ? 0 : 1;
+            }
+
+            @Html.DevExpress().RadioButtonList(radio_settings =>
+            {
+                radio_settings.Name = "rdBLValueTransformationFactor";
+
+                radio_settings.Properties.Items.Add("+", 1.0);
+                radio_settings.Properties.Items.Add("-", -1.0);
+                radio_settings.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+
+                radio_settings.SelectedIndex = valueTransfromationFactor > 0 ? 1 : 0;
+            }).GetHtml()
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+            @Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label required_field";
+                edtSettings.Text = Resources.TransformationLevel + ":";
+                edtSettings.AssociatedControlName = "TransformationLevel";
+            }).GetHtml()
+
+            @Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "TransformationLevel";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.TextField = "Value";
+                edtSettings.Properties.ValueField = "Key";
+                edtSettings.Properties.ValueType = typeof(eTransformationLevel);
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                edtSettings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).BindList(Enum<eTransformationLevel>.GetLocalizedDictionary()).Bind(DataBinder.Eval(ViewData["item"], "TransformationLevel")).GetHtml()
+
+        </td>
+    </tr>
+</table>

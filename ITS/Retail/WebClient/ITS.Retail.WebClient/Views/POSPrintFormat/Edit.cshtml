@@ -1,0 +1,134 @@
+﻿@model ITS.Retail.Model.POSPrintFormat
+@using ITS.Retail.ResourcesLib;
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Resources_" + ViewData["CurrentCulture"] + ".js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/scripts/EditPOSDevice.js?ver=" + ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>*@
+}
+@{
+	ViewBag.ShowNavigation = false;
+	ViewBag.Title = ViewBag.Mode;
+	Layout = "~/Views/Shared/_rootLayout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "POSPrintFormat", FormMethod.Post, new { id = "EditForm" }))
+{
+    
+	
+	@Html.DevExpress().RoundPanel(settings =>
+{
+	settings.Name = "editForm";
+	settings.HeaderText = Resources.POSInfo;
+	settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+	settings.SetContent(() =>
+	{
+        //ViewContext.Writer.Write(Html.Hidden("POSPrintFormatGuid", ViewData["POSPrintFormatGuid"].ToString()));
+
+		ViewContext.Writer.Write("<table><tr><td>");
+
+		Html.DevExpress().Label(
+			edtSettings =>
+			{
+				edtSettings.Text = Resources.Description+":";
+			}).Render();
+
+		ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Description";
+            }
+        )
+        .Bind(DataBinder.Eval(Model, "Description"))
+        .Render();
+
+		ViewContext.Writer.Write("</td><td>");
+
+		Html.DevExpress().Label(
+	    edtSettings =>
+	    {
+		    edtSettings.Text = Resources.Type;
+	    }
+	    ).Render();
+
+		ViewContext.Writer.Write("</td><td>");
+
+        Html.DevExpress().ComboBox(cmb_settings =>
+        {
+            cmb_settings.Name = "FormatType";
+        }).BindList(Enum.GetValues(typeof(ITS.Retail.Platform.Enumerations.eFormatType))).Bind(DataBinder.Eval(Model, "FormatType")).GetHtml();
+
+        Html.DevExpress().UploadControl(upldsettings =>
+        {
+            upldsettings.UploadMode = UploadControlUploadMode.Standard;
+            upldsettings.Name = "UploadFormatFileControl";
+            upldsettings.ShowProgressPanel = true;
+            upldsettings.CallbackRouteValues = new { Controller = "POSPrintFormat", Action = "UploadFormatFileControl" };
+            upldsettings.ValidationSettings.Assign(POSPrintFormatController.UploadFormatFileControlValidationSettings);
+            //upldsettings.ClientSideEvents.FileUploadComplete = "function(s,e){}";
+
+            upldsettings.ValidationSettings.ShowErrors = true;
+            upldsettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            upldsettings.NullText = Resources.DropFileHereToUpload;
+            upldsettings.AdvancedModeSettings.EnableMultiSelect = false;
+            upldsettings.AdvancedModeSettings.EnableFileList = false;
+            upldsettings.AdvancedModeSettings.EnableDragAndDrop = true;
+            upldsettings.ControlStyle.CssClass = "zero-padding-top-important";
+
+        }).GetHtml();
+
+        Html.DevExpress().Image(settings2 =>
+        {
+            settings2.Name = "btnUploadExtraFile";
+            settings2.ImageUrl = "~/Content/img/upload.png?ver=" + ViewData["ApplicationVersionNumber"];
+            settings2.ToolTip = Resources.Upload;
+            settings2.ControlStyle.CssClass = "uploadbtn square-32";
+            settings2.Properties.ClientSideEvents.Click = "function(s,e){UploadFormatFileControl.Upload();}";
+        }).GetHtml();
+
+        if ((bool)ViewData["ViewMode"])
+        {
+            ViewContext.Writer.Write("</td></tr><tr><td colspan=\"3\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Text = Resources.Format + ":";
+                edtSettings.ControlStyle.CssClass = "label required_field";
+            }).Render();
+            @Html.DevExpress().Memo(memo_settings =>
+            {
+                memo_settings.Name = "FormatText";
+                memo_settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                memo_settings.Height = 300;
+                memo_settings.EncodeHtml = true;
+                memo_settings.ReadOnly = true;
+                memo_settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                memo_settings.Properties.ValidationSettings.RequiredField.ErrorText = Resources.PLEASE_FILL_ALL_REQUIRED_FIELDS;
+            }).Bind(DataBinder.Eval(Model, "Format")).GetHtml();
+
+        }
+        
+        ViewContext.Writer.Write("</td></tr></table");
+        
+        ViewContext.Writer.Write("<div class='button_container'>");
+		Html.DevExpress().Button(
+			btnSettings =>
+			{
+				btnSettings.Name = "btnUpdate";
+				btnSettings.ControlStyle.CssClass = "button";
+				btnSettings.Text = Resources.Save;
+				btnSettings.ClientSideEvents.Click = "btnUpdateClick";
+			}).GetHtml();
+
+		Html.DevExpress().Button(
+			btnSettings =>
+			{
+				btnSettings.Name = "btnCancel";
+				btnSettings.ControlStyle.CssClass = "button cancel";
+				btnSettings.Text = Resources.Cancel;
+				btnSettings.ClientSideEvents.Click = "btnCancelClick";
+			}).GetHtml();
+        ViewContext.Writer.Write("</div>");
+	});
+}).GetHtml();
+}

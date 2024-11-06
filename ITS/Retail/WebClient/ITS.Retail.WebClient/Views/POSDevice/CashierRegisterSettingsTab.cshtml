@@ -1,0 +1,82 @@
+﻿@using ITS.Retail.ResourcesLib;
+@model ITS.Retail.Model.POSDevice
+@{
+
+    ViewContext.Writer.Write("<table class=\"headerTable\"><tr><td>");
+
+    Html.DevExpress().Label(
+    edtSettings =>
+    {
+        edtSettings.ControlStyle.CssClass = "label";
+        edtSettings.Text = Resources.BarcodeType + ":";
+    }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "BarcodeType";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+
+    }).BindList(Session["CashRegisterBarcodeTypes"]).Bind(DataBinder.Eval(Model , "BarcodeType!Key")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+        edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = Resources.ItemCategory + ":";
+        }).Render();
+
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "ItemCategory";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+    }).BindList(Session["CashRegisterItemCategory"]).Bind(DataBinder.Eval(Model, "ItemCategory!Key")).GetHtml();
+
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+       edtSettings =>
+       {
+           edtSettings.ControlStyle.CssClass = "label";
+           edtSettings.Text = Resources.PriceCatalog + ":";
+       }).Render();
+
+    Html.DevExpress().ComboBox(cmb_settings =>
+    {
+        cmb_settings.Name = "PriceCatalog";
+        cmb_settings.ControlStyle.CssClass = "editor";
+        cmb_settings.Properties.TextField = "Description";
+        cmb_settings.Properties.ValueField = "Oid";
+        cmb_settings.Properties.ValueType = typeof(Guid);
+        cmb_settings.ShowModelErrors = true;
+    }).BindList(Session["CashRegisterPriceCatalog"]).Bind(DataBinder.Eval(Model, "PriceCatalog!Key")).GetHtml();
+
+    ViewContext.Writer.Write("</td><td>");
+
+    Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = Resources.MaxItemsAdd + ":";
+            }).Render();
+    
+    Html.DevExpress().TextBox(
+    edtSettings =>
+    {
+        edtSettings.Name = "MaxItemsAdd";
+    }
+    ).Bind(DataBinder.Eval(Model, "MaxItemsAdd")).Render();
+
+        ViewContext.Writer.Write("</td></tr></table>");
+}

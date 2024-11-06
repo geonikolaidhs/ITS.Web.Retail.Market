@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<!-- Turn on and configure the scanner after the page loads -->
+<body onload="onBodyLoadCustom()" bgcolor="#FFFFFF" text="#000000" style="margin-left: 0px;
+    margin-top: 0px; overflow: hidden">
+    <!--  ScanObject GUID -->
+    <object id="ScanControl1" style="left: 0px; width: 0px; top: 0px; height: 0px" classid="clsid:5FFAA94A-D9E2-405d-9644-EE2196713A3C"
+            enableviewstate="true">
+        <!--               <PARAM NAME="_cx" VALUE="0">
+                    <PARAM NAME="_cy" VALUE="0">
+                    <PARAM NAME="Appearance" VALUE="1">
+                    <PARAM NAME="BackColor" VALUE="2147483653">
+                    <PARAM NAME="ForeColor" VALUE="2147483656">
+                    <PARAM NAME="BorderStyle" VALUE="1">
+                    <PARAM NAME="Enabled" VALUE="-1">
+                    <PARAM NAME="MousePointer" VALUE="0">
+                    <PARAM NAME="MultiLine" VALUE="0">
+                    <PARAM NAME="Text" VALUE="ScanEdit">
+                    <PARAM NAME="TabStop" VALUE="-1">
+                    <PARAM NAME="FontName" VALUE="Tahoma">
+                    <PARAM NAME="FontSize" VALUE="10">
+                    <PARAM NAME="FontBold" VALUE="0">
+                    <PARAM NAME="FontItalic" VALUE="0">
+                    <PARAM NAME="FontStrikethrough" VALUE="0">
+                    <PARAM NAME="FontUnderline" VALUE="0">
+                    <PARAM NAME="IsBinary" VALUE="0">
+                    <PARAM NAME="BufferSize" VALUE="4096">
+                    <PARAM NAME="UPCA" VALUE="1">
+                    <PARAM NAME="UPCE0" VALUE="1">
+                    <PARAM NAME="UPCE1" VALUE="0">
+                    <PARAM NAME="MSI" VALUE="0">
+                    <PARAM NAME="EAN8" VALUE="1">
+                    <PARAM NAME="EAN13" VALUE="1">
+                    <PARAM NAME="Codabar" VALUE="1">
+                    <PARAM NAME="Code39" VALUE="1">
+                    <PARAM NAME="D2of5" VALUE="0">
+                    <PARAM NAME="I2of5" VALUE="1">
+                    <PARAM NAME="Code11" VALUE="0">
+                    <PARAM NAME="Code93" VALUE="0">
+                    <PARAM NAME="Code128" VALUE="1">
+                    <PARAM NAME="PDF417" VALUE="0">
+                    <PARAM NAME="TriOptic39" VALUE="0">
+                    <PARAM NAME="MicroPDF" VALUE="0">
+                    <PARAM NAME="MaxiCode" VALUE="0">
+                    <PARAM NAME="DataMatrix" VALUE="0">
+                    <PARAM NAME="QRCode" VALUE="0">
+                    <PARAM NAME="USPostNet" VALUE="0">
+                    <PARAM NAME="USPlanet" VALUE="0">
+                    <PARAM NAME="UKPostal" VALUE="0">
+                    <PARAM NAME="JapanPostal" VALUE="0">
+                    <PARAM NAME="AusPostal" VALUE="0">
+                    <PARAM NAME="DutchPostal" VALUE="0">
+                    <PARAM NAME="Signature" VALUE="0">
+                    <PARAM NAME="Imaging" VALUE="0">
+                    <PARAM NAME="Pointer" VALUE="0">
+                    <PARAM NAME="Coupon" VALUE="0">
+                    <PARAM NAME="Bookland" VALUE="0">
+                    <PARAM NAME="SupplementalMode" VALUE="2">
+                    <PARAM NAME="CodeIDType" VALUE="0">
+                    <PARAM NAME="ScanPriority" VALUE="1">
+                    <PARAM NAME="BeepFrequency" VALUE="2500">
+                    <PARAM NAME="BeepTime" VALUE="250">
+                    <PARAM NAME="WaveFile" VALUE="">
+                    <PARAM NAME="LEDOnDuration" VALUE="500">
+                    <PARAM NAME="EntryMode" VALUE="0">
+                    <PARAM NAME="LocalFeedback" VALUE="-1">
+                    <PARAM NAME="WebCode" VALUE="1">  -->
+    </object>
+    <!-- MK2000 Specific Object used to set button values -->
+    <object id="MK2KObject" style="left: 0px; width: 0px; top: 0px; height: 0px" classid="clsid:A43C03EA-EC60-40BA-89E8-8C765BBBC4E5"></object>
+
+    <script type="text/vbscript" language="VBScript">
+        Dim Scan2DMode, ScannerOn
+
+        Scan2DMode = false
+        ScannerOn = false
+
+        '********************************************
+        ' Sets the view frame to the incoming URL.
+        ' Similar to window.navigate
+        '********************************************
+        sub loadURL(URL)
+            parent.view_frame.location = URL
+        end sub
+
+        '********************************************
+        ' Gets called when a barcode is decoded
+        '********************************************
+        Sub ScanControl1_ScanComplete(BarCode, Source, Status, LabelType, DataLength)
+           
+            fldBarCode= BarCode
+            self.parent.search(BarCode)
+           
+        End Sub
+
+        '********************************************
+        ' Sets the laser mode to either 1d or 2d
+        '********************************************
+        sub SetLaserMode(mode)
+            Dim raster, trigger, timeout, i
+
+            if (ScanControl1.GetLaserParams(raster, trigger, timeout)) then
+                raster = mode
+                trigger = 1
+                timeout = 900
+                ScanControl1.EnableScanning(0)
+                if(raster = 3) then
+                    ScanControl1.PDF417 = 0
+                    ScanControl1.MicroPDF = 0
+                    ScanControl1.MaxiCode = 0
+                    ScanControl1.DataMatrix = 0
+                    Scan2DMode = false
+                else
+                    ScanControl1.PDF417 = 1
+                    ScanControl1.MicroPDF = 1
+                    ScanControl1.MaxiCode = 1
+                    ScanControl1.DataMatrix = 1
+                    Scan2DMode = false
+                    Scan2DMode = true
+                End if
+                i = ScanControl1.SetLaserParams(raster, trigger, timeout)
+                ScanControl1.EnableScanning(1)
+            end if
+        end sub
+
+        '********************************************
+        ' Starts the scanner in cyclone mode
+        '********************************************
+        sub fSetTriggerMode()
+            Dim raster, trigger, timeout, i, min, max, redundancy
+
+            ' Make sure things are in the right state
+
+            ScanControl1.EnableScanning(0)
+            ScanControl1.CloseScanner()
+
+            ScanControl1.OpenScanner()
+            if (ScanControl1.GetLaserParams(raster, trigger, timeout)) then
+                raster = 3 'scanner mode 1 is grammes 2 is 1 grammh and 3 is plegma
+                trigger = 1
+                timeout = 900
+                ScanControl1.EnableScanning(0)
+                ScanControl1.PDF417 = 0
+                ScanControl1.MicroPDF = 0
+                ScanControl1.MaxiCode = 0
+                ScanControl1.DataMatrix = 0
+                Scan2DMode = false
+                i = ScanControl1.SetLaserParams(raster, trigger, timeout)
+                ' Default Min and Max are set to odd values for I 2 of 5
+                ' so change them to something more reasonable.
+                ScanControl1.GetI2of5Params max, min, redundancy
+                min = 0
+                max = 0
+                ScanControl1.SetI2of5Params max, min, redundancy
+                ScanControl1.EnableScanning(1)
+                ScannerOn = true
+            end if
+        end sub
+
+        '********************************************
+        ' Disables and turns scanner off
+        '********************************************
+        sub TurnScannerOff()
+            ScanControl1.EnableScanning(0)
+            if (ScanControl1.GetLaserParams(raster, trigger, timeout)) then
+                raster = 1
+                trigger = 0
+                i = ScanControl1.SetLaserParams(raster, trigger, timeout)
+            end if
+            ScanControl1.CloseScanner()
+            ScannerOn = false
+        end sub
+
+        '********************************************
+        ' Returns scanner state
+        ' true if on and false if off
+        '********************************************
+        function isScannerOn()
+            if(ScannerOn) then
+                isScannerOn = true
+            else
+                isScannerOn = false
+            end if
+        end function
+
+        sub onBodyLoadCustom()
+            fSetTriggerMode()
+        end sub
+    </script>
+
+    <script type="text/vbscript" language="VBScript">
+        MK2KObject.ButtonMap(1) = 49
+        MK2KObject.ButtonMap(2) = 50
+        MK2KObject.ButtonMap(4) = 51
+        MK2KObject.ButtonMap(8) = 52
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿@using ITS.Retail.ResourcesLib;
+@{
+    ViewBag.Title = Resources.MyProfile;
+}
+ @section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Scripts/scripts/Customer.js?ver="+ViewData["ApplicationVersionNumber"])" type="text/javascript"></script>
+}
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "editForm";
+    settings.HeaderText = Resources.MyProfile;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("GetTraderDescription", "Customer", new { CustomerID = ViewData["CustomerID"], isOwnEdit=true });
+        ViewContext.Writer.Write("<br/>");
+        Html.RenderAction("AddressGrid", "Address", new { strTraderID = ViewData["TraderID"], displayCommands = false });
+        ViewContext.Writer.Write("<br/><div id='divGridPhone_" + ViewData["TraderID"].ToString().Replace('-', '_') + "'></div>");
+    });
+}).GetHtml()

@@ -1,0 +1,155 @@
+﻿@using ITS.Retail.ResourcesLib;
+
+@using ITS.Retail.Platform.Common.Helpers;
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "grdScannedDocumentHeader";
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "10", "20", "50" };
+    settings.SettingsBehavior.EnableCustomizationWindow = true;
+    
+    settings.ClientSideEvents.ContextMenu = "CustomizationWindowBtn_Click";
+    settings.HtmlRowPrepared = (object sender, ASPxGridViewTableRowEventArgs e) =>
+    {
+        if (e.RowType == GridViewRowType.Data)
+            e.Row.Attributes.Remove("oncontextmenu");
+    };
+
+    settings.CommandColumn.Width = 50;
+    settings.CommandColumn.CellStyle.CssClass = "firstCollumn";
+    settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+    
+    settings.SettingsBehavior.ColumnResizeMode = ColumnResizeMode.NextColumn;
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.SettingsEditing.ShowModelErrorsForEditors = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.Settings.ShowFilterRow = false;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+    settings.Settings.ShowFooter = true;
+    settings.Settings.ShowGroupPanel = false;
+    settings.Settings.ShowHeaderFilterButton = true;
+    settings.KeyFieldName = "Oid";
+    settings.CallbackRouteValues = new { Controller = "ScannedDocumentHeader", Action = "Grid" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.PopupEditForm;
+    settings.SettingsPopup.EditForm.Modal = true;
+    settings.SettingsPopup.EditForm.HorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.SettingsPopup.EditForm.VerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.SettingsBehavior.ConfirmDelete = true;
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowNewButton= false;
+    settings.CommandColumn.ShowUpdateButton = false;
+    settings.CommandColumn.ShowDeleteButton = false;
+    settings.CommandColumn.ShowEditButton = false;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+    
+    settings.KeyboardSupport = false;
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.SettingsPager.PageSize = 30;
+    settings.SettingsCookies.Enabled = false;
+    settings.SettingsCookies.StoreColumnsVisiblePosition = true;
+    settings.Settings.ShowTitlePanel = true;
+    settings.SettingsText.Title = Resources.ScannedDocumentHeaders;
+    settings.SettingsCookies.StoreColumnsWidth = true;
+    settings.SettingsCookies.StoreFiltering = false;
+    settings.SettingsCookies.StorePaging = true;
+
+    settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.Vertical;
+    settings.Styles.Header.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+
+    settings.SettingsPager.EnableAdaptivity = true;
+    settings.SettingsPager.Position = System.Web.UI.WebControls.PagerPosition.TopAndBottom;
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "";
+        column.Name = "hidden";
+        column.VisibleIndex = 0;
+        column.SetDataItemTemplateContent(c =>
+        {
+            @Html.RenderAction("LoadViewPopup", "ScannedDocumentHeader", new { ItemID = DataBinder.Eval(c.DataItem, "Oid").ToString() });
+        });
+
+
+        column.Settings.AllowDragDrop = DefaultBoolean.False;
+        column.Settings.AllowSort = DefaultBoolean.False;
+        column.Width = 0;
+    });
+    
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "SupplierTaxCode";
+        col.Caption = Resources.Supplier + " ("+Resources.TaxCode +")";
+        col.Width = 100;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        
+    });
+    settings.Columns.Add( col => {
+        col.FieldName = "DocumentNumber";
+        col.Caption = Resources.DocumentNumber;
+        col.Width=250;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+    });
+    settings.Columns.Add(col =>
+        {
+            col.FieldName = "DocumentIssueDate";
+            col.Caption = Resources.InvoicingDate;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        });
+    
+    settings.Columns.Add(col =>
+        {
+            col.FieldName = "DocumentAmount";
+            col.Caption = Resources.Amount;
+            col.HeaderStyle.Wrap = DefaultBoolean.True;
+            col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+            col.PropertiesEdit.DisplayFormatString = ITS.Retail.WebClient.Controllers.BaseController.OwnerApplicationSettings.formatCurrencyString;
+            col.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        });
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "Inserted";
+        col.Caption = Resources.Inserted;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        col.ColumnType = MVCxGridViewColumnType.CheckBox;
+    });
+
+
+    settings.Columns.Add(col =>
+    {
+        col.FieldName = "EditingUser.UserName";
+        col.Caption = Resources.User;
+        col.HeaderStyle.Wrap = DefaultBoolean.True;
+        col.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        
+    });
+   
+    
+}).Bind(Model).GetHtml()

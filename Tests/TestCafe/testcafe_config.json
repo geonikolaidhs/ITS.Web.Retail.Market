@@ -1,0 +1,20 @@
+{
+     "browsers": {
+          "Mozilla Firefox": {
+               "path": "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe",
+               "cmd": "-new-window",
+               "icon": "ff"
+          },
+          "Google Chrome": {
+               "path": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+               "cmd": "--new-window",
+               "icon": "chrome"
+          },
+          "Internet Explorer": {
+               "path": "C:\\Program Files\\Internet Explorer\\iexplore.exe",
+               "cmd": "",
+               "icon": "ie"
+          }
+     },
+     "testsDir": "./Tests"
+}

@@ -1,0 +1,35 @@
+﻿@using ITS.Retail.ResourcesLib;
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Extensions;
+@using ITS.Retail.WebClient.Controllers;
+@{
+    List<string> excludeFields = new List<string>() { "IsDefault" };
+
+    var settings = HtmlGridExtension.GetDefaultSettings(ViewContext, typeof(DiscountType), typeof(DiscountTypeController), "grdDiscountType", excludeFields: excludeFields);
+    settings.SettingsText.Title = Resources.DiscountTypes;
+    settings.SettingsPager.EnableAdaptivity = true;
+    //settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+    //settings.Name = "grdDiscountType";
+
+    settings.ClientLayout += (sndr, evt) =>
+    {
+        User user = (User)ViewBag.CurrentUser;
+        if (user != null)
+        {
+            if (evt.LayoutMode == ClientLayoutMode.Loading)
+            {
+                GridSettings sets = user.GridSettings.FirstOrDefault(x => x.GridName == settings.Name);
+                if (sets != null)
+                {
+                    evt.LayoutData = sets.GridLayout;
+                }
+            }
+            else
+            {
+                BaseController.UpdateUserGridSettings(user.Oid, settings.Name, evt.LayoutData);
+            }
+        }
+    };
+}
+
+@Html.DevExpress().GridView(settings).Bind(Model).GetHtml()

@@ -1,0 +1,221 @@
+﻿@model ITS.Retail.Model.NonPersistant.CustomerUser
+@using ITS.Retail.Model;
+@using ITS.Retail.ResourcesLib;
+
+@{   
+    Layout = "~/Areas/B2C/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScriptsAndStyles {
+    <link href="@Url.Content("~/Content/B2C/css/magnific/main.css?ver=" + ViewData["ApplicationVersionNumber"])" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/B2C/js/libraries/jquery.magnific-popup.min.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+}
+
+<div id="terms" class="white-popup mfp-hide">
+    <div class="border-top-blue"></div>
+    <div class="container max-width-100">
+        <div class="row margin-30-0">
+            <div class="col-md-12">
+                @{
+                    string ApplicationTerms = ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.CurrentOwnerStatic != null
+                                           && ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.CurrentOwnerStatic.OwnerApplicationSettings != null
+                        ? ITS.Retail.WebClient.Areas.B2C.Controllers.BaseController.CurrentOwnerStatic.OwnerApplicationSettings.ApplicationTerms 
+                        : "";
+                    ViewContext.Writer.Write(ApplicationTerms);
+                }                   
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row page padding-bottom-25">
+    <div class="page-header title col-md-12 text-center">
+        <h1>@Resources.CreateAccount <small>@Resources.CreateAccountAccept <a href="@Url.Action("Show", "Pages", new { page="Terms"})" class="popup btn btn-default">@Resources.TermsAndConditionsCase</a></small></h1>
+    </div>
+
+    @{
+        var FormAttributes = new Dictionary<string, object>();
+        FormAttributes.Add("role", "form");
+        FormAttributes.Add("class", "col-md-12");
+        FormAttributes.Add("autocomplete", "off");
+    }
+
+
+    @using (Html.BeginForm("ValidateSignUp", "Membership", FormMethod.Post, htmlAttributes: FormAttributes))
+    {
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.Name*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "FirstName";
+                    settings.ControlStyle.CssClass = "form-control";
+                    settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                }).Bind(Model.FirstName).GetHtml()
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.LastName*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                {
+                    settings.Name = "LastName";
+                    settings.ControlStyle.CssClass = "form-control";
+                    settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                }).Bind(Model.LastName).GetHtml()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label>@Resources.email*</label>
+                    @Html.DevExpress().TextBox(settings =>
+            {
+                settings.Name = "Email";
+                settings.ControlStyle.CssClass = "form-control";
+                settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            }).Bind(Model.Email).GetHtml()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.Password*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "Password";
+                        settings.ControlStyle.CssClass = "form-control";
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.Properties.Password = true;
+                    }).GetHtml()
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.ConfirmPassword*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                        {
+                            settings.Name = "ConfirmPassword";
+                            settings.Properties.Password = true;
+                            settings.ControlStyle.CssClass = "form-control";
+                            settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                            settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).GetHtml()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.Phone*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                        {
+                            settings.Name = "Phone";
+                            settings.ControlStyle.CssClass = "form-control";
+                            settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                            settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).Bind(Model.Phone).GetHtml()
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>Fax</label>
+                    @Html.DevExpress().TextBox(settings =>
+                        {
+                            settings.Name = "Fax";
+                            settings.ControlStyle.CssClass = "form-control";
+                            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        }).Bind(Model.Fax).GetHtml()
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.City*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "City";
+                        settings.ControlStyle.CssClass = "form-control";
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(Model.City).GetHtml()
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.Street*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "Street";
+                        settings.ControlStyle.CssClass = "form-control";
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(Model.Street).GetHtml()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.Region*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "Region";
+                        settings.ControlStyle.CssClass = "form-control";
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(Model.Region).GetHtml()
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label>@Resources.PostCode*</label>
+                    @Html.DevExpress().TextBox(settings =>
+                    {
+                        settings.Name = "PostCode";
+                        settings.ControlStyle.CssClass = "form-control";
+                        settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                        settings.Properties.ValidationSettings.Display = Display.Dynamic;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    }).Bind(Model.PostCode).GetHtml()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center">
+                    @Html.DevExpress().Button(settings =>
+                    {
+                        settings.Name = "UserSubmit";
+                        settings.Text = Resources.CreateAccount;
+                        settings.ControlStyle.CssClass = "light-blue-button";
+                        settings.Height = 40;
+                        settings.UseSubmitBehavior = true;
+                    }).GetHtml()
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>

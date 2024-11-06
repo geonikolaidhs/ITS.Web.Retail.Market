@@ -1,0 +1,40 @@
+﻿@model DocumentHeader
+
+@using ITS.Retail.Model;
+@using ITS.Retail.WebClient.Areas.B2C.Controllers;
+@using ITS.Retail.Platform.Enumerations;
+
+@section HeaderScriptsAndStyles {
+    <script src="@Url.Content("~/Content/B2C/js/Checkout.js?ver=" + ViewData["ApplicationVersionNumber"])"></script>
+}
+
+@{
+    string action = BaseController.CurrentOwnerStatic.OwnerApplicationSettings.PayPalMode == PayPalMode.TEST
+        ? "https://www.sandbox.paypal.com/cgi-bin/webscr"
+        : "https://www.paypal.com/cgi-bin/webscr";
+}
+
+
+<form class="text-center" method="POST" action="@action" accept-charset="UTF-8" autocomplete="off">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="lc" value="GR">
+    <input type="hidden" name="return" value="returnpaypal?state=success"><!-- TODO -->
+    <input type="hidden" name="cancel_return" value="returnpaypal??state=cancel"><!-- TODO -->
+    <input type="hidden" name="business" value="@BaseController.CurrentOwnerStatic.OwnerApplicationSettings.PayPalEmail">
+    <input type="hidden" name="invoice" value=@Model.Oid.ToString()>
+
+    <input type="hidden" name="item_name_x" value="Eidos 1">
+    <input type="hidden" name="item_number_x" value="x">
+    <input type="hidden" name="amount_x" value="">
+    <input type="hidden" name="quantityx" value="">
+
+    <input type="hidden" name="currency_code" value="EUR">
+    <input type="hidden" name="charset" value="utf-8">
+    <input type="submit" value="Pay">
+</form>
+
+@*<input type="hidden" name="item_name_1" value="beach ball"> item_name_x
+<input type="hidden" name="amount_1" value="15"> amount_1
+
+
+quantity2 για τις ποσότητες*@

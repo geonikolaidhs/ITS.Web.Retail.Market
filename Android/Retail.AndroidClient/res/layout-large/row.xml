@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget3453"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/row_height"
+    android:layout_toRightOf="@android:id/icon"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/row_height"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal" >
+        
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/code"
+            android:layout_width="60dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.30"
+            android:singleLine="true"
+            android:text="@string/code"
+            android:textSize="@dimen/text_small"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnCode"
+            android:layout_width="70dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.65"
+            android:background="@android:color/transparent"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:text="@string/code"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_small"
+            android:visibility="visible" />
+
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/barcode"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:singleLine="true"
+            android:text="@string/barcode"
+            android:textSize="@dimen/text_small"
+            android:visibility="gone" />
+
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/description"
+            android:layout_width="320dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.38"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
+            android:text="@string/description"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_small" />
+        
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/discount"
+            android:layout_width="30dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.30"
+            android:gravity="center_vertical|center_horizontal"
+            android:singleLine="true"
+            android:text="@string/totalDiscount"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_small"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnExtraDiscount"
+            android:layout_width="30dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.65"
+            android:background="@android:color/transparent"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="@string/extradiscount"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_small"
+            android:visibility="visible" />
+
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/unitprice"
+            android:layout_width="82dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.60"
+            android:gravity="center_vertical|center_horizontal"
+            android:singleLine="true"
+            android:text="@string/unitPrice"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_small" />
+
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/qty"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.01"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/qty"
+            android:textSize="@dimen/text_small"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnQuantity"
+            android:layout_width="100dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.12"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:text="@string/qty"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_small"
+            android:visibility="visible" />
+
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/TotalVatAmount"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.52"
+            android:singleLine="true"
+            android:text="@string/totalVatAmount"
+            android:textSize="@dimen/text_small"
+            android:visibility="gone" />
+
+        <gr.net.its.retail.ListItemView
+            android:id="@+id/GrossTotal"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.36"
+            android:gravity="center_vertical|center_horizontal"
+            android:singleLine="true"
+            android:text="@string/grossTotal"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_small" />
+
+        <ImageButton
+            android:id="@+id/ibDelete"
+            android:layout_width="56dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.28"
+            android:background="@android:color/transparent"
+            android:src="@raw/del"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</LinearLayout>

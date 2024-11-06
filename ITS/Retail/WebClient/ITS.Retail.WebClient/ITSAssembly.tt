@@ -1,0 +1,9 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #> 
+<# long dt = System.DateTime.Now.Ticks; #>
+namespace ITS.Retail.WebClient//Τροποποιήστε κατάλληλα το namespace
+{ 
+	public class ITSAssembly {//ΝΑ ΜΗΝ ΑΛΛΑΧΤΕΙ!!!
+		public const long buildDateTime = <#= dt  #>;
+  }
+}

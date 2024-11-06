@@ -1,0 +1,6 @@
+﻿@model ITS.Retail.Common.XtraReportBaseExtension
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "DocumentViewer";   
+    
+}).Bind(Model).GetHtml()
